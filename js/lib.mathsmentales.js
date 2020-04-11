@@ -74,8 +74,8 @@ utils = {
         return n;
     },
     getRadioChecked:function(name){
-        let radios = document.getElementsByName(name);
-        for(let i=0,length=radios.length;i<length;i++){
+        let radio = document.getElementsByName(name);
+        for(let i=0,length=radio.length;i<length;i++){
             if(radio[i].checked){
                 return radio[i].value;
             }
@@ -150,7 +150,7 @@ utils = {
         let avoid=[];
         utils.security = 300;
         for(let i=2;i<arguments.length;i++){
-            if(typeof arguments[i] === "number"){
+            if(String(Number(arguments[i])) === arguments[i] || typeof arguments[i]==="number"){
                 qty = arguments[i];
             } else if(typeof arguments[i] === "string" && arguments[i][0]=="^"){
                 avoid = arguments[i].substring(1).split(",");
@@ -202,7 +202,7 @@ utils = {
         if(modeDebug)console.log(arguments);
         // check aguments
         for(let i=3;i<arguments.length;i++){
-            if(typeof arguments[i] === "number"){
+            if(String(Number(arguments[i])) === arguments[i] || typeof arguments[i] === "number"){
                 qty = arguments[i];
             } else if(typeof arguments[i] === "string" && arguments[i][0]==="^"){
                 avoid = arguments[i].substring(1).split(",").map(Number);
@@ -238,7 +238,7 @@ utils = {
                 else
                     nb = Number(math.round(Number((utils.alea()*(max-min)+min)+"e"+precision))+"e"+(-precision));
                 if(!utils.checkSecurity()) break;
-                console.log(nb);
+                if(modeDebug)console.log(nb);
             }
             while(avoid.indexOf(nb)>-1)
             return nb;
@@ -262,13 +262,20 @@ utils = {
         else return nb;
     },
     showTab:function(element){
-        utils.resetAllTabs();
-        utils.addClass(element, "is-active");
-        var tab = element.getAttribute('href').substr(1);
+        utils.resetAllTabs();let tab, el;
+        if(typeof element === "string"){
+            tab = element;
+            el = document.querySelector("#header-menu a[href='#"+element+"']");
+        } else {
+            el = element;
+            tab = element.getAttribute('href').substr(1);
+        }
+        utils.addClass(el, "is-active");
         document.getElementById(tab).style.display = "";
     },
     resetAllTabs : function(){
         let tabsButtons = document.querySelectorAll("#header-menu .tabs-menu-link");
+        tabsButtons[tabsButtons.length] = document.getElementById("btnaccueil");
         let contents = document.querySelectorAll(".tabs-content-item");
         contents.forEach(element => {
             element.style.display = "none";
@@ -281,6 +288,15 @@ utils = {
      * Render the math
      */
     mathRender: function() {
+        let contents = ["tab-enonce", "tab-corrige", "activityOptions"];
+        contents.forEach(id => {
+            let content = document.getElementById(id).innerHTML;
+            document.getElementById(id).innerHTML = content.replace(/\$\$([^$]*)\$\$/gi, '<span class="math">$1</span>');
+        });
+        document.querySelectorAll(".slide").forEach(elt => {
+            elt.innerHTML = elt.innerHTML.replace(/\$\$([^$]*)\$\$/gi, '<span class="math">$1</span>');
+
+        });
         document.querySelectorAll(".math").forEach(function(item) {
           var texTxt = item.innerHTML;
           texTxt = texTxt.replace(/\./g, "{,}");
@@ -302,6 +318,19 @@ utils = {
           } else {
               return someThing;
           }
+      },
+      sToMin(sec){
+          sec = Number(sec);
+          let time = "";
+          if(sec>3600){
+            time += ~~(sec/3600) + " h ";
+            sec = sec%3600;
+          }
+          if(sec>60){
+            time += ~~(sec/60) + " min ";
+            sec = sec%60;
+          }
+          return time += sec;
       }
 }
 // test de seedrandom
@@ -312,8 +341,12 @@ window.onload = function(){
     tabsButtons.forEach(element => {
         element.onclick = function(){utils.showTab(element)};
     });
+    document.getElementById("btnaccueil").onclick = function(element){
+        console.log(element);
+        utils.showTab(element.target);
+    }
     utils.checkValues();
-    utils.resetAllTabs();
+    //utils.resetAllTabs();
     utils.initializeAlea(Date());
     activitiesArray.forEach(function(element,index){
         let ol = document.getElementById("actlist");
@@ -322,7 +355,7 @@ window.onload = function(){
         li.innerText = element.title;
         ol.appendChild(li);
     });
-    MM.setDispositionEnonce(MM.getDispositionEnonce());
+    MM.setDispositionEnonce(utils.getRadioChecked("Enonces"));
 }
 class cart {
     constructor(id){
@@ -332,6 +365,10 @@ class cart {
         this.activities = [];
         this.sortable = undefined;
         this.editedActivityId = -1;
+        this.target = [id]; // Indicates where to display the cart.
+        this.nbq = 0;
+        this.time = 0;
+        this.title = "Groupe "+(id+1);
     }
     setEndValue(value){
         this.end = value;
@@ -374,20 +411,28 @@ class cart {
      * display the cart in his content area
      */
     display(){
-        let dom = document.getElementById("cart"+(MM.selectedCart+1)+"-list");
+        let dom = document.getElementById("cart"+(this.id)+"-list");
         dom.innerHTML = "";
+        this.time = 0;
+        this.nbq = 0;
         for(let i=0,l=this.activities.length; i<l;i++){
             let li = document.createElement("li");
             let activity = this.activities[i];
+            this.time += Number(activity.tempo)*Number(activity.nbq);
+            this.nbq += Number(activity.nbq);
             li.innerHTML = "<img src='img/editcart.png' align='left' onclick='MM.editActivity("+i+")'>"+activity.title + " | <span>"+activity.tempo + "</span> s. | <span>"+activity.nbq+"</span> questions";
-            if(MM.carts[MM.selectedCart].editedActivityId === i)li.className = "active";
+            if(MM.carts[this.id].editedActivityId === i)li.className = "active";
             dom.appendChild(li);
         }
+        let spans = document.querySelectorAll("#cart"+(this.id+1)+" div.totaux span");
+        spans[0].innerHTML = utils.sToMin(this.time);
+        spans[1].innerHTML = this.nbq;
+        spans[2].innerHTML = this.target;
         this.sortable = new Sortable(dom, {
             animation:150,
             ghostClass:'ghost-movement',
             onEnd : function(evt){
-                MM.carts[MM.selectedCart].exchange(evt.oldIndex, evt.newIndex);
+                MM.carts[this.id].exchange(evt.oldIndex, evt.newIndex);
             }
         });
     }
@@ -401,7 +446,7 @@ class steps {
     addSize(value){
         this.size += value;
     }
-    html(){
+    display(){
         let ul = document.createElement("ul");
         ul.className = "steps is-balanced has-gaps is-horizontal has-content-above has-content-centered";
         for(let i=0;i<this.size;i++){
@@ -419,28 +464,115 @@ class steps {
             } else {
                 span.className = "steps-marker";
                 li.appendChild(span);
+                let div = document.createElement("div");
+                div.innerHTML = "&nbsp;";
+                div.className = "steps-content";
+                li.appendChild(div);
             }
             ul.appendChild(li);
         }
         if(this.contener.hasChildNodes()){
+            if(modeDebug) console.log("Replace Steps",this.step, this.size);
             let node = this.contener.childNodes[0];
             this.contener.replaceChild(ul, node);
         } else {
+            if(modeDebug) console.log("Insert Steps",this.step, this.size);
             this.contener.appendChild(ul);
         }
     }
     nextStep(){
         this.step++;
-        this.html();
+        this.display();
+        if(this.step >= this.size)
+            return false;
+        return this.step;
+    }
+}
+// Timer
+class timer {
+    constructor(slideid){
+        this.durations = []; 
+        this.durationId = 0; // id of the currect duration timer
+        this.startTime = 0; // start time of the timer
+        this.endTime = 0; // end time of the timer
+        this.timeLeft = 0; // remaining time until the end of the timer
+        this.percent = 0; // width of the progressbar
+        this.id = slideid; // number of the slider
+        this.break = false; // break state
+        this.timer = false; // interval
+        this.ended = false; // indicates if all has ended
+    }
+    getTimeLeft(){
+        this.timeLeft = this.endTime - Date.now();
+        this.percent = Math.round(100 - this.timeLeft/10/this.durations[this.durationId]);
+        this.display();
+        if(this.timeLeft <= 0){
+            this.stop();
+            MM.nextSlide(this.id);
+        }
+    }
+    addDuration(value){
+        this.durations.push(value);
+    }
+    start(id){
+        this.stop(); // just in case;
+        if(this.ended) return false;
+        this.break = false;
+        let btnPause = document.querySelectorAll("#slider"+this.id+" .slider-nav img")[1];
+        btnPause.src="img/slider-pause.png";
+        utils.removeClass(btnPause,"blink_me");
+        if(id>-1){
+            this.timeLeft = this.durations[id]*1000;
+            this.durationId = id;
+        }
+        this.startTime = Date.now();
+        this.endTime = this.startTime + this.timeLeft;
+        if(this.timer){
+            clearInterval(this.timer);
+            this.timer = false;
+        }
+        this.timer = setInterval(this.getTimeLeft.bind(this),50);
+    }
+    pause(){
+        if(this.ended) return false;
+        if(this.break){
+            this.break = false;
+            this.start();
+            return false;
+        } else {
+            this.break = true;
+            this.stop();
+            let btnPause = document.querySelectorAll("#slider"+this.id+" .slider-nav img")[1];
+            btnPause.src="img/slider-play.png";
+            utils.addClass(btnPause,"blink_me");
+        }
+    }
+    stop(){
+        if(this.timer){
+            clearInterval(this.timer);
+            this.timer = false;
+        }        
+    }
+    end(){
+        this.stop();
+        this.ended = true;
+        MM.messageEndSlide(this.id,this.durationId);
+        setTimeout(MM.endSliders,3000);// if all of the timers ended together
+    }
+    display(){
+        document.querySelector("#slider"+this.id+" progress").value = this.percent;
     }
 }
 // MathsMentales core
 MM = {
     selectedCart:0,
+    seed:"", // String to initialize the randomization
     editedActivity:undefined, // object activity 
     slidersOrientation: "", // if vertical => vertical presentation for 2 sliders
     carts:[], // max 4 carts
     steps:[],
+    timers:[],
+    slidersNumber:1,
     editActivity:function(index){
         MM.editedActivity = MM.carts[MM.selectedCart].activities[index];
         MM.setTempo(MM.editedActivity.tempo);
@@ -462,12 +594,15 @@ MM = {
     resetCarts:function(){
         let Cart = new cart(0);
         MM.carts=[Cart];
+        MM.setMinimalDisposition(0);
         MM.steps=[];
+        MM.timers=[];
     },
     addCart:function(){
         let cartsNb = MM.carts.length+1;
         if(cartsNb>4) return false;
         MM.carts[cartsNb-1] = new cart(cartsNb-1);
+        MM.setMinimalDisposition(cartsNb-1);
         // add cart button
         let button = document.createElement("button");
         button.value = cartsNb;
@@ -511,6 +646,7 @@ MM = {
         }
         // delete cart
         MM.carts.splice(index-1,1);
+        MM.setMinimalDisposition(MM.carts.length-1);
         // show Cart1
         MM.showCart(1);
         // rewrite all contents
@@ -553,63 +689,113 @@ MM = {
         document.getElementById("removeFromCart").className = "hidden";
     },
     populateQuestionsAndAnswers:function(){
+        let length=MM.carts.length;
         let enonces = document.getElementById('enonce-content');
         let corriges = document.getElementById('corrige-content');
+        if(length>1){
+            enonces.className = "grid-"+length;
+            corriges.className = "grid-"+length;
+        }
         enonces.innerHTML="";
         corriges.innerHTML="";
-
-        for(let i=0,length=MM.carts.length;i<length;i++){
-            let slider = document.getElementById("slider"+i);
-            MM.steps[i] = new steps({size:0, contener:slider});
-            MM.carts[i].activities.forEach(element => {
-                element.generate();
-                MM.steps[i].addSize(element.nbq);
-                for(let j=0;j<element.questions.length;j++){
-                    // sliders
-                    let div = document.createElement("div");
-                    div.className = "slide w3-animate-top";
-                    div.id = "slide"+i+"-"+j;
-                    let span = document.createElement("span");
-                    // enoncés et corrigés
-                    let li = document.createElement("li");
-                    let li2 = document.createElement("li");
-                    li.className = "math";li2.className = "math";span.className="math";
-                    let question = element.questions[j];
-                    if(Array.isArray(element.questions[j])){
-                        question = element.questions[j][utils.aleaInt(0,element.questions[j].length-1)];
+        MM.seed = "enonce"; // randomize it
+        utils.initializeAlea(MM.seed);
+        MM.createSlideShows();
+        for(let i=0;i<length;i++){
+            for(let kk=0;kk<MM.carts[i].target.length;kk++){
+                let slideNumber = MM.carts[i].target[kk]-1;
+                let slider = document.getElementById("slider"+slideNumber);
+                document.querySelector("#slider"+slideNumber+" .slider-title").innerHTML = MM.carts[i].title;
+                if(modeDebug)console.log(slider);
+                let sliderSteps = document.querySelector("#slider"+slideNumber+" .steps-contener");
+                let dive = document.createElement("div");
+                let divc = document.createElement("div");
+                let h3e = document.createElement("h3");
+                let h3c = document.createElement("h3");
+                h3e.innerText = MM.carts[i].title;
+                h3c.innerText = MM.carts[i].title;
+                dive.append(h3e);
+                divc.append(h3c);
+                let ole = document.createElement("ol");
+                let olc = document.createElement("ol");
+                MM.steps[slideNumber] = new steps({size:0, contener:sliderSteps});
+                MM.timers[slideNumber] = new timer(slideNumber);
+                for(let z=0,len=MM.carts[i].activities.length;z<len;z++){
+                    let element = MM.carts[i].activities[z];
+                    element.generate();
+                    MM.steps[slideNumber].addSize(element.nbq);
+                    for(let j=0;j<element.questions.length;j++){
+                        // sliders
+                        let div = document.createElement("div");
+                        div.className = "slide w3-animate-top";
+                        if(j>0) div.className += " hidden";
+                        div.id = "slide"+slideNumber+"-"+j;
+                        let span = document.createElement("span");
+                        let spanAns = document.createElement("span");
+                        spanAns.className = "answerInSlide hidden";
+                        // timers
+                        MM.timers[slideNumber].addDuration(element.tempo);
+                        // enoncés et corrigés
+                        let lie = document.createElement("li");
+                        let lic = document.createElement("li");
+                        if(element.type === undefined || element.type === "latex"){
+                            lie.className = "math";
+                            lic.className = "math";
+                            span.className="math";
+                            spanAns.className += " math";
+                        }
+                        let question = element.questions[j];
+                        let answer = element.answers[j];
+                        if(Array.isArray(element.questions[j])){
+                            question = element.questions[j][utils.aleaInt(0,element.questions[j].length-1)];
+                        }
+                        lie.innerHTML = question;
+                        span.innerHTML = question;
+                        spanAns.innerHTML = answer;
+                        div.appendChild(span);
+                        div.appendChild(spanAns);
+                        slider.appendChild(div);
+                        ole.appendChild(lie);
+                        lic.innerHTML = element.answers[j];
+                        olc.appendChild(lic);
                     }
-                    li.innerHTML = question;
-                    span.innerHTML = question;
-                    div.append(span);
-                    slider.appendChild(div);
-                    enonces.append(li);
-                    li2.innerHTML = element.answers[j];
-                    corriges.append(li2);
                 }
-            });
-            MM.steps[i].html();
+                dive.append(ole);
+                divc.append(olc);
+                enonces.append(dive);
+                corriges.append(divc);
+                MM.steps[slideNumber].display();
+            }
         }
-        utils.mathRender();    
+        utils.mathRender();  
     },
     start:function(){
-        MM.resetCarts();
-        MM.carts[0].addActivity(MM.editedActivity);
+        if(!MM.carts[0].activities.length){
+            MM.carts[0].addActivity(MM.editedActivity);
+        }
         // check if an option has been chosen
         // TODO !!!
         MM.createSlideShows();
         MM.populateQuestionsAndAnswers();
         MM.showSlideShows();
+        MM.startTimers();
+    },
+    startTimers:function(){
+        if(modeDebug)console.log("startTimers ", MM.timers);
+        for(let i=0,k=MM.timers.length;i<k;i++){
+            MM.timers[i].start(0);
+        }
     },
     showQuestions:function(){
-        MM.resetCarts();
-        MM.carts[0].addActivity(MM.editedActivity);
+        if(!MM.carts[0].activities.length)
+            MM.carts[0].addActivity(MM.editedActivity);
         MM.createSlideShows();
         MM.populateQuestionsAndAnswers();
         utils.showTab(document.querySelector("[href='#tab-enonce'].tabs-menu-link"));
     },
     showAnswers:function(){
-        MM.resetCarts();
-        MM.carts[0].addActivity(MM.editedActivity);
+        if(!MM.carts[0].activities.length)
+            MM.carts[0].addActivity(MM.editedActivity);
         MM.createSlideShows();
         MM.populateQuestionsAndAnswers();
         utils.showTab(document.querySelector("[href='#tab-corrige'].tabs-menu-link"));
@@ -619,9 +805,8 @@ MM = {
      * 
      */
     createSlideShows:function(){
-        let nb = MM.carts.length;
+        let nb = MM.slidersNumber;
         let contener = document.getElementById("slideshow");
-        if(modeDebug)console.log(nb, contener);
         contener.innerHTML = "";
         if(MM.slidersOrientation === "vertical")contener.className = "hidden vertical";
         else contener.className = "hidden";
@@ -631,19 +816,96 @@ MM = {
             if(nb === 1)div.className = "slider-1";
             else if(nb===2)div.className = "slider-2";
             else div.className = "slider-34";
+            div.innerHTML = `<div class="slider-nav">
+            <button title="Arrêter le diaporama" onclick="MM.timers[${i}].end()"><img src="img/slider-stop.png" /></button>
+            <button title="Mettre le diapo en pause" onclick="MM.timers[${i}].pause()"><img src="img/slider-pause.png" /></button>
+            <button title="Montrer la réponse" onclick="MM.showTheAnswer(${i});"><img src="img/slider-solution.png" /></button>
+            <button title="Passer la diapo" onclick="MM.nextSlide(${i});"><img src="img/slider-next.png" /></button>
+            </div>
+            <div class="slider-title"></div>
+            <div class="slider-chrono"><progress class="progress is-link is-large" value="0" max="100"></progress></div>
+            <div class="steps-contener"></div>`;
             contener.appendChild(div);
         }
     },
     showSlideShows:function(){
-        document.getElementById("slideshow").className="";
+        utils.removeClass(document.getElementById("slideshow"),"hidden");
     },
-    getDispositionEnonce:function(){
+    hideSlideshows:function(){
+        utils.addClass(document.getElementById("slideshow"),"hidden");
+        // TODO : whats next ?
+        let whatToDo = utils.getRadioChecked("endOfSlideRadio");
+        if(whatToDo === "correction"){
+            utils.showTab("tab-corrige");
+        } else if(whatToDo === "list"){
+            utils.showTab("tab-enonce");
+        }
+    },
+    showTheAnswer(id){
+        let answerToShow = document.querySelector("#slide"+id+"-"+MM.steps[id].step+" .answerInSlide");
+        if(answerToShow.className.indexOf("hidden")>-1){
+            MM.timers[id].pause();
+            utils.removeClass(answerToShow, "hidden");
+        }else{
+            utils.addClass(answerToShow, "hidden");
+            MM.timers[id].start();
+        }
+    },
+    /**
+     * 
+     * @param {integer} id du slide (start to 1)
+     */
+    nextSlide:function(id){
+        let step = MM.steps[id].nextStep();
+        if(step === false) {
+            //utils.addClass(document.querySelector('#slider'+id+" .slide:last-child"),"hidden");
+            MM.timers[id].end();
+            return false;
+        }
+        MM.timers[id].start(step);
+        let slidetoHide = document.querySelector('#slide'+id+"-"+(step-1));
+        let slide = document.querySelector('#slide'+id+"-"+step);
+        utils.addClass(slidetoHide, "hidden");
+        if(slide)
+            utils.removeClass(slide, "hidden");
+        else
+            console.log("Fin du slide");
+    },
+    messageEndSlide:function(id,nth){
+        // TODO : revoir le truc pour ne pas empiéter sur le dernière slide (ou pas)
+        console.log(id, nth);
+        let sliderMessage = document.querySelectorAll('#slider'+id+" .slide")[nth];
+        sliderMessage.innerHTML = "<span>Fin du diaporama</span>";
+        //utils.removeClass(sliderMessage,"hidden");
+    },
+    endSliders:function(){
+        let ended = true;
+        // check if all timers have ended
+        for(let i=0, l=MM.timers.length;i<l;i++){
+            if(MM.timers[i].ended === false)
+                ended = false;
+        }
+        if(ended){
+            MM.hideSlideshows();
+        }
+    },
+    setMinimalDisposition:function(index){
         let radios = document.querySelectorAll("input[name='Enonces']");
-        for(let i=0,j=radios.length;i<j;i++){
-            if(radios[i].checked) return i+1;
+        for(let i=0,l=radios.length;i<l;i++){
+            if(i<index){
+                radios[i].disabled = true;
+            } else {
+                radios[i].disabled = false;
+            }
+            if(i===index){
+                radios[i].checked = true;
+                MM.setDispositionEnonce(index+1);
+            }
         }
     },
     setDispositionEnonce:function(value){
+        value = Number(value);
+        MM.slidersNumber = value;
         if(value === 1){
             document.getElementById("sddiv1").className = "sddiv1";
             document.getElementById("sddiv2").className = "hidden";
@@ -652,6 +914,7 @@ MM = {
             document.getElementById("divisionsOption").className = "hidden";
             document.getElementById("onlinechoice").className = "";
             MM.setDispositionDoubleEnonce('h');
+            MM.carts[0].target = [1];
         } else if(value === 2){
             let directions = document.querySelectorAll("input[name='direction']");
             if(directions[0].checked){ // horizontal
@@ -666,6 +929,12 @@ MM = {
             document.getElementById("divisionsOption").className = "";
             document.querySelector("input[name='online'][value='no']").checked = true;
             document.getElementById("onlinechoice").className = "hidden";
+            if(value > MM.carts.length){
+                MM.carts[0].target = [1,2];
+            } else {
+                MM.carts[0].target = [1];
+                MM.carts[1].target = [2];
+            }
         } else if(value === 3){
             document.getElementById("sddiv1").className = "sddiv34";
             document.getElementById("sddiv2").className = "sddiv34";
@@ -675,6 +944,16 @@ MM = {
             document.querySelector("input[name='online'][value='no']").checked = true;
             document.getElementById("onlinechoice").className = "hidden";
             MM.setDispositionDoubleEnonce('h');
+            if(MM.carts.length === 1){
+                MM.carts[0].target = [1,2,3];
+            } else if(MM.carts.length === 2){
+                MM.carts[0].target = [1,2];
+                MM.carts[1].target = [3];
+            } else {
+                MM.carts[0].target = [1];
+                MM.carts[1].target = [2];
+                MM.carts[2].target = [3];
+            }
         } else if(value === 4){
             document.getElementById("sddiv1").className = "sddiv34";
             document.getElementById("sddiv2").className = "sddiv34";
@@ -684,7 +963,26 @@ MM = {
             document.querySelector("input[name='online'][value='no']").checked = true;
             document.getElementById("divisionsOption").className = "hidden";
             MM.setDispositionDoubleEnonce('h');
-        } 
+            if(MM.carts.length === 1){
+                MM.carts[0].target = [1,2,3,4];
+            } else if(MM.carts.length === 2){
+                MM.carts[0].target = [1,2];
+                MM.carts[1].target = [3,4];
+            } else if(MM.carts.length === 3){
+                MM.carts[0].target = [1,2];
+                MM.carts[1].target = [3];
+                MM.carts[2].target = [4];
+            } else {
+                MM.carts[0].target = [1];
+                MM.carts[1].target = [2];
+                MM.carts[2].target = [3];
+                MM.carts[3].target = [4];
+            }
+        }
+        for(let i = 0,l=MM.carts.length;i<l;i++){
+            if(modeDebug)console.log("Targets cart "+i, MM.carts[i].target);
+            MM.carts[i].display();
+        }
     },
     setDispositionDoubleEnonce:function(option){
         if(option === "h"){
@@ -718,9 +1016,10 @@ library = {
 /**
 * Structure d'un fichier exercice
 * {
-    'title':'titre',
+    'title':'short description',
     'ID':'generatedId',
-    'description':'short description',
+    'description':'long description',
+    'figure': used if graphics
     'options':[{}, {}, ...}], // ojects {"name":"NameOfOption", 'vars':{}, 'question':'pattern'||['pattern0','pattern1',...], answers:'pattern'||[], value:'valuepattern'||[]}
         if one of vars, question, answer or value not defined take it from defaults values on bottom
     'vars':{'a':'pattern', 'b':'pattern', ...}, // pattern can be a list ['value0', 'value1'], or a range "value0_value1", or a list of ranges, Integers, Decimals, letters
@@ -734,8 +1033,10 @@ library = {
 class activity {
     constructor(obj){
         this.id = obj.id||obj.ID;
-        this.title = obj.title;
-        this.description = obj.description;
+        this.type = obj.type; // undefined => latex , "text" can include math, with $$ around
+        this.figure = obj.figure; // for graphics
+        this.title = obj.title;  // title of de activity
+        this.description = obj.description; // long description
         this.vars = obj.vars;
         this.options = utils.clone(obj.options)||undefined;
         this.questionPatterns = utils.clone(obj.questionPatterns)||obj.question;
@@ -773,6 +1074,11 @@ class activity {
             return this.chosenOptions[utils.aleaInt(0,this.chosenOptions.length-1)];
         } else return false;
     }
+    setMath(content){
+        if(this.type === undefined || this.type === "latex"){
+            return '<span class="math">'+content+"</span>";
+        } else return content;
+    }
     /**
      * Display the activity editor
      */
@@ -801,12 +1107,12 @@ class activity {
                             if(this.chosenQuestions[i].indexOf(jj)>-1)
                                 checked = "checked";
                         }
-                        li.innerHTML = "<input class='checkbox"+colors[i%colors.length]+"' type='checkbox' id='o"+i+"-"+jj+"' value='"+i+"-"+jj+"' onclick='MM.editedActivity.setOption(this.value, this.checked);'"+checked+"> <span class='math'>"+this.questions[0][jj]+"</span>";
+                        li.innerHTML = "<input class='checkbox"+colors[i%colors.length]+"' type='checkbox' id='o"+i+"-"+jj+"' value='"+i+"-"+jj+"' onclick='MM.editedActivity.setOption(this.value, this.checked);'"+checked+"> "+this.setMath(this.questions[0][jj]);
                         ul.appendChild(li);
                     }
                 } else {
                     let li = document.createElement("li");
-                    li.innerHTML = "<span class='math'>"+ this.questions[0] +"</span></p>";
+                    li.innerHTML = this.setMath(this.questions[0]) +"</p>";
                     ul.appendChild(li);
                 }
                 examples.appendChild(ul);
@@ -823,12 +1129,12 @@ class activity {
                 }
             } else {
                 let li = document.createElement("li");
-                li.innerHTML = "<span class='math'>"+ this.questions[0] +"</span></p>";
+                li.innerHTML = this.setMath(this.questions[0]) +"</p>";
                 ul.appendChild(li);
             }
             // display answer
             examples.appendChild(ul);
-            examples.innerHTML += "<p><span class='math'>"+this.answers[0]+"</span></p>";
+            examples.innerHTML += "<p>"+this.setMath(this.answers[0])+"</p>";
         }
         utils.mathRender();
     }
@@ -1022,14 +1328,14 @@ class activity {
                 } else if(typeof this.wVars[name] === "string" && this.wVars[name].indexOf("_")>-1){
                     // var is defined with a min-max interval within a string
                     var bornes = this.wVars[name].split("_");
-                    if(bornes[2] === undefined || bornes[2].indexOf("^")>-1) {// integer                       
-                        this.wVars[name] = utils.aleaInt(Number(bornes[0]), Number(bornes[1]), bornes[2]);
-                    } else { // float case, the third value is the precision
-                        this.wVars[name] = utils.aleaFloat(Number(bornes[0]), Number(bornes[1]), Number(bornes[2]), bornes[3]);
+                    if(bornes[0].indexOf("d")>-1) {// float case
+                        this.wVars[name] = utils.aleaFloat(Number(bornes[0].substring(1)), Number(bornes[1]), Number(bornes[2]), bornes[3], bornes[4]);
+                    } else { // integer case
+                        this.wVars[name] = utils.aleaInt(Number(bornes[0]), Number(bornes[1]), bornes[2], bornes[3]);                        
                     }
                 }
             }
-            if(modeDebug)console.log(this.wVars);
+            if(modeDebug)console.log(utils.clone(this.wVars));
             // question text generation
             if(typeof this.cQuestion === "string"){
                 this.questions[i] = eval("`"+this.replaceVars(this.cQuestion)+"`");
@@ -1080,9 +1386,9 @@ activitiesArray =[{
         // var p : précision max (négative : multiples de l'unité, positive : sous-multiples) et nombre max
         // var z : intervalle la précision
         // var x : intervalle de tirage entre 0 et p nombre max, avec la précision p max et non nul ^0
-        {"name":"m", "vars":{"q":"m","k":[["km",1000], ["hm",100], ["dam",10], ["dm",0.1], ["cm",0.01], ["mm",0.001]],"p":[[0,0],[-1,10],[-2,100],[-3,1000]], "z":"${:p[0]}_3", "x":"0_${:p[1]}_${:z}_^0"}},
-        {"name":"L", "vars":{"q":"L","k":[["hL",100], ["daL",10], ["dL",0.1], ["cL",0.01], ["mL",0.001]],"p":[[0,0],[-1,10],[-2,100],[-3,1000]],"z":"${:p[0]}_3","x":"0_${:p[1]}_${:z}_^0"}},
-        {"name":"g", "vars":{"q":"g","k":[["kg",1000], ["hg",100], ["dag",10], ["dg",0.1], ["cg",0.01], ["mg",0.001]],"p":[[0,0],[-1,10],[-2,100],[-3,1000]], "z":"${:p[0]}_3", "x":"0_${:p[1]}_${:z}_^0"}}
+        {"name":"m", "vars":{"q":"m","k":[["km",1000], ["hm",100], ["dam",10], ["dm",0.1], ["cm",0.01], ["mm",0.001]],"p":[[2,0.1],[1,1],[0,10],[-1,100],[-2,1000]], "z":"${:p[0]}_3", "x":"d0_${:p[1]}_${:z}_^0"}},
+        {"name":"L", "vars":{"q":"L","k":[["hL",100], ["daL",10], ["dL",0.1], ["cL",0.01], ["mL",0.001]],"p":[[1,1],[0,10],[-1,100],[-2,1000]],"z":"${:p[0]}_3","x":"d0_${:p[1]}_${:z}_^0"}},
+        {"name":"g", "vars":{"q":"g","k":[["kg",1000], ["hg",100], ["dag",10], ["dg",0.1], ["cg",0.01], ["mg",0.001]],"p":[[1,1],[0,10],[-1,100],[-2,1000]], "z":"${:p[0]}_3", "x":"d0_${:p[1]}_${:z}_^0"}}
     ],
     "description":"Conversions des multiples et sous-multiples des m, L et g vers les m, L et g",
     "question":"\\text{Convertir } ${:x} \\text{ ${:k[0]} en }\\color{blue}\\text{${:q}}",
@@ -1149,4 +1455,11 @@ activitiesArray =[{
             "value":"(${utils.signIfOne(:a)+:c}${utils.signedNumber(:b+:d)})(${utils.signIfOne(:a)+:c}${utils.signedNumber(:b-:d)})"
         }
     ]
+},{
+    "title":"Test text",
+    "type":"text",
+    "vars":{"a":"10_100", "b":"50_60"},
+    "question":"Combien font $$${:a}\\times${:b}$$ ?",
+    "answer":"${:a*:b}",
+    "value":":answer"
 }];
