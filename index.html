@@ -29,7 +29,7 @@
     <div id="app-container">
 <header>
     <nav>
-        <a href="#tab-accueil" class="logo tabs-menu-link"><img src="img/android-icon-48x48.png" alt="logo" /></a>
+        <a id="btnaccueil" href="#tab-accueil" class="logo tabs-menu-link"><img src="img/android-icon-48x48.png" alt="logo" /></a>
         <!--<div class="icon-menu"></div>-->
         <ul class="menu color-inverse">
             <li><a href="/">Ecole</a>
@@ -73,47 +73,92 @@
 </header>
 <div class="clearfix"></div>
 <div id="contents" class="tabs-content">
+    <section id="tab-accueil" class="grid-3 has-gutter tabs-content-item">
+        <div class="alert--danger"><h2>A propos</h2>
+            Site de diaporamas d'activités mentales de mathématiques</div>
+        <div class="alert--warning"><h2>Documentation</h2>
+            Documentation à télécharger
+        </div>
+        <div class="alert row-2"><h2>Chaine youtube</h2>
+            Toute une série de petites vidéos montrant le fonctionnement de MathsMentales
+        </div>
+        <div class="col-2"><img src="img/logocm.png" width="320" style="margin-left: calc(50% - 160px);"></div>
+        <div class="alert--primary"><h2>Historique</h2>
+            Accès à l'historique de développement du site.
+        </div>
+        <div class="alert--success"><h2>Participer</h2>
+            Il y a plusieurs façons de participer.
+            Vous pouvez aussi télécharger le contenu sur <a href="https://github.com/seb-cogez/mathsmentales">Github</a>
+        </div>
+        <div class="alert"><h2>Téléchargements</h2>
+            Compléments au site : pages de ceintures de calcul mental, zip du site, etc...
+        </div>
+    </section>
     <section id="tab-parameters" class="grid-3 has-gutter tabs-content-item" style="display: none;">
         <div>
-            <button id="addToCart" onclick="MM.addToCart();"><img src="img/addtocart.png"></button>
-            <button id="removeFromCart" onclick="MM.removeFromCart();" class="hidden"><img src="img/burnCart.png"></button>
+            <button id="addToCart" onclick="MM.addToCart();" title="Ajouter au panier"><img src="img/addtocart.png"></button>
+            <button id="removeFromCart" onclick="MM.removeFromCart();" class="hidden" title="Supprimer du panier"><img src="img/burnCart.png"></button>
             <h1><i class="icon-arrow--right"></i>Activité</h1>
             <div id="activityTitle"></div>
             <div id="activityDescription"></div>
             <b>Temps :</b> <span id="tempo-value"></span><br>
-            <input type="range" id="tempo-slider" min="2" max="120" value="8" oninput="utils.changeTempoValue(this.value);"><br>
+            <input type="range" id="tempo-slider" min="2" max="120" value="8" oninput="utils.changeTempoValue(this.value);" onchange="MM.carts[MM.selectedCart].display();"><br>
             <b>Nombre de questions :</b> <span id="nbq-value"></span><br>
-            <input type="range" id="nbq-slider" min="1" max="20" value="10" oninput="utils.changeNbqValue(this.value);"><br>
+            <input type="range" id="nbq-slider" min="1" max="20" value="10" oninput="utils.changeNbqValue(this.value);" onchange="MM.carts[MM.selectedCart].display();"><br>
         </div>
         <div class="row-4">
             <div class="tabs">
                 <nav class="tabs-menu" id="cartsMenu">
                     <button onclick="MM.showCart(this.value);" class="tabs-menu-link is-active" value="1" id="button-cart1"><img src="img/cart1.png"></button>
-                    <button id="addcart" onclick="MM.addCart();"><img src="img/cartadd.png"></button>
+                    <button id="addcart" title="Ajouter un panier" onclick="MM.addCart();"><img src="img/cartadd.png"></button>
                 </nav>
             </div>
             <div id="cartscontener">
-                <section id="cart1" class="cartcontent">
-                    <button class="cart-close" onclick="MM.emptyCart(1);"><img src="img/recyclecart.png"></button>
+                <section id="cart0" class="cartcontent">
+                    <button class="cart-close" onclick="MM.emptyCart(1);" title="Vider le panier"><img src="img/recyclecart.png"></button>
+                    <h3 contenteditable="true" onblur="MM.carts[0].title = this.innerHTML;" title="Cliquer pour éditer">Groupe 1</h3>
+                    <div class="totaux">
+                        <img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
+                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> questions 
+                        <img src="img/target.png" title="Zone d'énoncé"> <span>1</span>
+                    </div>
+                    <ul id="cart0-list" class="cart-list">
+                    </ul>
+                </section>
+                <section id="cart1" class="hidden">
+                    <button class="cart-close" onclick="MM.removeCart(2);" title="Supprimer le panier"><img src="img/burncart.png"></button>
+                    <button class="cart-close" onclick="MM.emptyCart(2);" title="Vider le panier"><img src="img/recyclecart.png"></button>
+                    <h3 contenteditable="true" onblur="MM.carts[1].title = this.innerHTML;" title="Cliquer pour éditer">Groupe 2</h3>
+                    <div class="totaux">
+                        <img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
+                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> questions 
+                        <img src="img/target.png" title="Zone d'énoncé"> <span>2</span>
+                    </div>
                     <ul id="cart1-list" class="cart-list">
                     </ul>
                 </section>
                 <section id="cart2" class="hidden">
-                    <button class="cart-close" onclick="MM.removeCart(2);"><img src="img/burncart.png"></button>
-                    <button class="cart-close" onclick="MM.emptyCart(2);"><img src="img/recyclecart.png"></button>
+                    <button class="cart-close" onclick="MM.removeCart(3);" title="Supprimer le panier"><img src="img/burncart.png"></button>
+                    <button class="cart-close" onclick="MM.emptyCart(3);" title="Vider le panier"><img src="img/recyclecart.png"></button>
+                    <h3 contenteditable="true" onblur="MM.carts[2].title = this.innerHTML;" title="Cliquer pour éditer">Groupe 3</h3>
+                    <div class="totaux">
+                        <img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
+                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> questions 
+                        <img src="img/target.png" title="Zone d'énoncé"> <span>3</span>
+                    </div>
                     <ul id="cart2-list" class="cart-list">
                     </ul>
                 </section>
                 <section id="cart3" class="hidden">
-                    <button class="cart-close" onclick="MM.removeCart(3);"><img src="img/burncart.png"></button>
-                    <button class="cart-close" onclick="MM.emptyCart(3);"><img src="img/recyclecart.png"></button>
+                    <button class="cart-close" onclick="MM.removeCart(4);" title="Supprimer le panier"><img src="img/burncart.png"></button>
+                    <button class="cart-close" onclick="MM.emptyCart(4);" title="Vider le panier"><img src="img/recyclecart.png"></button>
+                    <h3 contenteditable="true" onblur="MM.carts[3].title = this.innerHTML;" title="Cliquer pour éditer">Groupe 4</h3>
+                    <div class="totaux">
+                        <img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
+                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> questions 
+                        <img src="img/target.png" title="Zone d'énoncé"> <span>4</span>
+                    </div>
                     <ul id="cart3-list" class="cart-list">
-                    </ul>
-                </section>
-                <section id="cart4" class="hidden">
-                    <button class="cart-close" onclick="MM.removeCart(4);"><img src="img/burncart.png"></button>
-                    <button class="cart-close" onclick="MM.emptyCart(4);"><img src="img/recyclecart.png"></button>
-                    <ul id="cart4-list" class="cart-list">
                     </ul>
                 </section>
             </div>
@@ -123,12 +168,12 @@
             <fieldset>
                 <legend>Introduction</legend>
                 <input type="radio" class="radio" name="beforeSlider" value="example"> Exemple
-                <input type="radio" class="radio" name="beforeSlider" value="321" checked> Décompte
+                <input type="radio" class="radio" name="beforeSlider" value="321" checked="true"> Décompte
                 <input type="radio" class="radio" name="beforeSlider" value="nothing"> Rien
             </fieldset><br>
             <fieldset>
                 <legend>Enoncé</legend>
-                <input type="radio" class="radio" name="Enonces" value="1" checked onclick="MM.setDispositionEnonce(1);"> Simple
+                <input type="radio" class="radio" name="Enonces" value="1" checked="true" onclick="MM.setDispositionEnonce(1);"> Simple
                 <input type="radio" class="radio" name="Enonces" value="2" onclick="MM.setDispositionEnonce(2);"> Double
                 <input type="radio" class="radio" name="Enonces" value="3" onclick="MM.setDispositionEnonce(3);"> Triple
                 <input type="radio" class="radio" name="Enonces" value="4" onclick="MM.setDispositionEnonce(4);"> Quadruple<br />
@@ -140,17 +185,17 @@
                 </div>
                 <div id="divisionsOption" class="hidden">
                     <input type="radio" class="radio" name="direction" value="h" onclick="MM.setDispositionDoubleEnonce('h');"> Horizontale<br>
-                    <input type="radio" class="radio" name="direction" value="v" checked onclick="MM.setDispositionDoubleEnonce('v');"> Verticale
+                    <input type="radio" class="radio" name="direction" value="v" checked="true" onclick="MM.setDispositionDoubleEnonce('v');"> Verticale
                 </div>
                 <fieldset id="onlinechoice">
                     <legend>Répondre en ligne</legend>
-                    <input type="radio" class="radio" name="online" value="no" checked> Non
+                    <input type="radio" class="radio" name="online" value="no" checked="true"> Non
                     <input type="radio" class="radio" name="online" value="yes"> Oui
                 </fieldset>
                 </fieldset><br>
             <fieldset>
                 <legend>Fin de diaporama</legend>
-                <input type="radio" class="radio" name="endOfSlideRadio" value="correction" checked> Correction
+                <input type="radio" class="radio" name="endOfSlideRadio" value="correction" checked="true"> Correction
                 <input type="radio" class="radio" name="endOfSlideRadio" value="nothing"> Rien
                 <input type="radio" class="radio" name="endOfSlideRadio" value="list"> Énoncés
             </fieldset><br>
@@ -166,10 +211,10 @@
         </div>
     </section>
     <section id="tab-enonce" class="tabs-content-item" style="display: none;">
-        <ol id="enonce-content"></ol>
+        <div id="enonce-content" class="grid"></div>
     </section>
     <section id="tab-corrige" class="tabs-content-item" style="display: none;">
-        <ol id="corrige-content"></ol>
+        <div id="corrige-content" class="grid"></div>
     </section>
     <section id="tab-historique" class="tabs-content-item" style="display: none;">
         Ici, l'historique des exercices pour impression, copie/coller d'image, etc.
