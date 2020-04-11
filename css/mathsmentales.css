@@ -31,7 +31,6 @@ input[type=range]::-webkit-slider-runnable-track {
     width: 100%;
     height: 20px;
     cursor: pointer;
-    animate: 0.2s;
     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
     background: #3071a9;
     border-radius: 0.7px;
@@ -55,7 +54,6 @@ input[type=range]::-webkit-slider-thumb {
     width: 100%;
     height: 20px;
     cursor: pointer;
-    animate: 0.2s;
     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
     background: #3071a9;
     border-radius: 0.7px;
@@ -74,7 +72,6 @@ input[type=range]::-webkit-slider-thumb {
     width: 100%;
     height: 4.2px;
     cursor: pointer;
-    animate: 0.2s;
     background: transparent;
     border-color: transparent;
     border-width: 8px 0;
@@ -155,7 +152,7 @@ ul.menu, .menu ul {
 /* Parameters */
 #contents > section > div {
     padding: 1em;
-    line-height: 1em;
+    /*line-height: 1em;*/
 }
 #activityTitle, #activityDescription, #activityOptions {
     font-size: 2rem;
@@ -167,13 +164,15 @@ ul.menu, .menu ul {
     background-color: white;
     display: inline-block;
     box-shadow: 4px 4px 6px #AAA;
+    padding: 1.5rem;
+    line-height: 1rem;
 }
 #tab-parameters div > fieldset {
     margin-top: 1em;
 }
 #onlinechoice {
-    margin-top: 0.4em;
-    margin-left: 1em;
+    margin-top: 2rem;
+    margin-left: 1rem;
 }
 #tab-parameters fieldset legend {
     display: block;
@@ -293,6 +292,11 @@ ul.cart-list{
 #onlinechoice.hidden {
     display: none;
 }
+/*
+* Enonces et corriges
+*/
+
+
 /* Slides
 Animations from https://www.w3schools.com/w3css/4/w3.css 
 */
@@ -317,6 +321,14 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
 #slideshow.vertical{
     flex-direction: column;
 }
+.slider-nav{
+    float:right;
+    font-size: 1rem;
+}
+.slider-nav button{
+    background-color: rgba(0,0,0,0);
+    padding:0.5rem;
+}
 .slider-1 {
     width: calc(100% - 20px);
     height: calc(100% - 20px);
@@ -326,6 +338,10 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
     width: calc(50% - 10px);
     height: calc(100% - 20px);
     border: 1px solid black;
+}
+#slideshow:not(.vertical) .slider-2 .slider-nav img, .slider-34 .slider-nav img {
+    width: 32px;
+    height: 32px;
 }
 #slideshow.vertical .slider-2{
     width: calc(100% - 20px);
@@ -340,23 +356,45 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
     overflow: hidden;
 }
 .slider-1, .slider-2, .slider-34 {
-    font-size: 2rem;
+    font-size: 2em;
 }
 .slider-bigger {
-    font-size: 3rem;
+    font-size: 3em;
 }
 .slider-biggest {
-    font-size: 4rem;
+    font-size: 4em;
+}
+.slider-title, .slider-chrono {
+    padding:0.5em;
+    display:inline-block;
+    font-size: 2rem;
+    vertical-align: middle;
 }
 .slide{
     position: relative;
     width:100%;
     height:calc(100% - 4em);
     display: flex;
+    flex-direction: column;
 }
 .slide > span {
     margin:auto;
 }
+.slideInAnswer {
+    background-color: salmon;
+}
+.slide.hidden{
+    display: none;
+}
+.blink_me {
+    animation: blinker 2s linear infinite;
+  }
+  
+@keyframes blinker {
+    50% {
+      opacity: 0.4;
+    }
+  }
 .steps .steps-content{font-size: 2em;}
 .w3-animate-fading{animation:fading 10s infinite}@keyframes fading{0%{opacity:0}50%{opacity:1}100%{opacity:0}}
 .w3-animate-opacity{animation:opac 0.8s}@keyframes opac{from{opacity:0} to{opacity:1}}
@@ -433,3 +471,183 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
     width: 50%;
     height: 50%;
 }
+
+/* progress bar */
+.progress {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    border-radius: 290486px;
+    display: block;
+    height: 1rem;
+    overflow: hidden;
+    padding: 0;
+    width: 100%;
+  }
+  
+  .progress::-webkit-progress-bar {
+    background-color: #ededed;
+  }
+  
+  .progress::-webkit-progress-value {
+    background-color: #4a4a4a;
+  }
+  
+  .progress::-moz-progress-bar {
+    background-color: #4a4a4a;
+  }
+  
+  .progress::-ms-fill {
+    background-color: #4a4a4a;
+    border: none;
+  }
+  
+  .progress.is-primary::-webkit-progress-value {
+    background-color: #00d1b2;
+  }
+  
+  .progress.is-primary::-moz-progress-bar {
+    background-color: #00d1b2;
+  }
+  
+  .progress.is-primary::-ms-fill {
+    background-color: #00d1b2;
+  }
+  
+  .progress.is-primary:indeterminate {
+    background-image: linear-gradient(to right, #00d1b2 30%, #ededed 30%);
+  }
+  
+  .progress.is-link::-webkit-progress-value {
+    background-color: #3273dc;
+  }
+  
+  .progress.is-link::-moz-progress-bar {
+    background-color: #3273dc;
+  }
+  
+  .progress.is-link::-ms-fill {
+    background-color: #3273dc;
+  }
+  
+  .progress.is-link:indeterminate {
+    background-image: linear-gradient(to right, #3273dc 30%, #ededed 30%);
+  }
+  
+  .progress.is-info::-webkit-progress-value {
+    background-color: #3298dc;
+  }
+  
+  .progress.is-info::-moz-progress-bar {
+    background-color: #3298dc;
+  }
+  
+  .progress.is-info::-ms-fill {
+    background-color: #3298dc;
+  }
+  
+  .progress.is-info:indeterminate {
+    background-image: linear-gradient(to right, #3298dc 30%, #ededed 30%);
+  }
+  
+  .progress.is-success::-webkit-progress-value {
+    background-color: #48c774;
+  }
+  
+  .progress.is-success::-moz-progress-bar {
+    background-color: #48c774;
+  }
+  
+  .progress.is-success::-ms-fill {
+    background-color: #48c774;
+  }
+  
+  .progress.is-success:indeterminate {
+    background-image: linear-gradient(to right, #48c774 30%, #ededed 30%);
+  }
+  
+  .progress.is-warning::-webkit-progress-value {
+    background-color: #ffdd57;
+  }
+  
+  .progress.is-warning::-moz-progress-bar {
+    background-color: #ffdd57;
+  }
+  
+  .progress.is-warning::-ms-fill {
+    background-color: #ffdd57;
+  }
+  
+  .progress.is-warning:indeterminate {
+    background-image: linear-gradient(to right, #ffdd57 30%, #ededed 30%);
+  }
+  
+  .progress.is-danger::-webkit-progress-value {
+    background-color: #f14668;
+  }
+  
+  .progress.is-danger::-moz-progress-bar {
+    background-color: #f14668;
+  }
+  
+  .progress.is-danger::-ms-fill {
+    background-color: #f14668;
+  }
+  
+  .progress.is-danger:indeterminate {
+    background-image: linear-gradient(to right, #f14668 30%, #ededed 30%);
+  }
+  
+  .progress:indeterminate {
+    -webkit-animation-duration: 1.5s;
+            animation-duration: 1.5s;
+    -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+    -webkit-animation-name: moveIndeterminate;
+            animation-name: moveIndeterminate;
+    -webkit-animation-timing-function: linear;
+            animation-timing-function: linear;
+    background-color: #ededed;
+    background-image: linear-gradient(to right, #4a4a4a 30%, #ededed 30%);
+    background-position: top left;
+    background-repeat: no-repeat;
+    background-size: 150% 150%;
+  }
+  
+  .progress:indeterminate::-webkit-progress-bar {
+    background-color: transparent;
+  }
+  
+  .progress:indeterminate::-moz-progress-bar {
+    background-color: transparent;
+  }
+  
+  .progress.is-small {
+    height: 0.75rem;
+  }
+  
+  .progress.is-medium {
+    height: 1.25rem;
+  }
+  
+  .progress.is-large {
+    height: 1.5rem;
+  }
+  
+  @-webkit-keyframes moveIndeterminate {
+    from {
+      background-position: 200% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
+  
+  @keyframes moveIndeterminate {
+    from {
+      background-position: 200% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
