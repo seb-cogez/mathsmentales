@@ -82,6 +82,24 @@ utils = {
         }
         return false;
     },
+    numberIfNumber:function(value){
+        if(String(Number(value))===value){
+            return Number(value);
+        } else {
+            return value;
+        }
+    },
+    // isEmpty, teste si un objet est vide ou pas
+    // @param (Object) obj : objet ou tableau à analyser
+    // return true pour vide
+    // return false sinon
+    isEmpty: function (obj) {
+        var x;
+        for (x in obj) {
+            return false;
+        }
+        return true;
+    },
     /**
     * function removeClass
     * remove a class name from a DOM element
@@ -143,17 +161,19 @@ utils = {
      * @param {integer} max relativ
      * optionals
      * @param {integer} qty positiv
-     * @param {string} avoid start with ^ indicates the list of exeptions
+     * @param {string} avoid start with ^ indicates the list of exeptions, & as exeption => no doble number in the list
      */
     aleaInt:function(min,max){ // accept 2 arguments more
         let qty=1;
         let avoid=[];
         utils.security = 300;
+        let nodouble = false;
         for(let i=2;i<arguments.length;i++){
             if(String(Number(arguments[i])) === arguments[i] || typeof arguments[i]==="number"){
                 qty = arguments[i];
             } else if(typeof arguments[i] === "string" && arguments[i][0]=="^"){
                 avoid = arguments[i].substring(1).split(",");
+                if(avoid.indexOf("&")>-1)nodouble = true;
             }
         }
         if(min === max) return min;
@@ -164,8 +184,9 @@ utils = {
             var integers = [];
             for(let i=0;i<qty;i++){
                 let thisint = math.round(utils.alea()*(max-min))+min;
-                if(avoid.indexOf(thisint)>-1){
+                if(avoid.indexOf(thisint)>-1 || (nodouble && integers.indexOf(thisint)>-1)){
                     // do not use exeptions numbers
+                    // or no double number
                     i--;
                     if(!utils.checkSecurity()) break;
                     continue;
@@ -198,6 +219,7 @@ utils = {
     aleaFloat:function(min, max, precision){
         let qty=1;
         let avoid = [];
+        let nodouble = false;
         utils.security = 300;
         if(modeDebug)console.log(arguments);
         // check aguments
@@ -206,6 +228,7 @@ utils = {
                 qty = arguments[i];
             } else if(typeof arguments[i] === "string" && arguments[i][0]==="^"){
                 avoid = arguments[i].substring(1).split(",").map(Number);
+                if(avoid.indexOf("&")>-1)nodouble = true;
             }
         }
         // exchange values min and max if min > max
@@ -220,7 +243,7 @@ utils = {
                     nb = math.round(utils.alea()*(max-min)+min,precision);
                 else
                     nb = Number(math.round(Number((utils.alea()*(max-min)+min)+"e"+precision))+"e"+(-precision));
-                if(avoid.indexOf(nb)>-1){
+                if(avoid.indexOf(nb)>-1 || (nodouble && integers.indexOf(thisint)>-1)){
                     i--;
                     if(!utils.checkSecurity()) break;
                     continue;
@@ -331,7 +354,19 @@ utils = {
             sec = sec%60;
           }
           return time += sec;
-      }
+      },
+      restoreArray(obj){
+        for (let i in obj){
+            if(typeof obj[i] === "string"){
+                if(obj[i].indexOf(",")){
+                    obj[i] = obj[i].split(",").map(utils.numberIfNumber);
+                }
+            } else if(typeof obj[i] === "object"){
+                obj[i] = this.restoreArray(obj[i]);
+            }
+        }
+        return obj;
+    }
 }
 // test de seedrandom
 window.onload = function(){
@@ -351,8 +386,8 @@ window.onload = function(){
     activitiesArray.forEach(function(element,index){
         let ol = document.getElementById("actlist");
         let li = document.createElement("li");
-        li.onclick = function(){library.open(index)};
-        li.innerText = element.title;
+        li.onclick = function(){library.load(element)};
+        li.innerText = element;
         ol.appendChild(li);
     });
     MM.setDispositionEnonce(utils.getRadioChecked("Enonces"));
@@ -488,6 +523,37 @@ class steps {
         return this.step;
     }
 }
+// Figures
+class Figure {
+    constructor(obj, id, target){
+        this.type = obj.type;
+        this.content = obj.content;//this.restoreArray(obj.content);
+        this.id = id;
+        this.figure = undefined;
+        this.create(target);
+    }
+    /**
+     * construct de destination DOM element
+     * @param {destination} destination DOMelement
+     */
+    create(destination){
+        if(this.type === "chart"){
+            let div = document.createElement("div");            
+            let canvas = document.createElement("canvas");
+            canvas.id = this.id;
+            div.appendChild(canvas)            ;
+            destination.appendChild(div);
+        }
+    }
+    display(){
+        if(this.type === "chart"){
+            let target = document.getElementById(this.id);
+            if(modeDebug)console.log("Chart data", target, utils.clone(this.content));
+            this.figure = new Chart(target, this.content);
+        }
+    }
+}
+
 // Timer
 class timer {
     constructor(slideid){
@@ -572,6 +638,7 @@ MM = {
     carts:[], // max 4 carts
     steps:[],
     timers:[],
+    figs:{}, // 
     slidersNumber:1,
     editActivity:function(index){
         MM.editedActivity = MM.carts[MM.selectedCart].activities[index];
@@ -597,6 +664,7 @@ MM = {
         MM.setMinimalDisposition(0);
         MM.steps=[];
         MM.timers=[];
+        MM.figs={};
     },
     addCart:function(){
         let cartsNb = MM.carts.length+1;
@@ -676,6 +744,7 @@ MM = {
             MM.carts[index-1].activities = [];
             MM.carts[index-1].editedActivityId = -1;
             document.getElementById("cart"+index+"-list").innerHTML = "";
+            MM.carts[index-1].display();
         } else return false;
     },
     addToCart(){
@@ -689,6 +758,7 @@ MM = {
         document.getElementById("removeFromCart").className = "hidden";
     },
     populateQuestionsAndAnswers:function(){
+        MM.figs = {};MM.steps=[];MM.timers=[];
         let length=MM.carts.length;
         let enonces = document.getElementById('enonce-content');
         let corriges = document.getElementById('corrige-content');
@@ -746,6 +816,7 @@ MM = {
                         }
                         let question = element.questions[j];
                         let answer = element.answers[j];
+                        // trouver une alternative dans la génération (hors exemple)
                         if(Array.isArray(element.questions[j])){
                             question = element.questions[j][utils.aleaInt(0,element.questions[j].length-1)];
                         }
@@ -755,6 +826,10 @@ MM = {
                         div.appendChild(span);
                         div.appendChild(spanAns);
                         slider.appendChild(div);
+                        let canvas=undefined;
+                        if(element.figures[j] !== undefined){
+                            MM.figs[slideNumber+"-"+j] = new Figure(element.figures[j], "c"+slideNumber+"-"+j, div);
+                        }
                         ole.appendChild(lie);
                         lic.innerHTML = element.answers[j];
                         olc.appendChild(lic);
@@ -830,6 +905,16 @@ MM = {
     },
     showSlideShows:function(){
         utils.removeClass(document.getElementById("slideshow"),"hidden");
+        if(!utils.isEmpty(MM.figs)){
+            MM.displayFirstFigs();
+        }
+    },
+    displayFirstFigs:function(){
+        for(let i=0;i<4;i++){
+            if(typeof MM.figs[i+"-0"] === "object"){
+                MM.figs[i+"-0"].display();
+            }
+        }
     },
     hideSlideshows:function(){
         utils.addClass(document.getElementById("slideshow"),"hidden");
@@ -866,8 +951,11 @@ MM = {
         let slidetoHide = document.querySelector('#slide'+id+"-"+(step-1));
         let slide = document.querySelector('#slide'+id+"-"+step);
         utils.addClass(slidetoHide, "hidden");
-        if(slide)
+        if(slide){
             utils.removeClass(slide, "hidden");
+            if(MM.figs[id+"-"+step] !== undefined)
+                MM.figs[id+"-"+step].display();
+        }
         else
             console.log("Fin du slide");
     },
@@ -998,8 +1086,8 @@ MM = {
 
 // lecture de la bibliotheque
 library = {
-    open:function(objId){
-        let obj = new activity(activitiesArray[objId]);
+    open:function(json){
+        let obj = new activity(json);
         MM.editedActivity = obj;
         //MM.carts[MM.selectedCart].addActivity(obj);
         // show tab-content
@@ -1010,6 +1098,15 @@ library = {
         document.getElementById("addToCart").className = "";
         document.getElementById("removeFromCart").className = "hidden";
         obj.display();
+    },
+    load:function(url){
+        let reader = new XMLHttpRequest();
+        reader.onload = function(){
+            let json = JSON.parse(reader.responseText);
+            library.open(json);
+        }
+        reader.open("get", "library/"+url+".json", true);
+        reader.send();
     }
 }
 // lecture des fichiers exercice
@@ -1045,6 +1142,7 @@ class activity {
         this.questions = utils.clone(obj.questions)||[];
         this.answers = utils.clone(obj.answers)||[];
         this.values = utils.clone(obj.values)||[];
+        this.figures = utils.clone(obj.figures)||[];
         this.chosenOptions = utils.clone(obj.chosenOptions)||[];
         this.chosenQuestions = utils.clone(obj.chosenQuestions)||{};
         this.chosenQuestionTypes = utils.clone(obj.chosenQuestionTypes)||[];
@@ -1249,21 +1347,26 @@ class activity {
      * @param {string} chaine : chaine où se trouve la variable 
      */
     replaceVars(chaine, index){
-        for(const c in this.wVars){
-            //if(modeDebug) console.log("replaceVars value to modify : "+c);
-            //let regex = new RegExp("(\\$\\{[^"+c+"\\}]*)"+c+"([^\\}]*\\})", 'g');
-            let regex = new RegExp(":"+c, 'g');
-            chaine = chaine.replace(regex, "this.wVars['"+c+"']");
-            //if(modeDebug) console.log("replaceVars value modified : "+chaine);
-        }
-        // check if question as to be written in answer
-        if(index !== undefined){
-            //if(modeDebug)console.log(this.questions[index]);
-            let regex = new RegExp(":question", 'g');
-            chaine = chaine.replace(regex, this.questions[index]);
-        }
-        //if(modeDebug) console.log("replaceVars : final"+chaine);
-        return chaine.replace(/\\/g,"\\\\");
+            if(typeof chaine === "string"){
+                for(const c in this.wVars){
+                    //if(modeDebug) console.log("replaceVars value to modify : "+c);
+                    let regex = new RegExp(":"+c, 'g');
+                    chaine = chaine.replace(regex, "this.wVars['"+c+"']");
+                }
+                // check if question as to be written in answer
+                if(index !== undefined){
+                    //if(modeDebug)console.log(this.questions[index]);
+                    let regex = new RegExp(":question", 'g');
+                    chaine = chaine.replace(regex, this.questions[index]);
+                }
+            return eval("`"+chaine.replace(/\\/g,"\\\\")+"`");
+            } else if(typeof chaine === "object"){
+                /*for(let i in chaine){
+                    chaine[i] = this.replaceVars(chaine[i],index);
+                }*/
+                chaine = utils.restoreArray(JSON.parse(this.replaceVars(JSON.stringify(chaine))));
+                return chaine;
+            }
     }
     /**
     * 
@@ -1303,6 +1406,11 @@ class activity {
                 if(this.options[option].value === undefined){
                     this.cValue = this.valuePatterns;
                 } else this.cValue = this.options[option].value;
+                if(this.options[option].figure !== undefined){
+                    this.cFigure = utils.clone(this.options[option].figure);
+                } else if(this.figure !== undefined){
+                    this.cFigure = utils.clone(this.figure);
+                }
             } else {
                 this.cVars = this.vars;
                 if(pattern!==false)
@@ -1311,6 +1419,9 @@ class activity {
                     this.cQuestion = this.questionPatterns;
                 this.cAnswer = this.answerPatterns;
                 this.cValue = this.valuePatterns;
+                if(this.figure !== undefined){
+                    this.cFigure = utils.clone(this.figure);
+                }
             }
             // values generation
             for(const name in this.cVars) {
@@ -1335,131 +1446,16 @@ class activity {
                     }
                 }
             }
-            if(modeDebug)console.log(utils.clone(this.wVars));
+            if(modeDebug)console.log("wWars",utils.clone(this.wVars));
             // question text generation
-            if(typeof this.cQuestion === "string"){
-                this.questions[i] = eval("`"+this.replaceVars(this.cQuestion)+"`");
-            } else if(typeof this.cQuestion === "object"){
-                // generate all selected patterns
-                this.questions[i] = []
-                for(let jj=0;jj<this.cQuestion.length;jj++){
-                    this.questions[i].push(eval("`"+this.replaceVars(this.cQuestion[jj])+"`"));
-                }
-            }
-            if(typeof this.cAnswer === "string"){
-                this.answers[i] = eval("`"+this.replaceVars(this.cAnswer, i)+"`");
-            } else if(typeof this.cAnswer === "object"){
-                // generate all selected patterns
-                this.answers[i] = [];
-                for(let jj=0; jj<this.cAnswer.length; jj++){
-                    this.answers[i].push(eval("`"+this.replaceVars(this.cAnswer[jj], i)+"`"));
-                }
-            }
-            if(typeof this.cValue === "string"){
-                this.values[i] = eval("`"+this.replaceVars(this.cValue)+"`");
-            } else if(typeof this.cValue === "object"){
-                this.values[i]= []
-                // generate all patterns
-                for(let kk=0;kk< this.cValue.length;kk++){
-                    this.values[i][kk] = eval("`"+this.replaceVars(this.cValue[kk])+"`");
-                }
+            this.questions[i] = this.replaceVars(this.cQuestion);
+            this.answers[i] = this.replaceVars(this.cAnswer, i);
+            this.values[i] = this.replaceVars(this.cValue);
+            if(this.cFigure!== undefined){
+                this.figures[i] = {"type":this.cFigure.type,"content":this.replaceVars(this.cFigure.content)};
             }
         }
     }
 }
 // tests :
-activitiesArray =[{
-    "title":"Tables de Multiplications",
-    "ID":"mult",
-    "options":[
-        {"name":"Petites", "vars":{"a":"1_4", "b":"1_4"}},
-        {"name": "Moyennes", "vars":{"a":"5_7", "b":"5_7"}}
-    ],
-    "question":["\\bold{${:a}}\\times${:b}", "${:b}\\times\\bold{${:a}}"],
-    "answer":":question=\\color{red}{${:a*:b}}",
-    "value":"${:a*:b}"
-},{
-    "title":"Conversions vers les unités de base",
-    "ID":"convBase",
-    "options":[
-        // var k : unité d'où convertir et multiplicande
-        // var p : précision max (négative : multiples de l'unité, positive : sous-multiples) et nombre max
-        // var z : intervalle la précision
-        // var x : intervalle de tirage entre 0 et p nombre max, avec la précision p max et non nul ^0
-        {"name":"m", "vars":{"q":"m","k":[["km",1000], ["hm",100], ["dam",10], ["dm",0.1], ["cm",0.01], ["mm",0.001]],"p":[[2,0.1],[1,1],[0,10],[-1,100],[-2,1000]], "z":"${:p[0]}_3", "x":"d0_${:p[1]}_${:z}_^0"}},
-        {"name":"L", "vars":{"q":"L","k":[["hL",100], ["daL",10], ["dL",0.1], ["cL",0.01], ["mL",0.001]],"p":[[1,1],[0,10],[-1,100],[-2,1000]],"z":"${:p[0]}_3","x":"d0_${:p[1]}_${:z}_^0"}},
-        {"name":"g", "vars":{"q":"g","k":[["kg",1000], ["hg",100], ["dag",10], ["dg",0.1], ["cg",0.01], ["mg",0.001]],"p":[[1,1],[0,10],[-1,100],[-2,1000]], "z":"${:p[0]}_3", "x":"d0_${:p[1]}_${:z}_^0"}}
-    ],
-    "description":"Conversions des multiples et sous-multiples des m, L et g vers les m, L et g",
-    "question":"\\text{Convertir } ${:x} \\text{ ${:k[0]} en }\\color{blue}\\text{${:q}}",
-    "answer":"${:x} \\text{ ${:k[0]}} = \\color{red}{${math.round(:x*:k[1],7)}\\text{ ${:q}}}",
-    "value":"${math.round(:x*:k[1],7)}\\text{ ${:q}}"
-},{
-    "title":"Développer une identité remarquable",
-    "ID":"devIdRem",
-    // var a : entier entre 1 et 10
-    // var b : entier entre 2 et 10
-    // var c : variable
-    "vars":{"a":"1_10", "b":"2_10", "c":["u","v","t","x", "y", "z"]},
-    "options":[{
-        "name":"(ax+b)²",
-        "question": ["(${utils.signIfOne(:a)}${:c}+${:b})^2", "(${:b}+${utils.signIfOne(:a)}${:c})^2"],
-        "answer":":question=\\color{red}{${utils.signIfOne(math.pow(:a,2))}${:c}^2+${math.multiply(2,:a,:b)}${:c}+${math.pow(:b,2)}}",
-        "value":"${utils.signIfOne(math.pow(:a,2))}${:c}^2+${math.multiply(2,:a,:b)}${:c}+${math.pow(:b,2)}"    
-    },
-    {
-        "name":"(ax-b)²",
-        "question": ["(${utils.signIfOne(:a)}${:c}-${:b})^2", "(${:b}-${utils.signIfOne(:a)}${:c})^2"],
-        "answer":":question=\\color{red}{${utils.signIfOne(math.pow(:a,2))}${:c}^2-${math.multiply(2,:a,:b)}${:c}+${math.pow(:b,2)}}",
-        "value":"${utils.signIfOne(math.pow(:a,2))}${:c}^2-${math.multiply(2,:a,:b)}${:c}+${math.pow(:b,2)}"    
-    },
-    {
-        "name":"(ax-b)(ax+b)",
-        "question": [
-            "(${utils.signIfOne(:a)}${:c}-${:b})(${utils.signIfOne(:a)}${:c}+${:b})",
-            "(${utils.signIfOne(:a)}${:c}-${:b})(${:b}+${utils.signIfOne(:a)}${:c})",
-            "(${utils.signIfOne(:a)}${:c}+${:b})(${utils.signIfOne(:a)}${:c}-${:b})",
-            "(${:b}+${utils.signIfOne(:a)}${:c})(${utils.signIfOne(:a)}${:c}-${:b})"],
-        "answer":":question=\\color{red}{${utils.signIfOne(math.pow(:a,2))}${:c}^2-${math.pow(:b,2)}}",
-        "value":"${utils.signIfOne(math.pow(:a,2))}${:c}^2-${math.pow(:b,2)}"    
-    }
-    ]
-},{
-    "title":"Factoriser avec les identités remarquables",
-    "ID":"factIR",
-    "vars":{"k":"1_10", "b":"1_10", "c":["u","v","t","x", "y", "z"]},
-    "options":[
-        {
-            "name":"ax²+2abx+b²",
-            "question":["${utils.signIfOne(math.pow(:k,2))+:c}^2+${(2*:k*:b)+:c}+${math.pow(:b,2)}", "${utils.signIfOne(math.pow(:k,2))+:c}^2+${math.pow(:b,2)}+${(2*:k*:b)+:c}", "${(2*:k*:b)+:c}+${utils.signIfOne(math.pow(:k,2))+:c}^2+${math.pow(:b,2)}"],
-            "answer":":question=\\color{red}{(${utils.signIfOne(:k)+:c}+${:b})^2}",
-            "value":"(${utils.signIfOne(:k)+:c}+${:b})^2"
-        },
-        {
-            "name":"a²-2abx+b²",
-            "question":["${utils.signIfOne(math.pow(:k,2))+:c}^2-${(2*:k*:b)+:c}+${math.pow(:b,2)}", "${utils.signIfOne(math.pow(:k,2))+:c}^2+${math.pow(:b,2)}-${(2*:k*:b)+:c}", "-${(2*:k*:b)+:c}+${utils.signIfOne(math.pow(:k,2))+:c}^2+${math.pow(:b,2)}"],
-            "answer":":question=\\color{red}{(${utils.signIfOne(:k)+:c}-${:b})^2}",
-            "value":"(${utils.signIfOne(:k)+:c}-${:b})^2"
-        },
-        {
-            "name":"a²-b²",
-            "question":["${utils.signIfOne(math.pow(:k,2))+:c}^2-${math.pow(:b,2)}", "${math.pow(:b,2)}-${utils.signIfOne(math.pow(:k,2))+:c}^2"],
-            "answer":":question=\\color{red}{(${utils.signIfOne(:k)+:c}+${:b})(${:k+:c}-${:b})}",
-            "value":"(${utils.signIfOne(:k)+:c}+${:b})(${:k+:c}-${:b})"
-        },
-        {
-            "name":"(ax+b)²-c²",
-            "vars":{"a":"1_10", "b":"-10_10_^0", "c":["u","v","t","x", "y", "z"], "d":"1_10"},
-            "question":"(${utils.signIfOne(:a)+:c}${utils.signedNumber(:b)})^2-${math.pow(:d,2)}",
-            "answer":":question=\\color{red}{(${utils.signIfOne(:a)+:c}${utils.signedNumber(:b+:d)})(${utils.signIfOne(:a)+:c}${utils.signedNumber(:b-:d)})}",
-            "value":"(${utils.signIfOne(:a)+:c}${utils.signedNumber(:b+:d)})(${utils.signIfOne(:a)+:c}${utils.signedNumber(:b-:d)})"
-        }
-    ]
-},{
-    "title":"Test text",
-    "type":"text",
-    "vars":{"a":"10_100", "b":"50_60"},
-    "question":"Combien font $$${:a}\\times${:b}$$ ?",
-    "answer":"${:a*:b}",
-    "value":":answer"
-}];
+activitiesArray =["test","3NC1","3NC2","7MA1","9NF1", "testgraph"];
