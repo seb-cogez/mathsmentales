@@ -1,0 +1,32 @@
+{
+    "title":"Factoriser avec les identités remarquables",
+    "ID":"factIR",
+    "vars":{"k":"1_10", "b":"1_10", "c":["u","v","t","x", "y", "z"]},
+    "options":[
+        {
+            "name":"ax²+2abx+b²",
+            "question":["${utils.signIfOne(math.pow(:k,2))+:c}^2+${(2*:k*:b)+:c}+${math.pow(:b,2)}", "${utils.signIfOne(math.pow(:k,2))+:c}^2+${math.pow(:b,2)}+${(2*:k*:b)+:c}", "${(2*:k*:b)+:c}+${utils.signIfOne(math.pow(:k,2))+:c}^2+${math.pow(:b,2)}"],
+            "answer":":question=\\color{red}{(${utils.signIfOne(:k)+:c}+${:b})^2}",
+            "value":"(${utils.signIfOne(:k)+:c}+${:b})^2"
+        },
+        {
+            "name":"a²-2abx+b²",
+            "question":["${utils.signIfOne(math.pow(:k,2))+:c}^2-${(2*:k*:b)+:c}+${math.pow(:b,2)}", "${utils.signIfOne(math.pow(:k,2))+:c}^2+${math.pow(:b,2)}-${(2*:k*:b)+:c}", "-${(2*:k*:b)+:c}+${utils.signIfOne(math.pow(:k,2))+:c}^2+${math.pow(:b,2)}"],
+            "answer":":question=\\color{red}{(${utils.signIfOne(:k)+:c}-${:b})^2}",
+            "value":"(${utils.signIfOne(:k)+:c}-${:b})^2"
+        },
+        {
+            "name":"a²-b²",
+            "question":["${utils.signIfOne(math.pow(:k,2))+:c}^2-${math.pow(:b,2)}", "${math.pow(:b,2)}-${utils.signIfOne(math.pow(:k,2))+:c}^2"],
+            "answer":":question=\\color{red}{(${utils.signIfOne(:k)+:c}+${:b})(${:k+:c}-${:b})}",
+            "value":"(${utils.signIfOne(:k)+:c}+${:b})(${:k+:c}-${:b})"
+        },
+        {
+            "name":"(ax+b)²-c²",
+            "vars":{"a":"1_10", "b":"-10_10_^0", "c":["u","v","t","x", "y", "z"], "d":"1_10"},
+            "question":"(${utils.signIfOne(:a)+:c}${utils.signedNumber(:b)})^2-${math.pow(:d,2)}",
+            "answer":":question=\\color{red}{(${utils.signIfOne(:a)+:c}${utils.signedNumber(:b+:d)})(${utils.signIfOne(:a)+:c}${utils.signedNumber(:b-:d)})}",
+            "value":"(${utils.signIfOne(:a)+:c}${utils.signedNumber(:b+:d)})(${utils.signIfOne(:a)+:c}${utils.signedNumber(:b-:d)})"
+        }
+    ]
+}

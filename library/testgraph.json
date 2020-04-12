@@ -1,0 +1,9 @@
+{
+    "title":"Test de graphique",
+    "type":"text",
+    "vars":{"a":"10_100_5_^&","b":[["fraises", "bananes", "oranges", "kiwis", "pommes"], ["vélo", "trotinette", "voiture", "bus", "scooter"]]},
+    "figure":{"type":"chart", "content":{"type":"bar", "data":{"labels":"${:b}", "datasets":[{"label":"Graphique","backgroundColor": ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],"data":"${:a}"}]}}},
+    "question":"Quelle est la donnée la plus représentée ?",
+    "answer":"C'est ${:b[:a.indexOf(Math.max(...:a))]}",
+    "value":"${Math.max(...:a)}"
+}
