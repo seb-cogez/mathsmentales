@@ -773,6 +773,7 @@ MM = {
         MM.createSlideShows();
         for(let i=0;i<length;i++){
             for(let kk=0;kk<MM.carts[i].target.length;kk++){
+                let indiceSlide = 0;
                 let slideNumber = MM.carts[i].target[kk]-1;
                 let slider = document.getElementById("slider"+slideNumber);
                 document.querySelector("#slider"+slideNumber+" .slider-title").innerHTML = MM.carts[i].title;
@@ -798,8 +799,8 @@ MM = {
                         // sliders
                         let div = document.createElement("div");
                         div.className = "slide w3-animate-top";
-                        if(j>0) div.className += " hidden";
-                        div.id = "slide"+slideNumber+"-"+j;
+                        if(indiceSlide>0) div.className += " hidden";
+                        div.id = "slide"+slideNumber+"-"+indiceSlide;
                         let span = document.createElement("span");
                         let spanAns = document.createElement("span");
                         spanAns.className = "answerInSlide hidden";
@@ -826,13 +827,13 @@ MM = {
                         div.appendChild(span);
                         div.appendChild(spanAns);
                         slider.appendChild(div);
-                        let canvas=undefined;
                         if(element.figures[j] !== undefined){
-                            MM.figs[slideNumber+"-"+j] = new Figure(element.figures[j], "c"+slideNumber+"-"+j, div);
+                            MM.figs[slideNumber+"-"+indiceSlide] = new Figure(element.figures[j], "c"+slideNumber+"-"+indiceSlide, div);
                         }
                         ole.appendChild(lie);
                         lic.innerHTML = element.answers[j];
                         olc.appendChild(lic);
+                        indiceSlide++;
                     }
                 }
                 dive.append(ole);
@@ -1428,11 +1429,11 @@ class activity {
                 this.wVars[name]=this.cVars[name];
                 if(typeof this.wVars[name] === "string" && this.wVars[name].indexOf("\$\{")>-1){
                     // var is defined with other variable, we replace the variable with her value
-                    this.wVars[name] = eval("`"+this.replaceVars(this.wVars[name])+"`");
+                    this.wVars[name] = this.replaceVars(this.wVars[name]);
                 }
                 if(typeof this.wVars[name] === "object"){
                     // var is defined with an array of values
-                    this.wVars[name] = this.wVars[name][utils.aleaInt(0,this.wVars[name].length-1)];
+                    this.wVars[name] = this.replaceVars(this.wVars[name][utils.aleaInt(0,this.wVars[name].length-1)]);
                     /*if(this.wVars[name].indexOf("\$\{")>-1){
                         this.wVars[name] = eval("`"+this.replaceVars(this.wVars[name])+"`");
                     }*/
