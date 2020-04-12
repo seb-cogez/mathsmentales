@@ -23,6 +23,10 @@ Ces fichiers json comportent des *données obligatoires* :
  * *title* : titre de l'activité
  * *ID* : un identifiant unique de l'activité pour la retrouver facilement dans la base de données, correspond au nom du fichier json : ID.json
  * *vars* : objet json contenant la ou les variables utilisées dans l'activité
+   * une variable est une chaine ou un tableau. elle est interprétée pour tirer au sort des nombres uniques, des tableaux de nombres ...
+     * des entiers min_max ou min_max_quantité ou min_max_^liste de valeurs à éviter ou min_max_quantité_^&,val1,val2... & signifie pas de double
+     * des décimaux dmin_max_précision (pouvant être négative pour les puissances de 10 positives)
+     * une valeur dans un tableau
    * une variable a pourra être reprise dans une autre variable par un appel de type ${:a}
    * des calculs utilisant la bibliothèque math peuvent être effectués dans les paires d'accolades, exemple : ${math.multiply(:a,:b)}
    * d'autres traitements peuvent être effectués à l'aide de fonctions javascript ${:a.toUpperCase()}
@@ -148,5 +152,41 @@ Conversions
     "question":"\\text{Convertir } ${:x} \\text{ ${:k[0]} en }\\color{blue}\\text{${:q}}",
     "answer":"${:x} \\text{ ${:k[0]}} = \\color{red}{${math.round(:x*:k[1],7)}\\text{ ${:q}}}",
     "value":"${math.round(:x*:k[1],7)}\\text{ ${:q}}"
+}
+```
+
+Exemple avec du texte
+``` js
+{
+  "type":"text",
+  "title":"Table de 3",
+  "vars":{
+    "a":"2_10"
+  }
+  "question":"Combien font $$3\\times${:a}$$ ?",
+  "answer":"$$3\\times${:a}=\\color{red}{${3*:a}}$$"
+  "value":"${3*:a}"
+}
+```
+
+Exemple avec chartjs : représentation de données statistiques
+``` js
+{
+    "title":"Test de graphique",
+    "type":"text",
+    "vars":{
+      "a":"10_100_5_^&", // tire 5 entiers entre 10 et 100, tous différents (^&)
+      "b":[["fraises", "bananes", "oranges", "kiwis", "pommes"], ["vélo", "trotinette", "voiture", "bus", "scooter"]] // choisit l'un des deux tableaux
+      },
+    "figure":{
+      "type":"chart", // sera affiché à l'aide de la bibliothèque chartjs
+      "content":{ // les données passées à l'objet chartjs
+        "type":"bar", // le type de représentation
+        // les datas à afficher, dont les couleurs
+        "data":{"labels":"${:b}", "datasets":[{"label":"Graphique","backgroundColor": ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],"data":"${:a}"}]}}
+        },
+    "question":"Quelle est la donnée la plus représentée ?", // la question posée
+    "answer":"C'est ${:b[:a.indexOf(Math.max(...:a))]}", // la réponse attendue (le max de la série)
+    "value":"${Math.max(...:a)}"
 }
 ```
