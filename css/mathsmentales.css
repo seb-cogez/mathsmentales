@@ -377,8 +377,20 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
     display: flex;
     flex-direction: column;
 }
-.slide > span {
+.vertical .slide{
+  flex-direction: row;
+}
+.slide > span, .slide > div {
     margin:auto;
+}
+.slide > div {
+  height: 60%;
+  width:60%;
+}
+.vertical .slide > div {
+  margin-top:0;
+  height: 40%;
+  width: 40%;
 }
 .slideInAnswer {
     background-color: salmon;
