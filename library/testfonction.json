@@ -1,0 +1,11 @@
+{
+    "title":"Reconnaitre une représentation graphique",
+    "type":"text",
+    "vars":{"a":"d-2_2_1", "b":"-3_3"},
+    "figure":{"type":"graph", "content" :
+        {"functiongraph":"${:a}*x+${:b}"}
+    },
+    "question":"Quelle est l'ordonnée à l'origine de la fonction affine ?",
+    "answer":"L'ordonnée à l'origine de la fonction est <span class='red'>${:b}</span>",
+    "value":"${:b}"
+}
