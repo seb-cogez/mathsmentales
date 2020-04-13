@@ -383,11 +383,11 @@ window.onload = function(){
     utils.checkValues();
     //utils.resetAllTabs();
     utils.initializeAlea(Date());
-    activitiesArray.forEach(function(element,index){
+    activitiesArray.forEach(function(element){
         let ol = document.getElementById("actlist");
         let li = document.createElement("li");
-        li.onclick = function(){library.load(element)};
-        li.innerText = element;
+        li.onclick = function(){library.load(element[0])};
+        li.innerHTML = element[1];
         ol.appendChild(li);
     });
     MM.setDispositionEnonce(utils.getRadioChecked("Enonces"));
@@ -527,7 +527,7 @@ class steps {
 class Figure {
     constructor(obj, id, target){
         this.type = obj.type;
-        this.content = obj.content;//this.restoreArray(obj.content);
+        this.content = obj.content;
         this.id = id;
         this.figure = undefined;
         this.create(target);
@@ -543,13 +543,24 @@ class Figure {
             canvas.id = this.id;
             div.appendChild(canvas)            ;
             destination.appendChild(div);
+        } else if(this.type === "graph"){
+            let div = document.createElement("div");
+            div.id=this.id;
+            div.className = "jsxbox";
+            destination.appendChild(div);
         }
     }
     display(){
-        if(this.type === "chart"){
+        if(this.type === "chart"){ // Chart.js
             let target = document.getElementById(this.id);
             if(modeDebug)console.log("Chart data", target, utils.clone(this.content));
             this.figure = new Chart(target, this.content);
+        } else if(this.type === "graph"){ //JSXGraph
+            let b = JXG.JSXGraph.initBoard(this.id, {boundingbox:[-5,5,5,-5], keepaspectratio: true, showNavigation: false, showCopyright: false,registerEvents:false, axis:true});
+            if(this.content.functiongraph[0] !== undefined){
+                let formule = this.content.functiongraph[0];
+                b.create("functiongraph", [function(x){return eval(formule)}], {strokeWidth:2});
+            }
         }
     }
 }
@@ -725,7 +736,7 @@ MM = {
         for (let i=1,nb=MM.carts.length,btn;i<=4;i++){
             if(i<=nb)
                 btn = document.getElementById('button-cart'+i);
-            let div = document.getElementById('cart'+i);
+            let div = document.getElementById('cart'+(i-1));
             if(i!==index){
                 div.className = "hidden";
                 if(i<=nb)utils.removeClass(btn,"is-active");
@@ -1459,4 +1470,11 @@ class activity {
     }
 }
 // tests :
-activitiesArray =["test","3NC1","3NC2","7MA1","9NF1", "testgraph"];
+activitiesArray =[
+    ["3NC1", "Factoriser une identité remarquable"],
+    ["3NC2", "Développer une identité remarquable"],
+    ["7MA1", "Conversions vers les unités simples"],
+    ["9NF1", "Tables de multiplication"],
+    ["testgraph", "Trouver une valeur extrème dans un graphique statistique"],
+    ["testfonction", "Trouver l'ordonnée à l'origine"]
+];
