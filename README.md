@@ -15,6 +15,8 @@ Projet de réécriture du site MathsMentales.net qui permet de créer des diapor
  * [math.js](https://mathjs.org/) An extensive math library for Javascript (and Node.js)
  * [Sortable.js](http://sortablejs.github.io/Sortable/) Javascript library for reorderable drag-and-drop lists
  * [seedrandom.js](https://github.com/davidbau/seedrandom) pour créer des nombres aléatoires "controlés"
+ * [Chart.js](https://www.chartjs.org/) pour représenter des statistiques
+ * [JSXGraph](http://jsxgraph.uni-bayreuth.de/wp/index.html) pour les représentations graphiques
 
 ### Changement de fonctionnement de la bibliothèque d'activités.
 Elle est à présent réalisée à l'aide de fichiers json peu complexes
@@ -188,5 +190,20 @@ Exemple avec chartjs : représentation de données statistiques
     "question":"Quelle est la donnée la plus représentée ?", // la question posée
     "answer":"C'est ${:b[:a.indexOf(Math.max(...:a))]}", // la réponse attendue (le max de la série)
     "value":"${Math.max(...:a)}"
+}
+```
+
+Exemple avec JSXGraph
+``` js
+{
+    "title":"Reconnaitre une représentation graphique",
+    "type":"text",
+    "vars":{"a":"d-2_2_1", "b":"-3_3"},
+    "figure":{"type":"graph",
+    "content" : {"functiongraph":"${:a}*x+${:b}"} // functiongraph va tracer la représentation graphique de variable x. Attention à bien indiquer les signes opératoires entre x et les nombres connus
+    },
+    "question":"Quelle est l'ordonnée à l'origine de la fonction affine ?",
+    "answer":"L'ordonnée à l'origine de la fonction est <span class='red'>${:b}</span>", // la classe red affiche en rouge.
+    "value":"${:b}"
 }
 ```
