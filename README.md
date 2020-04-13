@@ -33,6 +33,7 @@ Ces fichiers json comportent des *données obligatoires* :
    * une variable a pourra être reprise dans une autre variable par un appel de type ${:a}
    * des calculs utilisant la bibliothèque math peuvent être effectués dans les paires d'accolades, exemple : ${math.multiply(:a,:b)}
    * d'autres traitements peuvent être effectués à l'aide de fonctions javascript ${:a.toUpperCase()}
+* **consts** : objet contenant des données constantes, telles que des tableaux
 * **question** : chaine unique ou tableau de chaines contenant le texte de la question
   * pour le cas du tableau, il est possible de choisir le type de question à afficher lors du paramétrage de l'activité
 * **answer** : chaine unique  ou tableau de chaines contenant la réponse à la question
