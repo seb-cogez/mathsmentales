@@ -295,7 +295,10 @@ ul.cart-list{
 /*
 * Enonces et corriges
 */
-
+.red {
+  color:red;
+  font-weight: bold;
+}
 
 /* Slides
 Animations from https://www.w3schools.com/w3css/4/w3.css 
