@@ -22,9 +22,10 @@ Projet de réécriture du site MathsMentales.net qui permet de créer des diapor
 Elle est à présent réalisée à l'aide de fichiers json peu complexes
 
 Ces fichiers json comportent des *données obligatoires* :
- * *title* : titre de l'activité
- * *ID* : un identifiant unique de l'activité pour la retrouver facilement dans la base de données, correspond au nom du fichier json : ID.json
- * *vars* : objet json contenant la ou les variables utilisées dans l'activité
+ * **title** : titre de l'activité
+ * **ID** : un identifiant unique de l'activité pour la retrouver facilement dans la base de données, correspond au nom du fichier json : ID.json (pas de doublon !)
+ * **niveaux** : la liste des niveaux et sous partie qui seront peuplés par l'activité, ex 7NA1 sera rangé en CM2 (**7**e) > **N**umérique > Comprendre et utiliser les nombres (**A**) > 1ère activité
+ * **vars** : objet json contenant la ou les variables utilisées dans l'activité
    * une variable est une chaine ou un tableau. elle est interprétée pour tirer au sort des nombres uniques, des tableaux de nombres ...
      * des entiers min_max ou min_max_quantité ou min_max_^liste de valeurs à éviter ou min_max_quantité_^&,val1,val2... & signifie pas de double
      * des décimaux dmin_max_précision (pouvant être négative pour les puissances de 10 positives)
@@ -32,17 +33,17 @@ Ces fichiers json comportent des *données obligatoires* :
    * une variable a pourra être reprise dans une autre variable par un appel de type ${:a}
    * des calculs utilisant la bibliothèque math peuvent être effectués dans les paires d'accolades, exemple : ${math.multiply(:a,:b)}
    * d'autres traitements peuvent être effectués à l'aide de fonctions javascript ${:a.toUpperCase()}
-* *question* : chaine unique ou tableau de chaines contenant le texte de la question
+* **question** : chaine unique ou tableau de chaines contenant le texte de la question
   * pour le cas du tableau, il est possible de choisir le type de question à afficher lors du paramétrage de l'activité
-* *answer* : chaine unique  ou tableau de chaines contenant la réponse à la question
+* **answer** : chaine unique  ou tableau de chaines contenant la réponse à la question
 
 ainsi que des *données optionnelles* :
- * *description* : texte décrivant de manière plus précise l'activité
- * *options* : tableau d'objets json pouvant contenir *title*, *vars*, *question*, *answer* et/ou *value*
+ * **description** : texte décrivant de manière plus précise l'activité
+ * **options** : tableau d'objets json pouvant contenir *title*, *vars*, *question*, *answer* et/ou *value*
    * une variable non définie prend la valeur de l'objet parent.
- * *value* : chaine ou tableau de chaines contenant les réponses attendues dans le formulaire de réponse en ligne
- * (prochainement) *type* : valeurs possible : "texte", "latex" qui indique le type de rendu des questions/réponses
- * (prochainement) *figure* : chaine contenant une figure illustrant l'activité
+ * **value** : chaine ou tableau de chaines contenant les réponses attendues dans le formulaire de réponse en ligne
+ * **type** : valeurs possible : "texte", "latex" qui indique le type de rendu des questions/réponses
+ * **figure** : chaine contenant une figure illustrant l'activité
 ---
 
 ### Fichiers exemple :
