@@ -1,3 +1,5 @@
+"use strict"
+
 // Javascript Objects extensions
 String.prototype.minusculesSansAccent = function(){
     var accent = [
@@ -46,6 +48,9 @@ String.prototype.shuffle = function() {
      return (Math.random() < 0.5 ? 1 : -1);
    }).join("");
 };
+var debug = function(){
+    if(modeDebug)console.log(arguments);
+}
 // Some traductions
 var moisFR = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
 var joursFR = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
@@ -59,7 +64,7 @@ var modeDebug = true;
 * @params elt (DOMelt)
 * @params newClass (String) : string of coma separated classnames
 */
-utils = {
+var utils = {
     seed: "sample",
     security:300,// max number for boucles
     addClass:function(elt,newClass){
@@ -239,10 +244,7 @@ utils = {
             let nb;
             var floats=[];
             for(let i=0;i<qty;i++){
-                if(precision>=0)
-                    nb = math.round(utils.alea()*(max-min)+min,precision);
-                else
-                    nb = Number(math.round(Number((utils.alea()*(max-min)+min)+"e"+precision))+"e"+(-precision));
+                nb = math.round(utils.alea()*(max-min)+min,precision);
                 if(avoid.indexOf(nb)>-1 || (nodouble && integers.indexOf(thisint)>-1)){
                     i--;
                     if(!utils.checkSecurity()) break;
@@ -256,10 +258,7 @@ utils = {
         } else { // one value
             let nb;
             do {
-                if(precision>=0)
-                    nb = math.round(utils.alea()*(max-min)+min,precision);
-                else
-                    nb = Number(math.round(Number((utils.alea()*(max-min)+min)+"e"+precision))+"e"+(-precision));
+                nb = math.round(utils.alea()*(max-min)+min,precision);
                 if(!utils.checkSecurity()) break;
                 if(modeDebug)console.log(nb);
             }
@@ -298,11 +297,12 @@ utils = {
     },
     resetAllTabs : function(){
         let tabsButtons = document.querySelectorAll("#header-menu .tabs-menu-link");
-        tabsButtons[tabsButtons.length] = document.getElementById("btnaccueil");
         let contents = document.querySelectorAll(".tabs-content-item");
+        document.getElementById("tab-accueil").display = "none";
         contents.forEach(element => {
             element.style.display = "none";
         });
+        utils.removeClass(document.getElementById("btnaccueil"), "is-active");
         tabsButtons.forEach(element => {
             utils.removeClass(element, "is-active");
         });
@@ -313,6 +313,7 @@ utils = {
     mathRender: function() {
         let contents = ["tab-enonce", "tab-corrige", "activityOptions"];
         contents.forEach(id => {
+            // search for $$ formulas $$ => span / span
             let content = document.getElementById(id).innerHTML;
             document.getElementById(id).innerHTML = content.replace(/\$\$([^$]*)\$\$/gi, '<span class="math">$1</span>');
         });
@@ -321,12 +322,14 @@ utils = {
 
         });
         document.querySelectorAll(".math").forEach(function(item) {
-          var texTxt = item.innerHTML;
+            // transform ascii to Latex
+          var texTxt = MM.ascii2tex.parse(item.innerHTML);
           texTxt = texTxt.replace(/\./g, "{,}");
           try {
             katex.render(texTxt, item, {
               throwOnError: false,
-              errorColor: "#FFF"
+              errorColor: "#FFF",
+              colorIsTextColor: true
             });
             utils.removeClass(item,"math");
           } catch (err) {
@@ -368,8 +371,47 @@ utils = {
         return obj;
     }
 }
+var math ={
+    /**
+     * 
+     * @param {float} nb number to be rounded
+     * @param {integer} precision may positiv or negativ
+     */
+    round: function(nb, precision){
+        if(precision === undefined){
+            return Math.round(nb);
+        } else{
+            return Number(Math.round(Number(nb+'e'+precision))+'e'+(-precision));
+        }
+    },
+    valeurParDefaut: function(valeur, precision) {
+        if(precision === undefined){
+            return Math.floor(valeur);
+        } else
+        return Number(Math.floor(valeur + 'e' + precision)) + 'e' + (-precision);
+      },
+    valeurParExces: function(valeur, precision) {
+        if(precision === undefined){
+            return Math.ceil(valeur);
+        } else
+        return Number(Math.ceil(valeur + 'e' + precision)) + 'e' + (-precision);
+    },
+    listeProduits:function(entier, max){
+        let liste = [];
+        if(max === undefined)max=10;
+        for(let i=1,top=Math.floor(Math.sqrt(entier));i<=top;i++){
+            let reste = entier%i, quotient = ~~(entier/i);
+            if(reste == 0 && i<=max && quotient<=max){
+                liste.push(i+"\\times"+quotient);
+            }
+        }
+        return liste.join(";");
+    }
+}
 // test de seedrandom
 window.onload = function(){
+    // for ascii notations, used by math parser
+    MM.ascii2tex = new AsciiMathParser();
     MM.resetCarts();
     // interface
     let tabsButtons = document.querySelectorAll("#header-menu .tabs-menu-link");
@@ -383,13 +425,15 @@ window.onload = function(){
     utils.checkValues();
     //utils.resetAllTabs();
     utils.initializeAlea(Date());
-    activitiesArray.forEach(function(element){
+    /*activities.forEach(function(element){
         let ol = document.getElementById("actlist");
         let li = document.createElement("li");
         li.onclick = function(){library.load(element[0])};
         li.innerHTML = element[1];
         ol.appendChild(li);
-    });
+    });*/
+    library.openContents();
+    // to show de good checked display
     MM.setDispositionEnonce(utils.getRadioChecked("Enonces"));
 }
 class cart {
@@ -476,7 +520,7 @@ class steps {
     constructor(obj){
         this.step = 0;
         this.size = obj.size;
-        this.contener = obj.contener;
+        this.container = obj.container;
     }
     addSize(value){
         this.size += value;
@@ -506,13 +550,13 @@ class steps {
             }
             ul.appendChild(li);
         }
-        if(this.contener.hasChildNodes()){
+        if(this.container.hasChildNodes()){
             if(modeDebug) console.log("Replace Steps",this.step, this.size);
-            let node = this.contener.childNodes[0];
-            this.contener.replaceChild(ul, node);
+            let node = this.container.childNodes[0];
+            this.container.replaceChild(ul, node);
         } else {
             if(modeDebug) console.log("Insert Steps",this.step, this.size);
-            this.contener.appendChild(ul);
+            this.container.appendChild(ul);
         }
     }
     nextStep(){
@@ -553,13 +597,13 @@ class Figure {
     display(){
         if(this.type === "chart"){ // Chart.js
             let target = document.getElementById(this.id);
-            if(modeDebug)console.log("Chart data", target, utils.clone(this.content));
+            debug("Chart data", target, utils.clone(this.content));
             this.figure = new Chart(target, this.content);
         } else if(this.type === "graph"){ //JSXGraph
-            let b = JXG.JSXGraph.initBoard(this.id, {boundingbox:[-5,5,5,-5], keepaspectratio: true, showNavigation: false, showCopyright: false,registerEvents:false, axis:true});
+            this.figure = JXG.JSXGraph.initBoard(this.id, {boundingbox:[-5,5,5,-5], keepaspectratio: true, showNavigation: false, showCopyright: false,registerEvents:false, axis:true});
             if(this.content.functiongraph[0] !== undefined){
                 let formule = this.content.functiongraph[0];
-                b.create("functiongraph", [function(x){return eval(formule)}], {strokeWidth:2});
+                this.figure.create("functiongraph", [function(x){return eval(formule)}], {strokeWidth:2});
             }
         }
     }
@@ -641,7 +685,8 @@ class timer {
     }
 }
 // MathsMentales core
-MM = {
+var MM = {
+    content:undefined, // liste des exercices classés niveau/theme/chapitre chargé au démarrage
     selectedCart:0,
     seed:"", // String to initialize the randomization
     editedActivity:undefined, // object activity 
@@ -789,7 +834,7 @@ MM = {
                 let slider = document.getElementById("slider"+slideNumber);
                 document.querySelector("#slider"+slideNumber+" .slider-title").innerHTML = MM.carts[i].title;
                 if(modeDebug)console.log(slider);
-                let sliderSteps = document.querySelector("#slider"+slideNumber+" .steps-contener");
+                let sliderSteps = document.querySelector("#slider"+slideNumber+" .steps-container");
                 let dive = document.createElement("div");
                 let divc = document.createElement("div");
                 let h3e = document.createElement("h3");
@@ -800,7 +845,7 @@ MM = {
                 divc.append(h3c);
                 let ole = document.createElement("ol");
                 let olc = document.createElement("ol");
-                MM.steps[slideNumber] = new steps({size:0, contener:sliderSteps});
+                MM.steps[slideNumber] = new steps({size:0, container:sliderSteps});
                 MM.timers[slideNumber] = new timer(slideNumber);
                 for(let z=0,len=MM.carts[i].activities.length;z<len;z++){
                     let element = MM.carts[i].activities[z];
@@ -820,7 +865,7 @@ MM = {
                         // enoncés et corrigés
                         let lie = document.createElement("li");
                         let lic = document.createElement("li");
-                        if(element.type === undefined || element.type === "latex"){
+                        if(element.type === undefined || element.type === "" || element.type === "latex"){
                             lie.className = "math";
                             lic.className = "math";
                             span.className="math";
@@ -893,10 +938,10 @@ MM = {
      */
     createSlideShows:function(){
         let nb = MM.slidersNumber;
-        let contener = document.getElementById("slideshow");
-        contener.innerHTML = "";
-        if(MM.slidersOrientation === "vertical")contener.className = "hidden vertical";
-        else contener.className = "hidden";
+        let container = document.getElementById("slideshow");
+        container.innerHTML = "";
+        if(MM.slidersOrientation === "vertical")container.className = "hidden vertical";
+        else container.className = "hidden";
         for(let i=0;i<nb;i++){
             let div = document.createElement("div");
             div.id = "slider"+i;
@@ -911,12 +956,13 @@ MM = {
             </div>
             <div class="slider-title"></div>
             <div class="slider-chrono"><progress class="progress is-link is-large" value="0" max="100"></progress></div>
-            <div class="steps-contener"></div>`;
-            contener.appendChild(div);
+            <div class="steps-container"></div>`;
+            container.appendChild(div);
         }
     },
     showSlideShows:function(){
-        utils.removeClass(document.getElementById("slideshow"),"hidden");
+        utils.removeClass(document.getElementById("slideshow-container"),"hidden");
+        utils.addClass(document.getElementById("app-container"), "hidden");
         if(!utils.isEmpty(MM.figs)){
             MM.displayFirstFigs();
         }
@@ -929,7 +975,7 @@ MM = {
         }
     },
     hideSlideshows:function(){
-        utils.addClass(document.getElementById("slideshow"),"hidden");
+        utils.addClass(document.getElementById("slideshow-container"),"hidden");
         // TODO : whats next ?
         let whatToDo = utils.getRadioChecked("endOfSlideRadio");
         if(whatToDo === "correction"){
@@ -987,6 +1033,25 @@ MM = {
         }
         if(ended){
             MM.hideSlideshows();
+            if(MM.carts.length === 1 && MM.carts[0].activities.length === 1){
+                MM.resetCarts();
+                MM.editedActivity.display();
+            }    
+        }
+    },
+    pauseAllSliders(){
+        for(let i=0,l=MM.timers.length; i<l;i++){
+            MM.timers[i].pause();
+        }
+    },
+    stopAllSliders:function(){
+        for(let i=0,l=MM.timers.length; i<l;i++){
+            MM.timers[i].end();
+        }
+    },
+    nextAllSliders:function(){
+        for(let i=0,l=MM.steps.length;i<l;i++){
+            MM.nextSlide(i);
         }
     },
     setMinimalDisposition:function(index){
@@ -1097,11 +1162,10 @@ MM = {
 }
 
 // lecture de la bibliotheque
-library = {
+var library = {
     open:function(json){
         let obj = new activity(json);
         MM.editedActivity = obj;
-        //MM.carts[MM.selectedCart].addActivity(obj);
         // show tab-content
         var tab = document.querySelector("a[href$='parameters'].tabs-menu-link");
         utils.resetAllTabs();
@@ -1117,8 +1181,43 @@ library = {
             let json = JSON.parse(reader.responseText);
             library.open(json);
         }
-        reader.open("get", "library/"+url+".json", true);
+        reader.open("get", "library/"+url, true);
         reader.send();
+    },
+    openContents:function(){
+        let reader = new XMLHttpRequest();
+        reader.onload = function(){
+            MM.content = JSON.parse(reader.responseText);
+        }
+        reader.open("get", "library/content.json", true);
+        reader.send();
+    },
+    displayContent:function(level){
+        if(MM.content === undefined) console.log("Pas de bibliothèque");
+        let niveau = MM.content[level];
+        let html = "<h1>Niveau "+niveau["nom"]+"</h1>";
+        for(let i in niveau["themes"]){
+            let theme = false;
+            let htmlt = "<h2>"+niveau["themes"][i]["nom"]+"</h2>";
+            for(let j in niveau["themes"][i]["chapitres"]){
+                let chapitre = false;
+                let htmlc = "<span><h3>"+niveau["themes"][i]["chapitres"][j]["nom"]+"</h3>";
+                htmlc += "<ul>";
+                if(niveau["themes"][i]["chapitres"][j]["exercices"].length){
+                    theme=true;chapitre=true;
+                    for(let k=0,len=niveau["themes"][i]["chapitres"][j]["exercices"].length;k<len;k++){
+                        htmlc += "<li onclick=\"library.load('"+niveau["themes"][i]["chapitres"][j]["exercices"][k]["url"]+"')\">"+niveau["themes"][i]["chapitres"][j]["exercices"][k]["title"]+"</li>";
+                    }
+                } else {
+                    htmlc += "<li>Pas encore d'exercice</li>";
+                }
+                htmlc += "</ul>";
+                if(chapitre)htmlt+=htmlc+"</span>";
+            }
+            if(theme)html+=htmlt;
+        }
+        document.getElementById("tab-chercher").innerHTML = html;
+        document.querySelector("#header-menu a[href='#tab-chercher']").click();
     }
 }
 // lecture des fichiers exercice
@@ -1143,10 +1242,11 @@ class activity {
     constructor(obj){
         this.id = obj.id||obj.ID;
         this.type = obj.type; // undefined => latex , "text" can include math, with $$ around
-        this.figure = obj.figure; // for graphics
+        this.figure = obj.figure; // for graphics description
         this.title = obj.title;  // title of de activity
         this.description = obj.description; // long description
         this.vars = obj.vars;
+        this.consts = obj.consts;
         this.options = utils.clone(obj.options)||undefined;
         this.questionPatterns = utils.clone(obj.questionPatterns)||obj.question;
         this.answerPatterns = utils.clone(obj.answerPatterns) || obj.answer;
@@ -1154,17 +1254,21 @@ class activity {
         this.questions = utils.clone(obj.questions)||[];
         this.answers = utils.clone(obj.answers)||[];
         this.values = utils.clone(obj.values)||[];
-        this.figures = utils.clone(obj.figures)||[];
+        this.figures = utils.clone(obj.figures)||[]; // generetad figures paramaters
+        this.examplesFigs = {}; // genrated graphics from Class Figure
         this.chosenOptions = utils.clone(obj.chosenOptions)||[];
         this.chosenQuestions = utils.clone(obj.chosenQuestions)||{};
         this.chosenQuestionTypes = utils.clone(obj.chosenQuestionTypes)||[];
         this.tempo = utils.clone(obj.tempo) || Number(document.getElementById("tempo-slider").value);
         this.nbq = utils.clone(obj.nbq) || Number(document.getElementById("nbq-slider").value);
+        this.seed = "";// used seed for generation, so you can replicate it
     }
     initialize(){
         this.questions = [];
         this.answers = [];
         this.values = [];
+        this.figures = [];
+        this.examplesFigs = {};
     }
     setTempo(value){
         this.tempo = Number(value);
@@ -1194,6 +1298,7 @@ class activity {
      */
     display(){
         this.initialize();
+        document.getElementById("param-title-act").innerHTML = this.id;
         // affichages
         document.getElementById('activityTitle').innerHTML = this.title;
         if(this.description)
@@ -1223,6 +1328,9 @@ class activity {
                 } else {
                     let li = document.createElement("li");
                     li.innerHTML = this.setMath(this.questions[0]) +"</p>";
+                    if(this.figures[0]){
+                        this.examplesFigs[i] = new Figure(utils.clone(this.figures[0]), "fig-ex"+i, li);
+                    }
                     ul.appendChild(li);
                 }
                 examples.appendChild(ul);
@@ -1240,11 +1348,22 @@ class activity {
             } else {
                 let li = document.createElement("li");
                 li.innerHTML = this.setMath(this.questions[0]) +"</p>";
+                if(this.figures[0]){
+                    this.examplesFigs[0] = new Figure(utils.clone(this.figures[0]), "fig-ex"+0, li);
+                }
                 ul.appendChild(li);
             }
             // display answer
             examples.appendChild(ul);
             examples.innerHTML += "<p>"+this.setMath(this.answers[0])+"</p>";
+        }
+        if(!utils.isEmpty(this.examplesFigs)){
+            // it has to take his time... 
+            setTimeout(function(){
+                for(let i in MM.editedActivity.examplesFigs){
+                    MM.editedActivity.examplesFigs[i].display();
+                }
+            }, 300);
         }
         utils.mathRender();
     }
@@ -1365,17 +1484,24 @@ class activity {
                     let regex = new RegExp(":"+c, 'g');
                     chaine = chaine.replace(regex, "this.wVars['"+c+"']");
                 }
+                for(const c in this.cConsts){
+                    let regex = new RegExp(":"+c, 'g');
+                    chaine = chaine.replace(regex, "this.cConsts['"+c+"']");
+                }
                 // check if question as to be written in answer
+                // index needed to find the question
                 if(index !== undefined){
                     //if(modeDebug)console.log(this.questions[index]);
                     let regex = new RegExp(":question", 'g');
                     chaine = chaine.replace(regex, this.questions[index]);
                 }
+            //debug("Chaine à parser", chaine);
             return eval("`"+chaine.replace(/\\/g,"\\\\")+"`");
             } else if(typeof chaine === "object"){
                 /*for(let i in chaine){
                     chaine[i] = this.replaceVars(chaine[i],index);
                 }*/
+                //debug("objet à parser", chaine);
                 chaine = utils.restoreArray(JSON.parse(this.replaceVars(JSON.stringify(chaine))));
                 return chaine;
             }
@@ -1405,6 +1531,9 @@ class activity {
                 if(this.options[option].vars === undefined){
                     this.cVars = this.vars;
                 } else this.cVars = this.options[option].vars;
+                if(this.options[option].consts === undefined){
+                    this.cConsts = this.consts;
+                } else this.cConsts = this.options[option].consts;
                 if(pattern !== false){
                     if(this.options[option].question !== undefined)
                         this.cQuestion = this.options[option].question[pattern];
@@ -1425,6 +1554,7 @@ class activity {
                 }
             } else {
                 this.cVars = this.vars;
+                this.cConsts = this.consts;
                 if(pattern!==false)
                     this.cQuestion = this.questionPatterns[pattern];
                 else 
@@ -1458,6 +1588,9 @@ class activity {
                     }
                 }
             }
+            if(this.cConsts !== undefined){
+                this.cConsts = this.replaceVars(this.cConsts);
+            }
             if(modeDebug)console.log("wWars",utils.clone(this.wVars));
             // question text generation
             this.questions[i] = this.replaceVars(this.cQuestion);
@@ -1469,12 +1602,3 @@ class activity {
         }
     }
 }
-// tests :
-activitiesArray =[
-    ["3NC1", "Factoriser une identité remarquable"],
-    ["3NC2", "Développer une identité remarquable"],
-    ["7MA1", "Conversions vers les unités simples"],
-    ["9NF1", "Tables de multiplication"],
-    ["testgraph", "Trouver une valeur extrème dans un graphique statistique"],
-    ["testfonction", "Trouver l'ordonnée à l'origine"]
-];
