@@ -1,0 +1,20 @@
+{
+    "title":"",
+    "type":"",
+    "ID":"",
+    "dest":[""],
+    "consts":{"d":""},
+    "vars":{"a":"", "b":"", "c":["u","v","t","x", "y", "z"]},
+    "options":[{
+        "name":"",
+        "question": ["", ""],
+        "answer":"",
+        "vars":{},
+        "consts":{},
+        "value":""
+    }
+    ],
+    "question":"",
+    "answer":"",
+    "value":""
+}

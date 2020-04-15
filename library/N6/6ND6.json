@@ -1,0 +1,37 @@
+{
+    "title":"Tables classiques",
+    "ID":"6ND6",
+    "dest":["6ND", "7ND", "8ND", "9ND"],
+    "options":[{
+        "name":"Table de 2",
+        "vars":{"a":2, "b":"0_10"}
+    },{
+        "name":"Table de 3",
+        "vars":{"a":3, "b":"0_10"}
+    },{
+        "name":"Table de 4",
+        "vars":{"a":4, "b":"0_10"}
+    },{
+        "name":"Table de 5",
+        "vars":{"a":5, "b":"0_10"}
+    },{
+        "name":"Table de 6",
+        "vars":{"a":6, "b":"0_10"}
+    },{
+        "name":"Table de 7",
+        "vars":{"a":2, "b":"0_10"}
+    },{
+        "name":"Table de 8",
+        "vars":{"a":8, "b":"0_10"}
+    },{
+        "name":"Table de 9",
+        "vars":{"a":9, "b":"0_10"}
+    },{
+        "name":"Table de 10",
+        "vars":{"a":10, "b":"0_10"}
+    }
+    ],
+    "question":["${:a}\\times${:b}", "${:b}\\times${:a}"],
+    "answer":"${:a}\\times${:b}=\\color{red}{${:a*:b}}",
+    "value":"${:a*:b}"
+}
