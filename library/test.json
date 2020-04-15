@@ -1,8 +1,0 @@
-{
-    "title":"Test text",
-    "type":"text",
-    "vars":{"a":"10_100", "b":"50_60"},
-    "question":"Combien font $$${:a}\\times${:b}$$ ?",
-    "answer":"$$${:a}\\times${:b}=\\color{red}${:a*:b}$$",
-    "value":":answer"
-}
