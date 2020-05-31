@@ -23,21 +23,13 @@ class AsciiMathParser {
             {"asciimath":"EE","tex":"\\exists"},
             {"asciimath":"forall","tex":"\\forall"},
             {"asciimath":"AA","tex":"\\forall"},
-<<<<<<< HEAD
-            {"asciimath":">=","tex":"\\ge"},
-=======
             {"asciimath":">=","tex":"\\\geqslant"},
->>>>>>> Mise à jour suite à lecture de doc de VS studio + git
             {"asciimath":"ge","tex":"\\ge"},
             {"asciimath":"gt=","tex":"\\geq"},
             {"asciimath":"geq","tex":"\\geq"},
             {"asciimath":"gt","tex":"\\gt"},
             {"asciimath":"in","tex":"\\in"},
-<<<<<<< HEAD
-            {"asciimath":"<=","tex":"\\le"},
-=======
             {"asciimath":"<=","tex":"\\leqslant"},
->>>>>>> Mise à jour suite à lecture de doc de VS studio + git
             {"asciimath":"le","tex":"\\le"},
             {"asciimath":"lt=","tex":"\\leq"},
             {"asciimath":"leq","tex":"\\leq"},

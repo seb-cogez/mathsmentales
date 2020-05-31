@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
     "title":"Ordre de grandeur d'une opération",
     "ID":"6NC4",
@@ -40,47 +39,4 @@
         "value":"${:rep}"
     }
     ]
-=======
-{
-    "title":"Ordre de grandeur d'une opération",
-    "ID":"6NC4",
-    "dest":["6NC"],
-    "options":[{
-        "name":"Ordre de grandeur d'une somme",
-        "vars":{"a":[10,100,1000,10000],
-            "c":"1_14", "d":"1_14",
-            "e":"d-0.25_0.25_3","f":"d-0.25_0.25_3",
-        "n1":"${:a*:c}","n2":"${:a*:d}","p1":"${math.round(:n1+:a*:e,0)}","p2":"${math.round(:n2+:a*:f,0)}",
-        "rep":"${:n1+:n2}"
-        },
-        "question": "${:p1}+${:p2}",
-        "answer":":question \\approx color(red)(${:rep}) color(blue)(=${:n1}+${:n2})",
-        "value":"${:rep}"
-    },
-    {
-        "name":"Ordre de grandeur d'une différence",
-        "vars":{"a":[10,100,1000,10000],
-            "c":"1_14", "d":"${:c}_16",
-            "e":"d-0.25_0.25_3","f":"d-0.25_0.25_3",
-        "n1":"${:a*:c}","n2":"${:a*:d}","p1":"${math.round(:n1+:a*:e,0)}","p2":"${math.round(:n2+:a*:f,0)}",
-        "rep":"${:n2-:n1}"
-        },
-        "question": "${:p2}-${:p1}",
-        "answer":":question \\approx color(red)(${:rep}) color(blue)(=${:n2}-${:n1})",
-        "value":"${:rep}"
-    },
-    {
-        "name":"Ordre de grandeur d'un produit",
-        "vars":{"a":[10,100,1000],"b":[10,100,1000],
-            "c":"1_9", "d":"2_9",
-            "e":"d-0.25_0.25_3","f":"d-0.25_0.25_3",
-        "n1":"${:a*:c}","n2":"${:b*:d}","p1":"${math.round(:n1+:a*:e,0)}","p2":"${math.round(:n2+:b*:f,0)}",
-        "rep":"${:n2*:n1}"
-        },
-        "question": "${:p1}*${:p2}",
-        "answer":":question \\approx color(red)(${:rep}) color(blue)(=${:n1}*${:n2})",
-        "value":"${:rep}"
-    }
-    ]
->>>>>>> Mise à jour suite à lecture de doc de VS studio + git
 }

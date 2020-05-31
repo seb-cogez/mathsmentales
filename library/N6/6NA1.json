@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
     "title":"Place du chiffre 9",
     "type":"text",
@@ -26,33 +25,4 @@
         }
     ],
     "question": "Dans $$${:c}$$, quelle est la valeur du chiffre 9 ?"
-=======
-{
-    "title":"Place du chiffre 9",
-    "type":"text",
-    "ID":"6NA1",
-    "dest":["7NA", "6NA", "5NA"],
-    "consts":{"u":["centaines", "dizaines", "unités"],
-        "v":["centaines de mille", "dizaines de mille", "unités de mille","centaines", "dizaines", "unités"],
-        "w":["centaines de million", "dizaines de millions", "unités de millions","centaines de mille", "dizaines de mille", "unités de mille","centaines", "dizaines", "unités"]
-    },
-    "options":[{
-        "name":"Nombres inférieurs à $$1000$$",
-        "vars":{"a":"0_8_3_^&", "b":"0_2", "c":"${:a.join('').replace(:a[:b],'9')}"},
-        "answer":"Dans ${:c}, 9 est le chiffre des <span class='red'>${:u[:b]}</span>",
-        "value":"${:u[:b]}"
-        },{
-        "name":"Nombres inférieurs à $$1000000$$",
-        "vars":{"a":"0_8_6_^&", "b":"0_5", "c":"${:a.join('').replace(:a[:b],'9')}"},
-        "answer":"Dans ${:c}, 9 est le chiffre des <span class='red'>${:v[:b]}</span>",
-        "value":"${:v[:b]}"
-        },{
-        "name":"Nombres inférieurs à $$1000000000$$",
-        "vars":{"a":"0_8_9_^&", "b":"0_8", "c":"${:a.join('').replace(:a[:b],'9')}"},
-        "answer":"Dans ${:c}, 9 est le chiffre des <span class='red'>${:w[:b]}</span>",
-        "value":"${:w[:b]}"
-        }
-    ],
-    "question": "Dans $$${:c}$$, quelle est la valeur du chiffre 9 ?"
->>>>>>> Mise à jour suite à lecture de doc de VS studio + git
 }

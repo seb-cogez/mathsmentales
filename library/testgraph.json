@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
     "title":"Test de graphique",
     "type":"text",
@@ -9,16 +8,4 @@
     "question":"${:c[0]}",
     "answer":"${:c[1]}",
     "value":"${:c[2]}"
-=======
-{
-    "title":"Test de graphique",
-    "type":"text",
-    "vars":{"a":"10_100_5_^&","b":[["fraises", "bananes", "oranges", "kiwis", "pommes"], ["vélo", "trotinette", "voiture", "bus", "scooter"]],
-        "c":[["Quelle est la données la plus représentée ?", "C'est ${:b[:a.indexOf(Math.max(...:a))]}", "${Math.max(...:a)}"],
-        ["Quelle est la données la moins représentée ?","C'est ${:b[:a.indexOf(Math.min(...:a))]}", "${Math.min(...:a)}"]]},
-    "figure":{"type":"chart", "content":{"type":"bar", "data":{"labels":"${:b}", "datasets":[{"label":"Graphique","backgroundColor": ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],"data":"${:a}"}]}}},
-    "question":"${:c[0]}",
-    "answer":"${:c[1]}",
-    "value":"${:c[2]}"
->>>>>>> Mise à jour suite à lecture de doc de VS studio + git
 }

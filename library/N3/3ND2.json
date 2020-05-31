@@ -1,33 +1,3 @@
-<<<<<<< HEAD
-{
-    "title":"Développer une identité remarquable",
-    "ID":"3ND2",
-    "dest":["3ND"],
-    "vars":{"a":"1_10", "b":"2_10", "c":["u","v","t","x", "y", "z"]},
-    "options":[{
-        "name":"(ax+b)²",
-        "question": ["(${utils.signIfOne(:a)}${:c}+${:b})^2", "(${:b}+${utils.signIfOne(:a)}${:c})^2"],
-        "answer":":question=\\color{red}{${utils.signIfOne(:a*:a)}${:c}^2+${2*:a*:b}${:c}+${:b*:b}}",
-        "value":"${utils.signIfOne(:a*:a)}${:c}^2+${2*:a*:b}${:c}+${:b*:b}"    
-    },
-    {
-        "name":"(ax-b)²",
-        "question": ["(${utils.signIfOne(:a)}${:c}-${:b})^2", "(${:b}-${utils.signIfOne(:a)}${:c})^2"],
-        "answer":":question=\\color{red}{${utils.signIfOne(:a*:a)}${:c}^2-${2*:a*:b}${:c}+${:b*:b}}",
-        "value":"${utils.signIfOne(:a*:a)}${:c}^2-${2*:a*:b}${:c}+${:b*:b}"    
-    },
-    {
-        "name":"(ax-b)(ax+b)",
-        "question": [
-            "(${utils.signIfOne(:a)}${:c}-${:b})(${utils.signIfOne(:a)}${:c}+${:b})",
-            "(${utils.signIfOne(:a)}${:c}-${:b})(${:b}+${utils.signIfOne(:a)}${:c})",
-            "(${utils.signIfOne(:a)}${:c}+${:b})(${utils.signIfOne(:a)}${:c}-${:b})",
-            "(${:b}+${utils.signIfOne(:a)}${:c})(${utils.signIfOne(:a)}${:c}-${:b})"],
-        "answer":":question=\\color{red}{${utils.signIfOne(:a*:a)}${:c}^2-${:b*:b}}",
-        "value":"${utils.signIfOne(:a*:a)}${:c}^2-${:b*:b}"    
-    }
-    ]
-=======
 {
     "title":"Développer une identité remarquable",
     "ID":"3ND2",
@@ -56,5 +26,4 @@
         "value":"${utils.signIfOne(:a*:a)}${:c}^2-${:b*:b}"    
     }
     ]
->>>>>>> Mise à jour suite à lecture de doc de VS studio + git
 }
