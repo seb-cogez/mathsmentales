@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "title":"Quel est le chiffre des ... ?",
     "type":"text",
@@ -21,4 +22,29 @@
     "answer":"Dans $$${:c}$$, le chiffre des <u>${:d}</u> est <span class='red'>${:a[:b]}</span>",
     "value":"${:a[:b]}",
     "question": "Dans $$${:c}$$, quel est le chiffre des <b>${:d}</b> ?"
+=======
+{
+    "title":"Quel est le chiffre des ... ?",
+    "type":"text",
+    "ID":"6NA2",
+    "dest":["7NA", "6NA", "5NA"],
+    "consts":{"u":["centaines", "dizaines", "unités"],
+        "v":["centaines de mille", "dizaines de mille", "unités de mille","centaines", "dizaines", "unités"],
+        "w":["centaines de million", "dizaines de millions", "unités de millions","centaines de mille", "dizaines de mille", "unités de mille","centaines", "dizaines", "unités"]
+    },
+    "options":[{
+        "name":"Nombres inférieurs à $$1000$$",
+        "vars":{"a":"0_9_3_^&", "b":"0_2", "c":"${:a.join('')}", "d":"${:u[:b]}"}
+        },{
+        "name":"Nombres inférieurs à $$1000000$$",
+        "vars":{"a":"0_9_6_^&", "b":"0_5", "c":"${:a.join('')}", "d":"${:v[:b]}"}
+        },{
+        "name":"Nombres inférieurs à $$1000000000$$",
+        "vars":{"a":"0_9_9_^&", "b":"0_8", "c":"${:a.join('')}", "d":"${:w[:b]}"}
+        }
+    ],
+    "answer":"Dans $$${:c}$$, le chiffre des <u>${:d}</u> est <span class='red'>${:a[:b]}</span>",
+    "value":"${:a[:b]}",
+    "question": "Dans $$${:c}$$, quel est le chiffre des <b>${:d}</b> ?"
+>>>>>>> Mise à jour suite à lecture de doc de VS studio + git
 }

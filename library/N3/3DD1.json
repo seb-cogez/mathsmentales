@@ -1,0 +1,19 @@
+{
+    "ID":"3DD1",
+    "dest":["3DD"],
+    "title":"Lire l'ordonnée à l'origine",
+    "type":"text",
+    "vars":{"a":"d-2_2_1", "b":"-3_3"},
+    "figure":{
+        "type":"graph", 
+        "boundingbox":[-5,5,5,-5],
+        "axis":true,
+        "grid":true,
+        "content" :[
+                ["functiongraph","${:a}*x+${:b}"]
+            ]    
+        },
+    "question":"Quelle est l'ordonnée à l'origine de la fonction affine ?",
+    "answer":"L'ordonnée à l'origine de la fonction est <span class='red'>${:b}</span>",
+    "value":"${:b}"
+}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "title":"Complément à 10, 100, 1000",
     "type":"text",
@@ -29,4 +30,37 @@
     }
     ],
     "value":"${:b}"
+=======
+{
+    "title":"Complément à 10, 100, 1000",
+    "type":"text",
+    "ID":"6ND3",
+    "dest":["8ND", "7ND", "6ND"],
+    "options":[{
+        "name":"Complément à 10",
+        "question": ["Combien manque-t-il à ${:a} pour faire 10 ?",
+            "$$${:a}+?=10$$",
+            "$$10-${:a}$$"
+        ],
+        "answer":"$$${:a}+\\color{red}{${:b}}=10$$",
+        "vars":{"a":"1_9", "b":"${10-:a}"}
+    },{
+        "name":"Complément à 100",
+        "question": ["Combien manque-t-il à ${:a} pour faire 100 ?",
+            "$$${:a}+?=100$$",
+            "$$100-${:a}$$"],
+        "answer":"$$${:a}+\\color{red}{${:b}}=100$$",
+        "vars":{"a":"10_99", "b":"${100-:a}"}
+    },
+    {
+        "name":"Complément à 1000",
+        "question": ["Combien manque-t-il à ${:a} pour faire 1000 ?",
+            "$$${:a}+?=1000$$",
+            "$$1000-${:a}$$"],
+        "answer":"$$${:a}+\\color{red}{${:b}}=1000$$",
+        "vars":{"a":"10_999", "b":"${1000-:a}"}
+    }
+    ],
+    "value":"${:b}"
+>>>>>>> Mise à jour suite à lecture de doc de VS studio + git
 }

@@ -1,0 +1,21 @@
+{
+    "title":"Trouver le plus grand diviseur commun",
+    "type":"text",
+    "ID":"5ND4",
+    "dest":["5ND", "4ND", "3NC"],
+    "options":[{
+        "name":"Nombres inférieurs à 36",
+        "vars":{"a":"2_6","b":"2_5", "c":"2_6_^${:b}","n":"${:a*:b}", "d":"${:a*:c}"}
+    },{
+        "name":"Nombres plus grands",
+        "vars":{"a":"2_6","b":"2_5", "c":"2_6_^${:b}","e":"2_7_2", "n":"${:a*:b*:e[0]}", "d":"${:a*:c*:e[1]}"}
+    }
+    ],
+    "question": [
+        "Quel est le PGCD de ${:n} et ${:d} ?",
+        "PGCD(${:n},${:d})",
+        "Par quel nombre simplifier au maximum $$${:d}/${:n}$$ ?"
+    ],
+    "answer":"PGCD(${:d},${:n}) = color(red)(${math.pgcd(:d,:n)})",
+    "value":"${math.pgcd(:d,:n)}"
+}

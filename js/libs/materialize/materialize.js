@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 /*!
  * Materialize v1.0.0 (http://materializecss.com)
  * Copyright 2014-2017 Materialize
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
  */
+=======
+/*!
+ * Materialize v1.0.0 (http://materializecss.com)
+ * Copyright 2014-2017 Materialize
+ * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
+ */
+>>>>>>> Mise à jour suite à lecture de doc de VS studio + git
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -4771,6 +4779,7 @@ $jscomp.polyfill = function (e, r, p, m) {
     M.initializeJqueryWrapper(Tooltip, 'tooltip', 'M_Tooltip');
   }
 })(cash, M.anime);
+<<<<<<< HEAD
 ; /*!
   * Waves v0.6.4
   * http://fian.my.id/Waves
@@ -4778,6 +4787,15 @@ $jscomp.polyfill = function (e, r, p, m) {
   * Copyright 2014 Alfiana E. Sibuea and other contributors
   * Released under the MIT license
   * https://github.com/fians/Waves/blob/master/LICENSE
+=======
+; /*!
+  * Waves v0.6.4
+  * http://fian.my.id/Waves
+  *
+  * Copyright 2014 Alfiana E. Sibuea and other contributors
+  * Released under the MIT license
+  * https://github.com/fians/Waves/blob/master/LICENSE
+>>>>>>> Mise à jour suite à lecture de doc de VS studio + git
   */
 
 ;(function (window) {
@@ -4987,6 +5005,7 @@ $jscomp.polyfill = function (e, r, p, m) {
     }
   };
 
+<<<<<<< HEAD
   /**
    * Disable mousedown event for 500ms during and after touch
    */
@@ -4994,6 +5013,15 @@ $jscomp.polyfill = function (e, r, p, m) {
     /* uses an integer rather than bool so there's no issues with
      * needing to clear timeouts if another touch event occurred
      * within the 500ms. Cannot mouseup between touchstart and
+=======
+  /**
+   * Disable mousedown event for 500ms during and after touch
+   */
+  var TouchHandler = {
+    /* uses an integer rather than bool so there's no issues with
+     * needing to clear timeouts if another touch event occurred
+     * within the 500ms. Cannot mouseup between touchstart and
+>>>>>>> Mise à jour suite à lecture de doc de VS studio + git
      * touchend, nor in the 500ms after touchend. */
     touches: 0,
     allowEvent: function (e) {
@@ -5018,9 +5046,15 @@ $jscomp.polyfill = function (e, r, p, m) {
     }
   };
 
+<<<<<<< HEAD
   /**
    * Delegated click handler for .waves-effect element.
    * returns null when .waves-effect element not in "click tree"
+=======
+  /**
+   * Delegated click handler for .waves-effect element.
+   * returns null when .waves-effect element not in "click tree"
+>>>>>>> Mise à jour suite à lecture de doc de VS studio + git
    */
   function getWavesEffectElement(e) {
     if (TouchHandler.allowEvent(e) === false) {
@@ -5040,8 +5074,13 @@ $jscomp.polyfill = function (e, r, p, m) {
     return element;
   }
 
+<<<<<<< HEAD
   /**
    * Bubble the click and show effect if .waves-effect elem was found
+=======
+  /**
+   * Bubble the click and show effect if .waves-effect elem was found
+>>>>>>> Mise à jour suite à lecture de doc de VS studio + git
    */
   function showEffect(e) {
     var element = getWavesEffectElement(e);
@@ -5077,11 +5116,19 @@ $jscomp.polyfill = function (e, r, p, m) {
     document.body.addEventListener('mousedown', showEffect, false);
   };
 
+<<<<<<< HEAD
   /**
    * Attach Waves to an input element (or any element which doesn't
    * bubble mouseup/mousedown events).
    *   Intended to be used with dynamically loaded forms/inputs, or
    * where the user doesn't want a delegated click handler.
+=======
+  /**
+   * Attach Waves to an input element (or any element which doesn't
+   * bubble mouseup/mousedown events).
+   *   Intended to be used with dynamically loaded forms/inputs, or
+   * where the user doesn't want a delegated click handler.
+>>>>>>> Mise à jour suite à lecture de doc de VS studio + git
    */
   Waves.attach = function (element) {
     //FUTURE: automatically add waves classes and allow users

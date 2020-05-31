@@ -1,0 +1,21 @@
+{
+    "title":"Décomposer en facteurs premiers",
+    "ID":"5ND1",
+    "dest":["5ND", "4ND", "3NC"],
+    "options":[{
+        "name":"Nombres inférieurs à 30 (5e)",
+        "vars":{"a":"4_30", "b":"factor(${:a})"},
+        "answer":"${:a}=color(red)(${math.unpower(Algebrite.run(:b))})"
+    },{
+        "name":"Nombres inférieurs à 100 (4e)",
+        "vars":{"a":"4_100", "b":"factor(${:a})"},
+        "answer":"${:a}=color(red)(${Algebrite.run(:b)})"
+    },{
+        "name":"Nombres inférieurs à 1000 (3e)",
+        "vars":{"a":"4_1000", "b":"factor(${:a})"},
+        "answer":"${:a}=color(red)(${Algebrite.run(:b)})"
+    }
+    ],
+    "question":"text(Décomposer )${:a}",
+    "value":["${math.unpower(Algebrite.run(:b))}", "${Algebrite.run(:b)}"]
+}

@@ -1,0 +1,43 @@
+{
+    "title":"Calculs avec parenthèses",
+    "ID":"6ND12",
+    "dest":["6ND", "5NC"],
+    "options":[{
+        "name":"Produit par une somme",
+        "vars":{"a":"1_10", "b":"2_12", "c":"1_${13-:b}"},
+        "question": "${:a}*(${:b}+${:c})",
+        "answer":":question=color(red)(${:a*(:b+:c)})",
+        "value":"${:a*(:b+:c)}"
+    },{
+        "name":"Produit par une différence",
+        "vars":{"a":"1_10", "b":"10_20", "c":"${:b-9}_${:b}"},
+        "question": "${:a}*(${:b}-${:c})",
+        "answer":":question=color(red)(${:a*(:b-:c)})",
+        "value":"${:a*(:b-:c)}"
+    },{
+        "name":"Quotient d'une somme par un nombre",
+        "vars":{"r":"1_10", "d":"1_10", "n":"1_${:r*:d}", "m":"${:r*:d-:n}"},
+        "question": "(${:n}+${:m})-:${:d}",
+        "answer":":question=color(red)(${:r})",
+        "value":"${:r}"
+    },{
+        "name":"Quotient d'une différence par un nombre",
+        "vars":{"r":"1_10", "d":"1_10", "m":"1_20", "n":"${:r*:d+:m}"},
+        "question":"(${:n}-${:m})-:${:d}",
+        "answer":":question=color(red)(${:r})",
+        "value":"${:r}"
+    },{
+        "name":"Somme d'un nombre et d'une différence",
+        "vars":{"a":"1_30","b":"10_30", "c":"${:b-9}_${:b}"},
+        "question":"${:a}+(${:b}-${:c})",
+        "answer":":question=color(red)(${:a+(:b-:c)})",
+        "value":"${:a+(:b-:c)}"
+    },{
+        "name":"Différence entre un nombre et une somme",
+        "vars":{"a":"1_30","b":"1_30", "c":"${:b+:a}_${:b+:a+20}"},
+        "question":"${:c}-(${:a}+${:b})",
+        "answer":":question=color(red)(${:c-(:a+:b)})",
+        "value":"${:c-(:a+:b)}"
+    }
+    ]
+}

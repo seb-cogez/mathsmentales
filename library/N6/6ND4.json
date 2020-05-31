@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "title":"Complément à une dizaine, une centaire",
     "type":"text",
@@ -20,4 +21,28 @@
     }
     ],
     "value":"${:b-:c}"
+=======
+{
+    "title":"Complément à une dizaine, une centaire",
+    "type":"text",
+    "ID":"6ND4",
+    "dest":["6ND", "7ND", "8ND"],
+    "options":[{
+        "name":"Trouver le complément à une dizaine",
+        "question": ["Combien manque-t-il à ${:c} pour faire ${:b} ?",
+            "$$${:c}+?=${:b}$$",
+            "$$${:b}-${:c}$$"],
+        "answer":"$$${:c}+\\color{red}{${:b-:c}}=${:b}$$",
+        "vars":{"a":"2_9", "b":"${10*:a}", "c":"2_${:b-1}"}
+    },{
+        "name":"Trouver le complément à une centaire",
+        "question": ["Combien manque-t-il à ${:c} pour faire ${:b} ?",
+            "$$${:c}+?=${:b}$$",
+            "$$${:b}-${:c}$$"],
+        "answer":"$$${:c}+\\color{red}{${:b-:c}}=${:b}$$",
+        "vars":{"a":"2_9", "b":"${100*:a}", "c":"2_${:b-1}"}
+    }
+    ],
+    "value":"${:b-:c}"
+>>>>>>> Mise à jour suite à lecture de doc de VS studio + git
 }

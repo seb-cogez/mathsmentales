@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "title":"",
     "type":"",
@@ -17,4 +18,25 @@
     "question":"",
     "answer":"",
     "value":""
+=======
+{
+    "title":"",
+    "type":"",
+    "ID":"",
+    "dest":[""],
+    "consts":{"d":""},
+    "vars":{"a":"", "b":"", "c":["u","v","t","x", "y", "z"]},
+    "options":[{
+        "name":"",
+        "vars":{},
+        "consts":{},
+        "question": ["", ""],
+        "answer":"",
+        "value":""
+    }
+    ],
+    "question":"",
+    "answer":"",
+    "value":""
+>>>>>>> Mise à jour suite à lecture de doc de VS studio + git
 }

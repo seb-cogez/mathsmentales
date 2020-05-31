@@ -1,0 +1,26 @@
+{
+    "title":"Liste des diviseurs",
+    "type":"text",
+    "ID":"5ND3",
+    "dest":["5ND", "4ND", "3NC"],
+    "options":[{
+        "name":"Nombres inférieurs à 50",
+        "vars":{"a":"2_30","b":"1_${~~(50/:a)}","c":"${:a*:b}"}
+   },{
+        "name":"Nombres entre 50 et 100",
+        "vars":{"a":"2_30","b":"${Math.ceil(50/:a)}_${~~(100/:a)}","c":"${:a*:b}"}
+    },{
+        "name":"Nombres supérieurs à 100",
+        "vars":{"a":"2_30","b":"${Math.ceil(100/:a)}_30","c":"${:a*:b}"}
+    },{
+        "name":"Diviseurs parmi 2, 3, 4, 9 et 10 (5e+)",
+        "vars":{"a":[2,3,5,9,10],"b":"20_2000", "c":"0_1", "d":"${:b*:a**:c}"},
+        "question":"Quels sont les diviseurs de ${:d} parmi 2, 3, 5, 9 et 10 ?",
+        "answer":"${:d} est divisible par <span class='red'>${math.listeDiviseurs10(:d)}</span>",
+        "value":"${math.listeDiviseurs10(:d)}"
+    }
+    ],
+    "question": "Quels sont tous les diviseurs de ${:c} ?",
+    "answer":"Diviseurs de ${:c} : <span class='red'>${math.listeDiviseurs(:c)}</span>",
+    "value":"${math.listeDiviseurs(:c)}"
+}

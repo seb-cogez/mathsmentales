@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "title":"Arrondir un nombre décimal",
     "type":"text",
@@ -45,4 +46,53 @@
         "value":"${math.round(:b,3)}"
     }
     ]
+=======
+{
+    "title":"Arrondir un nombre décimal",
+    "type":"text",
+    "ID":"6NC2",
+    "dest":["6NC"],
+    "options":[
+        {
+            "name":"A l'unité",
+            "vars":{
+                "a":[10,100,1000,10000],
+                "c":"2_5",
+                "b":"d0_${:a}_${:c}_^0"},
+            "question": "Arrondir $$${:b}$$ à l'unité près",
+            "answer":"$$${:b}~~color(red)(${math.round(:b,0)})$$",
+            "value":"${math.round(:b,0)}"
+        },
+        {
+        "name":"Au dixième",
+        "vars":{
+            "a":[10,100,1000,10000],
+            "c":"3_5",
+            "b":"d0_${:a}_${:c}_^0"},
+            "question": "Arrondir $$${:b}$$ au dixième près",
+        "answer":"$$${:b}~~color(red)(${math.round(:b,1)})$$",
+        "value":"${math.round(:b,1)}"
+    },
+    {
+        "name":"Au centième",
+        "vars":{
+            "a":[10,100,1000,10000],
+            "c":"4_8",
+            "b":"d0_${:a}_${:c}_^0"},
+            "question": "Arrondir $$${:b}$$ au centième près",
+        "answer":"$$${:b}~~color(red)(${math.round(:b,2)})$$",
+        "value":"${math.round(:b,2)}"
+    },
+    {
+        "name":"Au dixième",
+        "vars":{
+            "a":[10,100,1000,10000],
+            "c":"5_10",
+            "b":"d0_${:a}_${:c}_^0"},
+            "question": "Arrondir $$${:b}$$ au dixième près",
+        "answer":"$$${:b}~~color(red)(${math.round(:b,3)})$$",
+        "value":"${math.round(:b,3)}"
+    }
+    ]
+>>>>>>> Mise à jour suite à lecture de doc de VS studio + git
 }

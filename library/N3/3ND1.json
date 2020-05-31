@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "title":"Factoriser avec les identités remarquables",
     "dest":["3ND"],
@@ -34,4 +35,49 @@
             "value":"(${utils.signIfOne(:a)+:c}${utils.signedNumber(:b+:d)})(${utils.signIfOne(:a)+:c}${utils.signedNumber(:b-:d)})"
         }
     ]
+=======
+{
+    "title":"Factoriser avec les identités remarquables",
+    "dest":["3ND"],
+    "ID":"3ND1",
+    "vars":{"k":"1_10", "b":"1_10", "c":["u","v","t","x", "y", "z"]},
+    "options":[
+        {
+            "name":"$$ax^2+2abx+b^2$$",
+            "question":["${utils.signIfOne(:k*:k)+:c}^2+${(2*:k*:b)+:c}+${:b*:b}",
+                "${utils.signIfOne(:k*:k)+:c}^2+${:b*:b}+${(2*:k*:b)+:c}",
+                "${(2*:k*:b)+:c}+${utils.signIfOne(:k*:k)+:c}^2+${:b*:b}"],
+            "answer":":question=\\color{red}{(${utils.signIfOne(:k)+:c}+${:b})^2}",
+            "value":"(${utils.signIfOne(:k)+:c}+${:b})^2"
+        },
+        {
+            "name":"$$a^2-2abx+b^2$$",
+            "question":["${utils.signIfOne(:k*:k)+:c}^2-${(2*:k*:b)+:c}+${:b*:b}",
+                "${utils.signIfOne(:k*:k)+:c}^2+${:b*:b}-${(2*:k*:b)+:c}",
+                "-${(2*:k*:b)+:c}+${utils.signIfOne(:k*:k)+:c}^2+${:b*:b}"],
+            "answer":":question=\\color{red}{(${utils.signIfOne(:k)+:c}-${:b})^2}",
+            "value":"(${utils.signIfOne(:k)+:c}-${:b})^2"
+        },
+        {
+            "name":"$$a^2-b^2$$",
+            "question":["${utils.signIfOne(:k*:k)+:c}^2-${:b*:b}", "${:b*:b}-${utils.signIfOne(:k*:k)+:c}^2"],
+            "answer":":question=\\color{red}{(${utils.signIfOne(:k)+:c}+${:b})(${:k+:c}-${:b})}",
+            "value":"(${utils.signIfOne(:k)+:c}+${:b})(${:k+:c}-${:b})"
+        },
+        {
+            "name":"$$(ax+b)^2-c^2$$",
+            "vars":{"a":"1_10", "b":"-10_10_^0", "c":["u","v","t","x", "y", "z"], "d":"1_10"},
+            "question":"(${utils.signIfOne(:a)+:c}${utils.signedNumber(:b)})^2-${:d*:d}",
+            "answer":":question=\\color{red}{(${utils.signIfOne(:a)+:c}${utils.signedNumber(:b+:d)})(${utils.signIfOne(:a)+:c}${utils.signedNumber(:b-:d)})}",
+            "value":"(${utils.signIfOne(:a)+:c}${utils.signedNumber(:b+:d)})(${utils.signIfOne(:a)+:c}${utils.signedNumber(:b-:d)})"
+        }, {
+            "name":"$$(ax+b)^2-cx^2$$",
+            "vars":{"a":"1_10", "b":"-10_10_^0", "c":["u","v","t","x", "y", "z"], "d":"1_10"},
+            "question":"(${utils.signIfOne(:a)+:c}${utils.signedNumber(:b)})^2-${:d*:d}${:c}^2",
+            "answer":":question=\\color{red}{(${utils.signIfOne(:a+:d)+:c}${utils.signedNumber(:b)})(${utils.signIfOne(:a-:d)+:c}${utils.signedNumber(:b)})}",
+            "value":"(${utils.signIfOne(:a+:d)+:c}${utils.signedNumber(:b)})(${utils.signIfOne(:a-:d)+:c}${utils.signedNumber(:b)})"
+        }
+
+    ]
+>>>>>>> Mise à jour suite à lecture de doc de VS studio + git
 }

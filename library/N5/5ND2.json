@@ -1,0 +1,35 @@
+{
+    "title":"Critères de divisibilité",
+    "type":"text",
+    "ID":"5ND2",
+    "dest":["5ND", "4ND", "3NC"],
+    "consts":{"d":[2,3,5,9,10]},
+    "vars":{"a":"0_1","b":"2_6", "c":"${Math.round(Math.random()*10**:b)}"},
+    "options":[{
+        "name":"Divisibilité par 2",
+        "question": "${:c*:d[0]**:a} est il divisible par ${:d[0]} ?",
+        "answer":"${:c*:d[0]**:a} <span class='red'>${math.estDivisiblePar(:c*:d[0]**:a, :d[0], 'w')}</span> par ${:d[0]}",
+        "value":"${math.estDivisiblePar(:c*:d[0]**:a, :d[0], 'yn')}"
+    },{
+        "name":"Divisibilité par 3",
+        "question": "${:c*:d[1]**:a} est il divisible par ${:d[1]} ?",
+        "answer":"${:c*:d[1]**:a} <span class='red'>${math.estDivisiblePar(:c*:d[1]**:a, :d[1], 'w')}</span> par ${:d[1]}",
+        "value":"${math.estDivisiblePar(:c*:d[1]**:a, :d[1], 'yn')}"
+    },{
+        "name":"Divisibilité par 5",
+        "question": "${:c*:d[2]**:a} est il divisible par ${:d[2]} ?",
+        "answer":"${:c*:d[2]**:a} <span class='red'>${math.estDivisiblePar(:c*:d[2]**:a, :d[2], 'w')}</span> par ${:d[2]}",
+        "value":"${math.estDivisiblePar(:c*:d[2]**:a, :d[2], 'yn')}"
+    },{
+        "name":"Divisibilité par 9",
+        "question": "${:c*:d[3]**:a} est il divisible par ${:d[3]} ?",
+        "answer":"${:c*:d[3]**:a} <span class='red'>${math.estDivisiblePar(:c*:d[3]**:a, :d[3], 'w')}</span> par ${:d[3]}",
+        "value":"${math.estDivisiblePar(:c*:d[3]**:a, :d[3], 'yn')}"
+    },{
+        "name":"Divisibilité par 10",
+        "question": "${:c*:d[4]**:a} est il divisible par ${:d[4]} ?",
+        "answer":"${:c*:d[4]**:a} <span class='red'>${math.estDivisiblePar(:c*:d[4]**:a, :d[4], 'w')}</span> par ${:d[4]}",
+        "value":"${math.estDivisiblePar(:c*:d[4]**:a, :d[4], 'yn')}"
+    }
+    ]
+}

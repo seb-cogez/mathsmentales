@@ -1,0 +1,62 @@
+{
+    "title":"Ecriture scientifique et décimaux",
+    "type":"text",
+    "ID":"4NA1",
+    "dest":["4NA","3NA"],
+    "consts":{"d":""},
+    "vars":{"a":"", "b":"", "c":["u","v","t","x", "y", "z"]},
+    "options":[{
+        "name":"Donner l'écriture scientifique d'un décimal supérieur à 1",
+        "vars":{
+            "a":"1_6",
+            "b":"d0_1_${:a}_^0",
+            "i":"1_9",
+            "c":"0_10",
+            "d":"${math.round(Number(:i+:b+'e'+:c),6)}"
+        },
+        "question": "Quelle est l'écriture scientifique de $$${:d}$$ ?",
+        "answer":"$$${:d}=color(red)(${math.round(:i+:b,7)}*10^{${:c}})$$",
+        "value":"${:i+:b}*10^{${:c}"
+    },
+    {
+        "name":"Donner l'écriture scientifique d'un décimal inférieur à 1",
+        "vars":{
+            "a":"1_6",
+            "b":"d0_1_${:a}_^0",
+            "i":"1_9",
+            "c":"-6_-1",
+            "d":"${math.round(Number(:i+:b+'e'+:c),13)}"
+        },
+        "question": "Quelle est l'écriture scientifique de $$${:d}$$ ?",
+        "answer":"$$${:d}=color(red)(${math.round(:i+:b,7)}*10^{${:c}})$$",
+        "value":"${:i+:b}*10^{${:c}"
+    },{
+        "name":"Donner l'écriture décimale à partir de l'écriture scientifique supérieure à 1",
+        "vars":{
+            "a":"1_6",
+            "b":"d0_1_${:a}_^0",
+            "i":"1_9",
+            "c":"0_10",
+            "d":"${math.round(Number(:i+:b+'e'+:c),6)}"
+        },
+        "question": "Quelle est l'écriture décimale de $$${math.round(:i+:b,7)}*10^{${:c}}$$ ?",
+        "answer":"$$${math.round(:i+:b,7)}*10^{${:c}}=color(red)(${:d})$$",
+        "value":"${:d}"
+    },{
+        "name":"Donner l'écriture décimale à partir de l'écriture scientifique inférieure à 1",
+        "vars":{
+            "a":"1_6",
+            "b":"d0_1_${:a}_^0",
+            "i":"1_9",
+            "c":"-6_-1",
+            "d":"${math.round(Number(:i+:b+'e'+:c),13)}"
+        },
+        "question": "Quelle est l'écriture décimale de $$${math.round(:i+:b,7)}*10^{${:c}}$$ ?",
+        "answer":"$$${math.round(:i+:b,7)}*10^{${:c}}=color(red)(${:d})$$",
+        "value":"${:d}"
+    }
+    ],
+    "question":"",
+    "answer":"",
+    "value":""
+}

@@ -1,0 +1,19 @@
+{
+    "title":"Divisions",
+    "ID":"6ND10",
+    "dest":["6ND", "7ND"],
+    "options":[{
+        "name":"Division entière",
+        "vars":{"a":"1_10", "b":"1_10", "p":"${:a*:b}"},
+        "question": "${:p}-:${:a}",
+        "answer":":question=color(red)(${:b})",
+        "value":"${:b}"
+    },{
+        "name":"Division euclidienne (petits nombres)",
+        "vars":{"a":"11_50","b":"2_10", "q":"${~~(:a/:b)}", "r":"${:a%:b}"},
+        "question":"text(Quel sont le quotient et le reste de )${:a}-:${:b} ?",
+        "answer":"${:a}=${:b}*color(red)(${:q})+color(red)(${:r})text( ou )color(green)(Q=${:q}; R=${:r})",
+        "value":["${:q};${:r}", "Q=${:q};R=${:r}"]
+    }
+    ]
+}

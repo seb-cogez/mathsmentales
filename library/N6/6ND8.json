@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "title":"Soustractions d'entiers",
     "ID":"6ND8",
@@ -13,4 +14,21 @@
     "question":"${:b}-${:a}",
     "answer":"${:b}-${:a}=color(red)(${:d})",
     "value":"${:d}"
+=======
+{
+    "title":"Soustractions d'entiers",
+    "ID":"6ND8",
+    "dest":["6ND", "7ND", "8ND", "9ND"],
+    "options":[{
+        "name":"Entiers inférieurs à 10",
+        "vars":{"a":"0_9", "b":"${:a}_10", "d":"${:b-:a}"}
+    },{
+        "name":"Entiers entre 11 et 100",
+        "vars":{"a":"11_99", "b":"${:a}_100", "d":"${:b-:a}"}
+    }
+    ],
+    "question":"${:b}-${:a}",
+    "answer":"${:b}-${:a}=color(red)(${:d})",
+    "value":"${:d}"
+>>>>>>> Mise à jour suite à lecture de doc de VS studio + git
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "title":"Conversions vers les unités de base",
     "ID":"7MA1",
@@ -11,4 +12,19 @@
     "question":"\\text{Convertir } ${:x} \\text{ ${:k[0]} en }\\color{blue}\\text{${:q}}",
     "answer":"${:x} \\text{ ${:k[0]}} = \\color{red}{${math.round(:x*:k[1],7)}\\text{ ${:q}}}",
     "value":"${math.round(:x*:k[1],7)}\\text{ ${:q}}"
+=======
+{
+    "title":"Conversions vers les unités de base",
+    "ID":"7MA1",
+    "dest":["7MA", "6MA", "5MA"],
+    "options":[
+        {"name":"m", "vars":{"q":"m","k":[["km",1000], ["hm",100], ["dam",10], ["dm",0.1], ["cm",0.01], ["mm",0.001]],"p":[[2,0.1],[1,1],[0,10],[-1,100],[-2,1000]], "z":"${:p[0]}_3", "x":"d0_${:p[1]}_${:z}_^0"}},
+        {"name":"L", "vars":{"q":"L","k":[["hL",100], ["daL",10], ["dL",0.1], ["cL",0.01], ["mL",0.001]],"p":[[1,1],[0,10],[-1,100],[-2,1000]],"z":"${:p[0]}_3","x":"d0_${:p[1]}_${:z}_^0"}},
+        {"name":"g", "vars":{"q":"g","k":[["kg",1000], ["hg",100], ["dag",10], ["dg",0.1], ["cg",0.01], ["mg",0.001]],"p":[[1,1],[0,10],[-1,100],[-2,1000]], "z":"${:p[0]}_3", "x":"d0_${:p[1]}_${:z}_^0"}}
+    ],
+    "description":"Conversions des multiples et sous-multiples des m, L et g vers les m, L et g",
+    "question":"\\text{Convertir } ${:x} \\text{ ${:k[0]} en }\\color{blue}\\text{${:q}}",
+    "answer":"${:x} \\text{ ${:k[0]}} = \\color{red}{${math.round(:x*:k[1],7)}\\text{ ${:q}}}",
+    "value":"${math.round(:x*:k[1],7)}\\text{ ${:q}}"
+>>>>>>> Mise à jour suite à lecture de doc de VS studio + git
 }

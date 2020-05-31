@@ -254,11 +254,12 @@ Projet de réécriture du site MathsMentales.net qui permet de créer des diapor
  * [KateX](https://katex.org/) pour afficher les maths
  * [knack.css](https://www.knacss.com/) framework css simple et léger
  * [bulma-steps](https://github.com/Wikiki/bulma-steps) du projet css [bulma](https://bulma.io/)
- * [math.js](https://mathjs.org/) An extensive math library for Javascript (and Node.js)
+ * [algebrite.js](http://algebrite.org/) An extensive math library symbolic computation
  * [Sortable.js](http://sortablejs.github.io/Sortable/) Javascript library for reorderable drag-and-drop lists
  * [seedrandom.js](https://github.com/davidbau/seedrandom) pour créer des nombres aléatoires "controlés"
  * [Chart.js](https://www.chartjs.org/) pour représenter des statistiques
  * [JSXGraph](http://jsxgraph.uni-bayreuth.de/wp/index.html) pour les représentations graphiques
+ * [asciimath2tex](https://github.com/christianp/asciimath2tex) pour taper plus rapidement les formules de maths
 
 ### Changement de fonctionnement de la bibliothèque d'activités.
 Elle est à présent réalisée à l'aide de fichiers json peu complexes
@@ -358,7 +359,8 @@ Conversions
 ``` js
 {
     "title":"Conversions vers les unités de base",
-    "ID":"convBase",
+    "ID":"7MA1", // nom du fichier
+    "dest":["7MA", "6MA", "6MD"], // chapitres de destination dans l'arborescence
     "options":[
         // var k : unité d'où convertir et multiplicande
         // var p : précision max (négative : multiples de l'unité, positive : sous-multiples) et nombre max
@@ -406,6 +408,8 @@ Exemple avec du texte
 {
   "type":"text",
   "title":"Table de 3",
+  "ID":"11N1", // nom du fichier
+  "dest":["11NC"], // chapitre de destination 11 pour le CP, N pour les nombres, C pour le cacul avec les nombres
   "vars":{
     "a":"2_10"
   }
@@ -420,6 +424,8 @@ Exemple avec chartjs : représentation de données statistiques
 {
     "title":"Test de graphique",
     "type":"text",
+    "dest":["5DA", "4DA", "3DA"],
+    "ID":"5DA1",
     "vars":{
       "a":"10_100_5_^&", // tire 5 entiers entre 10 et 100, tous différents (^&)
       "b":[["fraises", "bananes", "oranges", "kiwis", "pommes"], ["vélo", "trotinette", "voiture", "bus", "scooter"]] // choisit l'un des deux tableaux
@@ -450,5 +456,32 @@ Exemple avec JSXGraph
     "answer":"L'ordonnée à l'origine de la fonction est <span class='red'>${:b}</span>", // la classe red affiche en rouge.
     "value":"${:b}"
 }
+<<<<<<< HEAD
 >>>>>>> Maj after understanding VSC integration
+=======
+```
+
+Fichier structure pour démarrer
+``` js
+{
+    "title":"", // titre
+    "type":"", // laisser vide ou supprimer pour des notations de maths
+    "ID":"", // nom du fichier, sans l'extension .json
+    "dest":[""], // Codes des chapitres de destination
+    "consts":{"d":""}, // constantes utilisées, non obligatoires
+    "vars":{"a":"", "b":"", "c":["u","v","t","x", "y", "z"]}, // variables utilisées, non obligatoires si dans les options
+    "options":[{
+        "name":"", // utilisé pour l'affichage des exemples
+        "question": ["", ""], // remplace la variable commune, peut être omis
+        "answer":"", // remplace la variable commune, peut être omis
+        "vars":{}, // remplace les variables communes, peut être omis
+        "consts":{}, // remplace les constantes communes, peut être omis
+        "value":"" // remplace les valeurs attendues dans réponse online, peut être omis
+    }
+    ],
+    "question":"", // question commune non obligatoire si dans touetes les options
+    "answer":"", // réponse commune non obligatoire si dans touetes les options
+    "value":""  // valeurs attendue si réponse online commune non obligatoire si dans toutes les options
+}
+>>>>>>> Mise à jour suite à lecture de doc de VS studio + git
 ```

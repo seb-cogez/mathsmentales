@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "title":"Données les plus/moins représentées",
     "type":"text",
@@ -55,4 +56,63 @@
     "question":"${:c[:g][0]}",
     "answer":"${:c[:g][1]}",
     "value":"${:c[:g][2]}"
+=======
+{
+    "title":"Données les plus/moins représentées",
+    "type":"text",
+    "dest":["5DA", "4DA", "3DA"],
+    "ID":"5DA1",
+    "consts":{
+        "b":[["fraises", "bananes", "oranges", "kiwis", "pommes"],
+            ["vélo", "trotinette", "voiture", "bus", "scooter"],
+            ["2016", "2017", "2018", "2019", "2020"]],
+        "c":[["Quelle est la données la plus représentée ?", "C'est ${:b[:f][:a.indexOf(Math.max(...:a))]}", "${Math.max(...:a)}"],
+        ["Quelle est la données la moins représentée ?","C'est ${:b[:f][:a.indexOf(Math.min(...:a))]}", "${Math.min(...:a)}"]],
+        "m":[["${:a[0]}","${:a[1]}","${:a[2]}","${:a[3]}","${:a[4]}"],["${10*:a[0]}","${10*:a[1]}","${10*:a[2]}","${10*:a[3]}","${10*:a[4]}"]]
+    },
+    "options":[
+        {"name":"barres",
+            "vars":{
+                "a":"10_100_5_^&",
+                "n":0,
+                "d":"bar",
+                "f":"0_2",
+                "g":"0_1"
+            }
+        },
+        {"name":"barres horizonales",
+        "vars":{
+            "a":"10_100_5_^&",
+            "n":0,
+            "d": "horizontalBar",
+            "f":"0_2",
+            "g":"0_1"
+            }
+        },
+        {"name":"Diagramme circulaire",
+        "vars":{
+            "a":"1_9_5_^&",
+            "n":1,
+            "d":"pie",
+            "f":"0_2",
+            "g":"0_1"
+        }
+        }
+    ],
+    "figure":{"type":"chart",
+        "content":{
+        "type":"${:d}",
+        "data":{
+            "labels":"${:b[:f]}",
+            "datasets":[{
+                "label":"Graphique",
+                "backgroundColor": ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                "data":"${:m[:n]}"}]
+            }
+        }
+    },
+    "question":"${:c[:g][0]}",
+    "answer":"${:c[:g][1]}",
+    "value":"${:c[:g][2]}"
+>>>>>>> Mise à jour suite à lecture de doc de VS studio + git
 }

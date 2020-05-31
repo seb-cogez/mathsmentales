@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "title":"Additions de petit entiers",
     "type":"text",
@@ -30,4 +31,38 @@
     "question":"",
     "answer":"",
     "value":""
+=======
+{
+    "title":"Additions de petit entiers",
+    "type":"text",
+    "ID":"6ND1",
+    "dest":["7ND","6ND"],
+    "vars":{"a":"0_20_2", "c":"${:a[0]+:a[1]}"},
+    "options":[{
+        "name":"Somme",
+        "question": "Quelle est la somme de ${:a[0]} et de ${:a[1]} ?",
+        "answer":"La somme de ${:a[0]} et ${:a[1]} vaut <span class='red'>${:c}</span>",
+        "value":"${:c}"
+    },{
+        "name":"Ajouter",
+        "question":"Quel nombre ajouter à ${:a[0]} pour obtenir ${:c} ?",
+        "answer":"Il faut ajouter <span class='red'>${:a[1]}</span> à ${:a[0]} pour obtenir ${:c}",
+        "value":"${:a[1]}"
+    },
+    {
+        "name":"Opération",
+        "question":"$$ ${:a[0]}+${:a[1]} $$",
+        "answer":"$$ ${:a[0]}+${:a[1]} = color(red)(${:c}) $$",
+        "value":"${:c}"
+    },
+    {
+        "name": "Opération à trou",
+        "question":["$$ ${:a[0]}+?=${:c}$$", "$$ ? + ${:a[0]}=${:c} $$"],
+        "answer":"$$ ${:a[0]} + color(red)(${:a[1]})=${:c} $$",
+        "value":"${:a[1]}"
+    }],
+    "question":"",
+    "answer":"",
+    "value":""
+>>>>>>> Mise à jour suite à lecture de doc de VS studio + git
 }
