@@ -1,5 +1,6 @@
 ## Mathsmentales
 Projet de réécriture du site MathsMentales.net qui permet de créer des diaporamas de calcul mental sans effort
+Démo : https://seb-cogez.github.io/mathsmentales/
 
 ### Nouveautés apportées par cette version :
  * nouvelle interface : tous les réglages dans une page, affichage d'exemples de questions pour mieux comprendre
