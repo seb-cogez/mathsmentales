@@ -1,0 +1,40 @@
+{
+    "title":"Lien entre aire d'un carré et côté",
+    "type":"text",
+    "ID":"6GD1",
+    "dest":["6GD"],
+    "consts":{"d":""},
+    "vars":{"a":"1_10", "b":"${:a*:a}", "c":["mm","cm","dm","m", "dam", "hm", "km"]},
+    "options":[{
+        "name":"Aire du carré",
+        "question": "Quelle est l'aire du carré de côté ${:a} ${:c} ?",
+        "answer":"$$${:a} ${:c}*${:a} ${:c}=color(red)(${:b}text( )${:c}^2)$$",
+        "figure":{
+            "type":"graph",
+            "axis":false,
+            "boundingbox":[0,10,10,0],
+            "content":[
+                ["jessiescript", "A(2,2);B(8,2);C(8,8);D(2,8);[AB];[BC];[CD];[DA];"],
+                ["text", [5,1,"${:a} ${:c}"], {"anchorX":"middle", "fontSize":20}]
+            ]
+        },
+        "value":["${:b} ${:c}^2", "${:b}${:c}^2"]
+        },
+        {
+            "name":"Côté du carré",
+            "question": "Quelle est le côté du carré d'aire ${:b} ${:c}² ?",
+            "answer":"$$color(red)(${:a} ${:c})*${:a} ${:c}=${:b}text( )${:c}^2$$",
+            "figure":{
+                "type":"graph",
+                "axis":false,
+                "boundingbox":[0,10,10,0],
+                "content":[
+                    ["jessiescript", "A(2,2);B(8,2);C(8,8);D(2,8);[AB];[BC];[CD];[DA];"],
+                    ["text", [5,5,"${:b} ${:c}²"], {"anchorX":"middle", "fontSize":20}]
+                ]
+            },
+            "value":["${:a} ${:c}", "${:a}${:c}"]
+    
+        }
+    ]
+}

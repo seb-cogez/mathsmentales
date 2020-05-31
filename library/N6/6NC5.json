@@ -1,0 +1,30 @@
+{
+    "title":"Ecriture décimale de dizaines, centaires, etc.",
+    "type":"text",
+    "ID":"6NC5",
+    "dest":["6NC"],
+    "consts":{
+        "u":["millions","milliers","centaines","dizaines","dixièmes","centièmes","millièmes"],
+        "p":[1000000,1000,100,10,0.1,0.01,0.001]
+    },
+    "options":[{
+        "name":"Entier de multiple de l'unité",
+        "vars":{"a":"0_3", "b":[10,100,1000,10000], "c":"1_${:b}"}
+    },
+    {
+        "name":"Décimal de multiple de l'unité",
+        "vars":{"a":"0_3", "b":[10,100], "c":"d1_${:b}_3"}
+    },
+    {
+        "name":"Entier de sous multiple de l'unité",
+        "vars":{"a":"4_6", "b":[10,100,1000,10000], "c":"1_${:b}"}
+    },
+    {
+        "name":"Décimal de sous multiple de l'unité",
+        "vars":{"a":"4_6", "b":[10,100], "c":"d1_${:b}_3"}
+    }
+    ],
+    "question": "$$${:c}$$ ${:u[:a]}",
+    "answer":"$$${:c}$$ ${:u[:a]} $$ = color(red)(${math.round(:c*:p[:a],6)})$$",
+    "value":"${math.round(:c*:p[:a],8)}"
+}

@@ -1,0 +1,47 @@
+{
+    "title":"Décompositions décimales",
+    "ID":"6NC1",
+    "dest":["6NC", "7NC"],
+    "options":[{
+        "name":"Entier et fraction décimale -> décimal",
+        "vars":{"a":[10,100,1000,10000], "e":"1_${:a}", "b":[10,100,1000], "c":"1_${:b-1}"},
+        "question": "${:a}+${:c}/${:b}",
+        "answer":"${:e}+${:c}/${:b}=color(red)(${math.round(:e+:c/:b,3)})",
+        "value":"${math.round(:e+:c/:b,3)}"
+    },{
+        "name":"Entier et fractions décimales -> décimal",
+        "vars":{"a":[10,100,1000,10000], "e":"1_${:a}", "b":"0_9_3"},
+        "question":["${:e}+${:b[0]}/10",
+            "${:e}+${:b[1]}/100",
+            "${:e}+${:b[2]}/1000",
+            "${:e}+${:b[0]}/10+${:b[1]}/100",
+            "${:e}+${:b[0]}/10+${:b[2]}/1000",
+            "${:e}+${:b[1]}/100+${:b[2]}/1000",
+            "${:e}+${:b[0]}/10+${:b[1]}/100+${:b[2]}/1000"
+            ],
+        "answer":[
+            ":question=color(red)(${math.round(:e+:b[0]/10,3)})",
+            ":question=color(red)(${math.round(:e+:b[1]/100,3)})",
+            ":question=color(red)(${math.round(:e+:b[2]/1000,3)})",
+            ":question=color(red)(${math.round(:e+:b[0]/10+:b[1]/100,3)})",
+            ":question=color(red)(${math.round(:e+:b[0]/10+:b[2]/1000,3)})",
+            ":question=color(red)(${math.round(:e+:b[1]/100+:b[2]/1000,3)})",
+            ":question=color(red)(${math.round(:e+:b[0]/10+:b[1]/100+:b[2]/1000,3)})"
+        ]
+    },
+    {
+        "name":"Décimal -> Entier et fraction décimale",
+        "vars":{"a":[10,100,1000,10000], "e":"1_${:a}", "b":[10,100,1000], "c":"1_${:b-1}"},
+        "question": "${math.round(:e+:c/:b,3)}",
+        "answer":"${math.round(:e+:c/:b,3)}=color(red)(${:e}+${math.simplifyFracDec(:c,:b)})",
+        "value":"${:e}+\\frac{${:c}}{${:b}}"
+    },
+    {
+        "name":"Décimal -> Entier et fractions décimales",
+        "vars":{"a":[10,100,1000,10000], "e":"1_${:a}", "b":"0_9_2", "c":"1_9"},
+        "question": "${math.round(:e+:b[0]/10+:b[1]/100+:c/1000,3)}",
+        "answer":":question=color(red)(${:e}+${:b[0]}/10+${:b[1]}/100+${:c}/1000)",
+        "value":"${:e}+${:b[0]}/10+${:b[1]}/100+${:c}/1000"
+    }
+    ]
+}
