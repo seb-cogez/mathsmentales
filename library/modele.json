@@ -2,6 +2,7 @@
     "title":"",
     "type":"",
     "ID":"",
+    "description":"",
     "dest":[""],
     "consts":{"d":""},
     "vars":{"a":"", "b":"", "c":["u","v","t","x", "y", "z"]},

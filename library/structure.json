@@ -46,6 +46,45 @@
             }
         }
     },
+    "8":{
+        "nom":"CM1",
+        "themes":{
+            "8N":{
+                "nom":"Nombres et calculs",
+                "chapitres":{
+                    "8NA":"Utiliser et représenter les grands nombres entiers",
+                    "8NB":"Utiliser et représenter des fractions simples",
+                    "8NC":"Utiliser et représenter les nombres décimaux",
+                    "8ND":"Calculer avec des nombres entiers",
+                    "8NE":"Calculer avec des nombres décimaux",
+                    "8NF":"Résoudre des problèmes avec des calculs",
+                    "8NG":"Organisation et gestion de données",
+                    "8NH":"Problèmes de proportionnalité"
+                }
+            },
+            "8M":{
+                "nom": "Grandeurs et mesures",
+                "chapitres":{
+                    "8MA":"Longueurs et périmètres",
+                    "8MB":"Aires",
+                    "8MC":"Durées",
+                    "8MD":"Volumes et contenances",
+                    "8ME":"Angles",
+                    "8MF":"Résoudre des problèmes impliquant des grandeurs",
+                    "8MG":"Proportionnalité"
+                }
+            },
+            "8G":{
+                "nom": "Espace et géométrie",
+                "chapitres":{
+                    "8GA":"Se repérer et se déplacer dans l'espace",
+                    "8GB":"Reconnaitre, nommer, décrire, etc. des solides",
+                    "8GC":"Reconnaitre, nommer, décrire, etc. des figures planes",
+                    "8GD":"Utiliser quelques relations géométriques"
+                }
+            }
+        }
+    },
     "7":{
         "nom":"CM2",
         "themes":{
@@ -70,7 +109,7 @@
                     "7MC":"Durées",
                     "7MD":"Volumes et contenances",
                     "7ME":"Angles",
-                    "7MF":"Résoudre des problèmes",
+                    "7MF":"Résoudre des problèmes impliquant des grandeurs",
                     "7MG":"Proportionnalité"
                 }
             },

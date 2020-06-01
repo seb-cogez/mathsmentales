@@ -35,12 +35,12 @@
         "value":"${math.round(:b,2)}"
     },
     {
-        "name":"Au dixième",
+        "name":"Au millième",
         "vars":{
             "a":[10,100,1000,10000],
             "c":"5_10",
             "b":"d0_${:a}_${:c}_^0"},
-            "question": "Arrondir $$${:b}$$ au dixième près",
+            "question": "Arrondir $$${:b}$$ au millième près",
         "answer":"$$${:b}~~color(red)(${math.round(:b,3)})$$",
         "value":"${math.round(:b,3)}"
     }
