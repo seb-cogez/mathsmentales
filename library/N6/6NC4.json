@@ -11,7 +11,7 @@
         "rep":"${:n1+:n2}"
         },
         "question": "${:p1}+${:p2}",
-        "answer":":question \\approx color(red)(${:rep}) color(blue)(=${:n1}+${:n2})",
+        "answer":":question \\approx \\color{red}{${:rep}} \\color{blue}{=${:n1}+${:n2}}",
         "value":"${:rep}"
     },
     {
@@ -23,7 +23,7 @@
         "rep":"${:n2-:n1}"
         },
         "question": "${:p2}-${:p1}",
-        "answer":":question \\approx color(red)(${:rep}) color(blue)(=${:n2}-${:n1})",
+        "answer":":question \\approx \\color{red}{${:rep}} \\color{blue}{=${:n2}-${:n1}}",
         "value":"${:rep}"
     },
     {
@@ -35,7 +35,7 @@
         "rep":"${:n2*:n1}"
         },
         "question": "${:p1}*${:p2}",
-        "answer":":question \\approx color(red)(${:rep}) color(blue)(=${:n1}*${:n2})",
+        "answer":":question \\approx \\color{red}{${:rep}} \\color{blue}{=${:n1}\\times ${:n2}}",
         "value":"${:rep}"
     }
     ]

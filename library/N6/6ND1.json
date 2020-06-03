@@ -18,16 +18,13 @@
     {
         "name":"Opération",
         "question":"$$ ${:a[0]}+${:a[1]} $$",
-        "answer":"$$ ${:a[0]}+${:a[1]} = color(red)(${:c}) $$",
+        "answer":"$$ ${:a[0]}+${:a[1]} = \\color{red}{${:c}} $$",
         "value":"${:c}"
     },
     {
         "name": "Opération à trou",
         "question":["$$ ${:a[0]}+?=${:c}$$", "$$ ? + ${:a[0]}=${:c} $$"],
-        "answer":"$$ ${:a[0]} + color(red)(${:a[1]})=${:c} $$",
+        "answer":"$$ ${:a[0]} + \\color{red}{${:a[1]}}=${:c} $$",
         "value":"${:a[1]}"
-    }],
-    "question":"",
-    "answer":"",
-    "value":""
+    }]
 }

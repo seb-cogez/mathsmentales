@@ -25,6 +25,6 @@
     }
     ],
     "question": "$$${:c}$$ ${:u[:a]}",
-    "answer":"$$${:c}$$ ${:u[:a]} $$ = color(red)(${math.round(:c*:p[:a],6)})$$",
+    "answer":"$$${:c}$$ ${:u[:a]} $$ = \\color{red}{${math.round(:c*:p[:a],6)}}$$",
     "value":"${math.round(:c*:p[:a],8)}"
 }

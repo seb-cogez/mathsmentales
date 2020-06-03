@@ -6,18 +6,18 @@
     "vars":{"a":[1,9,99,999,9999], "b":"1_4", "c":"d0_${:a}_${:b}_^0"},
         "options":[{
         "name":"Multiplier un décimal par 10",
-        "question": ["${:c}*10", "10*${:c}"],
-        "answer":":question=color(red)(${math.round(:c*10,3)})",
+        "question": ["${:c}\\times 10", "10\\times ${:c}"],
+        "answer":":question=\\color{red}{${math.round(:c*10,3)}}",
         "value":"${math.round(:c*10,3)}"
     },{
         "name":"Multiplier un décimal par 100",
-        "question": ["${:c}*100", "100*${:c}"],
-        "answer":":question=color(red)(${math.round(:c*100,3)})",
+        "question": ["${:c}\\times 100", "100\\times ${:c}"],
+        "answer":":question=\\color{red}{${math.round(:c*100,3)}}",
         "value":"${math.round(:c*100,3)}"
     },{
         "name":"Multiplier un décimal par 1000",
-        "question": ["${:c}*1000", "1000*${:c}"],
-        "answer":":question=color(red)(${math.round(:c*1000,3)})",
+        "question": ["${:c}\\times 1000", "1000\\times ${:c}"],
+        "answer":":question=\\color{red}{${math.round(:c*1000,3)}}",
         "value":"${math.round(:c*1000,3)}"
     }
     ]

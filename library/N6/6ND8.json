@@ -11,6 +11,6 @@
     }
     ],
     "question":"${:b}-${:a}",
-    "answer":"${:b}-${:a}=color(red)(${:d})",
+    "answer":"${:b}-${:a}=\\color{red}{${:d}}",
     "value":"${:d}"
 }

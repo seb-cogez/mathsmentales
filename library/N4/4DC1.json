@@ -1,0 +1,49 @@
+{
+    "title":"Calculer une 4e proportionnelle",
+    "ID":"4DC1",
+    "description":"",
+    "dest":["4DC", "3DC"],
+    "vars":{"a":"1_99_2", "b":"d0.2_3_1"},
+    "options":[{
+        "name":"Dans un tableau (1)",
+        "question": "\\begin{array}{|c|c|} \\hline ${:a[0]} & ${:a[1]} \\\\ \\hline ${math.round(:a[0]*:b,3)} & ?\\\\ \\hline \\end{array}",
+        "answer":"${math.round(:a[1]*:b,3)}",
+        "value":"${math.round(:a[1]*:b,3)}"
+    },{
+        "name":"Dans un tableau (2)",
+        "question":"\\begin{array}{|c|c|}\\hline ${:a[0]} & ${:a[1]} \\\\ \\hline ? & ${math.round(:a[1]*:b,3)}\\\\ \\hline \\end{array}",
+        "answer":"${math.round(:a[0]*:b,3)}",
+        "value":"${math.round(:a[0]*:b,3)}"
+    },{
+        "name":"Dans un tableau (3)",
+        "question":"\\begin{array}{|c|c|}\\hline ? & ${:a[1]} \\\\ \\hline ${math.round(:a[0]*:b,3)} & ${math.round(:a[1]*:b,3)}\\\\ \\hline \\end{array}",
+        "answer":"${:a[0]}",
+        "value":"${:a[0]}"
+    },{
+        "name":"Dans un tableau (4)",
+        "question":"\\begin{array}{|c|c|}\\hline ${:a[0]} & ? \\\\ \\hline ${math.round(:a[0]*:b,3)} & ${math.round(:a[1]*:b,3)}\\\\ \\hline \\end{array}",
+        "answer":"${:a[1]}",
+        "value":"${:a[1]}"
+    }, {
+        "name":"Dans une égalité de fractions",
+        "question":"\\dfrac{${:a[0]}}{${math.round(:a[0]*:b,3)}} = \\dfrac{${:a[1]}}{?}",
+        "answer":"${math.round(:a[1]*:b,3)}",
+        "value":"${math.round(:a[1]*:b,3)}"
+    },{
+        "name":"Dans une égalité de fractions (2)",
+        "question":"\\dfrac{${:a[0]}}{?} = \\dfrac{${:a[1]}}{${math.round(:a[1]*:b,3)}}",
+        "answer":"${math.round(:a[0]*:b,3)}",
+        "value":"${math.round(:a[0]*:b,3)}"
+    },{
+        "name":"Dans une égalité de fractions (3)",
+        "question":"\\dfrac{${:a[0]}}{${math.round(:a[0]*:b,3)}} = \\dfrac{?}{${math.round(:a[1]*:b,3)}}",
+        "answer":"${:a[1]}",
+        "value":"${:a[1]}"
+    },{
+        "name":"Dans une égalité de fractions (4)",
+        "question":"\\dfrac{?}{${math.round(:a[0]*:b,3)}} = \\dfrac{${:a[1]}}{${math.round(:a[1]*:b,3)}}",
+        "answer":"${:a[0]}",
+        "value":"${:a[0]}"
+    }
+    ]
+}

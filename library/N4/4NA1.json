@@ -15,8 +15,8 @@
             "d":"${math.round(Number(:i+:b+'e'+:c),6)}"
         },
         "question": "Quelle est l'écriture scientifique de $$${:d}$$ ?",
-        "answer":"$$${:d}=color(red)(${math.round(:i+:b,7)}*10^{${:c}})$$",
-        "value":"${:i+:b}*10^{${:c}"
+        "answer":"$$${:d}=\\color{red}{${math.round(:i+:b,7)}\\times10^{${:c}}}$$",
+        "value":"${:i+:b}*10^{${:c}}"
     },
     {
         "name":"Donner l'écriture scientifique d'un décimal inférieur à 1",
@@ -28,7 +28,7 @@
             "d":"${math.round(Number(:i+:b+'e'+:c),13)}"
         },
         "question": "Quelle est l'écriture scientifique de $$${:d}$$ ?",
-        "answer":"$$${:d}=color(red)(${math.round(:i+:b,7)}*10^{${:c}})$$",
+        "answer":"$$${:d}=\\color{red}{${math.round(:i+:b,7)}\\times10^{${:c}}}$$",
         "value":"${:i+:b}*10^{${:c}"
     },{
         "name":"Donner l'écriture décimale à partir de l'écriture scientifique supérieure à 1",
@@ -39,8 +39,8 @@
             "c":"0_10",
             "d":"${math.round(Number(:i+:b+'e'+:c),6)}"
         },
-        "question": "Quelle est l'écriture décimale de $$${math.round(:i+:b,7)}*10^{${:c}}$$ ?",
-        "answer":"$$${math.round(:i+:b,7)}*10^{${:c}}=color(red)(${:d})$$",
+        "question": "Quelle est l'écriture décimale de $$${math.round(:i+:b,7)}\\times 10^{${:c}}$$ ?",
+        "answer":"$$${math.round(:i+:b,7)}\\times 10^{${:c}}=\\color{red}{${:d}}$$",
         "value":"${:d}"
     },{
         "name":"Donner l'écriture décimale à partir de l'écriture scientifique inférieure à 1",
@@ -51,12 +51,9 @@
             "c":"-6_-1",
             "d":"${math.round(Number(:i+:b+'e'+:c),13)}"
         },
-        "question": "Quelle est l'écriture décimale de $$${math.round(:i+:b,7)}*10^{${:c}}$$ ?",
-        "answer":"$$${math.round(:i+:b,7)}*10^{${:c}}=color(red)(${:d})$$",
+        "question": "Quelle est l'écriture décimale de $$${math.round(:i+:b,7)}\\times10^{${:c}}$$ ?",
+        "answer":"$$${math.round(:i+:b,7)}\\times10^{${:c}}=\\color{red}{${:d}}$$",
         "value":"${:d}"
     }
-    ],
-    "question":"",
-    "answer":"",
-    "value":""
+    ]
 }

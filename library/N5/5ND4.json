@@ -14,8 +14,8 @@
     "question": [
         "Quel est le PGCD de ${:n} et ${:d} ?",
         "PGCD(${:n},${:d})",
-        "Par quel nombre simplifier au maximum $$${:d}/${:n}$$ ?"
+        "Par quel nombre simplifier au maximum $$\\dfrac{${:d}}{${:n}}$$ ?"
     ],
-    "answer":"PGCD(${:d},${:n}) = color(red)(${math.pgcd(:d,:n)})",
+    "answer":"PGCD(${:d},${:n}) = $$\\color{red}{${math.pgcd(:d,:n)}}$$",
     "value":"${math.pgcd(:d,:n)}"
 }

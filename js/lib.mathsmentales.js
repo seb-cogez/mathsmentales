@@ -342,8 +342,8 @@ var utils = {
         });
         document.querySelectorAll(".math").forEach(function(item) {
             // transform ascii to Latex
-          var texTxt = MM.ascii2tex.parse(item.innerHTML);
-            
+          //var texTxt = MM.ascii2tex.parse(item.innerHTML);
+        var texTxt = item.innerHTML.replace(/\&amp\;/g,"&");
           // recherche les nombres, décimaux ou pas
           let nbrgx = /(\d+\.*\d*)/g;
           // insère des espaces tous les 3 chiffres;
@@ -352,7 +352,7 @@ var utils = {
           //texTxt = texTxt.replace(/\.(\d{3})(?=(\d+))/g,"$1~");
           //texTxt = texTxt.replace(/\./g, "{,}");
           try {
-            katex.render("\\displaystyle "+texTxt, item, {
+            katex.render(texTxt, item, { //"\\displaystyle "+
               throwOnError: false,
               errorColor: "#FFF",
               colorIsTextColor: true
@@ -497,6 +497,9 @@ var math ={
         }
         return a.join("*");
     },
+    toTex(string){
+        return string.replace(/\*/g, "\\times");
+    },
     estDivisiblePar(nb, par, type){
         nb = Number(nb); par = Number(par);
         let reponses = {"w":[" est divisible ", "n'est pas divisible"],"yn":["oui", "non"]};
@@ -525,7 +528,7 @@ var math ={
         while(n%10 === 0 && d%10 === 0){
             n=n/10;d=d/10;
         }
-        return "frac{"+n+"}{"+d+"}";
+        return "\\dfrac{"+n+"}{"+d+"}";
     }
 }
 // test de seedrandom

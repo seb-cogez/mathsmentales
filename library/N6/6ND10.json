@@ -5,15 +5,15 @@
     "options":[{
         "name":"Division entière",
         "vars":{"a":"1_10", "b":"1_10", "p":"${:a*:b}"},
-        "question": "${:p}-:${:a}",
-        "answer":":question=color(red)(${:b})",
+        "question": "${:p}\\div ${:a}",
+        "answer":":question=\\color{red}{${:b}}",
         "value":"${:b}"
     },{
         "name":"Division euclidienne (petits nombres)",
-        "vars":{"a":"11_50","b":"2_10", "q":"${~~(:a/:b)}", "r":"${:a%:b}"},
-        "question":"text(Quel sont le quotient et le reste de )${:a}-:${:b} ?",
-        "answer":"${:a}=${:b}*color(red)(${:q})+color(red)(${:r})text( ou )color(green)(Q=${:q}; R=${:r})",
-        "value":["${:q};${:r}", "Q=${:q};R=${:r}"]
+        "vars":{"a":"11_50","b":"2_10", "qo":"${~~(:a/:b)}", "r":"${:a%:b}"},
+        "question":"\\text{Quel sont le quotient et le reste de }${:a}\\div ${:b} ?",
+        "answer":"${:a}=${:b}\\times\\color{red}{${:qo}}+\\color{red}{${:r}}\\text{ ou }\\color{green}{Q=${:qo}; R=${:r}}",
+        "value":["${:qo};${:r}", "Q=${:qo};R=${:r}"]
     }
     ]
 }

@@ -2,7 +2,7 @@
     "title":"Arrondir un nombre décimal",
     "type":"text",
     "ID":"6NC2",
-    "dest":["6NC"],
+    "dest":["6NC", "5NA", "4NA", "3NA"],
     "options":[
         {
             "name":"A l'unité",
@@ -11,7 +11,7 @@
                 "c":"2_5",
                 "b":"d0_${:a}_${:c}_^0"},
             "question": "Arrondir $$${:b}$$ à l'unité près",
-            "answer":"$$${:b}~~color(red)(${math.round(:b,0)})$$",
+            "answer":"$$${:b}\\approx\\color{red}{${math.round(:b,0)}}$$ à l'unité près",
             "value":"${math.round(:b,0)}"
         },
         {
@@ -21,7 +21,7 @@
             "c":"3_5",
             "b":"d0_${:a}_${:c}_^0"},
             "question": "Arrondir $$${:b}$$ au dixième près",
-        "answer":"$$${:b}~~color(red)(${math.round(:b,1)})$$",
+        "answer":"$$${:b}\\approx\\color{red}{${math.round(:b,1)}}$$ au dixième près",
         "value":"${math.round(:b,1)}"
     },
     {
@@ -31,7 +31,7 @@
             "c":"4_8",
             "b":"d0_${:a}_${:c}_^0"},
             "question": "Arrondir $$${:b}$$ au centième près",
-        "answer":"$$${:b}~~color(red)(${math.round(:b,2)})$$",
+        "answer":"$$${:b}\\approx\\color{red}{${math.round(:b,2)}}$$ au centième près",
         "value":"${math.round(:b,2)}"
     },
     {
@@ -41,7 +41,7 @@
             "c":"5_10",
             "b":"d0_${:a}_${:c}_^0"},
             "question": "Arrondir $$${:b}$$ au millième près",
-        "answer":"$$${:b}~~color(red)(${math.round(:b,3)})$$",
+        "answer":"$$${:b}\\approx\\color{red}{${math.round(:b,3)}}$$ au millième près",
         "value":"${math.round(:b,3)}"
     }
     ]

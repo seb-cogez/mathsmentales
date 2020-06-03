@@ -18,6 +18,6 @@
         }
     ],
     "question": "${:t1}+${:t2}",
-    "answer":":question=color(red)(${math.round(:t1+:t2,3)})",
+    "answer":":question=\\color{red}{${math.round(:t1+:t2,3)}}",
     "value":"${math.round(:t1+:t2,3)}"
 }

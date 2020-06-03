@@ -6,25 +6,25 @@
         "name":"+ suivi de -",
         "vars":{"a":"1_30", "b":"10_20", "c":"2_${:a+:b-2}"},
         "question": "${:a}+${:b}-${:c}",
-        "answer":":question=color(red)(${:a+:b-:c})",
+        "answer":":question=\\color{red}{${:a+:b-:c}}",
         "value":"${:a+:b-:c}"
     },{
         "name":"- suivi de +",
         "vars":{"a":"5_50", "b":"2_${:a}", "c":"2_50"},
         "question": "${:a}-${:b}+${:c}",
-        "answer":":question=color(red)(${:a-:b+:c})",
+        "answer":":question=\\color{red}{${:a-:b+:c}}",
         "value":"${:a-:b+:c}"
     },{
         "name":"+ suivi de ×",
         "vars":{"a":"5_50", "b":"2_10", "c":"2_10"},
-        "question": "${:a}+${:b}*${:c}",
-        "answer":":question=color(red)(${:a+:b*:c})",
+        "question": "${:a}+${:b}\\times ${:c}",
+        "answer":":question=\\color{red}{${:a+:b*:c}}",
         "value":"${:a+:b*:c}"
     },{
         "name":"- suivi de ×",
         "vars":{"b":"2_10", "c":"2_10", "a":"${:b*:c}_${:b*:c+30}"},
-        "question": "${:a}-${:b}*${:c}",
-        "answer":":question=color(red)(${:a-:b*:c})",
+        "question": "${:a}-${:b}\\times ${:c}",
+        "answer":":question=\\color{red}{${:a-:b*:c}}",
         "value":"${:a-:b*:c}"
     }
     ]

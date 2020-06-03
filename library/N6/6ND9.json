@@ -5,20 +5,20 @@
     "options":[{
         "name":"ajouter pour faire 10",
         "vars":{"a":"1_9", "b":"${10-:a}", "c":"11_40"},
-        "question": ["${:a}*${:c}+${:b}*${:c}", "${:a}*${:c}+${:c}*${:b}", "${:c}*${:a}+${:b}*${:c}"],
-        "answer":":question=color(red)(${10*:c})",
+        "question": ["${:a}\\times${:c}+${:b}\\times${:c}", "${:a}\\times${:c}+${:c}\\times${:b}", "${:c}\\times${:a}+${:b}\\times${:c}"],
+        "answer":":question=\\color{red}{${10*:c}}",
         "value":"${(:a+:b)*:c}"
         },{
         "name":"ajouter pour faire 20",
         "vars":{"a":"1_19", "b":"${20-:a}", "c":"11_40"},
-        "question": ["${:a}*${:c}+${:b}*${:c}", "${:a}*${:c}+${:c}*${:b}", "${:c}*${:a}+${:b}*${:c}"],
-        "answer":":question=color(red)(${20*:c})",
+        "question": ["${:a}\\times${:c}+${:b}\\times${:c}", "${:a}\\times${:c}+${:c}\\times${:b}", "${:c}\\times${:a}+${:b}\\times${:c}"],
+        "answer":":question=\\color{red}{${20*:c}}",
         "value":"${(:a+:b)*:c}"
         },{
             "name":"Soustraire pour faire 10",
             "vars":{"a":"11_40", "b":"${:a-10}", "c":"11_50"},
-            "question": ["${:a}*${:c}-${:b}*${:c}", "${:a}*${:c}-${:c}*${:b}", "${:c}*${:a}-${:b}*${:c}"],
-            "answer":":question=color(red)(${10*:c})",
+            "question": ["${:a}\\times${:c}-${:b}\\times${:c}", "${:a}\\times${:c}-${:c}\\times${:b}", "${:c}\\times${:a}-${:b}\\times${:c}"],
+            "answer":":question=\\color{red}{${10*:c}}",
             "value":"${(:a-:b)*:c}"
         }
     ]

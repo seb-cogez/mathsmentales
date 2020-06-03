@@ -2,7 +2,6 @@
     "title":"Connaître les carrés parfaits",
     "ID":"4NC1",
     "dest":["4NC", "3NC", "5NC", "6ND"],
-    "consts":{"d":""},
     "options":[{
         "name":"Carrés des tables (6e, 5e)",
         "vars":{"a":"1_10"}
@@ -12,8 +11,8 @@
     }, {
         "name":"Racines de 1 à 144",
         "vars":{"a":"1_12"},
-        "question":["sqrt ${:a*:a}", "?^2=${:a*:a}"],
-        "answer":":question text( réponse )color(red)(${:a})",
+        "question":["\\sqrt {${:a*:a}}", "?^2=${:a*:a}"],
+        "answer":":question \\text{ réponse }\\color{red}{${:a}}",
         "value":"${:a}"
     }, {
         "name":"Carrés de 1 à 15",
@@ -21,12 +20,12 @@
     }, {
         "name":"Racines de 1 à 225",
         "vars":{"a":"1_15"},
-        "question":["sqrt ${:a*:a}", "?^2=${:a*:a}"],
-        "answer":":question text( réponse ) color(red)(${:a})",
+        "question":["\\sqrt{ ${:a*:a}}", "?^2=${:a*:a}"],
+        "answer":":question \\text{ réponse } \\color{red}{${:a}}",
         "value":"${:a}"
     }
     ],
-    "question": ["${:a}*${:a}", "${:a}^2"],
-    "answer":":question=color(red)(${:a*:a})",
+    "question": ["${:a}\\times${:a}", "${:a}^2"],
+    "answer":":question=\\color{red}{${:a*:a}}",
     "value":"${:a*:a}"
 }
