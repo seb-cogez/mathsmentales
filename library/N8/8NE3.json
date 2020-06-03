@@ -1,0 +1,24 @@
+{
+    "title":"Multiplier un décimal par 0,1, 0,01, 0,001",
+    "ID":"8NE3",
+    "description":"",
+    "dest":["8NE", "7NE", "6NE"],
+    "vars":{"a":[1,9,99,999,9999], "b":"1_4", "c":"d0_${:a}_${:b}_^0"},
+        "options":[{
+        "name":"Multiplier un décimal par 0,1",
+        "question": ["${:c}*0.1", "0.1*${:c}"],
+        "answer":":question=color(red)(${math.round(:c*.1,7)})",
+        "value":"${math.round(:c*.1,6)}"
+    },{
+        "name":"Multiplier un décimal par 0,01",
+        "question": ["${:c}*0.01", "0.01*${:c}"],
+        "answer":":question=color(red)(${math.round(:c*.01,7)})",
+        "value":"${math.round(:c*.01,7)}"
+    },{
+        "name":"Multiplier un décimal par 0,001",
+        "question": ["${:c}*0.001", "0.001*${:c}"],
+        "answer":":question=color(red)(${math.round(:c*.001,7)})",
+        "value":"${math.round(:c*.001,7)}"
+    }
+    ]
+}

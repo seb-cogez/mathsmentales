@@ -1,4 +1,5 @@
 // Node.js
+// F8 pour lancer dans Visual Studio Code
 // Analyse la structure et crée le fichier de référence aux exercices
 // remplace le fichier scan.php
 const fs = require("fs");

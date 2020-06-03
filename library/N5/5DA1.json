@@ -7,8 +7,8 @@
         "b":[["fraises", "bananes", "oranges", "kiwis", "pommes"],
             ["vélo", "trotinette", "voiture", "bus", "scooter"],
             ["2016", "2017", "2018", "2019", "2020"]],
-        "c":[["Quelle est la données la plus représentée ?", "C'est ${:b[:f][:a.indexOf(Math.max(...:a))]}", "${Math.max(...:a)}"],
-        ["Quelle est la données la moins représentée ?","C'est ${:b[:f][:a.indexOf(Math.min(...:a))]}", "${Math.min(...:a)}"]],
+        "c":[["Quelle est la donnée la plus représentée ?", "C'est ${:b[:f][:a.indexOf(Math.max(...:a))]}", "${Math.max(...:a)}"],
+        ["Quelle est la donnée la moins représentée ?","C'est ${:b[:f][:a.indexOf(Math.min(...:a))]}", "${Math.min(...:a)}"]],
         "m":[["${:a[0]}","${:a[1]}","${:a[2]}","${:a[3]}","${:a[4]}"],["${10*:a[0]}","${10*:a[1]}","${10*:a[2]}","${10*:a[3]}","${10*:a[4]}"]]
     },
     "options":[

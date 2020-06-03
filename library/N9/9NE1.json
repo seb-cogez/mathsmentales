@@ -1,0 +1,24 @@
+{
+    "title":"Multiplier un entier par 10, 100, 1000",
+    "ID":"9NE1",
+    "description":"",
+    "dest":["9NE", "8ND", "7ND", "6ND"],
+    "vars":{"a":[9,99,999,9999], "b":"1_${:a}"},
+        "options":[{
+        "name":"Multiplier un entier par 10",
+        "question": ["${:b}*10", "10*${:b}"],
+        "answer":":question=color(red)(${:b*10})",
+        "value":"${:b*10}"
+    },{
+        "name":"Multiplier un entier par 100",
+        "question": ["${:b}*100", "100*${:b}"],
+        "answer":":question=color(red)(${:b*100})",
+        "value":"${:b*100}"
+    },{
+        "name":"Multiplier un entier par 1000",
+        "question": ["${:b}*1000", "1000*${:b}"],
+        "answer":":question=color(red)(${:b*1000})",
+        "value":"${:b*1000}"
+    }
+    ]
+}

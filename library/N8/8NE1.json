@@ -1,0 +1,23 @@
+{
+    "title":"Ajouter un nombre décimal et ...",
+    "ID":"8NE1",
+    "description":"",
+    "dest":["8NE", "7NE", "6NE"],
+    "options":[{
+        "name":"Ajouter un entier",
+        "vars":{"a":[9,99,999],"d":"1_3", "t1":"d1_${:a}_${:d}", "t2":"1_9"}
+        },{
+            "name":"Ajouter des dixièmes",
+            "vars":{"a":[9,99,999],"d":"1_3", "t1":"d1_${:a}_${:d}", "t2":"d0_9_1_^0"}
+        },{
+            "name":"Un petit décimal",
+            "vars":{"a":[9,99,999],"d":"1_3", "t1":"d1_${:a}_${:d}", "t2":"d0_99_2_^0"}
+        },{
+            "name":"Un décimal",
+            "vars":{"a":[9,99,999],"d":"1_3", "t1":"d1_${:a}_${:d}", "t2":"d0_999_3_^0"}
+        }
+    ],
+    "question": "${:t1}+${:t2}",
+    "answer":":question=color(red)(${math.round(:t1+:t2,3)})",
+    "value":"${math.round(:t1+:t2,3)}"
+}
