@@ -1,0 +1,28 @@
+{
+    "title":"Calculer le carré d'un décimal simple",
+    "ID":"6NE1",
+    "dest":["6NE", "5NC", "4NC", "3NC"],
+    "options":[{
+        "name":"Nombre de 1 à 10 multiplié par 10 ou 100",
+        "vars":{"a":[10,100], "b":"1_10", "c":"${:a*:b}"}
+    },{
+        "name":"Nombre de 1 à 10 divisé par 10 ou 100",
+        "vars":{"a":[10,100], "b":"1_10", "c":"${:b/:a}"}
+    },{
+        "name":"Nombre de 11 à 15 multiplié par 10 ou 100",
+        "vars":{"a":[10,100], "b":"11_15", "c":"${:a*:b}"}
+    },{
+        "name":"Nombre de 11 à 15 divisé par 10 ou 100",
+        "vars":{"a":[10,100], "b":"11_15", "c":"${:b/:a}"}
+    },{
+        "name":"Nombre de 16 à 20 multiplié par 10 ou 100",
+        "vars":{"a":[10,100], "b":"16_20", "c":"${:a*:b}"}
+    },{
+        "name":"Nombre de 16 à 20 divisé par 10 ou 100",
+        "vars":{"a":[10,100], "b":"16_20", "c":"${:b/:a}"}
+    }
+    ],
+    "question":["${:c}^2","${:c}\\times${:c}"],
+    "answer":":question=\\color{red}{${math.round(:c**2,4)}}",
+    "value":"${math.round(:c**2,4)}"
+}

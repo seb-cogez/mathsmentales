@@ -1,0 +1,23 @@
+{
+    "title":"Diviser un décimal par 0,1, 0,01, 0,001",
+    "ID":"4NC2",
+    "dest":["4NC","3NB"],
+    "vars":{"a":[1,9,99,999,9999], "b":"1_4", "c":"d0_${:a}_${:b}_^0"},
+        "options":[{
+        "name":"Diviser un décimal par 0,1",
+        "question": "${:c}\\div 0.1",
+        "answer":":question=\\color{red}{${math.round(:c*10,3)}}",
+        "value":"${math.round(:c*10,3)}"
+    },{
+        "name":"Diviser un décimal par 0,01",
+        "question": "${:c}\\div 0.01",
+        "answer":":question=\\color{red}{${math.round(:c*100,3)}}",
+        "value":"${math.round(:c*100,3)}"
+    },{
+        "name":"Diviser un décimal par 0,001",
+        "question": "${:c}\\div 0.001",
+        "answer":":question=\\color{red}{${math.round(:c*1000,3)}}",
+        "value":"${math.round(:c*1000,3)}"
+    }
+    ]
+}

@@ -2,7 +2,7 @@
     "title":"Multiplier un décimal par 10, 100, 1000",
     "ID":"8NE2",
     "description":"",
-    "dest":["8NE", "7NE", "6NE"],
+    "dest":["8NE", "7NE", "6NE", "5NC", "4NC", "3NB"],
     "vars":{"a":[1,9,99,999,9999], "b":"1_4", "c":"d0_${:a}_${:b}_^0"},
         "options":[{
         "name":"Multiplier un décimal par 10",

@@ -1,24 +1,24 @@
 {
-    "title":"Multiplier un décimal par 0,1, 0,01, 0,001",
+    "title":"Diviser un décimal par 10, 100, 1000",
     "ID":"8NE3",
     "description":"",
-    "dest":["8NE", "7NE", "6NE"],
-    "vars":{"a":[1,9,99,999,9999], "b":"1_4", "c":"d0_${:a}_${:b}_^0"},
+    "dest":["8NE", "7NE", "6NE", "5NC", "4NC", "3NB"],
+    "vars":{"a":[1,9,99,999,9999], "b":"1_3", "c":"d0_${:a}_${:b}_^0"},
         "options":[{
-        "name":"Multiplier un décimal par 0,1",
-        "question": ["${:c}\\times 0.1", "0.1\\times ${:c}"],
-        "answer":":question=\\color{red}{${math.round(:c*.1,7)}}",
-        "value":"${math.round(:c*.1,6)}"
+        "name":"Diviser un décimal par 10",
+        "question": "${:c}\\div 10",
+        "answer":":question=\\color{red}{${math.round(:c/10,4)}}",
+        "value":"${math.round(:c/10,4)}"
     },{
-        "name":"Multiplier un décimal par 0,01",
-        "question": ["${:c}\\times 0.01", "0.01\\times ${:c}"],
-        "answer":":question=\\color{red}{${math.round(:c*.01,7)}}",
-        "value":"${math.round(:c*.01,7)}"
+        "name":"Diviser un décimal par 100",
+        "question": "${:c}\\div 100",
+        "answer":":question=\\color{red}{${math.round(:c/100,5)}}",
+        "value":"${math.round(:c/100,5)}"
     },{
-        "name":"Multiplier un décimal par 0,001",
-        "question": ["${:c}\\times 0.001", "0.001\\times ${:c}"],
-        "answer":":question=\\color{red}{${math.round(:c*.001,7)}}",
-        "value":"${math.round(:c*.001,7)}"
+        "name":"Diviser un décimal par 1000",
+        "question": "${:c}\\div 1000",
+        "answer":":question=\\color{red}{${math.round(:c/1000,6)}}",
+        "value":"${math.round(:c/1000,6)}"
     }
     ]
 }

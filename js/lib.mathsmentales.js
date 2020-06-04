@@ -168,7 +168,7 @@ var utils = {
      * @param {integer} qty positiv
      * @param {string} avoid start with ^ indicates the list of exeptions, & as exeption => no doble number in the list
      */
-    aleaInt:function(min,max){ // accept 2 arguments more
+    aleaInt:function(min,max){ // accepts 2 arguments more
         let qty=1;
         let avoid=[];
         utils.security = 300;
@@ -936,7 +936,7 @@ var MM = {
         }
     },
     removeCart:function(index){
-        if(!window.confirm("Vous êtes sur le points de supprimer ce panier.\nConfirmez-vous ?")){
+        if(!window.confirm("Vous êtes sur le point de supprimer ce panier.\nConfirmez-vous ?")){
             return false;
         }
         // remove last cart button
@@ -1538,6 +1538,8 @@ class activity {
         document.getElementById('activityTitle').innerHTML = this.title;
         if(this.description)
             document.getElementById('activityDescription').innerHTML = this.description;
+        else
+        document.getElementById('activityDescription').innerHTML = "";
         // affichage d'exemple(s)
         var examples = document.getElementById('activityOptions');
         examples.innerHTML = "";
