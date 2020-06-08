@@ -861,6 +861,7 @@ class timer {
 // MathsMentales core
 var MM = {
     content:undefined, // liste des exercices classés niveau/theme/chapitre chargé au démarrage
+    introType:undefined,// type of the slide's intro values : "example" "321" "nothing"
     selectedCart:0,
     seed:"", // String to initialize the randomization
     editedActivity:undefined, // object activity 
@@ -1014,7 +1015,6 @@ var MM = {
         //MM.seed = "enonce"; // randomize it
         MM.seed = Date();
         utils.initializeAlea(MM.seed);
-        MM.createSlideShows();
         for(let i=0;i<length;i++){
             for(let kk=0;kk<MM.carts[i].target.length;kk++){
                 let indiceSlide = 0;
@@ -1095,17 +1095,88 @@ var MM = {
             MM.carts[0].addActivity(MM.editedActivity);
         }
         // check if an option has been chosen
-        // TODO !!!
+        MM.checkIntro();
         MM.createSlideShows();
         MM.populateQuestionsAndAnswers();
-        MM.showSlideShows();
-        MM.startTimers();
+        if(MM.introType === "321"){
+            document.getElementById("countdown-container").className = "";
+            setTimeout(function(){
+                document.getElementById("countdown-container").className = "hidden";
+                MM.showSlideShows();
+                MM.startTimers();
+            },3600);
+        } else if(MM.introType ==="example"){
+            MM.showSampleQuestion();
+            MM.showSlideShows();
+        } else {
+            MM.showSlideShows();
+            MM.startTimers();
+        }
+    },
+    checkIntro:function(){
+        MM.introType = utils.getRadioChecked("beforeSlider");
     },
     startTimers:function(){
         if(modeDebug)console.log("startTimers ", MM.timers);
         for(let i=0,k=MM.timers.length;i<k;i++){
             MM.timers[i].start(0);
         }
+    },
+    showSampleQuestion:function(){
+        let nb = MM.slidersNumber;
+        MM.seed = "sample"+Date();
+        utils.initializeAlea(MM.seed);
+        let container = document.getElementById("slideshow");
+        for(let i=0,len=MM.carts.length;i<len;i++){
+            MM.carts[i].activities[0].generateSample();
+        }
+        let divSample = document.createElement("div");
+        divSample.id = "sampleLayer";
+        divSample.className = "sample";
+        for(let i=0;i<nb;i++){
+            let div = document.createElement("div");
+            div.id = "sample"+i;
+            if(nb === 1)div.className = "slider-1";
+            else if(nb===2)div.className = "slider-2";
+            else div.className = "slider-34";
+            div.innerHTML = `Exemple <div class="slider-nav">
+            <button title="Montrer la réponse" onclick="MM.showSampleAnswer(${i});"><img src="img/slider-solution.png" /></button>
+            <button title="Autre exemple" onclick="MM.newSample(${i});"><img src="img/newsample.png" /></button>
+            <button title="Démarrer le diaporama" onclick="MM.startSlideShow(${i});"><img src="img/fusee.png" /></button>
+            </div>`;
+            let divContent = document.createElement("div");
+            divContent.className = "slide";
+            divContent.id = "sampleSlide"+i;
+            let span = document.createElement("span");
+            span.id = "sample"+i+"-enonce";
+            let spanAnswer = document.createElement("span");
+            spanAnswer.id = "sample"+i+"-corr";
+            spanAnswer.className = "hidden";
+            divContent.appendChild(span);
+            divContent.appendChild(spanAnswer);
+            div.appendChild(divContent);
+            // math or not ?
+            // insert content
+            divSample.appendChild(div);
+        }
+        container.appendChild(divSample);
+        for(let i=0;i<MM.carts.length;i++){
+            for(let y=0;y<MM.carts[i].target.length;y++){
+                let sN = MM.carts[i].target[y]-1;
+                let act = MM.carts[i].activities[0];
+                document.getElementById("sample"+sN+"-enonce").innerHTML = act.sample.question;
+                document.getElementById("sample"+sN+"-corr").innerHTML = act.sample.answer;
+                if(act.type === undefined || act.type==="" || act.type === "latex"){
+                    document.getElementById("sample"+sN+"-enonce").className = "math";
+                    document.getElementById("sample"+sN+"-corr").className += " math";
+                }
+                if(act.sample.figure !== undefined){
+                    let fig = new Figure(act.sample.figure, "sample-c"+sN, document.getElementById("sampleSlide"+sN));
+                    setTimeout(function(){fig.display();},100);
+                }
+            }
+        }
+        utils.mathRender();
     },
     showQuestions:function(){
         if(!MM.carts[0].activities.length)
@@ -1191,6 +1262,43 @@ var MM = {
             MM.timers[id].start();
         }
     },
+    showSampleAnswer(id){
+        let answerToShow = document.getElementById("sample"+id+"-corr");
+        if(answerToShow.className.indexOf("hidden")>-1){
+            utils.removeClass(answerToShow, "hidden");
+        }else{
+            utils.addClass(answerToShow, "hidden");
+        }
+    },
+    newSample(id){
+        for(let i=0,len=MM.carts.length;i<len;i++){
+            if(MM.carts[i].target.indexOf(id+1)>-1){
+                let act = MM.carts[i].activities[0];
+                act.generateSample();
+                document.getElementById("sample"+id+"-enonce").innerHTML = act.sample.question;
+                document.getElementById("sample"+id+"-corr").innerHTML = act.sample.answer;
+                if(act.type === undefined || act.type==="" || act.type === "latex"){
+                    document.getElementById("sample"+id+"-enonce").className = "math";
+                    document.getElementById("sample"+id+"-corr").className += " math";
+                }
+                if(act.sample.figure !== undefined){
+                    let item = document.getElementById("sample-c"+id);
+                    item.parentNode.removeChild(item);
+                    let fig = new Figure(act.sample.figure, "sample-c"+id, document.getElementById("sampleSlide"+id));
+                    setTimeout(function(){fig.display();},100);
+                }
+                utils.mathRender();
+            }
+        }
+    },
+    removeSample(){
+        let item = document.getElementById("sampleLayer");
+        item.parentNode.removeChild(item);
+    },
+    startSlideShow(){
+        MM.removeSample();
+        MM.startTimers();
+    },
     /**
      * 
      * @param {integer} id du slide (start to 1)
@@ -1230,6 +1338,7 @@ var MM = {
         }
         if(ended){
             MM.hideSlideshows();
+            // if only one activity in one cart, we empty it
             if(MM.carts.length === 1 && MM.carts[0].activities.length === 1){
                 MM.resetCarts();
                 MM.editedActivity.display();
@@ -1728,6 +1837,7 @@ class activity {
     /**
      * 
      * @param {string} chaine : chaine où se trouve la variable 
+     * @param {integer} index : 
      */
     replaceVars(chaine, index){
             if(typeof chaine === "string"){
@@ -1745,13 +1855,16 @@ class activity {
                 if(index !== undefined){
                     //if(modeDebug)console.log(this.questions[index]);
                     let regex = new RegExp(":question", 'g');
-                    chaine = chaine.replace(regex, this.questions[index]);
+                    if(index === "sample")
+                        chaine = chaine.replace(regex, this.sample.question);
+                    else
+                        chaine = chaine.replace(regex, this.questions[index]);
                 }
             //debug("Chaine à parser", chaine);
             let result = eval("`"+chaine.replace(/\\/g,"\\\\")+"`");
             // return number if this is one
             if(!isNaN(result)){
-                return eval(result);
+                return parseFloat(result);
             } else return result;
             } else if(typeof chaine === "object"){
                 /*for(let i in chaine){
@@ -1770,10 +1883,11 @@ class activity {
     * @param {integer} n number of questions to create
     * @param {integer} option id of an option (optional)
     * @param {integer} pattern id of question pattern (otional)
+    * @param {boolean} sample if true generate a sample question to show before starting slideshow
     * return nothing
     * 
     */
-    generate(n, opt, patt){
+    generate(n, opt, patt, sample){
         // empty values
         if(n === undefined) n = this.nbq;
         let option, pattern, lenQ=false;
@@ -1860,6 +1974,7 @@ class activity {
                 this.cConsts = this.replaceVars(this.cConsts);
             }
             if(modeDebug)console.log("wWars",utils.clone(this.wVars));
+            if(!sample){
             // question text generation
             this.questions[i] = this.replaceVars(this.cQuestion);
             this.answers[i] = this.replaceVars(this.cAnswer, i);
@@ -1872,7 +1987,26 @@ class activity {
                     "axis":this.cFigure.axis,
                     "grid":this.cFigure.grid?true:false
                 };
+            }} else {
+                this.sample = {
+                    question:this.replaceVars(this.cQuestion)
+                };
+                this.sample.answer=this.replaceVars(this.cAnswer, "sample");
+                
+                if(this.cFigure !== undefined){
+                    this.sample.figure = {
+                        "type":this.cFigure.type,
+                        "content":this.replaceVars(this.cFigure.content),
+                        "boundingbox":this.cFigure.boundingbox,
+                        "axis":this.cFigure.axis,
+                        "grid":this.cFigure.grid?true:false
+                    };
+                }
             }
         }
+    }
+    generateSample(){
+        let option = this.getOption();
+        this.generate(1,option,this.getPattern(option),true);
     }
 }

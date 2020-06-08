@@ -8,7 +8,7 @@
         {"name":"g", "vars":{"q":"g","k":[["kg",1000], ["hg",100], ["dag",10], ["dg",0.1], ["cg",0.01], ["mg",0.001]],"p":[[1,1],[0,10],[-1,100],[-2,1000]], "z":"${:p[0]}_3", "x":"d0_${:p[1]}_${:z}_^0"}}
     ],
     "description":"Conversions des multiples et sous-multiples des m, L et g vers les m, L et g",
-    "question":"\\text{Convertir } ${:x} \\text{ ${:k[0]} en }\\color{blue}\\text{${:q}}",
+    "question":"\\text{Convertir } ${:x} \\text{ ${:k[0]} en }\\color{blue}{\\text{${:q}}}",
     "answer":"${:x} \\text{ ${:k[0]}} = \\color{red}{${math.round(:x*:k[1],7)}\\text{ ${:q}}}",
     "value":"${math.round(:x*:k[1],7)}\\text{ ${:q}}"
 }
