@@ -1,0 +1,64 @@
+{
+    "title":"Conversions classiques",
+    "type":"latex",
+    "ID":"8MA1",
+    "description":"",
+    "dest":["8MA", "8MB", "8MD", "7MA","7MB","7MD","6MA","6MC","6MD"],
+    "consts":{"L":[["hL",2],["daL",1],["L",0],["dL",-1],["cL",-2],["mL",-3]],"m":[["km",3],["hm",2],["dam",1],["m",0],["dm",-1],["cm",-2],["mm",-3]],"g":[["t",6],["q",5],["kg",3],["hg",2],["dag",1],["g",0],["dg",-1],["cg",-2],["mg",-3]],"A":[["km²",6],["hm²",4],["dam²",2],["m²",0],["dm²",-2],["cm²",-4],["mm²",-6],["a",2],["ha",4]],"V":[["km³",9],["hm³",6],["dam³",3],["m³",0],["dm³",-3],["cm³",-6],["mm³",-9]],"W":[["hL",-1],["daL",-2],["L",-3],["dL",-4],["cL",-5],["mL",-6]]},
+    "options":[{
+        "name":"Longueur",
+        "vars":{"a":"0_3","b":[1,10,100,1000],"c":"d0_${:b}_${:a}_^0","d":"0_6_2_^&"},
+        "question": "${:c}\\text{ ${:m[:d[0]][0]}}=...\\text{ ${:m[:d[1]][0]}}",
+        "answer":"${:c}\\text{ ${:m[:d[0]][0]}}=\\color{red}{${math.round(:c*Math.pow(10,:m[:d[0]][1]-:m[:d[1]][1]),3-(:m[:d[0]][1]-:m[:d[1]][1]))}}\\text{ ${:m[:d[1]][0]}}",
+        "value":"${math.round(:c*Math.pow(10,:m[:d[0]][1]-:m[:d[1]][1]),3-(:m[:d[0]][1]-:m[:d[1]][1]))}"
+    },{
+        "name":"Capacité",
+        "vars":{"a":"0_3","b":[1,10,100,1000],"c":"d0_${:b}_${:a}_^0","d":"0_5_2_^&"},
+        "question": "${:c}\\text{ ${:L[:d[0]][0]}}=...\\text{ ${:L[:d[1]][0]}}",
+        "answer":"${:c}\\text{ ${:L[:d[0]][0]}}=\\color{red}{${math.round(:c*Math.pow(10,:L[:d[0]][1]-:L[:d[1]][1]),3-(:L[:d[0]][1]-:L[:d[1]][1]))}}\\text{ ${:L[:d[1]][0]}}",
+        "value":"${math.round(:c*Math.pow(10,:L[:d[0]][1]-:L[:d[1]][1]),3-(:L[:d[0]][1]-:L[:d[1]][1]))}"
+    },{
+        "name":"Masse (avec t et q)",
+        "vars":{"a":"0_3","b":[1,10,100,1000],"c":"d0_${:b}_${:a}_^0","d":"0_8_2_^&"},
+        "question": "${:c}\\text{ ${:g[:d[0]][0]}}=...\\text{ ${:g[:d[1]][0]}}",
+        "answer":"${:c}\\text{ ${:g[:d[0]][0]}}=\\color{red}{${math.round(:c*Math.pow(10,:g[:d[0]][1]-:g[:d[1]][1]),3-(:g[:d[0]][1]-:g[:d[1]][1]))}}\\text{ ${:g[:d[1]][0]}}",
+        "value":"${math.round(:c*Math.pow(10,:g[:d[0]][1]-:g[:d[1]][1]),3-(:g[:d[0]][1]-:g[:d[1]][1]))}"
+    },{
+        "name":"Masse (sans t ni q)",
+        "vars":{"a":"0_3","b":[1,10,100,1000],"c":"d0_${:b}_${:a}_^0","d":"2_8_2_^&"},
+        "question": "${:c}\\text{ ${:g[:d[0]][0]}}=...\\text{ ${:g[:d[1]][0]}}",
+        "answer":"${:c}\\text{ ${:g[:d[0]][0]}}=\\color{red}{${math.round(:c*Math.pow(10,:g[:d[0]][1]-:g[:d[1]][1]),3-(:g[:d[0]][1]-:g[:d[1]][1]))}}\\text{ ${:g[:d[1]][0]}}",
+        "value":"${math.round(:c*Math.pow(10,:g[:d[0]][1]-:g[:d[1]][1]),3-(:g[:d[0]][1]-:g[:d[1]][1]))}"
+    },{
+        "name":"Aire",
+        "vars":{"a":"0_3","b":[1,10,100,1000],"c":"d0_${:b}_${:a}_^0","d":"0_6_2_^&"},
+        "question": "${:c}\\text{ ${:A[:d[0]][0]}}=...\\text{ ${:A[:d[1]][0]}}",
+        "answer":"${:c}\\text{ ${:A[:d[0]][0]}}=\\color{red}{${math.round(:c*Math.pow(10,:A[:d[0]][1]-:A[:d[1]][1]),3-(:A[:d[0]][1]-:A[:d[1]][1]))}}\\text{ ${:A[:d[1]][0]}}",
+        "value":"${math.round(:c*Math.pow(10,:A[:d[0]][1]-:A[:d[1]][1]),3-(:A[:d[0]][1]-:A[:d[1]][1]))}"
+    },{
+        "name":"Aire (avec are et hectare)",
+        "vars":{"a":"0_3","b":[1,10,100,1000],"c":"d0_${:b}_${:a}_^0","d":"0_8_2_^&"},
+        "question": "${:c}\\text{ ${:A[:d[0]][0]}}=...\\text{ ${:A[:d[1]][0]}}",
+        "answer":"${:c}\\text{ ${:A[:d[0]][0]}}=\\color{red}{${math.round(:c*Math.pow(10,:A[:d[0]][1]-:A[:d[1]][1]),3-(:A[:d[0]][1]-:A[:d[1]][1]))}}\\text{ ${:A[:d[1]][0]}}",
+        "value":"${math.round(:c*Math.pow(10,:A[:d[0]][1]-:A[:d[1]][1]),3-(:A[:d[0]][1]-:A[:d[1]][1]))}"
+    },{
+        "name":"Volume",
+        "vars":{"a":"0_3","b":[1,10,100,1000],"c":"d0_${:b}_${:a}_^0","d":"0_6", "e":"${Math.max(0,:d-3)}_${Math.min(6,:d+3)}_^${:d}"},
+        "question": "${:c}\\text{ ${:V[:d][0]}}=...\\text{ ${:V[:e][0]}}",
+        "answer":"${:c}\\text{ ${:V[:d][0]}}=\\color{red}{${math.round(:c*Math.pow(10,:V[:d][1]-:V[:e][1]),3-(:V[:d][1]-:V[:e][1]))}}\\text{ ${:V[:e][0]}}",
+        "value":"${math.round(:c*Math.pow(10,:V[:d][1]-:V[:e][1]),3-(:V[:d][1]-:V[:e][1]))}"
+    },{
+        "name":"Volume vers contenances",
+        "vars":{"a":"0_3","b":[1,10,100,1000],"c":"d0_${:b}_${:a}_^0","d":"3_6","e":"0_5"},
+        "question": "${:c}\\text{ ${:V[:d][0]}}=...\\text{ ${:W[:e][0]}}",
+        "answer":"${:c}\\text{ ${:V[:d][0]}}=\\color{red}{${math.round(:c*Math.pow(10,:V[:d][1]-:W[:e][1]),3-(:V[:d][1]-:W[:e][1]))}}\\text{ ${:W[:e][0]}}",
+        "value":"${math.round(:c*Math.pow(10,:V[:d][1]-:W[:e][1]),3-(:V[:d][1]-:W[:e][1]))}"
+    },{
+        "name":"Contenance vers volume",
+        "vars":{"a":"0_3","b":[1,10,100,1000],"c":"d0_${:b}_${:a}_^0","d":"3_6","e":"0_5"},
+        "question": "${:c}\\text{ ${:W[:e][0]}}=...\\text{ ${:V[:d][0]}}",
+        "answer":"${:c}\\text{ ${:W[:e][0]}}=\\color{red}{${math.round(:c*Math.pow(10,:W[:e][1]-:V[:d][1]),3-(:W[:e][1]-:V[:d][1]))}}\\text{ ${:V[:d][0]}}",
+        "value":"${math.round(:c*Math.pow(10,:W[:e][1]-:V[:d][1]),3-(:W[:e][1]-:V[:d][1]))}"
+    }
+    ]
+}

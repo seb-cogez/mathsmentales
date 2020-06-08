@@ -5,9 +5,11 @@ Démo : https://seb-cogez.github.io/mathsmentales/
 ### Nouveautés apportées par cette version :
  * nouvelle interface : tous les réglages dans une page, affichage d'exemples de questions pour mieux comprendre
  * possibilité de créer jusqu'à 4 paniers d'activités
+ * possibilité d'afficher des exemples avant de commencer le diaporama
  * possibilité d'affichage multiples des questions
    * jusqu'à 4 différents
    * à chaque affichage peut être associé un panier différent
+ * possibilité de créer son propre diapo en ligne (développement non commencé)
 
 ### bibliothèques externes
  * [KateX](https://katex.org/) pour afficher les maths
@@ -19,6 +21,10 @@ Démo : https://seb-cogez.github.io/mathsmentales/
  * [Chart.js](https://www.chartjs.org/) pour représenter des statistiques
  * [JSXGraph](http://jsxgraph.uni-bayreuth.de/wp/index.html) pour les représentations graphiques
  * [asciimath2tex](https://github.com/christianp/asciimath2tex) pour taper plus rapidement les formules de maths
+
+### icons
+* "Circle Icons" de Nick Roach [iconfinder](https://www.iconfinder.com/iconsets/circle-icons-1) parfois retouchées, licence GPL
+* usage d'[Emoji](https://emojipedia.org/) dans l'affichage des ressources
 
 ### Changement de fonctionnement de la bibliothèque d'activités.
 Elle est à présent réalisée à l'aide de fichiers json peu complexes

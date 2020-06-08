@@ -1,0 +1,21 @@
+{
+    "title":"Repérer les nombres qui se marient bien",
+    "type":"text",
+    "ID":"9NE2",
+    "description":"",
+    "dest":["9NE", "8ND", "7ND", "6ND"],
+    "options":[{
+        "name":"Unités",
+        "vars":{"nb1":"1_9","nb2":"${10-:nb1}", "c":"1_9_^${:nb1},${:nb2}", "d":["${:nb1}+${:nb2}+${:c}", "${:nb1}+${:c}+${:nb2}","${:c}+${:nb1}+${:nb2}"]}
+    },{
+        "name":"Compléments dizaine",
+        "vars":{"u1":"1_9","u2":"${10-:u1}","nu":"1_9_^${:u1},${:u2}","d0":"2_10","t":"${:d0*10}","d1":"1_${:d0-1}","nd":"1_${:d0-1}","nb1":"${:u1+:d1*10}", "nb2":"${:t-:nb1}", "c":"${:nd*10+:nu}", "d":["${:nb1}+${:nb2}+${:c}", "${:nb1}+${:c}+${:nb2}","${:c}+${:nb1}+${:nb2}"]}
+    },{
+        "name":"Compléments centaine",
+        "vars":{"a":"2_10","b":"${:a*100}","nb1":"101_${:b-1}", "nb2":"${:b-:nb1}", "c":"100_999_^${:nb1},${:nb2}", "d":["${:nb1}+${:nb2}+${:c}", "${:nb1}+${:c}+${:nb2}","${:c}+${:nb1}+${:nb2}"]}
+    }
+    ],
+    "question": "Dans $$${:d}$$, quels nombres se marient bien ?",
+    "answer":"Dans $$${:d}$$, les nombres $$\\color{red}{${:nb1}}\\text{ et }\\color{red}{${:nb2}}$$ se marient bien $$\\color{green}{${:nb1}+${:nb2}=${:nb1+:nb2}}$$",
+    "value":["${:nb1} ${:nb2}", "${:nb2} ${:nb1}"]
+}

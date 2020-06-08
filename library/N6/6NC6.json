@@ -1,0 +1,27 @@
+{
+    "title":"Intercaler un nombre entre deux autres",
+    "type":"text",
+    "ID":"6NC6",
+    "description":"",
+    "dest":["9NC", "8NC","7NC","6NC", "5NA"],
+    "options":[{
+        "name":"Entre deux dizaines consécutives",
+        "vars":{"a":"1_9","b":"${:a+1}","c":"1_9"},
+        "question": "Donne un nombre entre $$${:a*10}$$ et $$${:b*10}$$",
+        "answer":"$$${:a*10}\\lt\\color{red}{${math.round(:a*10+:c)}}\\lt${:b*10}$$",
+        "value":"${math.round(:a*10+:c)}"
+    },{
+        "name":"Entre deux entiers consécutifs",
+        "vars":{"a":"1_99","b":"${:a+1}","c":"d0.1_0.9_1"},
+        "question": "Donne un nombre entre $$${:a}$$ et $$${:b}$$",
+        "answer":"$$${:a}\\lt\\color{red}{${:a+:c}}\\lt${:b}$$",
+        "value":"${:a+:c}"
+    },{
+        "name":"Entre deux dixièmes consécutifs",
+        "vars":{"a":"10_99","b":"${:a+1}","c":"d0.01_0.09_2"},
+        "question": "Donne un nombre entre $$${:a/10}$$ et $$${:b/10}$$",
+        "answer":"$$${:a/10}\\lt\\color{red}{${math.round(:a/10+:c,2)}}\\lt${:b/10}$$",
+        "value":"${math.round(:a/10+:c)}"
+    }
+    ]
+}
