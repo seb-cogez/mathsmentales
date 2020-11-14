@@ -10,6 +10,8 @@ Démo : https://seb-cogez.github.io/mathsmentales/
    * jusqu'à 4 différents
    * à chaque affichage peut être associé un panier différent
  * possibilité de créer son propre diapo en ligne (développement non commencé)
+ * d'autres possibilités d'affichage que le diaporama : mur d'activités, flash cards... (développement non commencé)
+ * internationalisation (ou pas)
 
 ### bibliothèques externes
  * [KateX](https://katex.org/) pour afficher les maths
@@ -22,7 +24,7 @@ Démo : https://seb-cogez.github.io/mathsmentales/
  * [JSXGraph](http://jsxgraph.uni-bayreuth.de/wp/index.html) pour les représentations graphiques
  * [asciimath2tex](https://github.com/christianp/asciimath2tex) pour taper plus rapidement les formules de maths
 
-### icons
+### icones
 * "Circle Icons" de Nick Roach [iconfinder](https://www.iconfinder.com/iconsets/circle-icons-1) parfois retouchées, licence GPL
 * usage d'[Emoji](https://emojipedia.org/) dans l'affichage des ressources
 
@@ -54,6 +56,8 @@ ainsi que des *données optionnelles* :
  * **type** : valeurs possible : "texte", "latex" qui indique le type de rendu des questions/réponses
  * **figure** : chaine contenant une figure illustrant l'activité
 ---
+### à faire à l'insertion d'un nouvel exercice
+à l'aide de Node.js (à installer) lancer library/scan.js pour recréer le fichier qui référence tous les exercices dans une arborescence chargée au lancement de MathsMentales
 
 ### Fichiers exemple :
 
