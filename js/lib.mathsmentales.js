@@ -1512,23 +1512,55 @@ var library = {
         reader.send();
     },
     displayContent:function(level){
-        if(MM.content === undefined) console.log("Pas de bibliothèque");
-        let niveau = MM.content[level];
+        if(MM.content === undefined) {console.log("Pas de bibliothèque"); return false;}
+        let niveau={nom:"Recherche",themes:{}};
+        if(typeof level === "string"){ // recherche d'un terme
+            if(level.length<3)return false;
+            // construction du niveau par extraction des données.
+            for(let niv in MM.content){
+                if(typeof MM.content[niv] === "object"){ // le niveau contient de chapitres
+                    for(let theme in MM.content[niv].themes){
+                        for(let chap in MM.content[niv].themes[theme].chapitres){
+                            let chapExo=[];
+                            for(let exo=0,lene=MM.content[niv].themes[theme].chapitres[chap].e.length;exo<lene;exo++){
+                                if(MM.content[niv].themes[theme].chapitres[chap].e[exo].t.indexOf(level)>-1){
+                                    // we find a candidate !!!
+                                    chapExo.push({"u":MM.content[niv].themes[theme].chapitres[chap].e[exo].u,
+                                    "t":MM.content[niv].themes[theme].chapitres[chap].e[exo].t})
+                                }
+                            }
+                            // si chapExo! == [], alors on créée l'arbo
+                            if(chapExo.length>0){
+                                if(!niveau.themes[theme]){
+                                    niveau.themes[theme]={
+                                        nom:MM.content[niv].nom+"/"+MM.content[niv].themes[theme].nom,
+                                        chapitres:{}
+                                    };
+                                }
+                                niveau.themes[theme].chapitres[chap] = {n:MM.content[niv].themes[theme].chapitres[chap].n,e:chapExo};
+                            }
+                        }
+                    }    
+                } else continue;
+            }
+        } else 
+            niveau = MM.content[level];
+        console.log(niveau);
         let html = "<h1>Niveau "+niveau["nom"]+"</h1>";
         for(let i in niveau["themes"]){
             let first = true;
             let theme = false;
             let htmlt = (first)?"<span>":"";
-            htmlt += "<h2>"+niveau["themes"][i]["nom"]+"</h2>";
+            htmlt += "<h2>"+niveau.themes[i].nom+"</h2>";
             for(let j in niveau["themes"][i]["chapitres"]){
                 let chapitre = false;
                 let htmlc=(first)?"":"<span>";
-                htmlc += "<h3>"+niveau["themes"][i]["chapitres"][j]["nom"]+"</h3>";
+                htmlc += "<h3>"+niveau["themes"][i]["chapitres"][j]["n"]+"</h3>";
                 htmlc += "<ul>";
-                if(niveau["themes"][i]["chapitres"][j]["exercices"].length){
+                if(niveau["themes"][i]["chapitres"][j]["e"].length){
                     theme=true;chapitre=true;
-                    for(let k=0,len=niveau["themes"][i]["chapitres"][j]["exercices"].length;k<len;k++){
-                        htmlc += "<li onclick=\"library.load('"+niveau["themes"][i]["chapitres"][j]["exercices"][k]["url"]+"')\">"+niveau["themes"][i]["chapitres"][j]["exercices"][k]["title"]+"</li>";
+                    for(let k=0,len=niveau["themes"][i]["chapitres"][j]["e"].length;k<len;k++){
+                        htmlc += "<li onclick=\"library.load('"+niveau["themes"][i]["chapitres"][j]["e"][k]["u"]+"')\">"+niveau["themes"][i]["chapitres"][j]["e"][k]["t"]+"</li>";
                     }
                 } else {
                     htmlc += "<li>Pas encore d'exercice</li>";
@@ -1544,8 +1576,8 @@ var library = {
             }
             if(theme)html+=htmlt;
         }
-        document.getElementById("tab-chercher").innerHTML = html;
-        document.querySelector("#header-menu a[href='#tab-chercher']").click();
+        document.getElementById("resultat-chercher").innerHTML = html;
+        if(typeof level ==="number")document.querySelector("#header-menu a[href='#tab-chercher']").click();
     }
 }
 // lecture des fichiers exercice

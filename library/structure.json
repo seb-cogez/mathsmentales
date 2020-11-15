@@ -124,7 +124,7 @@
             }
         }
     },"6":{
-        "nom":"6ème",
+        "nom":"6e",
         "themes":{
             "6N":{
                 "nom":"Nombres et calculs",
@@ -160,7 +160,7 @@
         }
     },
     "5":{
-        "nom": "5ème",
+        "nom": "5e",
         "themes":{
             "5N":{
                 "nom":"Nombres et calculs",
@@ -204,7 +204,7 @@
         }
     },
     "4":{
-        "nom":"4ème",
+        "nom":"4e",
         "themes":{
             "4N":{
                 "nom":"Nombres et calculs",
@@ -248,7 +248,7 @@
         }
     },
     "3":{
-        "nom":"3ème",
+        "nom":"3e",
         "themes":{
             "3N":{
                 "nom":"Nombres et calculs",

@@ -22,8 +22,8 @@ for (let niveau in structure){
   for(let theme in structure[niveau].themes){
     for (let chapter in structure[niveau].themes[theme].chapitres){
       structure[niveau].themes[theme].chapitres[chapter] = {
-        "nom":structure[niveau].themes[theme].chapitres[chapter],
-        exercices:[]};
+        "n":structure[niveau].themes[theme].chapitres[chapter],//name
+        e:[]};//exercices
     }
   }
 }
@@ -31,13 +31,13 @@ for (let niveau in structure){
   let listOfFiles = getAllFiles("./N"+niveau);
   listOfFiles.forEach(function(fichierExo){
     let json = JSON.parse(fs.readFileSync(fichierExo[1]));
-    let exo = {"url":"N"+niveau+"/"+fichierExo[0], "title":json.title};
+    let exo = {"u":"N"+niveau+"/"+fichierExo[0], "t":json.title};//url ; title
     for(let i in json.dest){
       let codechap = json.dest[i];
       let destLevel = codechap.match(/\d+/i);
       let themecode = codechap.match(/\d+[A-Z]/i);
       if(structure[destLevel] !== undefined)
-        structure[destLevel].themes[themecode].chapitres[codechap].exercices.push(exo);
+        structure[destLevel].themes[themecode].chapitres[codechap].e.push(exo);
     }
   })
 }

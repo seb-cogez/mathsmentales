@@ -221,8 +221,8 @@ ul.menu, .menu ul {
 #tab-chercher li{
     cursor: pointer;
 }
-#tab-chercher li[onclick]::after{
-  content:" ✔"
+#tab-chercher li[onclick]:hover{
+  text-decoration: underline;
 }
 
 #tab-chercher > span{
