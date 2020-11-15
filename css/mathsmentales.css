@@ -24,6 +24,9 @@
 #app-container.hidden {
   display:none;
 }
+.bold {
+  font-weight: bold;
+}
 /* Range input, from http://danielstern.ca/range.css/ */
 input[type=range] {
   -webkit-appearance: none;

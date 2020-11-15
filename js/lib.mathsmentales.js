@@ -1668,6 +1668,19 @@ class activity {
         utils.initializeAlea("sample");
         if(this.options !== undefined && this.options.length > 0){
             let colors = ['',' red',' orange',' blue', ' green', ' grey',];
+            // Ajout de la possibilité de tout cocher ou pas
+            let p = document.createElement("span");
+            p.className = "bold";
+            let hr = document.createElement("hr");
+            let input = document.createElement("input");
+            input.type = "checkbox";
+            input.id="checkalloptions";
+            input.setAttribute("onclick","MM.editedActivity.setOption('all',this.checked)");
+            input.className = "checkbox blue";
+            p.appendChild(input);
+            p.appendChild(document.createTextNode(" Tout (dé)sélectionner"));
+            examples.appendChild(p);
+            examples.appendChild(hr);
             // affichage des options
             for(let i=0;i<this.options.length;i++){
                 this.generate(1,i,false);// génère un cas par option (si plusieurs)
@@ -1677,7 +1690,7 @@ class activity {
                 input.type = "checkbox";
                 input.value = i;
                 input.setAttribute("onclick", 'MM.editedActivity.setOption(this.value, this.checked);');
-                input.checked = (this.chosenOptions.indexOf(i)>-1)?true:false;
+                input.defaultChecked = (this.chosenOptions.indexOf(i)>-1)?true:false;
                 input.className = "checkbox"+colors[i%colors.length];
                 p.appendChild(input);
                 p.appendChild(document.createTextNode(" "+this.options[i]["name"] + " :"));
@@ -1742,7 +1755,9 @@ class activity {
         utils.mathRender();
     }
     /**
-     * getOption
+     * getPattern
+     * 
+     * @param {integer} option id de l'option dont dépend le pattern
      * 
      * return uniqueId (Integer)
      */
@@ -1766,12 +1781,36 @@ class activity {
         } else return false;
     }
     /**
+     * setOption
      * 
      * @param {string} value optionId || optionID-renderID
+     * @param {boolean} check check state
+     * 
      */
     setOption(value, check){
         var optionId, renderId;
-        if(value.indexOf("-")>-1){
+        if(value === "all"){
+            this.chosenOptions = [];
+            for(let i=0,len=this.options.length;i<len;i++){
+                this.chosenQuestions[i] = [];
+                let lenq = 0;
+                if(typeof this.options[i].question === "object") lenq = this.options[i].question.length
+                else if( typeof this.questionPatterns === "object")lenq = this.questionPatterns.length;
+            if(check){
+                    this.chosenOptions.push(i);
+                    for (let j=0; j<lenq; j++){
+                        this.chosenQuestions[i].push(j);
+                        document.getElementById("o"+i+"-"+j).checked = true;
+                    }
+                    document.getElementById("o"+i).checked = true;
+                } else {
+                    for (let j=0; j<lenq; j++){
+                        document.getElementById("o"+i+"-"+j).checked = false;
+                    }
+                    document.getElementById("o"+i).checked = false;
+                }
+            }
+        } else if(value.indexOf("-")>-1){
             let Ids = value.split("-");
             optionId = Number(Ids[0]); renderId = Number(Ids[1]);
             if(check){ // checkbox checked
