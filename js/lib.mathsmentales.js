@@ -579,7 +579,7 @@ class cart {
         this.target = [id]; // Indicates where to display the cart.
         this.nbq = 0;
         this.time = 0;
-        this.title = "Groupe "+(id+1);
+        this.title = "Diapo "+(id+1);
     }
     export(){
         let activities={};
@@ -1021,30 +1021,34 @@ var MM = {
         }
         enonces.innerHTML="";
         corriges.innerHTML="";
-        //MM.seed = "enonce"; // randomize it
+        // TODO : randomize the seed and collect it for reuse
+        //MM.seed = "enonce";
         MM.seed = Date();
         utils.initializeAlea(MM.seed);
         for(let i=0;i<length;i++){
-            for(let kk=0;kk<MM.carts[i].target.length;kk++){
+            for(let kk=0,clen=MM.carts[i].target.length;kk<clen;kk++){
                 let indiceSlide = 0;
                 let slideNumber = MM.carts[i].target[kk]-1;
                 let slider = document.getElementById("slider"+slideNumber);
-                document.querySelector("#slider"+slideNumber+" .slider-title").innerHTML = MM.carts[i].title;
+                let addTitle = "";
+                if(clen>1)addTitle = "-"+(kk+1);
+                let titleSlider = MM.carts[i].title+addTitle;
+                document.querySelector("#slider"+slideNumber+" .slider-title").innerHTML = titleSlider;
                 if(modeDebug)console.log(slider);
                 let sliderSteps = document.querySelector("#slider"+slideNumber+" .steps-container");
                 let dive = document.createElement("div");
                 let divc = document.createElement("div");
                 let h3e = document.createElement("h3");
                 let h3c = document.createElement("h3");
-                h3e.innerText = MM.carts[i].title;
-                h3c.innerText = MM.carts[i].title;
+                h3e.innerText = titleSlider; // exercice's title
+                h3c.innerText = titleSlider; // correction's title
                 dive.append(h3e);
                 divc.append(h3c);
                 let ole = document.createElement("ol");
                 let olc = document.createElement("ol");
                 MM.steps[slideNumber] = new steps({size:0, container:sliderSteps});
                 MM.timers[slideNumber] = new timer(slideNumber);
-                for(let z=0,len=MM.carts[i].activities.length;z<len;z++){
+                for(let z=0,alen=MM.carts[i].activities.length;z<alen;z++){
                     let element = MM.carts[i].activities[z];
                     element.generate();
                     MM.steps[slideNumber].addSize(element.nbq);
@@ -1751,7 +1755,7 @@ class activity {
         // if option, patterns ?
         if(!Array.isArray(this.chosenQuestions[option])){
             this.chosenQuestions[option] = [];
-            return false;
+            //return false; // seems to be an error
         }
         // no pattern chosen : we choose one
         if(this.chosenQuestions[option].length === 0 && Array.isArray(this.options[option].question)){
@@ -1905,55 +1909,57 @@ class activity {
     generate(n, opt, patt, sample){
         // empty values
         if(n === undefined) n = this.nbq;
-        let option, pattern, lenQ=false;
+        // optionNumber is the number of the choosen option
+        // patternNumber is the number of the choosen sub option
+        let optionNumber, patternNumber, lenQ=false;
         this.wVars={};
         for(let i=0;i<n;i++){
-            if(opt === undefined) option = this.getOption(); else option = opt;
-            if(patt === undefined) pattern = this.getPattern(option); else pattern = patt;
-            debug("option choisie : "+option, "Pattern choisi : "+pattern);
-            if(option !== false){
+            if(opt === undefined) optionNumber = this.getOption(); else optionNumber = opt;
+            if(patt === undefined) patternNumber = this.getPattern(optionNumber); else patternNumber = patt;
+            debug("option choisie : "+optionNumber, "Pattern choisi : "+patternNumber);
+            if(optionNumber !== false){
                 // set chosen vars
-                if(this.options[option].vars === undefined){
+                if(this.options[optionNumber].vars === undefined){
                     this.cVars = this.vars;
-                } else this.cVars = this.options[option].vars;
-                if(this.options[option].consts === undefined){
+                } else this.cVars = this.options[optionNumber].vars;
+                if(this.options[optionNumber].consts === undefined){
                     this.cConsts = this.consts;
-                } else this.cConsts = this.options[option].consts;
-                if(pattern !== false){
-                    if(this.options[option].question !== undefined){
-                        this.cQuestion = this.options[option].question[pattern];
-                        lenQ = this.options[option].question.length;
+                } else this.cConsts = this.options[optionNumber].consts;
+                if(patternNumber !== false){
+                    if(this.options[optionNumber].question !== undefined){
+                        this.cQuestion = this.options[optionNumber].question[patternNumber];
+                        lenQ = this.options[optionNumber].question.length;
                     }
                     else {
-                        this.cQuestion = this.questionPatterns[pattern];
+                        this.cQuestion = this.questionPatterns[patternNumber];
                         lenQ = this.questionPatterns.length;
                     }
-                } else if(this.options[option].question === undefined){
+                } else if(this.options[optionNumber].question === undefined){
                     this.cQuestion = this.questionPatterns;
-                } else this.cQuestion = this.options[option].question;
-                if(this.options[option].answer === undefined){
+                } else this.cQuestion = this.options[optionNumber].question;
+                if(this.options[optionNumber].answer === undefined){
                     this.cAnswer = this.answerPatterns;
-                } else this.cAnswer = this.options[option].answer;
+                } else this.cAnswer = this.options[optionNumber].answer;
                 if(Array.isArray(this.cAnswer) && lenQ){
                     if(this.cAnswer.length === lenQ){
-                        this.cAnswer = this.cAnswer[pattern]; // same answer index as question index
+                        this.cAnswer = this.cAnswer[patternNumber]; // same answer index as question index
                     } else { // alea answer
                         answer = this.cAnswer[utils.aleaInt(0,this.cAnswer.length-1)];
                     }
                 }
-                if(this.options[option].value === undefined){
+                if(this.options[optionNumber].value === undefined){
                     this.cValue = this.valuePatterns;
-                } else this.cValue = this.options[option].value;
-                if(this.options[option].figure !== undefined){
-                    this.cFigure = utils.clone(this.options[option].figure);
+                } else this.cValue = this.options[optionNumber].value;
+                if(this.options[optionNumber].figure !== undefined){
+                    this.cFigure = utils.clone(this.options[optionNumber].figure);
                 } else if(this.figure !== undefined){
                     this.cFigure = utils.clone(this.figure);
                 }
             } else {
                 this.cVars = this.vars;
                 this.cConsts = this.consts;
-                if(pattern!==false)
-                    this.cQuestion = this.questionPatterns[pattern];
+                if(patternNumber!==false)
+                    this.cQuestion = this.questionPatterns[patternNumber];
                 else 
                     this.cQuestion = this.questionPatterns;
                 this.cAnswer = this.answerPatterns;
