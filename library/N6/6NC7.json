@@ -1,0 +1,23 @@
+{
+    "title":"Comparer des nombres décimaux",
+    "type":"text",
+    "ID":"6NC7",
+    "description":"",
+    "dest":["9NC", "8NC","7NC","6NC", "5NA"],
+    "options":[{
+        "name":"Comparer des petits entiers",
+        "vars":{"c":"100_999","d1":"-99_99","d2":"-99_99","a":"${:c+:d1}","b":"${:c+:d2}","s":"${math.compare(:a,:b)}"}
+    },
+    {
+        "name":"Comparer des grands entiers",
+        "vars":{"c":"10000_99999","d1":"100_999","d2":"100_999","n":"-1_1_2_^0","a":"${:c+:d1*:n[0]}","b":"${:c+:d2*:n[1]}","s":"${math.compare(:a,:b)}"}
+    },
+    {
+        "name":"Comparer des décimaux",
+        "vars":{"c":"1_1000","p":"-3_2","dec":"1_3_2","d1":"${math.round(utils.alea(),:dec[0])*Number(10+'e'+:p)+:c}","d2":"${math.round(utils.alea(),:dec[1])*Number(10+'e'+:p)+:c}","a":"${math.round(:d1,6)}","b":"${math.round(:d2,6)}","s":"${math.compare(:a,:b)}"}
+    }
+    ],
+    "question": "Compare $$${:a}$$ et $$${:b}$$",
+    "answer":"$$${:a}\\color{red}{${:s}}${:b}$$",
+    "value":"${:s}"
+}

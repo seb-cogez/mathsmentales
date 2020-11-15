@@ -228,7 +228,7 @@ var utils = {
         let avoid = [];
         let nodouble = false;
         utils.security = 300;
-        if(modeDebug)console.log(arguments);
+        debug(arguments);
         // check aguments
         for(let i=3;i<arguments.length;i++){
             if(String(Number(arguments[i])) === arguments[i] || typeof arguments[i] === "number"){
@@ -408,6 +408,18 @@ var utils = {
         return obj;
     },
     /**
+     * 
+     * @param {Number} value 
+     * @param {Number} digits
+     */
+    toDigits(value,digits){
+        let puissance = Number(1+"e"+digits)-1;
+        while(String(value).length < String(puissance).length){
+            value = "0"+value;
+        }
+        return value;
+    },
+    /**
      * return one or the number
      * @param {Number} value 
      */
@@ -515,6 +527,11 @@ var math ={
         if(nb%par === 0){
             return reponses[type][0];
         } else return reponses[type][1];
+    },
+    compare(a,b){
+        if(a<b)return"\\lt";
+        else if(a>b)return"\\gt";
+        else return "=";
     },
     pgcd: function(a, b) {
     return Algebrite.run('gcd(' + a + ',' + b + ')');
@@ -1545,7 +1562,6 @@ var library = {
             }
         } else 
             niveau = MM.content[level];
-        console.log(niveau);
         let html = "<h1>Niveau "+niveau["nom"]+"</h1>";
         for(let i in niveau["themes"]){
             let first = true;
