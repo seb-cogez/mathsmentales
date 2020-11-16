@@ -1,0 +1,28 @@
+{
+    "title":"Déterminer si un nombre est un multiple, un diviseur d'un autre nombre",
+    "type":"text",
+    "ID":"6ND14",
+    "dest":["6ND", "5NA", "4NA", "3NA"],
+    "vars":{
+        "a":"8_24_^prime",
+        "d":"${math.unDiviseur(:a)}",
+        "e":"-1_1_^0",
+        "nd":"${math.nonDiviseur(:a)}",
+        "m":"${:a*utils.aleaInt(2,5)}",
+        "nm":"${:a*utils.aleaInt(2,5)+utils.aleaInt(1,:a-1)*:e}"
+    },
+    "consts":{
+        "t":["${:d}","${:nd}","${:m}","${:nm}"]
+    },
+    "options":[{
+        "name":"Trouver le multiple",
+        "question": "Parmi les nombres ci-dessous, lequel est un <b>multiple</b> de ${:a} ?<br>${utils.join(utils.shuffle(:t),' ; ')}",
+        "answer":"<span class='red'>${:m}</span> est un <b>multiple</b> de ${:a}.",
+        "value":"${:m}"
+    },{
+        "name":"Trouver le diviseur",
+        "question": "Parmi les nombres ci-dessous, lequel est un <b>diviseur</b> de ${:a} ?<br>${utils.join(utils.shuffle(:t),' ; ')}",
+        "answer":"<span class='red'>${:d}</span> est un <b>diviseur</b> de ${:a}.",
+        "value":"${:d}"
+    }]
+}

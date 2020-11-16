@@ -106,6 +106,24 @@ var utils = {
         return true;
     },
     /**
+     * shuffle an array
+     * @param {Array} arr 
+     */
+    shuffle : function(arr){
+        if(!Array.isArray(arr))return false;
+        arr.sort(()=>utils.alea()-0.5);
+        return arr;
+    },
+    /**
+     * 
+     * @param {array} array 
+     * @param {string} str
+     */
+    join:function(arr,str){
+        if(!Array.isArray(arr))return false;
+        return arr.join(str);
+    },
+    /**
     * function removeClass
     * remove a class name from a DOM element
     *
@@ -166,19 +184,23 @@ var utils = {
      * @param {integer} max relativ
      * optionals
      * @param {integer} qty positiv
-     * @param {string} avoid start with ^ indicates the list of exeptions, & as exeption => no doble number in the list
+     * @param {string} avoid start with ^ indicates the list of exeptions,
+     * & as exeption => no doble number in the list
+     * prime => not a prime
      */
     aleaInt:function(min,max){ // accepts 2 arguments more
         let qty=1;
         let avoid=[];
         utils.security = 300;
         let nodouble = false;
+        let notPrime = false;
         for(let i=2;i<arguments.length;i++){
             if(String(Number(arguments[i])) === arguments[i] || typeof arguments[i]==="number"){
                 qty = arguments[i];
             } else if(typeof arguments[i] === "string" && arguments[i][0]=="^"){
                 avoid = arguments[i].substring(1).split(",");
                 if(avoid.indexOf("&")>-1)nodouble = true;
+                if(avoid.indexOf("prime")>-1)notPrime = true;
                 avoid = avoid.map(Number);
                 debug("à éviter",avoid);
             }
@@ -191,7 +213,7 @@ var utils = {
             var integers = [];
             for(let i=0;i<qty;i++){
                 let thisint = math.round(utils.alea()*(max-min))+min;
-                if(avoid.indexOf(thisint)>-1 || (nodouble && integers.indexOf(thisint)>-1)){
+                if(avoid.indexOf(thisint)>-1 || (nodouble && integers.indexOf(thisint)>-1) || (notPrime && math.premiers.indexOf(thisint)>-1)){
                     // do not use exeptions numbers
                     // or no double number
                     i--;
@@ -209,7 +231,7 @@ var utils = {
                 thisint = math.round(utils.alea()*(max-min))+min;
                 if(!utils.checkSecurity()) break;
             }
-            while (avoid.indexOf(thisint)>-1)
+            while (avoid.indexOf(thisint)>-1 || (notPrime && math.premiers.indexOf(thisint)>-1))
             debug("AleaInt 1 int : "+thisint);
             return thisint;
         }
@@ -411,6 +433,8 @@ var utils = {
      * 
      * @param {Number} value 
      * @param {Number} digits
+     * 
+     * return {string} number with a fix digits
      */
     toDigits(value,digits){
         let puissance = Number(1+"e"+digits)-1;
@@ -477,7 +501,12 @@ var math ={
         }
         return liste.join("; ");
     },
-    listeDiviseurs:function(nb){
+    /** 
+    * donne la liste des diviseurs d'un nombre sous forme de chaine
+    * @param {integer} nb nombre à décomposer
+    * @param {boolean} array false ou undefined renvoie une chaine, un tableau sinon
+    */
+    listeDiviseurs:function(nb, array){
         let maxSearch = Math.floor(Math.sqrt(nb));
         let diviseurs = [];
         let grandsdiviseurs = [];
@@ -489,8 +518,17 @@ var math ={
           }
         }
         diviseurs = diviseurs.concat(grandsdiviseurs);
-        return diviseurs.join("; ");
+        if(array===true)
+            return diviseurs;
+        else
+            return diviseurs.join("; ");
     },
+    /**
+    *
+    * donne la liste des diviseurs inférieurs à 10 sous forme de chaine
+    * 
+    *
+    * */
     listeDiviseurs10:function(nb){
         let diviseurs = [2,3,5,9,10];
         let liste = [];
@@ -500,6 +538,26 @@ var math ={
         }
         if(liste.length)return liste.join("; ");
         else return "aucun des nombres"
+    },
+    /**
+     * 
+     * @param {integer} nb
+     * return un non diviseur d'un nombre
+     */
+    nonDiviseur(nb){
+        let unnondiviseur=0;
+        do { unnondiviseur = utils.aleaInt(2,nb-1); }
+        while (nb%unnondiviseur===0)
+        return unnondiviseur;
+    },
+    /**
+     * 
+     * @param {integer} nb 
+     * return un diviseur d'un nombre
+     */
+    unDiviseur(nb){
+        let diviseurs = math.listeDiviseurs(nb,true);
+        return diviseurs[utils.aleaInt(0,diviseurs.length-1)];
     },
     unpower:function(value){
         let matches = value.match(/(\d*)\^(\d*)/g);
@@ -2064,10 +2122,8 @@ class activity {
                 }
                 if(typeof this.wVars[name] === "object"){
                     // var is defined with an array of values
+                    // we sort one of them
                     this.wVars[name] = this.replaceVars(this.wVars[name][utils.aleaInt(0,this.wVars[name].length-1)]);
-                    /*if(this.wVars[name].indexOf("\$\{")>-1){
-                        this.wVars[name] = eval("`"+this.replaceVars(this.wVars[name])+"`");
-                    }*/
                 } else if(typeof this.wVars[name] === "string" && this.wVars[name].indexOf("_")>-1){
                     // var is defined with a min-max interval within a string
                     var bornes = this.wVars[name].split("_");
