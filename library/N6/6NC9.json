@@ -1,0 +1,24 @@
+{
+    "title":"Quel est le chiffre des ... ?",
+    "type":"text",
+    "ID":"6NC9",
+    "dest":["7NC", "6NC", "5NA"],
+    "consts":{"u":["centaines", "dizaines", "unités","dixièmes","centièmes","millièmes"],
+        "v":["centaines de mille", "dizaines de mille", "unités de mille","centaines", "dizaines", "unités", "dixièmes","centièmes","millièmes"],
+        "w":["centaines de million", "dizaines de millions", "unités de millions","centaines de mille", "dizaines de mille", "unités de mille","centaines", "dizaines", "unités", "dixièmes","centièmes","millièmes","dix-millièmes","cent-millièmes","millionièmes"]
+    },
+    "options":[{
+        "name":"Nombres inférieurs à $$1000$$",
+        "vars":{"n":"0_9","a":"0_9_6_^${:n}", "b":"0_5", "c":"${Number(:a.slice(0,:b).concat([:n]).concat(:a.slice(:b+1)).join(''))/1000}", "d":"${:u[:b]}"}
+        },{
+        "name":"Nombres inférieurs à $$1000000$$",
+        "vars":{"n":"0_9","a":"0_9_9_^${:n}", "b":"0_8", "c":"${Number(:a.slice(0,:b).concat([:n]).concat(:a.slice(:b+1)).join(''))/1000}", "d":"${:v[:b]}"}
+        },{
+        "name":"Nombres inférieurs à $$1000000000$$",
+        "vars":{"n":"0_9","a":"0_9_15_^${:n}", "b":"0_14", "c":"${Number(:a.slice(0,:b).concat([:n]).concat(:a.slice(:b+1)).join(''))/1000000}", "d":"${:w[:b]}"}
+        }
+    ],
+    "answer":"Dans $$${:c}$$, le chiffre des <u>${:d}</u> est <span class='red'>${:n}</span>",
+    "value":"${:a[:b]}",
+    "question": "Dans $$${:c}$$, quel est le chiffre des <b>${:d}</b> ?"
+}

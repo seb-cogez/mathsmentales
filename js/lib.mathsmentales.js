@@ -613,6 +613,62 @@ var math ={
             n=n/10;d=d/10;
         }
         return "\\dfrac{"+n+"}{"+d+"}";
+    },
+    /**
+     * 
+     * @param {array} operandes array of numbers
+     * @param {array} operations array of symbols : +, -, *, / or q
+     * @param {string} option "p" renvoie une phrase, "a" renvoie latex, "v" renvoie asccii
+     * @param {boolean} ordre 1 ou 0 la première opération est le premier argument de la 2e ou pas
+     */
+    phrase(operandes,operations,option,ordre){
+        let x,y,r,z;
+        let phrases = {
+            "+":["la somme de ${x} et de ${y}","${x}+${y}","${x}+${y}"],
+            "-":["la différence entre ${x} et ${y}","${x}-${y}","${x}-${y}"],
+            "*":["le produit de ${x} par ${y}","${x}\\\\times ${y}","${x}*${y}"],
+            "/":["le quotient de ${x} par ${y}","${x}\\\\div ${y}","${x}/${y}"],
+            "q":["le quotient de ${x} par ${y}", "\\\\dfrac{${x}}{${y}}","${x}/${y}"]
+        }
+        x=operandes[0];y=operandes[1];
+        switch(option){
+            case "p":
+                r = eval("`"+phrases[operations[0]][0]+"`")
+                break;
+            case "a":
+                r = eval("`"+phrases[operations[0]][1]+"`")
+                break;
+            case "v":
+                r = eval("`"+phrases[operations[0]][2]+"`")
+                break;
+            }
+            debug(r);
+        if(operations.length>1){// plus d'une opération
+            if(ordre){ // la première operation est le premier argument
+                x=r;y=operandes[2];z=x;
+                if(["*","/"].indexOf(operations[1])>-1 && ["-","+"].indexOf(operations[0])>-1)
+                    z="("+x+")";
+                debug(z);
+            } else {
+                x=operandes[2];y=r;z=y;
+                if(["*","/"].indexOf(operations[1])>-1 && ["-","+"].indexOf(operations[0])>-1 || operations[1]==="/")
+                    z="("+y+")";
+            }
+            switch(option){
+                case "p":
+                    r=eval("`"+phrases[operations[1]][0]+"`").replace("de le", "du");
+                    break;
+                case "a":
+                    if(ordre)x=z;else y=z;
+                    r = eval("`"+phrases[operations[1]][1]+"`")
+                    break;
+                case "v":
+                    if(ordre)x=z;else y=z;
+                    r = eval("`"+phrases[operations[1]][2]+"`")
+                    break;
+            }
+        }
+        return r;
     }
 }
 // test de seedrandom
@@ -2085,16 +2141,19 @@ class activity {
                 if(this.options[optionNumber].answer === undefined){
                     this.cAnswer = this.answerPatterns;
                 } else this.cAnswer = this.options[optionNumber].answer;
+                if(this.options[optionNumber].value === undefined){
+                    this.cValue = this.valuePatterns;
+                } else this.cValue = this.options[optionNumber].value;
                 if(Array.isArray(this.cAnswer) && lenQ){
                     if(this.cAnswer.length === lenQ){
                         this.cAnswer = this.cAnswer[patternNumber]; // same answer index as question index
                     } else { // alea answer
-                        answer = this.cAnswer[utils.aleaInt(0,this.cAnswer.length-1)];
+                        this.cAnswer = this.cAnswer[utils.aleaInt(0,this.cAnswer.length-1)];
+                    }
+                    if(this.cValue.length === lenQ){ // same values index as question index
+                        this.cValue = this.cValue[patternNumber];
                     }
                 }
-                if(this.options[optionNumber].value === undefined){
-                    this.cValue = this.valuePatterns;
-                } else this.cValue = this.options[optionNumber].value;
                 if(this.options[optionNumber].figure !== undefined){
                     this.cFigure = utils.clone(this.options[optionNumber].figure);
                 } else if(this.figure !== undefined){
@@ -2137,7 +2196,7 @@ class activity {
             if(this.cConsts !== undefined){
                 this.cConsts = this.replaceVars(this.cConsts);
             }
-            if(modeDebug)console.log("wWars",utils.clone(this.wVars), "constantes",utils.clone(this.cConsts));
+            //if(modeDebug)console.log("wWars",utils.clone(this.wVars), "constantes",utils.clone(this.cConsts));
             if(!sample){
             // question text generation
             this.questions[i] = this.replaceVars(this.cQuestion);

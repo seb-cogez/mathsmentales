@@ -1,0 +1,57 @@
+{
+    "title":"Ecrire l'opération correspondant à la phrase",
+    "type":"text",
+    "ID":"6ND15",
+    "description":"",
+    "dest":["6ND","5NC","4NC","3NC"],
+    "options":[{
+        "name":"Opération unique",
+        "vars":{"x":"1_99","y":"1_99"},
+        "question": ["la somme de ${:x} et de ${:y}","le produit de ${:x} par ${:y}","la différence entre ${:x} et ${:y}","le quotient de ${:x} par ${:y}"],
+        "answer":["$$${:x}+${:y}$$","$$${:x}\\times ${:y}$$","$$${:x}-${:y}$$","$$${:x}\\div ${:y}$$"],
+        "value":["${:x}+${:y}","${:x}*${:y}","${:x}-${:y}","${:x}/${:y}"]
+    },{
+        "name":"Additions et soustractions",
+        "vars":{"o1":["+","-"],"o2":["+","-"],"x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
+        "question": "${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}",
+        "answer":":question : $$${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}$$",
+        "value":"${math.phrase([:x,:y,:z],[:o1,:o2],'v',:o)}"
+    },{
+        "name":"Additions, soustractions, multiplications",
+        "vars":{"o1":["+","-","*"],"o2":["+","-","*"],"x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
+        "question": "${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}",
+        "answer":":question : $$${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}$$",
+        "value":"${math.phrase([:x,:y,:z],[:o1,:o2],'v',:o)}"
+    },{
+        "name":"Additions, soustractions, division (en ligne)",
+        "vars":{"o1":["+","-","/"],"o2":["+","-","/"],"x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
+        "question": "${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}",
+        "answer":":question : $$${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}$$",
+        "value":"${math.phrase([:x,:y,:z],[:o1,:o2],'v',:o)}"
+    },{
+        "name":"Additions, soustractions, division (en ligne)",
+        "vars":{"o1":["+","-","*"],"o2":["+","-","*"],"x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
+        "question": "${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}",
+        "answer":":question : $$${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}$$",
+        "value":"${math.phrase([:x,:y,:z],[:o1,:o2],'v',:o)}"
+    },{
+        "name":"Additions, soustractions, division (fractionnaire)",
+        "vars":{"o1":["+","-","q"],"o2":["+","-","q"],"x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
+        "question": "${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}",
+        "answer":":question : $$${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}$$",
+        "value":"${math.phrase([:x,:y,:z],[:o1,:o2],'v',:o)}"
+    },{
+        "name":"Additions, soustractions, multiplication, division",
+        "vars":{"o1":["+","-","*","/"],"o2":["+","-","*","/"],"x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
+        "question": "${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}",
+        "answer":":question : $$${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}$$",
+        "value":"${math.phrase([:x,:y,:z],[:o1,:o2],'v',:o)}"
+    },{
+        "name":"Additions, soustractions, multiplication, division (fractionnaire)",
+        "vars":{"o1":["+","-","*","q"],"o2":["+","-","*","q"],"x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
+        "question": "${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}",
+        "answer":":question : $$${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}$$",
+        "value":"${math.phrase([:x,:y,:z],[:o1,:o2],'v',:o)}"
+    }
+    ]
+}
