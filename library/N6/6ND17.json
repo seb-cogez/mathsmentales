@@ -1,0 +1,34 @@
+{
+    "title":"Multiplier par 2, 5, 20, 50, 4, 25, 0,5, 0,25",
+    "ID":"6ND17",
+    "dest":["6ND","7ND","5NC","4NC","3NC"],
+    "options":[{
+        "name":"Par 2",
+        "vars":{"a":2,"c":"11_100"}
+    },{
+        "name":"Par 5",
+        "vars":{"a":5,"c":"2_99"}
+    },{
+        "name":"Par 20",
+        "vars":{"a":20,"c":"2_99"}
+    },{
+        "name":"Par 50",
+        "vars":{"a":50,"c":"2_99"}
+    },{
+        "name":"Par 4",
+        "vars":{"a":4,"c":"2_99"}
+    },{
+        "name":"Par 25",
+        "vars":{"a":25,"c":"2_99"}
+    },{
+        "name":"Par 0,5",
+        "vars":{"a":0.5,"c":"2_99"}
+    },{
+        "name":"Par 0,25",
+        "vars":{"a":0.25,"c":"2_99"}
+    }
+    ],
+    "question": ["${:a}\\times ${:c}", "${:c}\\times ${:a}"],
+    "answer":":question = \\color{red}{${:a*:c}}",
+    "value":"${:a*:c}"
+}

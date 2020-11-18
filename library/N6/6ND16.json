@@ -1,0 +1,20 @@
+{
+    "title":"Multiplier par un multiple de 10",
+    "ID":"6ND16",
+    "dest":["6ND","5NC","4NC","3NC"],
+    "options":[{
+        "name":"Par 20 ou 30",
+        "vars":{"a":[2,3],"b":"${10*:a}","c":"2_99"}
+    },{
+        "name":"Par 40 ou 50",
+        "vars":{"a":[4,5],"b":"${10*:a}","c":"2_99"}
+    },
+    {
+        "name":"Par 60, ...90",
+        "vars":{"a":"6_9","b":"${10*:a}","c":"2_99"}
+    }
+    ],
+    "question": ["${:b}\\times ${:c}", "${:c}\\times ${:b}"],
+    "answer":":question = \\color{red}{${:b*:c}}",
+    "value":"${:b*:c}"
+}
