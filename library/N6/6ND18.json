@@ -1,0 +1,28 @@
+{
+    "title":"Multiplier par 11, 12, 9, 19, 21, 15",
+    "ID":"6ND18",
+    "dest":["6ND","7ND","5NC","4NC","3NC"],
+    "options":[{
+        "name":"Multiplier par 11",
+        "vars":{"a":11,"c":"13_99"}
+    },{
+        "name":"Multiplier par 12",
+        "vars":{"a":12,"c":"13_99"}
+    },{
+        "name":"Multiplier par 9",
+        "vars":{"a":9,"c":"13_99"}
+    },{
+        "name":"Multiplier par 19",
+        "vars":{"a":19,"c":"13_99"}
+    },{
+        "name":"Multiplier par 21",
+        "vars":{"a":21,"c":"13_99"}
+    },{
+        "name":"Multiplier par 15",
+        "vars":{"a":15,"c":"13_99"}
+    }
+    ],
+    "question": ["${:a}\\times ${:c}", "${:c}\\times ${:a}"],
+    "answer":":question = \\color{red}{${:a*:c}}",
+    "value":"${:a*:c}"
+}

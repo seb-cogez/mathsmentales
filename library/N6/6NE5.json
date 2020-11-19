@@ -1,0 +1,25 @@
+{
+    "title":"Multiplication dérivées des tables",
+    "ID":"6NE5",
+    "dest":["6NE","7ND","5NC","4NC","3NC"],
+    "options":[{
+        "name":"Un décimal sur les deux facteurs",
+        "vars":{"a":"1_10","p":"-2_-1","n":"1_10","c":"${Number(eval(:n+'e'+:p))}"}
+    },{
+        "name":"Deux facteurs décimaux",
+        "vars":{"p":"-2_-1_2","n":"1_10_2","a":"${Number(eval(:n[0]+'e'+:p[0]))}","c":"${Number(eval(:n[1]+'e'+:p[1]))}"}
+    },{
+        "name":"Un facteur multiple de 10 ou 100",
+        "vars":{"a":"1_10","n":"1_10","p":"1_2","c":"${Number(eval(:n+'e'+:p))}"}
+    },{
+        "name":"Deux facteurs multiples de 10 ou 100",
+        "vars":{"p":"1_2_2","n":"1_10_2","a":"${Number(eval(:n[0]+'e'+:p[0]))}","c":"${Number(eval(:n[1]+'e'+:p[1]))}"}
+    },{
+        "name":"Mélange",
+        "vars":{"p":"-2_2_2_^0","n":"1_10_2","a":"${Number(eval(:n[0]+'e'+:p[0]))}","c":"${Number(eval(:n[1]+'e'+:p[1]))}"}
+    }
+    ],
+    "question": ["${:a}\\times ${:c}", "${:c}\\times ${:a}"],
+    "answer":":question = \\color{red}{${math.round(:a*:c,4)}}",
+    "value":"${math.round(:a*:c,4)}"
+}

@@ -1,0 +1,28 @@
+{
+    "title":"Multiplications astucieuses",
+    "ID":"6NE6",
+    "dest":["6NE","5NC","4NC","3NC"],
+    "options":[{
+        "name":"Avec 2 et 5",
+        "vars":{"p":"-1_1_2","a":"${Number(eval(2+'e'+:p[0]))}","b":"${Number(eval(5+'e'+:p[1]))}","c":"1_20"}
+    },{
+        "name":"Avec 4 et 25",
+        "vars":{"p":"-2_1_2","a":"${Number(eval(4+'e'+:p[0]))}","b":"${Number(eval(25+'e'+:p[1]))}","c":"1_20"}
+    },{
+        "name":"Avec 8 et 125",
+        "vars":{"p":"-1_1_2","a":"${Number(eval(8+'e'+:p[0]))}","b":"${Number(eval(125+'e'+:p[1]))}","c":"1_20"}
+    },{
+        "name":"Avec 10 et 0,1",
+        "vars":{"a":10,"b":0.1,"c":"1_20"}
+    },{
+        "name":"Avec 100 et 0,01",
+        "vars":{"a":100,"b":0.01,"c":"1_20"}
+    },{
+        "name":"Avec 1000 et 0,001",
+        "vars":{"a":1000,"b":0.001,"c":"1_20"}
+    }
+    ],
+    "question": ["${:a}\\times ${:b}\\times ${:c}", "${:a}\\times ${:c}\\times ${:b}", "${:b}\\times ${:c}\\times ${:a}","${:c}\\times ${:b}\\times ${:a}"],
+    "answer":":question = \\color{red}{${math.round(:a*:c*:b,6)}}",
+    "value":"${math.round(:a*:c*:b,6)}"
+}

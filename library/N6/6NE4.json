@@ -1,0 +1,19 @@
+{
+    "title":"Multiplier par 75; 7,5; 0,75",
+    "ID":"6NE4",
+    "dest":["6NE","7NE","5NC","4NC","3NC"],
+    "options":[{
+        "name":"Multiplier par 75",
+        "vars":{"a":75,"c":"12_100"}
+    },{
+        "name":"Multiplier par 7,5",
+        "vars":{"a":7.5,"c":"12_100"}
+    },{
+        "name":"Multiplier par 0,75",
+        "vars":{"a":0.75,"c":"12_100"}
+    }
+    ],
+    "question": ["${:a}\\times ${:c}", "${:c}\\times ${:a}"],
+    "answer":":question = \\color{red}{${:a*:c}}",
+    "value":"${:a*:c}"
+}
