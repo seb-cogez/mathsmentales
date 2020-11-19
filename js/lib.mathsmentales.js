@@ -1654,10 +1654,11 @@ var library = {
                         for(let chap in MM.content[niv].themes[theme].chapitres){
                             let chapExo=[];
                             for(let exo=0,lene=MM.content[niv].themes[theme].chapitres[chap].e.length;exo<lene;exo++){
-                                if(MM.content[niv].themes[theme].chapitres[chap].e[exo].t.indexOf(level)>-1){
+                                if(MM.content[niv].themes[theme].chapitres[chap].e[exo].t.toLowerCase().indexOf(level.toLowerCase())>-1){
                                     // we find a candidate !!!
+                                    let reg = new RegExp(level.toLowerCase(),"gi");
                                     chapExo.push({"u":MM.content[niv].themes[theme].chapitres[chap].e[exo].u,
-                                    "t":MM.content[niv].themes[theme].chapitres[chap].e[exo].t})
+                                    "t":MM.content[niv].themes[theme].chapitres[chap].e[exo].t.replace(reg,function(x){return "<mark>"+x+"</mark>"})})
                                 }
                             }
                             // si chapExo! == [], alors on créée l'arbo

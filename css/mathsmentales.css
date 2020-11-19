@@ -8,6 +8,9 @@
 .center{
   text-align: center;
 }
+mark {
+  padding:0;
+}
 #app-container{
     display: flex;
     height: 100%;
