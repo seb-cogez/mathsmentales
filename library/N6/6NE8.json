@@ -1,0 +1,19 @@
+{
+    "title":"Division par 75, 7,5 ou 0,75",
+    "ID":"6NE8",
+    "dest":["6NE","5NC","4NC","3NC"],
+    "options":[{
+        "name":"Diviser par 75",
+        "vars":{"n":"2_50","a":"${3*:n}","b":75}
+    },{
+        "name":"Diviser par 7,5",
+        "vars":{"n":"2_50","a":"${3*:n}","b":7.5}
+    },{
+        "name":"Diviser par 0,75",
+        "vars":{"n":"2_50","a":"${3*:n}","b":0.75}
+    }
+    ],
+    "question": "${:a}\\div ${:b}",
+    "answer":":question = \\color{red}{${math.round(:a/:b,4)}}",
+    "value":"${math.round(:a/:b,4)}"
+}

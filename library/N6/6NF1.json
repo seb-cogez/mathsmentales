@@ -1,0 +1,31 @@
+{
+    "title":"Rendre la monnaie",
+    "ID":"6NF1",
+    "type":"text",
+    "dest":["7NF","6NF","5NC","4NC","3NC"],
+    "consts":{"billets":[5,10,20,50,100],"pieces":[1,2,5,10,20,50]},
+    "options":[{
+        "name":"En euros, sur un billet",
+        "vars":{"b":"0_4","d":"1_${:billets[:b]}","don":"${:billets[:b]}","r":"${:billets[:b]-:d}"},
+        "question":["Si je donne un billet de ${:don} € pour payer $$${:d}$$ €, combien me rend-on ?",
+            "Je donne un billet de ${:billets[:b]} € pour payer $$${:d}$$ €. Combien me rend-on ?",
+            "Je dois payer ${:d} €. Je donne un billet de ${:billets[:b]} €. Combien me rend-on ?"]
+        },{
+        "name":"En euros et cents, sur un billet",
+        "vars":{"b":"0_4","d":"d1_${:billets[:b]}_2","don":"${:billets[:b]}","r":"${math.round(:billets[:b]-:d,2)}"},
+        "question":["Si je donne un billet de ${:don} € pour payer $$${:d}$$ €, combien me rend-on ?",
+            "Je donne un billet de ${:billets[:b]} € pour payer $$${:d}$$ €. Combien me rend-on ?",
+            "Je dois payer $$${:d}$$ €. Je donne un billet de ${:billets[:b]} €. Combien me rend-on ?"]
+    },{
+        "name":"En euros, sur plusieurs billets",
+        "vars":{"nb":"2_5","b":"0_4_${:nb}","don":"${utils.montant(:b,true,true)}","d":"${utils.montant(:b,true,false)}","r":"${math.round(utils.montant(:b,true,true)-:d,2)}"},
+        "question":"Si je donne ${utils.listeBillets(:b)} pour payer $$${:d}$$ €, combien me rend-on ?"
+    },{
+        "name":"En euros et cents, sur plusieurs billets",
+        "vars":{"nb":"2_5","b":"0_4_${:nb}","don":"${utils.montant(:b,false,true)}","d":"${utils.montant(:b,false,false)}","r":"${math.round(utils.montant(:b,false,true)-:d,2)}"},
+        "question":"Si je donne ${utils.listeBillets(:b)} pour payer $$${:d}$$ €, combien me rend-on ?"
+    }
+    ],
+    "answer":"On me rend $$${:don}-${:d}=\\color{red}{${:r}}$$ €",
+    "value":"${:don-:d}€"
+}

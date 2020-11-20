@@ -353,6 +353,46 @@ var utils = {
         return partieEntiere+partieDecimale;
     },
     /**
+     * 
+     * @param {integer} billets id des billets
+     * @param {boolean} entier true pour générer des montants entiers, false pour des centimes
+     * @param {boolean} tot true pour donner le montant total, false pour donner un montant inférieur
+     */
+    montant:function(billets,entier,tot){
+        let valeursBillets = [5,10,20,50,100];
+        let min=Infinity;
+        let total=0;
+        for(let i=0,len=billets.length;i<len;i++){
+            if(min>valeursBillets[billets[i]])
+                min = valeursBillets[billets[i]];
+            total+=valeursBillets[billets[i]];
+        }
+        if(tot){
+            return total;
+        } else {
+            if(entier){
+                return utils.aleaInt(total-min+1,total);
+            } else {
+                return utils.aleaFloat(total-min+1,total,2);
+        }}
+    },
+    listeBillets:function(billets){
+        let valeursBillets = [5,10,20,50,100];
+        let lesbillets = {5:0,10:0,20:0,50:0,100:0};
+        let txt = "des billets : ";
+        for(let i=0,len=billets.length;i<len;i++){
+             lesbillets[valeursBillets[billets[i]]]++;
+        }
+        for(let val in lesbillets){
+            if(lesbillets[val]>1){
+                txt += lesbillets[val]+" de "+val+" €, ";
+            } else if(lesbillets[val]>0){
+                txt += val+" €, ";
+            }
+        }
+        return txt;
+    },
+    /**
      * Render the math
      */
     mathRender: function() {
