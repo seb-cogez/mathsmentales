@@ -216,15 +216,23 @@ Exemple avec chartjs : représentation de données statistiques
 Exemple avec JSXGraph
 ``` js
 {
-    "title":"Reconnaitre une représentation graphique",
+    "ID":"3DD1",
+    "dest":["3DD"],
+    "title":"Lire l'ordonnée à l'origine",
     "type":"text",
-    "vars":{"a":"d-2_2_1", "b":"-3_3"},
-    "figure":{"type":"graph",
-    "content" : {"functiongraph":"${:a}*x+${:b}"} // functiongraph va tracer la représentation graphique de variable x. Attention à bien indiquer les signes opératoires entre x et les nombres connus
-    },
+    "vars":{"a":"d-2_2_1", "b":"-3_3"}, // a est le coeff, b est l'ordonnée à l'origine
+    "figure":{
+        "type":"graph", // usage de jsxgraph
+        "boundingbox":[-5,5,5,-5], // taille de la boite de tracés (xmin,ymax,xmax,ymin)
+        "axis":true, // affiche les axes
+        "grid":true, // affiche la grille
+        "content" :[
+                ["functiongraph","${:a}*x+${:b}"] // functiongraph va tracer la représentation de la formule
+            ]    
+        },
     "question":"Quelle est l'ordonnée à l'origine de la fonction affine ?",
-    "answer":"L'ordonnée à l'origine de la fonction est <span class='red'>${:b}</span>", // la classe red affiche en rouge.
-    "value":"${:b}"
+    "answer":"L'ordonnée à l'origine de la fonction est <span class='red'>${:b}</span>",
+    "value":"${:b}" // valeur attendue en réponse
 }
 ```
 

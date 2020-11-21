@@ -1,0 +1,19 @@
+{
+    "title":"Soustraction de relatifs",
+    "ID":"5NC2",
+    "dest":["5NC","4NC","3NC"],
+    "options":[{
+        "name":"Nombres entre -10 et 10",
+        "vars":{"n":"-10_10_2"},
+        "question": "(${(:n[0]>=0)?'+'+:n[0]::n[0]})-(${(:n[1]>=0)?'+'+:n[1]::n[1]})",
+        "answer":":question=\\color{red}{${:n[0]-:n[1]}}",
+        "value":"${:n[0]-:n[1]}"
+    },{
+        "name":"Nombres entre -20 et 20",
+        "vars":{"n":"-20_20_2"},
+        "question": "(${(:n[0]>=0)?'+'+:n[0]::n[0]})-(${(:n[1]>=0)?'+'+:n[1]::n[1]})",
+        "answer":":question=\\color{red}{${:n[0]-:n[1]}}",
+        "value":"${:n[0]-:n[1]}"
+    }
+    ]
+}

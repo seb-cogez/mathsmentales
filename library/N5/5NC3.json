@@ -1,0 +1,30 @@
+{
+    "title":"Distance entre deux points",
+    "ID":"5NC3",
+    "type":"text",
+    "dest":["5NC","4NC","3NC"],
+    "consts":{"pts":["A","B","C","D","E","F","G","H","J","P","M","R"]},
+    "vars":{"n":"-9_9_2_^&","noms":"0_11_2_^&", "min":"${Math.min(:n[0],:n[1])}", "max":"${Math.max(:n[0],:n[1])}"},
+    "answer":"$$${:max}-${(:min<0)?'('+:min+')'::min}=\\color{red}{${:max-:min}}$$",
+    "value":"${:max-:min}",
+    "options":[{
+        "name":"Distance entre 2 points, avec graphique",
+        "question": "Quelle est la distance entre ${:pts[:noms[0]]} et ${:pts[:noms[1]]} ?",
+        "figure":{
+            "type":"graph",
+            "axis":false,
+            "grid":false,
+            "boundingbox":[-10,2,10,-2],
+            "content":[
+                ["axis",[[0,0],[1,0]],{"ticks":{"insertTicks":false,"ticksDistance":1,"strokeColor":"#000000","strokeWidth":2,"majorHeight":10,"drawZero":true,"minorTicks":0,"label":{"offset":[-6,-18],"fontSize":20}}}],
+                ["point",["${:n[0]}",0],{"face":"x","name":"${:pts[:noms[0]]}","size":5,"label":{"offset":[-4,16],"fontSize":20}}],
+                ["point",["${:n[1]}",0],{"face":"x","name":"${:pts[:noms[1]]}","size":5,"label":{"offset":[-4,16],"fontSize":20}}]
+            ]
+        }
+    },{
+        "name":"Distance entre 2 points",
+        "question":"Quelle est la distance entre ${:pts[:noms[0]]}(${:n[0]}) et ${:pts[:noms[1]]}(${:n[1]}) ?",
+        "figure":{}
+    }
+    ]
+}

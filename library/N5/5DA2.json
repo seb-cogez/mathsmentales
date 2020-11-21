@@ -1,0 +1,45 @@
+{
+    "title":"Calculs statistiques : moyenne, médiane, étendue de 2 à 5 valeurs",
+    "type":"text",
+    "ID":"5DA2",
+    "dest":["5DA","4DA","3DA"],
+    "vars":{"nbvals":"2_5", "b":"1_50_${:nbvals}","c":"${:b.reduce(function(a,b){return a+B;},0)%:nbvals}"},
+    "options":[{
+        "name":"Moyenne (5e)",
+        "question": ["Quelle est la moyenne de ${:b},${:c} ?", ""],
+        "answer":"",
+        "value":""
+    },{
+        "name":"Médiane (4e)",
+        "vars":{},
+        "consts":{},
+        "question": ["", ""],
+        "answer":"",
+        "value":""
+    },{
+        "name":"Moyenne et médiane (4e)",
+        "vars":{},
+        "consts":{},
+        "question": ["", ""],
+        "answer":"",
+        "value":""
+    },{
+        "name":"Etendue (3e)",
+        "vars":{},
+        "consts":{},
+        "question": ["", ""],
+        "answer":"",
+        "value":""
+    },{
+        "name":"Moyenne, médiane et étendue (3e)",
+        "vars":{},
+        "consts":{},
+        "question": ["", ""],
+        "answer":"",
+        "value":""
+    }
+    ],
+    "question":"",
+    "answer":"",
+    "value":""
+}

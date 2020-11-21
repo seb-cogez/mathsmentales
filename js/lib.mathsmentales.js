@@ -738,6 +738,9 @@ window.onload = function(){
     library.openContents();
     // to show de good checked display
     MM.setDispositionEnonce(utils.getRadioChecked("Enonces"));
+    // load scratchblocks french translation
+    window.scratchblocks.loadLanguages({
+        fr: "js/libs/scratchblocks/fr.json"});
 }
 class cart {
     constructor(id){
@@ -949,7 +952,7 @@ class Figure {
                             this.figure.create("functiongraph", [function(x){return eval(formule)}], options);
                     } else if(type==="jessiescript") {
                         this.figure.construct(commande);
-                    } else if(["text", "point"].indexOf(type)>-1){
+                    } else if(["text", "point","axis"].indexOf(type)>-1){
                         if(!options)
                             this.figure.create(type, commande);
                         else
@@ -2155,6 +2158,7 @@ class activity {
         // patternNumber is the number of the choosen sub option
         let optionNumber, patternNumber, lenQ=false;
         this.wVars={};
+        this.cFigure = undefined;
         for(let i=0;i<n;i++){
             if(opt === undefined) optionNumber = this.getOption(); else optionNumber = opt;
             if(patt === undefined) patternNumber = this.getPattern(optionNumber); else patternNumber = patt;
