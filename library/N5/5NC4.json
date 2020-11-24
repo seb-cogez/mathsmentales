@@ -1,0 +1,34 @@
+{
+    "title":"Carrés de relatifs",
+    "ID":"5NC4",
+    "dest":["5NC","4NC","3NC"],
+    "options":[{
+        "name":"Carrés des entiers de -12 à 12",
+        "vars":{"a":"-12_12"}
+    },{
+        "name":"Carrés des entiers de -15 à 15",
+        "vars":{"a":"-15_15"}
+    },{
+        "name":"Carrés des entiers de -20 à 20",
+        "vars":{"a":"-15_15"}
+    },{
+        "name":"Carrés des entiers de -15 à 15 ×10 ou ×100",
+        "vars":{"e":"1_2", "n":"-15_15", "a":"${:n+'e'+:e}"}
+    },{
+        "name":"Carrés des entiers de -20 à 20 ×10 ou ×100",
+        "vars":{"e":"1_2", "n":"-20_20", "a":"${:n+'e'+:e}"}
+    },{
+        "name":"Carrés des entiers de -20 à 20 ×10 ou ×100",
+        "vars":{"e":"1_2", "n":"-20_20", "a":"${:n+'e'+:e}"}
+    },{
+        "name":"Carrés des entiers de -15 à 15 ÷10 ou ÷100",
+        "vars":{"e":"-2_-1", "n":"-15_15", "a":"${:n+'e'+:e}"}
+    },{
+        "name":"Carrés des entiers de -20 à 20 ÷10 ou ÷100",
+        "vars":{"e":"-2_-1", "n":"-20_20", "a":"${:n+'e'+:e}"}
+    }
+    ],
+    "question":["${(:a<0)?'('+:a+')^2'::a+'^2'}","${:a}^2"],
+    "answer":[":question=\\color{red}{${math.round(:a*:a,4)}}",":question=\\color{red}{${(:a<0)?math.round(-:a*:a,4):math.round(:a*:a,4)}}"],
+    "value":["${math.round(:a*:a,4)}","${(:a<0)?math.round(-:a*:a,4):math.round(:a*:a,4)}"]
+}

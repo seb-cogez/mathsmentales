@@ -1,0 +1,25 @@
+{
+    "title":"Multiplication de relatifs",
+    "ID":"5NC5",
+    "dest":["5NC","4NC","3NC"],
+    "options":[{
+        "name":"Produit de 2 entiers inférieurs à 11",
+        "vars":{"n":"-10_10_2_^0"},
+        "question": "${:n[0]}\\times ${(:n[1]>=0)?:n[1]:'('+:n[1]+')'}",
+        "answer":":question=\\color{red}{${:n[0]*:n[1]}}",
+        "value":"${:n[0]*:n[1]}"
+    },{
+        "name":"Produit de 3 entiers inférieurs à 11",
+        "vars":{"n":"-10_10_3_^0"},
+        "question": "${:n[0]}\\times ${(:n[1]>=0)?:n[1]:'('+:n[1]+')'}\\times ${(:n[2]>=0)?:n[2]:'('+:n[2]+')'}",
+        "answer":":question=\\color{red}{${:n[0]*:n[1]*:n[2]}}",
+        "value":"${:n[0]*:n[1]*:n[2]}"
+    },{
+        "name":"Produit de 4 entiers inférieurs à 11",
+        "vars":{"n":"-10_10_4_^0"},
+        "question": "${:n[0]}\\times ${(:n[1]>=0)?:n[1]:'('+:n[1]+')'}\\times ${(:n[2]>=0)?:n[2]:'('+:n[2]+')'}\\times ${(:n[3]>=0)?:n[3]:'('+:n[3]+')'}",
+        "answer":":question=\\color{red}{${:n[0]*:n[1]*:n[2]*:n[3]}}",
+        "value":"${:n[0]*:n[1]*:n[2]*:n[3]}"
+    }
+    ]
+}

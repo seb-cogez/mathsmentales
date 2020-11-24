@@ -1,0 +1,9 @@
+{
+    "title":"Quotient de relatifs",
+    "ID":"5NC6",
+    "dest":["5NC","4NC","3NC"],
+    "vars":{"n":"-10_10_2_^0"},
+    "question": "${:n[0]*:n[1]}\\div ${(:n[1]<0)?'('+:n[1]+')'::n[1]}",
+    "answer":":question=\\color{red}{${:n[0]}}",
+    "value":"${:n[0]}"
+}
