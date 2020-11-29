@@ -1,0 +1,10 @@
+{
+    "title":"Valeur décimale de fraction simple",
+    "ID":"6NB1",
+    "description":"",
+    "dest":["6NB","5NA","4NA","3NA"],
+    "vars":{"den":"2_5_^3", "num":"0_10"},
+    "question":"\\dfrac{${:num}}{${:den}}",
+    "answer":":question=\\color{red}{${:num/:den}}",
+    "value":"${:num/:den}"
+}

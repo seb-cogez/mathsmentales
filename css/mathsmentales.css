@@ -30,6 +30,9 @@ mark {
 .bold {
   font-weight: bold;
 }
+#tab-enonce li, #tab-corrige li {
+  padding: 4px 10px 4px;
+}
 /* Range input, from http://danielstern.ca/range.css/ */
 input[type=range] {
   -webkit-appearance: none;

@@ -1,0 +1,10 @@
+{
+    "title":"Comparaison de fractions à 1",
+    "ID":"6NB2",
+    "description":"",
+    "dest":["6NB","5NA","4NA","3NA"],
+    "vars":{"den":"1_100", "num":"0_100", "sym":"${(:num>:den)?'\\gt':((:num<:den)?'\\lt':'=')}"},
+    "question":"\\dfrac{${:num}}{${:den}}~...~1",
+    "answer":"\\dfrac{${:num}}{${:den}} \\color{red}{${:sym}} 1",
+    "value":"${:sym}"
+}

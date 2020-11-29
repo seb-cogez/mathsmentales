@@ -1944,9 +1944,9 @@ class activity {
                 ul.appendChild(li);
             }
             p.appendChild(ul);
-            let p1 = document.createElement("p");
+            /*let p1 = document.createElement("p"); // affiche la réponse
             p1.innerHTML = this.setMath(this.answers[0]);
-            p.appendChild(p1);
+            p.appendChild(p1);*/
             // display answer
             examples.appendChild(p);
         }

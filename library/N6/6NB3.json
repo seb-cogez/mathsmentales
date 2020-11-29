@@ -1,0 +1,59 @@
+{
+    "title":"Comparaison de fractions",
+    "ID":"6NB3",
+    "description":"",
+    "dest":["6NB","5NA","4NA","3NA"],
+    "options":[{
+        "name":"Comparer à 1",
+        "vars":{
+            "num":"10_100",
+            "den":"10_100",
+            "num2":"10_100",
+            "dens":"1_${:num2-1}",
+            "denB":"${:num2+1}_100",
+            "den2":"${(:num>=:den)?:denB::dens}",
+            "sym":"${(:num>=:den)?'\\gt':'\\lt'}"
+        },
+        "question":"\\dfrac{${:num}}{${:den}}~...~\\dfrac{${:num2}}{${:den2}}",
+        "answer":"\\dfrac{${:num}}{${:den}} \\color{red}{${:sym}} \\dfrac{${:num2}}{${:den2}}",
+        "value":"${:sym}"    
+    },{
+        "name":"Mêmes dénominateurs",
+        "vars":{
+            "nums":"2_100_2",
+            "den":"2_100",
+            "sym":"${(:nums[0]<:nums[1])?'\\lt':((:nums[0]>:nums[1])?'\\gt':'=')}"
+        },
+        "question":"\\dfrac{${:nums[0]}}{${:den}}~...~\\dfrac{${:nums[1]}}{${:den}}",
+        "answer":"\\dfrac{${:nums[0]}}{${:den}} \\color{red}{${:sym}} \\dfrac{${:nums[1]}}{${:den}}",
+        "value":"${:sym}"
+    },{
+        "name":"Dénominateurs multiples",
+        "vars":{
+            "num1":"2_20",
+            "den1":"2_10",
+            "coeff":"2_10",
+            "num2":"10_100",
+            "den2":"${:den1*:coeff}",
+            "sym":"${(:num1*:coeff<:num2)?'\\lt':((:num1*:coeff>:num2)?'\\gt':'=')}"
+        },
+        "question":"\\dfrac{${:num1}}{${:den1}}~...~\\dfrac{${:num2}}{${:den2}}",
+        "answer":"\\dfrac{${:num1}}{${:den1}} \\color{red}{${:sym}} \\dfrac{${:num2}}{${:den2}}",
+        "value":"${:sym}"
+    },{
+        "name":"Dénominateurs multiples (2)",
+        "vars":{
+            "num1":"2_20",
+            "den1":"2_10",
+            "coeff":"2_10",
+            "num2":"10_100",
+            "den2":"${:den1*:coeff}",
+            "sym":"${(:num1*:coeff<:num2)?'\\gt':((:num1*:coeff>:num2)?'\\lt':'=')}"
+        },
+        "question":"\\dfrac{${:num2}}{${:den2}}~...~\\dfrac{${:num1}}{${:den1}}",
+        "answer":"\\dfrac{${:num2}}{${:den2}} \\color{red}{${:sym}} \\dfrac{${:num1}}{${:den1}}",
+        "value":"${:sym}"
+    }
+    ]
+
+}
