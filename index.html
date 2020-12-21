@@ -16,9 +16,10 @@
     <meta name="msapplication-TileImage" content="img/ms-icon-144x144.png" />
     <meta name="theme-color" content="#ffffff" />
     <link href="js/libs/katex/katex.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="css/knacss.css" type="text/css" />
-    <link rel="stylesheet" href="css/bulma-steps.css" type="text/css" />
-    <link rel="stylesheet" href="css/mathsmentales.css" type="text/css" />
+    <link rel="stylesheet" href="css/knacss.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/bulma-steps.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/mathsmentales.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
     <link rel="stylesheet" href="css/jsxgraph.css" type="text/css" />
     <script src="js/libs/katex/katex.min.js" type="text/javascript" defer></script>
     <script src="js/libs/asciimath2tex/asciimath2tex.min.js"></script>
@@ -174,8 +175,12 @@
                 </section>
             </div>
         </div>
-         <div class="row-5">
+         <div class="row-5" id="colparameters">
             <h1><i class="icon-arrow--right"></i>Paramètres</h1>
+            <button class="button--primary" onclick="utils.showParameters('paramsdiapo',this)">Diaporama</button>
+            <button class="button--info" onclick="utils.showParameters('paramsexos',this)">Feuille d'exercices</button>
+            <button class="button--info" onclick="utils.showParameters('paramsinterro',this)">Feuille d'interro</button>
+            <div id="paramsdiapo">
             <fieldset>
                 <legend>Introduction</legend>
                 <span title="Commencer sur un exemple que l'on pourra discuter"><input type="radio" class="radio" name="beforeSlider" value="example"> Exemple</span>
@@ -211,10 +216,39 @@
                 <input type="radio" class="radio" name="endOfSlideRadio" value="list"> Énoncés
             </fieldset><br>
             <section class="txtcenter" id="startbuttons">
-                <button class="button--primary" onclick="MM.start();">C'est parti !</button>
                 <button class="button--info" onclick="MM.showQuestions();">Voir des énoncés</button>
                 <button class="button--warning" onclick="MM.showAnswers();">Voir des réponses</button> 
+                <button class="button--primary" onclick="MM.start();">C'est parti !</button>
             </section>
+        </div>
+        <div id="paramsexos" class="hidden">
+            <fieldset>
+                <legend>Format page</legend>
+                 A4 / A5 / A6</fieldset>
+            <fieldset>
+                <legend>Titre de la fiche</legend>
+            </fieldset>
+            <fieldset>
+                <legend>Titre de chaque exercice</legend>
+                </fieldset>
+            <fieldset>
+                <legend>Corrigé</legend>
+                après chaque exercice / en fin de fiche</fieldset>
+            <fieldset>Clé aléa de l'exercice</fieldset>
+        </div>
+        <div id="paramsinterro" class="hidden">
+            <fieldset>
+                <legend>Format page</legend>
+                A4 / A5 / A6
+            </fieldset>
+            <fieldset>
+                <legend>Titre du devoir</legend>
+            </fieldset>
+            <fieldset>
+                <legend>Titre de chaque exercice</legend>
+            </fieldset>
+            <fieldset>Clé aléa de l'exercice</fieldset>
+        </div>
         </div>
        <div class="row-4 colsx2" id="divparams">
             <h1><i class="icon-arrow--right"></i>Questions types</h1>

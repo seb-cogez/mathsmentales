@@ -1,0 +1,34 @@
+{
+    "title":"Ajouter des fractions",
+    "type":"latex",
+    "ID":"5NC7",
+    "dest":["6NB", "5NC", "4NC", "3NC"],
+    "options":[{
+        "name":"Ajouter des fractions décimales (6e)",
+        "vars":{"nums":"1_20_2", "den":[10,100,1000]},
+        "question":"\\dfrac{${:nums[0]}}{${:den}}+\\dfrac{${:nums[1]}}{${:den}}",
+        "answer":":question = \\color{red}{\\dfrac{${:nums[0]+:nums[1]}}{${:den}}}",
+        "value":"${:nums[0]+:nums[1]}/${:den}"
+    },{
+        "name":"Ajouter des fractions de même dénominateur (6e)",
+        "vars":{"nums":"1_30_2", "den":"2_30_^${:nums}"},
+        "question":"\\dfrac{${:nums[0]}}{${:den}}+\\dfrac{${:nums[1]}}{${:den}}",
+        "answer":":question = \\color{red}{\\dfrac{${:nums[0]+:nums[1]}}{${:den}}}",
+        "value":"${:nums[0]+:nums[1]}/${:den}"
+    },{
+        "name":"Ajouter des fractions de dénominateur multiples (5e)",
+        "vars":{"nums":"1_10_2", "den1":"2_10_^${:nums}", "coeff":"2_5","den2":"${:den1*:coeff}"},
+        "question":["\\dfrac{${:nums[0]}}{${:den1}}+\\dfrac{${:nums[1]}}{${:den2}}",
+            "\\dfrac{${:nums[1]}}{${:den2}}+\\dfrac{${:nums[0]}}{${:den1}}"
+        ],
+        "answer":":question = \\color{red}{\\dfrac{${:nums[0]*:coeff+:nums[1]}}{${:den2}}}",
+        "value":"${:nums[0]*:coeff+:nums[1]}/${:den2}"
+    },{
+        "name":"Ajouter des fractions et simplifier (4e)",
+        "vars":{"nums":"1_10_2", "dens":"2_10_2_^&,${:nums}"},
+        "question":"\\dfrac{${:nums[0]}}{${:dens[0]}}+\\dfrac{${:nums[1]}}{${:dens[1]}}",
+        "answer":":question = \\color{red}{\\displaystyle${math.calc(:nums[0]+'/'+:dens[0]+'+'+:nums[1]+'/'+:dens[1], false)}}",
+        "value":"${math.calc(:nums[0]+'/'+:dens[0]+'+'+:nums[1]+'/'+:dens[1], true)}"
+    }
+    ]
+}

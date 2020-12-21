@@ -348,11 +348,14 @@ ul.cart-list{
     list-style-type:none;
     padding-left: 2em;
 }
+#activityOptions li {
+  padding-top: 9px;
+}
 #startbuttons {
-    font-size:1.6em;
+    font-size:1.1em;
     margin:1em;
 }
-#startbuttons button {
+#startbuttons button, #colparameters > button {
     border-radius: 0.3em;
     box-shadow: 4px 4px 6px #AAA;
     padding:0.6em;
@@ -793,9 +796,6 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
       background-position: -200% 0;
     }
   }
-  /*.katex {
-    line-height: 1.8em;
-  }*/
 
 #countdown-container{
   position: absolute;

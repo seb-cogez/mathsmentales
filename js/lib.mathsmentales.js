@@ -202,7 +202,6 @@ var utils = {
                 if(avoid.indexOf("&")>-1)nodouble = true;
                 if(avoid.indexOf("prime")>-1)notPrime = true;
                 avoid = avoid.map(Number);
-                debug("à éviter",avoid);
             }
         }
         if(min === max) return min;
@@ -223,7 +222,6 @@ var utils = {
                 integers.push(thisint);
                 if(!utils.checkSecurity()) break;
             }
-            debug("AleaInt array : "+integers);
             return integers;
         } else {
             let thisint;
@@ -232,7 +230,6 @@ var utils = {
                 if(!utils.checkSecurity()) break;
             }
             while (avoid.indexOf(thisint)>-1 || (notPrime && math.premiers.indexOf(thisint)>-1))
-            debug("AleaInt 1 int : "+thisint);
             return thisint;
         }
     },
@@ -250,7 +247,7 @@ var utils = {
         let avoid = [];
         let nodouble = false;
         utils.security = 300;
-        debug(arguments);
+        //debug(arguments);
         // check aguments
         for(let i=3;i<arguments.length;i++){
             if(String(Number(arguments[i])) === arguments[i] || typeof arguments[i] === "number"){
@@ -259,7 +256,7 @@ var utils = {
                 avoid = arguments[i].substring(1).split(",");
                 if(avoid.indexOf("&")>-1)nodouble = true;
                 avoid = avoid.map(Number);
-                debug("Eviter "+avoid);
+                //debug("Eviter "+avoid);
             }
         }
         // exchange values min and max if min > max
@@ -279,14 +276,14 @@ var utils = {
                 floats.push(nb);
                 if(!utils.checkSecurity()) break;
             }
-            debug(floats);
+            //debug(floats);
             return floats;
         } else { // one value
             let nb;
             do {
                 nb = math.round(utils.alea()*(max-min)+min,precision);
                 if(!utils.checkSecurity()) break;
-                debug(nb);
+                //debug(nb);
             }
             while(avoid.indexOf(nb)>-1)
             return nb;
@@ -321,6 +318,20 @@ var utils = {
         utils.addClass(el, "is-active");
         document.getElementById(tab).style.display = "";
     },
+    showParameters:function(id,objbutton){
+        let ids = ["paramsdiapo","paramsexos", "paramsinterro"];
+        if(ids.indexOf(id)<0) return false;
+        // hide all
+        let btns = document.querySelectorAll("#colparameters > button");
+        for(let i=0,len=btns.length;i<len;i++){
+            btns[i].className = "button--info";
+        }
+        for(let i=0,len=ids.length;i<len;i++){
+            document.getElementById(ids[i]).className = "hidden";
+        }
+        document.getElementById(id).className = "";
+        objbutton.className = "button--primary";
+    },
     resetAllTabs : function(){
         let tabsButtons = document.querySelectorAll("#header-menu .tabs-menu-link");
         let contents = document.querySelectorAll(".tabs-content-item");
@@ -349,7 +360,7 @@ var utils = {
         if(partieDecimale.length){
             partieDecimale = "{,}"+partieDecimale;
             }
-        debug(partieEntiere+partieDecimale);
+        //debug(partieEntiere+partieDecimale);
         return partieEntiere+partieDecimale;
     },
     /**
@@ -637,8 +648,20 @@ var math ={
     ppcm: function(a, b) {
     return Algebrite.run('lcm(' + a + ',' + b + ')');
     },
+    inverse:function(expr, notex){
+        let ret;
+        if(notex === undefined || notex===false) ret = Algebrite.run('printlatex(1/('+expr+'))');
+        else ret = Algebrite.run('1/('+expr+')');
+        return ret;
+    },
+    calc:function(expr,notex){
+        let ret;
+        if(notex === undefined || notex===false) ret = Algebrite.run('printlatex('+expr+')');
+        else ret = Algebrite.run(expr);
+        return ret;
+    },
     getHM(h,m,s){
-        debug(arguments);
+        //debug(arguments);
         if(s===undefined)s=0;
         var d = new Date(2010,1,1,Number(h),Number(m),Number(s));
         return d.getHours()+" h "+((d.getMinutes()<10)?"0"+d.getMinutes():d.getMinutes());
@@ -682,13 +705,13 @@ var math ={
                 r = eval("`"+phrases[operations[0]][2]+"`")
                 break;
             }
-            debug(r);
+            //debug(r);
         if(operations.length>1){// plus d'une opération
             if(ordre){ // la première operation est le premier argument
                 x=r;y=operandes[2];z=x;
                 if(["*","/"].indexOf(operations[1])>-1 && ["-","+"].indexOf(operations[0])>-1)
                     z="("+x+")";
-                debug(z);
+                //debug(z);
             } else {
                 x=operandes[2];y=r;z=y;
                 if(["*","/"].indexOf(operations[1])>-1 && ["-","+"].indexOf(operations[0])>-1 || operations[1]==="/")
@@ -739,8 +762,15 @@ window.onload = function(){
     // to show de good checked display
     MM.setDispositionEnonce(utils.getRadioChecked("Enonces"));
     // load scratchblocks french translation
-    window.scratchblocks.loadLanguages({
-        fr: "js/libs/scratchblocks/fr.json"});
+    // TODO : à changer au moment de l'utilisation de scratchblocks
+    let reader = new XMLHttpRequest();
+    reader.onload = function(){
+        let json = JSON.parse(reader.responseText);
+        window.scratchblocks.loadLanguages({
+            fr: json});
+        }
+    reader.open("get", "libs/scratchblocks/fr.json", false);
+    reader.send();
 }
 class cart {
     constructor(id){
@@ -836,7 +866,7 @@ class cart {
             dom.appendChild(li);
         }
         let spans = document.querySelectorAll("#cart"+(this.id)+" div.totaux span");
-        debug(spans);
+        //debug(spans);
         spans[0].innerHTML = utils.sToMin(this.time);
         spans[1].innerHTML = this.nbq;
         spans[2].innerHTML = this.target;
@@ -884,11 +914,11 @@ class steps {
             ul.appendChild(li);
         }
         if(this.container.hasChildNodes()){
-            if(modeDebug) console.log("Replace Steps",this.step, this.size);
+            //if(modeDebug) console.log("Replace Steps",this.step, this.size);
             let node = this.container.childNodes[0];
             this.container.replaceChild(ul, node);
         } else {
-            if(modeDebug) console.log("Insert Steps",this.step, this.size);
+            //if(modeDebug) console.log("Insert Steps",this.step, this.size);
             this.container.appendChild(ul);
         }
     }
@@ -1208,7 +1238,7 @@ var MM = {
                 if(clen>1)addTitle = "-"+(kk+1);
                 let titleSlider = MM.carts[i].title+addTitle;
                 document.querySelector("#slider"+slideNumber+" .slider-title").innerHTML = titleSlider;
-                if(modeDebug)console.log(slider);
+                //if(modeDebug)console.log(slider);
                 let sliderSteps = document.querySelector("#slider"+slideNumber+" .steps-container");
                 let dive = document.createElement("div");
                 let divc = document.createElement("div");
@@ -1304,7 +1334,7 @@ var MM = {
         MM.introType = utils.getRadioChecked("beforeSlider");
     },
     startTimers:function(){
-        if(modeDebug)console.log("startTimers ", MM.timers);
+        //if(modeDebug)console.log("startTimers ", MM.timers);
         for(let i=0,k=MM.timers.length;i<k;i++){
             MM.timers[i].start(0);
         }
@@ -1638,7 +1668,7 @@ var MM = {
             }
         }
         for(let i = 0,l=MM.carts.length;i<l;i++){
-            if(modeDebug)console.log("Targets cart "+i, MM.carts[i].target);
+            //if(modeDebug)console.log("Targets cart "+i, MM.carts[i].target);
             MM.carts[i].display();
         }
     },
@@ -2079,16 +2109,16 @@ class activity {
      * @param {boolean} check true if check, false if not
      */
     setQuestionType(value,check){
-        if(modeDebug)console.log(value,check);
+        //if(modeDebug)console.log(value,check);
         let questionId = Number(value);
         if(check){
             // not already chosen
             if(this.chosenQuestionTypes.indexOf(questionId)<0){
-                if(modeDebug)console.log("chosenQuestionTypes add "+questionId);
+                //if(modeDebug)console.log("chosenQuestionTypes add "+questionId);
                 this.chosenQuestionTypes.push(questionId);
             }
         } else {
-            if(modeDebug)console.log("chosenQuestionTypse remove "+questionId);
+            //if(modeDebug)console.log("chosenQuestionTypse remove "+questionId);
             this.chosenQuestionTypes.removeValue(questionId);
         }
     }
@@ -2134,7 +2164,7 @@ class activity {
             /*for(let i in chaine){
                 chaine[i] = this.replaceVars(chaine[i],index);
             }*/
-            debug("objet à parser", chaine);
+            //debug("objet à parser", this.replaceVars(JSON.stringify(chaine)));
             chaine = utils.restoreArray(JSON.parse(this.replaceVars(JSON.stringify(chaine))));
             return chaine;
         } else return chaine;
@@ -2159,10 +2189,11 @@ class activity {
         let optionNumber, patternNumber, lenQ=false;
         this.wVars={};
         this.cFigure = undefined;
+        let loopProtect = 0, maxLoop = 100;
         for(let i=0;i<n;i++){
             if(opt === undefined) optionNumber = this.getOption(); else optionNumber = opt;
             if(patt === undefined) patternNumber = this.getPattern(optionNumber); else patternNumber = patt;
-            debug("option choisie : "+optionNumber, "Pattern choisi : "+patternNumber);
+            //debug("option choisie : "+optionNumber, "Pattern choisi : "+patternNumber);
             if(optionNumber !== false){
                 // set chosen vars
                 if(this.options[optionNumber].vars === undefined){
@@ -2241,21 +2272,35 @@ class activity {
             if(this.cConsts !== undefined){
                 this.cConsts = this.replaceVars(this.cConsts);
             }
-            //if(modeDebug)console.log("wWars",utils.clone(this.wVars), "constantes",utils.clone(this.cConsts));
             if(!sample){
             // question text generation
-            this.questions[i] = this.replaceVars(this.cQuestion);
-            this.answers[i] = this.replaceVars(this.cAnswer, i);
-            this.values[i] = this.replaceVars(this.cValue);
-            if(this.cFigure!== undefined){
-                this.figures[i] = {
-                    "type":this.cFigure.type,
-                    "content":this.replaceVars(this.cFigure.content),
-                    "boundingbox":this.cFigure.boundingbox,
-                    "axis":this.cFigure.axis,
-                    "grid":this.cFigure.grid?true:false
-                };
-            }} else {
+            let question = this.replaceVars(this.cQuestion);
+            loopProtect++;
+            // test if question yet exists or not
+            if(this.questions.indexOf(question)<0){
+                this.questions[i] = question;
+                this.answers[i] = this.replaceVars(this.cAnswer, i);
+                this.values[i] = this.replaceVars(this.cValue);
+                if(this.cFigure!== undefined){
+                    this.figures[i] = {
+                        "type":this.cFigure.type,
+                        "content":this.replaceVars(this.cFigure.content),
+                        "boundingbox":this.cFigure.boundingbox,
+                        "axis":this.cFigure.axis,
+                        "grid":this.cFigure.grid?true:false
+                    };
+                }
+            } else {
+                debug("double", i);
+                i--;
+                if(loopProtect<maxLoop) // avoid too many attempts 
+                    continue;
+                else {
+                    debug("Pas assez de données pour éviter les répétitions")
+                    break;
+                }
+            }
+        } else {
                 this.sample = {
                     question:this.replaceVars(this.cQuestion)
                 };

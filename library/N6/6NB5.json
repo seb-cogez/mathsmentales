@@ -1,0 +1,20 @@
+{
+    "title":"Simplifier une fraction",
+    "ID":"6NB5",
+    "description":"",
+    "dest":["6NB","5NA","4NA","3NA"],
+    "options":[{
+        "name":"Niveau 6e, reconnaissance des fractions 1/2, 1/10, 1/100",
+        "vars":{"num":"2_30", "coeff":[2,10,100], "den":"${:num*:coeff}"},
+        "question":"\\dfrac{${:num}}{${:den}}~=~ \\dfrac{...}{...}",
+        "answer":"\\dfrac{${:num}}{${:den}} = \\color{red}{\\dfrac{1}{${:coeff}}}",
+        "value":"1/${:coeff}"
+    },{
+        "name":"Niveaux supérieurs",
+        "vars":{"nbs":"1_11_2_^&", "coeff":"2_11", "num1":"${:nbs[0]*:coeff}","den1":"${:nbs[1]*:coeff}","div":"${math.pgcd(:num1,:den1)}","num2":"${:num1/:div}", "den2":"${:den1/:div}"},
+        "question":"\\dfrac{${:num1}}{${:den1}}~=~ \\dfrac{...}{...}",
+        "answer":"\\dfrac{${:num1}}{${:den1}} = \\color{red}{${(:den2!=1)?'\\dfrac{'+:num2+'}{'+:den2+'}'::num2}} \\color{red}{(\\text{simp. par }${:div})}",
+        "value":"${(:num2!=1)?:num2+'/'+:den2::num2}"
+    }
+]
+}

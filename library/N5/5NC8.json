@@ -1,0 +1,42 @@
+{
+    "title":"Soustraire des fractions",
+    "type":"latex",
+    "ID":"5NC8",
+    "dest":["5NC", "4NC", "3NC"],
+    "options":[{
+        "name":"Soustraire des fractions de même dénominateur",
+        "vars":{"num1":"2_30", "num2":"1_${:num1-1}", "den":"2_30_^${:num1}"},
+        "question":"\\dfrac{${:num1}}{${:den}}-\\dfrac{${:num2}}{${:den}}",
+        "answer":":question = \\color{red}{\\dfrac{${:num1-:num2}}{${:den}}}",
+        "value":"${:num1-:num2}/${:den}"
+    },{
+        "name":"Soustraire des fractions de dénominateur multiples (début 5e)",
+        "vars":{"num1":"1_10", "den1":"2_10_^${:num1}", "coeff":"2_5","num2":"1_${:num1*:coeff}", "den2":"${:den1*:coeff}"},
+        "question":"\\dfrac{${:num1}}{${:den1}}-\\dfrac{${:num2}}{${:den2}}",
+        "answer":":question = \\color{red}{\\dfrac{${:num1*:coeff-:num2}}{${:den2}}}",
+        "value":"${:num1*:coeff-:num2}/${:den2}"
+    },{
+        "name":"Soustraire des fractions de dénominateur multiples (début 5e)",
+        "vars":{"num2":"1_10", "den2":"2_10_^${:num2}", "coeff":"2_5","num1":"${:num2*:coeff}_50", "den1":"${:den2*:coeff}"},
+        "question":"\\dfrac{${:num1}}{${:den1}}-\\dfrac{${:num2}}{${:den2}}",
+        "answer":":question = \\color{red}{\\dfrac{${:num1-:num2*:coeff}}{${:den1}}}",
+        "value":"${:num1-:num2*:coeff}/${:den1}"
+    },{
+        "name":"Soustraire des fractions de dénominateur multiples (5e)",
+        "vars":{"nums":"1_10_2", "den1":"2_10_^${:nums}", "coeff":"2_5","den2":"${:den1*:coeff}"},
+        "question":["\\dfrac{${:nums[0]}}{${:den1}}-\\dfrac{${:nums[1]}}{${:den2}}",
+            "\\dfrac{${:nums[1]}}{${:den2}}-\\dfrac{${:nums[0]}}{${:den1}}"
+        ],
+        "answer":[":question = \\color{red}{\\dfrac{${:nums[0]*:coeff-:nums[1]}}{${:den2}}}",
+            ":question = \\color{red}{\\dfrac{${:nums[1]-:nums[0]*:coeff}}{${:den2}}}"
+        ],
+        "value":["${:nums[0]*:coeff-:nums[1]}/${:den2}","${:nums[1]-:nums[0]*:coeff}/${:den2}"]
+    },{
+        "name":"Ajouter des fractions et simplifier (4e)",
+        "vars":{"nums":"1_10_2", "dens":"2_10_2_^&,${:nums}"},
+        "question":"\\dfrac{${:nums[0]}}{${:dens[0]}}-\\dfrac{${:nums[1]}}{${:dens[1]}}",
+        "answer":":question = \\color{red}{\\displaystyle${math.calc(:nums[0]+'/'+:dens[0]+'-'+:nums[1]+'/'+:dens[1], false)}}",
+        "value":"${math.calc(:nums[0]+'/'+:dens[0]+'-'+:nums[1]+'/'+:dens[1], true)}"
+    }
+    ]
+}
