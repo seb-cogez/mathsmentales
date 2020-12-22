@@ -13,7 +13,7 @@
                 ["functiongraph","${:a}*x+${:b}"]
             ]    
         },
-    "question":"Quelle est l'ordonnée à l'origine de la fonction affine ?",
+    "question":"Quelle est l'<b>ordonnée à l'origine</b> de la fonction affine ?",
     "answer":"L'ordonnée à l'origine de la fonction est <span class='red'>${:b}</span>",
     "value":"${:b}"
 }

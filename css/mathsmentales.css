@@ -396,6 +396,16 @@ ul.cart-list{
   color:purple;
   font-weight: bold;
 }
+#corrige-content li.good:after{
+  content: "✓";
+  color: green;
+  margin-left: 3px;
+}
+#corrige-content li.wrong:after{
+  content: "×";
+  color:red;
+  margin-left: 3px;
+}
 /* Slides
 Animations from https://www.w3schools.com/w3css/4/w3.css 
 */
@@ -524,7 +534,7 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
   height: 40%;
   width: 40%;
 }
-.slideInAnswer {
+.answerInSlide {
     background-color: salmon;
 }
 .slide.hidden{

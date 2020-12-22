@@ -1,5 +1,35 @@
 {
-    "10":{
+    "11":{
+        "nom":"CP",
+        "themes":{
+            "11N":{
+                "nom":"Nombres et calculs",
+                "chapitres":{
+                    "11NA":"Comprendre et utiliser des entiers",
+                    "11NB":"Nommer, lire, écrire, représenter des entiers",
+                    "11NC":"Résoudre les problèmes",
+                    "11ND":"Calculer avec des entiers"
+                }
+            },
+            "11M":{
+                "nom":"Grandeurs et mesures",
+                "chapitres":{
+                    "11MA":"Comparer, estimer, lexique des longueurs",
+                    "11MB":"Comparer, estimer, lexique des masses",
+                    "11MC":"Comparer, estimer, lexique des dates et durées",
+                    "11MD":"Résoudre des problèmes"
+                }
+            },
+            "11G":{
+                "nom":"Espace et géométrie",
+                "chapitres":{
+                    "11GA":"Se repérer, se déplacer",
+                    "11GB":"Reconnaitre, nommer, décrire des solides",
+                    "11GC":"Figures géométriques"
+                }
+            }
+        }
+    },"10":{
         "nom":"CE1",
         "themes":{
             "10N":{

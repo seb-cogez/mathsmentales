@@ -1079,10 +1079,12 @@ var MM = {
     seed:"", // String to initialize the randomization
     editedActivity:undefined, // object activity 
     slidersOrientation: "", // if vertical => vertical presentation for 2 sliders
+    onlineState:false, // true if user answers on computer (Cf start and online functions)
     carts:[], // max 4 carts
     steps:[],
     timers:[],
     figs:{}, // 
+    userAnswers:[],
     slidersNumber:1,
     editActivity:function(index){
         MM.editedActivity = MM.carts[MM.selectedCart].activities[index];
@@ -1214,7 +1216,8 @@ var MM = {
         document.getElementById("addToCart").className = "";
         document.getElementById("removeFromCart").className = "hidden";
     },
-    populateQuestionsAndAnswers:function(){
+    populateQuestionsAndAnswers:function(withAnswer){
+        if(withAnswer=== undefined)withAnswer = true;
         MM.figs = {};MM.steps=[];MM.timers=[];
         let length=MM.carts.length;
         let enonces = document.getElementById('enonce-content');
@@ -1280,15 +1283,16 @@ var MM = {
                         let answer = element.answers[j];
                         // trouver une alternative dans la génération (hors exemple)
                         // TODO : à supprimer, le choix doit être fait dans la génération.
-                        if(Array.isArray(element.questions[j])){
+                        /*if(Array.isArray(element.questions[j])){
                             let alea = utils.aleaInt(0,element.questions[j].length-1);
                             question = element.questions[j][alea];
-                        }
+                        }*/
                         lie.innerHTML = question;
                         span.innerHTML = question;
                         spanAns.innerHTML = answer;
                         div.appendChild(span);
-                        div.appendChild(spanAns);
+                        if(withAnswer) // include answer
+                            div.appendChild(spanAns);
                         slider.appendChild(div);
                         if(element.figures[j] !== undefined){
                             MM.figs[slideNumber+"-"+indiceSlide] = new Figure(element.figures[j], "c"+slideNumber+"-"+indiceSlide, div);
@@ -1308,7 +1312,44 @@ var MM = {
         }
         utils.mathRender();  
     },
+    /**
+     * Create the user inputs to answer the questions
+     * 
+     */
+    createUserInputs:function(){
+        let slider=0,slide = 0;
+        for(let i=0,len=MM.carts[0].activities.length;i<len;i++){
+            let activity = MM.carts[0].activities[i];
+            for(let j=0,lenq=activity.questions.length;j<lenq;j++){
+                let element = document.getElementById("slide"+slider+"-"+slide);
+                let span = document.createElement("span");
+                let input = document.createElement("INPUT");
+                input.type = "text";
+                input.id = "userAnswer"+slide;
+                input.dataset.id = j;
+                input.className = "inputUser";
+                input.pattern = "[\dxsqrt\/\*+-^%]+"
+                if(activity.samples[j]!== undefined)
+                    input.placeholder = "ex. : "+activity.samples[j];
+                else
+                    input.placeholder = "Réponse ici";
+                // helpers buttons
+                input.addEventListener("keyup",function(event){
+                    if(event.key === "Enter"){
+                        MM.nextSlide(0);
+                    }
+                });//update katex value
+                span.appendChild(input);
+                element.appendChild(span);
+                slide++;
+            }
+        }
+    },
+    /**
+     * Start the slideshow
+     */
     start:function(){
+        MM.onlineState = false;
         if(!MM.carts[0].activities.length){
             MM.carts[0].addActivity(MM.editedActivity);
         }
@@ -1330,6 +1371,36 @@ var MM = {
             MM.showSlideShows();
             MM.startTimers();
         }
+    },
+    /**
+     * start slideshow, answer direct on the computer
+     */
+    online:function(){
+        // only 1 cart
+        if(!MM.carts[0].activities.length){
+            MM.carts[0].addActivity(MM.editedActivity);
+        } else if(MM.carts.length > 1){
+            for(let i=1,len=MM.carts.length;i<len;i++){
+                delete MM.carts[i];
+            }
+        }
+        MM.onlineState = true;
+        MM.userAnswers = [];
+        MM.checkIntro();
+        MM.createSlideShows();
+        MM.populateQuestionsAndAnswers(false);// will not create answer element
+        MM.createUserInputs();
+        if(MM.introType === "321"){
+            document.getElementById("countdown-container").className = "";
+            setTimeout(function(){
+                document.getElementById("countdown-container").className = "hidden";
+                MM.showSlideShows();
+                MM.startTimers();
+            },3600);
+        } else {
+            MM.showSlideShows();
+            MM.startTimers();
+        }        
     },
     checkIntro:function(){
         MM.introType = utils.getRadioChecked("beforeSlider");
@@ -1448,6 +1519,9 @@ var MM = {
     },
     showSlideShows:function(){
         utils.removeClass(document.getElementById("slideshow-container"),"hidden");
+        if(MM.onlineState){
+            document.getElementById("userAnswer0").focus();
+        }
         utils.addClass(document.getElementById("app-container"), "hidden");
         if(!utils.isEmpty(MM.figs)){
             MM.displayFirstFigs();
@@ -1522,9 +1596,11 @@ var MM = {
      * @param {integer} id du slide (start to 1)
      */
     nextSlide:function(id){
+        if(MM.onlineState){ // save answer
+            MM.userAnswers[MM.steps[id].step]=document.getElementById("userAnswer"+(MM.steps[id].step)).value;
+        }
         let step = MM.steps[id].nextStep();
         if(step === false) {
-            //utils.addClass(document.querySelector('#slider'+id+" .slide:last-child"),"hidden");
             MM.timers[id].end();
             return false;
         }
@@ -1536,9 +1612,12 @@ var MM = {
             utils.removeClass(slide, "hidden");
             if(MM.figs[id+"-"+step] !== undefined)
                 MM.figs[id+"-"+step].display();
+            if(MM.onlineState){
+                document.getElementById("userAnswer"+step).focus();
+            }
+        } else {
+            // fin du slide mais n'arrive jamais
         }
-        else
-            console.log("Fin du slide");
     },
     messageEndSlide:function(id,nth){
         // TODO : revoir le truc pour ne pas empiéter sur le dernière slide (ou pas)
@@ -1556,7 +1635,38 @@ var MM = {
         }
         if(ended){
             MM.hideSlideshows();
+            // correction si online
+            if(MM.onlineState){
+                let score = 0;
+                let div = document.createElement("div");
+                let ol = document.createElement("ol");
+                ol.innerHTML = "<b>Tes réponses</b>";
+                let ia = 0;
+                for(let indexA=0,lenA=MM.carts[0].activities.length;indexA<lenA;indexA++){
+                    for(let indexQ=0,lenQ=MM.carts[0].activities[indexA].questions.length;indexQ<lenQ;indexQ++){
+                        let li = document.createElement("li");
+                        let span = document.createElement("span");
+                        span.className ="math";
+                        span.textContent = MM.userAnswers[ia];
+                        // TODO : better correction value
+                        //console.log(MM.userAnswers[ia], MM.carts[0].activities[indexA].values[indexQ]);
+                        if(String(MM.userAnswers[ia])==String(MM.carts[0].activities[indexA].values[indexQ])){
+                            li.className = "good";
+                            score++;
+                        } else li.className = "wrong";
+                        ia++;
+                        li.appendChild(span);
+                        ol.appendChild(li);
+                    }
+                }
+                div.appendChild(ol);
+                let section = document.createElement("section");
+                section.innerHTML = "<b>Score :</b> "+score+"/"+ia;
+                div.appendChild(section);
+                document.getElementById("corrige-content").appendChild(div);
+            }
             // if only one activity in one cart, we empty it
+            // TODO : why do that ?
             if(MM.carts.length === 1 && MM.carts[0].activities.length === 1){
                 MM.resetCarts();
                 MM.editedActivity.display();
@@ -1818,6 +1928,7 @@ class activity {
         this.valuePatterns = utils.clone(obj.valuePatterns) || obj.value;
         this.questions = utils.clone(obj.questions)||[];
         this.answers = utils.clone(obj.answers)||[];
+        this.samples = utils.clone(obj.samples)||[];// samples of answers, for online answer
         this.values = utils.clone(obj.values)||[];
         this.figures = utils.clone(obj.figures)||[]; // generetad figures paramaters
         this.examplesFigs = {}; // genrated graphics from Class Figure
