@@ -1,0 +1,17 @@
+{
+    "title":"Produit de fractions",
+    "type":"latex",
+    "ID":"4NC3",
+    "dest":["4NC", "3NC"],
+    "options":[{
+        "name":"Produit de fractions positives",
+        "vars":{"num":"1_12_2","den":"2_12_2"}
+    },{
+        "name":"Produit de fractions avec relatifs",
+        "vars":{"num":"-12_12_2","den":"-12_12_2_^-1,0,1"}
+    }
+    ],
+    "question":"\\dfrac{${:num[0]}}{${:den[0]}}\\times\\dfrac{${:num[1]}}{${:den[1]}}",
+    "answer":":question=\\color{red}{\\displaystyle${math.calc(:num[0]+'*('+:num[1]+')/('+:den[0]+')/('+:den[1]+')',false)}}",
+    "value":"${math.calc(:num[0]+'*('+:num[1]+')/('+:den[0]+')/('+:den[1]+')',true)}"
+}

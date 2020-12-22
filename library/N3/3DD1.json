@@ -3,7 +3,7 @@
     "dest":["3DD"],
     "title":"Lire l'ordonnée à l'origine",
     "type":"text",
-    "vars":{"a":"d-2_2_1", "b":"-3_3"},
+    "vars":{"a":"d-2_2_1", "c":"-6_6", "b":"${:c/2}"},
     "figure":{
         "type":"graph", 
         "boundingbox":[-5,5,5,-5],

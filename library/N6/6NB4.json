@@ -2,7 +2,7 @@
     "title":"Décomposition de fraction en entier + fraction inférieure à 1",
     "ID":"6NB4",
     "description":"",
-    "dest":["6NB","5NA","4NA","3NA"],
+    "dest":["7NB","6NB","5NA","4NA","3NA"],
     "options":[{
         "name":"Dénominateur entre 2 et 11",
         "vars":{"den":"2_11", "num":"12_${:den*10}","entier":"${Math.floor(:num/:den)}", "reste":"${:num%:den}"},

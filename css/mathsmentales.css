@@ -409,13 +409,13 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
   left:10px;
   bottom: 10px;
   right:10px;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 #slideshow-container header{
   display:block;
   position: absolute;
   z-index: 10;
-  top:0;
+  top:-10px;
   left:50%;
   transform: translate(-50%,-90%);
   background:#BBB;

@@ -1,0 +1,26 @@
+{
+    "title":"Vocabulaire image, antécédent",
+    "type":"text",
+    "ID":"3DD1",
+    "dest":["3DD"],
+    "vars":{"a":"-30_30", "b":"-30_30_^${:a}"},
+    "options":[{
+        "name":"Image d'un nombre",
+        "question":[
+            "Dans l'écriture $$f:${:a}\\mapsto${:b}$$, quel nombre est l'<b>image</b> ?",
+            "Dans l'écriture $$f(${:a})=${:b}$$, quel nombre est l'<b>image</b> ?",
+            "Dans le tableau $$\\begin{array}{|c|c|}\\hline x & ${:a} \\\\ \\hline f(x) & ${:b} \\\\ \\hline \\end{array}$$ quel nombre est l'<b>image</b> ?"
+        ],
+        "answer":"L'image est ${:b}",
+        "value":"${:b}"
+    },{
+        "name":"Antécédent d'un nombre",
+        "question":[
+            "Dans l'écriture $$f:${:a}\\mapsto${:b}$$, quel nombre est l'<b>antécédent</b> ?",
+            "Dans l'écriture $$f(${:a})=${:b}$$, quel nombre est l'<b>antécédent</b> ?",
+            "Dans le tableau $$\\begin{array}{|c|c|}\\hline x & ${:a} \\\\ \\hline f(x) & ${:b} \\\\ \\hline \\end{array}$$ quel nombre est l'<b>antécédent</b> ?"
+        ],
+        "answer":"L'antécédent est ${:a}",
+        "value":"${:a}"
+    }]
+}

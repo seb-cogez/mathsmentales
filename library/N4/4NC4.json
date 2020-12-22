@@ -1,0 +1,25 @@
+{
+    "title":"Quotient de fractions",
+    "type":"latex",
+    "ID":"4NC4",
+    "dest":["4NC", "3NC"],
+    "options":[{
+        "name":"Quotient de fractions positives",
+        "vars":{"num":"1_12_2","den":"2_12_2"}
+    },{
+        "name":"Quotient de fractions avec relatifs",
+        "vars":{"num":"-12_12_2_^0","den":"-12_12_2_^-1,0,1"}
+    },{
+        "name":"Diviser par un entier",
+        "vars":{"num":"-12_12_^0", "den":"-12_12_^-1,0,1","nb":"-12_12_^0"},
+        "question":["\\dfrac{${:num}}{${:den}}\\div${(:nb<0)?'('+:nb+')'::nb}",
+            "\\dfrac{\\dfrac{${:num}}{${:den}}}{${(:nb<0)?'('+:nb+')'::nb}}"],
+        "answer":":question=\\color{green}{\\dfrac{${:num}}{${:den}}\\times\\dfrac{1}{${:nb}}}=\\color{red}{\\displaystyle${math.calc(:num+'/('+:den+')/('+:nb+')',false)}}",
+        "value":"${math.calc(:num+'/('+:den+')/('+:nb+')',true)}"
+    }
+    ],
+    "question":["\\dfrac{${:num[0]}}{${:den[0]}}\\div\\dfrac{${:num[1]}}{${:den[1]}}",
+        "\\dfrac{\\dfrac{${:num[0]}}{${:den[0]}}}{\\dfrac{${:num[1]}}{${:den[1]}}}"],
+    "answer":":question=\\color{green}{\\dfrac{${:num[0]}}{${:den[0]}}\\times\\dfrac{${:den[1]}}{${:num[1]}}}=\\color{red}{\\displaystyle${math.calc(:num[0]+'*('+:den[1]+')/('+:den[0]+')/('+:num[1]+')',false)}}",
+    "value":"${math.calc(:num[0]+'*('+:den[1]+')/('+:den[0]+')/('+:num[1]+')',true)}"
+}

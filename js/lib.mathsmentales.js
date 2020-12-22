@@ -319,7 +319,7 @@ var utils = {
         document.getElementById(tab).style.display = "";
     },
     showParameters:function(id,objbutton){
-        let ids = ["paramsdiapo","paramsexos", "paramsinterro"];
+        let ids = ["paramsdiapo","paramsexos", "paramsinterro", "paramsceinture"];
         if(ids.indexOf(id)<0) return false;
         // hide all
         let btns = document.querySelectorAll("#colparameters > button");
@@ -1279,6 +1279,7 @@ var MM = {
                         let question = element.questions[j];
                         let answer = element.answers[j];
                         // trouver une alternative dans la génération (hors exemple)
+                        // TODO : à supprimer, le choix doit être fait dans la génération.
                         if(Array.isArray(element.questions[j])){
                             let alea = utils.aleaInt(0,element.questions[j].length-1);
                             question = element.questions[j][alea];
@@ -2006,11 +2007,13 @@ class activity {
         // if option, patterns ?
         if(!Array.isArray(this.chosenQuestions[option])){
             this.chosenQuestions[option] = [];
-            //return false; // seems to be an error
         }
         // no pattern chosen : we choose one
         if(this.chosenQuestions[option].length === 0 && Array.isArray(this.options[option].question)){
             return utils.aleaInt(0, this.options[option].question.length-1);
+        } else if(this.chosenQuestions[option].length === 0 && !this.options[option].question && Array.isArray(this.questionPatterns)){
+            // no question in option, but global question is an array
+            return utils.aleaInt(0, this.questionPatterns.length-1);
         } else if(this.chosenQuestions[option].length > 0){
             // list of patterns chosen, we pick one
             return this.chosenQuestions[option][utils.aleaInt(0,this.chosenQuestions[option].length-1)];
@@ -2127,7 +2130,7 @@ class activity {
      * @param {string} chaine : chaine où se trouve la variable 
      * @param {integer} index : 
      */
-    replaceVars(chaine, index){
+    replaceVars(chaine, questiontext){
         function onlyVarw(all,p1,p2,decal,chaine){
             return "this.wVars['"+p1+"']"+p2;
         }
@@ -2146,13 +2149,10 @@ class activity {
             }
             // check if question as to be written in answer
             // index needed to find the question
-            if(index !== undefined){
+            if(questiontext !== undefined){
                 //if(modeDebug)console.log(this.questions[index]);
                 let regex = new RegExp(":question", 'g');
-                if(index === "sample")
-                    chaine = chaine.replace(regex, this.sample.question);
-                else
-                    chaine = chaine.replace(regex, this.questions[index]);
+                chaine = chaine.replace(regex, questiontext);
             }
         //debug("Chaine à parser", chaine);
         let result = eval("`"+chaine.replace(/\\/g,"\\\\")+"`");
@@ -2206,8 +2206,7 @@ class activity {
                     if(this.options[optionNumber].question !== undefined){
                         this.cQuestion = this.options[optionNumber].question[patternNumber];
                         lenQ = this.options[optionNumber].question.length;
-                    }
-                    else {
+                    } else {
                         this.cQuestion = this.questionPatterns[patternNumber];
                         lenQ = this.questionPatterns.length;
                     }
@@ -2238,10 +2237,11 @@ class activity {
             } else {
                 this.cVars = this.vars;
                 this.cConsts = this.consts;
-                if(patternNumber!==false)
+                if(patternNumber!==false){
                     this.cQuestion = this.questionPatterns[patternNumber];
-                else 
+                } else {
                     this.cQuestion = this.questionPatterns;
+                }
                 this.cAnswer = this.answerPatterns;
                 this.cValue = this.valuePatterns;
                 if(this.figure !== undefined){
@@ -2274,13 +2274,14 @@ class activity {
             }
             if(!sample){
             // question text generation
-            let question = this.replaceVars(this.cQuestion);
+            let thequestion = this.replaceVars(this.cQuestion);
+            let thevalue = this.replaceVars(this.cValue);
             loopProtect++;
             // test if question yet exists or not
-            if(this.questions.indexOf(question)<0){
-                this.questions[i] = question;
-                this.answers[i] = this.replaceVars(this.cAnswer, i);
-                this.values[i] = this.replaceVars(this.cValue);
+            if(this.questions.indexOf(thequestion)<0 || this.values.indexOf(thevalue)<0){
+                this.questions[i] = thequestion;
+                this.answers[i] = this.replaceVars(this.cAnswer, thequestion);
+                this.values[i] = thevalue;
                 if(this.cFigure!== undefined){
                     this.figures[i] = {
                         "type":this.cFigure.type,
@@ -2304,7 +2305,7 @@ class activity {
                 this.sample = {
                     question:this.replaceVars(this.cQuestion)
                 };
-                this.sample.answer=this.replaceVars(this.cAnswer, "sample");
+                this.sample.answer=this.replaceVars(this.cAnswer, this.sample.question);
                 
                 if(this.cFigure !== undefined){
                     this.sample.figure = {

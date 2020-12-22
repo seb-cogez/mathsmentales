@@ -12,7 +12,7 @@
         "name":"Racines de 1 à 144",
         "vars":{"a":"1_12"},
         "question":["\\sqrt {${:a*:a}}", "?^2=${:a*:a}"],
-        "answer":":question \\text{ réponse }\\color{red}{${:a}}",
+        "answer":[":question=\\color{red}{${:a}}",":question \\text{ réponse }\\color{red}{${:a}}"],
         "value":"${:a}"
     }, {
         "name":"Carrés de 1 à 15",
@@ -21,7 +21,7 @@
         "name":"Racines de 1 à 225",
         "vars":{"a":"1_15"},
         "question":["\\sqrt{ ${:a*:a}}", "?^2=${:a*:a}"],
-        "answer":":question \\text{ réponse } \\color{red}{${:a}}",
+        "answer":[":question=\\color{red}{${:a}}",":question \\text{ réponse } \\color{red}{${:a}}"],
         "value":"${:a}"
     }
     ],

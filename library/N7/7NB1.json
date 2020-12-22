@@ -1,0 +1,28 @@
+{
+    "title":"Fraction de quantité",
+    "ID":"7NB",
+    "type":"text",
+    "dest":["7NB", "6NB", "5NC", "4NC", "3NC"],
+    "options":[{
+        "name":"Fraction de quantité en CM2",
+        "consts":{"unites":["u","cm", "cm²", "oranges", "pommes", "bonbons"]},
+        "vars":{"den":"2_5", "num":"1_${:den}", "unite":"1_5", "qte":"${:den*:unite}", "u":"0_5"},
+        "question": ["Partage $$${:qte}$$ ${:unites[:u]} en $$\\dfrac{${:num}}{${:den}}$$",
+            "Trouve $$\\dfrac{${:num}}{${:den}}$$ de $$${:qte}$$ ${:unites[:u]}"],
+        "answer":"$$\\dfrac{${:num}}{${:den}}$$ de $$${:qte}$$ ${:unites[:u]} vaut $$\\color{red}{${:qte*:num/:den}}$$ ${:unites[:u]}",
+        "value":"${:qte*:num/:den}${:unites[:u]}"
+    },{
+        "name":"Petites quantités (tables < 5)",
+        "vars":{"den":"2_5","num":"1_${:den}","unite":"1_5","qte":"${:den*:unite}"},
+        "question":["$$\\dfrac{${:num}}{${:den}}\\times${:qte}$$","$$${:qte}\\times\\dfrac{${:num}}{${:den}}$$"],
+        "answer":["$$\\dfrac{${:num}}{${:den}}\\times${:qte}=\\color{red}{${:qte*:num/:den}}$$","$$${:qte}\\times\\dfrac{${:num}}{${:den}}=\\color{red}{${:qte*:num/:den}}$$"],
+        "value":"${:qte*:num/:den}"
+    },{
+        "name":"Tables > 5",
+        "vars":{"den":"6_10","num":"1_${:den}","unite":"6_10","qte":"${:den*:unite}"},
+        "question":["$$\\dfrac{${:num}}{${:den}}\\times${:qte}$$","$$${:qte}\\times\\dfrac{${:num}}{${:den}}$$"],
+        "answer":["$$\\dfrac{${:num}}{${:den}}\\times${:qte}=\\color{red}{${:qte*:num/:den}}$$","$$${:qte}\\times\\dfrac{${:num}}{${:den}}=\\color{red}{${:qte*:num/:den}}$$"],
+        "value":"${:qte*:num/:den}"
+    }
+    ]
+}
