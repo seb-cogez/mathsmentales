@@ -318,19 +318,14 @@ var utils = {
         utils.addClass(el, "is-active");
         document.getElementById(tab).style.display = "";
     },
-    showParameters:function(id,objbutton){
+    showParameters:function(id){
         let ids = ["paramsdiapo","paramsexos", "paramsinterro", "paramsceinture"];
         if(ids.indexOf(id)<0) return false;
         // hide all
-        let btns = document.querySelectorAll("#colparameters > button");
-        for(let i=0,len=btns.length;i<len;i++){
-            btns[i].className = "button--info";
-        }
         for(let i=0,len=ids.length;i<len;i++){
             document.getElementById(ids[i]).className = "hidden";
         }
         document.getElementById(id).className = "";
-        objbutton.className = "button--primary";
     },
     resetAllTabs : function(){
         let tabsButtons = document.querySelectorAll("#header-menu .tabs-menu-link");
@@ -407,7 +402,7 @@ var utils = {
      * Render the math
      */
     mathRender: function() {
-        let contents = ["tab-enonce", "tab-corrige", "activityOptions"];
+        let contents = ["tab-enonce", "tab-corrige", "activityOptions", "creator-content"];
         contents.forEach(id => {
             // search for $$ formulas $$ => span / span
             let content = document.getElementById(id).innerHTML;
@@ -759,10 +754,13 @@ window.onload = function(){
         ol.appendChild(li);
     });*/
     library.openContents();
+    // put the good default selected
+    document.getElementById("chooseParamType").value = "paramsdiapo";
     // to show de good checked display
     MM.setDispositionEnonce(utils.getRadioChecked("Enonces"));
     // load scratchblocks french translation
     // TODO : à changer au moment de l'utilisation de scratchblocks
+    // doesn't work on local file :( with Chrome
     let reader = new XMLHttpRequest();
     reader.onload = function(){
         let json = JSON.parse(reader.responseText);
@@ -1291,8 +1289,9 @@ var MM = {
                         span.innerHTML = question;
                         spanAns.innerHTML = answer;
                         div.appendChild(span);
-                        if(withAnswer) // include answer
+                        if(!MM.onlineState){ // include answer
                             div.appendChild(spanAns);
+                        }
                         slider.appendChild(div);
                         if(element.figures[j] !== undefined){
                             MM.figs[slideNumber+"-"+indiceSlide] = new Figure(element.figures[j], "c"+slideNumber+"-"+indiceSlide, div);
@@ -1311,6 +1310,9 @@ var MM = {
             }
         }
         utils.mathRender();  
+        if(MM.onlineState) { // create inputs for user
+            MM.createUserInputs();
+        }
     },
     /**
      * Create the user inputs to answer the questions
@@ -1345,13 +1347,131 @@ var MM = {
             }
         }
     },
+    creatorClose:function(){
+        document.getElementById("app-container").className = "";
+        document.getElementById("creator-container").className = "hidden";
+        document.getElementById("creator-content").innerHTML = "";
+    },
+    /**
+     * Create a sheet of exercices
+     * called by parameters
+     */
+    createExercicesSheet:function(){
+        if(!MM.carts[0].activities.length){
+            MM.carts[0].addActivity(MM.editedActivity);
+        }
+        document.getElementById("app-container").className = "hidden";
+        document.getElementById("creator-container").className = "";
+        let content = document.getElementById("creator-content");
+        // set page format
+        let radios = document.getElementsByName("exformat");
+        for (let index = 0; index < radios.length; index++) {
+            if(radios[index].checked)
+                document.getElementsByTagName('body')[0].className = radios[index].value;
+        }
+        // get the liste of activities
+        let activities = MM.carts[0].activities;
+        // get the titlesheet
+        let sheetTitle = document.getElementById("extitle").value||"Fiche d'exercices";
+        // set the titlesheet
+        let header = document.createElement("header");
+        header.textContent = sheetTitle;
+        content.appendChild(header);
+        // get the exercice title
+        let exTitle = document.getElementById("exeachex").value||"Exercice n°";
+        // get the position of the correction
+        let correction = "end";
+        radios = document.getElementsByName("excorr");
+        for (let index = 0; index < radios.length; index++) {
+            if(radios[index].checked)
+                correction = radios[index].value;
+        }
+        // create correction element (if at the end of the doc)
+        let correctionContent = document.createElement("div");
+        correctionContent.className = "correction";
+        let titleCorrection = document.createElement("header");
+        titleCorrection.textContent = "Correction des exercices";
+        titleCorrection.className = "clearfix";
+        // set the title if correction is at the end
+        if(correction === "end")
+            correctionContent.appendChild(titleCorrection);
+        // create a shit because of the li float boxes
+        let divclear = document.createElement("div");
+        divclear.className = "clearfix";
+        // now we create the sheet
+        for (let index = 0; index < activities.length; index++) {
+            const activity = activities[index];
+            activity.generate();
+            let section = document.createElement("section");
+            let sectionCorrection = document.createElement("section");
+            let h3 = document.createElement("h3");
+            h3.className = "exercice-title";
+            h3.textContent = exTitle+(index+1)+" : "+activity.title;
+            section.appendChild(h3);
+            let ol = document.createElement("ol");
+            let olCorrection = document.createElement("ol");
+            olCorrection.className = "corrige";
+            for(let j=0;j<activity.questions.length;j++){
+                let li = document.createElement("li");
+                let liCorrection = document.createElement("li");
+                if(activity.type === "latex" || activity.type === "" || activity.type===undefined){
+                    let span=document.createElement("span");
+                    let spanCorrection = document.createElement("span");
+                    span.className ="math";
+                    spanCorrection.className = "math";
+                    span.innerHTML = activity.questions[j];
+                    spanCorrection.innerHTML = activity.answers[j];
+                    li.appendChild(span);
+                    liCorrection.appendChild(spanCorrection);
+                } else {
+                    li.innerHTML = activity.questions[j];
+                    liCorrection.innerHTML = activity.answers[j];
+                }
+                ol.appendChild(li);
+                olCorrection.appendChild(liCorrection);
+            }
+            section.appendChild(ol);
+            let ds = divclear.cloneNode(true);
+            section.appendChild(ds);
+            // affichage de la correction
+            if(correction !== "end" ){
+                let hr = document.createElement("hr");
+                hr.style.width = "50%";
+                section.appendChild(hr);
+                section.appendChild(olCorrection);
+            } else {
+                let h3correction = h3.cloneNode(true);
+                sectionCorrection.appendChild(h3correction);
+                sectionCorrection.appendChild(olCorrection);
+                correctionContent.appendChild(sectionCorrection);
+            }
+            content.appendChild(section);
+        }
+        if(correctionContent.hasChildNodes){
+            content.appendChild(correctionContent);
+            let ds = divclear.cloneNode(true);
+            content.appendChild(ds);
+        }
+        utils.mathRender();
+        //MM.resetCarts();
+        MM.editedActivity.display();
+},
     /**
      * Start the slideshow
      */
     start:function(){
-        MM.onlineState = false;
+        MM.onlineState = MM.checkOnline();
         if(!MM.carts[0].activities.length){
             MM.carts[0].addActivity(MM.editedActivity);
+        }
+        if(MM.onlineState){
+            MM.userAnswers = [];
+            // security
+            if(MM.carts.length > 1){
+                for(let i=1,len=MM.carts.length;i<len;i++){
+                    delete MM.carts[i];
+                }
+            }
         }
         // check if an option has been chosen
         MM.checkIntro();
@@ -1373,34 +1493,16 @@ var MM = {
         }
     },
     /**
-     * start slideshow, answer direct on the computer
+     * check if online session
      */
-    online:function(){
-        // only 1 cart
-        if(!MM.carts[0].activities.length){
-            MM.carts[0].addActivity(MM.editedActivity);
-        } else if(MM.carts.length > 1){
-            for(let i=1,len=MM.carts.length;i<len;i++){
-                delete MM.carts[i];
-            }
+    checkOnline:function(){
+        let radios = document.getElementsByName("online");
+        let ret = false;
+        for(let i=0;i<radios.length;i++){
+            if(radios[i].value==="yes" && radios[i].checked)
+                ret = true;
         }
-        MM.onlineState = true;
-        MM.userAnswers = [];
-        MM.checkIntro();
-        MM.createSlideShows();
-        MM.populateQuestionsAndAnswers(false);// will not create answer element
-        MM.createUserInputs();
-        if(MM.introType === "321"){
-            document.getElementById("countdown-container").className = "";
-            setTimeout(function(){
-                document.getElementById("countdown-container").className = "hidden";
-                MM.showSlideShows();
-                MM.startTimers();
-            },3600);
-        } else {
-            MM.showSlideShows();
-            MM.startTimers();
-        }        
+        return ret;
     },
     checkIntro:function(){
         MM.introType = utils.getRadioChecked("beforeSlider");
@@ -1646,7 +1748,8 @@ var MM = {
                     for(let indexQ=0,lenQ=MM.carts[0].activities[indexA].questions.length;indexQ<lenQ;indexQ++){
                         let li = document.createElement("li");
                         let span = document.createElement("span");
-                        span.className ="math";
+                        if(!/[^-\d]/.test(MM.userAnswers[ia]))
+                            span.className ="math";
                         span.textContent = MM.userAnswers[ia];
                         // TODO : better correction value
                         //console.log(MM.userAnswers[ia], MM.carts[0].activities[indexA].values[indexQ]);

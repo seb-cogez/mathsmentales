@@ -1,13 +1,97 @@
 /** {
     display:none;
 }*/
-*{
-    box-sizing: border-box;
-}
-body {
-    display:block;
-    padding:1cm;
-    width: 21cm;
-    margin:auto;
-    font-size: 0.8cm;
+@media print {
+    *{
+        box-sizing: border-box;
+    }
+    html{
+        padding:0;
+        margin:0;
+        font-size: 12pt;
+    }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display:block;
+        margin:auto;
+        padding:1cm;
+    }
+    body.A4 {
+        width: 21cm;
+        padding:1cm;
+    }
+    body.A5 {
+        width:14.85cm;
+        padding:0.8cm;
+    }
+    body.A6{
+        width:10.5cm;
+        padding:0.5cm;
+    }
+    /**
+    Hiding all what we doesn't want to see
+    */
+    #app-container, #countdown-container, #slideshow-container, #creator-menu{
+        display: none;
+    }
+    #creator-container::after{
+        content:"\ CC-BY-NC © 2020 MathsMentales.net";
+        color:darkblue !important;
+        font-size: 0.8rem;
+        margin-top: 30px;
+        border-top: 1px solid black;
+        text-align: end;
+    }
+    #creator-container {
+        display: flex;
+        height:100%;
+        flex-direction: column;
+        width: 100%;
+    }
+    #creator-container.hidden {
+        display:none;
+    }
+    #creator-content header{
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
+    h3.exercice-title{
+        margin-top: 0.5rem;
+        text-decoration: underline;
+        font-weight: bold;
+        font-size: 1.1rem;
+        margin-bottom: 0.3rem;
+    }
+    @counter-style majuscules {
+        system : alphabetic;
+        symbols : A B C D E F G H I J K L M N O P Q R S T U V W X Y Z;
+        suffix : ') ';
+    }
+    #creator-content ol{
+        margin-top:0;
+        list-style-type: majuscules;
+    }
+    #creator-content li {
+        float: left;
+        margin-right:3.5rem;
+        font-size: 1rem;
+        padding: 4px 10px 4px;
+    }
+    #creator-content section{
+        clear: both;
+        margin-bottom: 1rem;
+    }
+    .corrige {
+        font-size:smaller;
+    }
+    .correction {
+        margin-top:2rem !important;
+        color:grey !important;
+    }
+    .correction li, .correction section, .correction header,.correction h3 {
+        color:grey !important;
+    }
+    .clearfix {
+        clear:both;
+    }
 }

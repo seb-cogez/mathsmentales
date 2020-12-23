@@ -177,10 +177,13 @@
         </div>
          <div class="row-5" id="colparameters">
             <h1><i class="icon-arrow--right"></i>Paramètres</h1>
-            <button class="button--primary" onclick="utils.showParameters('paramsdiapo',this)">Diaporama</button>
-            <button class="button--info" onclick="utils.showParameters('paramsexos',this)">Feuille d'exercices</button>
-            <button class="button--info" onclick="utils.showParameters('paramsinterro',this)">Feuille d'interro</button>
-            <button class="button--info" onclick="utils.showParameters('paramsceinture',this)">Ceintures de CM</button>
+            Type d'usage :
+            <select onchange="utils.showParameters(this.value);" id="chooseParamType">
+                <option value="paramsdiapo" selected="selected">Diaporama</option>
+                <option value="paramsexos">Feuille d'exercices</option>
+                <option value="paramsinterro">Feuille d'interro</option>
+                <option value="paramsceinture">Ceintures de CM</option>
+            </select>
             <div id="paramsdiapo">
             <fieldset>
                 <legend>Introduction</legend>
@@ -220,49 +223,77 @@
                 <button class="button--info" onclick="MM.showQuestions();">Énoncés</button>
                 <button class="button--warning" onclick="MM.showAnswers();">Réponses</button> 
                 <button class="button--primary" onclick="MM.start();">C'est parti !</button>
-                <button class="button--primary" onclick="MM.online();">Sur l'ordi !</button>
             </section>
         </div>
         <div id="paramsexos" class="hidden">
             <fieldset>
                 <legend>Format page</legend>
-                 A4 / A5 / A6</fieldset>
+                 <input type="radio" name="exformat" value="A4" checked> A4 <input type="radio" name="exformat" value="A5"> A5 <input type="radio" name="exformat" value="A6"> A6
+            </fieldset>
             <fieldset>
                 <legend>Titre de la fiche</legend>
+                <input type="text" placeholder="Fiche d'exercices" id="extitle">
             </fieldset>
             <fieldset>
                 <legend>Titre de chaque exercice</legend>
-                </fieldset>
+                <input type="text" placeholder="Exercice n°" id="exeachex">
+            </fieldset>
             <fieldset>
                 <legend>Corrigé</legend>
-                après chaque exercice / en fin de fiche</fieldset>
-            <fieldset>Clé aléa de l'exercice</fieldset>
+                <input type="radio" name="excorr" value="each"> Après chaque exercice <input type="radio" name="excorr" value="end" checked> En fin de fiche
+            </fieldset>
+            <fieldset><legend>Clé de la fiche</legend>
+                <input type="text" placeholder="eHDtp" id="exkey">
+            </fieldset>
+            <section>
+                <button class="button--primary beaubutton" onclick="MM.createExercicesSheet();">Générer</button>
+            </section>
         </div>
         <div id="paramsinterro" class="hidden">
             <fieldset>
                 <legend>Format page</legend>
-                A4 / A5 / A6
+                <input type="radio" name="intformat" value="A4" checked> A4 <input type="radio" name="intformat" value="A5"> A5 <input type="radio" name="intformat" value="A6"> A6
             </fieldset>
             <fieldset>
-                <legend>Titre du devoir</legend>
+                <legend>Titre de l'interro</legend>
+                <input type="text" placeholder="Interrogation écrite" id="inttitle">
             </fieldset>
             <fieldset>
                 <legend>Titre de chaque exercice</legend>
+                <input type="text" placeholder="Exercice n°" id="inteachex">
             </fieldset>
-            <fieldset>Clé aléa de l'exercice</fieldset>
+            <fieldset>
+                <legend>Clé de l'interro</legend>
+                <input type="text" placeholder="eHDtp" id="intkey">
+            </fieldset>
+            <section>
+                <button class="button--primary beaubutton" onclick="MM.createExamSheet();">Générer</button>
+            </section>
         </div>
         <div id="paramsceinture" class="hidden">
             <fieldset>
                 <legend>Format page</legend>
-                A4 / A5 / A6
+                <input type="radio" name="ceintformat" value="A4" checked> A4 <input type="radio" name="ceintformat" value="A5"> A5 <input type="radio" name="ceintformat" value="A6"> A6
             </fieldset>
             <fieldset>
                 <legend>Titre de la ceinture</legend>
+                <input type="text" placeholder="Interrogation écrite" id="ceinttitle">
             </fieldset>
             <fieldset>
-                <legend>Nb de colonnes</legend>
+                <legend>Nb de colonnes : <span id="ceintcols" class="blue">4</span></legend>
+                <input type="range" min="1" max="5" step="1" value="4" oninput="document.getElementById('ceintcols').innerHTML=this.value;">
             </fieldset>
-            <fieldset>Clé aléa de la ceinture</fieldset>
+            <fieldset>
+                <legend>Nb de sujets : <span id="ceintnb" class="blue">4</span></legend>
+                <input type="range" min="1" max="30" step="1" value="3" oninput="document.getElementById('ceintnb').innerHTML=this.value;">
+            </fieldset>
+            <fieldset>
+                <legend>Clé aléa de la ceinture</legend>
+                <input type="text" placeholder="eHDtp" id="ceintkey">
+            </fieldset>
+            <section>
+                <button class="button--primary beaubutton" onclick="MM.createCeintureSheet();">Générer</button>
+            </section>
         </div>
         </div>
        <div class="row-4 colsx2" id="divparams">
@@ -293,6 +324,14 @@
         </div>
     </section>
 </div>
+</div>
+<div id="creator-container" class="hidden">
+<section id="creator-menu">
+    <button onclick="MM.creatorClose();">Close</button> <button onclick="window.print();">Print</button>Pour exporter en PDF, sur chrome, imprimer et choisir pdf, sur firefox (windows)
+</section>
+<section id="creator-content">
+
+</section>
 </div>
 <div id="slideshow-container" class="hidden">
     <header>
