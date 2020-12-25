@@ -183,6 +183,10 @@
                 <option value="paramsinterro">Feuille d'interro</option>
                 <option value="paramsceinture">Ceintures de CM</option>
             </select>
+            <fieldset><legend>Clé de données</legend>
+                <input type="text" placeholder="eHDtp" id="aleaKey" size="10">
+                <img src="img/newsample32.png" onclick="document.getElementById('aleaKey').value=utils.seedGenerator();">
+            </fieldset>
             <div id="paramsdiapo">
             <fieldset>
                 <legend>Introduction</legend>
@@ -235,14 +239,11 @@
             </fieldset>
             <fieldset>
                 <legend>Taille des caractères : <span id="exTxtSize" class="blue">12</span>pt</legend>
-                <input id="exTxtSizeValue" type="range" min="7" max="16" step="0.5" value="12" oninput="document.getElementById('exTxtSize').innerHTML=this.value;">
+                <input id="exTxtSizeValue" type="range" min="8" max="16" step="0.5" value="12" oninput="document.getElementById('exTxtSize').innerHTML=this.value;">
             </fieldset>
             <fieldset>
                 <legend>Corrigé</legend>
                 <input type="radio" name="excorr" value="each"> Après chaque exercice <input type="radio" name="excorr" value="end" checked> En fin de fiche
-            </fieldset>
-            <fieldset><legend>Clé de la fiche</legend>
-                <input type="text" placeholder="eHDtp" id="exkey">
             </fieldset>
             <section>
                 <button class="button--primary beaubutton" onclick="MM.createExercicesSheet();">Générer</button>
@@ -258,8 +259,8 @@
                 <input type="text" placeholder="Exercice n°" id="inteachex">
             </fieldset>
             <fieldset>
-                <legend>Clé de l'interro</legend>
-                <input type="text" placeholder="eHDtp" id="intkey">
+                <legend>Taille des caractères : <span id="intTxtSize" class="blue">12</span>pt</legend>
+                <input id="intTxtSizeValue" type="range" min="8" max="16" step="0.5" value="12" oninput="document.getElementById('intTxtSize').innerHTML=this.value;">
             </fieldset>
             <section>
                 <button class="button--primary beaubutton" onclick="MM.createExamSheet();">Générer</button>
@@ -277,10 +278,6 @@
             <fieldset>
                 <legend>Nb de sujets : <span id="ceintnb" class="blue">4</span></legend>
                 <input type="range" min="1" max="30" step="1" value="3" oninput="document.getElementById('ceintnb').innerHTML=this.value;">
-            </fieldset>
-            <fieldset>
-                <legend>Clé aléa de la ceinture</legend>
-                <input type="text" placeholder="eHDtp" id="ceintkey">
             </fieldset>
             <section>
                 <button class="button--primary beaubutton" onclick="MM.createCeintureSheet();">Générer</button>

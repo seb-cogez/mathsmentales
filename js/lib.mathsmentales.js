@@ -70,10 +70,21 @@ var utils = {
     seedGenerator:function(){
         let str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         let code = "";
-        for(let i=0;i<6;){
+        for(let i=0;i<6;i++){
             code += str[utils.aleaInt(0,str.length-1)];
         }
         return code;
+    },
+    setSeed(value){
+        if(value !== undefined){
+            MM.seed = value;
+        } else if(document.getElementById("aleaKey").value === ""){
+            MM.seed = utils.seedGenerator();
+            document.getElementById("aleaKey").value = MM.seed;
+        } else {
+            MM.seed = document.getElementById("aleaKey").value;
+        }
+        utils.initializeAlea(MM.seed);
     },
     addClass:function(elt,newClass){
         var n=0;
@@ -183,8 +194,10 @@ var utils = {
     * return nothing
     */
     initializeAlea:function(seed){
-        utils.seed = seed;
-        utils.alea = new Math.seedrandom(utils.seed);
+        if(seed)
+            utils.alea = new Math.seedrandom(seed);
+        else 
+            utils.alea = new Math.seedrandom(MM.seed);
     },
     /**
      *  
@@ -1099,6 +1112,183 @@ class timer {
         document.querySelector("#slider"+this.id+" progress").value = this.percent;
     }
 }
+class ficheToPrint {
+    constructor(type,cart){
+        this.type = type; // type = exos, interro, ceinture
+        this.activities = cart.activities;
+        this.wsheet = window.open("pagetoprint.html","mywindow","location=no,menubar=no,titlebar=no,width=794");
+        this.wsheet.onload = function(){MM.fiche.populate()};
+    }
+    generateQuestions(){
+        utils.setSeed()
+        // generate questions and answers
+        for(let index=0;index<this.activities.length;index++){
+            const activity = this.activities[index];
+            activity.generate();
+        }
+    }
+    populate(){
+        // taille des caractères
+        this.wsheet.document.getElementsByTagName('html')[0].className = "s"+document.getElementById('exTxtSizeValue').value.replace(".","");
+        this.content =this.wsheet.document.getElementById("creator-content");
+        this.docsheet = this.wsheet.document;
+        this.generateQuestions();
+        if(this.type === "exo"){
+            this.createExoSheet();
+        } else if(this.type === "exam"){
+            this.createInterroSheet();
+        } else if(this.type === "ceinture"){
+            this.createCeintureSheet();
+        }
+        // render the math
+        utils.mathRender(this.wsheet);
+        MM.editedActivity.display();
+    }
+    /**
+     * 
+     * @param {string} type element name
+     * @param {string} className
+     * @param {string} innerHTML
+     */
+    createElement(type){
+        let elm = this.docsheet.createElement(type);
+        if(arguments[1] !== undefined){
+            elm.className = arguments[1];
+        }
+        if(arguments[2] !== undefined){
+            elm.innerHTML = arguments[2];
+        }
+        return elm;
+    }
+    createExoSheet(){
+        // set elements :
+        let aleaCode = this.createElement("div","floatright","Clé : "+MM.seed);
+        this.content.appendChild(aleaCode);
+        // get the titlesheet
+        let sheetTitle = document.getElementById("extitle").value||"Fiche d'exercices";
+        // set the titlesheet
+        let header = this.createElement("header","",sheetTitle);
+        this.content.appendChild(header);
+        // get the exercice title
+        let exTitle = document.getElementById("exeachex").value||"Exercice n°";
+        // get the position of the correction
+        let correction = "end";
+        let radios = document.getElementsByName("excorr");
+        for (let index = 0; index < radios.length; index++) {
+            if(radios[index].checked)
+                correction = radios[index].value;
+        }
+        let correctionContent = this.createElement("div","correction");
+        let titleCorrection = this.createElement("header", "clearfix","Correction des exercices");
+        if(correction === "end")
+            correctionContent.appendChild(titleCorrection);
+        // create a shit because of the li float boxes
+        let divclear = this.createElement("div", "clearfix");
+        for(let i=0;i<this.activities.length;i++){
+            const activity = this.activities[i];
+            let section = this.createElement("section");
+            let sectionCorrection = this.createElement("section");
+            let h3 = this.createElement("h3", "exercice-title",exTitle+(i+1)+" : "+activity.title)
+            section.appendChild(h3);
+            let ol = this.createElement("ol");
+            let olCorrection = this.createElement("ol", "corrige");
+            for(let j=0;j<activity.questions.length;j++){
+                let li = this.createElement("li");
+                let liCorrection = this.createElement("li");
+                if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
+                    let span = this.createElement("span","math", activity.questions[j]);
+                    let spanCorrection = this.createElement("span", "math", activity.answers[j]);
+                    li.appendChild(span);
+                    liCorrection.appendChild(spanCorrection);
+                } else {
+                    li.innerHTML = activity.questions[j];
+                    liCorrection.innerHTML = activity.answers[j];
+                }
+                ol.appendChild(li);
+                olCorrection.appendChild(liCorrection);
+            }
+            section.appendChild(ol);
+            let ds = divclear.cloneNode(true);
+            section.appendChild(ds);
+            // affichage de la correction
+            if(correction !== "end" ){
+                let hr = docsheet.createElement("hr");
+                hr.style.width = "50%";
+                section.appendChild(hr);
+                section.appendChild(olCorrection);
+            } else {
+                let h3correction = h3.cloneNode(true);
+                sectionCorrection.appendChild(h3correction);
+                sectionCorrection.appendChild(olCorrection);
+                correctionContent.appendChild(sectionCorrection);
+            }
+            this.content.appendChild(section);
+        }
+        if(correctionContent.hasChildNodes){
+            this.content.appendChild(correctionContent);
+            let ds = divclear.cloneNode(true);
+            this.content.appendChild(ds);
+        }
+    }
+    createInterroSheet(){
+        // set elements :
+        let aleaCode = this.createElement("div","floatright","Clé : "+MM.seed);
+        this.content.appendChild(aleaCode);
+        // get the titlesheet
+        let sheetTitle = document.getElementById("inttitle").value||"Interrogation écrite";
+        // set the titlesheet
+        let header = this.createElement("header","",sheetTitle);
+        this.content.appendChild(header);
+        let div1 = this.createElement("div","studenName","Nom, prénom, classe :");
+        this.content.appendChild(div1);
+        let div2 = this.createElement("div","remarques","Remarques :");
+        this.content.appendChild(div2);
+        // get the exercice title
+        let exTitle = document.getElementById("inteachex").value||"Exercice n°";
+        let correctionContent = this.createElement("div","correction");
+        let titleCorrection = this.createElement("header", "clearfix","Correction des exercices");
+        correctionContent.appendChild(titleCorrection);
+        let divclear = this.createElement("div", "clearfix");
+        for (let i = 0; i < this.activities.length; i++) {
+            const activity = this.activities[i];
+            let section = this.createElement("section");
+            let sectionCorrection = this.createElement("section");
+            let h3 = this.createElement("h3", "exercice-title",exTitle+(i+1)+" : "+activity.title)
+            section.appendChild(h3);
+            let ol = this.createElement("ol");
+            let olCorrection = this.createElement("ol", "corrige");
+            for(let j=0;j<activity.questions.length;j++){
+                let li = this.createElement("li","interro");
+                let liCorrection = this.createElement("li");
+                if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
+                    let span = this.createElement("span","math", activity.questions[j]);
+                    let spanCorrection = this.createElement("span", "math", activity.answers[j]);
+                    li.appendChild(span);
+                    liCorrection.appendChild(spanCorrection);
+                } else {
+                    li.innerHTML = activity.questions[j];
+                    liCorrection.innerHTML = activity.answers[j];
+                }
+                ol.appendChild(li);
+                olCorrection.appendChild(liCorrection);
+            }
+            section.appendChild(ol);
+            let ds = divclear.cloneNode(true);
+            section.appendChild(ds);
+            let h3correction = h3.cloneNode(true);
+            sectionCorrection.appendChild(h3correction);
+            sectionCorrection.appendChild(olCorrection);
+            correctionContent.appendChild(sectionCorrection);
+            this.content.appendChild(section);
+        }
+        // insert footer for print page break
+        this.content.appendChild(this.createElement("footer","","Fin"));
+        // insert correction
+        this.content.appendChild(correctionContent);
+        let ds = divclear.cloneNode(true);
+        this.content.appendChild(ds);
+    }
+};
 // MathsMentales core
 var MM = {
     content:undefined, // liste des exercices classés niveau/theme/chapitre chargé au démarrage
@@ -1258,8 +1448,7 @@ var MM = {
         corriges.innerHTML="";
         // TODO : randomize the seed and collect it for reuse
         //MM.seed = "enonce";
-        MM.seed = Date();
-        utils.initializeAlea(MM.seed);
+        utils.setSeed();
         for(let i=0;i<length;i++){
             for(let kk=0,clen=MM.carts[i].target.length;kk<clen;kk++){
                 let indiceSlide = 0;
@@ -1377,11 +1566,6 @@ var MM = {
             }
         }
     },
-    creatorClose:function(){
-        document.getElementById("app-container").className = "";
-        document.getElementById("creator-container").className = "hidden";
-        document.getElementById("creator-content").innerHTML = "";
-    },
     /**
      * Create a sheet of exercices
      * called by parameters
@@ -1390,100 +1574,18 @@ var MM = {
         if(!MM.carts[0].activities.length){
             MM.carts[0].addActivity(MM.editedActivity);
         }
-        // set page format
-        let wsheet = window.open("pagetoprint.html","mywindow","location=no,menubar=no,titlebar=no,width=794");
-        wsheet.onload = function(){
-            wsheet.document.getElementsByTagName('html')[0].className = "s"+document.getElementById('exTxtSizeValue').value.replace(".","");
-            let content = wsheet.document.getElementById("creator-content");
-            let docsheet = wsheet.document;
-            // get the liste of activities
-            let activities = MM.carts[0].activities;
-            // get the titlesheet
-            let sheetTitle = document.getElementById("extitle").value||"Fiche d'exercices";
-            // set the titlesheet
-            let header = docsheet.createElement("header");
-            header.textContent = sheetTitle;
-            content.appendChild(header);
-            // get the exercice title
-            let exTitle = document.getElementById("exeachex").value||"Exercice n°";
-            // get the position of the correction
-            let correction = "end";
-            let radios = document.getElementsByName("excorr");
-            for (let index = 0; index < radios.length; index++) {
-                if(radios[index].checked)
-                    correction = radios[index].value;
-            }
-            // create correction element (if at the end of the doc)
-            let correctionContent = docsheet.createElement("div");
-            correctionContent.className = "correction";
-            let titleCorrection = docsheet.createElement("header");
-            titleCorrection.textContent = "Correction des exercices";
-            titleCorrection.className = "clearfix";
-            // set the title if correction is at the end
-            if(correction === "end")
-                correctionContent.appendChild(titleCorrection);
-            // create a shit because of the li float boxes
-            let divclear = docsheet.createElement("div");
-            divclear.className = "clearfix";
-            // now we create the sheet
-            for (let index = 0; index < activities.length; index++) {
-                const activity = activities[index];
-                activity.generate();
-                let section = docsheet.createElement("section");
-                let sectionCorrection = docsheet.createElement("section");
-                let h3 = docsheet.createElement("h3");
-                h3.className = "exercice-title";
-                h3.textContent = exTitle+(index+1)+" : "+activity.title;
-                section.appendChild(h3);
-                let ol = docsheet.createElement("ol");
-                let olCorrection = docsheet.createElement("ol");
-                olCorrection.className = "corrige";
-                for(let j=0;j<activity.questions.length;j++){
-                    let li = docsheet.createElement("li");
-                    let liCorrection = docsheet.createElement("li");
-                    if(activity.type === "latex" || activity.type === "" || activity.type===undefined){
-                        let span=docsheet.createElement("span");
-                        let spanCorrection = docsheet.createElement("span");
-                        span.className ="math";
-                        spanCorrection.className = "math";
-                        span.innerHTML = activity.questions[j];
-                        spanCorrection.innerHTML = activity.answers[j];
-                        li.appendChild(span);
-                        liCorrection.appendChild(spanCorrection);
-                    } else {
-                        li.innerHTML = activity.questions[j];
-                        liCorrection.innerHTML = activity.answers[j];
-                    }
-                    ol.appendChild(li);
-                    olCorrection.appendChild(liCorrection);
-                }
-                section.appendChild(ol);
-                let ds = divclear.cloneNode(true);
-                section.appendChild(ds);
-                // affichage de la correction
-                if(correction !== "end" ){
-                    let hr = docsheet.createElement("hr");
-                    hr.style.width = "50%";
-                    section.appendChild(hr);
-                    section.appendChild(olCorrection);
-                } else {
-                    let h3correction = h3.cloneNode(true);
-                    sectionCorrection.appendChild(h3correction);
-                    sectionCorrection.appendChild(olCorrection);
-                    correctionContent.appendChild(sectionCorrection);
-                }
-                content.appendChild(section);
-            }
-            if(correctionContent.hasChildNodes){
-                content.appendChild(correctionContent);
-                let ds = divclear.cloneNode(true);
-                content.appendChild(ds);
-            }
-            utils.mathRender(wsheet);
-            //MM.resetCarts();
-            MM.editedActivity.display();
+        MM.fiche = new ficheToPrint("exo",MM.carts[0]);
+    },
+    /**
+     * Create a sheet of exercices
+     * called by parameters
+     */
+    createExamSheet:function(){
+        if(!MM.carts[0].activities.length){
+            MM.carts[0].addActivity(MM.editedActivity);
         }
-},
+        MM.fiche = new ficheToPrint("exam",MM.carts[0]);
+    },
     /**
      * Start the slideshow
      */
@@ -1543,8 +1645,7 @@ var MM = {
     },
     showSampleQuestion:function(){
         let nb = MM.slidersNumber;
-        MM.seed = "sample"+Date();
-        utils.initializeAlea(MM.seed);
+        utils.setSeed("sample"+Date());
         let container = document.getElementById("slideshow");
         for(let i=0,len=MM.carts.length;i<len;i++){
             MM.carts[i].activities[0].generateSample();
@@ -1751,7 +1852,6 @@ var MM = {
     },
     messageEndSlide:function(id,nth){
         // TODO : revoir le truc pour ne pas empiéter sur le dernière slide (ou pas)
-        console.log(id, nth);
         let sliderMessage = document.querySelectorAll('#slider'+id+" .slide")[nth];
         sliderMessage.innerHTML = "<span>Fin du diaporama</span>";
         //utils.removeClass(sliderMessage,"hidden");
@@ -2144,7 +2244,7 @@ class activity {
         // affichage d'exemple(s)
         var examples = document.getElementById('activityOptions');
         examples.innerHTML = "";
-        utils.initializeAlea("sample");
+        utils.setSeed("sample");
         if(this.options !== undefined && this.options.length > 0){
             let colors = ['',' red',' orange',' blue', ' green', ' grey',];
             // Ajout de la possibilité de tout cocher ou pas

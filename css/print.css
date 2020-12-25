@@ -3,6 +3,11 @@
         padding: 10mm;
     }
 }
+@media print {
+    #creator-menu {
+        display: none;
+    }
+}
 *{
     box-sizing: border-box;
 }
@@ -15,9 +20,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
 }
-.s7{
-    font-size: 7pt;
-}
+footer {page-break-after: always;}
 .s8{
     font-size: 8pt;
 }
@@ -45,9 +48,6 @@ body {
 .s16{
     font-size: 16pt;
 }
-.s75{
-    font-size: 7.5pt;
-}
 .s85{
     font-size: 8.5pt;
 }
@@ -72,12 +72,16 @@ body {
 .s155{
     font-size: 15.5pt;
 }
-/**
-Hiding all what we doesn't want to see
+/*
 */
-#app-container, #countdown-container, #slideshow-container, #creator-menu{
-    display: none;
+.floatright{
+    float:right;
+    padding : 1pt;
+    border: 1px solid black;
 }
+
+/* Commons
+*/
 #creator-container::after{
     content:"\ CC-BY-NC © 2020 MathsMentales.net";
     color:darkblue !important;
@@ -130,4 +134,23 @@ h3.exercice-title{
 }
 .clearfix {
     clear:both;
+}
+/* Interro spécifique
+*/
+.studenName {
+    padding:1pt 1pt 20pt;
+    width: 40%;
+    border: 1px solid black;
+    margin-right:5px;
+    float: left;
+}
+.remarques {
+    padding:1pt 1pt 30pt;
+    width: calc(100% - 40% - 5px);
+    border: 1px solid black;
+    float: left;
+}
+#creator-content li.interro {
+    padding-bottom: 30pt;
+    border: 1px solid black;
 }
