@@ -67,6 +67,14 @@ var modeDebug = true;
 var utils = {
     seed: "sample",
     security:300,// max number for boucles
+    seedGenerator:function(){
+        let str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        let code = "";
+        for(let i=0;i<6;){
+            code += str[utils.aleaInt(0,str.length-1)];
+        }
+        return code;
+    },
     addClass:function(elt,newClass){
         var n=0;
         newClass=newClass.split(",");
@@ -400,9 +408,10 @@ var utils = {
     },
     /**
      * Render the math
+     * @param (dom) wtarget : window reference
      */
-    mathRender: function() {
-        let contents = ["tab-enonce", "tab-corrige", "activityOptions", "creator-content"];
+    mathRender: function(wtarget) {
+        let contents = ["tab-enonce", "tab-corrige", "activityOptions"];
         contents.forEach(id => {
             // search for $$ formulas $$ => span / span
             let content = document.getElementById(id).innerHTML;
@@ -412,6 +421,27 @@ var utils = {
             elt.innerHTML = elt.innerHTML.replace(/\$\$([^$]*)\$\$/gi, '<span class="math">$1</span>');
 
         });
+        if(wtarget !== undefined){
+            let content = wtarget.document.getElementById("creator-content");
+            content.innerHTML = content.innerHTML.replace(/\$\$([^$]*)\$\$/gi, '<span class="math">$1</span>');
+            content.querySelectorAll(".math").forEach(function(item){
+                var texTxt = item.innerHTML.replace(/\&amp\;/g,"&");
+                // recherche les nombres, décimaux ou pas
+                let nbrgx = /(\d+\.*\d*)/g;
+                // insère des espaces tous les 3 chiffres;
+                texTxt = texTxt.replace(nbrgx, utils.toDecimalFr);
+                try {
+                  katex.render(texTxt, item, {
+                    throwOnError: false,
+                    errorColor: "#FFF",
+                    colorIsTextColor: true
+                  });
+                  utils.removeClass(item,"math");
+                } catch (err) {
+                  item.innerHTML = "<span class='err'>" + err + ' avec '+texTxt + '</span>';
+                };      
+            })
+        }
         document.querySelectorAll(".math").forEach(function(item) {
             // transform ascii to Latex
           //var texTxt = MM.ascii2tex.parse(item.innerHTML);
@@ -1360,101 +1390,99 @@ var MM = {
         if(!MM.carts[0].activities.length){
             MM.carts[0].addActivity(MM.editedActivity);
         }
-        document.getElementById("app-container").className = "hidden";
-        document.getElementById("creator-container").className = "";
-        let content = document.getElementById("creator-content");
         // set page format
-        let radios = document.getElementsByName("exformat");
-        for (let index = 0; index < radios.length; index++) {
-            if(radios[index].checked)
-                document.getElementsByTagName('body')[0].className = radios[index].value;
-        }
-        // get the liste of activities
-        let activities = MM.carts[0].activities;
-        // get the titlesheet
-        let sheetTitle = document.getElementById("extitle").value||"Fiche d'exercices";
-        // set the titlesheet
-        let header = document.createElement("header");
-        header.textContent = sheetTitle;
-        content.appendChild(header);
-        // get the exercice title
-        let exTitle = document.getElementById("exeachex").value||"Exercice n°";
-        // get the position of the correction
-        let correction = "end";
-        radios = document.getElementsByName("excorr");
-        for (let index = 0; index < radios.length; index++) {
-            if(radios[index].checked)
-                correction = radios[index].value;
-        }
-        // create correction element (if at the end of the doc)
-        let correctionContent = document.createElement("div");
-        correctionContent.className = "correction";
-        let titleCorrection = document.createElement("header");
-        titleCorrection.textContent = "Correction des exercices";
-        titleCorrection.className = "clearfix";
-        // set the title if correction is at the end
-        if(correction === "end")
-            correctionContent.appendChild(titleCorrection);
-        // create a shit because of the li float boxes
-        let divclear = document.createElement("div");
-        divclear.className = "clearfix";
-        // now we create the sheet
-        for (let index = 0; index < activities.length; index++) {
-            const activity = activities[index];
-            activity.generate();
-            let section = document.createElement("section");
-            let sectionCorrection = document.createElement("section");
-            let h3 = document.createElement("h3");
-            h3.className = "exercice-title";
-            h3.textContent = exTitle+(index+1)+" : "+activity.title;
-            section.appendChild(h3);
-            let ol = document.createElement("ol");
-            let olCorrection = document.createElement("ol");
-            olCorrection.className = "corrige";
-            for(let j=0;j<activity.questions.length;j++){
-                let li = document.createElement("li");
-                let liCorrection = document.createElement("li");
-                if(activity.type === "latex" || activity.type === "" || activity.type===undefined){
-                    let span=document.createElement("span");
-                    let spanCorrection = document.createElement("span");
-                    span.className ="math";
-                    spanCorrection.className = "math";
-                    span.innerHTML = activity.questions[j];
-                    spanCorrection.innerHTML = activity.answers[j];
-                    li.appendChild(span);
-                    liCorrection.appendChild(spanCorrection);
-                } else {
-                    li.innerHTML = activity.questions[j];
-                    liCorrection.innerHTML = activity.answers[j];
+        let wsheet = window.open("pagetoprint.html","mywindow","location=no,menubar=no,titlebar=no,width=794");
+        wsheet.onload = function(){
+            wsheet.document.getElementsByTagName('html')[0].className = "s"+document.getElementById('exTxtSizeValue').value.replace(".","");
+            let content = wsheet.document.getElementById("creator-content");
+            let docsheet = wsheet.document;
+            // get the liste of activities
+            let activities = MM.carts[0].activities;
+            // get the titlesheet
+            let sheetTitle = document.getElementById("extitle").value||"Fiche d'exercices";
+            // set the titlesheet
+            let header = docsheet.createElement("header");
+            header.textContent = sheetTitle;
+            content.appendChild(header);
+            // get the exercice title
+            let exTitle = document.getElementById("exeachex").value||"Exercice n°";
+            // get the position of the correction
+            let correction = "end";
+            let radios = document.getElementsByName("excorr");
+            for (let index = 0; index < radios.length; index++) {
+                if(radios[index].checked)
+                    correction = radios[index].value;
+            }
+            // create correction element (if at the end of the doc)
+            let correctionContent = docsheet.createElement("div");
+            correctionContent.className = "correction";
+            let titleCorrection = docsheet.createElement("header");
+            titleCorrection.textContent = "Correction des exercices";
+            titleCorrection.className = "clearfix";
+            // set the title if correction is at the end
+            if(correction === "end")
+                correctionContent.appendChild(titleCorrection);
+            // create a shit because of the li float boxes
+            let divclear = docsheet.createElement("div");
+            divclear.className = "clearfix";
+            // now we create the sheet
+            for (let index = 0; index < activities.length; index++) {
+                const activity = activities[index];
+                activity.generate();
+                let section = docsheet.createElement("section");
+                let sectionCorrection = docsheet.createElement("section");
+                let h3 = docsheet.createElement("h3");
+                h3.className = "exercice-title";
+                h3.textContent = exTitle+(index+1)+" : "+activity.title;
+                section.appendChild(h3);
+                let ol = docsheet.createElement("ol");
+                let olCorrection = docsheet.createElement("ol");
+                olCorrection.className = "corrige";
+                for(let j=0;j<activity.questions.length;j++){
+                    let li = docsheet.createElement("li");
+                    let liCorrection = docsheet.createElement("li");
+                    if(activity.type === "latex" || activity.type === "" || activity.type===undefined){
+                        let span=docsheet.createElement("span");
+                        let spanCorrection = docsheet.createElement("span");
+                        span.className ="math";
+                        spanCorrection.className = "math";
+                        span.innerHTML = activity.questions[j];
+                        spanCorrection.innerHTML = activity.answers[j];
+                        li.appendChild(span);
+                        liCorrection.appendChild(spanCorrection);
+                    } else {
+                        li.innerHTML = activity.questions[j];
+                        liCorrection.innerHTML = activity.answers[j];
+                    }
+                    ol.appendChild(li);
+                    olCorrection.appendChild(liCorrection);
                 }
-                ol.appendChild(li);
-                olCorrection.appendChild(liCorrection);
+                section.appendChild(ol);
+                let ds = divclear.cloneNode(true);
+                section.appendChild(ds);
+                // affichage de la correction
+                if(correction !== "end" ){
+                    let hr = docsheet.createElement("hr");
+                    hr.style.width = "50%";
+                    section.appendChild(hr);
+                    section.appendChild(olCorrection);
+                } else {
+                    let h3correction = h3.cloneNode(true);
+                    sectionCorrection.appendChild(h3correction);
+                    sectionCorrection.appendChild(olCorrection);
+                    correctionContent.appendChild(sectionCorrection);
+                }
+                content.appendChild(section);
             }
-            section.appendChild(ol);
-            let ds = divclear.cloneNode(true);
-            section.appendChild(ds);
-            // affichage de la correction
-            if(correction !== "end" ){
-                let hr = document.createElement("hr");
-                hr.style.width = "50%";
-                section.appendChild(hr);
-                section.appendChild(olCorrection);
-            } else {
-                let h3correction = h3.cloneNode(true);
-                sectionCorrection.appendChild(h3correction);
-                sectionCorrection.appendChild(olCorrection);
-                correctionContent.appendChild(sectionCorrection);
+            if(correctionContent.hasChildNodes){
+                content.appendChild(correctionContent);
+                let ds = divclear.cloneNode(true);
+                content.appendChild(ds);
             }
-            content.appendChild(section);
+            utils.mathRender(wsheet);
+            //MM.resetCarts();
+            MM.editedActivity.display();
         }
-        if(correctionContent.hasChildNodes){
-            content.appendChild(correctionContent);
-            let ds = divclear.cloneNode(true);
-            content.appendChild(ds);
-        }
-        utils.mathRender();
-        //MM.resetCarts();
-        MM.editedActivity.display();
 },
     /**
      * Start the slideshow
@@ -2506,7 +2534,6 @@ class activity {
                     };
                 }
             } else {
-                debug("double", i);
                 i--;
                 if(loopProtect<maxLoop) // avoid too many attempts 
                     continue;

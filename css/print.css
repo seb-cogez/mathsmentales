@@ -1,97 +1,133 @@
-/** {
-    display:none;
-}*/
-@media print {
-    *{
-        box-sizing: border-box;
-    }
-    html{
-        padding:0;
-        margin:0;
-        font-size: 12pt;
-    }
+@media screen {
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        display:block;
-        margin:auto;
-        padding:1cm;
+        padding: 10mm;
     }
-    body.A4 {
-        width: 21cm;
-        padding:1cm;
-    }
-    body.A5 {
-        width:14.85cm;
-        padding:0.8cm;
-    }
-    body.A6{
-        width:10.5cm;
-        padding:0.5cm;
-    }
-    /**
-    Hiding all what we doesn't want to see
-    */
-    #app-container, #countdown-container, #slideshow-container, #creator-menu{
-        display: none;
-    }
-    #creator-container::after{
-        content:"\ CC-BY-NC © 2020 MathsMentales.net";
-        color:darkblue !important;
-        font-size: 0.8rem;
-        margin-top: 30px;
-        border-top: 1px solid black;
-        text-align: end;
-    }
-    #creator-container {
-        display: flex;
-        height:100%;
-        flex-direction: column;
-        width: 100%;
-    }
-    #creator-container.hidden {
-        display:none;
-    }
-    #creator-content header{
-        font-size: 1.3rem;
-        font-weight: bold;
-    }
-    h3.exercice-title{
-        margin-top: 0.5rem;
-        text-decoration: underline;
-        font-weight: bold;
-        font-size: 1.1rem;
-        margin-bottom: 0.3rem;
-    }
-    @counter-style majuscules {
-        system : alphabetic;
-        symbols : A B C D E F G H I J K L M N O P Q R S T U V W X Y Z;
-        suffix : ') ';
-    }
-    #creator-content ol{
-        margin-top:0;
-        list-style-type: majuscules;
-    }
-    #creator-content li {
-        float: left;
-        margin-right:3.5rem;
-        font-size: 1rem;
-        padding: 4px 10px 4px;
-    }
-    #creator-content section{
-        clear: both;
-        margin-bottom: 1rem;
-    }
-    .corrige {
-        font-size:smaller;
-    }
-    .correction {
-        margin-top:2rem !important;
-        color:grey !important;
-    }
-    .correction li, .correction section, .correction header,.correction h3 {
-        color:grey !important;
-    }
-    .clearfix {
-        clear:both;
-    }
+}
+*{
+    box-sizing: border-box;
+}
+html{
+    padding:0;
+    margin:0;
+    font-size: 12pt;
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+}
+.s7{
+    font-size: 7pt;
+}
+.s8{
+    font-size: 8pt;
+}
+.s9{
+    font-size: 9pt;
+}
+.s10{
+    font-size: 10pt;
+}
+.s11{
+    font-size: 11pt;
+}
+.s12{
+    font-size: 12pt;
+}
+.s13{
+    font-size: 13pt;
+}
+.s14{
+    font-size: 14pt;
+}
+.s15{
+    font-size: 15pt;
+}
+.s16{
+    font-size: 16pt;
+}
+.s75{
+    font-size: 7.5pt;
+}
+.s85{
+    font-size: 8.5pt;
+}
+.s95{
+    font-size: 9.5pt;
+}
+.s105{
+    font-size: 10.5pt;
+}
+.s115{
+    font-size: 11.5pt;
+}
+.s125{
+    font-size: 12.5pt;
+}
+.s135{
+    font-size: 13.5pt;
+}
+.s145{
+    font-size: 14.5pt;
+}
+.s155{
+    font-size: 15.5pt;
+}
+/**
+Hiding all what we doesn't want to see
+*/
+#app-container, #countdown-container, #slideshow-container, #creator-menu{
+    display: none;
+}
+#creator-container::after{
+    content:"\ CC-BY-NC © 2020 MathsMentales.net";
+    color:darkblue !important;
+    font-size: 0.8rem;
+    margin-top: 30px;
+    border-top: 1px solid black;
+    text-align: end;
+}
+#creator-container {
+    display: flex;
+    height:100%;
+    flex-direction: column;
+    width: 100%;
+}
+#creator-content header{
+    font-size: 1.3rem;
+}
+h3.exercice-title{
+    font-weight: 400;
+    margin-top: 0.5rem;
+    text-decoration: underline;
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+}
+@counter-style majuscules {
+    system : alphabetic;
+    symbols : A B C D E F G H I J K L M N O P Q R S T U V W X Y Z;
+    suffix : ') ';
+}
+#creator-content ol{
+    margin-top:0;
+    list-style-type: majuscules;
+}
+#creator-content li {
+    float: left;
+    margin-right:3.5rem;
+    font-size: 1rem;
+    padding: 4px 10px 4px;
+}
+#creator-content section{
+    clear: both;
+    margin-bottom: 1rem;
+}
+.corrige {
+    font-size:smaller;
+}
+.correction {
+    margin-top:2rem !important;
+    color:grey !important;
+}
+.clearfix {
+    clear:both;
 }

@@ -24,59 +24,6 @@ mark {
 #app-container > #contents{
     flex-grow: 8;
 }
-#app-container.hidden {
-  display:none;
-}
-/**
- Creator container
-*/
-#creator-container {
-  display: flex;
-  height:100%;
-  flex-direction: column;
-  width: 100%;
-}
-#creator-container.hidden {
-  display:none;
-}
-#creator-content header{
-  font-size: 1.4em;
-  font-weight: bold;
-}
-h3.exercice-title{
-  margin-top: 0.5rem;
-  text-decoration: underline;
-  font-weight: bold;
-  font-size: 1.2em;
-  margin-bottom: 0.2em;
-}
-@counter-style majuscules {
-  system : alphabetic;
-  symbols : A B C D E F G H I J K L M N O P Q R S T U V W X Y Z;
-  suffix : ') ';
-}
-#creator-content ol{
-  margin-top:0;
-  list-style-type: majuscules;
-}
-#creator-content li {
-  float: left;
-  margin-right:3.5em;
-  font-size: 1em;
-}
-.corrige {
-  font-size:smaller;
-}
-.correction {
-  margin-top:2rem;
-  color:#888888;
-}
-#creator-content section{
-  clear: both;
-}
-/*
-End of Creator container
-*/
 .bold {
   font-weight: bold;
 }

@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="css/knacss.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/bulma-steps.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/mathsmentales.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
     <link rel="stylesheet" href="css/jsxgraph.css" type="text/css" />
     <script src="js/libs/katex/katex.min.js" type="text/javascript" defer></script>
     <script src="js/libs/asciimath2tex/asciimath2tex.min.js"></script>
@@ -227,16 +226,16 @@
         </div>
         <div id="paramsexos" class="hidden">
             <fieldset>
-                <legend>Format page</legend>
-                 <input type="radio" name="exformat" value="A4" checked> A4 <input type="radio" name="exformat" value="A5"> A5 <input type="radio" name="exformat" value="A6"> A6
-            </fieldset>
-            <fieldset>
                 <legend>Titre de la fiche</legend>
                 <input type="text" placeholder="Fiche d'exercices" id="extitle">
             </fieldset>
             <fieldset>
                 <legend>Titre de chaque exercice</legend>
                 <input type="text" placeholder="Exercice n°" id="exeachex">
+            </fieldset>
+            <fieldset>
+                <legend>Taille des caractères : <span id="exTxtSize" class="blue">12</span>pt</legend>
+                <input id="exTxtSizeValue" type="range" min="7" max="16" step="0.5" value="12" oninput="document.getElementById('exTxtSize').innerHTML=this.value;">
             </fieldset>
             <fieldset>
                 <legend>Corrigé</legend>
@@ -250,10 +249,6 @@
             </section>
         </div>
         <div id="paramsinterro" class="hidden">
-            <fieldset>
-                <legend>Format page</legend>
-                <input type="radio" name="intformat" value="A4" checked> A4 <input type="radio" name="intformat" value="A5"> A5 <input type="radio" name="intformat" value="A6"> A6
-            </fieldset>
             <fieldset>
                 <legend>Titre de l'interro</legend>
                 <input type="text" placeholder="Interrogation écrite" id="inttitle">
@@ -271,10 +266,6 @@
             </section>
         </div>
         <div id="paramsceinture" class="hidden">
-            <fieldset>
-                <legend>Format page</legend>
-                <input type="radio" name="ceintformat" value="A4" checked> A4 <input type="radio" name="ceintformat" value="A5"> A5 <input type="radio" name="ceintformat" value="A6"> A6
-            </fieldset>
             <fieldset>
                 <legend>Titre de la ceinture</legend>
                 <input type="text" placeholder="Interrogation écrite" id="ceinttitle">
@@ -324,14 +315,6 @@
         </div>
     </section>
 </div>
-</div>
-<div id="creator-container" class="hidden">
-<section id="creator-menu">
-    <button onclick="MM.creatorClose();">Close</button> <button onclick="window.print();">Print</button>Pour exporter en PDF, sur chrome, imprimer et choisir pdf, sur firefox (windows)
-</section>
-<section id="creator-content">
-
-</section>
 </div>
 <div id="slideshow-container" class="hidden">
     <header>
