@@ -182,6 +182,7 @@
                 <option value="paramsexos">Feuille d'exercices</option>
                 <option value="paramsinterro">Feuille d'interro</option>
                 <option value="paramsceinture">Ceintures de CM</option>
+                <option value="paramsflashcards">cartes flash</option>
             </select>
             <fieldset><legend>Clé de données</legend>
                 <input type="text" placeholder="eHDtp" id="aleaKey" size="10">
@@ -281,6 +282,19 @@
             </fieldset>
             <section>
                 <button class="button--primary beaubutton" onclick="MM.createCeintureSheet();">Générer</button>
+            </section>
+        </div>
+        <div id="paramsflashcards" class="hidden">
+            <fieldset>
+                <legend>Titre de la carte</legend>
+                <input type="text" placeholder="Je retiens les..." id="ceinttitle">
+            </fieldset>
+            <fieldset>
+                <legend>Nb de cartes : <span id="FCnb" class="blue">4</span></legend>
+                <input type="range" min="5" max="40" step="1" value="16" oninput="document.getElementById('FCnb').innerHTML=this.value;">
+            </fieldset>
+            <section>
+                <button class="button--primary beaubutton" onclick="MM.createFlashCards();">Générer</button>
             </section>
         </div>
         </div>
