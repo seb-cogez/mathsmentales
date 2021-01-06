@@ -1,0 +1,20 @@
+{
+    "title":"Augmenter ou réduire en pourcentage",
+    "type":"text",
+    "ID":"5DC1",
+    "dest":["5DC", "4DC","3DC"],
+    "options":[{
+        "name":"Augmenter/réduire de 5 ou 50 %",
+        "vars":{"nb":"2_20","qte":"${:nb*12}","pourcent":[5,50]}
+    },{
+        "name":"Augmenter/réduire de 10, 20 ou 30 %",
+        "vars":{"nb":"2_20","qte":"${:nb*12}","pourcent":[10,20,30]}
+    },{
+        "name":"Augmenter/réduire de 25 ou 75 %",
+        "vars":{"nb":"2_20","qte":"${:nb*12}","pourcent":[25,75]}
+    }
+    ],
+    "question": ["Augmenter ${:qte} de ${:pourcent} %", "Réduire ${:qte} de ${:pourcent} %"],
+    "answer":["${:qte} + ${:pourcent}% de ${:qte} = <span class='red'>$$${math.round(:qte*(1+:pourcent/100),2)}$$</span>","${:qte} - ${:pourcent}% de ${:qte} = <span class='red'>$$${math.round(:qte*(1-:pourcent/100),2)}$$</span>"],
+    "value":["${math.round(:qte*(1+:pourcent/100),2)}","${math.round(:qte*(1-:pourcent/100),2)}"]
+}

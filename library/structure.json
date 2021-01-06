@@ -320,7 +320,50 @@
             }
         }
     },
-    "2":"2nde",
+    "2":{
+        "nom":"2nde",
+        "themes":{
+            "2N":{
+                "nom":"Nombres et calculs",
+                "chapitres":{
+                    "2N1":"Manipulier les nombres rééls",
+                    "2N2":"Utiliser les notions de multiple, diviseur et de nombre premier",
+                    "2N3":"Utiliser le calcul littéral"
+                }
+            },
+            "2D":{
+                "nom":"Statistiques et probabilités",
+                "chapitres":{
+                    "2D1":"Utiliser l’information chiffrée et statistique descriptive",
+                    "2D2":"Modéliser le hasard, calculer des probabilités",
+                    "2D3":"Échantillonnage"
+                }
+            },
+            "2G":{
+                "nom":"Géométrie",
+                "chapitres":{
+                    "2G1":"Manipuler les vecteurs du plan",
+                    "2G2":"Résoudre des problèmes de géométrie",
+                    "2G3":"Représenter et caractériser les droites du plan"
+                }
+            },
+            "2F":{
+                "nom":"Fonctions",
+                "chapitres":{
+                    "2F1":"Répertoire de fonctions de référence",
+                    "2F2":"Représenter algébriquement et graphiquement les fonctions",
+                    "2F3":"Etudier les variations et les extremums d'une fonction"
+                }
+            },
+            "2A":{
+                "nom":"Algorithmique et programmation",
+                "chapitres":{
+                    "2A1":"Utiliser les variables et les instructions élémentaires",
+                    "2A2":"Notion de fonction"
+                }
+            }
+        }
+    },
     "1":"1ère",
     "0":"Tale"
 }
