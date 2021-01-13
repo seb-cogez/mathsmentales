@@ -1139,6 +1139,8 @@ class ficheToPrint {
             this.createInterroSheet();
         } else if(this.type === "ceinture"){
             this.createCeintureSheet();
+        } else if(this.type === "flashcard"){
+            this.createFlashCards();
         }
         // render the math
         utils.mathRender(this.wsheet);
@@ -1287,6 +1289,16 @@ class ficheToPrint {
         this.content.appendChild(correctionContent);
         let ds = divclear.cloneNode(true);
         this.content.appendChild(ds);
+    }
+    createFlashCards(){
+        // set elements :
+        let aleaCode = this.createElement("div","floatright","Clé : "+MM.seed);
+        this.content.appendChild(aleaCode);
+        // get the titlesheet
+        let sheetTitle = document.getElementById("FCtitle").value||"Interrogation écrite";
+        // set the titlesheet
+        let header = this.createElement("header","",sheetTitle);
+        this.content.appendChild(header);
     }
 };
 // MathsMentales core
@@ -1585,6 +1597,12 @@ var MM = {
             MM.carts[0].addActivity(MM.editedActivity);
         }
         MM.fiche = new ficheToPrint("exam",MM.carts[0]);
+    },
+    createFlashCards:function(){
+        if(!MM.carts[0].activities.length){
+            MM.carts[0].addActivity(MM.editedActivity);
+        }
+        MM.fiche = new ficheToPrint("flashcard",MM.carts[0]);
     },
     /**
      * Start the slideshow
@@ -2272,8 +2290,7 @@ class activity {
                 input.defaultChecked = (this.chosenOptions.indexOf(i)>-1)?true:false;
                 input.className = "checkbox"+colors[i%colors.length];
                 p.appendChild(input);
-                p.appendChild(document.createTextNode(" "+this.options[i]["name"] + " :"));
-                //examples.innerHTML += "<input id='o"+i+"' class='checkbox"+colors[i%colors.length]+"' type='checkbox' value='"+i+"' onclick='MM.editedActivity.setOption(this.value, this.checked);'"+((this.chosenOptions.indexOf(i)>-1)?"checked":"")+"> "+this.options[i]["name"] + " :";
+                p.innerHTML += " "+this.options[i]["name"] + " :";
                 let ul = document.createElement("ul");
                 if(Array.isArray(this.questions[0])){
                     for(let jj=0; jj<this.questions[0].length;jj++){

@@ -1,0 +1,80 @@
+{
+    "title":"Utiliser l'échelle d'une carte, d'un plan, d'un modèle réduit",
+    "type":"text",
+    "ID":"5DC2",
+    "dest":["5DC","6NC","7NH","4DC"],
+    "options":[{
+        "name":"Carte au 1/1 000 000<sup>e</sup>",
+        "vars":{"d":"d0.5_30_1"},
+        "question": ["Si sur une carte au 1/1 000 000<sup>e</sup> on mesure ${:d} cm, quelle est la distance réelle en km ?",
+            "Sur une carte au 1/1 000 000<sup>e</sup>, combien de cm représentent une longueur réelle de ${:d*10} km ?"],
+        "answer":["au 1/1 000 000<sup>e</sup> $$${:d} \\text{ cm sur carte}  \\leftrightarrow \\color{red}{${:d*10} \\text{km}}$$ rééls",
+            "au 1/1 000 000<sup>e</sup> $$${:d*10} \\text{km rééls} \\leftrightarrow \\color{red}{${:d} \\text{ cm}}$$ sur carte"],
+        "value":["${:d*10}km","${:d}cm"]
+    },{
+        "name":"Carte au 1/500 000<sup>e</sup>",
+        "vars":{"d":"d1_30_1"},
+        "question": ["Si sur une carte au 1/500 000<sup>e</sup> on mesure ${:d} cm, quelle est la distance réelle en km ?",
+            "Sur une carte au 1/500 000<sup>e</sup>, combien de cm représentent une longueur réelle de ${:d*5} km ?"],
+        "answer":["au 1/500 000<sup>e</sup> $$${:d} \\text{cm sur carte} \\leftrightarrow \\color{red}{${:d*5} \\text{km}}$$ rééls",
+            "au 1/500 000<sup>e</sup> $$${:d*5} \\text{km rééls} \\leftrightarrow \\color{red}{${:d} \\text{cm}}$$ sur carte"],
+        "value":["${:d*5}km","${:d}cm"]
+    },{
+        "name":"Carte au 1/250 000<sup>e</sup>",
+        "vars":{"d":"d1_30_1"},
+        "question": ["Si sur une carte au 1/250 000<sup>e</sup> on mesure ${:d} cm, quelle est la distance réelle en km ?",
+            "Sur une carte au 1/250 000<sup>e</sup>, combien de cm représentent une longueur réelle de ${:d*2.5} km ?"],
+        "answer":["au 1/250 000<sup>e</sup> $$${:d} \\text{cm sur carte} \\leftrightarrow \\color{red}{${:d*2.5} \\text{km}}$$ rééls",
+            "au 1/250 000<sup>e</sup> $$${:d*2.5} \\text{km rééls} \\leftrightarrow \\color{red}{${:d} \\text{cm}}$$ sur carte"],
+        "value":["${:d*2.5}km","${:d}cm"]
+    },{
+        "name":"Carte au 1/100 000<sup>e</sup>",
+        "vars":{"d":"d1_30_1"},
+        "question": ["Si sur une carte au 1/100 000<sup>e</sup> on mesure ${:d} cm, quelle est la distance réelle en km ?",
+            "Sur une carte au 1/100 000<sup>e</sup>, combien de cm représentent une longueur réelle de ${:d} km ?"],
+        "answer":["au 1/100 000<sup>e</sup> $$${:d} \\text{cm sur carte} \\leftrightarrow \\color{red}{${:d} \\text{km}}$$ rééls",
+            "au 1/100 000<sup>e</sup> $$${:d} \\text{km rééls} \\leftrightarrow \\color{red}{${:d} \\text{cm}}$$ sur carte"],
+        "value":["${:d}km","${:d}cm"]
+    },{
+        "name":"Carte au 1/50 000<sup>e</sup>",
+        "vars":{"d":"d1_30_1"},
+        "question": ["Si sur une carte au 1/50 000<sup>e</sup> on mesure ${:d} cm, quelle est la distance réelle en m ?",
+            "Sur une carte au 1/50 000<sup>e</sup>, combien de cm représentent une longueur réelle de ${:d*500} m ?"],
+        "answer":["au 1/50 000<sup>e</sup> $$${:d} \\text{cm sur carte} \\leftrightarrow \\color{red}{${:d*500} \\text{m}}$$ rééls",
+            "au 1/50 000<sup>e</sup> $$${:d*500} \\text{m rééls} \\leftrightarrow \\color{red}{${:d} \\text{cm}}$$ sur carte"],
+        "value":["${:d*500}m","${:d}cm"]
+    },{
+        "name":"Carte au 1/25 000<sup>e</sup>",
+        "vars":{"d":"d1_30_1"},
+        "question": ["Si sur une carte au 1/25 000<sup>e</sup> on mesure ${:d} cm, quelle est la distance réelle en m ?",
+            "Sur une carte au 1/25 000<sup>e</sup>, combien de cm représentent une longueur réelle de ${:d*250} m ?"],
+        "answer":["au 1/25 000<sup>e</sup> $$${:d} \\text{cm sur carte} \\leftrightarrow \\color{red}{${:d*250} \\text{m}}$$ rééls",
+            "au 1/25 000<sup>e</sup> $$${:d*250} \\text{m rééls} \\leftrightarrow \\color{red}{${:d} \\text{cm}}$$ sur carte"],
+        "value":["${:d*250}m","${:d}cm"]
+    },{
+        "name":"Maquette au 1/100<sup>e</sup>",
+        "vars":{"d":"1_900"},
+        "question": ["Si sur une maquette au 1/100<sup>e</sup> on mesure ${:d} mm, quelle est la longueur réelle en m ?",
+            "Sur une maquette au 1/100<sup>e</sup>, quelle longueur en cm représentent une longueur réelle de ${:d/10} mm ?"],
+        "answer":["au 1/100<sup>e</sup> $$${:d} \\text{mm sur maquette} \\leftrightarrow \\color{red}{${:d/10} \\text{m}}$$ rééls",
+            "au 1/100<sup>e</sup> $$${:d/10} \\text{m rééls} \\leftrightarrow \\color{red}{${:d} \\text{mm}}$$ sur maquette"],
+        "value":["${:d/10}m","${:d}mm"]
+    },{
+        "name":"Maquette au 1/50<sup>e</sup>",
+        "vars":{"d":"1_500"},
+        "question": ["Si sur une maquette au 1/50<sup>e</sup> on mesure ${:d} mm, quelle est la longueur réelle en m ?",
+            "Sur une maquette au 1/50<sup>e</sup>, quelle longueur en mm représentent une longueur réelle de ${:d/20} m ?"],
+        "answer":["au 1/50<sup>e</sup> $$${:d} \\text{mm sur maquette} \\leftrightarrow \\color{red}{${:d/20} \\text{m}}$$ rééls",
+            "au 1/50<sup>e</sup> $$${:d/20} \\text{m rééls} \\leftrightarrow \\color{red}{${:d} \\text{mm}}$$ sur maquette"],
+        "value":["${:d/20}m","${:d}mm"]
+    },{
+        "name":"Maquette au 1/20<sup>e</sup>",
+        "vars":{"d":"1_1000"},
+        "question": ["Si sur une maquette au 1/20<sup>e</sup> on mesure ${:d} mm, quelle est la longueur réelle en m ?",
+            "Sur une maquette au 1/20<sup>e</sup>, quelle longueur en mm représentent une longueur réelle de ${:d/50} m ?"],
+        "answer":["au 1/20<sup>e</sup> $$${:d} \\text{mm sur maquette} \\leftrightarrow \\color{red}{${:d/50} \\text{m}}$$ rééls",
+            "au 1/20<sup>e</sup> $$${:d/5} \\text{m rééls} \\leftrightarrow \\color{red}{${:d} \\text{mm}}$$ sur maquette"],
+        "value":["${:d/50}m","${:d}mm"]
+    }
+    ]
+}

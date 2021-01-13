@@ -79,7 +79,20 @@ footer {page-break-after: always;}
     padding : 1pt;
     border: 1px solid black;
 }
-
+/*
+Taille carte de visite
+*/
+.card {
+    width:85mm;
+    height:55mm;
+    margin:5mm;
+    border: 1px solid black;
+    border-radius: 5mm;
+    padding:5mm;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 /* Commons
 */
 #creator-container::after{

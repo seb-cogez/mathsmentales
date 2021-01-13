@@ -1,0 +1,23 @@
+{
+    "title":"Encadrer une racine carrée entre deux entiers consécutifs",
+    "type":"latex",
+    "ID":"4NA3",
+    "dest":["4NA","3NA","2N1"],
+    "options":[{
+        "name":"Racines de nombres inférieurs à 100",
+        "vars":{"n":"2_99_^4,9,16,25,36,49,64,81",
+            "inf":"${Math.floor(Math.sqrt(:n))}",
+            "sup":"${:inf+1}"
+        }
+    },{
+        "name":"Racines de nombres entre 100 et 200",
+        "vars":{"n":"101_200_^121,144,169,196,225,256,289,324,361",
+            "inf":"${Math.floor(Math.sqrt(:n))}",
+            "sup":"${:inf+1}"
+        }
+    }
+    ],
+    "question": "? \\leqslant \\sqrt{${:n}} \\lt ?",
+    "answer":"\\color{red}{${:inf}}\\leqslant \\sqrt{${:n}} \\lt \\color{red}{${:sup}}",
+    "value":"${:inf};${:sup}"
+}
