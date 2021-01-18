@@ -770,6 +770,10 @@ var math ={
             }
         }
         return r;
+    },
+    bigDecimal(a,op,b){
+        let x = Big(a);
+        return eval('x.'+op+'('+b+').toString()');
     }
 }
 // test de seedrandom
