@@ -16,9 +16,9 @@
     },{
         "name":"Antécédent d'un nombre",
         "question":[
-            "Dans l'écriture $$f:${:a}\\mapsto${:b}$$, quel nombre est l'<b>antécédent</b> ?",
-            "Dans l'écriture $$f(${:a})=${:b}$$, quel nombre est l'<b>antécédent</b> ?",
-            "Dans le tableau $$\\begin{array}{|c|c|}\\hline x & ${:a} \\\\ \\hline f(x) & ${:b} \\\\ \\hline \\end{array}$$ quel nombre est l'<b>antécédent</b> ?"
+            "Dans l'écriture $$f:${:a}\\mapsto${:b}$$, quel nombre est un <b>antécédent</b> ?",
+            "Dans l'écriture $$f(${:a})=${:b}$$, quel nombre est un <b>antécédent</b> ?",
+            "Dans le tableau $$\\begin{array}{|c|c|}\\hline x & ${:a} \\\\ \\hline f(x) & ${:b} \\\\ \\hline \\end{array}$$ quel nombre est un <b>antécédent</b> ?"
         ],
         "answer":"L'antécédent est ${:a}",
         "value":"${:a}"

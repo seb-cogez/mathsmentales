@@ -340,7 +340,7 @@ var utils = {
         document.getElementById(tab).style.display = "";
     },
     showParameters:function(id){
-        let ids = ["paramsdiapo","paramsexos", "paramsinterro", "paramsceinture", "paramsflashcards"];
+        let ids = ["paramsdiapo","paramsexos", "paramsinterro", "paramsceinture", "paramsflashcards", "paramswhogots"];
         if(ids.indexOf(id)<0) return false;
         // hide all
         for(let i=0,len=ids.length;i<len;i++){
@@ -977,13 +977,14 @@ class steps {
 }
 // Figures
 class Figure {
-    constructor(obj, id, target){
+    constructor(obj, id, target, size){
         this.type = obj.type;
         this.content = obj.content;
         this.boundingbox = obj.boundingbox;
         this.axis = obj.axis;
         this.grid = obj.grid;
         this.id = id;
+        this.size = size;//[w,h]
         this.figure = undefined;
         this.create(target);
     }
@@ -996,7 +997,11 @@ class Figure {
             let div = document.createElement("div");            
             let canvas = document.createElement("canvas");
             canvas.id = this.id;
-            div.appendChild(canvas)            ;
+            if(this.size !== undefined){
+                div.style.width = this.size[0]+"px";
+                div.style.height = this.size[1]+"px";
+            }
+            div.appendChild(canvas);
             destination.appendChild(div);
         } else if(this.type === "graph"){
             let div = document.createElement("div");
@@ -1005,14 +1010,41 @@ class Figure {
             destination.appendChild(div);
         }
     }
-    display(){
+    toggle(){
+        let elt;
+        if(this.type ==="chart")
+            elt = document.getElementById(this.id).parentNode;
+        else if(this.type ==="graph")
+            elt = document.getElementById(this.id);
+        let cln = elt.className; // div contenant
+        if(cln.indexOf("visible")<0){
+            utils.addClass(elt,"visible");
+            this.display();
+        } else {
+            utils.removeClass(elt,"visible");
+        }
+    }
+    display(destination){
+        // destination is the window destination object if defined
         if(this.type === "chart"){ // Chart.js
-            let target = document.getElementById(this.id);
-            //debug("Chart data", target, utils.clone(this.content));
+            let target;
+            if(destination === undefined){
+                console.log(destination);
+                target = document.getElementById(this.id);
+                //this.figure = new Chart(target, this.content);
+            } else {
+                target = destination.document.getElementById(this.id);
+                //this.figure = new destination.Chart(target, this.content);
+            }
             this.figure = new Chart(target, this.content);
+            //debug("Chart data", target, utils.clone(this.content));
         } else if(this.type === "graph"){ //JSXGraph
             try{
-                this.figure = JXG.JSXGraph.initBoard(this.id, {boundingbox:this.boundingbox, keepaspectratio: true, showNavigation: false, showCopyright: false,registerEvents:false, axis:this.axis, grid:this.grid});
+                if(destination === undefined){
+                    this.figure = JXG.JSXGraph.initBoard(this.id, {boundingbox:this.boundingbox, keepaspectratio: true, showNavigation: false, showCopyright: false,registerEvents:false, axis:this.axis, grid:this.grid});
+                } else {
+                    this.figure = destination.JXG.JSXGraph.initBoard(this.id, {boundingbox:this.boundingbox, keepaspectratio: true, showNavigation: false, showCopyright: false,registerEvents:false, axis:this.axis, grid:this.grid});
+                }
                 for(let i=0,len=this.content.length;i<len;i++){
                     let type = this.content[i][0];
                     let commande = this.content[i][1];
@@ -1027,7 +1059,7 @@ class Figure {
                             this.figure.create("functiongraph", [function(x){return eval(formule)}], options);
                     } else if(type==="jessiescript") {
                         this.figure.construct(commande);
-                    } else if(["text", "point","axis"].indexOf(type)>-1){
+                    } else if(["text", "point","axis", "line", "segment"].indexOf(type)>-1){
                         if(!options)
                             this.figure.create(type, commande);
                         else
@@ -1145,6 +1177,8 @@ class ficheToPrint {
             this.createCeintureSheet();
         } else if(this.type === "flashcard"){
             this.createFlashCards();
+        } else if(this.type === "whogots"){
+            this.createWhoGots();
         }
         // render the math
         utils.mathRender(this.wsheet);
@@ -1188,6 +1222,8 @@ class ficheToPrint {
         let titleCorrection = this.createElement("header", "clearfix","Correction des exercices");
         if(correction === "end")
             correctionContent.appendChild(titleCorrection);
+        // in case of figures
+        MM.memory = {};
         // create a shit because of the li float boxes
         let divclear = this.createElement("div", "clearfix");
         for(let i=0;i<this.activities.length;i++){
@@ -1211,6 +1247,11 @@ class ficheToPrint {
                     liCorrection.innerHTML = activity.answers[j];
                 }
                 ol.appendChild(li);
+                // figures
+                if(activity.figures[j] !== undefined){
+                    if(i===0 && j=== 0)MM.memory["dest"] = this.wsheet;
+                    MM.memory["f"+i+"-"+j] = new Figure(activity.figures[j], "f"+i+"-"+j,li);
+                }
                 olCorrection.appendChild(liCorrection);
             }
             section.appendChild(ol);
@@ -1234,6 +1275,14 @@ class ficheToPrint {
             this.content.appendChild(correctionContent);
             let ds = divclear.cloneNode(true);
             this.content.appendChild(ds);
+        }
+        if(!utils.isEmpty(MM.memory)){
+            setTimeout(function(){
+                for(const k in MM.memory){
+                    if(k!=="dest")
+                        MM.memory[k].display(MM.memory["dest"]);
+                }
+            }, 300);
         }
     }
     createInterroSheet(){
@@ -1303,6 +1352,9 @@ class ficheToPrint {
         // set the titlesheet
         let header = this.createElement("header","",sheetTitle);
         this.content.appendChild(header);
+    }
+    createWhoGots(){
+
     }
 };
 // MathsMentales core
@@ -1452,7 +1504,7 @@ var MM = {
     },
     populateQuestionsAndAnswers:function(withAnswer){
         if(withAnswer=== undefined)withAnswer = true;
-        MM.figs = {};MM.steps=[];MM.timers=[];
+        MM.figs = {};MM.steps=[];MM.timers=[];MM.memory={};
         let length=MM.carts.length;
         let enonces = document.getElementById('enonce-content');
         let corriges = document.getElementById('corrige-content');
@@ -1527,12 +1579,16 @@ var MM = {
                         if(!MM.onlineState){ // include answer
                             div.appendChild(spanAns);
                         }
+                        // insertion du div dans le slide
                         slider.appendChild(div);
+                        lic.innerHTML += answer;
                         if(element.figures[j] !== undefined){
+                            lic.innerHTML += "<button onclick=\"MM.memory['c"+slideNumber+"-"+indiceSlide+"'].toggle()\">Figure</button>";
                             MM.figs[slideNumber+"-"+indiceSlide] = new Figure(element.figures[j], "c"+slideNumber+"-"+indiceSlide, div);
+                            MM.memory['e'+slideNumber+"-"+indiceSlide] = new Figure(element.figures[j], "en"+slideNumber+"-"+indiceSlide, lie,[300,150]);
+                            MM.memory['c'+slideNumber+"-"+indiceSlide] = new Figure(element.figures[j], "cor"+slideNumber+"-"+indiceSlide, lic,[450,225]);
                         }
                         ole.appendChild(lie);
-                        lic.innerHTML = answer;
                         olc.appendChild(lic);
                         indiceSlide++;
                     }
@@ -1542,9 +1598,16 @@ var MM = {
                 enonces.append(dive);
                 corriges.append(divc);
                 MM.steps[slideNumber].display();
+                if(!utils.isEmpty(MM.figs)){
+                    setTimeout(function(){
+                    for(let j=0;j<indiceSlide;j++){
+                        MM.memory['e'+slideNumber+"-"+j].display();
+                    }
+                });
+                }        
             }
         }
-        utils.mathRender();  
+        utils.mathRender();
         if(MM.onlineState) { // create inputs for user
             MM.createUserInputs();
         }
@@ -1607,6 +1670,12 @@ var MM = {
             MM.carts[0].addActivity(MM.editedActivity);
         }
         MM.fiche = new ficheToPrint("flashcard",MM.carts[0]);
+    },
+    createWhoGots:function(){
+        if(!MM.carts[0].activities.length){
+            MM.carts[0].addActivity(MM.editedActivity);
+        }
+        MM.fiche = new ficheToPrint("whogots",MM.carts[0]);
     },
     /**
      * Start the slideshow
@@ -2518,7 +2587,11 @@ class activity {
                 chaine = chaine.replace(regex, questiontext);
             }
         //debug("Chaine à parser", chaine);
-        let result = eval("`"+chaine.replace(/\\/g,"\\\\")+"`");
+        let result = "";
+        try { result = eval("`"+chaine.replace(/\\/g,"\\\\")+"`");}
+        catch(error){
+            debug(error, "Erreur avec "+chaine);
+        }
         // return number if this is one
         if(!isNaN(result)){
             return parseFloat(result);

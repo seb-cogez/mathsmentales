@@ -1,0 +1,36 @@
+{
+    "title":"Somme astucieuse avec des décimaux",
+    "type":"latex",
+    "ID":"7NE1",
+    "description":"7NE",
+    "dest":["7NE","6NE"],
+    "options":[{
+        "name":"Dixièmes, unité supérieure et entier",
+        "vars":{"a":"d3_20_1","b":"${math.round(Math.ceil(:a)-:a,1)}","c":"3_50"}
+    },{
+        "name":"Dixièmes, dizaine supérieure et entier",
+        "vars":{"a":"d3_50_1","b":"${math.round(Math.ceil(:a/10)*10-:a,1)}","c":"3_30"}
+    },{
+        "name":"Dixièmes, nombre quelconque et entier",
+        "vars":{"a":"d3_50_1","a2":"${Math.ceil(:a)+1}_60","b":"${math.round(:a2-:a,1)}","c":"3_30"}
+    },{
+        "name":"Dixièmes, nombre quelconque et décimal",
+        "vars":{"a":"d3_50_1","a2":"${Math.ceil(:a)+1}_60","b":"${math.round(:a2-:a,1)}","c":"d3_30_1"}
+    },{
+        "name":"Centièmes, unité supérieure et entier",
+        "vars":{"a":"d3_20_2","b":"${math.round(Math.ceil(:a)-:a,2)}","c":"3_50"}
+    },{
+        "name":"Centièmes, dizaine supérieure et entier",
+        "vars":{"a":"d3_50_2","b":"${math.round(Math.ceil(:a/10)*10-:a,2)}","c":"3_30"}
+    },{
+        "name":"Centièmes, nombre quelconque et entier",
+        "vars":{"a":"d3_50_2","a2":"${Math.ceil(:a)+1}_60","b":"${math.round(:a2-:a,2)}","c":"3_30"}
+    },{
+        "name":"Centièmes, nombre quelconque et décimal",
+        "vars":{"a":"d3_50_2","a2":"${Math.ceil(:a)+1}_60","b":"${math.round(:a2-:a,2)}","c":"d3_30_1"}
+    }
+    ],
+    "question": ["${:a}+${:b}+${:c}", "${:b}+${:c}+${:a}","${:c}+${:a}+${:b}"],
+    "answer":"${:a+:b+:c}",
+    "value":"${:a+:b+:c}"
+}

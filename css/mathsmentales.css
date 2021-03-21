@@ -209,6 +209,20 @@ ul.menu, .menu ul {
   width:90%;
   height:150px;
 }
+#enonce-content .fig{
+  height: 150px;
+  width: 150px;
+}
+#corrige-content .fig{
+  height: 300px;
+  width: 300px;
+}
+#corrige-content li > div {
+  display: none;
+}
+#corrige-content li > div.visible {
+  display: block;
+}
 .MMjsx {
   font-size: 2em;
 }

@@ -1,0 +1,20 @@
+{
+    "ID":"3DD3",
+    "dest":["3DD"],
+    "title":"Différencier fonction affine et linéaire par la R.G.",
+    "type":"text",
+    "consts":{"vocab":["linéaire", "affine non linéaire"]},
+    "vars":{"a":"d-2_2_1", "c":"-6_6_^0","choix":"0_1", "b":"${:choix*:c/2}", "type":"${:vocab[:choix]}"},
+    "figure":{
+        "type":"graph", 
+        "boundingbox":[-5,5,5,-5],
+        "axis":true,
+        "grid":true,
+        "content" :[
+                ["functiongraph","${:a}*x+${:b}"]
+            ]    
+        },
+    "question":"La fonction représentée est elle linéaire ou affine non linéraire ?",
+    "answer":"La fonction représentée est <span class='red'>${:type}</span>",
+    "value":["${:type}", "${:a}x${:b}"]
+}

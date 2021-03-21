@@ -182,7 +182,8 @@
                 <option value="paramsexos">Feuille d'exercices</option>
                 <option value="paramsinterro">Feuille d'interro</option>
                 <option value="paramsceinture">Ceintures de CM</option>
-                <option value="paramsflashcards">cartes flash</option>
+                <option value="paramsflashcards">Cartes flash</option>
+                <option value="paramswhogots">J'ai/qui a ?</option>
             </select>
             <fieldset><legend>Clé de données</legend>
                 <input type="text" placeholder="eHDtp" id="aleaKey" size="10">
@@ -291,10 +292,27 @@
             </fieldset>
             <fieldset>
                 <legend>Nb de cartes : <span id="FCnb" class="blue">16</span></legend>
-                <input type="range" min="5" max="40" step="1" value="16" oninput="document.getElementById('FCnb').innerHTML=this.value;">
+                <input type="range" min="5" max="60" step="1" value="16" oninput="document.getElementById('FCnb').innerHTML=this.value;">
             </fieldset>
             <section>
                 <button class="button--primary beaubutton" onclick="MM.createFlashCards();">Générer</button>
+            </section>
+        </div>
+        <div id="paramswhogots" class="hidden">
+            <fieldset>
+                <legend>Affirmation</legend>
+                <input type="text" placeholder="J'ai ..." id="WGaffirmation">
+            </fieldset>
+            <fieldset>
+                <legend>Question</legend>
+                <input type="text" placeholder="Qui a ... ?" id="WGquestion">
+            </fieldset>
+            <fieldset>
+                <legend>Nb de cartes : <span id="WGnb" class="blue">25</span></legend>
+                <input type="range" min="4" max="60" step="1" value="25" oninput="document.getElementById('WGnb').innerHTML=this.value;">
+            </fieldset>
+            <section>
+                <button class="button--primary beaubutton" onclick="MM.createWhoGots();">Générer</button>
             </section>
         </div>
         </div>

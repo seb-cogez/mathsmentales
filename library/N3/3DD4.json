@@ -1,0 +1,23 @@
+{
+    "ID":"3DD4",
+    "dest":["3DD"],
+    "title":"Déterminer le coefficient d'une fonction affine",
+    "type":"text",
+    "vars":{"a":"-3_3_1_^0","b":"1_10", "c":"-3_3",
+        "x":"-3_3","y":"${:a*:x/:b+:c}",
+        "u":"${:x+:b}","v":"${:a*:u/:b+:c}"},
+    "figure":{
+        "type":"graph", 
+        "boundingbox":[-5,5,5,-5],
+        "axis":true,
+        "grid":true,
+        "content" :[
+                ["functiongraph","${:a/:b}*x+${:c}"],
+                ["segment", [["${:x}","${:y}"],["${:u}","${:y}"]],{"strokeColor":"#222222"}],
+                ["segment", [["${:u}","${:y}"],["${:u}","${:v}"]],{"strokeColor":"#222222"}]
+            ]
+        },
+    "question":"Quel est le coefficient de la fonction affine ?",
+    "answer":"Le coefficient de la fonction est <span class='red'>$$${math.calc(:a+'/'+:b)}$$</span>",
+    "value":["${math.calc(:a+'/'+:b,true)}"]
+}

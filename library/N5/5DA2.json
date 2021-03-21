@@ -3,7 +3,7 @@
     "type":"text",
     "ID":"5DA2",
     "dest":["5DA","4DA","3DA"],
-    "vars":{"nbvals":"2_5", "b":"1_50_${:nbvals}","c":"${:b.reduce(function(a,b){return a+B;},0)%:nbvals}"},
+    "vars":{"nbvals":"2_5", "b":"1_50_${:nbvals}","c":"${:b.reduce(function(a,b){return a+b;},0)%:nbvals}"},
     "options":[{
         "name":"Moyenne (5e)",
         "question": ["Quelle est la moyenne de ${:b},${:c} ?", ""],
