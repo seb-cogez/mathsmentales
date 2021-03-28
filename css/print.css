@@ -124,13 +124,16 @@ h3.exercice-title{
     symbols : A B C D E F G H I J K L M N O P Q R S T U V W X Y Z;
     suffix : ') ';
 }
+#enonce ol{
+    padding-left: 1.5rem;
+}
 #creator-content ol{
     margin-top:0;
     list-style-type: majuscules;
 }
 #creator-content li {
     float: left;
-    margin-right:3.5rem;
+    margin-right:2rem;
     font-size: 1rem;
     padding: 4px 10px 4px;
 }

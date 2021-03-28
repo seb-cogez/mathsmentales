@@ -16,16 +16,16 @@
         "answer":"+$$${:a1}\\%$$ puis +$$${:a2}\\%$$ correspond à $$\\color{red}{+${math.round(((1+:a1/100)*(1+:a2/100)-1)*100,2)}\\%}$$",
         "value":["+${math.round(((1+:a1/100)*(1+:a2/100)-1)*100,2)}%","${math.round(((1+:a1/100)*(1+:a2/100)-1)*100,2)}"]
     },{
-        "name":"2 diminutions successives",
+        "name":"2 diminutions identiques",
         "vars":{"n":"1_5","a":"${10*:n}"},
         "question":"A quel pourcentage correspondent deux diminutions successives de $$${:a}\\%$$ ?",
         "answer":"2 fois -$$${:a}\\%$$ correspond à $$\\color{red}{${math.round(((1-:a/100)*(1-:a/100)-1)*100,2)}\\%}$$",
         "value":"${math.round(((1-:a/100)*(1-:a/100)-1)*100,2)}%"
     },{
-        "name":"2 augmentations",
+        "name":"2 diminutions",
         "vars":{"n":"1_5_2","a1":"${10*:n[0]}","a2":"${10*:n[1]}"},
         "question": "A quel pourcentage correspond une diminution de $$${:a1}\\%$$ suivie d'une diminution de $$${:a2}\\%$$ ?",
-        "answer":"-$$${:a1}\\%$$ puis -$$${:a2}\\%$$ correspond à $$\\color{red}{+${math.round(((1-:a1/100)*(1-:a2/100)-1)*100,2)}\\%}$$",
+        "answer":"-$$${:a1}\\%$$ puis -$$${:a2}\\%$$ correspond à $$\\color{red}{${math.round(((1-:a1/100)*(1-:a2/100)-1)*100,2)}\\%}$$",
         "value":"${math.round(((1-:a1/100)*(1-:a2/100)-1)*100,2)}%"
     },{
         "name":"Une augmentation et une diminution",
@@ -34,7 +34,7 @@
             "A quel pourcentage correspond une augmentation de $$${:a1}\\%$$ suivie d'une diminution de $$${:a2}\\%$$ ?","A quel pourcentage correspond une diminution de $$${:a1}\\%$$ suivie d'une augmentation de $$${:a2}\\%$$ ?"
         ],
         "answer":[
-            "$$+${:a1}\\%$$ puis -$$${:a2}\\%$$ correspond à $$\\color{red}{${(:global<0)?:global:'+'+:global}%}$$",
+            "$$+${:a1}\\%$$ puis -$$${:a2}\\%$$ correspond à $$\\color{red}{${(:global<0)?:global:'+'+:global}\\%}$$",
             "$$-${:a2}\\%$$ puis +$$${:a1}\\%$$ correspond à $$\\color{red}{${(:global<0)?:global:'+'+:global}\\%}$$"
         ],
         "value":"${(:global<0)?:global:'+'+:global}%"
@@ -45,7 +45,7 @@
             "global":"${math.round(((1+:p1/100)*(1+:p2/100)*(1+:p3/100)-1)*100,4)}"
         },
         "question":"A quel pourcentage correspond $$${(:p1<0)?:p1:'+'+:p1}\\%$$ puis $$${(:p2<0)?:p2:'+'+:p2}\\%$$ puis $$${(:p3<0)?:p3:'+'+:p3}\\%$$ ?",
-        "answer":":question correspond à $$\\color{red}{${:global}}\\%$$",
+        "answer":"$$${(:p1<0)?:p1:'+'+:p1}\\%$$ puis $$${(:p2<0)?:p2:'+'+:p2}\\%$$ puis $$${(:p3<0)?:p3:'+'+:p3}\\%$$ correspond à $$\\color{red}{${:global}\\%}$$",
         "value":"${:global}%"
     }]
 }

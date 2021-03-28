@@ -327,6 +327,22 @@ var utils = {
             return "-";
         else return nb;
     },
+    signedNumberButOne:function(nb){
+        if(nb===0)return "";
+        if(nb===1)return "+";
+        if(nb===-1)return "-";
+        if(nb>0) return"+"+nb;
+        return nb;
+    },
+    /**
+     * needsParenthesis
+     * @param {number or string} nb 
+     * @returns number
+     */
+    nP:function(nb){
+        if(String(nb)[0]==="-")return "("+nb+")";
+        else return nb;
+    },
     showTab:function(element){
         utils.resetAllTabs();let tab, el;
         if(typeof element === "string"){
@@ -1182,6 +1198,7 @@ class ficheToPrint {
         }
         // render the math
         utils.mathRender(this.wsheet);
+        // permet de réinitialiser l'affichage pour la prochaine
         MM.editedActivity.display();
     }
     /**
@@ -1228,10 +1245,11 @@ class ficheToPrint {
         let divclear = this.createElement("div", "clearfix");
         for(let i=0;i<this.activities.length;i++){
             const activity = this.activities[i];
-            let section = this.createElement("section");
+            let sectionEnonce = this.createElement("section");
+            sectionEnonce.id = "enonce";
             let sectionCorrection = this.createElement("section");
             let h3 = this.createElement("h3", "exercice-title",exTitle+(i+1)+" : "+activity.title)
-            section.appendChild(h3);
+            sectionEnonce.appendChild(h3);
             let ol = this.createElement("ol");
             let olCorrection = this.createElement("ol", "corrige");
             for(let j=0;j<activity.questions.length;j++){
@@ -1254,22 +1272,22 @@ class ficheToPrint {
                 }
                 olCorrection.appendChild(liCorrection);
             }
-            section.appendChild(ol);
+            sectionEnonce.appendChild(ol);
             let ds = divclear.cloneNode(true);
-            section.appendChild(ds);
+            sectionEnonce.appendChild(ds);
             // affichage de la correction
             if(correction !== "end" ){
                 let hr = docsheet.createElement("hr");
                 hr.style.width = "50%";
-                section.appendChild(hr);
-                section.appendChild(olCorrection);
+                sectionEnonce.appendChild(hr);
+                sectionEnonce.appendChild(olCorrection);
             } else {
                 let h3correction = h3.cloneNode(true);
                 sectionCorrection.appendChild(h3correction);
                 sectionCorrection.appendChild(olCorrection);
                 correctionContent.appendChild(sectionCorrection);
             }
-            this.content.appendChild(section);
+            this.content.appendChild(sectionEnonce);
         }
         if(correctionContent.hasChildNodes){
             this.content.appendChild(correctionContent);
@@ -2368,20 +2386,35 @@ class activity {
                 if(Array.isArray(this.questions[0])){
                     for(let jj=0; jj<this.questions[0].length;jj++){
                         let li = document.createElement("li");
+                        li.className = "tooltip";
                         let checked = "";
                         if(this.chosenQuestions[i]){
                             if(this.chosenQuestions[i].indexOf(jj)>-1)
                                 checked = "checked";
                         }
                         li.innerHTML = "<input class='checkbox"+colors[i%colors.length]+"' type='checkbox' id='o"+i+"-"+jj+"' value='"+i+"-"+jj+"' onclick='MM.editedActivity.setOption(this.value, this.checked);'"+checked+"> "+this.setMath(this.questions[0][jj]);
+                        // answer
+                        let span = document.createElement("span");
+                        span.className = "tooltiptext";
+                        if(Array.isArray(this.answers[0]))
+                            span.innerHTML = this.setMath(this.answers[0][jj].replace(this.questions[0],this.questions[0][jj]));
+                        else {
+                            span.innerHTML = this.setMath(this.answers[0].replace(this.questions[0],this.questions[0][jj]));
+                        }
+                        li.appendChild(span);
                         ul.appendChild(li);
                     }
                 } else {
                     let li = document.createElement("li");
+                    li.className = "tooltip";
                     li.innerHTML = this.setMath(this.questions[0]);
                     if(this.figures[0]){
                         this.examplesFigs[i] = new Figure(utils.clone(this.figures[0]), "fig-ex"+i, li);
                     }
+                    let span = document.createElement("span");
+                    span.className = "tooltiptext";
+                    span.innerHTML = this.setMath(this.answers[0]);
+                    li.appendChild(span);
                     ul.appendChild(li);
                 }
                 p.appendChild(ul);
@@ -2395,15 +2428,29 @@ class activity {
             if(Array.isArray(this.questions[0])){
                 for(let jj=0; jj<this.questions[0].length;jj++){
                     let li = document.createElement("li");
+                    li.className = "tooltip";
                     li.innerHTML = "<input type='checkbox' class='checkbox' value='"+jj+"' onclick='MM.editedActivity.setQuestionType(this.value, this.checked);' ><span class='math'>"+this.questions[0][jj]+"</span>";
+                    let span = document.createElement("span");
+                    span.className = "tooltiptext";
+                    if(Array.isArray(this.answers[0]))
+                        span.innerHTML = this.setMath(this.answers[0][jj].replace(this.questions[0],this.questions[0][jj]));
+                    else {
+                        span.innerHTML = this.setMath(this.answers[0].replace(this.questions[0],this.questions[0][jj]));
+                    }
+                    li.appendChild(span);
                     ul.appendChild(li);
                 }
             } else {
                 let li = document.createElement("li");
+                li.className = "tooltip";
                 li.innerHTML = this.setMath(this.questions[0]);
                 if(this.figures[0]){
                     this.examplesFigs[0] = new Figure(utils.clone(this.figures[0]), "fig-ex"+0, li);
                 }
+                let span = document.createElement("span");
+                span.className = "tooltiptext";
+                span.innerHTML = this.setMath(this.answers[0]);
+                li.appendChild(span);
                 ul.appendChild(li);
             }
             p.appendChild(ul);

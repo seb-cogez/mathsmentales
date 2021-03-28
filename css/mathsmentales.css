@@ -209,6 +209,37 @@ ul.menu, .menu ul {
   width:90%;
   height:150px;
 }
+#tab-parameters .tooltip {
+  position: relative;
+  /*display: inline-block;*/
+}
+#tab-parameters .tooltip .tooltiptext {
+  visibility: hidden;
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 5px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom:100%;
+  left:50%;
+  margin-left:calc(-100% / 2);
+}
+#tab-parameters .tooltiptext::after {
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: #555 transparent transparent transparent;
+}
+/* Show the tooltip text when you mouse over the tooltip container */
+#tab-parameters .tooltip:hover .tooltiptext {
+  visibility: visible;
+}
 #enonce-content .fig{
   height: 150px;
   width: 150px;

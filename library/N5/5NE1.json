@@ -1,0 +1,39 @@
+{
+    "title":"Réduire une somme",
+    "type":"latex",
+    "ID":"5NE1",
+    "dest":["5NE","4NE","3ND"],
+    "consts":{"lettres":["a","b","c","t","u","x","y","z"]},
+    "options":[{
+        "name":"Réduire une somme ax+x",
+        "vars":{"l":"0_7","a":"2_9","x":"${:lettres[:l]}"},
+        "question": ["${:x}+${:a}${:x}", "${:a}${:x}+${:x}"],
+        "answer":":question=\\color{red}{${:a+1}${:x}}",
+        "value":"${:a+1}${:x}"
+    },{
+        "name":"Réduire une somme ax+bx",
+        "vars":{"l":"0_7","a":"2_9","b":"2_9","x":"${:lettres[:l]}"},
+        "question": "${:a}${:x}+${:b}${:x}",
+        "answer":":question=\\color{red}{${:a+:b}${:x}}",
+        "value":"${:a+:b}${:x}"
+    },{
+        "name":"Réduire une différence (niveau 5e)",
+        "vars":{"l":"0_7","a":"2_9","b":"1_${:a}","x":"${:lettres[:l]}"},
+        "question": "${:a}${:x}-${(:b>1)?:b:''}${:x}",
+        "answer":":question=\\color{red}{${math.calc((:a-:b)+:x)}}",
+        "value":"${math.calc((:a-:b)+:x)}"
+    },{
+        "name":"Réduire une différence (niveau 4e)",
+        "vars":{"l":"0_7","a":"1_9","b":"1_9","x":"${:lettres[:l]}"},
+        "question": "${(:a>1)?:a:''}${:x}-${(:b>1)?:b:''}${:x}",
+        "answer":":question=\\color{red}{${math.calc((:a-:b)+:x)}}",
+        "value":"${math.calc((:a-:b)+:x)}"
+    },{
+        "name":"Somme irréductible",
+        "vars":{"l":"0_7","a":"-9_9_^0","b":"-9_9_^0","x":"${:lettres[:l]}"},
+        "question": ["${utils.signIfOne(:a)}${:x}${utils.signedNumber(:b)}","${utils.signIfOne(:a)}${:x}${utils.signedNumberButOne(:b)}${:x}^2","${:a}${utils.signedNumberButOne(:b)}${:x}","${utils.signIfOne(:a)}${:x}^2${utils.signedNumberButOne(:b)}${:x}"],
+        "answer":":question=\\color{red}{:question}",
+        "value":":question"
+    }
+    ]
+}
