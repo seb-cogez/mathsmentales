@@ -5,16 +5,22 @@
     "dest":["4NE","3ND"],
     "consts":{"lettres":["a","b","c","t","u","x","y","z"]},
     "options":[{
-        "name":"Réduction possible",
-        "vars":{"a":"-9_9_4_^0","l":"1_7","x":"${:lettres[:l]}"},
-        "question": ["${math.calc(:a[0]+:x)}\\times ${utils.nP(:a[1])}+${utils.nP(math.calc(:a[2]+:x))}\\times ${utils.nP(:a[3])}","${:a[0]}\\times ${utils.nP(math.calc(:a[1]+:x))}+${utils.nP(math.calc(:a[2]+:x))}\\times ${utils.nP(:a[3])}","${math.calc(:a[0]+:x)}\\times ${utils.nP(:a[1])}+${utils.nP(:a[2])}\\times ${utils.nP(math.calc(:a[3]+:x))}"],
+        "name":"Réduction possible, 1 variable",
+        "vars":{"a":"-9_9_4_^0","l":"0_7","x":"${:lettres[:l]}"},
+        "question": ["${math.calc(:a[0]+:x)}\\times ${utils.nP(:a[1])}+${utils.nP(math.calc(:a[2]+:x))}\\times ${utils.nP(:a[3])}","${:a[0]}\\times ${utils.nP(math.calc(:a[1]+:x))}+${utils.nP(math.calc(:a[2]+:x))}\\times ${utils.nP(:a[3])}","${math.calc(:a[0]+:x)}\\times ${utils.nP(:a[1])}+${utils.nP(:a[2])}\\times ${utils.nP(math.calc(:a[3]+:x))}","${:a[0]}\\times ${utils.nP(math.calc(:a[1]+:x))}+${utils.nP(:a[2])}\\times ${utils.nP(math.calc(:a[3]+:x))}"],
         "answer":":question=\\color{red}{${math.calc('('+:a[0]+'*('+:a[1]+')+('+:a[2]+')*('+:a[3]+'))'+:x)}}",
         "value":"${math.calc('('+:a[0]+'*('+:a[1]+')+('+:a[2]+')*('+:a[3]+'))'+:x)}"
     },{
+        "name":"Réduction possible, 2 variables",
+        "vars":{"a":"-9_9_4_^0","l":"0_7","l2":"0_7_^{:l}","x":"${:lettres[:l]}","y":"${:lettres[:l2]}"},
+        "question": ["${math.calc(:a[0]+:x)}\\times ${utils.nP(math.calc(:a[1]+:y))}+${utils.nP(math.calc(:a[2]+:x))}\\times ${utils.nP(math.calc(:a[3]+:y))}","${math.calc(:a[0]+:y)}\\times ${utils.nP(math.calc(:a[1]+:x))}+${utils.nP(math.calc(:a[2]+:x))}\\times ${utils.nP(math.calc(:a[3]+:y))}","${math.calc(:a[0]+:x)}\\times ${utils.nP(math.calc(:a[1]+:y))}+${utils.nP(math.calc(:a[2]+:y))}\\times ${utils.nP(math.calc(:a[3]+:x))}","${math.calc(:a[0]+:y)}\\times ${utils.nP(math.calc(:a[1]+:x))}+${utils.nP(math.calc(:a[2]+:y))}\\times ${utils.nP(math.calc(:a[3]+:x))}"],
+        "answer":":question=\\color{red}{${math.calc('('+:a[0]+'*('+:a[1]+')+('+:a[2]+')*('+:a[3]+'))'+:x+:y)}}",
+        "value":"${math.calc('('+:a[0]+'*('+:a[1]+')+('+:a[2]+')*('+:a[3]+'))'+:x+:y)}"
+    },{
         "name":"Réduction impossible",
-        "vars":{"a":"-9_9_4_^0","l":"1_7","x":"${:lettres[:l]}"},
-        "question": ["${math.calc(:a[0]+:x)}\\times ${utils.nP(math.calc(:a[1]+:x))}+${utils.nP(math.calc(:a[2]+:x))}\\times ${utils.nP(:a[3])}"],
-        "answer":":question=\\color{red}{${math.calc('('+:a[0]+'*('+:a[1]+'))'+:x+'^2+(('+:a[2]+')*('+:a[3]+'))'+:x)}}",
+        "vars":{"a":"-9_9_4_^0","l":"0_7","l2":"0_7_^{:l}","x":"${:lettres[:l]}", "y":"${:lettres[:l2]}"},
+        "question": ["${math.calc(:a[0]+:x)}\\times ${utils.nP(math.calc(:a[1]+:x))}+${utils.nP(math.calc(:a[2]+:x))}\\times ${utils.nP(:a[3])}","${math.calc(:a[0]+:x)}\\times ${utils.nP(:a[1])}+${utils.nP(math.calc(:a[2]+:x))}\\times ${utils.nP(math.calc(:a[3]+:x))}","${math.calc(:a[0]+:x)}\\times ${utils.nP(math.calc(:a[1]+:y))}+${utils.nP(math.calc(:a[2]+:x))}\\times ${utils.nP(:a[3])}","${math.calc(:a[0]+:x)}\\times ${utils.nP(:a[1])}+${utils.nP(:a[2])}\\times ${utils.nP(:a[3])}"],
+        "answer":[":question=\\color{red}{${math.calc('('+:a[0]+'*('+:a[1]+'))'+:x+'^2+(('+:a[2]+')*('+:a[3]+'))'+:x)}}",":question=\\color{red}{${math.calc('('+:a[0]+'*('+:a[1]+'))'+:x+'+(('+:a[2]+')*('+:a[3]+'))'+:x+'^2')}}",":question=\\color{red}{${math.calc('('+:a[0]+'*('+:a[1]+'))'+:x+:y+'+(('+:a[2]+')*('+:a[3]+'))'+:x)}}",":question=\\color{red}{${math.calc('('+:a[0]+'*('+:a[1]+'))'+:x+'+(('+:a[2]+')*('+:a[3]+'))')}}"],
         "value":"${math.calc('('+:a[0]+'*('+:a[1]+'))'+:x+'^2+(('+:a[2]+')*('+:a[3]+'))'+:x)}"
     }
     ]

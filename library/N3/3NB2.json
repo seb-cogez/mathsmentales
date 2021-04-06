@@ -1,0 +1,27 @@
+{
+    "title":"Calculs complexes les puissances de 10",
+    "type":"latex",
+    "ID":"3NB2",
+    "dest":["3NB","2N1"],
+    "options":[{
+        "name":"Quotient et produit de puissances de 10",
+        "vars":{"a":"-10_10_3_^0","r":"${:a[0]+:a[1]-:a[2]}"},
+        "question": ["\\dfrac{10^{${:a[0]}}\\times 10^{${:a[1]}}}{10^{${:a[2]}}}",
+        "\\dfrac{10^{${:a[0]}}}{10^${-:a[1]}\\times 10^{${:a[2]}}}"]
+    },{
+        "name":"Quotient de produits de puissances de 10",
+        "vars":{"a":"-10_10_4_^0","r":"${:a[0]+:a[1]-:a[2]-:a[3]}"},
+        "question": "\\dfrac{10^{${:a[0]}}\\times 10^{${:a[1]}}}{10^{${:a[2]}}\\times 10^{${:a[3]}}}"
+    },{
+        "name":"Puissance de produit puissances de 10",
+        "vars":{"a":"-6_6_2_^0","a2":"-5_5","r":"${(:a[0]+:a[1])*:a2}"},
+        "question": "\\left(10^{${:a[0]}}\\times 10^{${:a[1]}}\\right)^{${:a2}}"
+    },{
+        "name":"Puissance de quotient puissances de 10",
+        "vars":{"a":"-6_6_2_^0","a2":"-5_5","r":"${(:a[0]-:a[1])*:a2}"},
+        "question": "\\left(\\dfrac{10^{${:a[0]}}}{10^{${:a[1]}}}\\right)^{${:a2}}"
+    }
+    ],
+    "answer":":question=\\color{red}{${(:r==0)?1:(:r==1)?10:10+'^{'+:r+'}'}}",
+    "value":"${(:r==0)?1:(:r==1)?10:10+'^{'+:r+'}'}"
+}

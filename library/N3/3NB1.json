@@ -1,0 +1,26 @@
+{
+    "title":"Calculs avec les puissances de 10",
+    "type":"latex",
+    "ID":"3NB1",
+    "dest":["3NB","2N1"],
+    "options":[{
+        "name":"Produit de puissances de 10",
+        "vars":{"a":"-10_10_2_^0","s":"${:a[0]+:a[1]}"},
+        "question": "10^{${:a[0]}}\\times 10^{${:a[1]}}",
+        "answer":":question=\\color{red}{${(:s==0)?1:(:s==1)?10:10+'^{'+:s+'}'}}",
+        "value":"${(:s==0)?1:(:s==1)?10:10+'^{'+:s+'}'}"
+    },{
+        "name":"Quotient de puissances de 10",
+        "vars":{"a":"-10_10_2_^0","d":"${:a[0]-:a[1]}"},
+        "question": "\\dfrac{10^{${:a[0]}}}{10^{${:a[1]}}}",
+        "answer":":question=\\color{red}{${(:d==0)?1:(:d==1)?10:10+'^{'+:d+'}'}}",
+        "value":"${(:d==0)?1:(:d==1)?10:10+'^{'+:d+'}'}"
+    },{
+        "name":"Puissance de puissances de 10",
+        "vars":{"a":"-10_10_2","p":"${:a[0]*:a[1]}"},
+        "question": "\\left(10^{${:a[0]}}\\right)^{${:a[1]}}",
+        "answer":":question=\\color{red}{${(:p==0)?1:(:p==1)?10:10+'^{'+:p+'}'}}",
+        "value":"${(:p==0)?1:(:p==1)?10:10+'^{'+:p+'}'}"
+    }
+    ]
+}
