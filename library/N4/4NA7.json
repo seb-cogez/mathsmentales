@@ -1,0 +1,20 @@
+{
+    "title":"Puissances de 2",
+    "type":"latex",
+    "ID":"4NA7",
+    "dest":["4NA", "3NA"],
+    "options":[{
+        "name":"Entre 0 et 10",
+        "vars":{"p":"0_10"}
+    },{
+        "name":"De 11 à 16",
+        "vars":{"p":"10_16"}
+    },{
+        "name":"De -1 à -4",
+        "vars":{"p":"-4_-1"}
+    }
+    ],
+    "question": "2^{${:p}}",
+    "answer":":question=\\color{red}{${math.round(Math.pow(2,:p),6)}}",
+    "value":"${math.round(Math.pow(2,:p),6)}"
+}

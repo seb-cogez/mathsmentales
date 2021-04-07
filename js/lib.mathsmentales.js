@@ -861,6 +861,7 @@ class cart {
             r:this.introduction
         };
     }
+    // TODO : à revoir
     import(obj){
         this.id = obj.id;
         this.end = obj.e;
@@ -939,6 +940,43 @@ class cart {
             }
         });
     }
+}
+/**
+ * offer the possibility to anotate the page
+ * designed for interactive screens
+ */
+class draw {
+    constructor(w,h){
+        // creation du canva et instanciation
+        let c = document.createElement("canvas");
+        c.id = "painting";
+        document.getElementsByTagName("body")[0].appendChild(c);
+        this.canvas = document.getElementById("painting");
+        this.canvas.width = w;
+        this.canvas.height = h;
+        this.mouse = {x:0,y:0};
+        this.canvas.addEventListener("mousemove",function(e){
+            this.mouse.x = e.pageX - this.offsetLeft;
+            this.mouse.y = e.pageY - this.offsetTop;
+        }, false);
+        this.ctx = this.canvas.getContext('2d');
+        this.ctx.strokeStyle = "blue";
+        this.ctx.lineWidth = 2;
+        this.ctx.lineJoin = 'round';
+        this.ctx.lineCap = "round";
+        this.canvas.addEventListener('mousedown', function(e) {
+            this.ctx.beginPath();
+            this.ctx.moveTo(this.mouse.x, this.mouse.y);
+            this.canvas.addEventListener('mousemove', this.onPaint, false);
+        }, false);
+        this.canvas.addEventListener('mouseup', function() {
+            this.canvas.removeEventListener('mousemove', this.onPaint, false);
+        }, false);         
+    }
+    onPaint = function() {
+        this.ctx.lineTo(this.mouse.x, this.mouse.y);
+        this.ctx.stroke();
+    };
 }
 class steps {
     constructor(obj){
@@ -2630,7 +2668,7 @@ class activity {
             // index needed to find the question
             if(questiontext !== undefined){
                 //if(modeDebug)console.log(this.questions[index]);
-                let regex = new RegExp(":question", 'g');
+                let regex = /:question/g;
                 chaine = chaine.replace(regex, questiontext);
             }
         //debug("Chaine à parser", chaine);
