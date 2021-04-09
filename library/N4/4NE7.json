@@ -1,0 +1,26 @@
+{
+    "title":"Résoudre une équation de type a ± x = b",
+    "type":"latex",
+    "ID":"4NE7",
+    "dest":["4NE", "3ND", "2N3"],
+    "consts":{"lettres":["u","v","t","x", "y", "z"]},
+    "options":[{
+        "name":"a ± x = b, a et b entiers",
+        "vars":{"a":"1_99","b":"-99_99", "l":"0_5","x":"${:lettres[:l]}"},
+        "question": ["\\text{Résoudre } ${:a}+${:x}=${:b}","\\text{Résoudre } ${:a}-${:x}=${:b}"],
+        "answer":["${:a}+${:x}=${:b} \\text{ pour } \\color{red}{${:x}=${:b-:a}}","${:a}-${:x}=${:b} \\text{ pour } \\color{red}{${:x}=${:a-:b}}"],
+        "value":["${:b-:a}","${:a-:b}"]
+    },{
+        "name":"x ± a = b, a et b décimaux",
+        "vars":{"a":"d0.1_10_1","b":"d-10_10_1", "l":"0_5","x":"${:lettres[:l]}"},
+        "question": ["\\text{Résoudre } ${:a}+${:x}=${:b}","\\text{Résoudre } ${:a}-${:x}=${:b}"],
+        "answer":["${:a}+${:x}=${:b} \\text{ pour } \\color{red}{${:x}=${math.round(:b-:a,1)}}","${:a}-${:x}=${:b} \\text{ pour } \\color{red}{${:x}=${math.round(:a-:b,1)}}"],
+        "value":["${math.round(:b-:a,1)}","${math.round(:a-:b,1)}"]
+    },{
+        "name":"x ± a = b, a et b fractions",
+        "vars":{"n":"1_12_2","d":"2_12_2", "f1":"\\${math.fractionSimplifiee(:n[0],:d[0])}", "f2":"\\${math.fractionSimplifiee(:n[1],:d[1])}", "l":"0_5","x":"${:lettres[:l]}"},
+        "question":["\\text{Résoudre } ${:f1}+${:x}=${:f2}","\\text{Résoudre } ${:f1}-${:x}=${:f2}"],
+        "answer":["${:f1}+${:x}=${:f2} \\text{ pour } \\color{red}{${:x}=${math.calc(:n[0]+'/'+:d[0]+'-'+:n[1]+'/'+:d[1])}}", "${:f1}-${:x}=${:f2} \\text{ pour } \\color{red}{${:x}=${math.calc(:n[1]+'/'+:d[1]+'-'+:n[0]+'/'+:d[0])}}"],
+        "value":["${math.calc(:n[0]+'/'+:d[0]+'-'+:n[1]+'/'+:d[1])}","${math.calc(:n[1]+'/'+:d[1]+'-'+:n[0]+'/'+:d[0])}"]
+    }]
+}

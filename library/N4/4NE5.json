@@ -1,0 +1,33 @@
+{
+    "title":"Factoriser une somme",
+    "type":"latex",
+    "ID":"4NE5",
+    "dest":["4NE","3ND","2N3"],
+    "consts":{"lettres":["u","v","t","x", "y", "z"]},
+    "options":[{
+        "name":"ax+b, avec entiers positifs",
+        "vars":{"coeff":"2_10", "a":"1_10","b":"1_10","div":"${math.pgcd(:a*:coeff,:b*:coeff)}","l":"0_5","x":"${:lettres[:l]}"},
+        "question": "\\text{Factoriser au maximum }${:coeff*:a}${:x}+${:coeff*:b}",
+        "answer":"${:coeff*:a}${:x}+${:coeff*:b}=\\color{red}{${:div}\\times(${utils.signIfOne(:a*:coeff/:div)}${:x}+${:b*:coeff/:div})}",
+        "value":"${:div}(${utils.signIfOne(:a*:coeff/:div)}${:x}+${:b*:coeff/:div})"
+    },{
+        "name":"ax+b, avec entiers relatifs",
+        "vars":{"coeff":"-10_10_^0,1,-1", "a":"-10_10_^0","b":"-10_10_^0","div":"${math.pgcd(:a*:coeff,:b*:coeff)}","l":"0_5","x":"${:lettres[:l]}"},
+        "question": "\\text{Factoriser au maximum }${:coeff*:a}${:x}${utils.signedNumber(:coeff*:b)}",
+        "answer":"${:coeff*:a}${:x}${utils.signedNumber(:coeff*:b)}=\\color{red}{${:div}\\times(${utils.signIfOne(:a*:coeff/:div)}${:x}${utils.signedNumber(:b*:coeff/:div)})}",
+        "value":"${:div}(${utils.signIfOne(:a*:coeff/:div)}${:x}${utils.signedNumber(:b*:coeff/:div)})"
+    },{
+        "name":"ax²+b, avec entiers relatifs",
+        "vars":{"coeff":"-10_10_^0,1,-1", "a":"-10_10_^0","b":"-10_10_^0","div":"${math.pgcd(:a*:coeff,:b*:coeff)}","l":"0_5","x":"${:lettres[:l]}"},
+        "question": "\\text{Factoriser au maximum }${:coeff*:a}${:x}^2${utils.signedNumber(:coeff*:b)}",
+        "answer":"${:coeff*:a}${:x}^2${utils.signedNumber(:coeff*:b)}=\\color{red}{${:div}\\times(${utils.signIfOne(:a*:coeff/:div)}${:x}^2${utils.signedNumber(:b*:coeff/:div)})}",
+        "value":"${:div}(${utils.signIfOne(:a*:coeff/:div)}${:x}^2${utils.signedNumber(:b*:coeff/:div)})"
+    },{
+        "name":"ax²+bx, avec entiers relatifs",
+        "vars":{"coeff":"-10_10_^0,1,-1", "a":"-10_10_^0","b":"-10_10_^0","div":"${math.pgcd(:a*:coeff,:b*:coeff)}","l":"0_5","x":"${:lettres[:l]}"},
+        "question": "\\text{Factoriser au maximum }${:coeff*:a}${:x}^2${utils.signedNumber(:coeff*:b)}${:x}",
+        "answer":"${:coeff*:a}${:x}^2${utils.signedNumber(:coeff*:b)}${:x}=\\color{red}{${:div}${:x}\\times(${utils.signIfOne(:a*:coeff/:div)}${:x}${utils.signedNumber(:b*:coeff/:div)})}",
+        "value":"${:div}${:x}(${utils.signIfOne(:a*:coeff/:div)}${:x}${utils.signedNumber(:b*:coeff/:div)})"
+    }
+    ]
+}

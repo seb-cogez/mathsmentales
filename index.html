@@ -30,6 +30,8 @@
     <script src="js/libs/JSXGraph/JessieScript.js"></script>
     <script src="js/libs/scratchblocks/scratchblocks-v3.4-min.js"></script>
     <script src="js/libs/chartjs/Chart.bundle.min.js"></script>
+    <script src="js/libs/underscore-min.js"></script>
+    <script src="js/libs/kas.js" defer></script>
     <script src="js/lib.mathsmentales.js" type="text/javascript" defer></script>
 </head>
 <body>
@@ -112,10 +114,6 @@
             <h1><i class="icon-arrow--right"></i>Activité <span id="param-title-act"></span></h1>
             <div id="activityTitle"></div>
             <div id="activityDescription"></div>
-            <b>Temps :</b> <span id="tempo-value"></span><br>
-            <input type="range" id="tempo-slider" min="2" max="120" value="8" oninput="utils.changeTempoValue(this.value);" onchange="MM.carts[MM.selectedCart].display();"><br>
-            <b>Nombre de questions :</b> <span id="nbq-value"></span><br>
-            <input type="range" id="nbq-slider" min="1" max="20" value="10" oninput="utils.changeNbqValue(this.value);" onchange="MM.carts[MM.selectedCart].display();"><br>
         </div>
         <div id="phantom" class=""></div>
         <div id="divcarts" class="hidden">
@@ -197,6 +195,10 @@
                 <span title="Commener par un décompte 3...2...1..."><input type="radio" class="radio" name="beforeSlider" value="321" checked="true"> Décompte</span>
                 <span title="Commencer directement"><input type="radio" class="radio" name="beforeSlider" value="nothing"> Rien</span>
             </fieldset><br>
+            <b>Temps :</b> <span id="tempo-value"></span><br>
+            <input type="range" id="tempo-slider" min="2" max="120" value="8" oninput="utils.changeTempoValue(this.value);" onchange="MM.carts[MM.selectedCart].display();"><br>
+            <b>Nombre de questions :</b> <span id="nbq-value"></span><br>
+            <input type="range" id="nbq-slider" min="1" max="20" value="10" oninput="utils.changeNbqValue(this.value);" onchange="MM.carts[MM.selectedCart].display();"><br>
             <fieldset>
                 <legend>Enoncé</legend>
                 <input type="radio" class="radio" name="Enonces" value="1" checked="true" onclick="MM.setDispositionEnonce(1);"> Simple

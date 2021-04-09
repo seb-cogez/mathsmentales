@@ -1,0 +1,26 @@
+{
+    "title":"Résoudre une équation de type ax = b",
+    "type":"latex",
+    "ID":"4NE8",
+    "dest":["4NE", "3ND", "2N3"],
+    "consts":{"lettres":["u","v","t","x", "y", "z"]},
+    "options":[{
+        "name":"ax = b, a et b entiers",
+        "vars":{"a":"-10_10_^0","q":"-10_10", "b":"${:a*:q}", "l":"0_5","x":"${:lettres[:l]}"},
+        "question": "\\text{Résoudre } ${:a}${:x}=${:b}",
+        "answer":"${:a}${:x}=${:b} \\text{ pour } \\color{red}{${:x}=${:q}}",
+        "value":"${:q}"
+    },{
+        "name":"ax = b, a et b décimaux",
+        "vars":{"a":"d0.1_1_1","q":"d-1_1_1","b":"${math.round(:a*:q,3)}","l":"0_5","x":"${:lettres[:l]}"},
+        "question": "\\text{Résoudre } ${:a}${:x}=${:b}",
+        "answer":"${:a}${:x}=${:b} \\text{ pour } \\color{red}{${:x}=${:q}}",
+        "value":"${:q}"
+    },{
+        "name":"x ± a = b, a et b fractions",
+        "vars":{"n":"1_12_2","d":"2_12_2", "f1":"${math.fractionSimplifiee(:n[0],:d[0])}", "f2":"${math.fractionSimplifiee(:n[1],:d[1])}", "l":"0_5","x":"${:lettres[:l]}"},
+        "question":"\\text{Résoudre } ${:f1}${:x}=${:f2}",
+        "answer":"${:f1}${:x}=${:f2} \\text{ pour } \\color{red}{${:x}=${math.calc(:n[1]+'/'+:d[1]+'*('+:d[0]+'/'+:n[0]+')')}}",
+        "value":"${math.calc(:n[1]+'/'+:d[1]+'*('+:d[0]+'/'+:n[0]+')')}"
+    }]
+}

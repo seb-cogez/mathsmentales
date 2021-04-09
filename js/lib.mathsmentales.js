@@ -320,6 +320,11 @@ var utils = {
         else if(nb>0) return "+"+nb;
         else return nb;
     },
+    /**
+     * 
+     * @param {Number} nb 
+     * @returns nothing if nb=1, - if nb=-1 the number in other cases
+     */
     signIfOne:function(nb){
         if(nb === 1)
             return "";
@@ -327,6 +332,11 @@ var utils = {
             return "-";
         else return nb;
     },
+    /**
+     * 
+     * @param {Number} nb 
+     * @returns a number always with sign (+/-) or only the sign if nb=1 or -1
+     */
     signedNumberButOne:function(nb){
         if(nb===0)return "";
         if(nb===1)return "+";
@@ -337,12 +347,17 @@ var utils = {
     /**
      * needsParenthesis
      * @param {number or string} nb 
-     * @returns number
+     * @returns nb with parenthesis if nb 1st char is -
      */
     nP:function(nb){
         if(String(nb)[0]==="-")return "("+nb+")";
         else return nb;
     },
+    /**
+     * 
+     * @param {DOM obj or string} element 
+     * Show the selected Tab
+     */
     showTab:function(element){
         utils.resetAllTabs();let tab, el;
         if(typeof element === "string"){
@@ -658,7 +673,7 @@ var math ={
     /**
      * 
      * @param {integer} nb 
-     * return un diviseur d'un nombre
+     * return un diviseur de nb
      */
     unDiviseur(nb){
         let diviseurs = math.listeDiviseurs(nb,true);
@@ -724,6 +739,10 @@ var math ={
         if(s===undefined)s=0;
         var d = new Date(2010,1,1,Number(h),Number(m),Number(s));
         return d.getHours()+" h "+((d.getMinutes()<10)?"0"+d.getMinutes():d.getMinutes())+" min "+((d.getSeconds()<10)?"0"+d.getSeconds():d.getSeconds())+" s.";
+    },
+    fractionSimplifiee(n,d){
+        const gcd = math.pgcd(n,d);
+        return "\\dfrac{"+(n/gcd)+"}{"+(d/gcd)+"}";
     },
     simplifyFracDec(n,d){
         while(n%10 === 0 && d%10 === 0){
@@ -2023,15 +2042,31 @@ var MM = {
                     for(let indexQ=0,lenQ=MM.carts[0].activities[indexA].questions.length;indexQ<lenQ;indexQ++){
                         let li = document.createElement("li");
                         let span = document.createElement("span");
-                        if(!/[^-\d]/.test(MM.userAnswers[ia]))
+                        const userAnswer = MM.userAnswers[ia];
+                        const expectedAnswer = MM.carts[0].activities[indexA].values[indexQ];
+                        if(!/[^-\d]/.test(userAnswer))
                             span.className ="math";
-                        span.textContent = MM.userAnswers[ia];
+                        span.textContent = userAnswer;
                         // TODO : better correction value
+                        // prendre en compte les cas où plusieurs réponses sont possibles
                         //console.log(MM.userAnswers[ia], MM.carts[0].activities[indexA].values[indexQ]);
-                        if(String(MM.userAnswers[ia])==String(MM.carts[0].activities[indexA].values[indexQ])){
+                        if(String(userAnswer)==String(expectedAnswer)){
                             li.className = "good";
                             score++;
-                        } else li.className = "wrong";
+                        } else {
+                            const expr1 = KAS.parse(expectedAnswer).expr;
+                            const expr2 = KAS.parse(String(userAnswer).replace('²', '^2')).expr;
+                            try{if(KAS.compare(expr1,expr2,{form:true,simplify:false}).equal){
+                                // use KAS.compare for algebraics expressions.
+                                li.className = "good";
+                                score++;
+                            } else {
+                                li.className = "wrong";
+                            }
+                            } catch(error){
+                                li.className = "wrong";
+                            }
+                        }
                         ia++;
                         li.appendChild(span);
                         ol.appendChild(li);

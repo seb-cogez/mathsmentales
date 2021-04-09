@@ -14,7 +14,9 @@ Démo : https://seb-cogez.github.io/mathsmentales/
  * internationalisation (ou pas)
 
 ### bibliothèques externes
- * [KateX](https://katex.org/) pour afficher les maths
+ * [KateX](https://katex.org/) pour afficher les maths (MIT licence)
+ * [KAS](https://github.com/Khan/KAS) outil de la Kahn academy pour évaluer des expressions littérales (MIT licence)
+ * [Underscore](https://underscorejs.org/) pour pouvoir invoquer KAS
  * [knack.css](https://www.knacss.com/) framework css simple et léger
  * [bulma-steps](https://github.com/Wikiki/bulma-steps) du projet css [bulma](https://bulma.io/)
  * [algebrite.js](http://algebrite.org/) An extensive math library symbolic computation
