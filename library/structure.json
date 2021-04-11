@@ -365,5 +365,31 @@
         }
     },
     "1":"1ère",
-    "0":"Tale"
+    "T":{
+        "nom":"Tale",
+        "themes":{
+            "TC":{
+                "nom":"Nombres complexes",
+                "chapitres":{
+                    "TC1":"Point de vue algébrique",
+                    "TC2":"Point de vue géométrique",
+                    "TC3":"Trigonométrie",
+                    "TC4":"Equations polynomiales"
+                }
+            },
+            "TA":{
+                "nom":"Arithmétique",
+                "chapitres":{
+                    "TA1":"Contenu"
+                }
+            },
+            "TM":{
+                "nom":"Graphes et matrices",
+                "chapitres":{
+                    "TMG":"Graphes",
+                    "TMM":"Matrices"
+                }
+            }
+        }
+    }
 }

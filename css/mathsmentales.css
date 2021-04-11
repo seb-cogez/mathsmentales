@@ -167,10 +167,15 @@ ul.menu, .menu ul {
     padding: 1em;
     /*line-height: 1em;*/
 }
-#activityTitle, #activityDescription {
+#activityTitle  {
   font-size: 2rem;;
   font-weight: 600;
   color: #236394;
+}
+#activityDescription{
+  font-size: 1.5rem;;
+  font-weight: 400;
+  color: #123550;
 }
 #activityOptions {
     font-size: 1.6rem;

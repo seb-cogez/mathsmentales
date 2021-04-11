@@ -2,7 +2,7 @@
     "title":"Critères de divisibilité",
     "type":"text",
     "ID":"5ND2",
-    "dest":["5ND", "4ND", "3NC"],
+    "dest":["8ND","7ND","6ND","5ND", "4ND", "3NC"],
     "consts":{"d":[2,3,5,9,10]},
     "vars":{"a":"0_1","b":"2_6", "c":"${Math.round(Math.random()*10**:b)}"},
     "options":[{

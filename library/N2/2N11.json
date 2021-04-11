@@ -1,0 +1,26 @@
+{
+    "title":"Manipuler les racines carrées",
+    "type":"latex",
+    "ID":"2N11",
+    "description":"Simplifier une écriture impliquant des racines carrées",
+    "dest":["2N1"],
+    "options":[{
+        "name":"Racines de carrés parfaits",
+        "vars":{"a":"1_10"},
+        "question": ["-\\sqrt{${:a*:a}}", "-\\sqrt{${:a}^2}", "-\\sqrt{(-${:a})^2}"],
+        "answer":":question=\\color{red}{-${:a}}",
+        "value":"-${:a}"
+    },{
+        "name":"Racines de carrés parfaits",
+        "vars":{"a":"1_10"},
+        "question": ["\\sqrt{${:a*:a}}", "\\sqrt{${:a}^2}", "\\sqrt{(-${:a})^2}"],
+        "answer":":question=\\color{red}{${:a}}",
+        "value":"${:a}"
+    },{
+        "name":"Simplification de racine carré",
+        "vars":{"a":"2_10","b":"2_5"},
+        "question":"\\sqrt{${:a*:b*:b}}",
+        "answer":":question=\\color{red}{${math.simplifieRacine(:a*:b*:b)}}"
+    }
+    ]
+}

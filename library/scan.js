@@ -34,8 +34,8 @@ for (let niveau in structure){
     let exo = {"u":"N"+niveau+"/"+fichierExo[0], "t":json.title};//url ; title
     for(let i in json.dest){
       let codechap = json.dest[i];
-      let destLevel = codechap.match(/\d+/i);
-      let themecode = codechap.match(/\d+[A-Z]/i);
+      let destLevel = codechap.match(/(^\d+|T)/i)[0];
+      let themecode = codechap.match(/^(\d+|T)[A-Z]/i)[0];
       if(structure[destLevel] !== undefined)
         structure[destLevel].themes[themecode].chapitres[codechap].e.push(exo);
     }

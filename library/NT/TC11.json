@@ -1,0 +1,34 @@
+{
+    "title":"Calculs de base avec un complexe",
+    "type":"latex",
+    "ID":"TC11",
+    "description":"Conjugué, module, carré, inverse",
+    "dest":["TC1"],
+    "options":[{
+        "name":"Conjugué d'un complexe",
+        "vars":{"ip":"0_2", "rp":"-10_10" ,"a":"${:ip>0?:rp:0}", "b":"-10_10_^${:a}"},
+        "question":"\\overline{${:a!=0?:a:''}${:b!=0?:a==0?utils.signIfOne(:b)+'i':utils.signedNumberButOne(:b)+'i':''}}",
+        "answer":":question=\\color{red}{${:a!=0?:a:''}${:b!=0?:a==0?utils.signIfOne(-:b)+'i':utils.signedNumber(-:b)+'i':''}}",
+        "value":"${:a!=0?:a:''}${:b!=0?:a==0?utils.signIfOne(-:b)+'i':utils.signedNumber(-:b)+'i':''}"
+    
+    },{
+        "name":"Module d'un complexe",
+        "vars":{"a":"-12_12", "b":"-12_12_^${:a}"},
+        "question":"\\left|${:a!=0?:a:''}${:b!=0?:a==0?utils.signIfOne(:b)+'i':utils.signedNumberButOne(:b)+'i':''}\\right|",
+        "answer":":question=\\color{blue}{\\sqrt{${:a!=0?(:a<0?'('+:a+')'::a)+'^2':''}${:b!=0?'+'+(:b<0?'('+:b+')'::b)+'^2':''}}}=\\color{red}{${math.simplifieRacine(:a*:a+:b*:b)}}",
+        "value":"${math.simplifieRacine(:a*:a+:b*:b)}"
+    },{
+        "name":"Carré d'un complexe",
+        "vars":{"a":"-12_12", "b":"-12_12_^${:a}"},
+        "question":"\\left(${:a!=0?:a:''}${:b!=0?:a==0?utils.signIfOne(:b)+'i':utils.signedNumberButOne(:b)+'i':''}\\right)^2",
+        "answer":":question=\\color{red}{${math.calc('('+:a+'+('+:b+')i)^2',true).replace('*','')}}",
+        "value":"${math.calc('('+:a+'+('+:b+')i)^2',true).replace('*','')}"
+        },{
+        "name":"Inverse d'un complexe",
+        "vars":{"a":"-10_10", "b":"-10_10_^${:a}"},
+        "question":["\\left(${:a!=0?:a:''}${:b!=0?:a==0?utils.signIfOne(:b)+'i':utils.signedNumberButOne(:b)+'i':''}\\right)^{-1}",
+            "\\dfrac{1}{${:a!=0?:a:''}${:b!=0?:a==0?utils.signIfOne(:b)+'i':utils.signedNumberButOne(:b)+'i':''}}"],
+        "answer":":question=\\color{red}{${math.calc('('+:a+'+('+:b+')i)^(-1)').replace('\\sqrt{-1}','i').replace(/frac/g,'dfrac')}}",
+        "value":"${math.calc('('+:a+'+('+:b+')i)^(-1)').replace('\\sqrt{-1}','i').replace(/frac/g,'dfrac')}"
+    }]
+}

@@ -1,0 +1,29 @@
+{
+    "title":"Tableaux de proportionnalité",
+    "type":"latex",
+    "ID":"5DC3",
+    "description":"Calcul de données dans un tableau de proportionnalité",
+    "dest":["5DC","4DC","3DC"],
+    "consts":{"prime":[2,3,5,7,11]},
+    "options":[{
+        "name":"Par addition de colonnes",
+        "vars":{"a1":"2_40","a2":"2_40_^${:a1}","a3":"${:a1+:a2}","coeff":"d0.1_2.9_1_^1,2","choix":"1_3","b1":"${math.round(:a1*:coeff,1)}","b2":"${math.round(:a2*:coeff,1)}","b3":"${math.round(:a3*:coeff,1)}"}
+
+    },{
+        "name":"Par soustraction de colonnes",
+        "vars":{"a1":"2_40","a2":"2_40_^${:a1}","a3":"${Math.abs(:a1-:a2)}","coeff":"d0.1_2.9_1_^1,2","choix":"1_3","b1":"${math.round(:a1*:coeff,1)}","b2":"${math.round(:a2*:coeff,1)}","b3":"${math.round(:a3*:coeff,1)}"}
+    },{
+        "name":"En utilisant le coefficient",
+        "vars":{"a1":"1_10","a2":"1_10_^${:a1}","a3":"1_12_^${:a1},${:a2}","coeff":"2_12", "b1":"${:a1*:coeff}", "b2":"${:a2*:coeff}", "b3":"${:a3*:coeff}","choix":"1_3"}
+    },{
+        "name":"Par multiplication d'une colonne",
+        "vars":{"s":"1_6","a1":"2_10_^${2*:s},${3*:s},${4*:s}","c1":"0_4","a2":"${:a1*:prime[:c1]}","c2":"2_12_^${:c1}","a3":"${:c2*:a1}","b1":"${:a1+:s}","b2":"${:b1*:prime[:c1]}","b3":"${:c2*:b1}","choix":"1_3"}
+    },{
+        "name":"En utilisant la règle de trois (simple)",
+        "vars":{"a2":"11_20","b1":"2_15_^prime","a3":"2_12_^prime","a1":[2,5,10,"${math.plusGrandDiviseur(:b1*:a3)}"],"b2":"${math.round(:a2*:b1/:a1,2)}", "b3":"${math.round(:a3*:b1/:a1,2)}","choix":"1_3"}
+    }
+    ],
+    "question": "\\begin{array}{|c|c|c|} \\hline ${:choix==1?:a3::a1} & ${:choix==2?:a3::choix==1?:a1::a2} & ${:choix==3?:a3::a2} \\\\ \\hline ${:choix==1?'?'::b1} & ${:choix==2?'?'::choix==1?:b1::b2} & ${:choix==3?'?'::b2} \\\\ \\hline \\end{array}",
+    "answer":"\\begin{array}{|c|c|c|} \\hline ${:choix==1?:a3::a1} & ${:choix==2?:a3::choix==1?:a1::a2} & ${:choix==3?:a3::a2} \\\\ \\hline ${:choix==1?'\\color{red}{'+:b3+'}'::b1} & ${:choix==2?'\\color{red}{'+:b3+'}'::choix==1?:b1::b2} & ${:choix==3?'\\color{red}{'+:b3+'}'::b2} \\\\ \\hline \\end{array}",
+    "value":"${:b3}"
+}

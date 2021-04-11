@@ -644,6 +644,30 @@ var math ={
             return diviseurs.join("; ");
     },
     /**
+     * 
+     * @param {integer} nb 
+     * @returns integer : le plus grand diviseur non égal au nombre
+     */
+    plusGrandDiviseur:function(nb){
+        const liste = math.listeDiviseurs(nb,true);
+        return liste[liste.length-2];
+    },
+    /**
+     * 
+     * @param {integer} nb 
+     * @returns integer
+     */
+    plusGrandDiviseurPremier(nb){
+        if(nb<2) return nb;
+        let prime = 0,indice=0;
+        while(math.premiers[indice]<=nb){
+            indice++;
+            if(nb%math.premiers[indice]==0)
+                prime=math.premiers[indice];
+        }
+        return prime;
+    },
+    /**
     *
     * donne la liste des diviseurs inférieurs à 10 sous forme de chaine
     * 
@@ -698,6 +722,24 @@ var math ={
     },
     toTex(string){
         return string.replace(/\*/g, "\\times");
+    },
+    /**
+     * 
+     * @param {Integer} radicande 
+     * @returns 
+     */
+    simplifieRacine(radicande){
+        const factors = Algebrite.run('factor('+radicande+')').split('*');
+        let outOfSquareR = 1;
+        let inSquareR = 1;
+        for(let i=0;i<factors.length;++i){
+            const elt = factors[i].split("^");
+            const nb = elt[0];
+            const power = elt[1]===undefined?1:elt[1];
+            outOfSquareR = outOfSquareR*Math.pow(nb,Math.floor(power/2));
+            inSquareR = inSquareR*Math.pow(nb,power%2);
+        }
+        return (outOfSquareR>1?outOfSquareR:'')+(inSquareR>1?"\\sqrt{"+inSquareR+"}":'');
     },
     estDivisiblePar(nb, par, type){
         nb = Number(nb); par = Number(par);
@@ -2242,8 +2284,9 @@ var library = {
     displayContent:function(level){
         if(MM.content === undefined) {console.log("Pas de bibliothèque"); return false;}
         let niveau={nom:"Recherche",themes:{}};
-        if(typeof level === "string"){ // recherche d'un terme
-            if(level.length<3)return false;
+        if(typeof level === "string" && level != "T"){
+            // recherche d'un terme, différent de T pour le niveau terminale
+            if(level.length<3)return false; // on ne prend pas les mots de moins de 3 lettres
             // construction du niveau par extraction des données.
             for(let niv in MM.content){
                 if(typeof MM.content[niv] === "object"){ // le niveau contient de chapitres
@@ -2305,7 +2348,7 @@ var library = {
             if(theme)html+=htmlt;
         }
         document.getElementById("resultat-chercher").innerHTML = html;
-        if(typeof level ==="number")document.querySelector("#header-menu a[href='#tab-chercher']").click();
+        if(typeof level ==="number" || level === "T")document.querySelector("#header-menu a[href='#tab-chercher']").click();
     }
 }
 // lecture des fichiers exercice
@@ -2470,9 +2513,9 @@ class activity {
                         let span = document.createElement("span");
                         span.className = "tooltiptext";
                         if(Array.isArray(this.answers[0]))
-                            span.innerHTML = this.setMath(this.answers[0][jj].replace(this.questions[0],this.questions[0][jj]));
+                            span.innerHTML = this.setMath(String(this.answers[0][jj]).replace(this.questions[0],this.questions[0][jj]));
                         else {
-                            span.innerHTML = this.setMath(this.answers[0].replace(this.questions[0],this.questions[0][jj]));
+                            span.innerHTML = this.setMath(String(this.answers[0]).replace(this.questions[0],this.questions[0][jj]));
                         }
                         li.appendChild(span);
                         ul.appendChild(li);
@@ -2708,6 +2751,7 @@ class activity {
             }
         //debug("Chaine à parser", chaine);
         let result = "";
+        // doublage des \ caractères d'échapement.
         try { result = eval("`"+chaine.replace(/\\/g,"\\\\")+"`");}
         catch(error){
             debug(error, "Erreur avec "+chaine);
@@ -2717,11 +2761,15 @@ class activity {
             return parseFloat(result);
         } else return result;
         } else if(typeof chaine === "object"){
-            /*for(let i in chaine){
-                chaine[i] = this.replaceVars(chaine[i],index);
-            }*/
+            if(_.isArray(chaine)){
+                for(let i=0;i<chaine.length;++i){
+                    chaine[i] = this.replaceVars(chaine[i],questiontext);
+                }
+            } else for(const i in chaine){
+                chaine[i] = this.replaceVars(chaine[i],questiontext);
+            }
             //debug("objet à parser", this.replaceVars(JSON.stringify(chaine)));
-            chaine = utils.restoreArray(JSON.parse(this.replaceVars(JSON.stringify(chaine))));
+            //chaine = utils.restoreArray(JSON.parse(this.replaceVars(JSON.stringify(chaine))));
             return chaine;
         } else return chaine;
     }
@@ -2732,7 +2780,7 @@ class activity {
     * generate this.questions, this.answers and this.values
     * @param {integer} n number of questions to create
     * @param {integer} option id of an option (optional)
-    * @param {integer} pattern id of question pattern (otional)
+    * @param {integer} patt id of question pattern (otional)
     * @param {boolean} sample if true generate a sample question to show before starting slideshow
     * return nothing
     * 
@@ -2753,29 +2801,34 @@ class activity {
             if(optionNumber !== false){
                 // set chosen vars
                 if(this.options[optionNumber].vars === undefined){
+                    // pas de variable définie dans l'option, on prend les variables globales
                     this.cVars = this.vars;
                 } else this.cVars = this.options[optionNumber].vars;
                 if(this.options[optionNumber].consts === undefined){
                     this.cConsts = this.consts;
                 } else this.cConsts = this.options[optionNumber].consts;
                 if(patternNumber !== false){
+                    // la question est définie dans l'option, avec un pattern défini
                     if(this.options[optionNumber].question !== undefined){
                         this.cQuestion = this.options[optionNumber].question[patternNumber];
                         lenQ = this.options[optionNumber].question.length;
-                    } else {
+                    } else { // elle est définie globalement
                         this.cQuestion = this.questionPatterns[patternNumber];
                         lenQ = this.questionPatterns.length;
                     }
-                } else if(this.options[optionNumber].question === undefined){
+                } else if(this.options[optionNumber].question === undefined){ // question définie dans l'option
                     this.cQuestion = this.questionPatterns;
-                } else this.cQuestion = this.options[optionNumber].question;
-                if(this.options[optionNumber].answer === undefined){
+                } else this.cQuestion = this.options[optionNumber].question; // question définie globalement
+                // traitement des réponses
+                if(this.options[optionNumber].answer === undefined){ //des réponses sont définies pour l'option
                     this.cAnswer = this.answerPatterns;
-                } else this.cAnswer = this.options[optionNumber].answer;
+                } else this.cAnswer = this.options[optionNumber].answer; // on prend la réponse définie globalement
+                // traitement des valeurs attendues de réponse en ligne
                 if(this.options[optionNumber].value === undefined){
                     this.cValue = this.valuePatterns;
                 } else this.cValue = this.options[optionNumber].value;
-                if(Array.isArray(this.cAnswer) && lenQ){
+                if(Array.isArray(this.cAnswer) && lenQ){ // on a un tableau de réponses différentes
+                    // si autant de types de réponses que de types de questions, raccord 1<->
                     if(this.cAnswer.length === lenQ){
                         this.cAnswer = this.cAnswer[patternNumber]; // same answer index as question index
                     } else { // alea answer
@@ -2785,6 +2838,7 @@ class activity {
                         this.cValue = this.cValue[patternNumber];
                     }
                 }
+                // traitement des figures (optionnel)
                 if(this.options[optionNumber].figure !== undefined){
                     this.cFigure = utils.clone(this.options[optionNumber].figure);
                 } else if(this.figure !== undefined){
@@ -2814,6 +2868,7 @@ class activity {
                 if(typeof this.wVars[name] === "object"){
                     // var is defined with an array of values
                     // we sort one of them
+                    // but it can content some vars value
                     this.wVars[name] = this.replaceVars(this.wVars[name][utils.aleaInt(0,this.wVars[name].length-1)]);
                 } else if(typeof this.wVars[name] === "string" && this.wVars[name].indexOf("_")>-1){
                     // var is defined with a min-max interval within a string
@@ -2825,23 +2880,24 @@ class activity {
                     }
                 }
             }
+            // généralement pas utilisé ! à supprimer.
             if(this.cConsts !== undefined){
                 this.cConsts = this.replaceVars(this.cConsts);
             }
             if(!sample){
             // question text generation
-            let thequestion = this.replaceVars(this.cQuestion);
-            let thevalue = this.replaceVars(this.cValue);
+            let thequestion = this.replaceVars(_.clone(this.cQuestion));
+            let thevalue = this.replaceVars(_.clone(this.cValue));
             loopProtect++;
-            // test if question yet exists or not
+            // on évite les répétitions
             if(this.questions.indexOf(thequestion)<0 || this.values.indexOf(thevalue)<0){
                 this.questions[i] = thequestion;
-                this.answers[i] = this.replaceVars(this.cAnswer, thequestion);
+                this.answers[i] = this.replaceVars(_.clone(this.cAnswer), thequestion);
                 this.values[i] = thevalue;
                 if(this.cFigure!== undefined){
                     this.figures[i] = {
                         "type":this.cFigure.type,
-                        "content":this.replaceVars(this.cFigure.content),
+                        "content":this.replaceVars(_.clone(this.cFigure.content)),
                         "boundingbox":this.cFigure.boundingbox,
                         "axis":this.cFigure.axis,
                         "grid":this.cFigure.grid?true:false

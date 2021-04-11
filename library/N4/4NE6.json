@@ -18,9 +18,13 @@
         "value":["${math.round(:b-:a,1)}","${math.round(:b+:a,1)}"]
     },{
         "name":"x + a = b, a et b fractions",
-        "vars":{"n":"1_12_2","d":"2_12_2", "f1":"\\${math.fractionSimplifiee(:n[0],:d[0])}", "f2":"\\${math.fractionSimplifiee(:n[1],:d[1])}", "l":"0_5","x":"${:lettres[:l]}"},
-        "question":["\\text{Résoudre } ${:x}+${:f1}=${:f2}","\\text{Résoudre } ${:x}-${:f1}=${:f2}"],
-        "answer":["${:x}+${:f1}=${:f2} \\text{ pour } \\color{red}{${:x}=${math.calc(:n[0]+'/'+:d[0]+'-'+:n[1]+'/'+:d[1])}}", "${:x}-${:f1}=${:f2} \\text{ pour } \\color{red}{${:x}=${math.calc(:n[0]+'/'+:d[0]+'+'+:n[1]+'/'+:d[1])}}"],
+        "vars":{"n":"1_12_2","d":"2_12_2", "l":"0_5","x":"${:lettres[:l]}"},
+        "question":[
+            "\\text{Résoudre } ${:x}+${math.fractionSimplifiee(:n[0],:d[0])}=${math.fractionSimplifiee(:n[1],:d[1])}",
+            "\\text{Résoudre } ${:x}-${math.fractionSimplifiee(:n[0],:d[0])}=${math.fractionSimplifiee(:n[1],:d[1])}"],
+        "answer":[
+            "${:x}+${math.fractionSimplifiee(:n[0],:d[0])}=${math.fractionSimplifiee(:n[1],:d[1])} \\text{ pour } \\color{red}{${:x}=${math.calc(:n[0]+'/'+:d[0]+'-'+:n[1]+'/'+:d[1])}}",
+            "${:x}-${math.fractionSimplifiee(:n[0],:d[0])}=${math.fractionSimplifiee(:n[1],:d[1])} \\text{ pour } \\color{red}{${:x}=${math.calc(:n[0]+'/'+:d[0]+'+'+:n[1]+'/'+:d[1])}}"],
         "value":["${math.calc(:n[0]+'/'+:d[0]+'-'+:n[1]+'/'+:d[1])}","${math.calc(:n[0]+'/'+:d[0]+'+'+:n[1]+'/'+:d[1])}"]
     }]
 }

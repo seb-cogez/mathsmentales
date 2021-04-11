@@ -1,0 +1,24 @@
+{
+    "title":"Opposé d'un nombre",
+    "type":"text",
+    "ID":"5NA2",
+    "description":"",
+    "dest":["5NA", "4NA", "3NA"],
+    "options":[{
+        "name":"Opposé d'un entier",
+        "vars":{"a":"-100_100", "opp":"${-:a}"}
+    },{
+        "name":"Opposé d'un décimal",
+        "vars":{"a":"d-100_100_2", "opp":"${-:a}"}
+    },{
+        "name":"Opposé d'une fraction",
+        "vars":{"n":"-50_50","d":"-50_50_^${:n}", "opp":""},
+        "question":["Quel est l'opposé de $$\\dfrac{${:n}}{${:d}}$$ ?","$$-\\left(\\dfrac{${:n}}{${:d}}\\right)$$"],
+        "answer":["L'opposé de $$\\dfrac{${:n}}{${:d}}$$ est $$\\color{red}{${:n*:d<0?'':'-'}\\dfrac{${Math.abs(:n)}}{${Math.abs(:d)}}}$$",
+        "$$-\\left(\\dfrac{${:n}}{${:d}}\\right)=\\color{red}{${:n*:d<0?'':'-'}\\dfrac{${Math.abs(:n)}}{${Math.abs(:d)}}}$$"],
+        "value":"${:n*:d<0?'':'-'}\\dfrac{${Math.abs(:n)}}{${Math.abs(:d)}}"
+    }],
+    "question":["Quel est l'opposé de $$${:a}$$ ?", "$$-(${:a})=?$$"],
+    "answer":["L'opposé de $$${:a}$$ est $$\\color{red}{${:opp}}$$", "$$-(${:a})=\\color{red}{${:opp}}$$"],
+    "value":"${:opp}"
+}

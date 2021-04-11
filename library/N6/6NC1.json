@@ -40,7 +40,7 @@
         "name":"Décimal -> Entier et fractions décimales",
         "vars":{"a":[10,100,1000,10000], "e":"1_${:a}", "b":"0_9_2", "c":"1_9"},
         "question": "${math.round(:e+:b[0]/10+:b[1]/100+:c/1000,3)}",
-        "answer":":question=\\color{red}{${:e}+\\dfrac{${:b[0]}}{10}+\\dfrac{${:b[1]}}{100}+\\dfrac{${:c}}{1000}}",
+        "answer":":question=\\color{red}{${:e}${:b[0]?'+\\dfrac{'+:b[0]+'}{10}':''}${:b[1]?'+\\dfrac{'+:b[1]+'}{100}':''}+\\dfrac{${:c}}{1000}}",
         "value":"${:e}+${:b[0]}/10+${:b[1]}/100+${:c}/1000"
     }
     ]

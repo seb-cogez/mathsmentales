@@ -2,7 +2,7 @@
     "title":"Somme astucieuse avec des décimaux",
     "type":"latex",
     "ID":"7NE1",
-    "description":"7NE",
+    "description":"Ajouter deux décimaux qui se marient bien et un nombre entier",
     "dest":["7NE","6NE"],
     "options":[{
         "name":"Dixièmes, unité supérieure et entier",
@@ -31,6 +31,6 @@
     }
     ],
     "question": ["${:a}+${:b}+${:c}", "${:b}+${:c}+${:a}","${:c}+${:a}+${:b}"],
-    "answer":"${:a+:b+:c}",
+    "answer":":question=\\color{red}{${:a+:b+:c}}",
     "value":"${:a+:b+:c}"
 }
