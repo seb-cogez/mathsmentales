@@ -1,0 +1,21 @@
+{
+    "title":"Résoudre une équation produit nul",
+    "type":"latex",
+    "ID":"3ND6",
+    "dest":["3ND","2N3"],
+    "consts":{"lettres":["u","v","t","x", "y", "z"]},
+    "options":[{
+        "name":"Résoudre (x+a)(x+b)=0",
+        "vars":{"a":"-10_10_2_^&","l":"0_5","x":"${:lettres[:l]}"},
+        "question": "${:a[0]!=0?'('+:x+utils.signedNumber(:a[0])+')'::x}${:a[1]!=0?'('+:x+utils.signedNumber(:a[1])+')'::x}=0",
+        "answer":":question \\text{ si } ${:x}=\\color{red}{${-:a[0]}} \\text{ ou } ${:x}=\\color{red}{${-:a[1]}}",
+        "value":"${-:a[0]};${-:a[1]}"
+    },{
+        "name":"Résoudre (ax+b)(cx+d)=0",
+        "vars":{"a":"-10_10_2_^0","b":"-10_10_2_^&","l":"0_5","x":"${:lettres[:l]}"},
+        "question": "${:b[0]!=0?'('+utils.signIfOne(:a[0])+:x+utils.signedNumber(:b[0])+')':utils.signIfOne(:a[0])+:x}${:b[1]!=0?'('+utils.signIfOne(:a[1])+:x+utils.signedNumber(:b[1])+')':'\\times'+utils.signIfOne(:a[1])+:x}=0",
+        "answer":":question \\text{ si } ${:x}=\\color{red}{${math.fractionSimplifiee(-:b[0],:a[0])}} \\text{ ou } ${:x}=\\color{red}{${math.fractionSimplifiee(-:b[1],:a[1])}}",
+        "value":"${math.fractionSimplifiee(-:b[0],:a[0])};${math.fractionSimplifiee(-:b[1],:a[1])}"
+    }
+    ]
+}

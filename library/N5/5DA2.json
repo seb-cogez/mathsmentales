@@ -3,43 +3,36 @@
     "type":"text",
     "ID":"5DA2",
     "dest":["5DA","4DA","3DA"],
-    "vars":{"nbvals":"2_5", "b":"1_50_${:nbvals}","c":"${:b.reduce(function(a,b){return a+b;},0)%:nbvals}"},
     "options":[{
         "name":"Moyenne (5e)",
-        "question": ["Quelle est la moyenne de ${:b},${:c} ?", ""],
-        "answer":"",
-        "value":""
+        "vars":{"nbvals":"2_5", "b":"1_20_${:nbvals-1}","m":"1_3","mn":"${:nbvals*:m}","c":"${:mn+:nbvals-_.reduce(:b,(a,b)=>a+b)%:nbvals}","sum":"${_.reduce(:b,(a,b)=>a+b)+:c}"},
+        "question": "Quelle est la moyenne de ${:b.join(', ')} et ${:c} ?",
+        "answer":"$$(${:b.join('+')+'+'+:c})\\div${:nbvals}=\\color{red}{${:sum/:nbvals}}$$",
+        "value":"${:sum/:nbvals}"
     },{
         "name":"Médiane (4e)",
-        "vars":{},
-        "consts":{},
-        "question": ["", ""],
-        "answer":"",
-        "value":""
+        "vars":{"nbvals":"2_5", "b":"1_30_${:nbvals}","bsorted":"${_.sortBy(:b,a=>a)}"},
+        "question": "Quelle est la médiane de ${:b.join(', ')} ?",
+        "answer":"La médiane de ${:bsorted.split(',').join(', ')} est $$\\color{red}{${:nbvals%2?:bsorted.split(',')[(:nbvals-1)/2]:(Number(:bsorted.split(',')[:nbvals/2-1])+Number(:bsorted.split(',')[:nbvals/2]))/2}}$$",
+        "value":"${:nbvals%2?:bsorted.split(',')[(:nbvals-1)/2]:(Number(:bsorted.split(',')[:nbvals/2-1])+Number(:bsorted.split(',')[:nbvals/2]))/2}"
     },{
         "name":"Moyenne et médiane (4e)",
-        "vars":{},
-        "consts":{},
-        "question": ["", ""],
-        "answer":"",
-        "value":""
+        "vars":{"nbvals":"2_5", "b":"1_20_${:nbvals-1}","m":"1_3","mn":"${:nbvals*:m}","c":"${:mn+:nbvals-_.reduce(:b,(a,b)=>a+b)%:nbvals}","sum":"${_.reduce(:b,(a,b)=>a+b)+:c}","bsorted":"${_.sortBy(:b.concat([:c]),a=>a)}"},
+        "question": "Quelles sont la moyenne et la médiane de ${:b.join(', ')} et ${:c} ?",
+        "answer":"Moyenne : $$(${:b.join('+')+'+'+:c})\\div${:nbvals}=\\color{red}{${:sum/:nbvals}}$$, médiane : $$\\color{red}{${:nbvals%2?:bsorted.split(',')[(:nbvals-1)/2]:(Number(:bsorted.split(',')[:nbvals/2-1])+Number(:bsorted.split(',')[:nbvals/2]))/2}}$$",
+        "value":"${:sum/:nbvals};${:nbvals%2?:bsorted.split(',')[(:nbvals-1)/2]:(Number(:bsorted.split(',')[:nbvals/2-1])+Number(:bsorted.split(',')[:nbvals/2]))/2}}"
     },{
         "name":"Etendue (3e)",
-        "vars":{},
-        "consts":{},
-        "question": ["", ""],
-        "answer":"",
-        "value":""
+        "vars":{"nbvals":"2_5", "b":"1_30_${:nbvals}","etendue":"${_.max(:b)-_.min(:b)}"},
+        "question": "Quelle est l'étendue de ${:b.join(', ')} ?",
+        "answer":"L'étendue de ${:b.join(', ')} est $$${_.max(:b)}-${_.min(:b)} = \\color{red}{${:etendue}}$$",
+        "value":"${:etendue}"
     },{
         "name":"Moyenne, médiane et étendue (3e)",
-        "vars":{},
-        "consts":{},
-        "question": ["", ""],
-        "answer":"",
-        "value":""
+        "vars":{"nbvals":"2_5", "b":"1_20_${:nbvals-1}","m":"1_3","mn":"${:nbvals*:m}","c":"${:mn+:nbvals-_.reduce(:b,(a,b)=>a+b)%:nbvals}","sum":"${_.reduce(:b,(a,b)=>a+b)+:c}","bsorted":"${_.sortBy(:b.concat([:c]),a=>a)}","etendue":"${_.max(:b.concat([:c]))-_.min(:b.concat([:c]))}"},
+        "question": "Quelles sont la moyenne, la médiane et l'étendue de ${:b.join(', ')} et ${:c} ?",
+        "answer":"Moyenne : $$(${:b.join('+')+'+'+:c})\\div${:nbvals}=\\color{red}{${:sum/:nbvals}}$$, médiane : $$\\color{red}{${:nbvals%2?:bsorted.split(',')[(:nbvals-1)/2]:(Number(:bsorted.split(',')[:nbvals/2-1])+Number(:bsorted.split(',')[:nbvals/2]))/2}}$$ et étendue : $$${_.max(:b)}-${_.min(:b)} = \\color{red}{${:etendue}}$$",
+        "value":"${:sum/:nbvals};${:nbvals%2?:bsorted.split(',')[(:nbvals-1)/2]:(Number(:bsorted.split(',')[:nbvals/2-1])+Number(:bsorted.split(',')[:nbvals/2]))/2}};${:etendue}"
     }
-    ],
-    "question":"",
-    "answer":"",
-    "value":""
+    ]
 }

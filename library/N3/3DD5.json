@@ -1,0 +1,32 @@
+{
+    "ID":"3DD4",
+    "dest":["3DD"],
+    "title":"Lien entre coefficient de fonction linéaire et pourcentage",
+    "type":"text",
+    "options":[{
+            "name":"Trouver l'augmentation en pourcentage",
+            "vars":{"d":"1_2","a":"d0.01_1_${:d}_^1","p":"${math.round(:a*100)}"},
+            "question":"À quel pourcentage d'augmentation correspond le coefficient $$${math.round(1+:a,2)}$$ ?",
+            "answer":"$$${math.round(1+:a,2)}$$ correspond à $$\\color{red}{+${:p}\\%}$$",
+            "value":"+${:p}%"
+        },{
+            "name":"Trouver la diminution en pourcentage",
+            "vars":{"d":"1_2","a":"d0.01_1_${:d}_^1","p":"${math.round(:a*100)}"},
+            "question":"À quel pourcentage de réduction correspond le coefficient $$${math.round(1-:a,2)}$$ ?",
+            "answer":"$$${math.round(1+:a,2)}$$ correspond à $$\\color{red}{-${:p}\\%}$$",
+            "value":"-${:p}%"
+        },{
+            "name":"Trouver le coefficient correspondant à l'augmentation",
+            "vars":{"d":"1_2","a":"d0.01_1_${:d}_^1","p":"${math.round(:a*100)}"},
+            "question":"À quel coefficient de fonction linéaire correspond $$+${:p}\\%$$ ?",
+            "answer":"$$+${:p}\\%$$ revient à multiplier par $$\\color{red}{${math.round(1+:a,2)}}$$",
+            "value":"${math.round(1+:a,2)}"
+        },{
+            "name":"Trouver le coefficient correspondant à la réduction",
+            "vars":{"d":"1_2","a":"d0.01_1_${:d}_^1","p":"${math.round(:a*100)}"},
+            "question":"À quel coefficient de fonction linéaire correspond $$-${:p}\\%$$ ?",
+            "answer":"$$-${:p}\\%$$ revient à multiplier par $$\\color{red}{${math.round(1-:a,2)}}$$",
+            "value":"${math.round(1-:a,2)}"
+        }
+    ]
+}

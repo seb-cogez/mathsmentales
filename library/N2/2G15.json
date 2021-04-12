@@ -1,0 +1,19 @@
+{
+    "title":"Colinéarité de deux vecteurs",
+    "type":"latex",
+    "ID":"2G15",
+    "dest":["2G1"],
+    "consts":{"vecteurs":["u", "v", "w", "u'", "v'", "w'"]},
+    "options":[{
+        "name":"Vecteurs à coordonnées positives",
+        "vars":{"yn":"0_1","a":"0_10","b":"0_10_^${:a}","k":"-10_10_^-1,0,1","bd":"0_10_2_^&","c":"${:yn>0?:a*:k::bd[0]}","d":"${:yn>0?:b*:k::bd[1]}","v":"0_5_2_^&"}
+    },{
+        "name":"Vecteurs à coordonnées relatives",
+        "vars":{"yn":"0_1","a":"-10_10","b":"-10_10_^${:a}","k":"-10_10_^-1,0,1","bd":"-10_10_2_^&","c":"${:yn>0?:a*:k::bd[0]}","d":"${:yn>0?:b*:k::bd[1]}","v":"0_5_2_^&"}
+    }],
+    "question": ["\\begin{cases}\\overrightarrow{${:vecteurs[:v[0]]}}(${:a+';\\color{blue}{'+:b}}) \\\\ \\overrightarrow{${:vecteurs[:v[1]]}}(${:c+';\\color{blue}{'+:d}})\\end{cases}\\text{ colinéaires ?}",
+        "\\overrightarrow{${:vecteurs[:v[0]]}}(${:a+';\\color{blue}{'+:b}}) \\text{ et } \\overrightarrow{${:vecteurs[:v[1]]}}(${:c+';\\color{blue}{'+:d}})\\text{ colinéaires ?}",
+        "\\overrightarrow{${:vecteurs[:v[0]]}}\\begin{pmatrix}${:a}\\\\${:b}\\end{pmatrix} \\text{ et }\\overrightarrow{${:vecteurs[:v[1]]}}\\begin{pmatrix}${:c}\\\\${:d}\\end{pmatrix}\\text{ colinéaires ?}"],
+    "answer":"${:a}\\times${:d<0?'('+:d+')'::d}-${:b<0?'('+:b+')'::b}\\times${:c<0?'('+:c+')'::c}=${:a*:d-:b*:c}\\color{red}{\\text{ ${:yn>0?'OUI':'NON'}}}${:yn>0?'\\quad\\overrightarrow{'+:vecteurs[:v[1]]+'}='+:k+'\\overrightarrow{'+:vecteurs[:v[0]]+'}':''}",
+    "value":["${:yn>0?'OUI':'NON'}","${:yn>0?'O':'N'}"]
+}

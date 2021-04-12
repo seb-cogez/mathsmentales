@@ -1,0 +1,19 @@
+{
+    "title":"Déterminant de deux vecteurs",
+    "type":"latex",
+    "ID":"2G14",
+    "dest":["2G1"],
+    "consts":{"vecteurs":["u", "v", "w", "u'", "v'", "w'"]},
+    "options":[{
+        "name":"Vecteurs à coordonnées positives",
+        "vars":{"a":"0_10","b":"0_10_^${:a}","c":"0_10","d":"0_10_^${:c}","v":"0_5_2_^&"}
+    },{
+        "name":"Vecteurs à coordonnées relatives",
+        "vars":{"a":"-10_10","b":"-10_10_^${:a}","c":"-10_10","d":"-10_10_^${:c}","v":"0_5_2_^&"}
+    }],
+    "question": ["\\text{Déterminant de }\\begin{cases}\\overrightarrow{${:vecteurs[:v[0]]}}(${:a+';\\color{blue}{'+:b}}) \\\\ \\overrightarrow{${:vecteurs[:v[1]]}}(${:c+';\\color{blue}{'+:d}})\\end{cases} ?",
+        "\\text{Déterminant de }\\overrightarrow{${:vecteurs[:v[0]]}}(${:a+';\\color{blue}{'+:b}}) \\text{ et } \\overrightarrow{${:vecteurs[:v[1]]}}(${:c+';\\color{blue}{'+:d}}) ?",
+        "\\text{Déterminant de }\\overrightarrow{${:vecteurs[:v[0]]}}\\begin{pmatrix}${:a}\\\\${:b}\\end{pmatrix} \\text{ et }\\overrightarrow{${:vecteurs[:v[1]]}}\\begin{pmatrix}${:c}\\\\${:d}\\end{pmatrix} ?"],
+    "answer":"${:a}\\times${:d<0?'('+:d+')'::d}-${:b<0?'('+:b+')'::b}\\times${:c<0?'('+:c+')'::c}=\\color{red}{${:a*:d-:b*:c}}",
+    "value":"(${:a*:d-:b*:c})"
+}

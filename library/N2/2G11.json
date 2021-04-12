@@ -1,0 +1,26 @@
+{
+    "title":"Calculer les coordonnées d'un vecteur",
+    "type":"latex",
+    "ID":"2G11",
+    "dest":["2G1"],
+    "consts":{"points":"ABCDEFGHKLMNPQRST"},
+    "options":[{
+        "name":"Coordonnées entières positives",
+        "vars":{"x":"1_20_4","pt":"0_16_2_^&"}
+
+    },{
+        "name":"Coordonnées entières relatives",
+        "vars":{"x":"-20_20_4","pt":"0_16_2_^&"}
+    },{
+        "name":"Coordonnées décimales positives",
+        "vars":{"nbd":[1,2],"x":"d0.1_10_${:nbd}_4","pt":"0_16_2_^&"}
+
+    },{
+        "name":"Coordonnées décimales relatives",
+        "vars":{"nbd":[1,2],"x":"d-10_10_${:nbd}_4","pt":"0_16_2_^&"}
+    }
+    ],
+    "question": "\\begin{cases}${:points[:pt[0]]}(${:x[0]+';\\color{blue}{'+:x[1]}}) \\\\ ${:points[:pt[1]]}(${:x[2]+';\\color{blue}{'+:x[3]}})\\end{cases} \\quad \\overrightarrow{${:points[:pt[0]]+:points[:pt[1]]}}(? ; ?)",
+    "answer":"\\text{Pour }${:points[:pt[0]]}(${:x[0]+';\\color{blue}{'+:x[1]}}) \\text{ et } ${:points[:pt[1]]}(${:x[2]+';\\color{blue}{'+:x[3]}}), \\overrightarrow{${:points[:pt[0]]+:points[:pt[1]]}}\\color{red}{(${math.round(:x[2]-:x[0],2)};${math.round(:x[3]-:x[1],2)})}",
+    "value":"(${math.round(:x[2]-:x[0])};${math.round(:x[3]-:x[1])})"
+}

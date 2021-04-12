@@ -18,6 +18,8 @@ const getAllFiles = function(dirPath, arrayOfFiles) {
   return arrayOfFiles
 };
 const structure = JSON.parse(fs.readFileSync("./structure.json"));
+// initialisation du nombre de fichiers/activités
+structure.activitiesNumber=0;
 for (let niveau in structure){
   for(let theme in structure[niveau].themes){
     for (let chapter in structure[niveau].themes[theme].chapitres){
@@ -28,10 +30,12 @@ for (let niveau in structure){
   }
 }
 for (let niveau in structure){
+  if(niveau === "activitiesNumber")continue;
   let listOfFiles = getAllFiles("./N"+niveau);
   listOfFiles.forEach(function(fichierExo){
     let json = JSON.parse(fs.readFileSync(fichierExo[1]));
     let exo = {"u":"N"+niveau+"/"+fichierExo[0], "t":json.title};//url ; title
+    structure.activitiesNumber++;
     for(let i in json.dest){
       let codechap = json.dest[i];
       let destLevel = codechap.match(/(^\d+|T)/i)[0];

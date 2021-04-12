@@ -212,12 +212,14 @@ var utils = {
     aleaInt:function(min,max){ // accepts 2 arguments more
         let qty=1;
         let avoid=[];
+        let arrayType=false;
         utils.security = 300;
         let nodouble = false;
         let notPrime = false;
         for(let i=2;i<arguments.length;i++){
             if(String(Number(arguments[i])) === arguments[i] || typeof arguments[i]==="number"){
                 qty = arguments[i];
+                arrayType = true;
             } else if(typeof arguments[i] === "string" && arguments[i][0]=="^"){
                 avoid = arguments[i].substring(1).split(",");
                 if(avoid.indexOf("&")>-1)nodouble = true;
@@ -229,7 +231,7 @@ var utils = {
         if(max<min){
             [min,max] = [max,min];
         }
-        if(qty>1){
+        if(arrayType){
             var integers = [];
             for(let i=0;i<qty;i++){
                 let thisint = math.round(utils.alea()*(max-min))+min;
@@ -783,8 +785,14 @@ var math ={
         return d.getHours()+" h "+((d.getMinutes()<10)?"0"+d.getMinutes():d.getMinutes())+" min "+((d.getSeconds()<10)?"0"+d.getSeconds():d.getSeconds())+" s.";
     },
     fractionSimplifiee(n,d){
+        if(n<0 && d<0 || n>0 && d<0){
+            n=-n;d=-d;
+        }
         const gcd = math.pgcd(n,d);
-        return "\\dfrac{"+(n/gcd)+"}{"+(d/gcd)+"}";
+        if(Number.isInteger(n/d))
+            return n/d;
+        else 
+            return "\\dfrac{"+(n/gcd)+"}{"+(d/gcd)+"}";
     },
     simplifyFracDec(n,d){
         while(n%10 === 0 && d%10 === 0){
