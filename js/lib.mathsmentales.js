@@ -84,7 +84,8 @@ var utils = {
         let chaine = "";
         let first = true;
         if(params.u!==undefined){
-            params.u = params.u.replace('/','|').replace('.json','');
+            let regexp = /\/(.*)\./;
+            params.u = regexp.exec(params.u)[1];
         }
         for(const i in params){
             if(first){
@@ -106,7 +107,9 @@ var utils = {
             return;
         }
         if(vars.u!==undefined){ // un paramétrage d'exercice à afficher
-            library.load(vars.u+'.json');
+            let regexp = /(\d*|T)/;// le fichier commence par un nombre ou un T pour la terminale
+            let level = regexp.exec(vars.u)[0];
+            library.load("N"+level+"/"+vars.u+".json");    
         }
         if(vars.c!==undefined){ // une activité à lancer
             let json = JSON.parse(decodeURIComponent(vars.c));

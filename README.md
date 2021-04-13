@@ -30,6 +30,11 @@ Démo : https://seb-cogez.github.io/mathsmentales/
 * "Circle Icons" de Nick Roach [iconfinder](https://www.iconfinder.com/iconsets/circle-icons-1) parfois retouchées, licence GPL
 * usage d'[Emoji](https://emojipedia.org/) dans l'affichage des ressources
 
+### liens directs :
+* https://seb-cogez.github.io/mathsmentales/index.html?n=4 envoie sur le niveau 4e
+* https://seb-cogez.github.io/mathsmentales/index.html?u=5NC7 envoie directement sur l'activité 5NC7
+* https://seb-cogez.github.io/mathsmentales/index.html?o=false&c=%7B%220%22%3A%7B%22y%22%3A%22c%22%2C%22i%22%3A0%2C%22a%22%3A%7B%220%22%3A%7B%22y%22%3A%22a%22%2C%22i%22%3A%225NC7%22%2C%22o%22%3A%5B2%5D%2C%22q%22%3A%7B%222%22%3A%5B0%5D%7D%2C%22p%22%3A%5B%5D%2C%22t%22%3A8%2C%22n%22%3A5%7D%2C%221%22%3A%7B%22y%22%3A%22a%22%2C%22i%22%3A%225NC5%22%2C%22o%22%3A%5B1%5D%2C%22q%22%3A%7B%221%22%3A%5B%5D%7D%2C%22p%22%3A%5B%5D%2C%22t%22%3A8%2C%22n%22%3A5%7D%7D%2C%22t%22%3A%22Diapo%201%22%2C%22c%22%3A%5B1%5D%2C%22e%22%3A%22correction%22%2C%22r%22%3A%22countdown%22%7D%7D envoie sur un diaporama qui démarre automatiquement.
+
 ### Changement de fonctionnement de la bibliothèque d'activités.
 Elle est à présent réalisée à l'aide de fichiers json peu complexes
 
