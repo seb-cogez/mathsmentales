@@ -38,51 +38,58 @@
     <div id="app-container">
 <header>
     <nav>
-        <a id="btnaccueil" href="#tab-accueil" class="logo tabs-menu-link"><img href="#tab-accueil" src="img/android-icon-48x48.png" alt="logo" /></a>
+        <a id="btnaccueil" numero="#tab-accueil" class="logo tabs-menu-link"><img numero="#tab-accueil" src="img/android-icon-48x48.png" alt="logo" /></a>
         <!--<div class="icon-menu"></div>-->
         <ul class="menu color-inverse">
             <li><a href="#nothing">Ecole</a>
                 <ul>
-                    <li onclick="library.displayContent(11)">CP</li>
-                    <li onclick="library.displayContent(10)">CE1</li>
-                    <li onclick="library.displayContent(9)">CE2</li>
-                    <li onclick="library.displayContent(8)">CM1</li>
-                    <li onclick="library.displayContent(7)">CM2</li>
+                    <li onclick="library.displayContent(11,true)">CP</li>
+                    <li onclick="library.displayContent(10,true)">CE1</li>
+                    <li onclick="library.displayContent(9,true)">CE2</li>
+                    <li onclick="library.displayContent(8,true)">CM1</li>
+                    <li onclick="library.displayContent(7,true)">CM2</li>
                 </ul>
             </li>
             <li><a href="#nothing">Collège</a>
                 <ul>
-                    <li onclick="library.displayContent(6)">6e</li>
-                    <li onclick="library.displayContent(5)">5e</li>
-                    <li onclick="library.displayContent(4)">4e</li>
-                    <li onclick="library.displayContent(3)">3e</li>
+                    <li onclick="library.displayContent(6,true)">6e</li>
+                    <li onclick="library.displayContent(5,true)">5e</li>
+                    <li onclick="library.displayContent(4,true)">4e</li>
+                    <li onclick="library.displayContent(3,true)">3e</li>
                 </ul>    
             </li>
             <li><a href="#nothing">Lycée</a>
                 <ul>
-                    <li onclick="library.displayContent(2)">2nde</li>
-                    <li onclick="library.displayContent(1)"><a numero="1ereES1">1ère ES1</a></li>
-                    <li onclick="library.displayContent(1)"><a numero="1ereES2"></a>1ère ES2</a></li>
-                    <li onclick="library.displayContent('T')">Tale</li>
+                    <li onclick="library.displayContent(2,true)">2nde</li>
+                    <li onclick="library.displayContent(1,true)"><a numero="1ereES1">1ère ES1</a></li>
+                    <li onclick="library.displayContent(1,true)"><a numero="1ereES2"></a>1ère ES2</a></li>
+                    <li onclick="library.displayContent('T',true)">Tale</li>
                 </ul>
             </li>
         </ul>
     </nav>
     <div class="tabs" id="header-menu">
         <nav class="tabs-menu">
-            <a href="#tab-parameters" class="tabs-menu-link">Paramétrer</a>
-            <a href="#tab-enonce" class="tabs-menu-link">Enoncé</a>
-            <a href="#tab-corrige" class="tabs-menu-link">Corrigé</a>
-            <a href="#tab-historique" class="tabs-menu-link">Historique</a>
-            <a href="#tab-telechargements" class="tabs-menu-link">Téléchargements</a>
-            <a href="#tab-chercher" class="tabs-menu-link">Rechercher</a>
+            <a numero="#tab-parameters" class="tabs-menu-link">Paramétrer</a>
+            <a numero="#tab-enonce" class="tabs-menu-link">Enoncé</a>
+            <a numero="#tab-corrige" class="tabs-menu-link">Corrigé</a>
+            <a numero="#tab-historique" class="tabs-menu-link">Historique</a>
+            <a numero="#tab-telechargements" class="tabs-menu-link">Téléchargements</a>
+            <a numero="#tab-chercher" class="tabs-menu-link">Rechercher</a>
         </nav>
     </div>
 
 </header>
 <div class="clearfix"></div>
 <div id="contents" class="tabs-content">
-    <section id="tab-accueil" class="grid-3 has-gutter tabs-content-item">
+    <section id="tab-accueil" class="grille tabs-content-item">
+        <article class="accueillogo">
+            <img src="img/logocm.png" width="320">
+        </article>
+        <article class="pub">
+            <span style="font-weight: bold;font-family: 'Trebuchet MS', Helvetica, sans-serif;font-size:1.2em;"><span style="color:#0492D2">M</span><span style="color:#6D9908">aths</span><span style="color:#C5026A">M</span><span style="color:#FF7B02">entales</span></span>Automatismes et calcul mental à données aléatoires sous forme de diaporamas, entrainement en ligne, feuilles d'exercices, cartes flash, dominos, duels en ligne...
+        </article>
+        <!-- class="grid-3 has-gutter tabs-content-item">
         <div class="alert--danger"><h2>A propos</h2>
             Site de diaporamas d'activités mentales de mathématiques</div>
         <div class="alert--warning"><h2>Documentation</h2>
@@ -91,11 +98,11 @@
         <div class="alert row-2"><h2>Fiches d'entrainement</h2>
             Ces fiches d'entrainement au calcul mental sont des fichiers LibreOffice.org Calc qui permettent de générer des milliers de fiches d'entrainement avec corrigé.
             Des pages dédiées à ces fiches permettent de travailler ces exercices, en ligne.
-            <div class="center">
+            <div class="center">-->
                 <!--<iframe width="280" height="158" src="https://www.youtube.com/embed/Grm7sle0Bpg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
-            </div>
+            <!--</div>
         </div>
-        <div class="col-2"><img src="img/logocm.png" width="320" style="margin-left: calc(50% - 160px);"></div>
+        <div class="col-2"></div>
         <div class="alert--primary"><h2>Vidéos de démonstration</h2>
             Accès à l'historique de développement du site.
         </div>
@@ -105,7 +112,7 @@
         </div>
         <div class="alert"><h2>Téléchargements</h2>
             Compléments au site : pages de ceintures de calcul mental, <a href="https://github.com/seb-cogez/mathsmentales/archive/master.zip">site complet</a>, etc...
-        </div>
+        </div>-->
     </section>
     <section id="tab-parameters" class="grid-3 has-gutter tabs-content-item" style="display: none;">
         <div>
@@ -186,7 +193,7 @@
             </select>
             <fieldset><legend>Clé de données</legend>
                 <input type="text" placeholder="eHDtp" id="aleaKey" size="10">
-                <img src="img/newsample32.png" onclick="document.getElementById('aleaKey').value=utils.seedGenerator();">
+                <img src="img/iconfinder_die_32px.png" onclick="document.getElementById('aleaKey').value=utils.seedGenerator();">
             </fieldset>
             <div id="paramsdiapo">
             <fieldset>
@@ -231,6 +238,8 @@
                 <button class="button--info" onclick="MM.showQuestions();">Énoncés</button>
                 <button class="button--warning" onclick="MM.showAnswers();">Réponses</button> 
                 <button class="button--primary" onclick="MM.start();">C'est parti !</button>
+                <button class="button--inverse" onclick="MM.copyURL();">Adresse</button>
+                <button class="btn" onclick="MM.getQR();">QRCode</button>
             </section>
         </div>
         <div id="paramsexos" class="hidden">
@@ -320,6 +329,9 @@
         </div>
         </div>
        <div class="row-4 colsx2" id="divparams">
+           <button id="btn-shuffle" onclick="MM.editedActivity.display(utils.seedGenerator())">
+            <img src="img/iconfinder_die_1055072.png" title="Changer les exemples">
+        </button>
             <h1><i class="icon-arrow--right"></i>Questions types</h1>
             <div id="activityOptions"></div>
         </div>
@@ -330,6 +342,7 @@
         </div>
     </section>
     <section id="tab-corrige" class="tabs-content-item" style="display: none;">
+        <button id="btn-annotation" onclick="utils.annotate()"><img src="img/iconfinder_pencil_1055013.png"></button>
         <div id="corrige-content" class="grid">
             Ici s'affichent les corrigés du diaporama
         </div>

@@ -21,6 +21,8 @@ const structure = JSON.parse(fs.readFileSync("./structure.json"));
 // initialisation du nombre de fichiers/activités
 structure.activitiesNumber=0;
 for (let niveau in structure){
+  // initialisation du nombre d'activités par niveau.
+  structure[niveau].activitiesNumber=0;
   for(let theme in structure[niveau].themes){
     for (let chapter in structure[niveau].themes[theme].chapitres){
       structure[niveau].themes[theme].chapitres[chapter] = {
@@ -40,8 +42,10 @@ for (let niveau in structure){
       let codechap = json.dest[i];
       let destLevel = codechap.match(/(^\d+|T)/i)[0];
       let themecode = codechap.match(/^(\d+|T)[A-Z]/i)[0];
-      if(structure[destLevel] !== undefined)
+      if(structure[destLevel] !== undefined){
+        structure[destLevel].activitiesNumber++;
         structure[destLevel].themes[themecode].chapitres[codechap].e.push(exo);
+      }
     }
   })
 }

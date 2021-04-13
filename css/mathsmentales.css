@@ -11,6 +11,48 @@
 mark {
   padding:0;
 }
+.tabs-menu a{
+  cursor: pointer;
+}
+.grille {
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
+  margin: 0 0 1.5rem;
+  position: relative;
+  padding: 2rem 10rem;
+}
+.accueillogo{
+  grid-row-start: 1;
+  grid-row-end: 3;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+.grille .tuile {
+  cursor: pointer;
+  text-align: center;
+  padding: 1.5rem;
+  border-radius: 8px;
+  background: linear-gradient(85deg,#434343,#262626);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  transition: .2s;
+  margin: 0;
+}
+.grille .pub {
+  grid-column-start: 3;
+  grid-column-end: span 3;
+  text-align: center;
+  padding: 1.5rem;
+  border-radius: 8px;
+  background: linear-gradient(85deg,#483b72,#292a4b);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  transition: .2s;
+  margin: 0;
+}
 #app-container{
     display: flex;
     height: 100%;
@@ -216,7 +258,6 @@ ul.menu, .menu ul {
 }
 #tab-parameters .tooltip {
   position: relative;
-  /*display: inline-block;*/
 }
 #tab-parameters .tooltip .tooltiptext {
   visibility: hidden;
@@ -229,7 +270,7 @@ ul.menu, .menu ul {
   z-index: 1;
   bottom:100%;
   left:50%;
-  margin-left:calc(-100% / 2);
+  margin-left:calc(-100% / 2 + 50px);
 }
 #tab-parameters .tooltiptext::after {
 	content: "";
@@ -249,6 +290,7 @@ ul.menu, .menu ul {
   height: 150px;
   width: 150px;
 }
+/* tab corrige */
 #corrige-content .fig{
   height: 300px;
   width: 300px;
@@ -258,6 +300,15 @@ ul.menu, .menu ul {
 }
 #corrige-content li > div.visible {
   display: block;
+}
+/* surcouche de correction pour TBI */
+#btn-annotation {
+  float:left;
+}
+#corrige-content #painting {
+  position: absolute;
+  display:block;
+  cursor: url(../img/iconfinder_pencil.png), auto;
 }
 .MMjsx {
   font-size: 2em;
@@ -309,12 +360,16 @@ ul.menu, .menu ul {
 }
 
 /*carts */
-#addToCart, #removeFromCart {
+#addToCart, #removeFromCart, #btn-shuffle {
     background-color: rgba(0,0,0,0);
     padding:0;
     float:right;
 }
-#addToCart img, #removeFromCart img {
+#btn-annotation{
+  background-color: rgba(0,0,0,0);
+  padding:0;
+}
+#addToCart img, #removeFromCart img ,#btn-shuffle img{
     width: 48px;
     height: 48px;
 }

@@ -65,8 +65,79 @@ var modeDebug = true;
 * @params newClass (String) : string of coma separated classnames
 */
 var utils = {
+    baseURL:/^.*\//.exec(window.location.href),
     seed: "sample",
     security:300,// max number for boucles
+    /**
+     * 
+     * @param {String} type of DOM element
+     * @param {object} props properties of the element
+     */
+    create:function(type,props){
+        const elt = document.createElement(type);
+        for(const p in props){
+            elt[p] = props[p];
+        }
+        return elt;
+    },
+    setHistory(pageName,params){
+        let chaine = "";
+        let first = true;
+        if(params.u!==undefined){
+            params.u = params.u.replace('/','|').replace('.json','');
+        }
+        for(const i in params){
+            if(first){
+                first = false;
+                chaine += i+"="+params[i];
+            } else {
+                chaine += "&"+i+"="+params[i];
+            }
+        }
+        history.pushState({'id':'Homepage'},pageName,utils.baseURL+'index.html?'+chaine);
+    },
+    /**
+     * 
+     */
+    checkURL:function(){
+        const vars = utils.getUrlVars();
+        if(vars.n!== undefined){ // un niveau à afficher
+            library.displayContent(vars.n,true);
+            return;
+        }
+        if(vars.u!==undefined){ // un paramétrage d'exercice à afficher
+            library.load(vars.u+'.json');
+        }
+        if(vars.c!==undefined){ // une activité à lancer
+            let json = JSON.parse(decodeURIComponent(vars.c));
+            MM.resetCarts();
+            for(const i in json){
+                MM.carts[i] = new cart(i);
+                MM.carts[i].import(json[i]);
+            }
+            setTimeout(a=>{MM.start()},2000);
+        }
+    },
+    /**
+     * get data form url
+     * @returns array of datas from GET vars
+     */
+    getUrlVars: function() {
+        var vars = {},
+          hash;
+        var hashes = window.location.href.replace('|','/').slice(window.location.href.indexOf('?') + 1).split('&');
+        var len = hashes.length;
+        for (var i = 0; i < len; i++) {
+          hash = hashes[i].split('=');
+          //vars.push(hash[0]);
+          vars[hash[0]] = hash[1];
+        }
+        return vars;
+    },
+    /**
+     * Create a string of six alphabetic letters
+     * @returns (String) a aleatorycode
+     */
     seedGenerator:function(){
         let str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         let code = "";
@@ -141,6 +212,22 @@ var utils = {
     join:function(arr,str){
         if(!Array.isArray(arr))return false;
         return arr.join(str);
+    },
+    /**
+     * Création et complétion des infos de tuiles d'accueil
+     */
+    createTuiles(){
+        const grille = document.getElementById("tab-accueil");
+        for(const i in MM.content){
+            if(MM.content[i].activitiesNumber === undefined || MM.content[i].activitiesNumber ===0 || i==="activitiesNumber")continue;
+            const elt = utils.create("article",{"className":"tuile"});
+            const titre = utils.create("h3",{"innerHTML":MM.content[i].nom});
+            elt.appendChild(titre);
+            const nba = utils.create("div",{"innerHTML":MM.content[i].activitiesNumber+" activités"});
+            elt.onclick = ()=>{library.displayContent(i,true)};
+            elt.appendChild(nba);
+            grille.appendChild(elt);
+        }    
     },
     /**
     * function removeClass
@@ -362,12 +449,13 @@ var utils = {
      */
     showTab:function(element){
         utils.resetAllTabs();let tab, el;
+        if(element === "none")return;
         if(typeof element === "string"){
             tab = element;
-            el = document.querySelector("#header-menu a[href='#"+element+"']");
+            el = document.querySelector("#header-menu a[numero='#"+element+"']");
         } else {
             el = element;
-            tab = element.getAttribute('href').substr(1);
+            tab = element.getAttribute('numero').substr(1);
         }
         utils.addClass(el, "is-active");
         document.getElementById(tab).style.display = "";
@@ -411,6 +499,14 @@ var utils = {
             }
         //debug(partieEntiere+partieDecimale);
         return partieEntiere+partieDecimale;
+    },
+    annotate:function(){
+        if(MM.annotate === undefined){
+            MM.annotate = new draw();
+        } else {
+            MM.annotate.destroy();
+            MM.annotate = undefined;
+        }
     },
     /**
      * 
@@ -532,25 +628,6 @@ var utils = {
           }
           return time += sec;
       },
-      /**
-       * restore arrays
-       * @param {obj} obj 
-       */
-      restoreArray(obj){
-          // on recheche des virgule entre parenthèses
-          let regex = /\([^\)\,]*\,[^\(\,]*\)/g;
-        for (let i in obj){
-            if(typeof obj[i] === "string"){
-                // on ne prend pas en compte les virgules entre parenthèses
-                if(obj[i].indexOf(",")>0 && !regex.test(obj[i])){
-                    obj[i] = obj[i].split(",").map(utils.numberIfNumber);
-                }
-            } else if(typeof obj[i] === "object"){
-                obj[i] = this.restoreArray(obj[i]);
-            }
-        }
-        return obj;
-    },
     /**
      * 
      * @param {Number} value 
@@ -872,19 +949,10 @@ window.onload = function(){
         element.onclick = function(){utils.showTab(element)};
     });
     document.getElementById("btnaccueil").onclick = function(element){
-        console.log(element);
         utils.showTab(element.target);
     }
     utils.checkValues();
-    //utils.resetAllTabs();
     utils.initializeAlea(Date());
-    /*activities.forEach(function(element){
-        let ol = document.getElementById("actlist");
-        let li = document.createElement("li");
-        li.onclick = function(){library.load(element[0])};
-        li.innerHTML = element[1];
-        ol.appendChild(li);
-    });*/
     library.openContents();
     // put the good default selected
     document.getElementById("chooseParamType").value = "paramsdiapo";
@@ -930,17 +998,19 @@ class cart {
             r:this.introduction
         };
     }
-    // TODO : à revoir
+    // TODO : à travailler
     import(obj){
         this.id = obj.id;
-        this.end = obj.e;
-        for(let i=0,l=obj.a.length;i<l;i++){
-            this.activities[i] = Activity.import();
-        }
+        this.end = obj.e;// global
         //à revoir
         this.title = obj.t;
-        this.introduction = obj.r;
+        this.introduction = obj.r; // global
         this.target = obj.c;
+        // activités
+        for(const i in obj.a){
+            this.activities[i] = new activity({'id':obj.a[i].i});
+            this.activities[i].import(obj.a[i]);
+        }
     }
     setEndValue(value){
         this.end = value;
@@ -963,13 +1033,12 @@ class cart {
         this.display();
     }
     /**
-     * Change the order of the activities conformity to the li order after a move
+     * Change the order of the activities in conformity to the li order after a move
      * @param {integer} oldIndex old index of the activity
      * @param {integer} newIndex new index of the activity
      */
     exchange(oldIndex, newIndex){
         let indexes = this.activities.getKeys();
-        console.log(indexes);
         let tempindexes = indexes[oldIndex];
         let temp = this.activities[oldIndex];
         this.activities.splice(oldIndex, 1);
@@ -1015,37 +1084,49 @@ class cart {
  * designed for interactive screens
  */
 class draw {
-    constructor(w,h){
+    constructor(){
         // creation du canva et instanciation
-        let c = document.createElement("canvas");
-        c.id = "painting";
-        document.getElementsByTagName("body")[0].appendChild(c);
+        let c = utils.create("canvas",{"id":"painting"});
+        const target = document.getElementById("corrige-content");
+        target.appendChild(c);
         this.canvas = document.getElementById("painting");
-        this.canvas.width = w;
-        this.canvas.height = h;
+        this.canvas.width = target.offsetWidth;
+        this.canvas.height = target.offsetHeight+30;
+        this.canvas.style.top = target.offsetTop;
+        this.canvas.style.left = target.offsetLeft;
         this.mouse = {x:0,y:0};
-        this.canvas.addEventListener("mousemove",function(e){
-            this.mouse.x = e.pageX - this.offsetLeft;
-            this.mouse.y = e.pageY - this.offsetTop;
+        this.canvas.addEventListener("mousemove",e=>{
+            this.mouse.x = e.pageX - e.target.offsetLeft;
+            this.mouse.y = e.pageY - e.target.offsetTop;
+            if(this.enableDraw){
+                if(!this.started){
+                    this.started = true;
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(this.mouse.x,this.mouse.y);
+                } else {
+                    this.ctx.lineTo(this.mouse.x,this.mouse.y);
+                    this.ctx.stroke();
+                }
+            }
         }, false);
         this.ctx = this.canvas.getContext('2d');
         this.ctx.strokeStyle = "blue";
         this.ctx.lineWidth = 2;
-        this.ctx.lineJoin = 'round';
+        this.ctx.lineJoin = "round";
         this.ctx.lineCap = "round";
-        this.canvas.addEventListener('mousedown', function(e) {
-            this.ctx.beginPath();
-            this.ctx.moveTo(this.mouse.x, this.mouse.y);
-            this.canvas.addEventListener('mousemove', this.onPaint, false);
+        this.canvas.addEventListener('mousedown', e => {
+            this.enableDraw = true;
         }, false);
-        this.canvas.addEventListener('mouseup', function() {
-            this.canvas.removeEventListener('mousemove', this.onPaint, false);
+        this.canvas.addEventListener('mouseup', e => {
+            this.enableDraw = false;this.started = false;
         }, false);         
     }
-    onPaint = function() {
-        this.ctx.lineTo(this.mouse.x, this.mouse.y);
-        this.ctx.stroke();
-    };
+    // destroy canvas
+    destroy(){
+        this.canvas.parentNode.removeChild(this.canvas);
+        this.canvas = undefined;
+        this.ctx = undefined;
+    }
 }
 class steps {
     constructor(obj){
@@ -1082,11 +1163,9 @@ class steps {
             ul.appendChild(li);
         }
         if(this.container.hasChildNodes()){
-            //if(modeDebug) console.log("Replace Steps",this.step, this.size);
             let node = this.container.childNodes[0];
             this.container.replaceChild(ul, node);
         } else {
-            //if(modeDebug) console.log("Insert Steps",this.step, this.size);
             this.container.appendChild(ul);
         }
     }
@@ -1152,7 +1231,6 @@ class Figure {
         if(this.type === "chart"){ // Chart.js
             let target;
             if(destination === undefined){
-                console.log(destination);
                 target = document.getElementById(this.id);
                 //this.figure = new Chart(target, this.content);
             } else {
@@ -1651,7 +1729,6 @@ var MM = {
                 if(clen>1)addTitle = "-"+(kk+1);
                 let titleSlider = MM.carts[i].title+addTitle;
                 document.querySelector("#slider"+slideNumber+" .slider-title").innerHTML = titleSlider;
-                //if(modeDebug)console.log(slider);
                 let sliderSteps = document.querySelector("#slider"+slideNumber+" .steps-container");
                 let dive = document.createElement("div");
                 let divc = document.createElement("div");
@@ -1812,13 +1889,14 @@ var MM = {
         }
         if(MM.onlineState){
             MM.userAnswers = [];
-            // security
+            // security there should not be more than 1 cart for the online use
             if(MM.carts.length > 1){
                 for(let i=1,len=MM.carts.length;i<len;i++){
                     delete MM.carts[i];
                 }
             }
         }
+        utils.showTab("none");
         // check if an option has been chosen
         MM.checkIntro();
         MM.createSlideShows();
@@ -1838,6 +1916,20 @@ var MM = {
             MM.startTimers();
         }
     },
+    // get the URL of direct access to the activity with actual parameters
+    copyURL(){
+        MM.checkOnline();
+        if(!MM.carts[0].activities.length){
+            MM.carts[0].addActivity(MM.editedActivity);
+        }
+        MM.checkIntro();
+        utils.setSeed();
+        let carts = {};
+        for(let i=0;i<this.carts.length;i++){
+            carts[i] = this.carts[i].export();
+        }
+        utils.setHistory("Activité MathsMentales",{o:MM.onlineState,c:encodeURIComponent(JSON.stringify(carts))});
+    },
     /**
      * check if online session
      */
@@ -1854,7 +1946,6 @@ var MM = {
         MM.introType = utils.getRadioChecked("beforeSlider");
     },
     startTimers:function(){
-        //if(modeDebug)console.log("startTimers ", MM.timers);
         for(let i=0,k=MM.timers.length;i<k;i++){
             MM.timers[i].start(0);
         }
@@ -1919,7 +2010,7 @@ var MM = {
             MM.carts[0].addActivity(MM.editedActivity);
         MM.createSlideShows();
         MM.populateQuestionsAndAnswers();
-        utils.showTab(document.querySelector("[href='#tab-enonce'].tabs-menu-link"));
+        utils.showTab(document.querySelector("[numero='#tab-enonce'].tabs-menu-link"));
         if(MM.carts.length === 1 && MM.carts[0].activities.length === 1){
             MM.resetCarts();
             MM.editedActivity.display();
@@ -1930,7 +2021,7 @@ var MM = {
             MM.carts[0].addActivity(MM.editedActivity);
         MM.createSlideShows();
         MM.populateQuestionsAndAnswers();
-        utils.showTab(document.querySelector("[href='#tab-corrige'].tabs-menu-link"));
+        utils.showTab(document.querySelector("[numero='#tab-corrige'].tabs-menu-link"));
         if(MM.carts.length === 1 && MM.carts[0].activities.length === 1){
             MM.resetCarts();
             MM.editedActivity.display();
@@ -2099,7 +2190,6 @@ var MM = {
                         span.textContent = userAnswer;
                         // TODO : better correction value
                         // prendre en compte les cas où plusieurs réponses sont possibles
-                        //console.log(MM.userAnswers[ia], MM.carts[0].activities[indexA].values[indexQ]);
                         if(String(userAnswer)==String(expectedAnswer)){
                             li.className = "good";
                             score++;
@@ -2242,7 +2332,6 @@ var MM = {
             }
         }
         for(let i = 0,l=MM.carts.length;i<l;i++){
-            //if(modeDebug)console.log("Targets cart "+i, MM.carts[i].target);
             MM.carts[i].display();
         }
     },
@@ -2264,7 +2353,7 @@ var library = {
         let obj = new activity(json);
         MM.editedActivity = obj;
         // show tab-content
-        var tab = document.querySelector("a[href$='parameters'].tabs-menu-link");
+        var tab = document.querySelector("a[numero$='parameters'].tabs-menu-link");
         utils.resetAllTabs();
         utils.addClass(tab, "is-active");
         document.getElementById("tab-parameters").style.display = "";
@@ -2276,7 +2365,23 @@ var library = {
         let reader = new XMLHttpRequest();
         reader.onload = function(){
             let json = JSON.parse(reader.responseText);
+            utils.setHistory("Exercice",{"u":url});
             library.open(json);
+        }
+        reader.open("get", "library/"+url, false);
+        reader.send();
+    },
+    import:function(objact,url,actparams,last=false){
+        let reader = new XMLHttpRequest();
+        reader.onload = function(){
+            let json = JSON.parse(reader.responseText);
+            let obj = objact;
+            obj.refresh(json);
+            obj.chosenOptions = actparams.o;
+            obj.chosenQuestionTypes = actparams.p;
+            obj.chosenQuestions = actparams.q;
+            obj.tempo = actparams.t;
+            obj.nbq = actparams.n;
         }
         reader.open("get", "library/"+url, false);
         reader.send();
@@ -2285,14 +2390,18 @@ var library = {
         let reader = new XMLHttpRequest();
         reader.onload = function(){
             MM.content = JSON.parse(reader.responseText);
+            // remplissage de la grille d'accueil
+            utils.createTuiles();
+            // check if parameters from URL
+            utils.checkURL();
         }
         reader.open("get", "library/content.json", true);
         reader.send();
     },
-    displayContent:function(level){
+    displayContent:function(level,base=false){
         if(MM.content === undefined) {console.log("Pas de bibliothèque"); return false;}
         let niveau={nom:"Recherche",themes:{}};
-        if(typeof level === "string" && level != "T"){
+        if(!base){
             // recherche d'un terme, différent de T pour le niveau terminale
             if(level.length<3)return false; // on ne prend pas les mots de moins de 3 lettres
             // construction du niveau par extraction des données.
@@ -2325,7 +2434,12 @@ var library = {
             }
         } else 
             niveau = MM.content[level];
-        let html = "<h1>Niveau "+niveau["nom"]+"</h1>";
+        let html = "";
+        if(!base)
+            html = "<h1>Résultat de la recherche</h1>";
+        else
+            html = "<h1>Niveau "+niveau["nom"]+" ("+niveau["activitiesNumber"]+" act.)</h1>";
+        utils.setHistory(niveau["nom"],{"n":level});
         for(let i in niveau["themes"]){
             let first = true;
             let theme = false;
@@ -2356,7 +2470,7 @@ var library = {
             if(theme)html+=htmlt;
         }
         document.getElementById("resultat-chercher").innerHTML = html;
-        if(typeof level ==="number" || level === "T")document.querySelector("#header-menu a[href='#tab-chercher']").click();
+        document.querySelector("#header-menu a[numero='#tab-chercher']").click();
     }
 }
 // lecture des fichiers exercice
@@ -2379,6 +2493,30 @@ var library = {
 */
 class activity {
     constructor(obj){
+        this.id = obj.id||obj.ID;
+        this.type = obj.type; // undefined => latex , "text" can include math, with $$ around
+        this.figure = obj.figure; // for graphics description
+        this.title = obj.title;  // title of de activity
+        this.description = obj.description; // long description
+        this.vars = obj.vars;
+        this.consts = obj.consts;
+        this.options = utils.clone(obj.options)||undefined;
+        this.questionPatterns = utils.clone(obj.questionPatterns)||obj.question;
+        this.answerPatterns = utils.clone(obj.answerPatterns) || obj.answer;
+        this.valuePatterns = utils.clone(obj.valuePatterns) || obj.value;
+        this.questions = utils.clone(obj.questions)||[];
+        this.answers = utils.clone(obj.answers)||[];
+        this.samples = utils.clone(obj.samples)||[];// samples of answers, for online answer
+        this.values = utils.clone(obj.values)||[];
+        this.figures = utils.clone(obj.figures)||[]; // generetad figures paramaters
+        this.examplesFigs = {}; // genrated graphics from Class Figure
+        this.chosenOptions = utils.clone(obj.chosenOptions)||[];
+        this.chosenQuestions = utils.clone(obj.chosenQuestions)||{};
+        this.chosenQuestionTypes = utils.clone(obj.chosenQuestionTypes)||[];
+        this.tempo = utils.clone(obj.tempo) || Number(document.getElementById("tempo-slider").value);
+        this.nbq = utils.clone(obj.nbq) || Number(document.getElementById("nbq-slider").value);
+    }
+    refresh(obj){
         this.id = obj.id||obj.ID;
         this.type = obj.type; // undefined => latex , "text" can include math, with $$ around
         this.figure = obj.figure; // for graphics description
@@ -2434,16 +2572,10 @@ class activity {
      */
     import(obj){
         /* load */
-        let regexp = /(\d*)/;
-        let level = regexp.exec(obj.i);
+        let regexp = /(\d*|T)/;// le fichier commence par un nombre ou un T pour la terminale
+        let level = regexp.exec(obj.i)[0];
         let url = "N"+level+"/"+obj.i+".json";
-        library.load(url); // synchrone, so no problem
-        this.id = obj.i;
-        this.chosenOptions = obj.o;
-        this.chosenQuestionTypes = obj.p;
-        this.chosenQuestions = obj.q;
-        this.tempo = obj.t;
-        this.nbq = obj.n;
+        library.import(this,url,obj); // synchrone, so no problem
     }
     /**
      * getOption
@@ -2465,7 +2597,7 @@ class activity {
     /**
      * Display the activity editor
      */
-    display(){
+    display(cle="sample"){
         this.initialize();
         document.getElementById("param-title-act").innerHTML = this.id;
         // affichages
@@ -2477,18 +2609,14 @@ class activity {
         // affichage d'exemple(s)
         var examples = document.getElementById('activityOptions');
         examples.innerHTML = "";
-        utils.setSeed("sample");
+        utils.setSeed(cle);
         if(this.options !== undefined && this.options.length > 0){
             let colors = ['',' red',' orange',' blue', ' green', ' grey',];
             // Ajout de la possibilité de tout cocher ou pas
-            let p = document.createElement("span");
-            p.className = "bold";
-            let hr = document.createElement("hr");
-            let input = document.createElement("input");
-            input.type = "checkbox";
-            input.id="checkalloptions";
+            let p = utils.create("span",{className:"bold"});
+            let hr = utils.create("hr");
+            let input = utils.create("input",{type:"checkbox",id:"checkalloptions",className:"checkbox blue"})
             input.setAttribute("onclick","MM.editedActivity.setOption('all',this.checked)");
-            input.className = "checkbox blue";
             p.appendChild(input);
             p.appendChild(document.createTextNode(" Tout (dé)sélectionner"));
             examples.appendChild(p);
@@ -2496,21 +2624,15 @@ class activity {
             // affichage des options
             for(let i=0;i<this.options.length;i++){
                 this.generate(1,i,false);// génère un cas par option (si plusieurs)
-                let p = document.createElement("span");
-                let input = document.createElement("input");
-                input.id = "o"+i;
-                input.type = "checkbox";
-                input.value = i;
+                let p = utils.create("span");
+                let input = utils.create("input",{id:"o"+i,type:"checkbox",value:i,defaultChecked:(this.chosenOptions.indexOf(i)>-1)?true:false,className:"checkbox"+colors[i%colors.length]});
                 input.setAttribute("onclick", 'MM.editedActivity.setOption(this.value, this.checked);');
-                input.defaultChecked = (this.chosenOptions.indexOf(i)>-1)?true:false;
-                input.className = "checkbox"+colors[i%colors.length];
                 p.appendChild(input);
                 p.innerHTML += " "+this.options[i]["name"] + " :";
                 let ul = document.createElement("ul");
                 if(Array.isArray(this.questions[0])){
                     for(let jj=0; jj<this.questions[0].length;jj++){
-                        let li = document.createElement("li");
-                        li.className = "tooltip";
+                        let li = utils.create("li",{className:"tooltip"});
                         let checked = "";
                         if(this.chosenQuestions[i]){
                             if(this.chosenQuestions[i].indexOf(jj)>-1)
@@ -2518,8 +2640,7 @@ class activity {
                         }
                         li.innerHTML = "<input class='checkbox"+colors[i%colors.length]+"' type='checkbox' id='o"+i+"-"+jj+"' value='"+i+"-"+jj+"' onclick='MM.editedActivity.setOption(this.value, this.checked);'"+checked+"> "+this.setMath(this.questions[0][jj]);
                         // answer
-                        let span = document.createElement("span");
-                        span.className = "tooltiptext";
+                        let span = utils.create("span",{className:"tooltiptext"});
                         if(Array.isArray(this.answers[0]))
                             span.innerHTML = this.setMath(String(this.answers[0][jj]).replace(this.questions[0],this.questions[0][jj]));
                         else {
@@ -2529,15 +2650,11 @@ class activity {
                         ul.appendChild(li);
                     }
                 } else {
-                    let li = document.createElement("li");
-                    li.className = "tooltip";
-                    li.innerHTML = this.setMath(this.questions[0]);
+                    let li = utils.create("li",{className:"tooltip",innerHTML:this.setMath(this.questions[0])});
                     if(this.figures[0]){
                         this.examplesFigs[i] = new Figure(utils.clone(this.figures[0]), "fig-ex"+i, li);
                     }
-                    let span = document.createElement("span");
-                    span.className = "tooltiptext";
-                    span.innerHTML = this.setMath(this.answers[0]);
+                    let span = utils.create("span",{className:"tooltiptext",innerHTML:this.setMath(this.answers[0])});
                     li.appendChild(span);
                     ul.appendChild(li);
                 }
@@ -2715,16 +2832,13 @@ class activity {
      * @param {boolean} check true if check, false if not
      */
     setQuestionType(value,check){
-        //if(modeDebug)console.log(value,check);
         let questionId = Number(value);
         if(check){
             // not already chosen
             if(this.chosenQuestionTypes.indexOf(questionId)<0){
-                //if(modeDebug)console.log("chosenQuestionTypes add "+questionId);
                 this.chosenQuestionTypes.push(questionId);
             }
         } else {
-            //if(modeDebug)console.log("chosenQuestionTypse remove "+questionId);
             this.chosenQuestionTypes.removeValue(questionId);
         }
     }
@@ -2753,7 +2867,6 @@ class activity {
             // check if question as to be written in answer
             // index needed to find the question
             if(questiontext !== undefined){
-                //if(modeDebug)console.log(this.questions[index]);
                 let regex = /:question/g;
                 chaine = chaine.replace(regex, questiontext);
             }
@@ -2776,8 +2889,6 @@ class activity {
             } else for(const i in chaine){
                 chaine[i] = this.replaceVars(chaine[i],questiontext);
             }
-            //debug("objet à parser", this.replaceVars(JSON.stringify(chaine)));
-            //chaine = utils.restoreArray(JSON.parse(this.replaceVars(JSON.stringify(chaine))));
             return chaine;
         } else return chaine;
     }
