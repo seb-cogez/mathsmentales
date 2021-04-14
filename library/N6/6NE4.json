@@ -1,7 +1,7 @@
 {
     "title":"Multiplier par 75; 7,5; 0,75",
     "ID":"6NE4",
-    "dest":["6NE","7NE","5NC","4NC","3NC"],
+    "dest":["6NE","7NE","5NC","4NC","3NB"],
     "options":[{
         "name":"Multiplier par 75",
         "vars":{"a":75,"c":"12_100"}

@@ -5,7 +5,7 @@
     "options":[{
         "name":"Entier et fraction décimale -> décimal",
         "vars":{"a":[10,100,1000,10000], "e":"1_${:a}", "b":[10,100,1000], "c":"1_${:b-1}"},
-        "question": "${:a}+\\dfrac{${:c}}{${:b}}",
+        "question": "${:e}+\\dfrac{${:c}}{${:b}}",
         "answer":"${:e}+\\dfrac{${:c}}{${:b}}=\\color{red}{${math.round(:e+:c/:b,3)}}",
         "value":"${math.round(:e+:c/:b,3)}"
     },{

@@ -1,8 +1,8 @@
 {
     "title":"Fraction de quantité",
-    "ID":"7NB",
+    "ID":"7NB1",
     "type":"text",
-    "dest":["7NB", "6NB", "5NC", "4NC", "3NC"],
+    "dest":["7NB", "6NB", "5NC", "4NC", "3NB"],
     "options":[{
         "name":"Fraction de quantité en CM2",
         "consts":{"unites":["u","cm", "cm²", "oranges", "pommes", "bonbons"]},

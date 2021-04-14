@@ -2,7 +2,7 @@
     "title":"Ajouter des fractions",
     "type":"latex",
     "ID":"5NC7",
-    "dest":["6NB", "5NC", "4NC", "3NC"],
+    "dest":["6NB", "5NC", "4NC", "3NB"],
     "options":[{
         "name":"Ajouter des fractions décimales (6e)",
         "vars":{"nums":"1_20_2", "den":[10,100,1000]},

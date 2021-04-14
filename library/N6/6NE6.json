@@ -1,7 +1,7 @@
 {
     "title":"Multiplications astucieuses",
     "ID":"6NE6",
-    "dest":["6NE","5NC","4NC","3NC"],
+    "dest":["6NE","5NC","4NC","3NB"],
     "options":[{
         "name":"Avec 2 et 5",
         "vars":{"p":"-1_1_2","a":"${Number(eval(2+'e'+:p[0]))}","b":"${Number(eval(5+'e'+:p[1]))}","c":"1_20"}

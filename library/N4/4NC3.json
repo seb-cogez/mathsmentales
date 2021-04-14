@@ -2,7 +2,7 @@
     "title":"Produit de fractions",
     "type":"latex",
     "ID":"4NC3",
-    "dest":["4NC", "3NC"],
+    "dest":["4NC", "3NB"],
     "options":[{
         "name":"Produit de fractions positives",
         "vars":{"num":"1_12_2","den":"2_12_2"}

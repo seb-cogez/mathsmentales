@@ -3,7 +3,7 @@
     "type":"text",
     "ID":"6ND15",
     "description":"",
-    "dest":["6ND","5NC","4NC","3NC"],
+    "dest":["6ND","5NC","4NC","3NB"],
     "options":[{
         "name":"Opération unique",
         "vars":{"x":"1_99","y":"1_99"},

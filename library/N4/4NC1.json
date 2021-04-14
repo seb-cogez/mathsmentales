@@ -1,7 +1,7 @@
 {
     "title":"Connaître les carrés parfaits",
     "ID":"4NC1",
-    "dest":["4NC", "3NC", "5NC", "6ND"],
+    "dest":["4NC", "3NB", "5NC", "6ND"],
     "options":[{
         "name":"Carrés des tables (6e, 5e)",
         "vars":{"a":"1_10"}

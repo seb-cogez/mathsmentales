@@ -1,7 +1,7 @@
 {
     "title":"Multiplier par 2, 5, 20, 50, 4, 25, 0,5, 0,25",
     "ID":"6ND17",
-    "dest":["6ND","7ND","5NC","4NC","3NC"],
+    "dest":["6ND","7ND","5NC","4NC","3NB"],
     "options":[{
         "name":"Par 2",
         "vars":{"a":2,"c":"11_100"}

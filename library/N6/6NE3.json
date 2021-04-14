@@ -1,12 +1,12 @@
 {
     "title":"Multiplier par 1,5; 2,5; 3,5",
     "ID":"6NE3",
-    "dest":["6NE","7NE","5NC","4NC","3NC"],
+    "dest":["6NE","7NE","5NC","4NC","3NB"],
     "options":[{
         "name":"Multiplier un petit nombre (<41) par 1,5",
         "vars":{"a":1.5,"c":"2_40"}
     },{
-        "name":"Multiplier un grand nombre (40<x<101) par 1,5",
+        "name":"Multiplier un grand nombre (de 40 à 101) par 1,5",
         "vars":{"a":1.5,"c":"41_100"}
     },{
         "name":"Multiplier un petit nombre par 2,5",

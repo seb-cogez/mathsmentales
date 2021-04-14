@@ -102,16 +102,14 @@ var utils = {
      */
     checkURL:function(){
         const vars = utils.getUrlVars();
-        if(vars.n!== undefined){ // un niveau à afficher
+        if(vars.n!== undefined && vars.cd===undefined){ // un niveau à afficher
             library.displayContent(vars.n,true);
             return;
-        }
-        if(vars.u!==undefined){ // un paramétrage d'exercice à afficher
+        } else if(vars.u!==undefined){ // un paramétrage d'exercice à afficher
             let regexp = /(\d*|T)/;// le fichier commence par un nombre ou un T pour la terminale
             let level = regexp.exec(vars.u)[0];
             library.load("N"+level+"/"+vars.u+".json");    
-        }
-        if(vars.c!==undefined){ // une activité à lancer
+        } else if(vars.c!==undefined){ // une activité à lancer
             let json = JSON.parse(decodeURIComponent(vars.c));
             MM.resetCarts();
             for(const i in json){
@@ -119,6 +117,11 @@ var utils = {
                 MM.carts[i].import(json[i]);
             }
             setTimeout(a=>{MM.start()},2000);
+        } else if(vars.cd !== undefined){ // activité importé de MM v1
+            // construction d'un cart
+            MM.resetCarts();
+            MM.carts[0] = new cart(0);
+            library.load(MM1toMM2[vars.cd].new);
         }
     },
     /**
@@ -128,6 +131,12 @@ var utils = {
     getUrlVars: function() {
         var vars = {},
           hash;
+        if(location.href.indexOf("#")>0 && location.href.indexOf("?")<0){ // cas d'une activité MMv1
+            let idExo = location.href.substring(location.href.indexOf("#") + 1, location.href.length);
+            if(MM1toMM2[idExo].new !== undefined){
+                vars.u = MM1toMM2[idExo].new;
+            }
+        }
         var hashes = window.location.href.replace('|','/').slice(window.location.href.indexOf('?') + 1).split('&');
         var len = hashes.length;
         for (var i = 0; i < len; i++) {
@@ -2379,7 +2388,7 @@ var library = {
         reader.onload = function(){
             let json = JSON.parse(reader.responseText);
             let obj = objact;
-            obj.refresh(json);
+            obj.setParams(json);
             obj.chosenOptions = actparams.o;
             obj.chosenQuestionTypes = actparams.p;
             obj.chosenQuestions = actparams.q;
@@ -2496,30 +2505,13 @@ var library = {
 */
 class activity {
     constructor(obj){
-        this.id = obj.id||obj.ID;
-        this.type = obj.type; // undefined => latex , "text" can include math, with $$ around
-        this.figure = obj.figure; // for graphics description
-        this.title = obj.title;  // title of de activity
-        this.description = obj.description; // long description
-        this.vars = obj.vars;
-        this.consts = obj.consts;
-        this.options = utils.clone(obj.options)||undefined;
-        this.questionPatterns = utils.clone(obj.questionPatterns)||obj.question;
-        this.answerPatterns = utils.clone(obj.answerPatterns) || obj.answer;
-        this.valuePatterns = utils.clone(obj.valuePatterns) || obj.value;
-        this.questions = utils.clone(obj.questions)||[];
-        this.answers = utils.clone(obj.answers)||[];
-        this.samples = utils.clone(obj.samples)||[];// samples of answers, for online answer
-        this.values = utils.clone(obj.values)||[];
-        this.figures = utils.clone(obj.figures)||[]; // generetad figures paramaters
-        this.examplesFigs = {}; // genrated graphics from Class Figure
-        this.chosenOptions = utils.clone(obj.chosenOptions)||[];
-        this.chosenQuestions = utils.clone(obj.chosenQuestions)||{};
-        this.chosenQuestionTypes = utils.clone(obj.chosenQuestionTypes)||[];
-        this.tempo = utils.clone(obj.tempo) || Number(document.getElementById("tempo-slider").value);
-        this.nbq = utils.clone(obj.nbq) || Number(document.getElementById("nbq-slider").value);
+        if(_.isObject(obj)){
+            this.setParams(obj);
+        } else if(_.isString(obj)){
+            this.id = obj;
+        }
     }
-    refresh(obj){
+    setParams(obj){
         this.id = obj.id||obj.ID;
         this.type = obj.type; // undefined => latex , "text" can include math, with $$ around
         this.figure = obj.figure; // for graphics description

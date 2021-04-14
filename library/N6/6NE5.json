@@ -1,9 +1,9 @@
 {
     "title":"Multiplication dérivées des tables",
     "ID":"6NE5",
-    "dest":["6NE","7ND","5NC","4NC","3NC"],
+    "dest":["6NE","7NE","5NC","4NC","3NB"],
     "options":[{
-        "name":"Un décimal sur les deux facteurs",
+        "name":"Un décimal parmi deux facteurs",
         "vars":{"a":"1_10","p":"-2_-1","n":"1_10","c":"${Number(eval(:n+'e'+:p))}"}
     },{
         "name":"Deux facteurs décimaux",

@@ -1,16 +1,27 @@
 {
     "title":"Divisions",
     "ID":"6ND10",
-    "dest":["6ND", "7ND"],
+    "dest":["6ND", "7ND","5ND", "4ND", "3NC", "2N2"],
     "options":[{
         "name":"Division entière",
-        "vars":{"a":"1_10", "b":"1_10", "p":"${:a*:b}"},
+        "vars":{"a":"0_10", "b":"1_10", "p":"${:a*:b}"},
         "question": "${:p}\\div ${:a}",
         "answer":":question=\\color{red}{${:b}}",
         "value":"${:b}"
     },{
+        "name":"Division à trou",
+        "vars":{"a":"1_10", "b":"1_10", "p":"${:a*:b}"},
+        "question":"${:p}\\, \\div \\, ? \\,=${:a}",
+        "answer":"${:p}\\div\\color{red}{${:b}}=${:a}"
+    },{
         "name":"Division euclidienne (petits nombres)",
         "vars":{"a":"11_50","b":"2_10", "qo":"${~~(:a/:b)}", "r":"${:a%:b}"},
+        "question":"\\text{Quel sont le quotient et le reste de }${:a}\\div ${:b} ?",
+        "answer":"${:a}=${:b}\\times\\color{red}{${:qo}}+\\color{red}{${:r}}\\text{ ou }\\color{green}{Q=${:qo}; R=${:r}}",
+        "value":["${:qo};${:r}", "Q=${:qo};R=${:r}"]
+    },{
+        "name":"Division euclidienne (grands nombres)",
+        "vars":{"a":"25_300","b":"2_25", "qo":"${~~(:a/:b)}", "r":"${:a%:b}"},
         "question":"\\text{Quel sont le quotient et le reste de }${:a}\\div ${:b} ?",
         "answer":"${:a}=${:b}\\times\\color{red}{${:qo}}+\\color{red}{${:r}}\\text{ ou }\\color{green}{Q=${:qo}; R=${:r}}",
         "value":["${:qo};${:r}", "Q=${:qo};R=${:r}"]

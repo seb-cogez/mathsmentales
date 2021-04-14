@@ -7,7 +7,17 @@
         "coef":[0.5,2,"1/3",3,0.25,4],
         "tx":["\\div2","\\times2","\\div3","\\times3","\\div4","\\times4"]
     },
-    "vars":{"a":"0_5", "text":"${(:a<1)?'Quelle est la ':'Quel est le '}", "e":"1_30","qte":"${:e*12}"},
+    "options":[{
+        "name":"Moitié, double",
+        "vars":{"a":"0_1","text":"${(:a<1)?'Quelle est la ':'Quel est le '}","e":"1_30","qte":"${:e*12}"}
+        },{
+            "name":"Tiers, triple",
+            "vars":{"a":"2_3","text":"Quel est le ","e":"1_30","qte":"${:e*12}"}
+        },{
+            "name":"Quart, quadruple",
+            "vars":{"a":"4_5","text":"Quel est le ","e":"1_30","qte":"${:e*12}"}
+        }
+    ],
     "question":"${:text}<b>${:vocab[:a]}</b> de $$${:qte}$$ ?",
     "answer":"$$${:qte+:tx[:a]}=\\color{red}{${eval(math.calc(:qte+'*'+:coef[:a]))}}$$",
     "value":"${eval(math.calc(:qte+'*'+:coef[:a]))}"

@@ -1,7 +1,7 @@
 {
     "title":"Carrés de relatifs",
     "ID":"5NC4",
-    "dest":["5NC","4NC","3NC"],
+    "dest":["5NC","4NC","3NB"],
     "options":[{
         "name":"Carrés des entiers de -12 à 12",
         "vars":{"a":"-12_12"}

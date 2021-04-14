@@ -2,7 +2,7 @@
     "title":"Soustraire des fractions",
     "type":"latex",
     "ID":"5NC8",
-    "dest":["5NC", "4NC", "3NC"],
+    "dest":["5NC", "4NC", "3NB"],
     "options":[{
         "name":"Soustraire des fractions de même dénominateur",
         "vars":{"num1":"2_30", "num2":"1_${:num1-1}", "den":"2_30_^${:num1}"},

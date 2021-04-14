@@ -1,7 +1,7 @@
 {
     "title":"Multiplication de relatifs",
     "ID":"5NC5",
-    "dest":["5NC","4NC","3NC"],
+    "dest":["5NC","4NC","3NB"],
     "options":[{
         "name":"Produit de 2 entiers inférieurs à 11",
         "vars":{"n":"-10_10_2_^0"},

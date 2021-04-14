@@ -2,7 +2,7 @@
     "title":"Quotient de fractions",
     "type":"latex",
     "ID":"4NC4",
-    "dest":["4NC", "3NC"],
+    "dest":["4NC", "3NB"],
     "options":[{
         "name":"Quotient de fractions positives",
         "vars":{"num":"1_12_2","den":"2_12_2"}

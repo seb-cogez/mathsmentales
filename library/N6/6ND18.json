@@ -1,7 +1,7 @@
 {
     "title":"Multiplier par 11, 12, 9, 19, 21, 15",
     "ID":"6ND18",
-    "dest":["6ND","7ND","5NC","4NC","3NC"],
+    "dest":["6ND","7ND","5NC","4NC","3NB"],
     "options":[{
         "name":"Multiplier par 11",
         "vars":{"a":11,"c":"13_99"}

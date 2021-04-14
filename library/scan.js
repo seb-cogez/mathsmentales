@@ -31,7 +31,7 @@ for (let niveau in structure){
     }
   }
 }
-for (let niveau in structure){
+for (const niveau in structure){
   if(niveau === "activitiesNumber")continue;
   let listOfFiles = getAllFiles("./N"+niveau);
   listOfFiles.forEach(function(fichierExo){
@@ -48,6 +48,21 @@ for (let niveau in structure){
       }
     }
   })
+}
+// rangement alpha des exercices
+for(const niveau in structure){
+  for(const them in structure[niveau].themes){
+    for (const chap in structure[niveau].themes[them].chapitres){
+      if(structure[niveau].themes[them].chapitres[chap].e.length)
+        structure[niveau].themes[them].chapitres[chap].e.sort((a,b)=>{
+          let fa = a.t.toLowerCase();
+          let fb = b.t.toLowerCase();
+          if(fa < fb) return -1;
+          if(fa > fb) return 1;
+          return 0;
+        })
+    }
+  }
 }
 let data = JSON.stringify(structure);
 fs.writeFileSync("content.json", data);

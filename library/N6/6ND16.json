@@ -1,7 +1,7 @@
 {
     "title":"Multiplier par un multiple de 10",
     "ID":"6ND16",
-    "dest":["6ND","5NC","4NC","3NC"],
+    "dest":["6ND","5NC","4NC","3NB"],
     "options":[{
         "name":"Par 20 ou 30",
         "vars":{"a":[2,3],"b":"${10*:a}","c":"2_99"}

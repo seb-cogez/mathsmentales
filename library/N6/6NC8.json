@@ -8,6 +8,11 @@
         "w":["centaines de million", "dizaines de millions", "unités de millions","centaines de mille", "dizaines de mille", "unités de mille","centaines", "dizaines", "unités","dixièmes","centièmes","millièmes","dix-millièmes","cent-millièmes","millionièmes"]
     },
     "options":[{
+        "name":"Nombres inférieurs à $$1$$",
+        "vars":{"cs":"3_6","a":"0_8_${:cs}_^&","b":"0_${:cs-1}","c":"${Number(:a.slice(0,:b).concat([9]).concat(:a.slice(:b+1)).join(''))/1000000}"},
+        "answer":"Dans $$${:c}$$, 9 est le chiffre des <span class='red'>${:w[6-:cs+:b+9]}</span>",
+        "value":"${:w[:b+9]}"
+        },{
         "name":"Nombres inférieurs à $$1000$$",
         "vars":{"a":"0_8_6_^&", "b":"0_5", "c":"${Number(:a.slice(0,:b).concat([9]).concat(:a.slice(:b+1)).join(''))/1000}"},
         "answer":"Dans $$${:c}$$, 9 est le chiffre des <span class='red'>${:u[:b]}</span>",

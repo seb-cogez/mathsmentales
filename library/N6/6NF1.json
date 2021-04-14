@@ -2,7 +2,7 @@
     "title":"Rendre la monnaie",
     "ID":"6NF1",
     "type":"text",
-    "dest":["7NF","6NF","5NC","4NC","3NC"],
+    "dest":["7NF","6NF","5NC","4NC","3NB"],
     "consts":{"billets":[5,10,20,50,100],"pieces":[1,2,5,10,20,50]},
     "options":[{
         "name":"En euros, sur un billet",
