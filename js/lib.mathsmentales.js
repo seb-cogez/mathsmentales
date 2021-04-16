@@ -1107,9 +1107,9 @@ class draw {
         this.canvas.style.top = target.offsetTop;
         this.canvas.style.left = target.offsetLeft;
         this.mouse = {x:0,y:0};
-        this.canvas.addEventListener("mousemove",e=>{
-            this.mouse.x = e.pageX - e.target.offsetLeft;
-            this.mouse.y = e.pageY - e.target.offsetTop;
+        const mouvement = (event)=>{
+            this.mouse.x = event.pageX - event.target.offsetLeft;
+            this.mouse.y = event.pageY - event.target.offsetTop;
             if(this.enableDraw){
                 if(!this.started){
                     this.started = true;
@@ -1120,38 +1120,60 @@ class draw {
                     this.ctx.stroke();
                 }
             }
-        }, false);
-        this.canvas.addEventListener("touchmove",e=>{
-            this.mouse.x = e.pageX - e.target.offsetLeft;
-            this.mouse.y = e.pageY - e.target.offsetTop;
-            if(this.enableDraw){
-                if(!this.started){
-                    this.started = true;
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(this.mouse.x,this.mouse.y);
-                } else {
-                    this.ctx.lineTo(this.mouse.x,this.mouse.y);
-                    this.ctx.stroke();
-                }
-            }
-        }, false);
+        }
+        const yesDraw = (event)=>{
+            this.enableDraw = true;
+        }
+        const noDraw = (event)=>{
+            this.enableDraw = false;this.started = false;
+        }
+        this.canvas.addEventListener("mousemove",mouvement, false);
+        this.canvas.addEventListener("touchmove",mouvement, false);
         this.ctx = this.canvas.getContext('2d');
         this.ctx.strokeStyle = "blue";
         this.ctx.lineWidth = 2;
         this.ctx.lineJoin = "round";
         this.ctx.lineCap = "round";
-        this.canvas.addEventListener('mousedown', e => {
-            this.enableDraw = true;
+        this.canvas.addEventListener('mousedown', yesDraw, false);
+        this.canvas.addEventListener('touchstart', yesDraw, false);
+        this.canvas.addEventListener('mouseup',noDraw,false);
+        this.canvas.addEventListener('mouseout',noDraw,false);
+        this.canvas.addEventListener('touchend', noDraw,false);
+       // Prevent scrolling when touching the canvas
+        document.body.addEventListener("touchstart", e=> {
+            if (e.target == this.canvas) {
+            e.preventDefault();
+            }
         }, false);
-        this.canvas.addEventListener('touchstart', e => {
-            this.enableDraw = true;
+        document.body.addEventListener("touchend", e=> {
+            if (e.target == this.canvas) {
+            e.preventDefault();
+            }
         }, false);
-        this.canvas.addEventListener('touchend', e => {
-            this.enableDraw = false;this.started = false;
-        }, false);         
+        document.body.addEventListener("touchmove", e=> {
+            if (e.target == this.canvas) {
+            e.preventDefault();
+            }
+        }, false);
     }
     // destroy canvas
     destroy(){
+        // Prevent scrolling when touching the canvas
+        document.body.removeEventListener("touchstart", e=> {
+            if (e.target == this.canvas) {
+            e.preventDefault();
+            }
+        }, false);
+        document.body.removeEventListener("touchend", e=> {
+            if (e.target == this.canvas) {
+            e.preventDefault();
+            }
+        }, false);
+        document.body.removeEventListener("touchmove", e=> {
+            if (e.target == this.canvas) {
+            e.preventDefault();
+            }
+        }, false);
         this.canvas.parentNode.removeChild(this.canvas);
         this.canvas = undefined;
         this.ctx = undefined;
