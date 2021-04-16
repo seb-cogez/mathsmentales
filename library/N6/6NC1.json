@@ -3,38 +3,33 @@
     "ID":"6NC1",
     "dest":["6NC", "7NC"],
     "options":[{
-        "name":"Entier et fraction décimale -> décimal",
-        "vars":{"a":[10,100,1000,10000], "e":"1_${:a}", "b":[10,100,1000], "c":"1_${:b-1}"},
-        "question": "${:e}+\\dfrac{${:c}}{${:b}}",
-        "answer":"${:e}+\\dfrac{${:c}}{${:b}}=\\color{red}{${math.round(:e+:c/:b,3)}}",
-        "value":"${math.round(:e+:c/:b,3)}"
+        "name":"Entier et partie décimale -> décimal",
+        "consts":{"dix":[10,100,1000]},
+        "vars":{"a":[10,100,1000,10000], "e":"1_${:a}", "b":"0_2","d":"0_${:b}","c":"1_${:dix[:d]-1}"},
+        "question": ["${:e}+${math.round(:c/:dix[:b],3)}","${:e}+\\dfrac{${:c}}{${:dix[:b]}}"],
+        "answer":":question=\\color{red}{${math.round(:e+:c/:dix[:b],3)}}",
+        "value":"${math.round(:e+:c/:dix[:b],3)}"
     },{
         "name":"Entier et fractions décimales -> décimal",
         "vars":{"a":[10,100,1000,10000], "e":"1_${:a}", "b":"0_9_3"},
-        "question":["${:e}+\\dfrac{${:b[0]}}{10}",
-            "${:e}+\\dfrac{${:b[1]}}{100}",
-            "${:e}+\\dfrac{${:b[2]}}{1000}",
-            "${:e}+\\dfrac{${:b[0]}}{10}+\\dfrac{${:b[1]}}{100}",
-            "${:e}+\\dfrac{${:b[0]}}{10}+\\dfrac{${:b[2]}}{1000}",
-            "${:e}+\\dfrac{${:b[1]}}{100}+\\dfrac{${:b[2]}}{1000}",
-            "${:e}+\\dfrac{${:b[0]}}{10}+\\dfrac{${:b[1]}}{100}+\\dfrac{${:b[2]}}{1000}"
-            ],
-        "answer":[
-            ":question=\\color{red}{${math.round(:e+:b[0]/10,3)}}",
-            ":question=\\color{red}{${math.round(:e+:b[1]/100,3)}}",
-            ":question=\\color{red}{${math.round(:e+:b[2]/1000,3)}}",
-            ":question=\\color{red}{${math.round(:e+:b[0]/10+:b[1]/100,3)}}",
-            ":question=\\color{red}{${math.round(:e+:b[0]/10+:b[2]/1000,3)}}",
-            ":question=\\color{red}{${math.round(:e+:b[1]/100+:b[2]/1000,3)}}",
-            ":question=\\color{red}{${math.round(:e+:b[0]/10+:b[1]/100+:b[2]/1000,3)}}"
-        ]
+        "question":["${:e}${:b[0]!=0?'+'+math.round(:b[0]/10,1):''}${:b[1]!=0?'+'+math.round(:b[1]/100,2):''}${:b[2]!=0?'+'+math.round(:b[2]/1000,3):''}",
+            "${:e}${:b[0]!=0?'+\\dfrac{'+:b[0]+'}{10}':''}${:b[1]!=0?'+\\dfrac{'+:b[1]+'}{100}':''}${:b[2]!=0?'+\\dfrac{'+:b[2]+'}{1000}':''}"],
+        "answer": ":question=\\color{red}{${math.round(:e+:b[0]/10+:b[1]/100+:b[2]/1000,3)}}",
+        "value":"${math.round(:e+:b[0]/10+:b[1]/100+:b[2]/1000,3)}"
     },
     {
         "name":"Décimal -> Entier et fraction décimale",
-        "vars":{"a":[10,100,1000,10000], "e":"1_${:a}", "b":[10,100,1000], "c":"1_${:b-1}"},
-        "question": "${math.round(:e+:c/:b,3)}",
-        "answer":"${math.round(:e+:c/:b,3)}=\\color{red}{${:e}+${math.simplifyFracDec(:c,:b)}}",
-        "value":"${:e}+\\dfrac{${:c}}{${:b}}"
+        "vars":{"a":[10,100,1000,10000], "e":"1_${:a}", "b":"0_9_3", "c":"${:b[0]*100+:b[1]*10+:b[2]}"},
+        "question": "${math.round(:e+:c/1000,3)}",
+        "answer":":question=\\color{red}{${:e}+${math.simplifyFracDec(:c,1000)}}",
+        "value":"${:e}+${math.simplifyFracDec(:c,1000)}"
+    },
+    {
+        "name":"Décimal -> Entier et partie décimale",
+        "vars":{"a":[10,100,1000,10000], "e":"1_${:a}", "b":"0_9_3", "c":"${:b[0]*100+:b[1]*10+:b[2]}"},
+        "question": "${math.round(:e+:c/1000,3)}",
+        "answer":":question=\\color{red}{${:e}+${math.round(:c/1000,3)}}",
+        "value":"${:e}+${math.round(:c/1000,3)}"
     },
     {
         "name":"Décimal -> Entier et fractions décimales",
@@ -42,6 +37,13 @@
         "question": "${math.round(:e+:b[0]/10+:b[1]/100+:c/1000,3)}",
         "answer":":question=\\color{red}{${:e}${:b[0]?'+\\dfrac{'+:b[0]+'}{10}':''}${:b[1]?'+\\dfrac{'+:b[1]+'}{100}':''}+\\dfrac{${:c}}{1000}}",
         "value":"${:e}+${:b[0]}/10+${:b[1]}/100+${:c}/1000"
+    },
+    {
+        "name":"Décimal -> Entier et parties décimales",
+        "vars":{"a":[10,100,1000,10000], "e":"1_${:a}", "b":"0_9_2", "c":"1_9"},
+        "question": "${math.round(:e+:b[0]/10+:b[1]/100+:c/1000,3)}",
+        "answer":":question=\\color{red}{${:e}${:b[0]?'+'+math.round(:b[0]/10,1):''}${:b[1]?'+'+math.round(:b[1]/100,2):''}+${math.round(:c/1000,3)}}",
+        "value":"${:e}+${math.round(:b[0]/10,1)}+${math.round(:b[1]/100,2)}+${math.round(:c/1000,3)}"
     }
     ]
 }

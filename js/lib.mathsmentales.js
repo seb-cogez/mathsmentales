@@ -1121,6 +1121,20 @@ class draw {
                 }
             }
         }, false);
+        this.canvas.addEventListener("touchmove",e=>{
+            this.mouse.x = e.pageX - e.target.offsetLeft;
+            this.mouse.y = e.pageY - e.target.offsetTop;
+            if(this.enableDraw){
+                if(!this.started){
+                    this.started = true;
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(this.mouse.x,this.mouse.y);
+                } else {
+                    this.ctx.lineTo(this.mouse.x,this.mouse.y);
+                    this.ctx.stroke();
+                }
+            }
+        }, false);
         this.ctx = this.canvas.getContext('2d');
         this.ctx.strokeStyle = "blue";
         this.ctx.lineWidth = 2;
@@ -1129,7 +1143,10 @@ class draw {
         this.canvas.addEventListener('mousedown', e => {
             this.enableDraw = true;
         }, false);
-        this.canvas.addEventListener('mouseup', e => {
+        this.canvas.addEventListener('touchstart', e => {
+            this.enableDraw = true;
+        }, false);
+        this.canvas.addEventListener('touchend', e => {
             this.enableDraw = false;this.started = false;
         }, false);         
     }

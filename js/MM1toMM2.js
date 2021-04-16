@@ -71,11 +71,11 @@ const MM1toMM2 = {
   },
   "sixCompFrac": {
     "new": "6NB2",
-    "no": [0]
+    "no": 0
   },
   "sixSimplfrac": {
     "new": "6NB5",
-    "no": [1]
+    "no": 1
   },
   "sixMultpar": {
     "new": "6ND17",
@@ -224,11 +224,11 @@ const MM1toMM2 = {
   },
   "sixComparer": {
     "new": "6NC7",
-    "no": [2]
+    "no": 2
   },
   "sixEncadrer": {
     "new": "6NC3",
-    "no": [3]
+    "no": 3
   },
   "sixIntercaler": {
     "new": "6NC6",
@@ -295,11 +295,12 @@ const MM1toMM2 = {
   },
   "sixEcrdec": {
     "new": "6NC1",
-    "no": [0]
+    "no": 0
   },
   "sixDecomposerDecimal": {
-    "new": "",
-    "no": [],
+    "new": "6NC1",
+    "no": [0,1,3,5],
+    "nq":[0,0,,],
     "o": [
       "partie décimale",
       "parties décimale et entière",
@@ -308,8 +309,9 @@ const MM1toMM2 = {
     ]
   },
   "sixEcrDec1": {
-    "new": "",
-    "no": [],
+    "new": ["9NE1",,"8NE2",,,"6NE2"],
+    "no": [[0,1,2],,[0,1,2],,[0,1]],
+    "nq":[[[0,1],[0,1],[0,1]],,[[0,1],[0,1],[0,1]],,[[0,1],[0,1],[0,1]]],
     "o": [
       "10 Entiers",
       "10 Petits décimaux",
@@ -320,8 +322,8 @@ const MM1toMM2 = {
     ]
   },
   "sixEcrDec2": {
-    "new": "",
-    "no": [],
+    "new": "8NE3",
+    "no": [,,,[0,1,2]],
     "o": [
       "Entiers",
       "Petits entiers",
@@ -330,8 +332,8 @@ const MM1toMM2 = {
     ]
   },
   "sixEcrDec3": {
-    "new": "",
-    "no": [],
+    "new": "4NC2",
+    "no": [,,[0,1,2]],
     "o": [
       "Entiers",
       "Petits décimaux",
@@ -339,8 +341,9 @@ const MM1toMM2 = {
     ]
   },
   "cinqMultdec": {
-    "new": "",
-    "no": [],
+    "new": "6NE5",
+    "no": [1,0,[2,3]],
+    "nq":[[0,1],[[0,1],[0,1]]],
     "o": [
       "2 nbs < 1",
       "1 nb < 1",
@@ -348,8 +351,9 @@ const MM1toMM2 = {
     ]
   },
   "sixCompl10": {
-    "new": "",
-    "no": [],
+    "new": ["6ND3","6ND3","6ND3","6ND4"],
+    "no": [0,1,2,1],
+    "nq":[1,1,1,1],
     "o": [
       "à 10",
       "à 100",
@@ -358,8 +362,8 @@ const MM1toMM2 = {
     ]
   },
   "sixAddMaries": {
-    "new": "",
-    "no": [],
+    "new": "6ND5",
+    "no": [0,1,2],
     "o": [
       "Somme < 100",
       "Somme < 1000",
@@ -367,12 +371,12 @@ const MM1toMM2 = {
     ]
   },
   "sixMariages": {
-    "new": "",
-    "no": []
+    "new": "9NE2",
+    "no": [0,1,2]
   },
   "sixMariages2": {
-    "new": "",
-    "no": []
+    "new": "9NE3",
+    "no": 1
   },
   "sixAngl1": {
     "new": "",
@@ -387,16 +391,16 @@ const MM1toMM2 = {
     "no": []
   },
   "cinqAdd": {
-    "new": "",
-    "no": []
+    "new": "5NC1",
+    "no": 0
   },
   "cinqSous": {
-    "new": "",
-    "no": []
+    "new": "5NC2",
+    "no": 0
   },
   "cinqSom": {
-    "new": "",
-    "no": [],
+    "new": "5NC1",
+    "no": [,1,],
     "o": [
       "termes < 10",
       "termes < 20",
@@ -404,8 +408,8 @@ const MM1toMM2 = {
     ]
   },
   "cinqSom3": {
-    "new": "",
-    "no": [],
+    "new": "5NC1",
+    "no": [[2,3,4],,],
     "o": [
       "Petits nombres",
       "Grands nombres",
@@ -413,8 +417,9 @@ const MM1toMM2 = {
     ]
   },
   "conversionHminHdeci": {
-    "new": "",
-    "no": [],
+    "new": "8MC1",
+    "no": [[0,1],[2,3]],
+    "nq":[[0,],[0,]],
     "o": [
       "=> par quart",
       "<= par quart",
@@ -433,28 +438,29 @@ const MM1toMM2 = {
     ]
   },
   "cinqFractionsEgales": {
-    "new": "",
-    "no": [],
+    "new": "6NB6",
+    "no": [[0,1],[2,3]],
     "o": [
       "Petits nombres",
       "Grands nombres"
     ]
   },
   "cinqFractionQuantite": {
-    "new": "",
-    "no": [],
+    "new": "7NB1",
+    "no": [1,2],
+    "nq":[2,2],
     "o": [
       "Petits nombres",
       "Grands nombres"
     ]
   },
   "cinqFact1": {
-    "new": "",
-    "no": []
+    "new": "6ND0",
+    "no": [0,1]
   },
   "CalculerExpression": {
-    "new": "",
-    "no": [],
+    "new": "5NE3",
+    "no": [0,2,4,6,8,10],
     "o": [
       "ax+b",
       "ax²+b",
@@ -465,8 +471,8 @@ const MM1toMM2 = {
     ]
   },
   "CalculerExpressionRelatif": {
-    "new": "",
-    "no": [],
+    "new": "5NE3",
+    "no": [1,3,5,7,9,11],
     "o": [
       "ax+b",
       "ax²+b",
@@ -477,8 +483,8 @@ const MM1toMM2 = {
     ]
   },
   "cinqTesterEgalite": {
-    "new": "",
-    "no": [],
+    "new": "5NE4",
+    "no": [0,2,1,3],
     "o": [
       "ax+b=cx+d",
       "(x+a)b=cx+d",
@@ -491,48 +497,51 @@ const MM1toMM2 = {
     "no": []
   },
   "cinqAddFrac1": {
-    "new": "",
-    "no": []
+    "new": ["5NC7","5NC8"],
+    "no": [1,0]
   },
   "cinqAddFrac2": {
-    "new": "",
-    "no": [],
+    "new": [["5NC7","5NC8"],["5NC7","5NC8"]],
+    "no": [[2,3],[4,3]],
+    "nq":[,[1,]],
     "o": [
       "Dénominateurs multiples",
       "Dénominateurs quelconques"
     ]
   },
   "cinqProp": {
-    "new": "",
-    "no": []
+    "new": "4DC1",
+    "no": [0,1,2,3,4,5,6,7]
   },
   "cinqNombreRel": {
-    "new": "",
+    "new": "5NA1",
     "no": []
   },
   "quatreDecompose": {
-    "new": "",
-    "no": []
+    "new": "5ND1",
+    "no": 0
   },
   "quatreProdFrac": {
-    "new": "",
-    "no": []
+    "new": "4NC3",
+    "no": 0
   },
   "quatreQuotientFrac": {
-    "new": "",
-    "no": []
+    "new": "4NC4",
+    "no": 0,
+    "nq": 0
   },
   "quatreQuotientFracRel": {
-    "new": "",
-    "no": []
+    "new": "4NC4",
+    "no": 1,
+    "nq":0
   },
   "quatreProdFracRel": {
-    "new": "",
-    "no": []
+    "new": "4NC3",
+    "no": 1
   },
   "quatreMult": {
-    "new": "",
-    "no": [],
+    "new": "5NC5",
+    "no": [0,1,2],
     "o": [
       "2 relatifs",
       "3 relatifs",
