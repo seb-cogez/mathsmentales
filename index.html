@@ -83,13 +83,26 @@
 </header>
 <div class="clearfix"></div>
 <div id="contents" class="tabs-content">
-    <section id="tab-accueil" class="grille tabs-content-item">
+    <section id="tab-accueil" class="tabs-content-item">
+        <section class="grille">
         <article class="accueillogo">
-            <img src="img/logocm.png" width="320">
-        </article>
-        <article class="pub">
-            <span style="font-weight: bold;font-family: 'Trebuchet MS', Helvetica, sans-serif;font-size:1.2em;"><span style="color:#0492D2">M</span><span style="color:#6D9908">aths</span><span style="color:#C5026A">M</span><span style="color:#FF7B02">entales</span></span>Automatismes et calcul mental à données aléatoires sous forme de diaporamas, entrainement en ligne, feuilles d'exercices, cartes flash, dominos, duels en ligne...
-        </article>
+            <img src="img/logocm.png" width="240">
+            <p>
+                <b>Automatismes et calcul mental</b> à données aléatoires sous forme de diaporamas, réponses en ligne, feuilles d'exercices, cartes flash, dominos, duels en ligne...
+             </p>
+             <p>
+                 Egalement disponible : <a href="http://olibo.jeduque.net/ceintures-de-calcul-mental-au-college/">ceintures de calcul mental</a>  à imprimer pour le collège.
+             </p>
+             <p>Bientôt : un <b>éditeur d'exercices</b> MathsMentales en ligne pour participer au projet.</p>
+            </article>
+        </section>
+        <section id="grille-ecole" class="grille ecole">
+        </section>
+        <section id="grille-college" class="grille college">
+        </section>
+        <section id="grille-lycee" class="grille lycee">
+            <article></article>
+        </section>
         <!-- class="grid-3 has-gutter tabs-content-item">
         <div class="alert--danger"><h2>A propos</h2>
             Site de diaporamas d'activités mentales de mathématiques</div>
@@ -122,6 +135,11 @@
             <h1><i class="icon-arrow--right"></i>Activité <span id="param-title-act"></span></h1>
             <div id="activityTitle"></div>
             <div id="activityDescription"></div>
+            <!-- Durée et nombre de questions de l'activité -->
+            <b>Durée d'affichage :</b> <span id="tempo-value"></span><br>
+            <input type="range" id="tempo-slider" min="2" max="120" value="8" oninput="utils.changeTempoValue(this.value);" onchange="MM.carts[MM.selectedCart].display();"><br>
+            <b>Nombre de questions :</b> <span id="nbq-value"></span><br>
+            <input type="range" id="nbq-slider" min="1" max="20" value="10" oninput="utils.changeNbqValue(this.value);" onchange="MM.carts[MM.selectedCart].display();"><br>
         </div>
         <div id="phantom" class=""></div>
         <div id="divcarts" class="hidden">
@@ -198,15 +216,11 @@
             </fieldset>
             <div id="paramsdiapo">
             <fieldset>
-                <legend>Introduction</legend>
-                <span title="Commencer sur un exemple que l'on pourra discuter"><input type="radio" class="radio" name="beforeSlider" value="example"> Exemple</span>
-                <span title="Commener par un décompte 3...2...1..."><input type="radio" class="radio" name="beforeSlider" value="321" checked="true"> Décompte</span>
-                <span title="Commencer directement"><input type="radio" class="radio" name="beforeSlider" value="nothing"> Rien</span>
+                <legend>Introduction au diaporama</legend>
+                <span title="Commencer sur un exemple que l'on pourra discuter"><input type="radio" class="radio" name="beforeSlider" value="example" onclick="MM.carts[MM.selectedCart].setIntroduction(this.value);"> Exemple</span>
+                <span title="Commener par un décompte 3...2...1..."><input type="radio" class="radio" name="beforeSlider" value="321" checked="true" onclick="MM.carts[MM.selectedCart].setIntroduction(this.value);"> Décompte</span>
+                <span title="Commencer directement"><input type="radio" class="radio" name="beforeSlider" value="nothing" onclick="MM.carts[MM.selectedCart].setIntroduction(this.value);"> Rien</span>
             </fieldset><br>
-            <b>Temps :</b> <span id="tempo-value"></span><br>
-            <input type="range" id="tempo-slider" min="2" max="120" value="8" oninput="utils.changeTempoValue(this.value);" onchange="MM.carts[MM.selectedCart].display();"><br>
-            <b>Nombre de questions :</b> <span id="nbq-value"></span><br>
-            <input type="range" id="nbq-slider" min="1" max="20" value="10" oninput="utils.changeNbqValue(this.value);" onchange="MM.carts[MM.selectedCart].display();"><br>
             <fieldset>
                 <legend>Enoncé</legend>
                 <input type="radio" class="radio" name="Enonces" value="1" checked="true" onclick="MM.setDispositionEnonce(1);"> Simple
@@ -231,9 +245,9 @@
                 </fieldset><br>
             <fieldset>
                 <legend>Fin de diaporama</legend>
-                <input type="radio" class="radio" name="endOfSlideRadio" value="correction" checked="true"> Correction
-                <input type="radio" class="radio" name="endOfSlideRadio" value="nothing"> Rien
-                <input type="radio" class="radio" name="endOfSlideRadio" value="list"> Énoncés
+                <input type="radio" class="radio" name="endOfSlideRadio" value="correction" checked="true" onclick="MM.carts[MM.selectedCart].setEndValue(this.value);"> Correction
+                <input type="radio" class="radio" name="endOfSlideRadio" value="nothing" onclick="MM.carts[MM.selectedCart].setEndValue(this.value);"> Rien
+                <input type="radio" class="radio" name="endOfSlideRadio" value="list" onclick="MM.carts[MM.selectedCart].setEndValue(this.value);"> Énoncés
             </fieldset><br>
             <section class="txtcenter" id="startbuttons">
                 <button class="button--info" onclick="MM.showQuestions();">Énoncés</button>

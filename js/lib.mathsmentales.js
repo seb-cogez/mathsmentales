@@ -80,6 +80,14 @@ var utils = {
         }
         return elt;
     },
+    /**
+     * La transformation d'une ou d'un panier MMv1 étant assez compliquée,
+     * redirection vers le dosser comportant l'ancienne version : /old
+     */
+    goToOldVersion(){
+        window.location.href = utils.baseURL + 'old/'+(/(^.*\/)(.*)/.exec(window.location.href)[2]);
+        //debug(utils.baseURL + 'old/'+(/(^.*\/)(.*)/.exec(window.location.href)[2]))
+    },
     setHistory(pageName,params){
         let chaine = "";
         let first = true;
@@ -105,11 +113,28 @@ var utils = {
         if(vars.n!== undefined && vars.cd===undefined){ // un niveau à afficher
             library.displayContent(vars.n,true);
             return;
-        } else if(vars.u!==undefined){ // un paramétrage d'exercice à afficher
+        } else if(vars.u!==undefined && vars.cd === undefined){
             let regexp = /(\d*|T)/;// le fichier commence par un nombre ou un T pour la terminale
-            let level = regexp.exec(vars.u)[0];
-            library.load("N"+level+"/"+vars.u+".json");    
-        } else if(vars.c!==undefined){ // une activité à lancer
+            // un paramétrage d'exercice à afficher
+             if(_.isArray(vars.u)){
+                 let listeURLs = [];
+                 // il peut y avoir plusieurs exercices correspondant à une activité MM1
+                 for(let i=0;i<vars.u.length;i++){
+                    let url = vars.u[i];
+                    let level = regexp.exec(url)[0];
+                    listeURLs.push({u:"N"+level+"/"+url+".json",t:""});
+                }
+                library.displayContent(listeURLs);
+             } else if(vars.u !== undefined) {
+                 // s'il n'y a qu'une activité, on l'affiche.
+                let level = regexp.exec(vars.u)[0];
+                library.load("N"+level+"/"+vars.u+".json"); 
+            } else {
+                let alert = utils.create("div",{className:"message",innerHTML:"Cette activité n'a pas de correspondance dans cette nouvelle version de MathsMentales.<hr class='center w50'>Vous allez être redirigé vers l'ancienne version dans 10s. <a href='javascript:utils.goToOldVersion();'>Go !</a>"});
+                document.getElementById("tab-accueil").appendChild(alert);
+                setTimeout(utils.goToOldVersion,10000);
+            }
+        } else if(vars.c!==undefined){ // une activité MM v2 à lancer
             let json = JSON.parse(decodeURIComponent(vars.c));
             MM.resetCarts();
             for(const i in json){
@@ -117,11 +142,11 @@ var utils = {
                 MM.carts[i].import(json[i]);
             }
             setTimeout(a=>{MM.start()},2000);
-        } else if(vars.cd !== undefined){ // activité importé de MM v1
-            // construction d'un cart
-            MM.resetCarts();
-            MM.carts[0] = new cart(0);
-            library.load(MM1toMM2[vars.cd].new);
+        } else if(vars.cd !== undefined || vars.parnier !== undefined){ // activité unique importée de MM v1
+            // affichage d'un message de redirection
+            let alert = utils.create("div",{className:"message",innerHTML:"Ceci est le nouveau MathsMentales, les anciennes adresses ne sont malheureusement plus compatibles.<hr class='center w50'>Vous allez être redirigé vers l'ancienne version de MathsMentales dans 10 s. <a href='javascript:utils.goToOldVersion();'>Go !</a>"});
+            document.getElementById("tab-accueil").appendChild(alert);
+            setTimeout(utils.goToOldVersion,10000);
         }
     },
     /**
@@ -132,16 +157,17 @@ var utils = {
         var vars = {},
           hash;
         if(location.href.indexOf("#")>0 && location.href.indexOf("?")<0){ // cas d'une activité MMv1
+            // cas d'une référence simple à l'exo
+            // pour ouvrir l'éditeur sur cet exo
             let idExo = location.href.substring(location.href.indexOf("#") + 1, location.href.length);
             if(MM1toMM2[idExo].new !== undefined){
                 vars.u = MM1toMM2[idExo].new;
             }
         }
-        var hashes = window.location.href.replace('|','/').slice(window.location.href.indexOf('?') + 1).split('&');
+        var hashes = window.location.href.replace(/\|/g,'/').slice(window.location.href.indexOf('?') + 1).split('&');
         var len = hashes.length;
         for (var i = 0; i < len; i++) {
           hash = hashes[i].split('=');
-          //vars.push(hash[0]);
           vars[hash[0]] = hash[1];
         }
         return vars;
@@ -229,16 +255,23 @@ var utils = {
      * Création et complétion des infos de tuiles d'accueil
      */
     createTuiles(){
-        const grille = document.getElementById("tab-accueil");
-        for(const i in MM.content){
-            if(MM.content[i].activitiesNumber === undefined || MM.content[i].activitiesNumber ===0 || i==="activitiesNumber")continue;
-            const elt = utils.create("article",{"className":"tuile"});
-            const titre = utils.create("h3",{"innerHTML":MM.content[i].nom});
+        let grille;
+        function setContent(id,obj){
+            const elt = utils.create("article",{"className":"tuile","title":"Cliquer pour afficher toutes les activités du niveau"});
+            const titre = utils.create("h3",{"innerHTML":obj.nom});
             elt.appendChild(titre);
-            const nba = utils.create("div",{"innerHTML":MM.content[i].activitiesNumber+" activités"});
-            elt.onclick = ()=>{library.displayContent(i,true)};
+            const nba = utils.create("div",{"innerHTML":obj.activitiesNumber+" activités"});
+            elt.onclick = ()=>{library.displayContent(id,true)};
             elt.appendChild(nba);
             grille.appendChild(elt);
+        }
+        const ordre={"grille-ecole":["11","10","9","8","7"],"grille-college":["6","5","4","3"],"grille-lycee":[2,1,"T"]};
+        for(const o in ordre){
+            grille = document.getElementById(o);
+            for(let i=0;i<ordre[o].length;i++){
+                if(MM.content[ordre[o][i]].activitiesNumber === undefined || MM.content[ordre[o][i]].activitiesNumber ===0 || i==="activitiesNumber")continue;
+                setContent(ordre[o][i],MM.content[ordre[o][i]]);
+            }
         }    
     },
     /**
@@ -1001,7 +1034,6 @@ class cart {
             activities[i]=this.activities[i].export();
         }
         return {
-            y:'c',
             i:this.id,
             a:activities,
             t:this.title,
@@ -1012,16 +1044,21 @@ class cart {
     }
     // TODO : à travailler
     import(obj){
-        this.id = obj.id;
-        this.end = obj.e;// global
+        this.end = obj.e;
         //à revoir
         this.title = obj.t;
-        this.introduction = obj.r; // global
+        this.introduction = obj.r;
         this.target = obj.c;
+        let activitiesNumber = _.size(obj.a);
+        let count = 0;
         // activités
         for(const i in obj.a){
             this.activities[i] = new activity({'id':obj.a[i].i});
             this.activities[i].import(obj.a[i]);
+            count++;
+            if(activitiesNumber === count){
+                MM.editedActivity = this.activities[i];
+            }
         }
     }
     setEndValue(value){
@@ -1615,6 +1652,7 @@ class ficheToPrint {
 var MM = {
     content:undefined, // liste des exercices classés niveau/theme/chapitre chargé au démarrage
     introType:undefined,// type of the slide's intro values : "example" "321" "nothing"
+    endType:undefined,// type of end slide's values : "correction", "nothing", "list"
     selectedCart:0,
     seed:"", // String to initialize the randomization
     editedActivity:undefined, // object activity 
@@ -1979,7 +2017,7 @@ var MM = {
         for(let i=0;i<this.carts.length;i++){
             carts[i] = this.carts[i].export();
         }
-        utils.setHistory("Activité MathsMentales",{o:MM.onlineState,c:encodeURIComponent(JSON.stringify(carts))});
+        utils.setHistory("Activité MathsMentales",{i:MM.introType,e:MM.endType,o:MM.onlineState,c:encodeURIComponent(JSON.stringify(carts))});
     },
     /**
      * check if online session
@@ -1995,6 +2033,7 @@ var MM = {
     },
     checkIntro:function(){
         MM.introType = utils.getRadioChecked("beforeSlider");
+        MM.entType = utils.getRadioChecked("endOfSlideRadio");
     },
     startTimers:function(){
         for(let i=0,k=MM.timers.length;i<k;i++){
@@ -2414,10 +2453,10 @@ var library = {
     },
     load:function(url){
         let reader = new XMLHttpRequest();
-        reader.onload = function(){
+        reader.onload = ()=>{
             let json = JSON.parse(reader.responseText);
             utils.setHistory("Exercice",{"u":url});
-            library.open(json);
+            this.open(json);
         }
         reader.open("get", "library/"+url, false);
         reader.send();
@@ -2452,12 +2491,43 @@ var library = {
     displayContent:function(level,base=false){
         if(MM.content === undefined) {console.log("Pas de bibliothèque"); return false;}
         let niveau={nom:"Recherche",themes:{}};
-        if(!base){
+        if(_.isObject(level)){
+            niveau.nom = "Cette activité a été répartie en plusieurs";
+            // on cherche les titres
+                for(let exo in level){
+                let found = false; // le titre n'est pas encore trouvé
+                for(let niv in MM.content){
+                    if(found) break;
+                    if(_.isObject(MM.content[niv])){
+                        for(let theme in MM.content[niv].themes){
+                            if(found) break;
+                            for(let chap in MM.content[niv].themes[theme].chapitres){
+                                if(found) break;
+                                if(MM.content[niv].themes[theme].chapitres[chap].e.length>0){
+                                    if(found) break;
+                                    for(let i=0;i<MM.content[niv].themes[theme].chapitres[chap].e.length;i++){
+                                        if(MM.content[niv].themes[theme].chapitres[chap].e[i].u === level[exo].u){
+                                            level[exo].t = MM.content[niv].themes[theme].chapitres[chap].e[i].t;
+                                            found = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            niveau.themes[0] = {
+                "nom":"Cliquer pour ouvrir une activité",
+                "chapitres":{"MM1":{"n":"Cliquer sur Rechercher pour revenir ici","e":level}}
+            }
+        } else if(!base){
             // recherche d'un terme, différent de T pour le niveau terminale
             if(level.length<3)return false; // on ne prend pas les mots de moins de 3 lettres
             // construction du niveau par extraction des données.
             for(let niv in MM.content){
-                if(typeof MM.content[niv] === "object"){ // le niveau contient de chapitres
+                if(_.isObject(MM.content[niv])){ // le niveau contient de chapitres
                     for(let theme in MM.content[niv].themes){
                         for(let chap in MM.content[niv].themes[theme].chapitres){
                             let chapExo=[];
@@ -2486,11 +2556,16 @@ var library = {
         } else 
             niveau = MM.content[level];
         let html = "";
-        if(!base)
+        if(!base && !_.isObject(level))
             html = "<h1>Résultat de la recherche</h1>";
-        else
+        else if(!_.isObject(level))
             html = "<h1>Niveau "+niveau["nom"]+" ("+niveau["activitiesNumber"]+" act.)</h1>";
-        utils.setHistory(niveau["nom"],{"n":level});
+        else 
+            html = "<h2>Cette activité MathsMentales v1 a été répartie en plusieurs activités</h2>";
+        if(!_.isObject(level))
+            utils.setHistory(niveau["nom"],{"n":level});
+        // Affichage et mise en forme des données.
+        let itemsNumber = 0;
         for(let i in niveau["themes"]){
             let first = true;
             let theme = false;
@@ -2501,9 +2576,11 @@ var library = {
                 let htmlc=(first)?"":"<span>";
                 htmlc += "<h3>"+niveau["themes"][i]["chapitres"][j]["n"]+"</h3>";
                 htmlc += "<ul>";
-                if(niveau["themes"][i]["chapitres"][j]["e"].length){
+                let nbexos = niveau["themes"][i]["chapitres"][j]["e"].length;
+                if(nbexos){
+                    itemsNumber += nbexos;
                     theme=true;chapitre=true;
-                    for(let k=0,len=niveau["themes"][i]["chapitres"][j]["e"].length;k<len;k++){
+                    for(let k=0,len=nbexos;k<len;k++){
                         htmlc += "<li onclick=\"library.load('"+niveau["themes"][i]["chapitres"][j]["e"][k]["u"]+"')\">"+niveau["themes"][i]["chapitres"][j]["e"][k]["t"]+"</li>";
                     }
                 } else {
@@ -2521,6 +2598,11 @@ var library = {
             if(theme)html+=htmlt;
         }
         document.getElementById("resultat-chercher").innerHTML = html;
+        let target = document.getElementById("tab-chercher");
+        target.className = "tabs-content-item";
+        // Nombre de colonnes en fonction du contenu
+        if(itemsNumber > 40) utils.addClass(target,"cols3");
+        else if(itemsNumber > 20) utils.addClass(target, "cols2");
         document.querySelector("#header-menu a[numero='#tab-chercher']").click();
     }
 }
@@ -2592,7 +2674,6 @@ class activity {
      */
     export(){
         return {
-            y:'a',
             i:this.id,
             o:this.chosenOptions,
             q:this.chosenQuestions,

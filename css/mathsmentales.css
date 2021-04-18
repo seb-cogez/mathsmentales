@@ -14,44 +14,57 @@ mark {
 .tabs-menu a{
   cursor: pointer;
 }
+.message {
+  display: block;
+  width: 420px;
+  text-align: center;
+  position: absolute;
+  background: #367ebd;
+  color: rgb(223, 227, 245);
+  padding:3rem;
+  top:30%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  border-radius: 0.5em;
+  box-shadow: 0 8px 6px -6px #000,-1px 2px 20px rgba(47, 91, 235, 0.6) inset;
+}
 .grille {
+  width:1080px;
   display: grid;
   gap: 3rem;
   grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
-  margin: 0 0 1.5rem;
+  margin: auto;
   position: relative;
   padding: 2rem 10rem;
 }
-.accueillogo{
+.grille .accueillogo{
   grid-row-start: 1;
   grid-row-end: 3;
   grid-column-start: 1;
-  grid-column-end: 3;
+  grid-column-end: 5;
+}
+.grille .accueillogo img{
+  float: left;
+  margin-right: 1rem;
 }
 .grille .tuile {
   cursor: pointer;
   text-align: center;
   padding: 1.5rem;
   border-radius: 8px;
-  background: linear-gradient(85deg,#434343,#262626);
-  color: #fff;
+  border:1px solid #585858;
+  background: linear-gradient(85deg,#ffffff,#d6d6d6);
+  color: rgb(1, 4, 41);
   display: flex;
   flex-direction: column;
   transition: .2s;
   margin: 0;
 }
-.grille .pub {
-  grid-column-start: 3;
-  grid-column-end: span 3;
-  text-align: center;
-  padding: 1.5rem;
-  border-radius: 8px;
-  background: linear-gradient(85deg,#f8f6fd,#d7d7e0);
-  color: rgb(26, 24, 43);
-  display: flex;
-  flex-direction: column;
-  transition: .2s;
-  margin: 0;
+.grille .tuile:hover{
+  box-shadow: 0 8px 6px -6px #000,-1px 2px 20px rgba(255,255,255,.6) inset;
+}
+.grille .tuile:hover h3{
+  font-weight: bolder;
 }
 #app-container{
     display: flex;
@@ -328,14 +341,18 @@ ul.menu, .menu ul {
 #tab-chercher li[onclick]:hover{
   text-decoration: underline;
 }
-
 #tab-chercher > span{
   display:inline-block;
   width: 100%;
 }
 #tab-chercher {
-  column-count: 3;
   column-rule: 1px solid #0d0d0d;
+}
+.cols2 {
+  column-count: 2;
+}
+.cols3 {
+  column-count: 3;
 }
 #tab-chercher h1::before{
   content:"›› ";

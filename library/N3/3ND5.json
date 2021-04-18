@@ -1,7 +1,7 @@
 {
     "title":"Résoudre une équation se ramenant à x² = a",
     "type":"latex",
-    "ID":"3D5",
+    "ID":"3ND5",
     "dest":["3ND", "2N3"],
     "consts":{"lettres":["u","v","t","x", "y", "z"]},
     "options":[{

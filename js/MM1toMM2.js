@@ -29,7 +29,7 @@ const MM1toMM2 = {
   },
   "sixCalcParentheses": {
     "new": "6ND12",
-    "no": [0,1,2,3,4,5],
+    "no": [[0,1],[2,3],[4,5]],
     "o": [
       "×(+ ou -)",
       "(+ ou -)÷",
@@ -57,7 +57,7 @@ const MM1toMM2 = {
   },
   "sixSous": {
     "new": "6ND8",
-    "no": [0]
+    "no": 0
   },
   "sixMult": {
     "new": "6ND7",
@@ -549,23 +549,23 @@ const MM1toMM2 = {
     ]
   },
   "quatreMultDiv": {
-    "new": "",
+    "new": ["5NC5","5NC6"],
     "no": []
   },
   "quatreSomMul": {
-    "new": "",
+    "new": ["5NC5","5NC1"],
     "no": []
   },
   "quatreSomMulDiv": {
-    "new": "",
+    "new": ["5NC5","5NC6","5NC1"],
     "no": []
   },
   "quatreDiv": {
-    "new": "",
+    "new": "5NC6",
     "no": []
   },
   "cinqCarre": {
-    "new": "",
+    "new": "6ND13",
     "no": [],
     "o": [
       "1 à 12",
@@ -575,7 +575,7 @@ const MM1toMM2 = {
     ]
   },
   "quatreCarre": {
-    "new": "",
+    "new": "5NC4",
     "no": [],
     "o": [
       "-12 à 12",
@@ -588,7 +588,7 @@ const MM1toMM2 = {
     ]
   },
   "carreRelatifs": {
-    "new": "",
+    "new": "5NC4",
     "no": [],
     "o": [
       "-12 à 12",
@@ -597,7 +597,7 @@ const MM1toMM2 = {
     ]
   },
   "quatreCarreDecimaux": {
-    "new": "",
+    "new": "5NC4",
     "no": [],
     "o": [
       "1 à 15 ×10 ou 100",
@@ -607,15 +607,15 @@ const MM1toMM2 = {
     ]
   },
   "quatreRacineDecimale": {
-    "new": "",
+    "new": "4NA4",
     "no": []
   },
   "quatreAireCarre": {
-    "new": "",
+    "new": "6GD1",
     "no": []
   },
   "quatreDev1": {
-    "new": "",
+    "new": "4NE4",
     "no": [],
     "o": [
       "k entier",
@@ -623,7 +623,7 @@ const MM1toMM2 = {
     ]
   },
   "quatreDev2": {
-    "new": "",
+    "new": "4NE4",
     "no": [],
     "o": [
       "Coefficients positifs",
@@ -631,7 +631,7 @@ const MM1toMM2 = {
     ]
   },
   "quatreSommeLit": {
-    "new": "",
+    "new": "5NE1",
     "no": [],
     "o": [
       "début 5e",
@@ -639,7 +639,7 @@ const MM1toMM2 = {
     ]
   },
   "quatreProdLit": {
-    "new": "",
+    "new": "5NE2",
     "no": [],
     "o": [
       "Simple, sans signe",
@@ -647,19 +647,19 @@ const MM1toMM2 = {
     ]
   },
   "quatreSomProdLit": {
-    "new": "",
+    "new": ["5NE1","5NE2"],
     "no": []
   },
   "litSommedeProduits": {
-    "new": "",
+    "new": "4NE1",
     "no": []
   },
   "quatreSimpllitt2nd": {
-    "new": "",
+    "new": "4NE3",
     "no": []
   },
   "quatreSimpllitt1er": {
-    "new": "",
+    "new": "4NE2",
     "no": [],
     "o": [
       "4 relatifs",
@@ -667,7 +667,7 @@ const MM1toMM2 = {
     ]
   },
   "quatrePuiss10": {
-    "new": "",
+    "new": "3NB1",
     "no": [],
     "o": [
       "Produit",
@@ -676,11 +676,11 @@ const MM1toMM2 = {
     ]
   },
   "quatreMelangePuiss": {
-    "new": "",
+    "new": "3NB2",
     "no": []
   },
   "quatreEcritSci": {
-    "new": "",
+    "new": "3NB1",
     "no": []
   },
   "quatreTric1": {
@@ -688,15 +688,15 @@ const MM1toMM2 = {
     "no": []
   },
   "quatreScientifique": {
-    "new": "",
+    "new": "4NA1",
     "no": []
   },
   "quatreScientifiqueVersdecimal": {
-    "new": "",
+    "new": "4NA1",
     "no": []
   },
   "troisPuiss": {
-    "new": "",
+    "new": "3NB3",
     "no": [],
     "o": [
       "Produit",
@@ -705,11 +705,11 @@ const MM1toMM2 = {
     ]
   },
   "troisMelangePuiss": {
-    "new": "",
+    "new": "3NB4",
     "no": []
   },
   "troisRac0": {
-    "new": "",
+    "new": "4NA4",
     "no": [],
     "o": [
       "Jusqu'à 100",
@@ -719,27 +719,27 @@ const MM1toMM2 = {
     ]
   },
   "troisRac1": {
-    "new": "",
+    "new": "2N11",
     "no": []
   },
   "troisRac2": {
-    "new": "",
+    "new": "2N11",
     "no": []
   },
   "troisFrac1": {
-    "new": "",
+    "new": ["5NC7","5NC8","4NC3","4NC4"],
     "no": []
   },
   "troisFonc1": {
-    "new": "",
+    "new": "3DD1",
     "no": []
   },
   "troisFonction4": {
-    "new": "",
+    "new": "Activité 3DD4",
     "no": []
   },
   "troisFonction2": {
-    "new": "",
+    "new": "3DD3",
     "no": []
   },
   "troisFonctions3": {
@@ -751,39 +751,39 @@ const MM1toMM2 = {
     ]
   },
   "troisProdRemDev": {
-    "new": "",
+    "new": "3ND2",
     "no": []
   },
   "troisProdRemDev2": {
-    "new": "",
+    "new": "3ND2",
     "no": []
   },
   "troisProdRemDev3": {
-    "new": "",
+    "new": "3ND2",
     "no": []
   },
   "troisProdRemDev4": {
-    "new": "",
+    "new": "3ND2",
     "no": []
   },
   "troisProdRemFact": {
-    "new": "",
+    "new": "3ND1",
     "no": []
   },
   "troisProdRemFact2": {
-    "new": "",
+    "new": "3ND1",
     "no": []
   },
   "troisProdRemFact3": {
-    "new": "",
+    "new": "3ND1",
     "no": []
   },
   "troisProdRemFact4": {
-    "new": "",
+    "new": "3ND1",
     "no": []
   },
   "troisEqxplusaeqb": {
-    "new": "",
+    "new": "4NE6",
     "no": [],
     "o": [
       "Entiers x+a",
@@ -795,7 +795,7 @@ const MM1toMM2 = {
     ]
   },
   "troisEqamoinsxeqb": {
-    "new": "",
+    "new": "4NE7",
     "no": [],
     "o": [
       "Entiers / +x",
@@ -807,7 +807,7 @@ const MM1toMM2 = {
     ]
   },
   "troisEqaxeqb": {
-    "new": "",
+    "new": "4NE8",
     "no": [],
     "o": [
       "entiers",
@@ -816,7 +816,7 @@ const MM1toMM2 = {
     ]
   },
   "troisEqaxplusbeq0": {
-    "new": "",
+    "new": "4NE9",
     "no": [],
     "o": [
       "entiers",
@@ -825,11 +825,11 @@ const MM1toMM2 = {
     ]
   },
   "troisEqaxplusbeqc": {
-    "new": "",
+    "new": "4NE9",
     "no": []
   },
   "troisEqaxplusbeqcxplusd": {
-    "new": "",
+    "new": "4NE9",
     "no": [],
     "o": [
       "entiers",
@@ -837,7 +837,7 @@ const MM1toMM2 = {
     ]
   },
   "troisEqxCarreeqa": {
-    "new": "",
+    "new": "3ND5",
     "no": [],
     "o": [
       "entiers",
@@ -845,7 +845,7 @@ const MM1toMM2 = {
     ]
   },
   "troisEqxMoinsCarreeq0": {
-    "new": "",
+    "new": "3ND5",
     "no": [],
     "o": [
       "entiers",
@@ -853,31 +853,31 @@ const MM1toMM2 = {
     ]
   },
   "troisEqaxCarreeqb": {
-    "new": "",
+    "new": "3ND5",
     "no": []
   },
   "troisEqProdNul": {
-    "new": "",
+    "new": "3ND6",
     "no": []
   },
   "termCplxConjugue": {
-    "new": "",
+    "new": "TC11",
     "no": []
   },
   "termCplxModule": {
-    "new": "",
+    "new": "TC11",
     "no": []
   },
   "termCplxCarre": {
-    "new": "",
+    "new": "TC11",
     "no": []
   },
   "termCplxInverse": {
-    "new": "",
+    "new": "TC11",
     "no": []
   },
   "termCplxSomme": {
-    "new": "",
+    "new": "TC12",
     "no": [],
     "o": [
       "Somme",
@@ -885,15 +885,15 @@ const MM1toMM2 = {
     ]
   },
   "termCplxProd": {
-    "new": "",
+    "new": "TC12",
     "no": []
   },
   "termCplxProdConjugue": {
-    "new": "",
+    "new": "TC12",
     "no": []
   },
   "termCplxQuotient": {
-    "new": "",
+    "new": "TC12",
     "no": []
   },
   "regleTriangle180": {
@@ -901,7 +901,7 @@ const MM1toMM2 = {
     "no": []
   },
   "calculProportionnel": {
-    "new": "",
+    "new": "4DC1",
     "no": [],
     "o": [
       "Avec les colonnes",
@@ -910,7 +910,7 @@ const MM1toMM2 = {
     ]
   },
   "uniteVersDecimal": {
-    "new": "",
+    "new": "6NC5",
     "no": [],
     "o": [
       "Entiers",
@@ -919,11 +919,11 @@ const MM1toMM2 = {
     ]
   },
   "opposes": {
-    "new": "",
+    "new": "5NA2",
     "no": []
   },
   "inverses": {
-    "new": "",
+    "new": "4NA2",
     "no": [],
     "o": [
       "Inverses",
@@ -941,7 +941,7 @@ const MM1toMM2 = {
     ]
   },
   "variationPourcentage": {
-    "new": "",
+    "new": "5DC1",
     "no": [],
     "o": [
       "50% 5%",
@@ -950,7 +950,7 @@ const MM1toMM2 = {
     ]
   },
   "variationsPourcentages": {
-    "new": "",
+    "new": "4DC2",
     "no": [],
     "o": [
       "2 augmentations",
@@ -960,7 +960,7 @@ const MM1toMM2 = {
     ]
   },
   "calculMoyenne": {
-    "new": "",
+    "new": "5DA2",
     "no": [],
     "o": [
       "moyenne",
@@ -970,7 +970,7 @@ const MM1toMM2 = {
     ]
   },
   "utilisationEchelle": {
-    "new": "",
+    "new": "5DC2",
     "no": [],
     "o": [
       "réel => carte",
@@ -978,7 +978,7 @@ const MM1toMM2 = {
     ]
   },
   "puissanceRelatif": {
-    "new": "",
+    "new": "4NA6",
     "no": [],
     "o": [
       "positif",
@@ -986,7 +986,7 @@ const MM1toMM2 = {
     ]
   },
   "puissancesDeDeux": {
-    "new": "",
+    "new": "4NA7",
     "no": [],
     "o": [
       "0 à 10",
@@ -1002,7 +1002,7 @@ const MM1toMM2 = {
     ]
   },
   "factoriserAxPlusB": {
-    "new": "",
+    "new": "4NE5",
     "no": [],
     "o": [
       "petits nombres",
@@ -1012,7 +1012,7 @@ const MM1toMM2 = {
     ]
   },
   "comparaisonFractions": {
-    "new": "",
+    "new": "6NB3",
     "no": [],
     "o": [
       "Comparer à 1",
@@ -1021,7 +1021,7 @@ const MM1toMM2 = {
     ]
   },
   "listeDiviseurs": {
-    "new": "",
+    "new": "5ND3",
     "no": [],
     "o": [
       "Nombres inférieurs à 51",
@@ -1030,7 +1030,7 @@ const MM1toMM2 = {
     ]
   },
   "decompFacteursPremiers": {
-    "new": "",
+    "new": "5ND1",
     "no": [],
     "o": [
       "petits nombres",
@@ -1038,7 +1038,7 @@ const MM1toMM2 = {
     ]
   },
   "divisibilite": {
-    "new": "",
+    "new": "5ND2",
     "no": [],
     "o": [
       "par 2",
@@ -1051,7 +1051,7 @@ const MM1toMM2 = {
     ]
   },
   "multipleOuDiviseur": {
-    "new": "",
+    "new": "6ND14",
     "no": [],
     "o": [
       "Trouver le multiple",
@@ -1059,7 +1059,7 @@ const MM1toMM2 = {
     ]
   },
   "enleverparentheses": {
-    "new": "",
+    "new": "3ND3",
     "no": [],
     "o": [
       "ax±(ax±b)",
@@ -1067,7 +1067,7 @@ const MM1toMM2 = {
     ]
   },
   "reduireavecparentheses": {
-    "new": "",
+    "new": "3ND4",
     "no": [],
     "o": [
       "ax±(ax±b)",
@@ -1083,7 +1083,7 @@ const MM1toMM2 = {
     ]
   },
   "conversions": {
-    "new": "",
+    "new": "8MA1",
     "no": [],
     "o": [
       "Longueur",
@@ -1096,7 +1096,7 @@ const MM1toMM2 = {
     ]
   },
   "conversionVersPrincipale": {
-    "new": "",
+    "new": "7MA1",
     "no": [],
     "o": [
       "Litre",
@@ -1105,7 +1105,7 @@ const MM1toMM2 = {
     ]
   },
   "fonctionLineairePourcentage": {
-    "new": "",
+    "new": "3DD4",
     "no": [],
     "o": [
       "Trouver l'augmentation",
@@ -1115,7 +1115,7 @@ const MM1toMM2 = {
     ]
   },
   "determinerPGCD": {
-    "new": "",
+    "new": "5ND4",
     "no": [],
     "o": [
       "petit nombre",
@@ -1123,7 +1123,7 @@ const MM1toMM2 = {
     ]
   },
   "distance2relatifs": {
-    "new": "",
+    "new": "5NC3",
     "no": [],
     "o": [
       "Entiers",
@@ -1133,7 +1133,7 @@ const MM1toMM2 = {
     ]
   },
   "sensPrefixes": {
-    "new": "",
+    "new": "4NA8",
     "no": [],
     "o": [
       "petits préfixes",
@@ -1156,11 +1156,11 @@ const MM1toMM2 = {
     ]
   },
   "encadrerRacine": {
-    "new": "",
+    "new": "4NA3",
     "no": []
   },
   "retourMonnaie": {
-    "new": "",
+    "new": "6NF1",
     "no": [],
     "o": [
       "en euros sur 1 billet",
@@ -1170,7 +1170,7 @@ const MM1toMM2 = {
     ]
   },
   "vecteursCoordonnees": {
-    "new": "",
+    "new": "2G11",
     "no": [],
     "o": [
       "Entiers positifs",
@@ -1180,7 +1180,7 @@ const MM1toMM2 = {
     ]
   },
   "vecteursSomme": {
-    "new": "",
+    "new": "2G12",
     "no": [],
     "o": [
       "Somme avec entiers",
@@ -1190,7 +1190,7 @@ const MM1toMM2 = {
     ]
   },
   "produitVecteurNombre": {
-    "new": "",
+    "new": "2G13",
     "no": [],
     "o": [
       "coeff positif",
@@ -1198,7 +1198,7 @@ const MM1toMM2 = {
     ]
   },
   "determinantVecteurs": {
-    "new": "",
+    "new": "2G14",
     "no": [],
     "o": [
       "Coords entières",
@@ -1206,11 +1206,11 @@ const MM1toMM2 = {
     ]
   },
   "colineariteVecteurs": {
-    "new": "",
+    "new": "2G15",
     "no": []
   },
   "vocabulaireOperations": {
-    "new": "",
+    "new": "6ND15",
     "no": [],
     "o": [
       "opération unique",
