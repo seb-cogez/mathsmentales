@@ -1,0 +1,21 @@
+{
+    "title":"Comparer des décimaux relatifs",
+    "type":"text",
+    "ID":"5NA3",
+    "description":"",
+    "dest":["5NA", "4NA", "3NA"],
+    "consts":{"voc":["petit","grand"]},
+    "options":[{
+        "name":"Nombres de signes contraires",
+        "vars":{"nd":"1_3_2","sign":"-1_1_^0","d0":"d0.1_10_${:nd[0]}", "d1":"d-10_-0.1_${:nd[1]}","a":"${math.round(:sign*:d0,6)}","b":"${math.round(-:sign*:d1,6}","cv":"0_1"}
+    },{
+        "name":"Nombres de même signe d'unités différentes",
+        "vars":{"pd":"d0.001_0.999_3_2","pe0":"1_30", "pe1":"1_30_^${:pe0}","sign":"-1_1_^0","a":"${math.round(:sign*(:pd[0]+:pe0),6)}","b":"${math.round(:sign*(:pd[1]+:pe1),6)}","cv":"0_1"}
+    },{
+        "name":"Nombres ayant une partie proche",
+        "vars":{"c":"1_100","p":"-3_0","dec":"1_3_2","d1":"${math.round(utils.alea(), :dec[0])*Number(10+'e'+:p)+:c}","d2":"${math.round(utils.alea(), :dec[1])*Number(10+'e'+:p)+:c}","a":"${math.round(:d1,6)}","b":"${math.round(:d2,6)}","cv":"0_1"}
+    }],
+    "question":"Lequel des deux nombres $$${:a}$$ et $$${:b}$$ est <b>le plus ${:voc[:cv]}</b> ?",
+    "answer":"Entre $$${:a}$$ et $$${:b}$$, le plus ${:voc[:cv]} est $$\\color{red}{${:cv?Math.max(:a,:b):Math.min(:a,:b)}}$$",
+    "value":"${:cv?Math.max(:a,:b):Math.min(:a,:b)}"
+}

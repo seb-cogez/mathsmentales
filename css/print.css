@@ -7,6 +7,9 @@
     #creator-menu {
         display: none;
     }
+    .noprint {
+        display:none;
+    }
 }
 *{
     box-sizing: border-box;
@@ -79,6 +82,9 @@ footer {page-break-after: always;}
     padding : 1pt;
     border: 1px solid black;
 }
+.fright{
+    float:right;
+}
 /*
 Taille carte de visite
 */
@@ -93,10 +99,34 @@ Taille carte de visite
     justify-content: center;
     align-items: center;
 }
+/** grilles */
+.grid{
+    display:grid;
+}
+/* 2 colonnes */
+.g2{
+    grid-template-columns: repeat(2,1fr);
+}
+/* 3 colonnes */
+.g3{
+    grid-template-columns: repeat(3,1fr);
+}
+/* 4 colonnes */
+.g4{
+    grid-template-columns: repeat(4,1fr);
+}
+/* 5 colonnes */
+.g5{
+    grid-template-columns: repeat(5,1fr);
+}
+/* 6 colonnes */
+.g6 {
+    grid-template-columns: repeat(6,1fr);
+}
 /* Commons
 */
 #creator-container::after{
-    content:"\ CC-BY-NC © 2020 MathsMentales.net";
+    content:"\ CC-BY-NC © 2021 MathsMentales.net";
     color:darkblue !important;
     font-size: 0.8rem;
     margin-top: 30px;
@@ -124,7 +154,7 @@ h3.exercice-title{
     symbols : A B C D E F G H I J K L M N O P Q R S T U V W X Y Z;
     suffix : ') ';
 }
-#enonce ol{
+.enonce ol{
     padding-left: 1.5rem;
 }
 #creator-content ol{

@@ -428,7 +428,7 @@ const MM1toMM2 = {
     ]
   },
   "calculsAvecHeures": {
-    "new": "",
+    "new": "7MC1",
     "no": [],
     "o": [
       "Horaire H:min",
@@ -493,7 +493,7 @@ const MM1toMM2 = {
     ]
   },
   "cinqCompare": {
-    "new": "",
+    "new": "5NA3",
     "no": []
   },
   "cinqAddFrac1": {

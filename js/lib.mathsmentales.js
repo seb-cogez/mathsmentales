@@ -823,8 +823,9 @@ var math ={
      * @param {integer} nb 
      * return un diviseur de nb
      */
-    unDiviseur(nb){
+    unDiviseur(nb,notOne=false){
         let diviseurs = math.listeDiviseurs(nb,true);
+        if(notOne) diviseurs = _.rest(diviseurs); // on enlève la première valeur qui est 1.
         return diviseurs[utils.aleaInt(0,diviseurs.length-1)];
     },
     unpower:function(value){
@@ -1480,24 +1481,21 @@ class ficheToPrint {
      * @param {string} className
      * @param {string} innerHTML
      */
-    createElement(type){
+    create(type,params){
         let elm = this.docsheet.createElement(type);
-        if(arguments[1] !== undefined){
-            elm.className = arguments[1];
-        }
-        if(arguments[2] !== undefined){
-            elm.innerHTML = arguments[2];
+        for(let i in params){
+            elm[i] = params[i];
         }
         return elm;
     }
     createExoSheet(){
         // set elements :
-        let aleaCode = this.createElement("div","floatright","Clé : "+MM.seed);
+        let aleaCode = this.create("div",{className:"floatright",innerHTML:"Clé : "+MM.seed});
         this.content.appendChild(aleaCode);
         // get the titlesheet
         let sheetTitle = document.getElementById("extitle").value||"Fiche d'exercices";
         // set the titlesheet
-        let header = this.createElement("header","",sheetTitle);
+        let header = this.create("header",{innerHTML:sheetTitle});
         this.content.appendChild(header);
         // get the exercice title
         let exTitle = document.getElementById("exeachex").value||"Exercice n°";
@@ -1508,29 +1506,32 @@ class ficheToPrint {
             if(radios[index].checked)
                 correction = radios[index].value;
         }
-        let correctionContent = this.createElement("div","correction");
-        let titleCorrection = this.createElement("header", "clearfix","Correction des exercices");
+        let correctionContent = this.create("div",{className:"correction"});
+        let titleCorrection = this.create("header", {className:"clearfix",innerHTML:"Correction des exercices"});
         if(correction === "end")
             correctionContent.appendChild(titleCorrection);
         // in case of figures
         MM.memory = {};
         // create a shit because of the li float boxes
-        let divclear = this.createElement("div", "clearfix");
-        for(let i=0;i<this.activities.length;i++){
+        let divclear = this.create("div", {className:"clearfix"});
+        let script = this.create("script",{text:`function changecols(dest,nb){document.getElementById(dest).className="grid g"+nb};`});
+        this.wsheet.document.head.appendChild(script);
+    for(let i=0;i<this.activities.length;i++){
             const activity = this.activities[i];
-            let sectionEnonce = this.createElement("section");
-            sectionEnonce.id = "enonce";
-            let sectionCorrection = this.createElement("section");
-            let h3 = this.createElement("h3", "exercice-title",exTitle+(i+1)+" : "+activity.title)
+            let sectionEnonce = this.create("section",{id:"enonce"+i,className:"enonce"});
+            let sectionCorrection = this.create("section",{id:"corrige"+i});
+            let input = `<input id="nbcols${i}" class="noprint fright" value="2" title="Nb de colonnes" type="number" size="2" min="2" max="6" oninput="changecols('ol${i}',this.value)">`;
+            sectionEnonce.innerHTML += input;
+            let h3 = this.create("h3", {className:"exercice-title",innerHTML:exTitle+(i+1)+" : "+activity.title});
             sectionEnonce.appendChild(h3);
-            let ol = this.createElement("ol");
-            let olCorrection = this.createElement("ol", "corrige");
+            let ol = this.create("ol",{id:"ol"+i,className:"grid g2"});
+            let olCorrection = this.create("ol", {className:"corrige"});
             for(let j=0;j<activity.questions.length;j++){
-                let li = this.createElement("li");
-                let liCorrection = this.createElement("li");
+                let li = this.create("li",{className:"c3"});
+                let liCorrection = this.create("li");
                 if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
-                    let span = this.createElement("span","math", activity.questions[j]);
-                    let spanCorrection = this.createElement("span", "math", activity.answers[j]);
+                    let span = this.create("span",{className:"math", innerHTML:activity.questions[j]});
+                    let spanCorrection = this.create("span", {className:"math",innerHTML:activity.answers[j]});
                     li.appendChild(span);
                     liCorrection.appendChild(spanCorrection);
                 } else {
@@ -1550,7 +1551,7 @@ class ficheToPrint {
             sectionEnonce.appendChild(ds);
             // affichage de la correction
             if(correction !== "end" ){
-                let hr = docsheet.createElement("hr");
+                let hr = docsheet.create("hr");
                 hr.style.width = "50%";
                 sectionEnonce.appendChild(hr);
                 sectionEnonce.appendChild(olCorrection);
@@ -1578,37 +1579,37 @@ class ficheToPrint {
     }
     createInterroSheet(){
         // set elements :
-        let aleaCode = this.createElement("div","floatright","Clé : "+MM.seed);
+        let aleaCode = this.create("div",{className:"floatright",innerHTML:"Clé : "+MM.seed});
         this.content.appendChild(aleaCode);
         // get the titlesheet
         let sheetTitle = document.getElementById("inttitle").value||"Interrogation écrite";
         // set the titlesheet
-        let header = this.createElement("header","",sheetTitle);
+        let header = this.create("header",{innerHTML:sheetTitle});
         this.content.appendChild(header);
-        let div1 = this.createElement("div","studenName","Nom, prénom, classe :");
+        let div1 = this.create("div",{className:"studenName",innerHTML:"Nom, prénom, classe :"});
         this.content.appendChild(div1);
-        let div2 = this.createElement("div","remarques","Remarques :");
+        let div2 = this.create("div",{className:"remarques",innerHTML:"Remarques :"});
         this.content.appendChild(div2);
         // get the exercice title
         let exTitle = document.getElementById("inteachex").value||"Exercice n°";
-        let correctionContent = this.createElement("div","correction");
-        let titleCorrection = this.createElement("header", "clearfix","Correction des exercices");
+        let correctionContent = this.create("div",{className:"correction"});
+        let titleCorrection = this.create("header", {className:"clearfix",innerHTML:"Correction des exercices"});
         correctionContent.appendChild(titleCorrection);
-        let divclear = this.createElement("div", "clearfix");
+        let divclear = this.create("div",{className: "clearfix"});
         for (let i = 0; i < this.activities.length; i++) {
             const activity = this.activities[i];
-            let section = this.createElement("section");
-            let sectionCorrection = this.createElement("section");
-            let h3 = this.createElement("h3", "exercice-title",exTitle+(i+1)+" : "+activity.title)
+            let section = this.create("section",{id:"section"+i});
+            let sectionCorrection = this.create("section");
+            let h3 = this.create("h3", {className:"exercice-title",innerHTML:exTitle+(i+1)+" : "+activity.title});
             section.appendChild(h3);
-            let ol = this.createElement("ol");
-            let olCorrection = this.createElement("ol", "corrige");
+            let ol = this.create("ol",{className:"grid g2"});
+            let olCorrection = this.create("ol", {className:"corrige"});
             for(let j=0;j<activity.questions.length;j++){
-                let li = this.createElement("li","interro");
-                let liCorrection = this.createElement("li");
+                let li = this.create("li",{className:"interro"});
+                let liCorrection = this.create("li");
                 if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
-                    let span = this.createElement("span","math", activity.questions[j]);
-                    let spanCorrection = this.createElement("span", "math", activity.answers[j]);
+                    let span = this.create("span",{className:"math", innerHTML:activity.questions[j]});
+                    let spanCorrection = this.create("span", {className:"math", innerHTML:activity.answers[j]});
                     li.appendChild(span);
                     liCorrection.appendChild(spanCorrection);
                 } else {
@@ -1628,7 +1629,7 @@ class ficheToPrint {
             this.content.appendChild(section);
         }
         // insert footer for print page break
-        this.content.appendChild(this.createElement("footer","","Fin"));
+        this.content.appendChild(this.create("footer",{innerHTML:"Fin"}));
         // insert correction
         this.content.appendChild(correctionContent);
         let ds = divclear.cloneNode(true);
@@ -1636,12 +1637,12 @@ class ficheToPrint {
     }
     createFlashCards(){
         // set elements :
-        let aleaCode = this.createElement("div","floatright","Clé : "+MM.seed);
+        let aleaCode = this.create("div",{className:"floatright",innerHTML:"Clé : "+MM.seed});
         this.content.appendChild(aleaCode);
         // get the titlesheet
         let sheetTitle = document.getElementById("FCtitle").value||"Interrogation écrite";
         // set the titlesheet
-        let header = this.createElement("header","",sheetTitle);
+        let header = this.create("header",{innerHTML:sheetTitle});
         this.content.appendChild(header);
     }
     createWhoGots(){
