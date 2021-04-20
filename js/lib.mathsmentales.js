@@ -1158,12 +1158,21 @@ class draw {
                     this.ctx.stroke();
                 }
             }
+            if(event.touches){
+                event.preventDefault();
+            }
         }
         const yesDraw = (event)=>{
             this.enableDraw = true;
+            if(event.touches){
+                event.preventDefault();
+            }
         }
         const noDraw = (event)=>{
             this.enableDraw = false;this.started = false;
+            if(event.touches){
+                event.preventDefault();
+            }
         }
         this.canvas.addEventListener("mousemove",mouvement, false);
         this.canvas.addEventListener("touchmove",mouvement, false);
@@ -1177,22 +1186,6 @@ class draw {
         this.canvas.addEventListener('mouseup',noDraw,false);
         this.canvas.addEventListener('mouseout',noDraw,false);
         this.canvas.addEventListener('touchend', noDraw,false);
-       // Prevent scrolling when touching the canvas
-        document.body.addEventListener("touchstart", e=> {
-            if (e.target == this.canvas) {
-            e.preventDefault();
-            }
-        }, false);
-        document.body.addEventListener("touchend", e=> {
-            if (e.target == this.canvas) {
-            e.preventDefault();
-            }
-        }, false);
-        document.body.addEventListener("touchmove", e=> {
-            if (e.target == this.canvas) {
-            e.preventDefault();
-            }
-        }, false);
     }
     // destroy canvas
     destroy(){
@@ -1335,12 +1328,13 @@ class Figure {
                 } else {
                     this.figure = destination.JXG.JSXGraph.initBoard(this.id, {boundingbox:this.boundingbox, keepaspectratio: true, showNavigation: false, showCopyright: false,registerEvents:false, axis:this.axis, grid:this.grid});
                 }
-                for(let i=0,len=this.content.length;i<len;i++){
-                    let type = this.content[i][0];
-                    let commande = this.content[i][1];
+                let content = _.clone(this.content);
+                for(let i=0,len=content.length;i<len;i++){
+                    let type = content[i][0];
+                    let commande = content[i][1];
                     let options = false;
-                    if(this.content[i][2] !== undefined)
-                        options = this.content[i][2];
+                    if(content[i][2] !== undefined)
+                        options = content[i][2];
                     if(type === "functiongraph"){
                         let formule = commande;
                         if(!options)
@@ -1349,7 +1343,7 @@ class Figure {
                             this.figure.create("functiongraph", [function(x){return eval(formule)}], options);
                     } else if(type==="jessiescript") {
                         this.figure.construct(commande);
-                    } else if(["text", "point","axis", "line", "segment"].indexOf(type)>-1){
+                    } else if(["text", "point","axis", "line", "segment", "angle"].indexOf(type)>-1){
                         if(!options)
                             this.figure.create(type, commande);
                         else
@@ -1833,10 +1827,10 @@ var MM = {
                 MM.steps[slideNumber] = new steps({size:0, container:sliderSteps});
                 MM.timers[slideNumber] = new timer(slideNumber);
                 for(let z=0,alen=MM.carts[i].activities.length;z<alen;z++){
-                    let element = MM.carts[i].activities[z];
-                    element.generate();
-                    MM.steps[slideNumber].addSize(element.nbq);
-                    for(let j=0;j<element.questions.length;j++){
+                    let activity = MM.carts[i].activities[z];
+                    activity.generate();
+                    MM.steps[slideNumber].addSize(activity.nbq);
+                    for(let j=0;j<activity.questions.length;j++){
                         // sliders
                         let div = document.createElement("div");
                         div.className = "slide w3-animate-top";
@@ -1846,23 +1840,23 @@ var MM = {
                         let spanAns = document.createElement("span");
                         spanAns.className = "answerInSlide hidden";
                         // timers
-                        MM.timers[slideNumber].addDuration(element.tempo);
+                        MM.timers[slideNumber].addDuration(activity.tempo);
                         // enoncés et corrigés
                         let lie = document.createElement("li");
                         let lic = document.createElement("li");
-                        if(element.type === undefined || element.type === "" || element.type === "latex"){
+                        if(activity.type === undefined || activity.type === "" || activity.type === "latex"){
                             lie.className = "math";
                             lic.className = "math";
                             span.className="math";
                             spanAns.className += " math";
                         }
-                        let question = element.questions[j];
-                        let answer = element.answers[j];
+                        let question = activity.questions[j];
+                        let answer = activity.answers[j];
                         // trouver une alternative dans la génération (hors exemple)
                         // TODO : à supprimer, le choix doit être fait dans la génération.
-                        /*if(Array.isArray(element.questions[j])){
-                            let alea = utils.aleaInt(0,element.questions[j].length-1);
-                            question = element.questions[j][alea];
+                        /*if(Array.isArray(activity.questions[j])){
+                            let alea = utils.aleaInt(0,activity.questions[j].length-1);
+                            question = activity.questions[j][alea];
                         }*/
                         lie.innerHTML = question;
                         span.innerHTML = question;
@@ -1874,11 +1868,11 @@ var MM = {
                         // insertion du div dans le slide
                         slider.appendChild(div);
                         lic.innerHTML += answer;
-                        if(element.figures[j] !== undefined){
+                        if(activity.figures[j] !== undefined){
                             lic.innerHTML += "<button onclick=\"MM.memory['c"+slideNumber+"-"+indiceSlide+"'].toggle()\">Figure</button>";
-                            MM.figs[slideNumber+"-"+indiceSlide] = new Figure(element.figures[j], "c"+slideNumber+"-"+indiceSlide, div);
-                            MM.memory['e'+slideNumber+"-"+indiceSlide] = new Figure(element.figures[j], "en"+slideNumber+"-"+indiceSlide, lie,[300,150]);
-                            MM.memory['c'+slideNumber+"-"+indiceSlide] = new Figure(element.figures[j], "cor"+slideNumber+"-"+indiceSlide, lic,[450,225]);
+                            MM.figs[slideNumber+"-"+indiceSlide] = new Figure(activity.figures[j], "c"+slideNumber+"-"+indiceSlide, div);
+                            MM.memory['e'+slideNumber+"-"+indiceSlide] = new Figure(activity.figures[j], "en"+slideNumber+"-"+indiceSlide, lie,[300,150]);
+                            MM.memory['c'+slideNumber+"-"+indiceSlide] = new Figure(activity.figures[j], "cor"+slideNumber+"-"+indiceSlide, lic,[450,225]);
                         }
                         ole.appendChild(lie);
                         olc.appendChild(lic);
@@ -2641,6 +2635,7 @@ class activity {
         this.description = obj.description; // long description
         this.vars = obj.vars;
         this.consts = obj.consts;
+        this.canrepeat = obj.repeat||false; // question & answers peuvent être répétées
         this.options = utils.clone(obj.options)||undefined;
         this.questionPatterns = utils.clone(obj.questionPatterns)||obj.question;
         this.answerPatterns = utils.clone(obj.answerPatterns) || obj.answer;
@@ -3125,7 +3120,8 @@ class activity {
             let thevalue = this.replaceVars(_.clone(this.cValue));
             loopProtect++;
             // on évite les répétitions
-            if(this.questions.indexOf(thequestion)<0 || this.values.indexOf(thevalue)<0){
+            // TODO : à améliorer !!!
+            if(this.questions.indexOf(thequestion)<0 || this.values.indexOf(thevalue)<0 || !this.canrepeat){
                 this.questions[i] = thequestion;
                 this.answers[i] = this.replaceVars(_.clone(this.cAnswer), thequestion);
                 this.values[i] = thevalue;
