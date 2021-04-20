@@ -344,7 +344,10 @@
         </div>
         </div>
        <div class="row-4 colsx2" id="divparams">
-           <button id="btn-shuffle" onclick="MM.editedActivity.display(utils.seedGenerator())">
+        <button id="btn-annotation2" onclick="utils.annotate('divparams', this.id)">
+            <img src="img/iconfinder_pencil_1055013.png" title="Annoter l'énoncé">
+        </button>
+        <button id="btn-shuffle" onclick="MM.editedActivity.display(utils.seedGenerator())">
             <img src="img/iconfinder_die_1055072.png" title="Changer les exemples">
         </button>
             <h1><i class="icon-arrow--right"></i>Questions types</h1>
@@ -357,7 +360,9 @@
         </div>
     </section>
     <section id="tab-corrige" class="tabs-content-item" style="display: none;">
-        <button id="btn-annotation" onclick="utils.annotate()"><img src="img/iconfinder_pencil_1055013.png"></button>
+        <button id="btn-annotation" onclick="utils.annotate('corrige-content', this.id)">
+            <img src="img/iconfinder_pencil_1055013.png" title="Annoter le corrigé">
+        </button>
         <div id="corrige-content" class="grid">
             Ici s'affichent les corrigés du diaporama
         </div>

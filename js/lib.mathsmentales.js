@@ -515,6 +515,8 @@ var utils = {
         document.getElementById(id).className = "";
     },
     resetAllTabs : function(){
+        // fermeture des espaces d'annotation.
+        utils.annotate(false);
         let tabsButtons = document.querySelectorAll("#header-menu .tabs-menu-link");
         let contents = document.querySelectorAll(".tabs-content-item");
         document.getElementById("tab-accueil").display = "none";
@@ -545,10 +547,13 @@ var utils = {
         //debug(partieEntiere+partieDecimale);
         return partieEntiere+partieDecimale;
     },
-    annotate:function(){
-        if(MM.annotate === undefined){
-            MM.annotate = new draw();
-        } else {
+    annotate:function(target,btnId){
+        if(target === false && MM.annotate !== undefined){
+            MM.annotate.destroy();
+            MM.annotate = undefined;
+        } else if(MM.annotate === undefined && _.isString(target)){
+            MM.annotate = new draw(target,btnId);
+        } else if(MM.annotate !== undefined) {
             MM.annotate.destroy();
             MM.annotate = undefined;
         }
@@ -1134,16 +1139,18 @@ class cart {
  * designed for interactive screens
  */
 class draw {
-    constructor(){
+    constructor(tgt,btnId){
         // creation du canva et instanciation
         let c = utils.create("canvas",{"id":"painting"});
-        const target = document.getElementById("corrige-content");
+        this.btn = document.querySelector("#"+btnId + " img");
+        this.btn.src = "img/iconfinder_pencil_activ.png";
+        const target = document.getElementById(tgt);
         target.appendChild(c);
         this.canvas = document.getElementById("painting");
         this.canvas.width = target.offsetWidth;
         this.canvas.height = target.offsetHeight+30;
-        this.canvas.style.top = target.offsetTop;
-        this.canvas.style.left = target.offsetLeft;
+        this.canvas.style.top = target.offsetTop+"px";
+        this.canvas.style.left = target.offsetLeft+"px";
         this.mouse = {x:0,y:0};
         const mouvement = (event)=>{
             this.mouse.x = event.pageX - event.target.offsetLeft;
@@ -1189,22 +1196,7 @@ class draw {
     }
     // destroy canvas
     destroy(){
-        // Prevent scrolling when touching the canvas
-        document.body.removeEventListener("touchstart", e=> {
-            if (e.target == this.canvas) {
-            e.preventDefault();
-            }
-        }, false);
-        document.body.removeEventListener("touchend", e=> {
-            if (e.target == this.canvas) {
-            e.preventDefault();
-            }
-        }, false);
-        document.body.removeEventListener("touchmove", e=> {
-            if (e.target == this.canvas) {
-            e.preventDefault();
-            }
-        }, false);
+        this.btn.src = "img/iconfinder_pencil_1055013.png";
         this.canvas.parentNode.removeChild(this.canvas);
         this.canvas = undefined;
         this.ctx = undefined;
@@ -1270,6 +1262,7 @@ class Figure {
         this.id = id;
         this.size = size;//[w,h]
         this.figure = undefined;
+        this.displayed = false;
         this.create(target);
     }
     /**
@@ -1309,6 +1302,8 @@ class Figure {
         }
     }
     display(destination){
+        if(this.displayed) return;
+        else this.displayed = true;
         // destination is the window destination object if defined
         if(this.type === "chart"){ // Chart.js
             let target;
@@ -1319,8 +1314,8 @@ class Figure {
                 target = destination.document.getElementById(this.id);
                 //this.figure = new destination.Chart(target, this.content);
             }
+            debug("Chart data", target, utils.clone(this.content));
             this.figure = new Chart(target, this.content);
-            //debug("Chart data", target, utils.clone(this.content));
         } else if(this.type === "graph"){ //JSXGraph
             try{
                 if(destination === undefined){
@@ -1536,7 +1531,7 @@ class ficheToPrint {
                 // figures
                 if(activity.figures[j] !== undefined){
                     if(i===0 && j=== 0)MM.memory["dest"] = this.wsheet;
-                    MM.memory["f"+i+"-"+j] = new Figure(activity.figures[j], "f"+i+"-"+j,li);
+                    MM.memory["f"+i+"-"+j] = new Figure(_.clone(activity.figures[j]), "f"+i+"-"+j,li);
                 }
                 olCorrection.appendChild(liCorrection);
             }
@@ -1689,7 +1684,7 @@ var MM = {
     resetInterface(){
         document.getElementById("divcarts").className="hidden";
         document.getElementById("phantom").className="";
-        document.getElementById("divparams").className="col-2 row-3 colsx2";
+        document.getElementById("divparams").className="col-2 row-3";
     },
     showCartInterface(){
         document.getElementById("divcarts").className="row-4";
@@ -1870,9 +1865,9 @@ var MM = {
                         lic.innerHTML += answer;
                         if(activity.figures[j] !== undefined){
                             lic.innerHTML += "<button onclick=\"MM.memory['c"+slideNumber+"-"+indiceSlide+"'].toggle()\">Figure</button>";
-                            MM.figs[slideNumber+"-"+indiceSlide] = new Figure(activity.figures[j], "c"+slideNumber+"-"+indiceSlide, div);
-                            MM.memory['e'+slideNumber+"-"+indiceSlide] = new Figure(activity.figures[j], "en"+slideNumber+"-"+indiceSlide, lie,[300,150]);
-                            MM.memory['c'+slideNumber+"-"+indiceSlide] = new Figure(activity.figures[j], "cor"+slideNumber+"-"+indiceSlide, lic,[450,225]);
+                            MM.figs[slideNumber+"-"+indiceSlide] = new Figure(_.clone(activity.figures[j]), "c"+slideNumber+"-"+indiceSlide, div);
+                            MM.memory['e'+slideNumber+"-"+indiceSlide] = new Figure(_.clone(activity.figures[j]), "en"+slideNumber+"-"+indiceSlide, lie,[300,150]);
+                            MM.memory['c'+slideNumber+"-"+indiceSlide] = new Figure(_.clone(activity.figures[j]), "cor"+slideNumber+"-"+indiceSlide, lic,[450,225]);
                         }
                         ole.appendChild(lie);
                         olc.appendChild(lic);
@@ -2083,7 +2078,7 @@ var MM = {
                     document.getElementById("sample"+sN+"-corr").className += " math";
                 }
                 if(act.sample.figure !== undefined){
-                    let fig = new Figure(act.sample.figure, "sample-c"+sN, document.getElementById("sampleSlide"+sN));
+                    let fig = new Figure(_.clone(act.sample.figure), "sample-c"+sN, document.getElementById("sampleSlide"+sN));
                     setTimeout(function(){fig.display();},100);
                 }
             }
@@ -2199,7 +2194,7 @@ var MM = {
                 if(act.sample.figure !== undefined){
                     let item = document.getElementById("sample-c"+id);
                     item.parentNode.removeChild(item);
-                    let fig = new Figure(act.sample.figure, "sample-c"+id, document.getElementById("sampleSlide"+id));
+                    let fig = new Figure(_.clone(act.sample.figure), "sample-c"+id, document.getElementById("sampleSlide"+id));
                     setTimeout(function(){fig.display();},100);
                 }
                 utils.mathRender();
@@ -2732,6 +2727,7 @@ class activity {
             p.appendChild(document.createTextNode(" Tout (dé)sélectionner"));
             examples.appendChild(p);
             examples.appendChild(hr);
+            let optionsLen = 0;
             // affichage des options
             for(let i=0;i<this.options.length;i++){
                 this.generate(1,i,false);// génère un cas par option (si plusieurs)
@@ -2743,6 +2739,7 @@ class activity {
                 let ul = document.createElement("ul");
                 if(Array.isArray(this.questions[0])){
                     for(let jj=0; jj<this.questions[0].length;jj++){
+                        optionsLen++;
                         let li = utils.create("li",{className:"tooltip"});
                         let checked = "";
                         if(this.chosenQuestions[i]){
@@ -2761,9 +2758,10 @@ class activity {
                         ul.appendChild(li);
                     }
                 } else {
+                    optionsLen++;
                     let li = utils.create("li",{className:"tooltip",innerHTML:this.setMath(this.questions[0])});
                     if(this.figures[0]){
-                        this.examplesFigs[i] = new Figure(utils.clone(this.figures[0]), "fig-ex"+i, li);
+                        this.examplesFigs[i] = new Figure(_.clone(this.figures[0]), "fig-ex"+i, li);
                     }
                     let span = utils.create("span",{className:"tooltiptext",innerHTML:this.setMath(this.answers[0])});
                     li.appendChild(span);
@@ -2771,6 +2769,10 @@ class activity {
                 }
                 p.appendChild(ul);
                 examples.appendChild(p);
+            }
+            // si plus de 3 options/sous-options, 2 colonnes
+            if(optionsLen>3){
+                utils.addClass(document.getElementById("divparams"),"colsx2");
             }
         } else {
             // no option
@@ -2797,7 +2799,7 @@ class activity {
                 li.className = "tooltip";
                 li.innerHTML = this.setMath(this.questions[0]);
                 if(this.figures[0]){
-                    this.examplesFigs[0] = new Figure(utils.clone(this.figures[0]), "fig-ex"+0, li);
+                    this.examplesFigs[0] = new Figure(_.clone(this.figures[0]), "fig-ex"+0, li);
                 }
                 let span = document.createElement("span");
                 span.className = "tooltiptext";

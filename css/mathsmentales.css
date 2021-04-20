@@ -318,7 +318,7 @@ ul.menu, .menu ul {
 #btn-annotation {
   float:left;
 }
-#corrige-content #painting {
+#corrige-content #painting, #divparams #painting {
   position: absolute;
   display:block;
   cursor: url(../img/iconfinder_pencil.png), auto;
@@ -328,6 +328,7 @@ ul.menu, .menu ul {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  z-index: 40;
 }
 .MMjsx {
   font-size: 2em;
@@ -383,7 +384,7 @@ ul.menu, .menu ul {
 }
 
 /*carts */
-#addToCart, #removeFromCart, #btn-shuffle {
+#addToCart, #removeFromCart, #btn-shuffle, #btn-annotation2 {
     background-color: rgba(0,0,0,0);
     padding:0;
     float:right;
@@ -391,6 +392,11 @@ ul.menu, .menu ul {
 #btn-annotation{
   background-color: rgba(0,0,0,0);
   padding:0;
+}
+#btn-annotation2{
+  margin-left: 0.5rem;
+  position:relative;
+  z-index: 50;
 }
 #addToCart img, #removeFromCart img ,#btn-shuffle img{
     width: 48px;
