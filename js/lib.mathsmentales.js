@@ -1314,16 +1314,17 @@ class Figure {
                 target = destination.document.getElementById(this.id);
                 //this.figure = new destination.Chart(target, this.content);
             }
-            debug("Chart data", target, utils.clone(this.content));
+            //debug("Chart data", target, utils.clone(this.content));
             this.figure = new Chart(target, this.content);
         } else if(this.type === "graph"){ //JSXGraph
             try{
+                //debug(this);
                 if(destination === undefined){
                     this.figure = JXG.JSXGraph.initBoard(this.id, {boundingbox:this.boundingbox, keepaspectratio: true, showNavigation: false, showCopyright: false,registerEvents:false, axis:this.axis, grid:this.grid});
                 } else {
                     this.figure = destination.JXG.JSXGraph.initBoard(this.id, {boundingbox:this.boundingbox, keepaspectratio: true, showNavigation: false, showCopyright: false,registerEvents:false, axis:this.axis, grid:this.grid});
                 }
-                let content = _.clone(this.content);
+                let content = utils.clone(this.content);
                 for(let i=0,len=content.length;i<len;i++){
                     let type = content[i][0];
                     let commande = content[i][1];
@@ -1531,7 +1532,7 @@ class ficheToPrint {
                 // figures
                 if(activity.figures[j] !== undefined){
                     if(i===0 && j=== 0)MM.memory["dest"] = this.wsheet;
-                    MM.memory["f"+i+"-"+j] = new Figure(_.clone(activity.figures[j]), "f"+i+"-"+j,li);
+                    MM.memory["f"+i+"-"+j] = new Figure(utils.clone(activity.figures[j]), "f"+i+"-"+j,li);
                 }
                 olCorrection.appendChild(liCorrection);
             }
@@ -1865,9 +1866,9 @@ var MM = {
                         lic.innerHTML += answer;
                         if(activity.figures[j] !== undefined){
                             lic.innerHTML += "<button onclick=\"MM.memory['c"+slideNumber+"-"+indiceSlide+"'].toggle()\">Figure</button>";
-                            MM.figs[slideNumber+"-"+indiceSlide] = new Figure(_.clone(activity.figures[j]), "c"+slideNumber+"-"+indiceSlide, div);
-                            MM.memory['e'+slideNumber+"-"+indiceSlide] = new Figure(_.clone(activity.figures[j]), "en"+slideNumber+"-"+indiceSlide, lie,[300,150]);
-                            MM.memory['c'+slideNumber+"-"+indiceSlide] = new Figure(_.clone(activity.figures[j]), "cor"+slideNumber+"-"+indiceSlide, lic,[450,225]);
+                            MM.figs[slideNumber+"-"+indiceSlide] = new Figure(utils.clone(activity.figures[j]), "c"+slideNumber+"-"+indiceSlide, div);
+                            MM.memory['e'+slideNumber+"-"+indiceSlide] = new Figure(utils.clone(activity.figures[j]), "en"+slideNumber+"-"+indiceSlide, lie,[300,150]);
+                            MM.memory['c'+slideNumber+"-"+indiceSlide] = new Figure(utils.clone(activity.figures[j]), "cor"+slideNumber+"-"+indiceSlide, lic,[450,225]);
                         }
                         ole.appendChild(lie);
                         olc.appendChild(lic);
@@ -2078,7 +2079,7 @@ var MM = {
                     document.getElementById("sample"+sN+"-corr").className += " math";
                 }
                 if(act.sample.figure !== undefined){
-                    let fig = new Figure(_.clone(act.sample.figure), "sample-c"+sN, document.getElementById("sampleSlide"+sN));
+                    let fig = new Figure(utils.clone(act.sample.figure), "sample-c"+sN, document.getElementById("sampleSlide"+sN));
                     setTimeout(function(){fig.display();},100);
                 }
             }
@@ -2194,7 +2195,7 @@ var MM = {
                 if(act.sample.figure !== undefined){
                     let item = document.getElementById("sample-c"+id);
                     item.parentNode.removeChild(item);
-                    let fig = new Figure(_.clone(act.sample.figure), "sample-c"+id, document.getElementById("sampleSlide"+id));
+                    let fig = new Figure(utils.clone(act.sample.figure), "sample-c"+id, document.getElementById("sampleSlide"+id));
                     setTimeout(function(){fig.display();},100);
                 }
                 utils.mathRender();
@@ -2481,6 +2482,7 @@ var library = {
     displayContent:function(level,base=false){
         if(MM.content === undefined) {console.log("Pas de bibliothèque"); return false;}
         let niveau={nom:"Recherche",themes:{}};
+        // Cas d'un code correspondant à MMv1
         if(_.isObject(level)){
             niveau.nom = "Cette activité a été répartie en plusieurs";
             // on cherche les titres
@@ -2761,7 +2763,7 @@ class activity {
                     optionsLen++;
                     let li = utils.create("li",{className:"tooltip",innerHTML:this.setMath(this.questions[0])});
                     if(this.figures[0]){
-                        this.examplesFigs[i] = new Figure(_.clone(this.figures[0]), "fig-ex"+i, li);
+                        this.examplesFigs[i] = new Figure(utils.clone(this.figures[0]), "fig-ex"+i, li);
                     }
                     let span = utils.create("span",{className:"tooltiptext",innerHTML:this.setMath(this.answers[0])});
                     li.appendChild(span);
@@ -2799,7 +2801,7 @@ class activity {
                 li.className = "tooltip";
                 li.innerHTML = this.setMath(this.questions[0]);
                 if(this.figures[0]){
-                    this.examplesFigs[0] = new Figure(_.clone(this.figures[0]), "fig-ex"+0, li);
+                    this.examplesFigs[0] = new Figure(utils.clone(this.figures[0]), "fig-ex"+0, li);
                 }
                 let span = document.createElement("span");
                 span.className = "tooltiptext";
@@ -2816,9 +2818,9 @@ class activity {
         }
         if(!utils.isEmpty(this.examplesFigs)){
             // it has to take his time... 
-            setTimeout(function(){
-                for(let i in MM.editedActivity.examplesFigs){
-                    MM.editedActivity.examplesFigs[i].display();
+            setTimeout(()=>{
+                for(let i in this.examplesFigs){
+                    this.examplesFigs[i].display();
                 }
             }, 300);
         }
@@ -3118,19 +3120,19 @@ class activity {
             }
             if(!sample){
             // question text generation
-            let thequestion = this.replaceVars(_.clone(this.cQuestion));
-            let thevalue = this.replaceVars(_.clone(this.cValue));
+            let thequestion = this.replaceVars(utils.clone(this.cQuestion));
+            let thevalue = this.replaceVars(utils.clone(this.cValue));
             loopProtect++;
             // on évite les répétitions
             // TODO : à améliorer !!!
             if(this.questions.indexOf(thequestion)<0 || this.values.indexOf(thevalue)<0 || !this.canrepeat){
                 this.questions[i] = thequestion;
-                this.answers[i] = this.replaceVars(_.clone(this.cAnswer), thequestion);
+                this.answers[i] = this.replaceVars(utils.clone(this.cAnswer), thequestion);
                 this.values[i] = thevalue;
                 if(this.cFigure!== undefined){
                     this.figures[i] = {
                         "type":this.cFigure.type,
-                        "content":this.replaceVars(_.clone(this.cFigure.content)),
+                        "content":this.replaceVars(utils.clone(this.cFigure.content)),
                         "boundingbox":this.cFigure.boundingbox,
                         "axis":this.cFigure.axis,
                         "grid":this.cFigure.grid?true:false

@@ -4,23 +4,23 @@
     "title":"Reconnaître un angle",
     "repeat":true,
     "type":"text",
-    "consts":{"vocab":["aigu", "droit", "obtus"]},
-    "vars":{"cx":"0_2", "ai":"5_80", "obt":"100_175", "in":"-180_180", "mes":"${:cx==0?:ai::cx==1?90::obt}"},
+    "consts":{"vocab":["aigu", "droit", "obtus"],"points":"ABCDEFGHJKLMNPRST"},
+    "vars":{"pts":"0_16_3_^&","A":"${:points[:pts[0]]}","B":"${:points[:pts[1]]}","C":"${:points[:pts[2]]}","cx":"0_2", "ai":"5_80", "obt":"100_175", "in":"-180_180", "mes":"${:cx==0?:ai::cx==1?90::obt}"},
     "figure":{
         "type":"graph", 
         "boundingbox":[-5,5,5,-5],
         "axis":false,
         "grid":false,
         "content" :[
-                ["point",[0,0],{"name":"A","size":4, "face":"x"}],
-                ["point",["${4*Math.cos(Math.PI*:in/180)}","${4*Math.sin(Math.PI*:in/180)}"],{"name":"B","size":4, "face":"x"}],
-                ["line",["A","B"],{"straightFirst":false}],
-                ["point",["${4*Math.cos(Math.PI*(:in+:mes)/180)}","${4*Math.sin(Math.PI*(:in+:mes)/180)}"],{"name":"C","size":4, "face":"x"}],
-                ["line",["A","C"],{"straightFirst":false}],
-                ["angle", ["B", "A", "C"],{"radius":1,"label":{"visible":false}}]
+                ["point",[0,0],{"name":"${:A}","size":4, "face":"x"}],
+                ["point",["${math.round(4*Math.cos(Math.PI*:in/180),3)}","${math.round(4*Math.sin(Math.PI*:in/180),3)}"],{"name":"${:B}","size":4, "face":"x"}],
+                ["line",["${:A}","${:B}"],{"straightFirst":false}],
+                ["point",["${math.round(4*Math.cos(Math.PI*(:in+:mes)/180),3)}","${math.round(4*Math.sin(Math.PI*(:in+:mes)/180),3)}"],{"name":"${:C}","size":4, "face":"x"}],
+                ["line",["${:A}","${:C}"],{"straightFirst":false}],
+                ["angle", ["${:B}", "${:A}", "${:C}"],{"radius":1,"label":{"visible":false}}]
             ]    
         },
-    "question":"Quelle est la nature de l'angle $$\\widehat{BAC}$$ ?",
-    "answer":"L'angle $$\\widehat{BAC}$$ est un angle $$\\color{red}{${:vocab[:cx]}}$$",
+    "question":"Quelle est la nature de l'angle $$\\widehat{${:B+:A+:C}}$$ ?",
+    "answer":"L'angle $$\\widehat{${:B+:A+:C}}$$ est un angle $$\\color{red}{${:vocab[:cx]}}$$",
     "value":"${:vocab[:cx]}"
 }

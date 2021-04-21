@@ -42,6 +42,7 @@ Ces fichiers json comportent des *données obligatoires* :
  * **title** : titre de l'activité
  * **ID** : un identifiant unique de l'activité pour la retrouver facilement dans la base de données, correspond au nom du fichier json : ID.json (pas de doublon !), ex : 6ND6 rangé dans N6 (niveau 6e) sous le code 6ND (Cf structure.json pour le classement) 6ND6 pour le numéro dans l'ordre de création des fichiers
  * **dest** : la liste des niveaux et sous partie qui seront peuplés par l'activité, ex 7NA1 sera rangé en CM2 (**7**e) > **N**umérique > Comprendre et utiliser les nombres (**A**) > 1ère activité
+ * **repeat** : true ou non défini - permet de répéter des questions "pauvres" en type de question/réponses de se répéter.
  * **vars** : objet json contenant la ou les variables utilisées dans l'activité
    * une variable est une chaine ou un tableau. elle est interprétée pour tirer au sort des nombres uniques, des tableaux de nombres ...
      * des entiers min_max ou min_max_quantité ou min_max_^liste de valeurs à éviter ou min_max_quantité_^&,val1,val2... & signifie pas de double
