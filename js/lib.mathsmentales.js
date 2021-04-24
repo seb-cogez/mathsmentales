@@ -506,7 +506,7 @@ var utils = {
         document.getElementById(tab).style.display = "";
     },
     showParameters:function(id){
-        let ids = ["paramsdiapo","paramsexos", "paramsinterro", "paramsceinture", "paramsflashcards", "paramswhogots"];
+        let ids = ["paramsdiapo","paramsexos", "paramsinterro", "paramsflashcards", "paramswhogots", "paramsdominos"];//"paramsceinture",
         if(ids.indexOf(id)<0) return false;
         // hide all
         for(let i=0,len=ids.length;i<len;i++){
@@ -1184,6 +1184,11 @@ class draw {
         this.canvas.addEventListener("mousemove",mouvement, false);
         this.canvas.addEventListener("touchmove",mouvement, false);
         this.ctx = this.canvas.getContext('2d');
+        this.ctx.strokeStyle = "grey";
+        this.ctx.lineWidth = 2;
+        this.ctx.beginPath();
+        this.ctx.rect(0,0,this.canvas.width,this.canvas.height);
+        this.ctx.stroke();
         this.ctx.strokeStyle = "blue";
         this.ctx.lineWidth = 2;
         this.ctx.lineJoin = "round";
@@ -1339,7 +1344,7 @@ class Figure {
                             this.figure.create("functiongraph", [function(x){return eval(formule)}], options);
                     } else if(type==="jessiescript") {
                         this.figure.construct(commande);
-                    } else if(["text", "point","axis", "line", "segment", "angle"].indexOf(type)>-1){
+                    } else if(["text", "point","axis", "line", "segment", "angle", "polygon"].indexOf(type)>-1){
                         if(!options)
                             this.figure.create(type, commande);
                         else
@@ -1459,6 +1464,8 @@ class ficheToPrint {
             this.createFlashCards();
         } else if(this.type === "whogots"){
             this.createWhoGots();
+        } else if(this.type === "dominos"){
+            this.createDominos();
         }
         // render the math
         utils.mathRender(this.wsheet);
@@ -1498,19 +1505,23 @@ class ficheToPrint {
         }
         let correctionContent = this.create("div",{className:"correction"});
         let titleCorrection = this.create("header", {className:"clearfix",innerHTML:"Correction des exercices"});
-        if(correction === "end")
+        if(correction === "end"){
             correctionContent.appendChild(titleCorrection);
+            this.docsheet.getElementById('creator-menu').innerHTML += "<button id='btn-break' onclick='pagebreak();'>Corrigé sur page séparée</button>"
+        }
         // in case of figures
         MM.memory = {};
         // create a shit because of the li float boxes
         let divclear = this.create("div", {className:"clearfix"});
-        let script = this.create("script",{text:`function changecols(dest,nb){document.getElementById(dest).className="grid g"+nb};`});
-        this.wsheet.document.head.appendChild(script);
+        let script = this.create("script",{text:`function changecols(dest,nb){document.getElementById(dest).className="grid g"+nb};
+        function pagebreak(){let cor=document.querySelector('.correction'),btn=document.getElementById('btn-break');if(cor.className==="correction"){cor.className="correction pagebreak";btn.innerText='Corrigé à la suite des énoncés'}else {cor.className="correction";btn.innerText='Corrigé sur page séparée'}}
+        `});
+        this.docsheet.head.appendChild(script);
     for(let i=0;i<this.activities.length;i++){
             const activity = this.activities[i];
             let sectionEnonce = this.create("section",{id:"enonce"+i,className:"enonce"});
             let sectionCorrection = this.create("section",{id:"corrige"+i});
-            let input = `<input id="nbcols${i}" class="noprint fright" value="2" title="Nb de colonnes" type="number" size="2" min="2" max="6" oninput="changecols('ol${i}',this.value)">`;
+            let input = `<input id="nbcols${i}" class="noprint fright" value="2" title="Nb de colonnes" type="number" size="2" min="1" max="6" oninput="changecols('ol${i}',this.value)">`;
             sectionEnonce.innerHTML += input;
             let h3 = this.create("h3", {className:"exercice-title",innerHTML:exTitle+(i+1)+" : "+activity.title});
             sectionEnonce.appendChild(h3);
@@ -1568,6 +1579,18 @@ class ficheToPrint {
         }
     }
     createInterroSheet(){
+        // in case of figures
+        MM.memory = {};
+        let script = this.create("script",{text:`
+        function changecols(dest,nb){document.getElementById(dest).className="grid g"+nb};
+        function changeheight(dest,nb){
+            let elts = document.querySelectorAll("#"+dest+" .interro article");
+            for(let i=0;i<elts.length;i++){
+                elts[i].style.height = nb+"pt";
+            }
+        }
+        `});
+        this.docsheet.head.appendChild(script);
         // set elements :
         let aleaCode = this.create("div",{className:"floatright",innerHTML:"Clé : "+MM.seed});
         this.content.appendChild(aleaCode);
@@ -1588,11 +1611,15 @@ class ficheToPrint {
         let divclear = this.create("div",{className: "clearfix"});
         for (let i = 0; i < this.activities.length; i++) {
             const activity = this.activities[i];
-            let section = this.create("section",{id:"section"+i});
+            let sectionEnonce = this.create("section",{id:"section"+i});
             let sectionCorrection = this.create("section");
+            let input = `<input id="nbcols${i}" class="noprint fright" value="30" title="Taille réponse" type="number" size="3" min="10" max="200" oninput="changeheight('ol${i}',this.value)">`;
+            sectionEnonce.innerHTML += input;
+            input = `<input id="nbcols${i}" class="noprint fright" value="2" title="Nb de colonnes" type="number" size="2" min="1" max="6" oninput="changecols('ol${i}',this.value)">`;
+            sectionEnonce.innerHTML += input;
             let h3 = this.create("h3", {className:"exercice-title",innerHTML:exTitle+(i+1)+" : "+activity.title});
-            section.appendChild(h3);
-            let ol = this.create("ol",{className:"grid g2"});
+            sectionEnonce.appendChild(h3);
+            let ol = this.create("ol",{id:"ol"+i,className:"grid g2"});
             let olCorrection = this.create("ol", {className:"corrige"});
             for(let j=0;j<activity.questions.length;j++){
                 let li = this.create("li",{className:"interro"});
@@ -1607,16 +1634,23 @@ class ficheToPrint {
                     liCorrection.innerHTML = activity.answers[j];
                 }
                 ol.appendChild(li);
+                // figures
+                if(activity.figures[j] !== undefined){
+                    if(i===0 && j=== 0)MM.memory["dest"] = this.wsheet;
+                    MM.memory["f"+i+"-"+j] = new Figure(utils.clone(activity.figures[j]), "f"+i+"-"+j,li);
+                }                
+                let article = this.create("article");
+                li.appendChild(article);
                 olCorrection.appendChild(liCorrection);
             }
-            section.appendChild(ol);
+            sectionEnonce.appendChild(ol);
             let ds = divclear.cloneNode(true);
-            section.appendChild(ds);
+            sectionEnonce.appendChild(ds);
             let h3correction = h3.cloneNode(true);
             sectionCorrection.appendChild(h3correction);
             sectionCorrection.appendChild(olCorrection);
             correctionContent.appendChild(sectionCorrection);
-            this.content.appendChild(section);
+            this.content.appendChild(sectionEnonce);
         }
         // insert footer for print page break
         this.content.appendChild(this.create("footer",{innerHTML:"Fin"}));
@@ -1624,19 +1658,239 @@ class ficheToPrint {
         this.content.appendChild(correctionContent);
         let ds = divclear.cloneNode(true);
         this.content.appendChild(ds);
+        if(!utils.isEmpty(MM.memory)){
+            setTimeout(function(){
+                for(const k in MM.memory){
+                    if(k!=="dest")
+                        MM.memory[k].display(MM.memory["dest"]);
+                }
+            }, 300);
+        }
     }
     createFlashCards(){
+        // in case of figures
+        MM.memory = {};
+        let script = this.create("script",{text:`
+        function changeheight(nb){
+            let elts = document.querySelectorAll(".card");
+            for(let i=0;i<elts.length;i++){
+                elts[i].style.height = nb+"mm";
+            }
+        }
+        `});
+        this.docsheet.head.appendChild(script);
         // set elements :
         let aleaCode = this.create("div",{className:"floatright",innerHTML:"Clé : "+MM.seed});
         this.content.appendChild(aleaCode);
+        let input = `<input class="noprint fright" value="55" title="Taille cartes" type="number" size="3" min="30" max="180" oninput="changeheight(this.value)">`;
+        this.content.innerHTML += input;
         // get the titlesheet
-        let sheetTitle = document.getElementById("FCtitle").value||"Interrogation écrite";
+        let sheetTitle = document.getElementById("FCtitle").value||"Cartes Flash";
         // set the titlesheet
         let header = this.create("header",{innerHTML:sheetTitle});
         this.content.appendChild(header);
+        let sectionCartes = this.create("section",{className:"flash-section grid g2"});
+        for (let i = 0; i < this.activities.length; i++) {
+            const activity = this.activities[i];
+            for(let j=0;j<activity.questions.length;j++){
+                let artQuestion = this.create("article",{className:"flash-question card"});
+                let divq = this.create("div");
+                let artCorrection = this.create("article",{className:"flash-reponse card"});
+                let divr = this.create("div");
+                if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
+                    let span = this.create("span",{className:"math", innerHTML:activity.questions[j]});
+                    let spanCorrection = this.create("span", {className:"math", innerHTML:activity.answers[j]});
+                    divq.appendChild(span);
+                    divr.appendChild(spanCorrection);
+                } else {
+                    divq.innerHTML = activity.questions[j];
+                    divr.innerHTML = activity.answers[j];
+                }
+                artQuestion.appendChild(divq);
+                artCorrection.appendChild(divr)
+                sectionCartes.appendChild(artQuestion);
+                // figures
+                if(activity.figures[j] !== undefined){
+                    if(i===0 && j=== 0)MM.memory["dest"] = this.wsheet;
+                    MM.memory["f"+i+"-"+j] = new Figure(utils.clone(activity.figures[j]), "f"+i+"-"+j, divq);
+                }
+                sectionCartes.appendChild(artCorrection);
+            }
+        }
+        this.content.appendChild(sectionCartes);
+        if(!utils.isEmpty(MM.memory)){
+            setTimeout(function(){
+                for(const k in MM.memory){
+                    if(k!=="dest")
+                        MM.memory[k].display(MM.memory["dest"]);
+                }
+            }, 300);
+        }
     }
     createWhoGots(){
-
+        // in case of figures
+        MM.memory = {};
+        let script = this.create("script",{text:`
+        function changeheight(nb){
+            let elts = document.querySelectorAll(".whogot-carte");
+            for(let i=0;i<elts.length;i++){
+                elts[i].style.height = nb+"mm";
+            }
+        }
+        function changewidth(nb){
+            let elts = document.querySelectorAll(".whogot-carte");
+            for(let i=0;i<elts.length;i++){
+                elts[i].style.width = nb+"mm";
+            }
+        }
+        `});
+        let WGquestion = document.getElementById("WGquestion").value?document.getElementById("WGquestion").value:"Qui a ?";
+        let WGaffirmation = document.getElementById("WGaffirmation").value?document.getElementById("WGaffirmation").value:"J'ai ...";
+        this.docsheet.head.appendChild(script);
+        // set elements :
+        let aleaCode = this.create("div",{className:"floatright",innerHTML:"Clé : "+MM.seed});
+        this.content.appendChild(aleaCode);
+        let input = `<input class="noprint fright" value="55" title="Hauteur cartes" type="number" size="3" min="30" max="180" oninput="changeheight(this.value)">
+        <input class="noprint fright" value="55" title="Largeur cartes" type="number" size="3" min="30" max="180" oninput="changewidth(this.value)">`;
+        this.content.innerHTML += input;
+        // get the titlesheet
+        let sheetTitle = document.getElementById("FCtitle").value||"J'ai / Qui a ?";
+        // set the titlesheet
+        let header = this.create("header",{innerHTML:sheetTitle});
+        this.content.appendChild(header);
+        let sectionCartes = this.create("section",{className:"whogot-section"});
+        for (let i = 0; i < this.activities.length; i++) {
+            const activity = this.activities[i];
+            for(let j=0;j<activity.questions.length;j++){
+                let carte = this.create("article", {className:"whogot-carte",id:"carte"+i+"-"+j});
+                let artQuestion = this.create("article",{className:"whogot-question",innerHTML:"<h2>"+WGquestion+"</h2"});
+                let divq = this.create("div");
+                if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
+                    let span = this.create("span",{className:"math", innerHTML:activity.questions[j]});
+                    divq.appendChild(span);
+                } else {
+                    divq.innerHTML = activity.questions[j];
+                }
+                artQuestion.appendChild(divq);
+                carte.appendChild(artQuestion);
+                // figures
+                if(activity.figures[j] !== undefined){
+                    if(i===0 && j=== 0)MM.memory["dest"] = this.wsheet;
+                    MM.memory["f"+i+"-"+j] = new Figure(utils.clone(activity.figures[j]), "f"+i+"-"+j, divq);
+                }
+                sectionCartes.appendChild(carte);
+            }
+        }
+        this.content.appendChild(sectionCartes);
+        for (let i = 0; i < this.activities.length; i++) {
+            const activity = this.activities[i];
+            for(let j=0;j<activity.questions.length;j++){
+                let carte = this.docsheet.getElementById("carte"+i+"-"+(j===activity.questions.length-1?0:j+1));
+                let artCorrection = this.create("article",{className:"whogot-reponse",innerHTML:"<h2>"+WGaffirmation+"</h2"});
+                let divr = this.create("div");
+                if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
+                    let spanCorrection = this.create("span", {className:"math", innerHTML:activity.values[j]});
+                    divr.appendChild(spanCorrection);
+                } else {
+                    divr.innerHTML = activity.values[j];
+                }
+                artCorrection.appendChild(divr);
+                let hr = this.create("hr");
+                carte.prepend(hr);
+                carte.prepend(artCorrection);
+            }
+        }
+        if(!utils.isEmpty(MM.memory)){
+            setTimeout(function(){
+                for(const k in MM.memory){
+                    if(k!=="dest")
+                        MM.memory[k].display(MM.memory["dest"]);
+                }
+            }, 300);
+        }
+    }
+    createDominos(){
+        // in case of figures
+        MM.memory = {};
+        let script = this.create("script",{text:`
+        function changeheight(nb){
+            let elts = document.querySelectorAll(".dominos-carte");
+            for(let i=0;i<elts.length;i++){
+                elts[i].style.height = nb+"mm";
+            }
+        }
+        function changewidth(nb){
+            let elts = document.querySelectorAll(".dominos-carte");
+            for(let i=0;i<elts.length;i++){
+                elts[i].style.width = nb+"mm";
+            }
+        }
+        `});
+        this.docsheet.head.appendChild(script);
+        // set elements :
+        let aleaCode = this.create("div",{className:"floatright",innerHTML:"Clé : "+MM.seed});
+        this.content.appendChild(aleaCode);
+        let input = `<div class="noprint fright">Largeur : 
+        <input value="60" title="Largeur domino" type="number" size="3" min="60" max="180" oninput="changewidth(this.value)">
+        Hauteur :
+        <input value="25" title="Hauteur domino" type="number" size="3" min="25" max="180" oninput="changeheight(this.value)">
+        </div>`;
+        this.content.innerHTML += input;
+        // get the titlesheet
+        let sheetTitle = "<h1>Dominos</h1>";
+        // set the titlesheet
+        let header = this.create("header",{innerHTML:sheetTitle});
+        this.content.appendChild(header);
+        let sectionCartes = this.create("section",{className:"dominos-section"});
+        for (let i = 0; i < this.activities.length; i++) {
+            const activity = this.activities[i];
+            for(let j=0;j<activity.questions.length;j++){
+                let carte = this.create("article", {className:"dominos-carte",id:"domino"+i+"-"+j});
+                let hr = this.create("div",{className:"barrev",innerHTML:"&nbsp;"});
+                carte.appendChild(hr);
+                let artQuestion = this.create("article",{className:"dominos-question"});
+                let divq = this.create("div");
+                if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
+                    let span = this.create("span",{className:"math", innerHTML:activity.questions[j]});
+                    divq.appendChild(span);
+                } else {
+                    divq.innerHTML = activity.questions[j];
+                }
+                artQuestion.appendChild(divq);
+                carte.appendChild(artQuestion);
+                // figures
+                if(activity.figures[j] !== undefined){
+                    if(i===0 && j=== 0)MM.memory["dest"] = this.wsheet;
+                    MM.memory["f"+i+"-"+j] = new Figure(utils.clone(activity.figures[j]), "f"+i+"-"+j, divq);
+                }
+                sectionCartes.appendChild(carte);
+            }
+        }
+        this.content.appendChild(sectionCartes);
+        for (let i = 0; i < this.activities.length; i++) {
+            const activity = this.activities[i];
+            for(let j=0;j<activity.questions.length;j++){
+                let carte = this.docsheet.getElementById("domino"+i+"-"+(j===activity.questions.length-1?0:j+1));
+                let artCorrection = this.create("article",{className:"dominos-reponse"});
+                let divr = this.create("div");
+                if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
+                    let spanCorrection = this.create("span", {className:"math", innerHTML:activity.values[j]});
+                    divr.appendChild(spanCorrection);
+                } else {
+                    divr.innerHTML = activity.values[j];
+                }
+                artCorrection.appendChild(divr);
+                carte.prepend(artCorrection);
+            }
+        }
+        if(!utils.isEmpty(MM.memory)){
+            setTimeout(function(){
+                for(const k in MM.memory){
+                    if(k!=="dest")
+                        MM.memory[k].display(MM.memory["dest"]);
+                }
+            }, 300);
+        }
     }
 };
 // MathsMentales core
@@ -1958,6 +2212,12 @@ var MM = {
             MM.carts[0].addActivity(MM.editedActivity);
         }
         MM.fiche = new ficheToPrint("whogots",MM.carts[0]);
+    },
+    createDominos:function(){
+        if(!MM.carts[0].activities.length){
+            MM.carts[0].addActivity(MM.editedActivity);
+        }
+        MM.fiche = new ficheToPrint("dominos",MM.carts[0]);
     },
     /**
      * Start the slideshow
@@ -2772,8 +3032,8 @@ class activity {
                 p.appendChild(ul);
                 examples.appendChild(p);
             }
-            // si plus de 3 options/sous-options, 2 colonnes
-            if(optionsLen>3){
+            // si plus de 3 options/sous-options, 2 colonnes seulement si panier non affiché.
+            if(optionsLen>3 && document.getElementById("phantom").className===""){
                 utils.addClass(document.getElementById("divparams"),"colsx2");
             }
         } else {

@@ -1,29 +1,17 @@
-@media screen {
-    body {
-        padding: 10mm;
-    }
-}
-@media print {
-    #creator-menu {
-        display: none;
-    }
-    .noprint {
-        display:none;
-    }
-}
 *{
     box-sizing: border-box;
 }
 html{
     padding:0;
     margin:0;
-    font-size: 12pt;
+    font-size: 100%;
 }
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
 }
 footer {page-break-after: always;}
+.pagebreak{page-break-before: always;}
 .s8{
     font-size: 8pt;
 }
@@ -85,14 +73,15 @@ footer {page-break-after: always;}
 .fright{
     float:right;
 }
+
 /*
 Taille carte de visite
 */
 .card {
     width:85mm;
     height:55mm;
-    margin:5mm;
-    border: 1px solid black;
+    margin:0;
+    border: 1pt solid black;
     border-radius: 5mm;
     padding:5mm;
     display: flex;
@@ -102,6 +91,9 @@ Taille carte de visite
 /** grilles */
 .grid{
     display:grid;
+}
+.g1{
+    grid-template-columns: 1fr;
 }
 /* 2 colonnes */
 .g2{
@@ -125,12 +117,11 @@ Taille carte de visite
 }
 /* Commons
 */
-#creator-container::after{
+#creator-container::before{
     content:"\ CC-BY-NC © 2021 MathsMentales.net";
     color:darkblue !important;
     font-size: 0.8rem;
-    margin-top: 30px;
-    border-top: 1px solid black;
+    border-bottom: 1pt solid black;
     text-align: end;
 }
 #creator-container {
@@ -184,23 +175,74 @@ h3.exercice-title{
 /* Interro spécifique
 */
 .studenName {
-    padding:1pt 1pt 20pt;
+    padding:1pt 3pt 30pt;
     width: 40%;
-    border: 1px solid black;
+    border: 1pt solid black;
     margin-right:5px;
     float: left;
 }
 .remarques {
-    padding:1pt 1pt 30pt;
+    padding:1pt 3pt 30pt;
     width: calc(100% - 40% - 5px);
-    border: 1px solid black;
+    border: 1pt solid black;
     float: left;
 }
-#creator-content li.interro {
-    padding-bottom: 30pt;
-    border: 1px solid black;
+#creator-content li.interro article {
+    height: 30pt;
+    border: 1pt solid black;
+}
+/*whogot specs*/
+.whogot-carte {
+    padding: 3pt;
+    width: 60mm;
+    float:left;
+    border:1pt solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    page-break-inside:avoid;
+}
+.whogot-question{
+    padding-bottom:1rem;
+}
+.dominos-carte {
+    height: 25mm;
+    width: 60mm;
+    padding: 3pt;
+    float:left;
+    border:1pt solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    page-break-inside:avoid;
+}
+.dominos-question,.dominos-reponse{
+    width: 48%;
+    text-align: center;
+}
+.barrev {
+    display:block;
+    background: rgb(131, 129, 129);
+    width:5pt;
+    border:1pt solid black;
+    height: 80%;
 }
 .fig {
     width:90%;
     height: 200px;
+}
+@media screen {
+    body {
+        padding: 10mm;
+    }
+}
+@media print {
+    #creator-menu {
+        display: none;
+    }
+    .noprint {
+        display:none;
+    }
 }

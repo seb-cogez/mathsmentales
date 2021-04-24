@@ -1,0 +1,26 @@
+{
+    "ID":"5GB1",
+    "dest":["5GB","4GB","3GB"],
+    "title":"Trouver la mesure d'un 3e angle",
+    "repeat":true,
+    "type":"text",
+    "consts":{"points":"ABCDEFGHJKLMNPRST"},
+    "vars":{"pts":"0_16_3_^&","A":"${:points[:pts[0]]}","B":"${:points[:pts[1]]}","C":"${:points[:pts[2]]}","xa":"d-4_-2_1", "ya":"d-4_-2_1", "xb":"d2_4_1","yb":"d-4_-1_1","xc":"d-4_4_1","yc":"1_4","AB":"${math.round(:xb-:xa,1)}${math.round(:yb-:ya,1)>0?'+':''}${math.round(:yb-:ya,1)}i", "AC":"${math.round(:xc-:xa,1)}${math.round(:yc-:ya,1)>0?'+':''}${math.round(:yc-:ya,1)}i","BA":"${math.round(:xa-:xb,1)}${math.round(:ya-:yb,1)>0?'+':''}${math.round(:ya-:yb,1)}i","BC":"${math.round(:xc-:xb,1)}${math.round(:yc-:yb,1)>0?'+':''}${math.round(:yc-:yb,1)}i", "CAB":"${math.round(Number(math.calc('180*arg(('+:AC+')/('+:AB+'))/pi').replace('...','')))}","ABC":"${math.round(Number(math.calc('180*arg(('+:BA+')/('+:BC+'))/pi').replace('...','')))}", "BCA":"${180-:CAB-:ABC}"},
+    "figure":{
+        "type":"graph", 
+        "boundingbox":[-5,5,5,-5],
+        "axis":false,
+        "grid":false,
+        "content" :[
+                ["point",["${:xa}","${:ya}"],{"name":"${:A}","size":4, "face":"x", "label":{"offset":[-12,-12]}}],
+                ["point",["${:xb}","${:yb}"],{"name":"${:B}","size":4, "face":"x"}],
+                ["point",["${:xc}","${:yc}"],{"name":"${:C}","size":4, "face":"x"}],
+                ["polygon",["${:A}","${:C}", "${:B}"]],
+                ["angle", ["${:B}", "${:A}", "${:C}"],{"radius":1,"name":"${:CAB}°","label":{"offset":[10,2]}}],
+                ["angle", ["${:C}", "${:B}", "${:A}"],{"radius":1,"name":"${:ABC}°","label":{"offset":[-8,-10]}}]
+            ]    
+        },
+    "question":"Quelle est la mesure de l'angle $$\\widehat{${:B+:C+:A}}$$ sachant que $$\\widehat{${:C+:A+:B}}=${:CAB}°$$ et $$\\widehat{${:A+:B+:C}}=${:ABC}°$$ ?",
+    "answer":"L'angle $$\\widehat{${:B+:C+:A}}$$ mesure $$180°-(${:CAB}°+${:ABC}°)=\\color{red}{${:BCA}°}$$",
+    "value":"${:BCA}°"
+}
