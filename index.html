@@ -71,12 +71,12 @@
     </nav>
     <div class="tabs" id="header-menu">
         <nav class="tabs-menu">
+            <a numero="#tab-chercher" class="tabs-menu-link">Rechercher</a>
             <a numero="#tab-parameters" class="tabs-menu-link">Paramétrer</a>
             <a numero="#tab-enonce" class="tabs-menu-link">Enoncé</a>
             <a numero="#tab-corrige" class="tabs-menu-link">Corrigé</a>
             <a numero="#tab-historique" class="tabs-menu-link">Historique</a>
             <a numero="#tab-telechargements" class="tabs-menu-link">Téléchargements</a>
-            <a numero="#tab-chercher" class="tabs-menu-link">Rechercher</a>
         </nav>
     </div>
 
@@ -331,11 +331,19 @@
                 <legend>Question</legend>
                 <input type="text" placeholder="Qui a ... ?" id="WGquestion">
             </fieldset>
+            <fieldset>
+                <legend>Nombre de cartes : <span id="cardsNb" class="blue">30</span> (si 1 seule activité)</legend>
+                <input id="cardsNbValue" type="range" min="2" max="100" step="1" value="30" oninput="document.getElementById('cardsNb').innerHTML=this.value;">
+            </fieldset>
             <section>
                 <button class="button--primary beaubutton" onclick="MM.createWhoGots();">Générer</button>
             </section>
         </div>
         <div id="paramsdominos" class="hidden">
+            <fieldset>
+                <legend>Nombre de dominos : <span id="dominosNb" class="blue">28</span> (si 1 seule activité)</legend>
+                <input id="dominosNbValue" type="range" min="2" max="100" step="1" value="28" oninput="document.getElementById('dominosNb').innerHTML=this.value;">
+            </fieldset>
             <section>
                 <button class="button--primary beaubutton" onclick="MM.createDominos();">Générer</button>
             </section>
@@ -366,7 +374,7 @@
         </div>
     </section>
     <section id="tab-historique" class="tabs-content-item" style="display: none;">
-        Ici, l'historique des exercices pour impression, copie/coller d'image, etc.
+        Ici, l'historique des activités pour pouvoir les relancer, les imprimer...
     </section>
     <section id="tab-telechargements" class="tabs-content-item" style="display: none;">
         Ici, la section de téléchargement de MathsMentales et ses dérivés.

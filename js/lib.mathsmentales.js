@@ -341,19 +341,19 @@ var utils = {
      * & as exeption => no doble number in the list
      * prime => not a prime
      */
-    aleaInt:function(min,max){ // accepts 2 arguments more
+    aleaInt:function(min,max,...others){ // accepts 2 arguments more
         let qty=1;
         let avoid=[];
         let arrayType=false;
         utils.security = 300;
         let nodouble = false;
         let notPrime = false;
-        for(let i=2;i<arguments.length;i++){
-            if(String(Number(arguments[i])) === arguments[i] || typeof arguments[i]==="number"){
-                qty = arguments[i];
+        for(let i=0;i<others.length;i++){
+            if(String(Number(others[i])) === others[i] || typeof others[i]==="number"){
+                qty = others[i];
                 arrayType = true;
-            } else if(typeof arguments[i] === "string" && arguments[i][0]=="^"){
-                avoid = arguments[i].substring(1).split(",");
+            } else if(typeof others[i] === "string" && others[i][0]=="^"){
+                avoid = others[i].substring(1).split(",");
                 if(avoid.indexOf("&")>-1)nodouble = true;
                 if(avoid.indexOf("prime")>-1)notPrime = true;
                 avoid = avoid.map(Number);
@@ -397,21 +397,19 @@ var utils = {
      * @param {integer} qty number of values to return
      * @param {string} avoid values to avoid comma separated start with ^
      */
-    aleaFloat:function(min, max, precision){
+    aleaFloat:function(min, max, precision, ...others){
         let qty=1;
         let avoid = [];
         let nodouble = false;
         utils.security = 300;
-        //debug(arguments);
-        // check aguments
-        for(let i=3;i<arguments.length;i++){
-            if(String(Number(arguments[i])) === arguments[i] || typeof arguments[i] === "number"){
-                qty = arguments[i];
-            } else if(typeof arguments[i] === "string" && arguments[i][0]==="^"){
-                avoid = arguments[i].substring(1).split(",");
+        // check others aguments
+        for(let i=0;i<others.length;i++){
+            if(String(Number(others[i])) === others[i] || typeof others[i] === "number"){
+                qty = others[i];
+            } else if(typeof others[i] === "string" && others[i][0]==="^"){
+                avoid = others[i].substring(1).split(",");
                 if(avoid.indexOf("&")>-1)nodouble = true;
                 avoid = avoid.map(Number);
-                //debug("Eviter "+avoid);
             }
         }
         // exchange values min and max if min > max
@@ -902,7 +900,6 @@ var math ={
         return ret;
     },
     getHM(h,m,s){
-        //debug(arguments);
         if(s===undefined)s=0;
         var d = new Date(2010,1,1,Number(h),Number(m),Number(s));
         return d.getHours()+" h "+((d.getMinutes()<10)?"0"+d.getMinutes():d.getMinutes());
@@ -1137,6 +1134,9 @@ class cart {
 /**
  * offer the possibility to anotate the page
  * designed for interactive screens
+ * 
+ * @param {String} tgt id de l'élément à couvrir
+ * @param {String} btnId id du bouton qui déclenche le draw pour changer son image
  */
 class draw {
     constructor(tgt,btnId){
@@ -1254,6 +1254,30 @@ class steps {
         if(this.step >= this.size)
             return false;
         return this.step;
+    }
+}
+class Zoom {
+    /**
+     * 
+     * @param {String} targetSelector Id de l'élément du DOM à zoomer/dézoomer
+     */
+    constructor(id,targetSelector){
+        this.target = targetSelector;
+        this.id=id;
+    }
+    changeSize(value){
+        let dest = document.querySelectorAll(this.target);
+        dest.forEach(elt=>elt.style.fontSize = math.round(Number(value)/10,1)+"em");
+    }
+    createCursor(){
+        let div = utils.create("div",{id:this.id, className:"zoom"});
+        let span = utils.create("span",{className:"zoom-a0",innerText:"A"});
+        let span2 = utils.create("span",{className:"zoom-A1",innerText:"A"});
+        let cursor = `<input type="range" min="6" max="60" step="2" value="10" oninput="MM.zooms['${this.id}'].changeSize(this.value)" ondblclick=MM.zooms['${this.id}'].changeSize(10)>`;
+        div.appendChild(span);
+        div.innerHTML += cursor;
+        div.appendChild(span2);
+        return div;
     }
 }
 // Figures
@@ -1439,13 +1463,19 @@ class ficheToPrint {
         this.activities = cart.activities;
         this.wsheet = window.open("pagetoprint.html","mywindow","location=no,menubar=no,titlebar=no,width=794");
         this.wsheet.onload = function(){MM.fiche.populate()};
+        this.nbq = undefined;
+        if(this.type === "whogots" && this.activities.length === 1){
+            this.nbq = document.getElementById("cardsNbValue").value;
+        } else if(this.type === "dominos" && this.activities.length === 1){
+            this.nbq = document.getElementById("dominosNbValue").value;
+        }
     }
     generateQuestions(){
         utils.setSeed()
         // generate questions and answers
         for(let index=0;index<this.activities.length;index++){
             const activity = this.activities[index];
-            activity.generate();
+            activity.generate(this.nbq);
         }
     }
     populate(){
@@ -1469,8 +1499,11 @@ class ficheToPrint {
         }
         // render the math
         utils.mathRender(this.wsheet);
-        // permet de réinitialiser l'affichage pour la prochaine
-        MM.editedActivity.display();
+        // Pour pouvoir éditer l'activité en cours d'édition si unique
+        if(MM.carts.length === 1 && MM.carts[0].activities.length === 1){
+            MM.resetCarts();
+            MM.editedActivity.display();
+        }
     }
     /**
      * 
@@ -2039,7 +2072,7 @@ var MM = {
         document.getElementById("addToCart").className = "";
         document.getElementById("removeFromCart").className = "hidden";
     },
-    populateQuestionsAndAnswers:function(withAnswer){
+    populateQuestionsAndAnswers(withAnswer){
         if(withAnswer=== undefined)withAnswer = true;
         MM.figs = {};MM.steps=[];MM.timers=[];MM.memory={};
         let length=MM.carts.length;
@@ -2051,7 +2084,6 @@ var MM = {
         }
         enonces.innerHTML="";
         corriges.innerHTML="";
-        // TODO : randomize the seed and collect it for reuse
         //MM.seed = "enonce";
         utils.setSeed();
         for(let i=0;i<length;i++){
@@ -2064,16 +2096,18 @@ var MM = {
                 let titleSlider = MM.carts[i].title+addTitle;
                 document.querySelector("#slider"+slideNumber+" .slider-title").innerHTML = titleSlider;
                 let sliderSteps = document.querySelector("#slider"+slideNumber+" .steps-container");
-                let dive = document.createElement("div");
-                let divc = document.createElement("div");
-                let h3e = document.createElement("h3");
-                let h3c = document.createElement("h3");
-                h3e.innerText = titleSlider; // exercice's title
-                h3c.innerText = titleSlider; // correction's title
+                let dive = utils.create("div",{id:"de"+i+"-"+kk});
+                let divc = utils.create("div",{id:"dc"+i+"-"+kk});
+                MM.zooms["zc"+i+"-"+kk] = new Zoom("zc"+i+"-"+kk,"#dc"+i+"-"+kk+" ol");
+                MM.zooms["ze"+i+"-"+kk] = new Zoom("ze"+i+"-"+kk,"#de"+i+"-"+kk+" ol");
+                dive.appendChild(MM.zooms["ze"+i+"-"+kk].createCursor());
+                divc.appendChild(MM.zooms["zc"+i+"-"+kk].createCursor());
+                let h3e = utils.create("h3",{innerText:titleSlider}); // exercice's title
+                let h3c = utils.create("h3",{innerText:titleSlider});// correction's title
                 dive.append(h3e);
                 divc.append(h3c);
-                let ole = document.createElement("ol");
-                let olc = document.createElement("ol");
+                let ole = utils.create("ol");
+                let olc = utils.create("ol");
                 MM.steps[slideNumber] = new steps({size:0, container:sliderSteps});
                 MM.timers[slideNumber] = new timer(slideNumber);
                 for(let z=0,alen=MM.carts[i].activities.length;z<alen;z++){
@@ -2081,18 +2115,16 @@ var MM = {
                     activity.generate();
                     MM.steps[slideNumber].addSize(activity.nbq);
                     for(let j=0;j<activity.questions.length;j++){
-                        // sliders
-                        let div = document.createElement("div");
-                        div.className = "slide w3-animate-top";
-                        if(indiceSlide>0) div.className += " hidden";
-                        div.id = "slide"+slideNumber+"-"+indiceSlide;
-                        let span = document.createElement("span");
-                        let spanAns = document.createElement("span");
-                        spanAns.className = "answerInSlide hidden";
+                        let question = activity.questions[j];
+                        let answer = activity.answers[j];
+                        // slides
+                        let div = utils.create("div",{className:"slide w3-animate-top"+(indiceSlide>0?" hidden":""),id:"slide"+slideNumber+"-"+indiceSlide});
+                        let span = utils.create("span",{innerHTML:question});
+                        let spanAns = utils.create("span",{className:"answerInSlide hidden",innerHTML:answer});
                         // timers
                         MM.timers[slideNumber].addDuration(activity.tempo);
                         // enoncés et corrigés
-                        let lie = document.createElement("li");
+                        let lie = utils.create("li",{innerHTML:question});
                         let lic = document.createElement("li");
                         if(activity.type === undefined || activity.type === "" || activity.type === "latex"){
                             lie.className = "math";
@@ -2100,17 +2132,12 @@ var MM = {
                             span.className="math";
                             spanAns.className += " math";
                         }
-                        let question = activity.questions[j];
-                        let answer = activity.answers[j];
                         // trouver une alternative dans la génération (hors exemple)
                         // TODO : à supprimer, le choix doit être fait dans la génération.
                         /*if(Array.isArray(activity.questions[j])){
                             let alea = utils.aleaInt(0,activity.questions[j].length-1);
                             question = activity.questions[j][alea];
                         }*/
-                        lie.innerHTML = question;
-                        span.innerHTML = question;
-                        spanAns.innerHTML = answer;
                         div.appendChild(span);
                         if(!MM.onlineState){ // include answer
                             div.appendChild(spanAns);
@@ -2140,7 +2167,7 @@ var MM = {
                         MM.memory['e'+slideNumber+"-"+j].display();
                     }
                 });
-                }        
+                }
             }
         }
         utils.mathRender();
@@ -2373,6 +2400,7 @@ var MM = {
      * 
      */
     createSlideShows:function(){
+        MM.zooms={};
         let nb = MM.slidersNumber;
         let container = document.getElementById("slideshow");
         container.innerHTML = "";
@@ -2392,8 +2420,14 @@ var MM = {
             </div>
             <div class="slider-title"></div>
             <div class="slider-chrono"><progress class="progress is-link is-large" value="0" max="100"></progress></div>
+            <div id="zs${i}" class="zoom">
+                <span class="zoom-a0">A</span>
+                <input type="range" min="6" max="60" step="2" value="10" oninput="MM.zooms['zs${i}'].changeSize(this.value)" ondblclick="MM.zooms['zs${i}'].changeSize(10)">
+                <span class="zoom-A1">A</span>
+            </div>
             <div class="steps-container"></div>`;
             container.appendChild(div);
+            MM.zooms["zs"+i] = new Zoom("zs"+i,"#slider"+i+" .slide");
         }
     },
     showSlideShows:function(){
@@ -2810,11 +2844,13 @@ var library = {
         let html = "";
         if(!base && !_.isObject(level))
             html = "<h1>Résultat de la recherche</h1>";
-        else if(!_.isObject(level))
+        else if(!_.isObject(level)){
             html = "<h1>Niveau "+niveau["nom"]+" ("+niveau["activitiesNumber"]+" act.)</h1>";
-        else 
+            // on vide le champ de recherche
+            document.getElementById("searchinput").value = "";
+        }else 
             html = "<h2>Cette activité MathsMentales v1 a été répartie en plusieurs activités</h2>";
-        if(!_.isObject(level))
+        if(base && !_.isObject(level)) // on change l'url level est un niveau de la bibliothèque
             utils.setHistory(niveau["nom"],{"n":level});
         // Affichage et mise en forme des données.
         let itemsNumber = 0;
@@ -3279,9 +3315,7 @@ class activity {
     * return nothing
     * 
     */
-    generate(n, opt, patt, sample){
-        // empty values
-        if(n === undefined) n = this.nbq;
+    generate(n=this.nbq, opt, patt, sample){
         // optionNumber is the number of the choosen option
         // patternNumber is the number of the choosen sub option
         let optionNumber, patternNumber, lenQ=false;
@@ -3289,9 +3323,8 @@ class activity {
         this.cFigure = undefined;
         let loopProtect = 0, maxLoop = 100;
         for(let i=0;i<n;i++){
-            if(opt === undefined) optionNumber = this.getOption(); else optionNumber = opt;
-            if(patt === undefined) patternNumber = this.getPattern(optionNumber); else patternNumber = patt;
-            //debug("option choisie : "+optionNumber, "Pattern choisi : "+patternNumber);
+            optionNumber = opt!==undefined?opt:this.getOption();
+            patternNumber = patt!==undefined?patt:this.getPattern(optionNumber);
             if(optionNumber !== false){
                 // set chosen vars
                 if(this.options[optionNumber].vars === undefined){

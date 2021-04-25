@@ -5,14 +5,15 @@
     "options":[{
         "name":"Division entière",
         "vars":{"a":"0_10", "b":"1_10", "p":"${:a*:b}"},
-        "question": "${:p}\\div ${:a}",
-        "answer":":question=\\color{red}{${:b}}",
-        "value":"${:b}"
+        "question": "${:p}\\div ${:b}",
+        "answer":":question=\\color{red}{${:a}}",
+        "value":"${:a}"
     },{
         "name":"Division à trou",
         "vars":{"a":"1_10", "b":"1_10", "p":"${:a*:b}"},
         "question":"${:p}\\, \\div \\, ? \\,=${:a}",
-        "answer":"${:p}\\div\\color{red}{${:b}}=${:a}"
+        "answer":"${:p}\\div\\color{red}{${:b}}=${:a}",
+        "value":"${:b}"
     },{
         "name":"Division euclidienne (petits nombres)",
         "vars":{"a":"11_50","b":"2_10", "qo":"${~~(:a/:b)}", "r":"${:a%:b}"},
