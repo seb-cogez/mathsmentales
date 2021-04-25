@@ -218,9 +218,9 @@
             <div id="paramsdiapo">
             <fieldset>
                 <legend>Introduction au diaporama</legend>
-                <span title="Commencer sur un exemple que l'on pourra discuter"><input type="radio" class="radio" name="beforeSlider" value="example" onclick="MM.carts[MM.selectedCart].setIntroduction(this.value);"> Exemple</span>
-                <span title="Commener par un décompte 3...2...1..."><input type="radio" class="radio" name="beforeSlider" value="321" checked="true" onclick="MM.carts[MM.selectedCart].setIntroduction(this.value);"> Décompte</span>
-                <span title="Commencer directement"><input type="radio" class="radio" name="beforeSlider" value="nothing" onclick="MM.carts[MM.selectedCart].setIntroduction(this.value);"> Rien</span>
+                <span title="Commencer sur un exemple que l'on pourra discuter"><input type="radio" class="radio" name="beforeSlider" value="example" onclick="MM.setIntroType(this.value);"> Exemple</span>
+                <span title="Commener par un décompte 3...2...1..."><input type="radio" class="radio" name="beforeSlider" value="321" checked="true" onclick="MM.setIntroType(this.value);"> Décompte</span>
+                <span title="Commencer directement"><input type="radio" class="radio" name="beforeSlider" value="nothing" onclick="MM.carts[MM.selectedCart].setIntroType(this.value);"> Rien</span>
             </fieldset><br>
             <fieldset>
                 <legend>Enoncé</legend>
@@ -240,22 +240,33 @@
                 </div>
                 <fieldset id="onlinechoice">
                     <legend>Répondre en ligne</legend>
-                    <input type="radio" class="radio" name="online" value="no" checked="true"> Non
-                    <input type="radio" class="radio" name="online" value="yes"> Oui
+                    <input type="radio" class="radio" name="online" value="no" checked="true" onclick="MM.setOnlineState(this.value)"> Non
+                    <input type="radio" class="radio" name="online" value="yes" onclick="MM.setOnlineState(this.value)"> Oui
                 </fieldset>
                 </fieldset><br>
             <fieldset>
                 <legend>Fin de diaporama</legend>
-                <input type="radio" class="radio" name="endOfSlideRadio" value="correction" checked="true" onclick="MM.carts[MM.selectedCart].setEndValue(this.value);"> Correction
-                <input type="radio" class="radio" name="endOfSlideRadio" value="nothing" onclick="MM.carts[MM.selectedCart].setEndValue(this.value);"> Rien
-                <input type="radio" class="radio" name="endOfSlideRadio" value="list" onclick="MM.carts[MM.selectedCart].setEndValue(this.value);"> Énoncés
+                <input type="radio" class="radio" name="endOfSlideRadio" value="correction" checked="true" onclick="MM.setEndType(this.value)"> Correction
+                <input type="radio" class="radio" name="endOfSlideRadio" value="nothing" onclick="MM.setEndType(this.value)"> Rien
+                <input type="radio" class="radio" name="endOfSlideRadio" value="list" onclick="MM.setEndType(this.value)"> Énoncés
             </fieldset><br>
             <section class="txtcenter" id="startbuttons">
-                <button class="button--info" onclick="MM.showQuestions();">Énoncés</button>
-                <button class="button--warning" onclick="MM.showAnswers();">Réponses</button> 
-                <button class="button--primary" onclick="MM.start();">C'est parti !</button>
-                <button class="button--inverse" onclick="MM.copyURL();">Adresse</button>
-                <button class="btn" onclick="MM.getQR();">QRCode</button>
+                <button class="button--info tooltip" onclick="MM.showQuestions();">Énoncés
+                    <span class="tooltiptext">Affiche directement<br>les énoncés</span>
+                </button>
+                <button class="button--warning tooltip" onclick="MM.showAnswers();">Réponses
+                    <span class="tooltiptext">Affiche directement<br>les réponses</span>
+                </button> 
+                <button class="button--primary tooltip" onclick="MM.start();">C'est parti !
+                    <span class="tooltiptext">Démarre le diaporama</span>
+                </button>
+                <button class="button--inverse tooltip" onclick="MM.copyURL();">Adresse
+                <span class="tooltiptext">Copie l'adresse de<br>l'activité dans<br>le presse papier</span>
+                </button>
+                <button class="btn tooltip" onclick="MM.getQR();">QRCode
+                    <span class="tooltiptext">Affiche le QRCode<br>de l'adresse</span>
+                </button>
+                <input type="text" class="hidden" id="acturl" maxlength="1024">
             </section>
         </div>
         <div id="paramsexos" class="hidden">

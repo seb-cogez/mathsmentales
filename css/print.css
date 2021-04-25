@@ -233,6 +233,9 @@ h3.exercice-title{
     width:90%;
     height: 200px;
 }
+.red {
+    color: red;
+}
 @media screen {
     body {
         padding: 10mm;

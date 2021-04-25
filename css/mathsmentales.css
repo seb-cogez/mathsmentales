@@ -270,10 +270,10 @@ ul.menu, .menu ul {
   width:90%;
   height:150px;
 }
-#tab-parameters .tooltip {
+#divparams .tooltip, #colparameters .tooltip {
   position: relative;
 }
-#tab-parameters .tooltip .tooltiptext {
+#divparams .tooltip .tooltiptext {
   visibility: hidden;
   background-color: black;
   color: white;
@@ -286,7 +286,20 @@ ul.menu, .menu ul {
   left:50%;
   margin-left:calc(-100% / 2 + 50px);
 }
-#tab-parameters .tooltiptext::after {
+#colparameters .tooltip .tooltiptext {
+  visibility: hidden;
+  background-color: rgba(90, 90, 90, 0.9);
+  color: rgb(192, 192, 192);
+  text-align: center;
+  padding: 10px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom:120%;
+  left:-50%;
+  margin-left:calc(-100% / 2 + 50px);
+}
+#divparams .tooltiptext::after, #colparameters .tooltiptext::after {
 	content: "";
 	position: absolute;
 	top: 100%;
@@ -297,7 +310,7 @@ ul.menu, .menu ul {
 	border-color: #555 transparent transparent transparent;
 }
 /* Show the tooltip text when you mouse over the tooltip container */
-#tab-parameters .tooltip:hover .tooltiptext {
+#divparams .tooltip:hover .tooltiptext, #colparameters .tooltip:hover .tooltiptext {
   visibility: visible;
 }
 #enonce-content .fig{
@@ -686,7 +699,7 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
   width: 40%;
 }
 .answerInSlide {
-    background-color: salmon;
+    background-color: rgb(245, 182, 175);
 }
 .slide.hidden{
     display: none;

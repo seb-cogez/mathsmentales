@@ -113,7 +113,7 @@ var utils = {
         if(vars.n!== undefined && vars.cd===undefined){ // un niveau à afficher
             library.displayContent(vars.n,true);
             return;
-        } else if(vars.u!==undefined && vars.cd === undefined){
+        } else if(vars.u!==undefined && vars.cd === undefined){ // ancien exo MM1
             let regexp = /(\d*|T)/;// le fichier commence par un nombre ou un T pour la terminale
             // un paramétrage d'exercice à afficher
              if(_.isArray(vars.u)){
@@ -135,13 +135,19 @@ var utils = {
                 setTimeout(utils.goToOldVersion,10000);
             }
         } else if(vars.c!==undefined){ // une activité MM v2 à lancer
+            let alert = utils.create("div",{id:'messageinfo',className:"message",innerHTML:"L'activité à laquelle vous accédez va démarrer dans 2 secondes.<br>Merci d'utiliser MathsMentales !"});
+            document.getElementById("tab-accueil").appendChild(alert);
+            setTimeout(()=>{let div=document.getElementById('messageinfo');div.parentNode.removeChild(div)},3000);
+            MM.setEndType(vars.e);
+            MM.setIntroType(vars.r);
+            MM.onlineState = vars.o;
             let json = JSON.parse(decodeURIComponent(vars.c));
             MM.resetCarts();
             for(const i in json){
                 MM.carts[i] = new cart(i);
                 MM.carts[i].import(json[i]);
             }
-            setTimeout(a=>{MM.start()},2000);
+            setTimeout(()=>{MM.start()},2000);
         } else if(vars.cd !== undefined || vars.parnier !== undefined){ // activité unique importée de MM v1
             // affichage d'un message de redirection
             let alert = utils.create("div",{className:"message",innerHTML:"Ceci est le nouveau MathsMentales, les anciennes adresses ne sont malheureusement plus compatibles.<hr class='center w50'>Vous allez être redirigé vers l'ancienne version de MathsMentales dans 10 s. <a href='javascript:utils.goToOldVersion();'>Go !</a>"});
@@ -988,6 +994,13 @@ var math ={
 }
 // test de seedrandom
 window.onload = function(){
+    // detect if touching interface
+    let listener = function(){
+        // the user touched the screen!
+        MM.touched = true;
+        window.removeEventListener('touchstart',listener,false);
+    }
+    window.addEventListener('touchstart',listener,false);
     // for ascii notations, used by math parser
     MM.ascii2tex = new AsciiMathParser();
     MM.resetCarts();
@@ -1021,8 +1034,6 @@ window.onload = function(){
 class cart {
     constructor(id){
         this.id = id;
-        this.end = "correction";
-        this.introduction = "countdown";
         this.activities = [];
         this.sortable = undefined;
         this.editedActivityId = -1;
@@ -1040,17 +1051,13 @@ class cart {
             i:this.id,
             a:activities,
             t:this.title,
-            c:this.target,
-            e:this.end,
-            r:this.introduction
+            c:this.target
         };
     }
     // TODO : à travailler
     import(obj){
-        this.end = obj.e;
         //à revoir
         this.title = obj.t;
-        this.introduction = obj.r;
         this.target = obj.c;
         let activitiesNumber = _.size(obj.a);
         let count = 0;
@@ -1063,12 +1070,6 @@ class cart {
                 MM.editedActivity = this.activities[i];
             }
         }
-    }
-    setEndValue(value){
-        this.end = value;
-    }
-    setIntroduction(value){
-        this.introduction = value;
     }
     addActivity(obj){
         this.editedActivityId = -1;
@@ -1125,9 +1126,7 @@ class cart {
         this.sortable = new Sortable(dom, {
             animation:150,
             ghostClass:'ghost-movement',
-            onEnd : function(evt){
-                MM.carts[this.id].exchange(evt.oldIndex, evt.newIndex);
-            }
+            onEnd : evt=>MM.carts[this.id].exchange(evt.oldIndex, evt.newIndex)
         });
     }
 }
@@ -1796,7 +1795,7 @@ class ficheToPrint {
             const activity = this.activities[i];
             for(let j=0;j<activity.questions.length;j++){
                 let carte = this.create("article", {className:"whogot-carte",id:"carte"+i+"-"+j});
-                let artQuestion = this.create("article",{className:"whogot-question",innerHTML:"<h2>"+WGquestion+"</h2"});
+                let artQuestion = this.create("article",{className:"whogot-question",innerHTML:"<h3>"+WGquestion+"</h3>"});
                 let divq = this.create("div");
                 if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
                     let span = this.create("span",{className:"math", innerHTML:activity.questions[j]});
@@ -1819,13 +1818,16 @@ class ficheToPrint {
             const activity = this.activities[i];
             for(let j=0;j<activity.questions.length;j++){
                 let carte = this.docsheet.getElementById("carte"+i+"-"+(j===activity.questions.length-1?0:j+1));
-                let artCorrection = this.create("article",{className:"whogot-reponse",innerHTML:"<h2>"+WGaffirmation+"</h2"});
+                let artCorrection = this.create("article",{className:"whogot-reponse",innerHTML:"<h3>"+WGaffirmation+"</h3"});
                 let divr = this.create("div");
+                let answer = activity.values[j];
+                if(_.isArray(answer))answer = answer[0];
                 if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
-                    let spanCorrection = this.create("span", {className:"math", innerHTML:activity.values[j]});
+
+                    let spanCorrection = this.create("span", {className:"math", innerHTML:answer});
                     divr.appendChild(spanCorrection);
                 } else {
-                    divr.innerHTML = activity.values[j];
+                    divr.innerHTML = "<span class='math'>"+answer+"</span>";
                 }
                 artCorrection.appendChild(divr);
                 let hr = this.create("hr");
@@ -1906,11 +1908,13 @@ class ficheToPrint {
                 let carte = this.docsheet.getElementById("domino"+i+"-"+(j===activity.questions.length-1?0:j+1));
                 let artCorrection = this.create("article",{className:"dominos-reponse"});
                 let divr = this.create("div");
+                let answer = activity.values[j];
+                if(_.isArray(answer))answer = answer[0];
                 if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
-                    let spanCorrection = this.create("span", {className:"math", innerHTML:activity.values[j]});
+                    let spanCorrection = this.create("span", {className:"math", innerHTML:answer});
                     divr.appendChild(spanCorrection);
                 } else {
-                    divr.innerHTML = activity.values[j];
+                    divr.innerHTML = "<span class='math'>"+answer+"</span>";
                 }
                 artCorrection.appendChild(divr);
                 carte.prepend(artCorrection);
@@ -1929,8 +1933,9 @@ class ficheToPrint {
 // MathsMentales core
 var MM = {
     content:undefined, // liste des exercices classés niveau/theme/chapitre chargé au démarrage
-    introType:undefined,// type of the slide's intro values : "example" "321" "nothing"
-    endType:undefined,// type of end slide's values : "correction", "nothing", "list"
+    introType:"321",// type of the slide's intro values : "example" "321" "nothing"
+    endType:"nothing",// type of end slide's values : "correction", "nothing", "list"
+    touched:false,// marker to know if the screen has been touched => online answers with virtual keyboard
     selectedCart:0,
     seed:"", // String to initialize the randomization
     editedActivity:undefined, // object activity 
@@ -1942,6 +1947,18 @@ var MM = {
     figs:{}, // 
     userAnswers:[],
     slidersNumber:1,
+    setEndType(value){
+        this.endType = value;
+    },
+    setIntroType(value){
+        this.introType = value;
+    },
+    setOnlineState(value){
+        if(value === "yes")
+            this.onlineState = true;
+        else
+            this.onlineState = false;
+    },
     editActivity:function(index){
         MM.editedActivity = MM.carts[MM.selectedCart].activities[index];
         MM.setTempo(MM.editedActivity.tempo);
@@ -2250,7 +2267,6 @@ var MM = {
      * Start the slideshow
      */
     start:function(){
-        MM.onlineState = MM.checkOnline();
         if(!MM.carts[0].activities.length){
             MM.carts[0].addActivity(MM.editedActivity);
         }
@@ -2285,7 +2301,6 @@ var MM = {
     },
     // get the URL of direct access to the activity with actual parameters
     copyURL(){
-        MM.checkOnline();
         if(!MM.carts[0].activities.length){
             MM.carts[0].addActivity(MM.editedActivity);
         }
@@ -2296,18 +2311,16 @@ var MM = {
             carts[i] = this.carts[i].export();
         }
         utils.setHistory("Activité MathsMentales",{i:MM.introType,e:MM.endType,o:MM.onlineState,c:encodeURIComponent(JSON.stringify(carts))});
-    },
-    /**
-     * check if online session
-     */
-    checkOnline:function(){
-        let radios = document.getElementsByName("online");
-        let ret = false;
-        for(let i=0;i<radios.length;i++){
-            if(radios[i].value==="yes" && radios[i].checked)
-                ret = true;
-        }
-        return ret;
+        let input = document.getElementById("acturl");
+        // on affiche (furtivement) le input pour que son contenun puisse être sélectionné.
+        input.className = "";
+        input.value = location.href;
+        input.select();
+        input.setSelectionRange(0,99999);
+        document.execCommand("copy");
+        input.className ="hidden";
+        document.querySelector(".button--inverse .tooltiptext").innerHTML = "Copié !";
+        setTimeout(()=>document.querySelector(".button--inverse .tooltiptext").innerHTML = "Copie l'adresse de<br>l'activité dans<br>le presse papier",2500);
     },
     checkIntro:function(){
         MM.introType = utils.getRadioChecked("beforeSlider");

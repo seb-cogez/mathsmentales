@@ -244,7 +244,7 @@ Exemple avec JSXGraph
 }
 ```
 
-Fichier structure pour démarrer
+Fichier structure pour démarrer la création d'un exercice
 ``` js
 {
     "title":"", // titre
