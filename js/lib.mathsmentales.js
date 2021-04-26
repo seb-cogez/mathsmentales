@@ -3345,8 +3345,8 @@ class activity {
                     this.cVars = this.vars;
                 } else this.cVars = this.options[optionNumber].vars;
                 if(this.options[optionNumber].consts === undefined){
-                    this.cConsts = this.consts;
-                } else this.cConsts = this.options[optionNumber].consts;
+                    this.cConsts = utils.clone(this.consts);
+                } else this.cConsts = utils.clone(this.options[optionNumber].consts);
                 if(patternNumber !== false){
                     // la question est définie dans l'option, avec un pattern défini
                     if(this.options[optionNumber].question !== undefined){
@@ -3386,7 +3386,7 @@ class activity {
                 }
             } else {
                 this.cVars = this.vars;
-                this.cConsts = this.consts;
+                this.cConsts = utils.clone(this.consts);
                 if(patternNumber!==false){
                     this.cQuestion = this.questionPatterns[patternNumber];
                 } else {
