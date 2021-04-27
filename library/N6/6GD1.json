@@ -13,8 +13,8 @@
             "axis":false,
             "boundingbox":[0,10,10,0],
             "content":[
-                ["jessiescript", "A(2,2);B(8,2);C(8,8);D(2,8);[AB];[BC];[CD];[DA];"],
-                ["text", [5,1,"${:a} ${:c}"], {"anchorX":"middle", "fontSize":20}]
+                ["jessiescript", "A=point(2,2);B=point(8,2);C=point(8,8);D=point(2,8);AB=segment(A,B);BC=segment(B,C);CD=segment(C,D);DA=segment(D,A);"],
+                ["text", [5,1,"${:a} ${:c}"], {"anchorX":"middle", "fontSize":14}]
             ]
         },
         "value":["${:b} ${:c}^2", "${:b}${:c}^2"]
@@ -28,8 +28,8 @@
                 "axis":false,
                 "boundingbox":[0,10,10,0],
                 "content":[
-                    ["jessiescript", "A(2,2);B(8,2);C(8,8);D(2,8);[AB];[BC];[CD];[DA];"],
-                    ["text", [5,5,"${:b} ${:c}²"], {"anchorX":"middle", "fontSize":20}]
+                    ["jessiescript", "A=point(2,2);B=point(8,2);C=point(8,8);D=point(2,8);AB=segment(A,B);BC=segment(B,C);CD=segment(C,D);DA=segment(D,A);"],
+                    ["text", [5,5,"${:b} ${:c}²"], {"anchorX":"middle", "fontSize":14}]
                 ]
             },
             "value":["${:a} ${:c}", "${:a}${:c}"]

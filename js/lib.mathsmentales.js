@@ -1366,7 +1366,11 @@ class Figure {
                         else
                             this.figure.create("functiongraph", [function(x){return eval(formule)}], options);
                     } else if(type==="jessiescript") {
-                        this.figure.construct(commande);
+                        if(this.figure.jc === undefined){
+                            this.figure.jc = new JXG.JessieCode();
+                            this.figure.jc.use(this.figure);
+                        }
+                        this.figure.jc.parse(commande);
                     } else if(["text", "point","axis", "line", "segment", "angle", "polygon"].indexOf(type)>-1){
                         if(!options)
                             this.figure.create(type, commande);

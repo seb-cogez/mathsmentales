@@ -1,0 +1,56 @@
+{
+    "title":"Périmètre des figures usuelles",
+    "type":"text",
+    "ID":"6MA1",
+    "description":"",
+    "dest":["6MA", "5MA", "4MA", "3MA"],
+    "consts":{"unites":["mm","cm","dm","m", "dam", "hm", "km"]},
+    "options":[{
+        "name":"Périmètre du carré",
+        "vars":{"a":"d0.1_10_1", "p":"${math.round(:a*4,1)}","u":"0_6"},
+        "figure":{
+            "type":"graph",
+            "axis":false,
+            "boundingbox":[0,10,10,0],
+            "content":[
+                ["jessiescript", "A=point(2,2);B=point(8,2);C=point(8,8);D=point(2,8);AB=segment(A,B);BC=segment(B,C);CD=segment(C,D);DA=segment(D,A);"],
+                ["text", [5,1.5,"${:a} ${:unites[:u]}"], {"anchorX":"middle", "fontSize":20}]
+            ]
+        },
+        "question": "Quel est le <b>périmètre</b> d'un carré de côté $$${:a}\\text{ ${:unites[:u]}}$$ ?",
+        "answer":"$$4\\times${:a}=\\color{red}{${:p}\\text{ ${:unites[:u]}}}$$",
+        "value":"${:p}${:unites[:u]}"
+    },{
+        "name":"Périmètre du rectangle",
+        "vars":{"a":"d0.1_8_1", "b":"d${math.round(:a+0.1,1)}_9_1", "p":"${math.round(:a*2+:b*2,1)}","u":"0_6"},
+        "figure":{
+            "type":"graph",
+            "axis":false,
+            "boundingbox":[0,10,10,0],
+            "content":[
+                ["jessiescript", "A=point(0.5,0.5);B=point(${0.5+:b},0.5);C=point(${0.5+:b},${0.5+:a});D=point(0.5,${0.5+:a});AB=segment(A,B);BC=segment(B,C);CD=segment(C,D);DA=segment(D,A);"],
+                ["text", ["${.5+:b/2}",0.5,"${:b} ${:unites[:u]}"], {"anchorX":"middle", "fontSize":20}],
+                ["text", ["${:b}","${.5+:a/2}","${:a} ${:unites[:u]}"], {"anchorX":"left", "fontSize":20}]
+            ]
+        },
+        "question": "Quel est le <b>périmètre</b> d'un rectangle de côtés $$${:a}\\text{ ${:unites[:u]}}$$ et  $$${:b}\\text{ ${:unites[:u]}}$$?",
+        "answer":"$$2\\times${:a}+2\\times${:b}=\\color{red}{${:p}\\text{ ${:unites[:u]}}}$$",
+        "value":"${:p}${:unites[:u]}"
+    },{
+        "name":"Longueur du cercle",
+        "vars":{"r":"1_5","p":"${math.round(2*Math.PI*:r,1)}","u":"0_6","xM":"${:r+5}"},
+        "figure":{
+            "type":"graph",
+            "axis":false,
+            "boundingbox":[0,10,10,0],
+            "content":[
+                ["jessiescript", "O=point(5,5);c=circle(O,${:r});M=point(${:xM},5);OM=segment(O,M);"],
+                ["text", ["${5+:r/2}",4.5,"${:r} ${:unites[:u]}"], {"anchorX":"middle", "fontSize":20}]
+            ]
+        },
+        "question": "Quel est la <b>longueur</b> d'un cercle de rayon $$${:r}\\text{ ${:unites[:u]}}$$ ?",
+        "answer":"$$2\\times R \\times pi \\approx 2\\times${:r}\\times 3.14=\\color{red}{${:p}\\text{ ${:unites[:u]}}}$$",
+        "value":"${:p}${:unites[:u]}"
+    }
+    ]
+}
