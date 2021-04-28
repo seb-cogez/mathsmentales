@@ -7,7 +7,7 @@
     "consts":{"voc":["petit","grand"]},
     "options":[{
         "name":"Nombres de signes contraires",
-        "vars":{"nd":"1_3_2","sign":"-1_1_^0","d0":"d0.1_10_${:nd[0]}", "d1":"d-10_-0.1_${:nd[1]}","a":"${math.round(:sign*:d0,6)}","b":"${math.round(-:sign*:d1,6}","cv":"0_1"}
+        "vars":{"nd":"1_3_2","sign":"-1_1_^0","d0":"d0.1_10_${:nd[0]}", "d1":"d-10_-0.1_${:nd[1]}","a":"${math.round(:sign*:d0,6)}","b":"${math.round(-:sign*:d1,6)}","cv":"0_1"}
     },{
         "name":"Nombres de même signe d'unités différentes",
         "vars":{"pd":"d0.001_0.999_3_2","pe0":"1_30", "pe1":"1_30_^${:pe0}","sign":"-1_1_^0","a":"${math.round(:sign*(:pd[0]+:pe0),6)}","b":"${math.round(:sign*(:pd[1]+:pe1),6)}","cv":"0_1"}
