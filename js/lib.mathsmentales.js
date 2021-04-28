@@ -1022,14 +1022,14 @@ window.onload = function(){
     // load scratchblocks french translation
     // TODO : à changer au moment de l'utilisation de scratchblocks
     // doesn't work on local file :( with Chrome
-    let reader = new XMLHttpRequest();
+    /*let reader = new XMLHttpRequest();
     reader.onload = function(){
         let json = JSON.parse(reader.responseText);
         window.scratchblocks.loadLanguages({
             fr: json});
         }
     reader.open("get", "libs/scratchblocks/fr.json", false);
-    reader.send();
+    reader.send();*/
 }
 class cart {
     constructor(id){
@@ -2760,7 +2760,7 @@ var library = {
             utils.setHistory("Exercice",{"u":url});
             this.open(json);
         }
-        reader.open("get", "library/"+url, false);
+        reader.open("get", "library/"+url, true);
         reader.send();
     },
     import:function(objact,url,actparams,last=false){
@@ -2775,7 +2775,7 @@ var library = {
             obj.tempo = actparams.t;
             obj.nbq = actparams.n;
         }
-        reader.open("get", "library/"+url, false);
+        reader.open("get", "library/"+url, true);
         reader.send();
     },
     openContents:function(){
