@@ -156,8 +156,9 @@
                     <h3 contenteditable="true" onblur="MM.carts[0].title = this.innerHTML;" title="Cliquer pour éditer">Groupe 1</h3>
                     <div class="totaux">
                         <img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
-                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> questions 
+                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
                         <img src="img/target.png" title="Zone d'énoncé"> <span>1</span>
+                        <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" onclick="MM.carts[0].changeOrder(this);">
                     </div>
                     <ul id="cart0-list" class="cart-list">
                     </ul>
@@ -168,8 +169,9 @@
                     <h3 contenteditable="true" onblur="MM.carts[1].title = this.innerHTML;" title="Cliquer pour éditer">Groupe 2</h3>
                     <div class="totaux">
                         <img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
-                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> questions 
+                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
                         <img src="img/target.png" title="Zone d'énoncé"> <span>2</span>
+                        <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" onclick="MM.carts[0].changeOrder(this);">
                     </div>
                     <ul id="cart1-list" class="cart-list">
                     </ul>
@@ -180,8 +182,9 @@
                     <h3 contenteditable="true" onblur="MM.carts[2].title = this.innerHTML;" title="Cliquer pour éditer">Groupe 3</h3>
                     <div class="totaux">
                         <img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
-                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> questions 
+                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
                         <img src="img/target.png" title="Zone d'énoncé"> <span>3</span>
+                        <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" onclick="MM.carts[0].changeOrder(this);">
                     </div>
                     <ul id="cart2-list" class="cart-list">
                     </ul>
@@ -192,8 +195,9 @@
                     <h3 contenteditable="true" onblur="MM.carts[3].title = this.innerHTML;" title="Cliquer pour éditer">Groupe 4</h3>
                     <div class="totaux">
                         <img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
-                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> questions 
+                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
                         <img src="img/target.png" title="Zone d'énoncé"> <span>4</span>
+                        <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" onclick="MM.carts[0].changeOrder(this);">
                     </div>
                     <ul id="cart3-list" class="cart-list">
                     </ul>
@@ -221,7 +225,7 @@
                 <legend>Introduction au diaporama</legend>
                 <span title="Commencer sur un exemple que l'on pourra discuter"><input type="radio" class="radio" name="beforeSlider" value="example" onclick="MM.setIntroType(this.value);"> Exemple</span>
                 <span title="Commener par un décompte 3...2...1..."><input type="radio" class="radio" name="beforeSlider" value="321" checked="true" onclick="MM.setIntroType(this.value);"> Décompte</span>
-                <span title="Commencer directement"><input type="radio" class="radio" name="beforeSlider" value="nothing" onclick="MM.carts[MM.selectedCart].setIntroType(this.value);"> Rien</span>
+                <span title="Commencer directement"><input type="radio" class="radio" name="beforeSlider" value="nothing" onclick="MM.setIntroType(this.value);"> Rien</span>
             </fieldset><br>
             <fieldset>
                 <legend>Enoncé</legend>

@@ -1044,6 +1044,7 @@ class cart {
     constructor(id){
         this.id = id;
         this.activities = [];
+        this.ordered = true;// les questions sont présentées par groupe d'activité
         this.sortable = undefined;
         this.editedActivityId = -1;
         this.target = [id]; // Indicates where to display the cart.
@@ -1060,7 +1061,8 @@ class cart {
             i:this.id,
             a:activities,
             t:this.title,
-            c:this.target
+            c:this.target,
+            o:this.ordered
         };
     }
     // TODO : à travailler
@@ -1068,6 +1070,7 @@ class cart {
         //à revoir
         this.title = obj.t;
         this.target = obj.c;
+        this.ordered = obj.o;
         let activitiesNumber = _.size(obj.a);
         let count = 0;
         // activités
@@ -1137,6 +1140,23 @@ class cart {
             ghostClass:'ghost-movement',
             onEnd : evt=>MM.carts[this.id].exchange(evt.oldIndex, evt.newIndex)
         });
+    }
+    /**
+     * 
+     * @param {Object} objImage DOM object of the clicked image
+     */
+    changeOrder(objImage){
+        if(objImage.dataset["ordered"] === "true"){
+            objImage.src = "img/iconfinder_windy_1054934.png";
+            objImage.title = "Affichage mélangé des questions";
+            objImage.dataset["ordered"] = "false";
+            this.ordered = false;
+        } else {
+            objImage.src = "img/iconfinder_stack_1054970.png";
+            objImage.title = "Affichage dans l'ordre des activités";
+            objImage.dataset["ordered"] = "true";
+            this.ordered = true;
+        }
     }
 }
 /**
@@ -2173,51 +2193,58 @@ var MM = {
                 let olc = utils.create("ol");
                 MM.steps[slideNumber] = new steps({size:0, container:sliderSteps});
                 MM.timers[slideNumber] = new timer(slideNumber);
+                let actsArray=[];
+                // on fait la liste des références activités / questions pour pouvoir créer les affichages
                 for(let z=0,alen=MM.carts[i].activities.length;z<alen;z++){
                     let activity = MM.carts[i].activities[z];
                     activity.generate();
                     MM.steps[slideNumber].addSize(activity.nbq);
                     for(let j=0;j<activity.questions.length;j++){
-                        let question = activity.questions[j];
-                        let answer = activity.answers[j];
-                        // slides
-                        let div = utils.create("div",{className:"slide w3-animate-top"+(indiceSlide>0?" hidden":""),id:"slide"+slideNumber+"-"+indiceSlide});
-                        let span = utils.create("span",{innerHTML:question});
-                        let spanAns = utils.create("span",{className:"answerInSlide hidden",innerHTML:answer});
-                        // timers
-                        MM.timers[slideNumber].addDuration(activity.tempo);
-                        // enoncés et corrigés
-                        let lie = utils.create("li",{innerHTML:question});
-                        let lic = document.createElement("li");
-                        if(activity.type === undefined || activity.type === "" || activity.type === "latex"){
-                            lie.className = "math";
-                            lic.className = "math";
-                            span.className="math";
-                            spanAns.className += " math";
-                        }
-                        // trouver une alternative dans la génération (hors exemple)
-                        // TODO : à supprimer, le choix doit être fait dans la génération.
-                        /*if(Array.isArray(activity.questions[j])){
-                            let alea = utils.aleaInt(0,activity.questions[j].length-1);
-                            question = activity.questions[j][alea];
-                        }*/
-                        div.appendChild(span);
-                        if(!MM.onlineState){ // include answer
-                            div.appendChild(spanAns);
-                        }
-                        // insertion du div dans le slide
-                        slider.appendChild(div);
-                        lic.innerHTML += answer;
-                        if(activity.figures[j] !== undefined){
-                            lic.innerHTML += "<button onclick=\"MM.memory['c"+slideNumber+"-"+indiceSlide+"'].toggle()\">Figure</button>";
-                            MM.figs[slideNumber+"-"+indiceSlide] = new Figure(utils.clone(activity.figures[j]), "c"+slideNumber+"-"+indiceSlide, div);
-                            MM.memory['e'+slideNumber+"-"+indiceSlide] = new Figure(utils.clone(activity.figures[j]), "en"+slideNumber+"-"+indiceSlide, lie,[300,150]);
-                            MM.memory['c'+slideNumber+"-"+indiceSlide] = new Figure(utils.clone(activity.figures[j]), "cor"+slideNumber+"-"+indiceSlide, lic,[450,225]);
-                        }
-                        ole.appendChild(lie);
-                        olc.appendChild(lic);
-                        indiceSlide++;
+                        actsArray.push([z,j]);
                     }
+                }
+                // on mélange les références si on veut que tout soit mélangé.
+                if(!MM.carts[i].ordered){
+                    actsArray = _.shuffle(actsArray);
+                }
+                // parcours des questions
+                for(let ff=0;ff<actsArray.length;ff++){
+                    let activity = MM.carts[i].activities[actsArray[ff][0]];
+                    // pour ne pas tout réécrire :
+                    let j = actsArray[ff][1];
+                    let question = activity.questions[j];
+                    let answer = activity.answers[j];
+                    // slides
+                    let div = utils.create("div",{className:"slide w3-animate-top"+(indiceSlide>0?" hidden":""),id:"slide"+slideNumber+"-"+indiceSlide});
+                    let span = utils.create("span",{innerHTML:question});
+                    let spanAns = utils.create("span",{className:"answerInSlide hidden",innerHTML:answer});
+                    // timers
+                    MM.timers[slideNumber].addDuration(activity.tempo);
+                    // enoncés et corrigés
+                    let lie = utils.create("li",{innerHTML:question});
+                    let lic = document.createElement("li");
+                    if(activity.type === undefined || activity.type === "" || activity.type === "latex"){
+                        lie.className = "math";
+                        lic.className = "math";
+                        span.className="math";
+                        spanAns.className += " math";
+                    }
+                    div.appendChild(span);
+                    if(!MM.onlineState){ // include answer
+                        div.appendChild(spanAns);
+                    }
+                    // insertion du div dans le slide
+                    slider.appendChild(div);
+                    lic.innerHTML += answer;
+                    if(activity.figures[j] !== undefined){
+                        lic.innerHTML += "<button onclick=\"MM.memory['c"+slideNumber+"-"+indiceSlide+"'].toggle()\">Figure</button>";
+                        MM.figs[slideNumber+"-"+indiceSlide] = new Figure(utils.clone(activity.figures[j]), "c"+slideNumber+"-"+indiceSlide, div);
+                        MM.memory['e'+slideNumber+"-"+indiceSlide] = new Figure(utils.clone(activity.figures[j]), "en"+slideNumber+"-"+indiceSlide, lie,[300,150]);
+                        MM.memory['c'+slideNumber+"-"+indiceSlide] = new Figure(utils.clone(activity.figures[j]), "cor"+slideNumber+"-"+indiceSlide, lic,[450,225]);
+                    }
+                    ole.appendChild(lie);
+                    olc.appendChild(lic);
+                    indiceSlide++;
                 }
                 dive.append(ole);
                 divc.append(olc);
@@ -2227,7 +2254,9 @@ var MM = {
                 if(!utils.isEmpty(MM.figs)){
                     setTimeout(function(){
                     for(let j=0;j<indiceSlide;j++){
-                        MM.memory['e'+slideNumber+"-"+j].display();
+                        // toutes les questions ne comportent pas de figures, on vérifie qu'il y en a.
+                        if(MM.memory['e'+slideNumber+"-"+j] !== undefined)
+                            MM.memory['e'+slideNumber+"-"+j].display();
                     }
                 });
                 }
