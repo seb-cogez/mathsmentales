@@ -92,6 +92,9 @@ var utils = {
         let url = MM.setURL(params);
         history.pushState({'id':'Homepage'},pageName,url);
     },
+    checkRadio(name,value){
+        document.querySelector("input[type=radio][name="+name+"][value="+value+"]").click();
+    },
     /**
      * 
      */
@@ -125,9 +128,11 @@ var utils = {
             let alert = utils.create("div",{id:'messageinfo',className:"message",innerHTML:"L'activité à laquelle vous accédez va démarrer dans 2 secondes.<br>Merci d'utiliser MathsMentales !"});
             document.getElementById("tab-accueil").appendChild(alert);
             setTimeout(()=>{let div=document.getElementById('messageinfo');div.parentNode.removeChild(div)},3000);
-            MM.setEndType(vars.e);
-            MM.setIntroType(vars.r);
-            MM.onlineState = vars.o;
+            //MM.setIntroType(vars.i);
+            utils.checkRadio("beforeSlider",vars.i);
+            //MM.setEndType(vars.e);
+            utils.checkRadio("endOfSlideRadio",vars.e);
+            MM.onlineState = vars.o==="false"?false:true;
             let json = JSON.parse(decodeURIComponent(vars.c));
             MM.resetCarts();
             for(const i in json){
@@ -142,6 +147,23 @@ var utils = {
             setTimeout(utils.goToOldVersion,10000);
         }
     },
+    superEncodeURI:function(url) {
+
+        var encodedStr = '', encodeChars = ["(", ")","{","}"];
+        url = encodeURIComponent(url);
+      
+        for(var i = 0, len = url.length; i < len; i++) {
+          if (encodeChars.indexOf(url[i]) >= 0) {
+              var hex = parseInt(url.charCodeAt(i)).toString(16);
+              encodedStr += '%' + hex;
+          }
+          else {
+              encodedStr += url[i];
+          }
+        }
+      
+        return encodedStr;
+      },
     /**
      * get data form url
      * @returns array of datas from GET vars
@@ -2327,7 +2349,7 @@ var MM = {
     copyURL(){
         let carts = this.export();
         let input = document.getElementById("acturl");
-        input.value = this.setURL({i:MM.introType,e:MM.endType,o:MM.onlineState,c:encodeURIComponent(JSON.stringify(carts))});
+        input.value = this.setURL({i:MM.introType,e:MM.endType,o:MM.onlineState,c:utils.superEncodeURI(JSON.stringify(carts))});
         // on affiche (furtivement) le input pour que son contenun puisse être sélectionné.
         input.className = "";
         input.select();
@@ -2340,12 +2362,11 @@ var MM = {
     },
     getQR(){
         let carts = this.export();
-        let url = this.setURL({i:MM.introType,e:MM.endType,o:MM.onlineState,c:encodeURIComponent(JSON.stringify(carts))});
+        let url = this.setURL({i:MM.introType,e:MM.endType,o:MM.onlineState,c:JSON.stringify(carts)});
         // raccourcissement de l'url
         let shorter = new XMLHttpRequest();
         shorter.onload = function(){
             let shorturl = shorter.responseText;
-            debug(shorturl);
             let alert = utils.create("div",{className:"message",innerHTML:"QRcode de l'exercice<br>"});
             let QR = new QRious({
                 element: alert,// DOM destination
@@ -2354,7 +2375,7 @@ var MM = {
             });
             document.getElementById("colparameters").appendChild(alert);                
         }
-        shorter.open("get","http://bref.jeduque.net/MathsMentalesShortener.php?url="+url);
+        shorter.open("get","getshort.php?url="+utils.superEncodeURI(url));
         shorter.send();
     },
     export(){
@@ -2388,7 +2409,7 @@ var MM = {
     },
     checkIntro:function(){
         MM.introType = utils.getRadioChecked("beforeSlider");
-        MM.entType = utils.getRadioChecked("endOfSlideRadio");
+        MM.endType = utils.getRadioChecked("endOfSlideRadio");
     },
     startTimers:function(){
         for(let i=0,k=MM.timers.length;i<k;i++){
