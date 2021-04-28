@@ -89,21 +89,8 @@ var utils = {
         //debug(utils.baseURL + 'old/'+(/(^.*\/)(.*)/.exec(window.location.href)[2]))
     },
     setHistory(pageName,params){
-        let chaine = "";
-        let first = true;
-        if(params.u!==undefined){
-            let regexp = /\/(.*)\./;
-            params.u = regexp.exec(params.u)[1];
-        }
-        for(const i in params){
-            if(first){
-                first = false;
-                chaine += i+"="+params[i];
-            } else {
-                chaine += "&"+i+"="+params[i];
-            }
-        }
-        history.pushState({'id':'Homepage'},pageName,utils.baseURL+'index.html?'+chaine);
+        let url = MM.setURL(params);
+        history.pushState({'id':'Homepage'},pageName,url);
     },
     /**
      * 
@@ -995,7 +982,7 @@ var math ={
 // test de seedrandom
 window.onload = function(){
     // detect if touching interface
-    let listener = function(){
+    let listener = function(evt){
         // the user touched the screen!
         MM.touched = true;
         window.removeEventListener('touchstart',listener,false);
@@ -1136,24 +1123,55 @@ class cart {
  * 
  * @param {String} tgt id de l'élément à couvrir
  * @param {String} btnId id du bouton qui déclenche le draw pour changer son image
+ * 
+ * fonctionne avec une variable d'environnement, ici MM.touched qui prend true si on a des évennements touch
+ * détecté ainsi :
+ *     let listener = function(evt){
+        // the user touched the screen!
+        MM.touched = true;
+        window.removeEventListener('touchstart',listener,false);
+    }
+    window.addEventListener('touchstart',listener,false);
+ * également dans le css :
+#corrige-content #painting, #divparams #painting {
+  position: absolute;
+  display:block;
+  cursor: url(../img/iconfinder_pencil.png), auto;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  z-index: 40;
+}
  */
 class draw {
     constructor(tgt,btnId){
         // creation du canva et instanciation
-        let c = utils.create("canvas",{"id":"painting"});
+        const target = document.getElementById(tgt);
+        let c = utils.create("canvas",{
+            id:"painting",
+            width:target.offsetWidth,
+            height:target.offsetHeight+30
+        });
+        // changement d'aspect du bouton "annoter"
         this.btn = document.querySelector("#"+btnId + " img");
         this.btn.src = "img/iconfinder_pencil_activ.png";
-        const target = document.getElementById(tgt);
+        //insertion du canvas dans 
         target.appendChild(c);
-        this.canvas = document.getElementById("painting");
-        this.canvas.width = target.offsetWidth;
-        this.canvas.height = target.offsetHeight+30;
+        this.canvas = c;
         this.canvas.style.top = target.offsetTop+"px";
         this.canvas.style.left = target.offsetLeft+"px";
         this.mouse = {x:0,y:0};
         const mouvement = (event)=>{
-            this.mouse.x = event.pageX - event.target.offsetLeft;
-            this.mouse.y = event.pageY - event.target.offsetTop;
+            if(MM.touched){ // only 1st finger
+                this.mouse.x = event.touches[0].pageX - event.touches[0].target.offsetLeft;
+                this.mouse.y = event.touches[0].pageY - event.touches[0].target.offsetTop;
+            } else {
+                this.mouse.x = event.pageX - event.target.offsetLeft;
+                this.mouse.y = event.pageY - event.target.offsetTop;
+            }
             if(this.enableDraw){
                 if(!this.started){
                     this.started = true;
@@ -1180,8 +1198,6 @@ class draw {
                 event.preventDefault();
             }
         }
-        this.canvas.addEventListener("mousemove",mouvement, false);
-        this.canvas.addEventListener("touchmove",mouvement, false);
         this.ctx = this.canvas.getContext('2d');
         this.ctx.strokeStyle = "grey";
         this.ctx.lineWidth = 2;
@@ -1192,11 +1208,15 @@ class draw {
         this.ctx.lineWidth = 2;
         this.ctx.lineJoin = "round";
         this.ctx.lineCap = "round";
+        this.canvas.addEventListener("mousemove",mouvement, false);
         this.canvas.addEventListener('mousedown', yesDraw, false);
-        this.canvas.addEventListener('touchstart', yesDraw, false);
         this.canvas.addEventListener('mouseup',noDraw,false);
         this.canvas.addEventListener('mouseout',noDraw,false);
-        this.canvas.addEventListener('touchend', noDraw,false);
+        if(MM.touched){
+            this.canvas.addEventListener("touchmove",mouvement, false);
+            this.canvas.addEventListener('touchstart', yesDraw, false);
+            this.canvas.addEventListener('touchend', noDraw,false);
+        }
     }
     // destroy canvas
     destroy(){
@@ -2305,6 +2325,39 @@ var MM = {
     },
     // get the URL of direct access to the activity with actual parameters
     copyURL(){
+        let carts = this.export();
+        let input = document.getElementById("acturl");
+        input.value = this.setURL({i:MM.introType,e:MM.endType,o:MM.onlineState,c:encodeURIComponent(JSON.stringify(carts))});
+        // on affiche (furtivement) le input pour que son contenun puisse être sélectionné.
+        input.className = "";
+        input.select();
+        input.setSelectionRange(0,99999);
+        document.execCommand("copy");
+        input.className ="hidden";
+        let message = document.querySelector(".button--inverse .tooltiptext").innerHTML;
+        document.querySelector(".button--inverse .tooltiptext").innerHTML = "Copié !";
+        setTimeout(()=>document.querySelector(".button--inverse .tooltiptext").innerHTML = message,2500);
+    },
+    getQR(){
+        let carts = this.export();
+        let url = this.setURL({i:MM.introType,e:MM.endType,o:MM.onlineState,c:encodeURIComponent(JSON.stringify(carts))});
+        // raccourcissement de l'url
+        let shorter = new XMLHttpRequest();
+        shorter.onload = function(){
+            let shorturl = shorter.responseText;
+            debug(shorturl);
+            let alert = utils.create("div",{className:"message",innerHTML:"QRcode de l'exercice<br>"});
+            let QR = new QRious({
+                element: alert,// DOM destination
+                value : shorturl,
+                size: 250
+            });
+            document.getElementById("colparameters").appendChild(alert);                
+        }
+        shorter.open("get","http://bref.jeduque.net/MathsMentalesShortener.php?url="+url);
+        shorter.send();
+    },
+    export(){
         if(!MM.carts[0].activities.length){
             MM.carts[0].addActivity(MM.editedActivity);
         }
@@ -2314,17 +2367,24 @@ var MM = {
         for(let i=0;i<this.carts.length;i++){
             carts[i] = this.carts[i].export();
         }
-        utils.setHistory("Activité MathsMentales",{i:MM.introType,e:MM.endType,o:MM.onlineState,c:encodeURIComponent(JSON.stringify(carts))});
-        let input = document.getElementById("acturl");
-        // on affiche (furtivement) le input pour que son contenun puisse être sélectionné.
-        input.className = "";
-        input.value = location.href;
-        input.select();
-        input.setSelectionRange(0,99999);
-        document.execCommand("copy");
-        input.className ="hidden";
-        document.querySelector(".button--inverse .tooltiptext").innerHTML = "Copié !";
-        setTimeout(()=>document.querySelector(".button--inverse .tooltiptext").innerHTML = "Copie l'adresse de<br>l'activité dans<br>le presse papier",2500);
+        return carts;
+    },
+    setURL(params){
+        let chaine = "";
+        let first = true;
+        if(params.u!==undefined){
+            let regexp = /\/(.*)\./;
+            params.u = regexp.exec(params.u)[1];
+        }
+        for(const i in params){
+            if(first){
+                first = false;
+                chaine += i+"="+params[i];
+            } else {
+                chaine += "&"+i+"="+params[i];
+            }
+        }
+        return utils.baseURL+'index.html?'+chaine;
     },
     checkIntro:function(){
         MM.introType = utils.getRadioChecked("beforeSlider");

@@ -14,20 +14,6 @@ mark {
 .tabs-menu a{
   cursor: pointer;
 }
-.message {
-  display: block;
-  width: 420px;
-  text-align: center;
-  position: absolute;
-  background: #367ebd;
-  color: rgb(223, 227, 245);
-  padding:3rem;
-  top:30%;
-  left:50%;
-  transform: translate(-50%,-50%);
-  border-radius: 0.5em;
-  box-shadow: 0 8px 6px -6px #000,-1px 2px 20px rgba(47, 91, 235, 0.6) inset;
-}
 .grille {
   width:1080px;
   display: grid;
@@ -676,6 +662,9 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
     font-size: 2rem;
     vertical-align: middle;
 }
+.slider-chrono{
+  width:15%;
+}
 .slide{
     position: relative;
     width:100%;
@@ -789,6 +778,21 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
 .sddiv34 {
     width: 50%;
     height: 50%;
+}
+
+.message {
+  display: block;
+  width: 420px;
+  text-align: center;
+  position: absolute;
+  background: #367ebd;
+  color: rgb(223, 227, 245);
+  padding:3rem;
+  top:30%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  border-radius: 0.5em;
+  box-shadow: 0 8px 6px -6px #000,-1px 2px 20px rgba(47, 91, 235, 0.6) inset;
 }
 
 /* progress bar */
