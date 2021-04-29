@@ -16,6 +16,7 @@ $context = stream_context_create($opts);
 echo file_get_contents("http://bref.jeduque.net/MathsMentalesShortener.php",false,$context);
 
 */
+
 $api_url =  'http://bref.jeduque.net/MathsMentalesShortener.php';
 // Init the CURL session
 $ch = curl_init();
@@ -24,9 +25,8 @@ curl_setopt($ch, CURLOPT_HEADER, 0);            // No header in the result
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return, do not echo result
 curl_setopt($ch, CURLOPT_POST, 1);              // This is a POST request
 curl_setopt($ch, CURLOPT_POSTFIELDS, array(     // Data to POST
-        'shorturl' => $_GET['url'],
+        'url' => $_GET['url'],
     ));
-
 // Fetch and return content
 $data = curl_exec($ch);
 curl_close($ch);

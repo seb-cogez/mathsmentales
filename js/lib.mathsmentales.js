@@ -93,7 +93,7 @@ var utils = {
         history.pushState({'id':'Homepage'},pageName,url);
     },
     checkRadio(name,value){
-        document.querySelector("input[type=radio][name="+name+"][value="+value+"]").click();
+        document.querySelector("input[type=radio][name='"+name+"'][value='"+value+"']").click();
     },
     /**
      * 
