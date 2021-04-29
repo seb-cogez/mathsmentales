@@ -11,7 +11,7 @@
 mark {
   padding:0;
 }
-.tabs-menu a{
+.tabs-menu a, #btnaccueil, .pointer{
   cursor: pointer;
 }
 .grille {
@@ -400,7 +400,7 @@ ul.menu, .menu ul {
 }
 
 /*carts */
-#addToCart, #removeFromCart, #btn-shuffle, #btn-annotation2 {
+#addToCart, #removeFromCart, #unlinkCart, #btn-shuffle, #btn-annotation2 {
     background-color: rgba(0,0,0,0);
     padding:0;
     float:right;

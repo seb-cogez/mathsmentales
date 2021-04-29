@@ -127,18 +127,35 @@ var utils = {
         } else if(vars.c!==undefined){ // une activité MM v2 à lancer
             let alert = utils.create("div",{id:'messageinfo',className:"message",innerHTML:"L'activité à laquelle vous accédez va démarrer dans 2 secondes.<br>Merci d'utiliser MathsMentales !"});
             document.getElementById("tab-accueil").appendChild(alert);
-            setTimeout(()=>{let div=document.getElementById('messageinfo');div.parentNode.removeChild(div)},3000);
+            setTimeout(()=>{
+                let div=document.getElementById('messageinfo');
+                div.parentNode.removeChild(div)},3000);
             //MM.setIntroType(vars.i);
             utils.checkRadio("beforeSlider",vars.i);
             //MM.setEndType(vars.e);
             utils.checkRadio("endOfSlideRadio",vars.e);
             MM.onlineState = vars.o==="false"?false:true;
-            let json = JSON.parse(decodeURIComponent(vars.c));
+            if(vars.s)utils.setSeed(vars.s);
             MM.resetCarts();
+            MM.slidersNumber = Number(vars.s);
+            MM.slidersOrientation = vars.so;
+            let json = JSON.parse(decodeURIComponent(vars.c));
             for(const i in json){
                 MM.carts[i] = new cart(i);
                 MM.carts[i].import(json[i]);
             }
+            if(MM.carts.length > 1){
+                MM.restoreCartsInterface();
+                MM.showCartInterface();
+                // on attend un peu que les fichiers chargent aussi...
+                // en attendant de trouver une autre méthode qui ne se déclenche qu'à la fin des chargements.
+                setTimeout(()=>{
+                    for(let i=0;i<MM.carts.length;i++){
+                        MM.carts[i].display();
+                    }    
+                },2200);
+            }
+            // il y a des chargements, alors on attend un peu
             setTimeout(()=>{MM.start()},2000);
         } else if(vars.cd !== undefined || vars.parnier !== undefined){ // activité unique importée de MM v1
             // affichage d'un message de redirection
@@ -148,10 +165,8 @@ var utils = {
         }
     },
     superEncodeURI:function(url) {
-
         var encodedStr = '', encodeChars = ["(", ")","{","}"];
         url = encodeURIComponent(url);
-      
         for(var i = 0, len = url.length; i < len; i++) {
           if (encodeChars.indexOf(url[i]) >= 0) {
               var hex = parseInt(url.charCodeAt(i)).toString(16);
@@ -161,7 +176,6 @@ var utils = {
               encodedStr += url[i];
           }
         }
-      
         return encodedStr;
       },
     /**
@@ -195,13 +209,16 @@ var utils = {
         let str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         let code = "";
         for(let i=0;i<6;i++){
-            code += str[utils.aleaInt(0,str.length-1)];
+            // n'utilise pas l'outil de randomisation dirigée par le seed
+            code += str[Math.floor(Math.random()*(str.length))];
         }
         return code;
     },
     setSeed(value){
         if(value !== undefined){
             MM.seed = value;
+            if(value !== "sample") // on ne met pas le seed de l'exemple dans le champ
+                document.getElementById("aleaKey").value = value;
         } else if(document.getElementById("aleaKey").value === ""){
             MM.seed = utils.seedGenerator();
             document.getElementById("aleaKey").value = MM.seed;
@@ -309,14 +326,14 @@ var utils = {
         document.getElementById('tempo-value').innerHTML = value+" s.";
         if(MM.editedActivity)MM.editedActivity.setTempo(value);
         if(MM.carts[MM.selectedCart].editedActivityId > -1){
-            document.querySelectorAll("#cart"+(MM.selectedCart+1)+"-list li.active span")[0].innerHTML = value;
+            document.querySelectorAll("#cart"+(MM.selectedCart)+"-list li.active span")[0].innerHTML = value;
         }
     },
     changeNbqValue:function(value){
         document.getElementById('nbq-value').innerHTML = value;
         if(MM.editedActivity)MM.editedActivity.setNbq(value);
         if(MM.carts[MM.selectedCart].editedActivityId > -1){
-            document.querySelectorAll("#cart"+(MM.selectedCart+1)+"-list li.active span")[1].innerHTML = value;
+            document.querySelectorAll("#cart"+(MM.selectedCart)+"-list li.active span")[1].innerHTML = value;
         }
     },
     checkValues:function(){
@@ -670,6 +687,11 @@ var utils = {
           };
         });
       },
+      /**
+       * 
+       * @param {object} someThing json object or array
+       * @returns a clone of the object
+       */
       clone(someThing){
           if(someThing === undefined) return false;
           else if(typeof someThing === "object"){
@@ -1126,7 +1148,7 @@ class cart {
             let activity = this.activities[i];
             this.time += Number(activity.tempo)*Number(activity.nbq);
             this.nbq += Number(activity.nbq);
-            li.innerHTML = "<img src='img/editcart.png' align='left' onclick='MM.editActivity("+i+")' title='Editer l\'activité'>"+activity.title + " | <span>"+activity.tempo + "</span> s. | <span>"+activity.nbq+"</span> questions";
+            li.innerHTML = "<img src='img/editcart.png' align='left' onclick='MM.editActivity("+i+")' title='Editer l\'activité'>"+activity.title + " (<span>"+activity.tempo + "</span> s. / <span>"+activity.nbq+"</span> quest.)";
             if(MM.carts[this.id].editedActivityId === i)li.className = "active";
             dom.appendChild(li);
         }
@@ -2032,8 +2054,21 @@ var MM = {
         MM.carts[MM.selectedCart].editedActivityId = index;
         MM.carts[MM.selectedCart].display();
         MM.editedActivity.display();
+        document.getElementById("unlinkCart").className = "";
         document.getElementById("addToCart").className = "hidden";
         document.getElementById("removeFromCart").className = "";
+    },
+    uneditActivity:function(){
+        document.getElementById("addToCart").className = "";
+        document.getElementById("removeFromCart").className = "hidden";
+        document.getElementById("unlinkCart").className = "hidden";
+    },
+    unlinkActivity:function(){
+        this.uneditActivity();
+        MM.editedActivity = new activity(utils.clone(MM.editedActivity));
+        MM.editedActivity.display();
+        MM.carts[MM.selectedCart].editedActivityId = -1;
+        MM.carts[MM.selectedCart].display();
     },
     setTempo:function(value){
         document.getElementById("tempo-slider").value = value;
@@ -2063,6 +2098,7 @@ var MM = {
         document.getElementById("divparams").className="row-3";
     },
     addCart:function(){
+        this.uneditActivity();
         let cartsNb = MM.carts.length+1;
         if(cartsNb>4) return false;
         MM.carts[cartsNb-1] = new cart(cartsNb-1);
@@ -2088,6 +2124,32 @@ var MM = {
         // hide + button if 4 carts
         if(cartsNb < 4){
             cartsMenu.appendChild(lastButton);
+        }
+    },
+    restoreCartsInterface:function(){
+        for(let i=1;i<this.carts.length;i++){
+            let btnnb = i+1;
+            let button = utils.create("button",{
+                value:btnnb,
+                className:"tab-menu-link",
+                innerHTML:'<img src="img/cart'+btnnb+'.png">',
+                id:"button-cart"+btnnb
+            });
+            button.onclick = function(elt){
+                let value = "";
+                if(elt.target.nodeName.toLowerCase() === "img"){
+                    // prevent img elt clicked detection
+                    value = elt.target.parentNode.value;
+                } else value = elt.target.value;
+                MM.showCart(value);
+            }
+            let addcart = document.getElementById('addcart');
+            let cartsMenu = document.getElementById('cartsMenu');
+            let lastButton = cartsMenu.removeChild(addcart);
+            cartsMenu.appendChild(button);
+            if(btnnb < 4){
+                cartsMenu.appendChild(lastButton);
+            }    
         }
     },
     removeCart:function(index){
@@ -2116,6 +2178,7 @@ var MM = {
         // rewrite all contents
     },
     showCart(index){
+        this.uneditActivity();
         index = Number(index);
         MM.selectedCart = index-1;
         for (let i=1,nb=MM.carts.length,btn;i<=4;i++){
@@ -2133,6 +2196,7 @@ var MM = {
         // show edited activity
         if(MM.carts[MM.selectedCart].editedActivityId > -1){
             MM.carts[MM.selectedCart].activities[MM.carts[MM.selectedCart].editedActivityId].display();
+            this.editActivity(MM.carts[MM.selectedCart].editedActivityId);
         }
     },
     emptyCart(index){
@@ -2378,7 +2442,16 @@ var MM = {
     copyURL(){
         let carts = this.export();
         let input = document.getElementById("acturl");
-        input.value = this.setURL({i:MM.introType,e:MM.endType,o:MM.onlineState,c:utils.superEncodeURI(JSON.stringify(carts))});
+        let params = {
+            i:MM.introType,
+            e:MM.endType,
+            o:MM.onlineState,
+            s:MM.slidersNumber, // nombre de slides
+            so:MM.slidersOrientation, // orientation en cas de 2 sliders
+            c:utils.superEncodeURI(JSON.stringify(carts)) // encode également les accolades
+        };
+        if(document.getElementById("aleaInURL").checked)params.s = MM.seed;
+        input.value = this.setURL(params);
         // on affiche (furtivement) le input pour que son contenun puisse être sélectionné.
         input.className = "";
         input.select();
@@ -2391,7 +2464,16 @@ var MM = {
     },
     getQR(){
         let carts = this.export();
-        let url = this.setURL({i:MM.introType,e:MM.endType,o:MM.onlineState,c:JSON.stringify(carts)});
+        let params = {
+            i:MM.introType,
+            e:MM.endType,
+            o:MM.onlineState,
+            s:MM.slidersNumber, // nombre de slides
+            so:MM.slidersOrientation, // orientation en cas de 2 sliders
+            c:JSON.stringify(carts)
+        };
+        if(document.getElementById("aleaInURL").checked)params.s = MM.seed;
+        let url = this.setURL(params);
         // raccourcissement de l'url
         let shorter = new XMLHttpRequest();
         shorter.onload = function(){

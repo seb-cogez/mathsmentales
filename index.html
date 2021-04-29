@@ -132,6 +132,7 @@
     <section id="tab-parameters" class="grid-3 has-gutter tabs-content-item" style="display: none;">
         <div>
             <button id="addToCart" onclick="MM.addToCart();" title="Ajouter au panier"><img src="img/addtocart.png"></button>
+            <button id="unlinkCart" onclick="MM.unlinkActivity();" class="hidden" title="Désolidariser l'édition du panier"><img src="img/iconfinder_pin.png"></button>
             <button id="removeFromCart" onclick="MM.removeFromCart();" class="hidden" title="Supprimer du panier"><img src="img/removefromcart.png"></button>
             <h1><i class="icon-arrow--right"></i>Activité <span id="param-title-act"></span></h1>
             <div id="activityTitle"></div>
@@ -217,8 +218,9 @@
                 <option value="paramsdominos">Dominos</option>
             </select>
             <fieldset><legend>Clé de données</legend>
-                <input type="text" placeholder="eHDtp" id="aleaKey" size="10">
-                <img src="img/iconfinder_die_32px.png" onclick="document.getElementById('aleaKey').value=utils.seedGenerator();">
+                <input type="checkbox" id="aleaInURL" value="1" class="checkbox" title="Prendre en compte dans l'adresse"> inclure
+                <input type="text" placeholder="eHDtp" id="aleaKey" size="6">
+                <img src="img/iconfinder_die_32px.png" onclick="document.getElementById('aleaKey').value=utils.seedGenerator();" class="pointer">
             </fieldset>
             <div id="paramsdiapo">
             <fieldset>
