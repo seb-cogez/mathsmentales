@@ -16,16 +16,16 @@ Démo : https://seb-cogez.github.io/mathsmentales/
 ### bibliothèques externes
  * [KateX](https://katex.org/) pour afficher les maths (MIT licence)
  * [KAS](https://github.com/Khan/KAS) outil de la Kahn academy pour évaluer des expressions littérales (MIT licence)
- * [Underscore](https://underscorejs.org/) pour pouvoir invoquer KAS
- * [knack.css](https://www.knacss.com/) framework css simple et léger
+ * [Underscore](https://underscorejs.org/) pour pouvoir invoquer KAS (MIT Licence)
+ * [knack.css](https://www.knacss.com/) framework css simple et léger ([licence WTFPL](http://www.wtfpl.net/))
  * [bulma-steps](https://github.com/Wikiki/bulma-steps) du projet css [bulma](https://bulma.io/)
- * [algebrite.js](http://algebrite.org/) An extensive math library symbolic computation
- * [Sortable.js](http://sortablejs.github.io/Sortable/) Javascript library for reorderable drag-and-drop lists
- * [seedrandom.js](https://github.com/davidbau/seedrandom) pour créer des nombres aléatoires "controlés"
- * [Chart.js](https://www.chartjs.org/) pour représenter des statistiques
- * [JSXGraph](http://jsxgraph.uni-bayreuth.de/wp/index.html) pour les représentations graphiques et la géométrie, notamment [JessieCode](https://github.com/jsxgraph/JessieCode) qui permet de réaliser des figures facilement
- * [asciimath2tex](https://github.com/christianp/asciimath2tex) pour taper plus rapidement les formules de maths
- * [qrious](https://github.com/neocotic/qrious) pour générer les qrcodes
+ * [algebrite.js](http://algebrite.org/) An extensive math library symbolic computation (MIT licence)
+ * [Sortable.js](http://sortablejs.github.io/Sortable/) Javascript library for reorderable drag-and-drop lists (MIT licence)
+ * [seedrandom.js](https://github.com/davidbau/seedrandom) pour créer des nombres aléatoires "controlés" (MIT licence)
+ * [Chart.js](https://www.chartjs.org/) pour représenter des statistiques (MIT licence)
+ * [JSXGraph](http://jsxgraph.uni-bayreuth.de/wp/index.html) pour les représentations graphiques et la géométrie, notamment [JessieCode](https://github.com/jsxgraph/JessieCode) qui permet de réaliser des figures facilement (LGPL & MIT licences)
+ * [asciimath2tex](https://github.com/christianp/asciimath2tex) pour taper plus rapidement les formules de maths (Licence Apache 2.0)
+ * [qrious](https://github.com/neocotic/qrious) pour générer les qrcodes (GPLv3 licence)
 
 ### icones
 * "Circle Icons" de Nick Roach [iconfinder](https://www.iconfinder.com/iconsets/circle-icons-1) parfois retouchées, licence GPL

@@ -27,7 +27,7 @@ mark {
   grid-row-start: 1;
   grid-row-end: 3;
   grid-column-start: 1;
-  grid-column-end: 5;
+  grid-column-end: 6;
 }
 .grille .accueillogo img{
   float: left;
@@ -203,6 +203,11 @@ ul.menu, .menu ul {
     padding:5px;
     line-height: 3em;
     text-decoration: none;
+}
+/* tab-telechargements */
+#tab-telechargements > p, #tab-telechargements > ul{
+  width:800px;
+  margin: auto;
 }
 /* Parameters */
 #contents > section > div {
@@ -398,7 +403,39 @@ ul.menu, .menu ul {
   font-size: 1.1em;
   font-weight: bold;
 }
-
+/* Téléchargements */
+h2.sg-title::after {
+	margin-left: 1rem;
+}
+h2.sg-title::before, h2.sg-title::after {
+	content: "";
+	display: block;
+	flex: 1 0 0%;
+	border-bottom: 1px solid;
+	align-self: center;
+}
+h2.sg-title::before {
+	margin-right: 1rem;
+}
+h2.sg-title {
+	display: flex;
+	position: sticky;
+	top: 0;
+	background: rgba(255, 255, 255, 0.9);
+  width:680px;
+  margin:auto;
+}
+#tab-telechargements h2.sg-title {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+h2.sg-title, h3.sg-title {
+	color: #d0021b;
+}
+.sg-title {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	font-weight: normal;
+}
 /*carts */
 #addToCart, #removeFromCart, #unlinkCart, #btn-shuffle, #btn-annotation2 {
     background-color: rgba(0,0,0,0);
