@@ -2396,13 +2396,22 @@ var MM = {
         let shorter = new XMLHttpRequest();
         shorter.onload = function(){
             let shorturl = shorter.responseText;
-            let alert = utils.create("div",{className:"message",innerHTML:"QRcode de l'exercice<br>"});
-            let QR = new QRious({
-                element: alert,// DOM destination
-                value : shorturl,
-                size: 250
-            });
+            let alert = utils.create("div",{className:"message",id:'messagealert',style:"padding:0.5rem"});
+            let close = utils.create("button",{innerHTML:"<img src='img/closebutton32.png'>",style:"position:absolute;top:0.5rem;right:0.5rem;padding:0;background:transparent"});
+            close.onclick = ()=>{let m = document.getElementById("messagealert");m.parentNode.removeChild(m)};
+            alert.appendChild(close);
+            alert.appendChild(utils.create("h2",{innerText:"QRcode de l'exercice"}));
+            let qrdest = utils.create("img",{id:"qrious","title":"Clic droit pour copier l'image"});
+            alert.appendChild(qrdest);
+            alert.appendChild(utils.create("br"));
+            let a = utils.create("a",{href:shorturl,innerText:shorturl});
+            alert.appendChild(a);
             document.getElementById("colparameters").appendChild(alert);                
+            let QR = new QRious({
+                element: qrdest,// DOM destination
+                value : shorturl,
+                size: 200
+            });
         }
         shorter.open("get","getshort.php?url="+utils.superEncodeURI(url));
         shorter.send();

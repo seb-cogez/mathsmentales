@@ -793,6 +793,7 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
   transform: translate(-50%,-50%);
   border-radius: 0.5em;
   box-shadow: 0 8px 6px -6px #000,-1px 2px 20px rgba(47, 91, 235, 0.6) inset;
+  z-index: 10;
 }
 
 /* progress bar */
