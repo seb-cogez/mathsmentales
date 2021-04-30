@@ -288,6 +288,7 @@ var utils = {
      */
     createTuiles(){
         let grille;
+        const ordre = library.ordre;
         function setContent(id,obj){
             const elt = utils.create("article",{"className":"tuile","title":"Cliquer pour afficher toutes les activités du niveau"});
             const titre = utils.create("h3",{"innerHTML":obj.nom});
@@ -297,7 +298,6 @@ var utils = {
             elt.appendChild(nba);
             grille.appendChild(elt);
         }
-        const ordre={"grille-ecole":["11","10","9","8","7"],"grille-college":["6","5","4","3"],"grille-lycee":[2,1,"T"]};
         for(const o in ordre){
             grille = document.getElementById(o);
             for(let i=0;i<ordre[o].length;i++){
@@ -305,6 +305,27 @@ var utils = {
                 setContent(ordre[o][i],MM.content[ordre[o][i]]);
             }
         }    
+    },
+    /**
+     * Création des checkbox pour sélectionner les niveaux dans lesquels chercher.
+     */
+    createSearchCheckboxes(){
+        let dest = document.getElementById("searchLevels");
+        const ordre = library.ordre;
+        for(const o in ordre){
+            for(let i=0;i<ordre[o].length;i++){
+                if(MM.content[ordre[o][i]].activitiesNumber === undefined || MM.content[ordre[o][i]].activitiesNumber ===0 || i==="activitiesNumber")
+                    continue;
+                const div = utils.create("div");
+                const input = utils.create("input",{type:"checkbox",name:"searchlevel",value:ordre[o][i],className:"checkbox",id:"ccbs"+ordre[o][i]});
+                input.onclick = ()=>{library.displayContent(document.getElementById("searchinput").value)};
+                const label = utils.create("label",{for:"ccbs"+ordre[o][i], innerText:MM.content[ordre[o][i]].nom});
+                label.onclick = (evt)=>{document.getElementById(evt.target.for).click()};
+                div.appendChild(input);
+                div.appendChild(label);
+                dest.appendChild(div);
+            }
+        }
     },
     /**
     * function removeClass
@@ -2942,6 +2963,7 @@ var MM = {
 
 // lecture de la bibliotheque
 var library = {
+    ordre:{"grille-ecole":["11","10","9","8","7"],"grille-college":["6","5","4","3"],"grille-lycee":[2,1,"T"]},
     open:function(json){
         let obj = new activity(json);
         MM.editedActivity = obj;
@@ -2985,6 +3007,7 @@ var library = {
             MM.content = JSON.parse(reader.responseText);
             // remplissage de la grille d'accueil
             utils.createTuiles();
+            utils.createSearchCheckboxes();
             // check if parameters from URL
             utils.checkURL();
         }
@@ -3026,11 +3049,18 @@ var library = {
                 "nom":"Cliquer pour ouvrir une activité",
                 "chapitres":{"MM1":{"n":"Cliquer sur Rechercher pour revenir ici","e":level}}
             }
+            // cas d'une recherche textuelle
         } else if(!base){
-            // recherche d'un terme, différent de T pour le niveau terminale
+            // recherche d'un terme
             if(level.length<3)return false; // on ne prend pas les mots de moins de 3 lettres
+            // niveaux sélectionnés
+            const levels = document.querySelectorAll("#searchLevels input[name='searchlevel']:checked");
+            const selectedLevels = [];
+            levels.forEach((elt)=>{selectedLevels.push(elt.value)});
             // construction du niveau par extraction des données.
             for(let niv in MM.content){
+                // on ne cherche que dans les niveaux sélectionnés. Si pas de niveau sélectionné, on prend tout.
+                if(selectedLevels.length > 0 && selectedLevels.indexOf(niv)<0) continue;
                 if(_.isObject(MM.content[niv])){ // le niveau contient de chapitres
                     for(let theme in MM.content[niv].themes){
                         for(let chap in MM.content[niv].themes[theme].chapitres){
@@ -3057,6 +3087,7 @@ var library = {
                     }    
                 } else continue;
             }
+            // cas d'un clic sur un niveau
         } else 
             niveau = MM.content[level];
         let html = "";

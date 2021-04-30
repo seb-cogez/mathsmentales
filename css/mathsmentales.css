@@ -14,6 +14,10 @@ mark {
 .tabs-menu a, #btnaccueil, .pointer{
   cursor: pointer;
 }
+#searchLevels label {
+  margin-left: 0.3rem;
+  margin-right: 0.5rem;
+}
 .grille {
   width:1080px;
   display: grid;

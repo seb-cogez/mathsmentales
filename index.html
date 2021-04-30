@@ -92,7 +92,7 @@
                 <b>Automatismes et calcul mental</b> à données aléatoires sous forme de diaporamas, réponses en ligne, feuilles d'exercices, cartes flash, dominos, duels en ligne...
              </p>
              <p>
-                 Egalement disponible : dans la partie Téléchargements, des fichers de ceintures de calcul mental  à imprimer pour le collège.
+                 Egalement disponible dans la partie Téléchargements : des fichers de ceintures de calcul mental  à imprimer pour le collège.
              </p>
              <p>Bientôt : un <b>éditeur d'exercices</b> MathsMentales en ligne pour participer au projet.</p>
             </article>
@@ -163,6 +163,7 @@
                         <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
                         <img src="img/target.png" title="Zone d'énoncé"> <span>1</span>
                         <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" onclick="MM.carts[0].changeOrder(this);">
+                        <img src="img/iconfinder_copy.png" class="pointer" title="Dupliquer le panier (pas encore développé)">
                     </div>
                     <ul id="cart0-list" class="cart-list">
                     </ul>
@@ -221,7 +222,7 @@
                 <option value="paramsdominos">Dominos</option>
             </select>
             <fieldset><legend>Clé de données</legend>
-                <input type="checkbox" id="aleaInURL" value="1" class="checkbox" title="Prendre en compte dans l'adresse"> inclure
+                <input type="checkbox" id="aleaInURL" value="1" class="switch" title="Prendre en compte dans l'adresse"> inclure
                 <input type="text" placeholder="eHDtp" id="aleaKey" size="6">
                 <img src="img/iconfinder_die_32px.png" onclick="document.getElementById('aleaKey').value=utils.seedGenerator();" class="pointer">
             </fieldset>
@@ -421,7 +422,12 @@
         </ul>
     </section>
     <section id="tab-chercher" class="tabs-content-item" style="display: none;">
-        <input type="text" onkeyup="library.displayContent(this.value)" placeholder="Mot clé (au moins 3 caractères)" id="searchinput">
+        <div class="flex-container">
+            <div>
+                <input type="text" onkeyup="library.displayContent(this.value)" placeholder="Mot clé (au moins 3 caractères)" id="searchinput">
+            </div>
+            <div id="searchLevels" class="flex-container"></div>
+        </div>
         <div id="resultat-chercher">
         Dans cet onglet s'affiche le résultat d'une recherche d'activités : soit un niveau complet, soit un début de mot clé.
         </div>
