@@ -18,6 +18,12 @@ mark {
   margin-left: 0.3rem;
   margin-right: 0.5rem;
 }
+.plus::after {
+  content:'[+]';
+}
+.moins::after {
+  content:"[-]";
+}
 .grille {
   width:1080px;
   display: grid;
@@ -373,10 +379,6 @@ ul.menu, .menu ul {
 #tab-chercher li[onclick]:hover{
   text-decoration: underline;
 }
-#tab-chercher > span{
-  display:inline-block;
-  width: 100%;
-}
 #tab-chercher {
   column-rule: 1px solid #0d0d0d;
 }
@@ -406,6 +408,39 @@ ul.menu, .menu ul {
 #tab-chercher h3{
   font-size: 1.1em;
   font-weight: bold;
+}
+
+@keyframes growDown {
+  0% {
+      transform: scaleY(0)
+  }
+  80% {
+      transform: scaleY(1.1)
+  }
+  100% {
+      transform: scaleY(1);
+      height:auto;
+  }
+}
+#tab-chercher ul.showdown { 
+    animation: growDown 300ms ease-in-out forwards;
+    transform-origin: top center;
+}
+@keyframes growUp {
+  0% {
+      transform: scaleY(1)
+  }
+  12% {
+      transform: scaleY(1.1)
+  }
+  100% {
+      transform: scaleY(0);
+      height: 0;
+  }
+}
+#tab-chercher ul.hideup {
+  animation: growUp 300ms ease-in-out forwards;
+  transform-origin: top center;
 }
 /* Téléchargements */
 h2.sg-title::after {

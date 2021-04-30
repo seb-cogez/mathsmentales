@@ -328,6 +328,49 @@ var utils = {
         }
     },
     /**
+     * plie ou déplie la liste des exercices
+     * @param {elt} elt DOM elt
+     */
+    deploy(elt){
+        let destClass = "hideup";
+        let eltClass = "pointer plus";
+        if(elt.nodeName === "H3"){
+            let dest = elt.nextSibling;
+            if(elt.className === eltClass){
+                eltClass="pointer moins";
+                destClass = "showdown";
+            }
+            elt.className = eltClass;
+            dest.className = destClass;
+        } else if(elt.nodeName === "H2"){
+            if(elt.className === "pointer plus"){
+                eltClass = "pointer moins"
+                destClass = "showdown";
+            }
+            elt.className = eltClass;
+            while(elt.nextSibling !== null){
+                elt = elt.nextSibling;
+                if(elt.nodeName === "H2") break;
+                if(elt.nodeName ==="UL")
+                    elt.className = destClass;
+                else if(elt.nodeName === "H3")
+                    elt.className = eltClass;
+            }
+        } else if(elt.nodeName === "H1"){
+            if(elt.className === "pointer plus"){
+                eltClass = "pointer moins";
+                destClass = "showdown";
+            }
+            elt.className = eltClass;
+            const h2 = document.querySelectorAll("#resultat-chercher h2");
+            const h3 = document.querySelectorAll("#resultat-chercher h3");
+            const ul = document.querySelectorAll("#resultat-chercher ul");
+            h2.forEach((el)=>el.className=eltClass);
+            h3.forEach((el)=>el.className=eltClass);
+            ul.forEach((el)=>el.className=destClass);
+        }
+    },
+    /**
     * function removeClass
     * remove a class name from a DOM element
     *
@@ -3092,9 +3135,9 @@ var library = {
             niveau = MM.content[level];
         let html = "";
         if(!base && !_.isObject(level))
-            html = "<h1>Résultat de la recherche</h1>";
+            html = "<h1 class='pointer moins' onclick='utils.deploy(this)'>Résultat de la recherche</h1>";
         else if(!_.isObject(level)){
-            html = "<h1>Niveau "+niveau["nom"]+" ("+niveau["activitiesNumber"]+" act.)</h1>";
+            html = "<h1 class='pointer moins' onclick='utils.deploy(this)'>Niveau "+niveau["nom"]+" ("+niveau["activitiesNumber"]+" act.)</h1>";
             // on vide le champ de recherche
             document.getElementById("searchinput").value = "";
         }else 
@@ -3104,14 +3147,14 @@ var library = {
         // Affichage et mise en forme des données.
         let itemsNumber = 0;
         for(let i in niveau["themes"]){
-            let first = true;
+            //let first = true;
             let theme = false;
-            let htmlt = (first)?"<span>":"";
-            htmlt += "<h2>"+niveau.themes[i].nom+"</h2>";
+            let htmlt = "";//(first)?"<span>":"";
+            htmlt += "<h2 class='pointer moins' onclick='utils.deploy(this)'>"+niveau.themes[i].nom+"</h2>";
             for(let j in niveau["themes"][i]["chapitres"]){
                 let chapitre = false;
-                let htmlc=(first)?"":"<span>";
-                htmlc += "<h3>"+niveau["themes"][i]["chapitres"][j]["n"]+"</h3>";
+                let htmlc="";//(first)?"":"<span>";
+                htmlc += "<h3 onclick='utils.deploy(this)' class='pointer moins'>"+niveau["themes"][i]["chapitres"][j]["n"]+"</h3>";
                 htmlc += "<ul>";
                 let nbexos = niveau["themes"][i]["chapitres"][j]["e"].length;
                 if(nbexos){
@@ -3125,11 +3168,11 @@ var library = {
                 }
                 htmlc += "</ul>";
                 if(chapitre){
-                    htmlt+=htmlc+((first)?"":"</span>");
-                    if(first === true){
+                    htmlt+=htmlc;//+((first)?"":"</span>");
+                    /*if(first === true){
                         htmlt += "</span>";
                         first = false;
-                    }
+                    }*/
                 }
             }
             if(theme)html+=htmlt;
