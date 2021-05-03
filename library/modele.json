@@ -1,10 +1,10 @@
 {
-    "title":"",
-    "type":"",
-    "ID":"",
-    "description":"",
-    "dest":[""],
-    "consts":{"d":""},
+    "title":"Valeurs remarquables de trigonométrie",
+    "type":"latex",
+    "ID":"GA42",
+    "description":"Valeurs exactes de certains angles en radians",
+    "dest":["GA4"],
+    "consts":{"angles":[0,"\\pi\\over6","\\pi\\over4","\\pi\\over3","\\piover2","2\\pi\\over3","\\pi\\over4","5\\pi\\over6","\\pi"]},
     "vars":{"a":"", "b":"", "c":["u","v","t","x", "y", "z"]},
     "options":[{
         "name":"",

@@ -1,0 +1,47 @@
+{
+    "title":"Valeurs remarquables de trigonométrie",
+    "type":"latex",
+    "repeat":true,
+    "ID":"GA42",
+    "description":"Valeurs exactes de certains angles en radians",
+    "dest":["GA4"],
+    "consts":{"angles":[0,"\\pi\\over6","\\pi\\over4","\\pi\\over3","\\pi\\over2","2\\pi\\over3","\\pi\\over4","5\\pi\\over6","\\pi"],"sin":[0,"1\\over2","\\sqrt2\\over2","\\sqrt3\\over2",1,"\\sqrt3\\over2","\\sqrt2\\over2","1\\over2",0],"cos":[1,"\\sqrt3\\over2","\\sqrt2\\over2","1\\over2",0,"-{1\\over2}","-{\\sqrt2\\over2}","-{\\sqrt3\\over2}",-1],"tan":[0,"1\\over\\sqrt3",1,"\\sqrt3","\\varnothing","-\\sqrt3",-1,"-{1\\over\\sqrt3}",0]},
+    "options":[{
+        "name":"Valeur du cosinus",
+        "vars":{"n":"0_8"},
+        "question": "\\cos\\left(${:angles[:n]}\\right) = ?",
+        "answer":"\\cos\\left(${:angles[:n]}\\right) = \\color{red}{${:cos[:n]}}",
+        "value":"${:cos[:n]}"
+    },{
+        "name":"Valeur du sinus",
+        "vars":{"n":"0_8"},
+        "question": "\\sin\\left(${:angles[:n]}\\right) = ?",
+        "answer":"\\sin\\left(${:angles[:n]}\\right) = \\color{red}{${:sin[:n]}}",
+        "value":"${:sin[:n]}"
+    },{
+        "name":"Valeur de la tangente",
+        "vars":{"n":"0_8"},
+        "question": "\\tan\\left(${:angles[:n]}\\right) = ?",
+        "answer":"\\tan\\left(${:angles[:n]}\\right) = \\color{red}{${:tan[:n]}}",
+        "value":"${:tan[:n]}"
+    },{
+        "name":"Angle de [0,pi] connaissant le cosinus",
+        "vars":{"n":"0_8"},
+        "question": "\\arccos\\left(${:cos[:n]}\\right) = ?",
+        "answer":"\\arccos\\left(${:cos[:n]}\\right) = \\color{red}{${:angles[:n]}}",
+        "value":"${:angles[:n]}"
+    },{
+        "name":"Angle de [0,pi] connaissant le sinus",
+        "vars":{"n":"0_8"},
+        "question": "\\arcsin\\left(${:sin[:n]}\\right) = ?",
+        "answer":"\\arcsin\\left(${:sin[:n]}\\right) = \\color{red}{${:angles[:n]}}",
+        "value":"${:angles[:n]}"
+    },{
+        "name":"Angle de [0,pi] connaissant la tangente",
+        "vars":{"n":"0_8"},
+        "question": "\\arctan\\left(${:tan[:n]}\\right) = ?",
+        "answer":"\\arctan\\left(${:tan[:n]}\\right) = \\color{red}{${:angles[:n]}}",
+        "value":"${:angles[:n]}"
+    }
+    ]
+}

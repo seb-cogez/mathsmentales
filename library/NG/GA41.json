@@ -22,7 +22,7 @@
     },{
         "name":"Trouver l'angle'",
         "vars":{"n":"0_11"},
-        "question": "$À quel réel de $ $$\\lbrack 0; \\frac{\\pi}{2}\\rbrack$$ correspond <b>${:points[:n]}</b> ?",
+        "question": "À quel réel de $$\\lbrack 0; 2\\pi}\\rbrack$$ correspond <b>${:points[:n]}</b> ?",
         "answer":"${:points[:n]} correspond à $$\\color{red}{${:angles[:n]}}$$",
         "value":"${:angles[:n]}"
     }
