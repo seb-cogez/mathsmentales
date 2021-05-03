@@ -38,7 +38,7 @@
         "value":"${:angles[:n]}"
     },{
         "name":"Angle de [0,pi] connaissant la tangente",
-        "vars":{"n":"0_8"},
+        "vars":{"n":"0_8_^4"},
         "question": "\\arctan\\left(${:tan[:n]}\\right) = ?",
         "answer":"\\arctan\\left(${:tan[:n]}\\right) = \\color{red}{${:angles[:n]}}",
         "value":"${:angles[:n]}"
