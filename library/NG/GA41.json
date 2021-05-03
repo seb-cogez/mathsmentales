@@ -1,0 +1,30 @@
+{
+    "title":"Valeurs du cercle trigonométrique",
+    "repeat":true,
+    "type":"text",
+    "ID":"GA41",
+    "description":"Connaitre les valeurs réelles des angles",
+    "dest":["GA4"],
+    "consts":{"points":["A","B","C","D","E","F","G","K","L","M","N","P"],"angles":[0,"\\dfrac{\\pi}{6}", "\\dfrac{2\\pi}{6}","\\dfrac{\\pi}{2}","\\dfrac{\\3pi}{3}","\\dfrac{5\\pi}{6}","\\pi","\\dfrac{7\\pi}{6}","\\dfrac{4\\pi}{3}","\\dfrac{3\\pi}{2}","\\dfrac{5\\pi}{3}"]},
+    "figure":{"type":"graph",
+        "axis":true,
+        "boundingbox":[-1.5,1.5,1.5,-1.5],
+        "content":[
+            ["jessiescript","O=point(0,0)<<name:'O'>>;circ=circle(O,1);A=point(1,0)<<name:'A'>>;B=point(cos(PI/6),sin(PI/6))<<name:'B'>>;C=point(cos(PI/3),sin(PI/3))<<name:'C'>>;D=point(cos(PI/2),sin(PI/2))<<name:'D'>>;E=point(cos(4*PI/6),sin(4*PI/6))<<name:'E'>>;F=point(cos(5*PI/6),sin(5*PI/6))<<name:'F'>>;G=point(cos(PI),sin(PI))<<name:'G'>>;K=point(cos(7*PI/6),sin(7*PI/6))<<name:'K'>>;L=point(cos(8*PI/6),sin(8*PI/6))<<name:'L'>>;M=point(cos(9*PI/6),sin(9*PI/6))<<name:'M'>>;N=point(cos(10*PI/6),sin(10*PI/6))<<name:'N'>>;P=point(cos(11*PI/6),sin(11*PI/6))<<name:'P'>>;E.label.offset=[-15,10];F.label.offset=[-15,5];G.label.offset=[-15,5];K.label.offset=[-15,-5];L.label.offset=[-15,-10];M.label.offset=[7,-12];N.label.offset=[10,-10];P.label.offset=[10,-5];A.label.fontSize=15;B.label.fontSize=15;C.label.fontSize=15;D.label.fontSize=15;E.label.fontSize=15;F.label.fontSize=15;G.label.fontSize=15;K.label.fontSize=15;L.label.fontSize=15;M.label.fontSize=15;N.label.fontSize=15;P.label.fontSize=15;"]
+        ]
+    },
+    "options":[{
+        "name":"Trouver le point",
+        "vars":{"n":"0_11"},
+        "question": "À quel point correspond le réel $$${:angles[:n]}$$ ?",
+        "answer":"$$${:angles[:n]}$$ correspond à <span class='red'>${:points[:n]}</span>",
+        "value":"${:points[:n]}"
+    },{
+        "name":"Trouver l'angle'",
+        "vars":{"n":"0_11"},
+        "question": "$À quel réel de $ $$\\lbrack 0; \\frac{\\pi}{2}\\rbrack$$ correspond <b>${:points[:n]}</b> ?",
+        "answer":"${:points[:n]} correspond à $$\\color{red}{${:angles[:n]}}$$",
+        "value":"${:angles[:n]}"
+    }
+    ]
+}

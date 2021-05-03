@@ -104,7 +104,7 @@ var utils = {
             library.displayContent(vars.n,true);
             return;
         } else if(vars.u!==undefined && vars.cd === undefined){ // ancien exo MM1
-            let regexp = /(\d*|T)/;// le fichier commence par un nombre ou un T pour la terminale
+            let regexp = /(\d+|T|G)/;// le fichier commence par un nombre ou un T pour la terminale
             // un paramétrage d'exercice à afficher
              if(_.isArray(vars.u)){
                  let listeURLs = [];
@@ -3006,7 +3006,7 @@ var MM = {
 
 // lecture de la bibliotheque
 var library = {
-    ordre:{"grille-ecole":["11","10","9","8","7"],"grille-college":["6","5","4","3"],"grille-lycee":[2,1,"T"]},
+    ordre:{"grille-ecole":["11","10","9","8","7"],"grille-college":["6","5","4","3"],"grille-lycee":["2","G","T"]},
     open:function(json){
         let obj = new activity(json);
         MM.editedActivity = obj;
