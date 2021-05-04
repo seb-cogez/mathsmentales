@@ -5,7 +5,10 @@
     "ID":"GA42",
     "description":"Valeurs exactes de certains angles en radians",
     "dest":["GA4"],
-    "consts":{"angles":[0,"\\pi\\over6","\\pi\\over4","\\pi\\over3","\\pi\\over2","2\\pi\\over3","\\pi\\over4","5\\pi\\over6","\\pi","7\\pi\\over6","4\\pi\\over3","3\\pi\\over2","5\\pi\\over3","11\\pi\\over6"],"sin":[0,"1\\over2","\\sqrt2\\over2","\\sqrt3\\over2",1,"\\sqrt3\\over2","\\sqrt2\\over2","1\\over2",0,"-{1\\over2}","-{\\sqrt2\\over2}","-{\\sqrt3\\over2}",-1,"-{\\sqrt3\\over2}","-{\\sqrt2\\over2}","-{1\\over2}"],"cos":[1,"\\sqrt3\\over2","\\sqrt2\\over2","1\\over2",0,"-{1\\over2}","-{\\sqrt2\\over2}","-{\\sqrt3\\over2}",-1,"-{\\sqrt3\\over2}","-{\\sqrt2\\over2}","-{1\\over2}",0,"1\\over2","\\sqrt2\\over2","\\sqrt3\\over2"],"tan":[0,"1\\over\\sqrt3",1,"\\sqrt3","\\varnothing","-\\sqrt3",-1,"-{1\\over\\sqrt3}",0]},
+    "consts":{"angles":[0,"\\pi\\over6","\\pi\\over4","\\pi\\over3","\\pi\\over2","2\\pi\\over3","\\pi\\over4","5\\pi\\over6","\\pi","7\\pi\\over6",,"5\\pi\\over4","4\\pi\\over3","3\\pi\\over2","5\\pi\\over3","7\\pi\\over4","11\\pi\\over6"],
+        "sin":[0,"1\\over2","\\sqrt2\\over2","\\sqrt3\\over2",1,"\\sqrt3\\over2","\\sqrt2\\over2","1\\over2",0,"-{1\\over2}","-{\\sqrt2\\over2}","-{\\sqrt3\\over2}",-1,"-{\\sqrt3\\over2}","-{\\sqrt2\\over2}","-{1\\over2}"],
+        "cos":[1,"\\sqrt3\\over2","\\sqrt2\\over2","1\\over2",0,"-{1\\over2}","-{\\sqrt2\\over2}","-{\\sqrt3\\over2}",-1,"-{\\sqrt3\\over2}","-{\\sqrt2\\over2}","-{1\\over2}",0,"1\\over2","\\sqrt2\\over2","\\sqrt3\\over2"],
+        "tan":[0,"1\\over\\sqrt3",1,"\\sqrt3","\\varnothing","-\\sqrt3",-1,"-{1\\over\\sqrt3}",0]},
     "options":[{
         "name":"Valeur du cosinus sur [0,pi]",
         "vars":{"n":"0_8"},
@@ -46,7 +49,7 @@
         "name":"Angle de [0,2pi[ connaissant cosinus et sinus",
         "vars":{"n":"0_13"},
         "question":"\\cos(\\alpha)={${:cos[:n]}} \\text{ et } \\sin(\\alpha)={${:sin[:n]}} \\text{ donc } \\alpha = ?",
-        "answer":"\\alpha = \\color{red}{${:angles[:n]}}",
+        "answer":"Si \\cos(\\alpha)={${:cos[:n]}} \\text{ et } \\sin(\\alpha)={${:sin[:n]}} alors \\alpha = \\color{red}{${:angles[:n]}}",
         "value":"${:angles[:n]}"
     }
     ]
