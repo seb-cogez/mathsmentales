@@ -1,22 +1,7 @@
 <?php
-//if($_GET['url']=="")die();
-// echo file_get_contents("http://bref.jeduque.net/MathsMentalesShortener.php?url=".$_GET['url']);
-/*$postdata = http_build_query(
-    array(
-        'url' => $_GET['url']
-    )
-);
-$opts = array("http" => array(
-    'method' => "POST",
-    'header' => 'Content-Type: application/x-www-form-urlencoded',
-    'content' => $postdata
-    )
-);
-$context = stream_context_create($opts);
-echo file_get_contents("http://bref.jeduque.net/MathsMentalesShortener.php",false,$context);
-
-*/
-
+/**
+ * script qui envoie l'url longue au raccourcisseur d'url
+ */
 $api_url =  'http://bref.jeduque.net/MathsMentalesShortener.php';
 // Init the CURL session
 $ch = curl_init();

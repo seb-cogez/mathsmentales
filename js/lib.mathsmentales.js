@@ -1289,17 +1289,24 @@ class draw {
         //insertion du canvas dans 
         target.appendChild(c);
         this.canvas = c;
-        this.canvas.style.top = target.offsetTop+"px";
-        this.canvas.style.left = target.offsetLeft+"px";
+        if(btnId.indexOf("btn-sample")>-1){
+            this.canvas.style.top = 0;
+            this.canvas.style.left = 0;
+        }
+        else {
+            this.canvas.style.top = target.offsetTop+"px";
+            this.canvas.style.left = target.offsetLeft+"px";
+        }
         this.mouse = {x:0,y:0};
         const mouvement = (event)=>{
-            if(MM.touched){ // only 1st finger
-                this.mouse.x = event.touches[0].pageX - event.touches[0].target.offsetLeft;
-                this.mouse.y = event.touches[0].pageY - event.touches[0].target.offsetTop;
-            } else {
-                this.mouse.x = event.pageX - event.target.offsetLeft;
-                this.mouse.y = event.pageY - event.target.offsetTop;
+            let target = event.target;
+            let evt = event
+            if(MM.touched){
+                target=event.touches[0].target;
+                evt = event.touches[0];
             }
+            this.mouse.x = evt.pageX - target.getBoundingClientRect().x;
+            this.mouse.y = evt.pageY - target.getBoundingClientRect().y;
             if(this.enableDraw){
                 if(!this.started){
                     this.started = true;
@@ -1333,7 +1340,9 @@ class draw {
         this.ctx.rect(0,0,this.canvas.width,this.canvas.height);
         this.ctx.stroke();
         this.ctx.strokeStyle = "blue";
-        this.ctx.lineWidth = 2;
+        this.ctx.lineWidth = 1;
+        this.ctx.shadowBlur = 1;
+        this.ctx.shadowColor = 'blue';
         this.ctx.lineJoin = "round";
         this.ctx.lineCap = "round";
         this.canvas.addEventListener("mousemove",mouvement, false);
@@ -1365,26 +1374,24 @@ class steps {
     }
     display(){
         let ul = document.createElement("ul");
-        ul.className = "steps is-balanced has-gaps is-horizontal has-content-above has-content-centered";
+        ul.className = "steps is-balanced has-gaps is-medium is-horizontal has-content-above has-content-centered";
         for(let i=0;i<this.size;i++){
-            let li = document.createElement("li");
-            li.className = "steps-segment";
+            let li = utils.create("li",{className:"steps-segment"});
             let span = document.createElement("span");
             if(i === this.step){
                 span.className = "steps-marker is-hollow";
+                span.innerHTML = this.step+1;
                 li.appendChild(span);
-                let div = document.createElement("div");
-                div.className = "steps-content";
-                div.innerHTML = this.step+1;
-                li.appendChild(div);
+                //let div = utils.create("div",{className:"steps-content",innerHTML:this.step+1});
+                //li.appendChild(div);
                 li.className += " is-active";
             } else {
                 span.className = "steps-marker";
                 li.appendChild(span);
-                let div = document.createElement("div");
+                /*let div = document.createElement("div");
                 div.innerHTML = "&nbsp;";
                 div.className = "steps-content";
-                li.appendChild(div);
+                li.appendChild(div);*/
             }
             ul.appendChild(li);
         }
@@ -1447,7 +1454,7 @@ class Figure {
      */
     create(destination){
         if(this.type === "chart"){
-            let div = document.createElement("div");            
+            let div = utils.create("div",{id:"div-dest-canvas-"+this.id});
             let canvas = document.createElement("canvas");
             canvas.id = this.id;
             if(this.size !== undefined){
@@ -2607,28 +2614,21 @@ var MM = {
         for(let i=0,len=MM.carts.length;i<len;i++){
             MM.carts[i].activities[0].generateSample();
         }
-        let divSample = document.createElement("div");
-        divSample.id = "sampleLayer";
-        divSample.className = "sample";
+        let divSample = utils.create("div",{id:"sampleLayer",className:"sample"});
         for(let i=0;i<nb;i++){
-            let div = document.createElement("div");
-            div.id = "sample"+i;
+            let div = utils.create("div",{id:"sample"+i});
             if(nb === 1)div.className = "slider-1";
             else if(nb===2)div.className = "slider-2";
             else div.className = "slider-34";
             div.innerHTML = `Exemple <div class="slider-nav">
-            <button title="Montrer la réponse" onclick="MM.showSampleAnswer(${i});"><img src="img/slider-solution.png" /></button>
-            <button title="Autre exemple" onclick="MM.newSample(${i});"><img src="img/newsample.png" /></button>
-            <button title="Démarrer le diaporama" onclick="MM.startSlideShow(${i});"><img src="img/fusee.png" /></button>
+            <button title="Annoter l'exemple" id="btn-sample-annotate${i}" onclick="utils.annotate('sampleSlide${i}',this.id);"><img src="img/iconfinder_pencil_1055013.png"></button>
+            <button title="Montrer la réponse" onclick="MM.showSampleAnswer(${i});"><img src="img/slider-solution.png"></button>
+            <button title="Autre exemple" onclick="MM.newSample(${i});"><img src="img/newsample.png"></button>
+            <button title="Démarrer le diaporama" onclick="MM.startSlideShow(${i});"><img src="img/fusee.png"></button>
             </div>`;
-            let divContent = document.createElement("div");
-            divContent.className = "slide";
-            divContent.id = "sampleSlide"+i;
-            let span = document.createElement("span");
-            span.id = "sample"+i+"-enonce";
-            let spanAnswer = document.createElement("span");
-            spanAnswer.id = "sample"+i+"-corr";
-            spanAnswer.className = "hidden";
+            let divContent = utils.create("div",{className:"slide",id:"sampleSlide"+i});
+            let span = utils.create("span",{id:"sample"+i+"-enonce"});
+            let spanAnswer = utils.create("span",{id:"sample"+i+"-corr",className:"hidden"});
             divContent.appendChild(span);
             divContent.appendChild(spanAnswer);
             div.appendChild(divContent);
@@ -2694,7 +2694,7 @@ var MM = {
             if(nb === 1)div.className = "slider-1";
             else if(nb===2)div.className = "slider-2";
             else div.className = "slider-34";
-            div.innerHTML = `<div class="slider-nav">
+            div.innerHTML = `<div class="slider-head"><div class="slider-nav">
             <button title="Arrêter le diaporama" onclick="MM.timers[${i}].end()"><img src="img/slider-stop.png" /></button>
             <button title="Mettre le diapo en pause" onclick="MM.timers[${i}].pause()"><img src="img/slider-pause.png" /></button>
             <button title="Montrer la réponse" onclick="MM.showTheAnswer(${i});"><img src="img/slider-solution.png" /></button>
@@ -2706,7 +2706,7 @@ var MM = {
                 <span class="zoom-a0">A</span>
                 <input type="range" min="6" max="60" step="2" value="10" oninput="MM.zooms['zs${i}'].changeSize(this.value)" ondblclick="MM.zooms['zs${i}'].changeSize(10)">
                 <span class="zoom-A1">A</span>
-            </div>
+            </div></div>
             <div class="steps-container"></div>`;
             container.appendChild(div);
             MM.zooms["zs"+i] = new Zoom("zs"+i,"#slider"+i+" .slide");
@@ -2769,7 +2769,12 @@ var MM = {
                     document.getElementById("sample"+id+"-corr").className += " math";
                 }
                 if(act.sample.figure !== undefined){
-                    let item = document.getElementById("sample-c"+id);
+                    let item;
+                    if(act.sample.figure.type === "chart"){
+                        item = document.getElementById("div-dest-canvas-sample-c"+id);
+                    }else{
+                        item = document.getElementById("sample-c"+id);
+                    }
                     item.parentNode.removeChild(item);
                     let fig = new Figure(utils.clone(act.sample.figure), "sample-c"+id, document.getElementById("sampleSlide"+id));
                     setTimeout(function(){fig.display();},100);

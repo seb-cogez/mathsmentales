@@ -62,6 +62,9 @@ mark {
 .grille .tuile:hover h3{
   font-weight: bolder;
 }
+#btnCode {
+  margin-left:0.3rem;
+}
 #app-container{
     display: flex;
     height: 100%;
@@ -333,7 +336,7 @@ ul.menu, .menu ul {
 #btn-annotation {
   float:left;
 }
-#corrige-content #painting, #divparams #painting {
+#corrige-content #painting, #divparams #painting, #slideshow #painting {
   position: absolute;
   display:block;
   cursor: url(../img/iconfinder_pencil.png), auto;
@@ -476,7 +479,7 @@ h2.sg-title, h3.sg-title {
 	font-weight: normal;
 }
 /*carts */
-#addToCart, #removeFromCart, #unlinkCart, #btn-shuffle, #btn-annotation2 {
+#addToCart, #removeFromCart, #unlinkCart, #btn-shuffle, #btn-annotation2, #btnCode {
     background-color: rgba(0,0,0,0);
     padding:0;
     float:right;
@@ -738,13 +741,16 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
     font-size: 2rem;
     vertical-align: middle;
 }
+.slider-head{
+  font-size: 2rem;
+}
 .slider-chrono{
   width:15%;
 }
 .slide{
     position: relative;
     width:100%;
-    height:calc(100% - 4em);
+    height:calc(100% - 8.5rem);
     display: flex;
     flex-direction: column;
 }
@@ -779,6 +785,9 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
     }
   }
 
+.steps-container{
+  margin-top:3.5rem;
+}
 .steps .steps-content{font-size: 2em;}
 .w3-animate-fading{animation:fading 10s infinite}@keyframes fading{0%{opacity:0}50%{opacity:1}100%{opacity:0}}
 .w3-animate-opacity{animation:opac 0.8s}@keyframes opac{from{opacity:0} to{opacity:1}}

@@ -86,6 +86,7 @@
     <section id="tab-accueil" class="tabs-content-item">
         <section class="grille">
         <article class="accueillogo">
+            <div class="fr jaiuncode"><input type="text" id="inputCode" placeholder="J'ai un code" size="10"><button id="btnCode" onclick="MM.takeOff()"><img src="img/iconfinder_takeoff.png"></button></div>
             <img src="img/logocm.png" width="160">
             <p>
                 <b>Automatismes et calcul mental</b> à données aléatoires sous forme de diaporamas, réponses en ligne, feuilles d'exercices, cartes flash, dominos, duels en ligne...
@@ -277,6 +278,9 @@
                     <span class="tooltiptext">Affiche le QRCode<br>de l'adresse</span>
                 </button>
                 <input type="text" class="hidden" id="acturl" maxlength="1024">
+                <button class="button--success tooltip" onclick="MM.generateCode();">Codes élève
+                    <span class="tooltiptext">Génère plusieurs <b>codes</b><br>élèves pour répondre en ligne</span>
+                </button>
             </section>
         </div>
         <div id="paramsexos" class="hidden">
