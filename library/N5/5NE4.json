@@ -8,24 +8,24 @@
     "options":[{
         "name":"ax + b = cx + d, paramètres positifs",
         "vars":{"l":"0_5","x":"${:lettres[:l]}","sol":"1_6","cx":"1_3","b":"1_5","e":"1_5","d":"${:e*:sol+:b}","c":"1_5", "a":"${math.round((:d-:b+:c*:sol)/:sol,3)}", "na":"0_6_^${:sol}"},
-        "question": "${utils.signIfOne(:a)}${:x}+${:b}=${utils.signIfOne(:c)}${:x}+${:d}\\\\ \\text{pour } ${:x}=${:cx<2?:na::sol}",
+        "question": "${math.signIfOne(:a)}${:x}+${:b}=${math.signIfOne(:c)}${:x}+${:d}\\\\ \\text{pour } ${:x}=${:cx<2?:na::sol}",
         "answer":":question \\color{red}{\\text{ ${:cx<2?'FAUX':'VRAI'}}}",
         "value":"${:cx<2?'FAUX':'VRAI'}"
     },{
         "name":"ax + b = cx + d, paramètres relatifs",
         "vars":{"l":"0_5","x":"${:lettres[:l]}","sol":"-6_6_^0","cx":"1_3","b":"-5_5_^0","e":"-5_5_^0","d":"${:e*:sol+:b}","c":"-5_5_^0", "a":"${math.round((:d-:b+:c*:sol)/:sol,3)}", "na":"-6_6_^${:sol}"},
-        "question": "${:a==0?'':utils.signIfOne(:a)+:x}${:a==0?:b:utils.signedNumber(:b)}=${utils.signIfOne(:c)}${:x}${utils.signedNumber(:d)}\\\\ \\text{pour } ${:x}=${:cx<2?:na::sol}",
+        "question": "${:a==0?'':math.signIfOne(:a)+:x}${:a==0?:b:math.signedNumber(:b)}=${math.signIfOne(:c)}${:x}${math.signedNumber(:d)}\\\\ \\text{pour } ${:x}=${:cx<2?:na::sol}",
         "answer":":question \\color{red}{\\text{ ${:cx<2?'FAUX':'VRAI'}}}",
         "value":"${:cx<2?'FAUX':'VRAI'}"
     },{
         "name":"(x+a)b = cx+d, paramètres positifs",
         "vars":{"l":"0_5","x":"${:lettres[:l]}","sol":"1_6","cx":"1_5","a":"1_6_^${:sol}","c":"1_6","b":"2_6_^${:c}","d":"${(:b-:c)*:sol+:a*:b}","na":"0_6_^${:sol}"},
-        "question":"(${:x}+${:a})\\times ${:b}=${utils.signIfOne(:c)}${:x}${utils.signedNumber(:d)} \\\\ \\text{pour } ${:x}=${:cx<3?:na::sol}",
+        "question":"(${:x}+${:a})\\times ${:b}=${math.signIfOne(:c)}${:x}${math.signedNumber(:d)} \\\\ \\text{pour } ${:x}=${:cx<3?:na::sol}",
         "answer":":question \\color{red}{\\text{ ${:cx<3?'FAUX':'VRAI'}}}"
     },{
         "name":"(x+a)b = cx+d, paramètres relatifs",
         "vars":{"l":"0_5","x":"${:lettres[:l]}","sol":"-6_6","cx":"1_5","a":"-6_6_^${:sol},0","c":"-6_6_^0","b":"-6_6_^-1,0,1,${:c}","d":"${(:b-:c)*:sol+:a*:b}","na":"0_6_^${:sol}"},
-        "question":"${:b}(${:x}${utils.signedNumber(:a)})=${utils.signIfOne(:c)}${:x}${utils.signedNumber(:d)} \\\\ \\text{pour } ${:x}=${:cx<3?:na::sol}",
+        "question":"${:b}(${:x}${math.signedNumber(:a)})=${math.signIfOne(:c)}${:x}${math.signedNumber(:d)} \\\\ \\text{pour } ${:x}=${:cx<3?:na::sol}",
         "answer":":question \\color{red}{\\text{ ${:cx<3?'FAUX':'VRAI'}}}"
     }
     ]

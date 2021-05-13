@@ -367,6 +367,13 @@
     "G":{
         "nom":"1re Gén",
         "themes":{
+            "GL":{
+                "nom":"Algèbre",
+                "chapitres":{
+                    "GL1":"Suites, modèles discrets",
+                    "GL2":"Équations, fonctions polynomes du second degré"
+                }
+            },
             "GA":{
                 "nom":"Analyse",
                 "chapitres":{
@@ -374,6 +381,32 @@
                     "GA2":"Variations et courbes",
                     "GA3":"Exponentielle",
                     "GA4":"Fonctions trigonométriques"
+                }
+            },
+            "GG":{
+                "nom":"Géométrie",
+                "chapitres":{
+                    "GG1":"Calcul vectoriel et produit scalaire",
+                    "GG2":"Géométrie repérée"
+                }
+            },
+            "GS":{
+                "nom":"Probabilités et statistiques",
+                "chapitres":{
+                    "GS1": "Probabilités conditionnelles et indépendance",
+                    "GS2":"Variables aléatoires réelles"
+                }
+            },
+            "GP":{
+                "nom":"Algorithmique et programmation",
+                "chapitres":{
+                    "GP1":"Contenu"
+                }
+            },
+            "GE":{
+                "nom":"Vocabulaire ensembliste et logique",
+                "chapitres":{
+                    "GE1":"Contenu"
                 }
             }
         }

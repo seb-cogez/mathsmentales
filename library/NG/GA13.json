@@ -1,0 +1,23 @@
+{
+    "title":"Dérivée de fonction produit",
+    "repeat":true,
+    "type":"latex",
+    "ID":"GA13",
+    "description":"Trouver la dérivée des fonctions polynomes à partir de $$(uv)'=u'v+uv'$$",
+    "dest":["GA1"],
+    "consts":{"lettres":["x","y","z","t"]},
+    "options":[{
+        "name":"avec racine carré",
+        "vars":{"a":"-3_3_2_^&,0","p":"1_3","cx":"0_3","x":"${:lettres[:cx]}","f1":"\\sqrt{${:x}${math.signedNumber(:a[0])}}","f2":"${:x}${:p>1?'^'+:p:''}${math.signedNumber(:a[1])}"},
+        "question": "${:x}\\in\\rbrack${(-:a[0])};+\\infty\\lbrack, \\left(${:f1}\\left(${:f2}\\right)\\right)'",
+        "answer":":question=\\color{red}{${math.calc('d(sqrt('+:x+'('+:a[0]+'))*('+:x+'^'+:p+'))')}}",
+        "value":"${math.calc('d(sqrt('+:x+'('+:a[0]+'))*('+:x+'^'+:p+'))')}"
+    },{
+        "name":"avec inverse",
+        "vars":{"a":"-3_3","p":"1_3","cx":"0_3","x":"${:lettres[:cx]}","f":"${:x}${:p>1?'^'+:p:''}${math.signedNumber(:a)}"},
+        "question":"${:x}\\in\\R^*,\\left(\\dfrac{1}{${:x}}\\left(${:f}\\right)\\right)'",
+        "answer":":question=\\color{red}{\\dfrac{${math.calc('d('+:f+')*'+:x+'-('+:f+')')}}{${:x}^2}}",
+        "value":"${\\dfrac{${math.calc('d('+:f+')*'+:x+'-('+:f+')')}}{${:x}^2}}"
+    }
+    ]
+}

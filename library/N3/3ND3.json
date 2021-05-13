@@ -7,34 +7,34 @@
     "options":[{
         "name":"Opposé d'une expression",
         "vars":{"a":"-9_9_2_^0","l":"0_7","x":"${:lettres[:l]}","posx":"0_1","s":"${:a[0]+:a[1]}","sx":"${:a[:posx]}"},
-        "question": "-(${(:posx==0)?utils.signIfOne(:a[0])+:x::a[0]}${(:posx==1)?utils.signedNumberButOne(:a[1])+:x:utils.signedNumber(:a[1])})",
-        "answer":":question=\\color{red}{${(:posx==0)?utils.signIfOne(-:a[0])+:x:-:a[0]}${(:posx==1)?utils.signedNumberButOne(-:a[1])+:x:utils.signedNumber(-:a[1])}}",
-        "value":"${(:posx==0)?utils.signIfOne(-:a[0])+:x:-:a[0]}${(:posx==1)?utils.signedNumberButOne(-:a[1])+:x:utils.signedNumber(-:a[1])}"
+        "question": "-(${(:posx==0)?math.signIfOne(:a[0])+:x::a[0]}${(:posx==1)?math.signedNumberButOne(:a[1])+:x:math.signedNumber(:a[1])})",
+        "answer":":question=\\color{red}{${(:posx==0)?math.signIfOne(-:a[0])+:x:-:a[0]}${(:posx==1)?math.signedNumberButOne(-:a[1])+:x:math.signedNumber(-:a[1])}}",
+        "value":"${(:posx==0)?math.signIfOne(-:a[0])+:x:-:a[0]}${(:posx==1)?math.signedNumberButOne(-:a[1])+:x:math.signedNumber(-:a[1])}"
     },{
         "name":"Supprimer les parenthèses - 1",
         "vars":{"a":"-9_9_3_^0","l":"0_7","x":"${:lettres[:l]}","posx":"1_2","s":"${:a[0]+:a[1]+:a[2]}","sx":"${:a[0]+:a[:posx]}"},
-        "question":["${utils.signIfOne(:a[0])}${:x}-(${(:posx==1)?utils.signIfOne(:a[1])+:x::a[1]}${(:posx==2)?utils.signedNumberButOne(:a[2])+:x:utils.signedNumber(:a[2])})","${utils.signIfOne(:a[0])}${:x}+(${(:posx==1)?utils.signIfOne(:a[1])+:x::a[1]}${(:posx==2)?utils.signedNumberButOne(:a[2])+:x:utils.signedNumber(:a[2])})"],
-        "answer":[":question=\\color{red}{${utils.signIfOne(:a[0])}${:x}${(:posx==1)?utils.signedNumberButOne(-:a[1])+:x:utils.signedNumber(-:a[1])}${(:posx==2)?utils.signedNumberButOne(-:a[2])+:x:utils.signedNumber(-:a[2])}}",
-        ":question=\\color{red}{${utils.signIfOne(:a[0])}${:x}${(:posx==1)?utils.signedNumberButOne(:a[1])+:x:utils.signedNumber(:a[1])}${(:posx==2)?utils.signedNumberButOne(:a[2])+:x:utils.signedNumber(:a[2])}}"],
-        "value":["${utils.signIfOne(:a[0])}${:x}${(:posx==1)?utils.signedNumberButOne(-:a[1])+:x:-:a[1]}${(:posx==2)?utils.signedNumberButOne(-:a[2])+:x:utils.signedNumber(-:a[2])}",
-            "${utils.signIfOne(:a[0])}${:x}${(:posx==1)?utils.signedNumberButOne(:a[1])+:x::a[1]}${(:posx==2)?utils.signedNumberButOne(:a[2])+:x:utils.signedNumber(:a[2])}"]
+        "question":["${math.signIfOne(:a[0])}${:x}-(${(:posx==1)?math.signIfOne(:a[1])+:x::a[1]}${(:posx==2)?math.signedNumberButOne(:a[2])+:x:math.signedNumber(:a[2])})","${math.signIfOne(:a[0])}${:x}+(${(:posx==1)?math.signIfOne(:a[1])+:x::a[1]}${(:posx==2)?math.signedNumberButOne(:a[2])+:x:math.signedNumber(:a[2])})"],
+        "answer":[":question=\\color{red}{${math.signIfOne(:a[0])}${:x}${(:posx==1)?math.signedNumberButOne(-:a[1])+:x:math.signedNumber(-:a[1])}${(:posx==2)?math.signedNumberButOne(-:a[2])+:x:math.signedNumber(-:a[2])}}",
+        ":question=\\color{red}{${math.signIfOne(:a[0])}${:x}${(:posx==1)?math.signedNumberButOne(:a[1])+:x:math.signedNumber(:a[1])}${(:posx==2)?math.signedNumberButOne(:a[2])+:x:math.signedNumber(:a[2])}}"],
+        "value":["${math.signIfOne(:a[0])}${:x}${(:posx==1)?math.signedNumberButOne(-:a[1])+:x:-:a[1]}${(:posx==2)?math.signedNumberButOne(-:a[2])+:x:math.signedNumber(-:a[2])}",
+            "${math.signIfOne(:a[0])}${:x}${(:posx==1)?math.signedNumberButOne(:a[1])+:x::a[1]}${(:posx==2)?math.signedNumberButOne(:a[2])+:x:math.signedNumber(:a[2])}"]
     },{
         "name":"Supprimer les parenthèses - 2",
         "vars":{"a":"-9_9_4_^0","l":"0_7","x":"${:lettres[:l]}"},
         "question":[
-            "(${utils.signIfOne(:a[0])+:x+utils.signedNumber(:a[1])})-(${utils.signIfOne(:a[2])+:x+utils.signedNumber(:a[3])})",
-            "-(${utils.signIfOne(:a[0])+:x+utils.signedNumber(:a[1])})+(${utils.signIfOne(:a[2])+:x+utils.signedNumber(:a[3])})",
-            "-(${utils.signIfOne(:a[0])+:x+utils.signedNumber(:a[1])})-(${utils.signIfOne(:a[2])+:x+utils.signedNumber(:a[3])})"
+            "(${math.signIfOne(:a[0])+:x+math.signedNumber(:a[1])})-(${math.signIfOne(:a[2])+:x+math.signedNumber(:a[3])})",
+            "-(${math.signIfOne(:a[0])+:x+math.signedNumber(:a[1])})+(${math.signIfOne(:a[2])+:x+math.signedNumber(:a[3])})",
+            "-(${math.signIfOne(:a[0])+:x+math.signedNumber(:a[1])})-(${math.signIfOne(:a[2])+:x+math.signedNumber(:a[3])})"
         ],
         "answer":[
-            ":question=\\color{red}{${utils.signIfOne(:a[0])+:x+utils.signedNumber(:a[1])+utils.signedNumberButOne(-:a[2])+:x+utils.signedNumber(-:a[3])}}",
-            ":question=\\color{red}{${utils.signIfOne(-:a[0])+:x+utils.signedNumber(-:a[1])+utils.signedNumberButOne(:a[2])+:x+utils.signedNumber(:a[3])}}",
-            ":question=\\color{red}{${utils.signIfOne(-:a[0])+:x+utils.signedNumber(-:a[1])+utils.signedNumberButOne(-:a[2])+:x+utils.signedNumber(-:a[3])}}"
+            ":question=\\color{red}{${math.signIfOne(:a[0])+:x+math.signedNumber(:a[1])+math.signedNumberButOne(-:a[2])+:x+math.signedNumber(-:a[3])}}",
+            ":question=\\color{red}{${math.signIfOne(-:a[0])+:x+math.signedNumber(-:a[1])+math.signedNumberButOne(:a[2])+:x+math.signedNumber(:a[3])}}",
+            ":question=\\color{red}{${math.signIfOne(-:a[0])+:x+math.signedNumber(-:a[1])+math.signedNumberButOne(-:a[2])+:x+math.signedNumber(-:a[3])}}"
         ],
         "value":[
-            "${utils.signIfOne(:a[0])+:x+utils.signedNumber(:a[1])+utils.signedNumberButOne(-:a[2])+:x+utils.signedNumber(-:a[3])}",
-            "${utils.signIfOne(-:a[0])+:x+utils.signedNumber(-:a[1])+utils.signedNumberButOne(:a[2])+:x+utils.signedNumber(:a[3])}",
-            "${utils.signIfOne(-:a[0])+:x+utils.signedNumber(-:a[1])+utils.signedNumberButOne(-:a[2])+:x+utils.signedNumber(-:a[3])}"
+            "${math.signIfOne(:a[0])+:x+math.signedNumber(:a[1])+math.signedNumberButOne(-:a[2])+:x+math.signedNumber(-:a[3])}",
+            "${math.signIfOne(-:a[0])+:x+math.signedNumber(-:a[1])+math.signedNumberButOne(:a[2])+:x+math.signedNumber(:a[3])}",
+            "${math.signIfOne(-:a[0])+:x+math.signedNumber(-:a[1])+math.signedNumberButOne(-:a[2])+:x+math.signedNumber(-:a[3])}"
         ]
     }
     ]

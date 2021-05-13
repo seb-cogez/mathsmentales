@@ -1,0 +1,23 @@
+{
+    "title":"Dérivée de fonction polynomiale",
+    "repeat":true,
+    "type":"latex",
+    "ID":"GA11",
+    "description":"Trouver la dérivée des fonctions polynomes à partir de $$(x^n)'=nx^n-1$$",
+    "dest":["GA1"],
+    "consts":{"lettres":["x","y","z","t"]},
+    "options":[{
+        "name":"Monomes",
+        "vars":{"a":"-9_9_^0","p":"1_9","cx":"0_3","x":"${:lettres[:cx]}"},
+        "question": "\\left(${:a==1?''::a==-1?'-'::a}${:x}{${:p>1?'^'+:p:''}}\\right)'",
+        "answer":":question=\\color{red}{${math.calc('d(('+:a+')*'+:x+'^'+:p+')')}}",
+        "value":"${math.calc('d(('+:a+')*'+:x+'^'+:p+')')}"
+    },{
+        "name":"Polynomes de degré 2",
+        "vars":{"a":"-9_9_3","cx":"0_3","x":"${:lettres[:cx]}"},
+        "question":"\\left(${math.calc(:a[0]+'*'+:x+'^2+('+:a[1]+')*'+:x+'+('+:a[2]+')')}\\right)'",
+        "answer":":question=\\color{red}{${math.calc('d('+:a[0]+'*'+:x+'^2+('+:a[1]+')*'+:x+'+('+:a[2]+'))')}}",
+        "value":"${math.calc('d('+:a[0]+'*'+:x+'^2+('+:a[1]+')*'+:x+'+('+:a[2]+'))'))}"
+    }
+    ]
+}

@@ -8,8 +8,8 @@
         "d":"${math.unDiviseur(:a,true)}",
         "e":"-1_1_^0",
         "nd":"${math.nonDiviseur(:a)}",
-        "m":"${:a*utils.aleaInt(2,5)}",
-        "nm":"${:a*utils.aleaInt(2,5)+utils.aleaInt(1,:a-1)*:e}",
+        "m":"${:a*math.aleaInt(2,5)}",
+        "nm":"${:a*math.aleaInt(2,5)+math.aleaInt(1,:a-1)*:e}",
         "t":"${:d},${:nd},${:m},${:nm}"
     },
     "options":[{

@@ -7,20 +7,20 @@
     "options":[{
         "name":"ax + b = 0",
         "vars":{"a":"-10_10_^0","b":"-10_10", "l":"0_5","x":"${:lettres[:l]}"},
-        "question": "\\text{Résoudre } ${utils.signIfOne(:a)}${:x}${utils.signedNumber(:b)}=0",
-        "answer":"${utils.signIfOne(:a)}${:x}${utils.signedNumber(:b)}=0 \\text{ pour } \\color{red}{${:x}=${math.calc('-('+:b+')/('+:a+')')}}",
+        "question": "\\text{Résoudre } ${math.signIfOne(:a)}${:x}${math.signedNumber(:b)}=0",
+        "answer":"${math.signIfOne(:a)}${:x}${math.signedNumber(:b)}=0 \\text{ pour } \\color{red}{${:x}=${math.calc('-('+:b+')/('+:a+')')}}",
         "value":"${math.calc('-('+:b+')/('+:a+')')}"
     },{
         "name":"ax + b = c",
         "vars":{"a":"-10_10_^0","b":"-10_10", "c":"-10_10_^0", "l":"0_5","x":"${:lettres[:l]}"},
-        "question": "\\text{Résoudre } ${utils.signIfOne(:a)}${:x}${utils.signedNumber(:b)}=${:c}",
-        "answer":"${utils.signIfOne(:a)}${:x}${utils.signedNumber(:b)}=${:c} \\text{ pour } \\color{red}{${:x}=${math.calc('('+:c+'-('+:b+'))/('+:a+')')}}",
+        "question": "\\text{Résoudre } ${math.signIfOne(:a)}${:x}${math.signedNumber(:b)}=${:c}",
+        "answer":"${math.signIfOne(:a)}${:x}${math.signedNumber(:b)}=${:c} \\text{ pour } \\color{red}{${:x}=${math.calc('('+:c+'-('+:b+'))/('+:a+')')}}",
         "value":"${math.calc('('+:c-'-('+:b+'))/('+:a+')')}"
     },{
         "name":"ax + b = cx + d",
         "vars":{"a":"-10_10_^0","b":"-10_10", "c":"-10_10_^0", "d":"-10_10", "l":"0_5","x":"${:lettres[:l]}"},
-        "question": "\\text{Résoudre } ${utils.signIfOne(:a)}${:x}${utils.signedNumber(:b)}=${utils.signIfOne(:c)}${:x}${utils.signedNumber(:d)}",
-        "answer":"${utils.signIfOne(:a)}${:x}${utils.signedNumber(:b)}=${utils.signIfOne(:c)}${:x}${utils.signedNumber(:d)} \\text{ pour } \\color{red}{${:a-:c==0?'\\text{pas de solution}'::x+'='+math.calc('('+:d+'-('+:b+'))/(('+:a+')-('+:c+'))')}}",
+        "question": "\\text{Résoudre } ${math.signIfOne(:a)}${:x}${math.signedNumber(:b)}=${math.signIfOne(:c)}${:x}${math.signedNumber(:d)}",
+        "answer":"${math.signIfOne(:a)}${:x}${math.signedNumber(:b)}=${math.signIfOne(:c)}${:x}${math.signedNumber(:d)} \\text{ pour } \\color{red}{${:a-:c==0?'\\text{pas de solution}'::x+'='+math.calc('('+:d+'-('+:b+'))/(('+:a+')-('+:c+'))')}}",
         "value":"${:a-:c==0?'pas de solution':math.calc('('+:d+'-('+:b+'))/(('+:a+')-('+:c+'))')}"
     }]
 }

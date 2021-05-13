@@ -13,8 +13,8 @@
     },{
         "name":"Linéarité",
         "vars":{"k":"-10_10_2_^0","v":"0_5","x":"-10_10_2"},
-        "question":"\\text{Si }\\overrightarrow{${:vecteurs[:v]}}(${:x[0]};${:x[1]}) \\text{, alors } ${utils.signIfOne(:k[0])}\\overrightarrow{${:vecteurs[:v]}}${utils.signedNumberButOne(:k[1])}\\overrightarrow{${:vecteurs[:v]}}(?;?)",
-        "answer":"\\overrightarrow{${:vecteurs[:v]}}(${:x[0]};${:x[1]}) \\text{, donc } ${utils.signIfOne(:k[0])}\\overrightarrow{${:vecteurs[:v]}}${utils.signedNumberButOne(:k[1])}\\overrightarrow{${:vecteurs[:v]}}\\color{red}{(${(:k[0]+:k[1])*:x[0]};${(:k[0]+:k[1])*:x[1]})}",
+        "question":"\\text{Si }\\overrightarrow{${:vecteurs[:v]}}(${:x[0]};${:x[1]}) \\text{, alors } ${math.signIfOne(:k[0])}\\overrightarrow{${:vecteurs[:v]}}${math.signedNumberButOne(:k[1])}\\overrightarrow{${:vecteurs[:v]}}(?;?)",
+        "answer":"\\overrightarrow{${:vecteurs[:v]}}(${:x[0]};${:x[1]}) \\text{, donc } ${math.signIfOne(:k[0])}\\overrightarrow{${:vecteurs[:v]}}${math.signedNumberButOne(:k[1])}\\overrightarrow{${:vecteurs[:v]}}\\color{red}{(${(:k[0]+:k[1])*:x[0]};${(:k[0]+:k[1])*:x[1]})}",
         "value":"(${(:k[0]+:k[1])*:x[0]};${(:k[0]+:k[1])*:x[1]})"
     }],
     "question": "\\text{Si }\\overrightarrow{${:vecteurs[:v]}}(${:x[0]};${:x[1]}) \\text{, alors } ${:k==0?:k+'\\times '::k}\\overrightarrow{${:vecteurs[:v]}} (?;?)",

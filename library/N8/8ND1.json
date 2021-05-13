@@ -7,27 +7,27 @@
     "options":[{
         "name":"Ajouter 9 ou 99",
         "vars":{"a":[9,99],"b":"11_1000"},
-        "question": ["${:a}${utils.signedNumber(:b)}", "${:b}${utils.signedNumber(:a)}"]
+        "question": ["${:a}${math.signedNumber(:b)}", "${:b}${math.signedNumber(:a)}"]
     },{
         "name":"Ajouter 9, 19, 29, 39",
         "vars":{"a":[9,19,29,39],"b":"11_1000"},
-        "question": ["${:a}${utils.signedNumber(:b)}", "${:b}${utils.signedNumber(:a)}"]
+        "question": ["${:a}${math.signedNumber(:b)}", "${:b}${math.signedNumber(:a)}"]
     },{
         "name":"Ajouter 49, 59, …, 99",
         "vars":{"a":[49,59,69,79,89,99],"b":"11_1000"},
-        "question": ["${:a}${utils.signedNumber(:b)}", "${:b}${utils.signedNumber(:a)}"]
+        "question": ["${:a}${math.signedNumber(:b)}", "${:b}${math.signedNumber(:a)}"]
     },{
         "name":"Ajouter 11 ou 111",
         "vars":{"a":[11,111],"b":"11_1000"},
-        "question": ["${:a}${utils.signedNumber(:b)}", "${:b}${utils.signedNumber(:a)}"]
+        "question": ["${:a}${math.signedNumber(:b)}", "${:b}${math.signedNumber(:a)}"]
     },{
         "name":"Ajouter 11, 21, 31, 41",
         "vars":{"a":[11,21,31,41],"b":"11_1000"},
-        "question": ["${:a}${utils.signedNumber(:b)}", "${:b}${utils.signedNumber(:a)}"]
+        "question": ["${:a}${math.signedNumber(:b)}", "${:b}${math.signedNumber(:a)}"]
     },{
         "name":"Ajouter 51, 61, …, 101",
         "vars":{"a":[51,61,71,81,91,101],"b":"11_1000"},
-        "question": ["${:a}${utils.signedNumber(:b)}", "${:b}${utils.signedNumber(:a)}"]
+        "question": ["${:a}${math.signedNumber(:b)}", "${:b}${math.signedNumber(:a)}"]
     },{
         "name":"Soustraire 9 ou 99",
         "vars":{"a":[-9,-99],"b":"100_1000"}
@@ -48,7 +48,7 @@
         "vars":{"a":[-61,-71,-81,-91,-101],"b":"102_1000"}
     }
     ],
-    "question": "${:b}${utils.signedNumber(:a)}",
+    "question": "${:b}${math.signedNumber(:a)}",
     "answer":":question=\\color{red}{${:a+:b}}",
     "value":"${:a+:b}"
 }

@@ -31,7 +31,7 @@
     },{
         "name":"Somme irréductible",
         "vars":{"l":"0_7","a":"-9_9_^0","b":"-9_9_^0","x":"${:lettres[:l]}"},
-        "question": ["${utils.signIfOne(:a)}${:x}${utils.signedNumber(:b)}","${utils.signIfOne(:a)}${:x}${utils.signedNumberButOne(:b)}${:x}^2","${:a}${utils.signedNumberButOne(:b)}${:x}","${utils.signIfOne(:a)}${:x}^2${utils.signedNumberButOne(:b)}${:x}"],
+        "question": ["${math.signIfOne(:a)}${:x}${math.signedNumber(:b)}","${math.signIfOne(:a)}${:x}${math.signedNumberButOne(:b)}${:x}^2","${:a}${math.signedNumberButOne(:b)}${:x}","${math.signIfOne(:a)}${:x}^2${math.signedNumberButOne(:b)}${:x}"],
         "answer":":question=\\color{red}{:question}",
         "value":":question"
     }

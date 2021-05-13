@@ -137,8 +137,9 @@ var utils = {
             MM.onlineState = vars.o==="false"?false:true;
             if(vars.s)utils.setSeed(vars.s);
             MM.resetCarts();
-            if(vars.s)MM.slidersNumber = Number(vars.s);
-            else MM.slidersNumber = 0;// sera alimenté par l'import des carts.
+            //if(vars.s)MM.slidersNumber = Number(vars.s);
+            //else
+            MM.slidersNumber = 0;// sera alimenté par l'import des carts.
             MM.slidersOrientation = vars.so;
             let json = JSON.parse(decodeURIComponent(vars.c));
             for(const i in json){

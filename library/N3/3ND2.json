@@ -5,25 +5,25 @@
     "vars":{"a":"1_10", "b":"2_10", "c":["u","v","t","x", "y", "z"]},
     "options":[{
         "name":"$$(ax+b)^2$$",
-        "question": ["(${utils.signIfOne(:a)}${:c}+${:b})^2", "(${:b}+${utils.signIfOne(:a)}${:c})^2"],
-        "answer":":question=\\color{red}{${utils.signIfOne(:a*:a)}${:c}^2+${2*:a*:b}${:c}+${:b*:b}}",
-        "value":"${utils.signIfOne(:a*:a)}${:c}^2+${2*:a*:b}${:c}+${:b*:b}"    
+        "question": ["(${math.signIfOne(:a)}${:c}+${:b})^2", "(${:b}+${math.signIfOne(:a)}${:c})^2"],
+        "answer":":question=\\color{red}{${math.signIfOne(:a*:a)}${:c}^2+${2*:a*:b}${:c}+${:b*:b}}",
+        "value":"${math.signIfOne(:a*:a)}${:c}^2+${2*:a*:b}${:c}+${:b*:b}"    
     },
     {
         "name":"$$(ax-b)^2$$",
-        "question": ["(${utils.signIfOne(:a)}${:c}-${:b})^2", "(${:b}-${utils.signIfOne(:a)}${:c})^2"],
-        "answer":":question=\\color{red}{${utils.signIfOne(:a*:a)}${:c}^2-${2*:a*:b}${:c}+${:b*:b}}",
-        "value":"${utils.signIfOne(:a*:a)}${:c}^2-${2*:a*:b}${:c}+${:b*:b}"    
+        "question": ["(${math.signIfOne(:a)}${:c}-${:b})^2", "(${:b}-${math.signIfOne(:a)}${:c})^2"],
+        "answer":":question=\\color{red}{${math.signIfOne(:a*:a)}${:c}^2-${2*:a*:b}${:c}+${:b*:b}}",
+        "value":"${math.signIfOne(:a*:a)}${:c}^2-${2*:a*:b}${:c}+${:b*:b}"    
     },
     {
         "name":"$$(ax-b)(ax+b)$$",
         "question": [
-            "(${utils.signIfOne(:a)}${:c}-${:b})(${utils.signIfOne(:a)}${:c}+${:b})",
-            "(${utils.signIfOne(:a)}${:c}-${:b})(${:b}+${utils.signIfOne(:a)}${:c})",
-            "(${utils.signIfOne(:a)}${:c}+${:b})(${utils.signIfOne(:a)}${:c}-${:b})",
-            "(${:b}+${utils.signIfOne(:a)}${:c})(${utils.signIfOne(:a)}${:c}-${:b})"],
-        "answer":":question=\\color{red}{${utils.signIfOne(:a*:a)}${:c}^2-${:b*:b}}",
-        "value":"${utils.signIfOne(:a*:a)}${:c}^2-${:b*:b}"    
+            "(${math.signIfOne(:a)}${:c}-${:b})(${math.signIfOne(:a)}${:c}+${:b})",
+            "(${math.signIfOne(:a)}${:c}-${:b})(${:b}+${math.signIfOne(:a)}${:c})",
+            "(${math.signIfOne(:a)}${:c}+${:b})(${math.signIfOne(:a)}${:c}-${:b})",
+            "(${:b}+${math.signIfOne(:a)}${:c})(${math.signIfOne(:a)}${:c}-${:b})"],
+        "answer":":question=\\color{red}{${math.signIfOne(:a*:a)}${:c}^2-${:b*:b}}",
+        "value":"${math.signIfOne(:a*:a)}${:c}^2-${:b*:b}"    
     }
     ]
 }

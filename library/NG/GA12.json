@@ -1,0 +1,35 @@
+{
+    "title":"Dérivée de fonctions quotient",
+    "repeat":true,
+    "type":"latex",
+    "ID":"GA12",
+    "description":"Trouver la dérivée des fonctions de la forme f(x)/g(x)",
+    "dest":["GA1"],
+    "consts":{"lettres":["x","y","z","t"]},
+    "options":[{
+        "name":"Inverse d'une puissance",
+        "vars":{"p":"1_9","cx":"0_3","x":"${:lettres[:cx]}"},
+        "question":"${:x}\\in\\R^*,\\left(\\dfrac{1}{${:x}^{${:p}}}\\right)'",
+        "answer":":question=\\color{red}{${math.calc('d(1/'+:x+'^'+:p+')')}}",
+        "value":"${math.calc('d(1/'+:x+'^'+:p+')')}"
+        },{
+        "name":"Inverse d'un monome",
+        "vars":{"a":"-9_9_^0","p":"1_9","cx":"0_3","x":"${:lettres[:cx]}"},
+        "question":"${:x}\\in\\R^*,\\left(\\dfrac{1}{${math.calc(:a+'*'+:x+'^'+:p)}}\\right)'",
+        "answer":":question=\\color{red}{${math.calc('d(1/('+:a+'*'+:x+'^'+:p+'))')}}",
+        "value":"${math.calc('d(1/('+:a+'*'+:x+'^'+:p+'))')}"
+    },{
+        "name":"Inverse d'un polynome",
+        "vars":{"a":"-9_9_3_^&,0","cx":"0_3","x":"${:lettres[:cx]}"},
+        "question":"\\left(\\dfrac{${1}}{${math.calc(:a[0]+'*'+:x+'^2+('+:a[1]+')*'+:x+'+('+:a[2]+')')}}\\right)'",
+        "answer":":question=\\color{red}{\\dfrac{${math.calc('-d('+:a[0]+'*'+:x+'^2+('+:a[1]+')*'+:x+'+('+:a[2]+'))')}}{\\left(${math.calc(:a[0]+'*'+:x+'^2+('+:a[1]+')*'+:x+'+('+:a[2]+')')}\\right)^2}}",
+        "value":"\\dfrac{${math.calc('-d('+:a[0]+'*'+:x+'^2+('+:a[1]+')*'+:x+'+('+:a[2]+'))')}}{\\left(${math.calc(:a[0]+'*'+:x+'^2+('+:a[1]+')*'+:x+'+('+:a[2]+')')}\\right)^2}"
+    },{
+        "name":"Quotient de polynomes",
+        "vars":{"a":"-2_2_2","b":"1_3_2_^&","cx":"0_3","x":"${:lettres[:cx]}","n":"${:x}${:b[0]>1?'^'+:b[0]:''}${math.signedNumber(:a[0])}","d":"${:x}${:b[1]>1?'^'+:b[1]:''}${math.signedNumber(:a[1])}"},
+        "question":"\\left(\\dfrac{${:n}}{${:d}}\\right)'",
+        "answer":":question=\\color{red}{\\dfrac{${math.calc('(d('+:n+'))*('+:d+')-('+:n+')*(d('+:d+'))')}}{\\left(${:d}\\right)^2}}",
+        "value":"\\dfrac{${math.calc('(d('+:n+'))*('+:d+')-('+:n+')*(d('+:d+'))')}}{\\left(${:d}\\right)^2}"
+    }
+    ]
+}

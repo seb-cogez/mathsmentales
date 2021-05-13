@@ -7,14 +7,14 @@
     "options":[{
         "name":"Simple distributivité coeffs positifs",
         "vars":{"l":"0_8","x":"${:lettres[:l]}", "a":"1_10","b":"1_10","c":"1_10"},
-        "question": ["\\text{Développer }${:a}\\times(${utils.signIfOne(:b)}${:x}${utils.signedNumber(:c)})","\\text{Développer }${:a}\\times(${:c}${utils.signedNumberButOne(:b)}${:x})"],
-        "answer":["${:a}\\times(${utils.signIfOne(:b)}${:x}${utils.signedNumber(:c)})=\\color{red}{${utils.signIfOne(:a*:b)}${:x}${utils.signedNumber(:a*:c)}}","${:a}\\times(${:c}${utils.signedNumberButOne(:b)}${:x})=\\color{red}{${:a*:c}${utils.signedNumberButOne(:a*:b)}${:x}}"],
+        "question": ["\\text{Développer }${:a}\\times(${math.signIfOne(:b)}${:x}${math.signedNumber(:c)})","\\text{Développer }${:a}\\times(${:c}${math.signedNumberButOne(:b)}${:x})"],
+        "answer":["${:a}\\times(${math.signIfOne(:b)}${:x}${math.signedNumber(:c)})=\\color{red}{${math.signIfOne(:a*:b)}${:x}${math.signedNumber(:a*:c)}}","${:a}\\times(${:c}${math.signedNumberButOne(:b)}${:x})=\\color{red}{${:a*:c}${math.signedNumberButOne(:a*:b)}${:x}}"],
         "value":"${math.calc(:a+'*('+:b+:x+')+('+:a+')*('+:c+')')}"
     },{
         "name":"Simple distributivité",
         "vars":{"l":"0_8","x":"${:lettres[:l]}", "a":"-10_10_^0","b":"-10_10_^0","c":"-10_10_^0"},
-        "question": ["\\text{Développer }${:a}\\times(${utils.signIfOne(:b)}${:x}${utils.signedNumber(:c)})","\\text{Développer }${:a}\\times(${:c}${utils.signedNumberButOne(:b)}${:x})"],
-        "answer":["${:a}\\times(${utils.signIfOne(:b)}${:x}${utils.signedNumber(:c)})=\\color{red}{${utils.signIfOne(:a*:b)}${:x}${utils.signedNumber(:a*:c)}}","${:a}\\times(${:c}${utils.signedNumberButOne(:b)}${:x})=\\color{red}{${:a*:c}${utils.signedNumberButOne(:a*:b)}${:x}}"],
+        "question": ["\\text{Développer }${:a}\\times(${math.signIfOne(:b)}${:x}${math.signedNumber(:c)})","\\text{Développer }${:a}\\times(${:c}${math.signedNumberButOne(:b)}${:x})"],
+        "answer":["${:a}\\times(${math.signIfOne(:b)}${:x}${math.signedNumber(:c)})=\\color{red}{${math.signIfOne(:a*:b)}${:x}${math.signedNumber(:a*:c)}}","${:a}\\times(${:c}${math.signedNumberButOne(:b)}${:x})=\\color{red}{${:a*:c}${math.signedNumberButOne(:a*:b)}${:x}}"],
         "value":"${math.calc(:a+'*('+:b+:x+')+('+:a+')*('+:c+')')}"
     },{
         "name":"Double distributivité simple coeffs positifs",
@@ -25,15 +25,15 @@
     },{
         "name":"Double distributivité simple coeffs relatifs",
         "vars":{"l":"0_8","x":"${:lettres[:l]}", "a":"-10_10_^0","b":"-10_10_^0"},
-        "question": "\\text{Développer et réduire }(${:x}${utils.signedNumber(:a)})(${:x}${utils.signedNumber(:b)})",
-        "answer":"(${:x}${utils.signedNumber(:a)})(${:x}${utils.signedNumber(:b)})=\\color{red}{${:x}^2${utils.signedNumberButOne(:a+:b)}${:x}${utils.signedNumber(:a*:b)}}",
-        "value":"${:x}^2${utils.signedNumberButOne(:a+:b)}${:x}${utils.signedNumber(:a*:b)}"
+        "question": "\\text{Développer et réduire }(${:x}${math.signedNumber(:a)})(${:x}${math.signedNumber(:b)})",
+        "answer":"(${:x}${math.signedNumber(:a)})(${:x}${math.signedNumber(:b)})=\\color{red}{${:x}^2${math.signedNumberButOne(:a+:b)}${:x}${math.signedNumber(:a*:b)}}",
+        "value":"${:x}^2${math.signedNumberButOne(:a+:b)}${:x}${math.signedNumber(:a*:b)}"
     },{
         "name":"Double distributivité coeffs relatifs",
         "vars":{"l":"0_8","x":"${:lettres[:l]}", "a":"-10_10_^0","b":"-10_10_^0","c":"-10_10_^0","d":"-10_10_^0"},
-        "question": "\\text{Développer et réduire }(${utils.signIfOne(:a)+:x}${utils.signedNumber(:b)})(${utils.signIfOne(:c)+:x}${utils.signedNumber(:d)})",
-        "answer":"(${utils.signIfOne(:a)+:x}${utils.signedNumber(:b)})(${utils.signIfOne(:c)+:x}${utils.signedNumber(:d)})=\\color{red}{${utils.signIfOne(:a*:c)+:x}^2${utils.signedNumberButOne(:a*:d+:b*:c)}${:x}${utils.signedNumber(:b*:d)}}",
-        "value":"${utils.signIfOne(:a*:c)+:x}^2${utils.signedNumberButOne(:a*:d+:b*:c)}${:x}${utils.signedNumber(:b*:d)}"
+        "question": "\\text{Développer et réduire }(${math.signIfOne(:a)+:x}${math.signedNumber(:b)})(${math.signIfOne(:c)+:x}${math.signedNumber(:d)})",
+        "answer":"(${math.signIfOne(:a)+:x}${math.signedNumber(:b)})(${math.signIfOne(:c)+:x}${math.signedNumber(:d)})=\\color{red}{${math.signIfOne(:a*:c)+:x}^2${math.signedNumberButOne(:a*:d+:b*:c)}${:x}${math.signedNumber(:b*:d)}}",
+        "value":"${math.signIfOne(:a*:c)+:x}^2${math.signedNumberButOne(:a*:d+:b*:c)}${:x}${math.signedNumber(:b*:d)}"
     }
     ]
 }

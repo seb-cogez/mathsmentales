@@ -1,0 +1,22 @@
+{
+    "title":"Dérivée de fonction composée / g(ax+b)",
+    "repeat":true,
+    "type":"latex",
+    "ID":"GA14",
+    "description":"Trouver la dérivée des fonctions polynomes à partir de $$g(ax+b)'=ag'(ax+b)$$",
+    "dest":["GA1"],
+    "consts":{"lettres":["x","y","z","t"]},
+    "vars":{"a":"-3_3_^0","b":"-3_3","cx":"0_3","x":"${:lettres[:cx]}","f":"${math.signIfOne(:a)+:x}${math.signedNumber(:b)}","s":"${math.calc((-:b)+'/('+:a+')')}"},
+    "options":[{
+        "name":"Racine carrée",
+        "question": "${:x}\\in\\rbrack${:a>0?:s+';+\\infty':'-\\infty;'+:s}\\lbrack, \\left(\\sqrt{${:f}}\\right)'",
+        "answer":":question=\\color{red}{${math.calc('d(sqrt('+:a+'*'+:x+'+('+:b+')))')}}",
+        "value":"${math.calc('d(sqrt('+:a+'*'+:x+'+('+:b+')))')}"
+    },{
+        "name":"Exponentielle",
+        "question":"\\left(e^{${:f}}\\right)'",
+        "answer":":question=\\color{red}{${:a}e^{${:f}}}",
+        "value":"${:a}\\exp^{${:f}}"
+    }
+    ]
+}

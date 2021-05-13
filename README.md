@@ -107,28 +107,28 @@ Il est possible de choisir parmi les types de questions, celle qui sera affiché
     "options":[{
         "name":"(ax+b)²",
         "question": [
-          "(${utils.signIfOne(:a)}${:c}+${:b})^2", // (ax + b)², le a pouvant être 1, on utilise utils.signIfOne qui remplace le nombre par rien si 1 ou - si -1
-          "(${:b}+${utils.signIfOne(:a)}${:c})^2" // (b + ax)²
+          "(${math.signIfOne(:a)}${:c}+${:b})^2", // (ax + b)², le a pouvant être 1, on utilise math.signIfOne qui remplace le nombre par rien si 1 ou - si -1
+          "(${:b}+${math.signIfOne(:a)}${:c})^2" // (b + ax)²
           ],
           // reponse : (ax+b)² = en rouge ax²+2ab+b² on utilise math.multiply et math.pow plutôt que * et ^ qui peuvent créer des pb d'arrondi
-        "answer":":question=\\color{red}{${utils.signIfOne(math.pow(:a,2))}${:c}^2+${math.multiply(2,:a,:b)}${:c}+${math.pow(:b,2)}}",
-        "value":"${utils.signIfOne(math.pow(:a,2))}${:c}^2+${math.multiply(2,:a,:b)}${:c}+${math.pow(:b,2)}"    
+        "answer":":question=\\color{red}{${math.signIfOne(math.pow(:a,2))}${:c}^2+${math.multiply(2,:a,:b)}${:c}+${math.pow(:b,2)}}",
+        "value":"${math.signIfOne(math.pow(:a,2))}${:c}^2+${math.multiply(2,:a,:b)}${:c}+${math.pow(:b,2)}"    
     },
     {
         "name":"(ax-b)²",
-        "question": ["(${utils.signIfOne(:a)}${:c}-${:b})^2", "(${:b}-${utils.signIfOne(:a)}${:c})^2"],
-        "answer":":question=\\color{red}{${utils.signIfOne(math.pow(:a,2))}${:c}^2-${math.multiply(2,:a,:b)}${:c}+${math.pow(:b,2)}}",
-        "value":"${utils.signIfOne(math.pow(:a,2))}${:c}^2-${math.multiply(2,:a,:b)}${:c}+${math.pow(:b,2)}"    
+        "question": ["(${math.signIfOne(:a)}${:c}-${:b})^2", "(${:b}-${math.signIfOne(:a)}${:c})^2"],
+        "answer":":question=\\color{red}{${math.signIfOne(math.pow(:a,2))}${:c}^2-${math.multiply(2,:a,:b)}${:c}+${math.pow(:b,2)}}",
+        "value":"${math.signIfOne(math.pow(:a,2))}${:c}^2-${math.multiply(2,:a,:b)}${:c}+${math.pow(:b,2)}"    
     },
     {
         "name":"(ax-b)(ax+b)",
         "question": [
-            "(${utils.signIfOne(:a)}${:c}-${:b})(${utils.signIfOne(:a)}${:c}+${:b})", // (ax-b)(ax+b)
-            "(${utils.signIfOne(:a)}${:c}-${:b})(${:b}+${utils.signIfOne(:a)}${:c})", // (ax-b)(b+ax)
-            "(${utils.signIfOne(:a)}${:c}+${:b})(${utils.signIfOne(:a)}${:c}-${:b})", // (ax+b)(ax-b)
-            "(${:b}+${utils.signIfOne(:a)}${:c})(${utils.signIfOne(:a)}${:c}-${:b})"], // (b-ax)(ax-b)
-        "answer":":question=\\color{red}{${utils.signIfOne(math.pow(:a,2))}${:c}^2-${math.pow(:b,2)}}",
-        "value":"${utils.signIfOne(math.pow(:a,2))}${:c}^2-${math.pow(:b,2)}"    
+            "(${math.signIfOne(:a)}${:c}-${:b})(${math.signIfOne(:a)}${:c}+${:b})", // (ax-b)(ax+b)
+            "(${math.signIfOne(:a)}${:c}-${:b})(${:b}+${math.signIfOne(:a)}${:c})", // (ax-b)(b+ax)
+            "(${math.signIfOne(:a)}${:c}+${:b})(${math.signIfOne(:a)}${:c}-${:b})", // (ax+b)(ax-b)
+            "(${:b}+${math.signIfOne(:a)}${:c})(${math.signIfOne(:a)}${:c}-${:b})"], // (b-ax)(ax-b)
+        "answer":":question=\\color{red}{${math.signIfOne(math.pow(:a,2))}${:c}^2-${math.pow(:b,2)}}",
+        "value":"${math.signIfOne(math.pow(:a,2))}${:c}^2-${math.pow(:b,2)}"    
     }
     ]
 }
