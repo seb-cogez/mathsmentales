@@ -18,7 +18,7 @@
             ]
         },
         "question": "Quelle est l'<b>aire</b> d'un carré de côté $$${:a}\\text{ ${:unites[:u]}}$$ ?",
-        "answer":"$$4\\times${:a}=\\color{red}{${:aire}\\text{ ${:unites[:u]}}^2}$$",
+        "answer":"$$${:a}\\times${:a}=\\color{red}{${:aire}\\text{ ${:unites[:u]}}^2}$$",
         "value":"${:aire}${:unites[:u]}^2"
     },{
         "name":"Aire du rectangle",
