@@ -137,7 +137,8 @@ var utils = {
             MM.onlineState = vars.o==="false"?false:true;
             if(vars.s)utils.setSeed(vars.s);
             MM.resetCarts();
-            MM.slidersNumber = Number(vars.s);
+            if(vars.s)MM.slidersNumber = Number(vars.s);
+            else MM.slidersNumber = 0;// sera alimenté par l'import des carts.
             MM.slidersOrientation = vars.so;
             let json = JSON.parse(decodeURIComponent(vars.c));
             for(const i in json){
@@ -427,6 +428,197 @@ var utils = {
         else 
             utils.alea = new Math.seedrandom(MM.seed);
     },
+        /**
+     * 
+     * @param {DOM obj or string} element 
+     * Show the selected Tab
+     */
+    showTab:function(element){
+        utils.resetAllTabs();let tab, el;
+        if(element === "none")return;
+        if(typeof element === "string"){
+            tab = element;
+            el = document.querySelector("#header-menu a[numero='#"+element+"']");
+        } else {
+            el = element;
+            tab = element.getAttribute('numero').substr(1);
+        }
+        utils.addClass(el, "is-active");
+        document.getElementById(tab).style.display = "";
+    },
+    showParameters:function(id){
+        let ids = ["paramsdiapo","paramsexos", "paramsinterro", "paramsflashcards", "paramswhogots", "paramsdominos"];//"paramsceinture",
+        if(ids.indexOf(id)<0) return false;
+        // hide all
+        for(let i=0,len=ids.length;i<len;i++){
+            document.getElementById(ids[i]).className = "hidden";
+        }
+        document.getElementById(id).className = "";
+    },
+    resetAllTabs : function(){
+        // fermeture des espaces d'annotation.
+        utils.annotate(false);
+        let tabsButtons = document.querySelectorAll("#header-menu .tabs-menu-link");
+        let contents = document.querySelectorAll(".tabs-content-item");
+        document.getElementById("tab-accueil").display = "none";
+        contents.forEach(element => {
+            element.style.display = "none";
+        });
+        utils.removeClass(document.getElementById("btnaccueil"), "is-active");
+        tabsButtons.forEach(element => {
+            utils.removeClass(element, "is-active");
+        });
+    },
+    toDecimalFr:function(value){
+        let parties = value.split(".");
+        let partieEntiere = parties[0];
+        let partieDecimale = "";
+        if(parties.length>1)partieDecimale = parties[1];
+        if(partieEntiere.length>3){
+            let s = partieEntiere.length%3;
+            partieEntiere = partieEntiere.substring(0,s)+"~"+partieEntiere.substring(s).match(/\d{3}/g).join("~");
+        }
+        if(partieDecimale.length>3){
+            let nbgp = ~~(partieDecimale.length/3);
+            partieDecimale = partieDecimale.match(/\d{3}/g).join("~")+"~"+partieDecimale.substring(nbgp*3);
+        }
+        if(partieDecimale.length){
+            partieDecimale = "{,}"+partieDecimale;
+            }
+        //debug(partieEntiere+partieDecimale);
+        return partieEntiere+partieDecimale;
+    },
+    annotate:function(target,btnId){
+        if(target === false && MM.annotate !== undefined){
+            MM.annotate.destroy();
+            MM.annotate = undefined;
+        } else if(MM.annotate === undefined && _.isString(target)){
+            MM.annotate = new draw(target,btnId);
+        } else if(MM.annotate !== undefined) {
+            MM.annotate.destroy();
+            MM.annotate = undefined;
+        }
+    },
+
+    /**
+     * Render the math
+     * @param (dom) wtarget : window reference
+     */
+    mathRender: function(wtarget) {
+        let contents = ["tab-enonce", "tab-corrige", "activityOptions"];
+        contents.forEach(id => {
+            // search for $$ formulas $$ => span / span
+            let content = document.getElementById(id).innerHTML;
+            document.getElementById(id).innerHTML = content.replace(/\$\$([^$]*)\$\$/gi, '<span class="math">$1</span>');
+        });
+        document.querySelectorAll(".slide").forEach(elt => {
+            elt.innerHTML = elt.innerHTML.replace(/\$\$([^$]*)\$\$/gi, '<span class="math">$1</span>');
+
+        });
+        if(wtarget !== undefined){
+            let content = wtarget.document.getElementById("creator-content");
+            content.innerHTML = content.innerHTML.replace(/\$\$([^$]*)\$\$/gi, '<span class="math">$1</span>');
+            content.querySelectorAll(".math").forEach(function(item){
+                var texTxt = item.innerHTML.replace(/\&amp\;/g,"&");
+                // recherche les nombres, décimaux ou pas
+                let nbrgx = /(\d+\.*\d*)/g;
+                // insère des espaces tous les 3 chiffres;
+                texTxt = texTxt.replace(nbrgx, utils.toDecimalFr);
+                try {
+                  katex.render(texTxt, item, {
+                    throwOnError: false,
+                    errorColor: "#FFF",
+                    colorIsTextColor: true
+                  });
+                  utils.removeClass(item,"math");
+                } catch (err) {
+                  item.innerHTML = "<span class='err'>" + err + ' avec '+texTxt + '</span>';
+                };      
+            })
+        }
+        document.querySelectorAll(".math").forEach(function(item) {
+            // transform ascii to Latex
+          //var texTxt = MM.ascii2tex.parse(item.innerHTML);
+        var texTxt = item.innerHTML.replace(/\&amp\;/g,"&");
+          // recherche les nombres, décimaux ou pas
+          let nbrgx = /(\d+\.*\d*)/g;
+          // insère des espaces tous les 3 chiffres;
+          
+          texTxt = texTxt.replace(nbrgx, utils.toDecimalFr);
+          //texTxt = texTxt.replace(/\.(\d{3})(?=(\d+))/g,"$1~");
+          //texTxt = texTxt.replace(/\./g, "{,}");
+          try {
+            katex.render(texTxt, item, { //"\\displaystyle "+
+              throwOnError: false,
+              errorColor: "#FFF",
+              colorIsTextColor: true
+            });
+            utils.removeClass(item,"math");
+          } catch (err) {
+            item.innerHTML = "<span class='err'>" + err + ' avec '+texTxt + '</span>';
+          };
+        });
+      },
+      /**
+       * 
+       * @param {object} someThing json object or array
+       * @returns a clone of the object
+       */
+      clone(someThing){
+          if(someThing === undefined) return false;
+          else if(typeof someThing === "object"){
+              return JSON.parse(JSON.stringify(someThing));
+          } else {
+              return someThing;
+          }
+      },
+      
+    /**
+     * 
+     * @param {Number} value 
+     * @param {Number} digits
+     * 
+     * return {string} number with a fix digits
+     */
+    toDigits(value,digits){
+        let puissance = Number(1+"e"+digits)-1;
+        while(String(value).length < String(puissance).length){
+            value = "0"+value;
+        }
+        return value;
+    }
+}
+var math ={
+    premiers: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599, 601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997, 1009, 1013, 1019, 1021, 1031, 1033, 1039, 1049, 1051, 1061, 1063, 1069, 1087, 1091, 1093, 1097, 1103, 1109, 1117, 1123, 1129, 1151, 1153, 1163, 1171, 1181, 1187, 1193, 1201, 1213, 1217, 1223, 1229, 1231, 1237, 1249, 1259, 1277, 1279, 1283, 1289, 1291, 1297, 1301, 1303, 1307, 1319, 1321, 1327, 1361, 1367, 1373, 1381, 1399, 1409, 1423, 1427, 1429, 1433, 1439, 1447, 1451, 1453, 1459, 1471, 1481, 1483, 1487, 1489, 1493, 1499, 1511, 1523, 1531, 1543, 1549, 1553, 1559, 1567, 1571, 1579, 1583, 1597, 1601, 1607, 1609, 1613, 1619, 1621, 1627, 1637, 1657, 1663, 1667, 1669, 1693, 1697, 1699, 1709, 1721, 1723, 1733, 1741, 1747, 1753, 1759, 1777, 1783, 1787, 1789, 1801, 1811, 1823, 1831, 1847, 1861, 1867, 1871, 1873, 1877, 1879, 1889, 1901, 1907, 1913, 1931, 1933, 1949, 1951, 1973, 1979, 1987, 1993, 1997, 1999],
+    /**
+     * 
+     * @param {float} nb number to be rounded
+     * @param {integer} precision may positiv or negativ
+     */
+    round: function(nb, precision){
+        if(precision === undefined){
+            return Math.round(nb);
+        } else{
+            if(precision < 5)
+                return Number(Math.round(Number(nb+'e'+precision))+'e'+(-precision));
+            else{
+                let z=new Big(nb);
+                return z.round(precision).toFixed();
+            }
+        }
+    },
+    valeurParDefaut: function(valeur, precision) {
+        if(precision === undefined){
+            return Math.floor(valeur);
+        } else
+        return Number(Math.floor(Number(valeur + 'e' + precision)) + 'e' + (-precision));
+      },
+    valeurParExces: function(valeur, precision) {
+        if(precision === undefined){
+            return Math.ceil(valeur);
+        } else
+        return Number(Math.ceil(Number(valeur + 'e' + precision)) + 'e' + (-precision));
+    },
     /**
      *  
      * @param {integer} min relativ
@@ -437,7 +629,7 @@ var utils = {
      * & as exeption => no doble number in the list
      * prime => not a prime
      */
-    aleaInt:function(min,max,...others){ // accepts 2 arguments more
+     aleaInt:function(min,max,...others){ // accepts 2 arguments more
         let qty=1;
         let avoid=[];
         let arrayType=false;
@@ -539,6 +731,18 @@ var utils = {
         }
     },
     /**
+     * return one or the number
+     * @param {Number} value 
+     */
+    unOuNombre(value){
+        value = Number(value);
+        if(Math.round(Math.random())){
+            return 1;
+        } else return value;
+    },
+    
+    /**
+     * tranform a number to a signed number
      * 
      * @param {number} nb 
      * @returns a number with his sign
@@ -549,6 +753,7 @@ var utils = {
         else return nb;
     },
     /**
+     * tranform the number 1 or -1 to + or -
      * 
      * @param {Number} nb 
      * @returns nothing if nb=1, - if nb=-1 the number in other cases
@@ -561,6 +766,7 @@ var utils = {
         else return nb;
     },
     /**
+     * tranform a number to a signed number and 1, -1 or 0 to +, - or ""
      * 
      * @param {Number} nb 
      * @returns a number always with sign (+/-) or only the sign if nb=1 or -1
@@ -574,264 +780,14 @@ var utils = {
     },
     /**
      * needsParenthesis
+     * return a number with parenthesis if the number is negative
+     * 
      * @param {number or string} nb 
      * @returns nb with parenthesis if nb 1st char is -
      */
     nP:function(nb){
         if(String(nb)[0]==="-")return "("+nb+")";
         else return nb;
-    },
-    /**
-     * 
-     * @param {DOM obj or string} element 
-     * Show the selected Tab
-     */
-    showTab:function(element){
-        utils.resetAllTabs();let tab, el;
-        if(element === "none")return;
-        if(typeof element === "string"){
-            tab = element;
-            el = document.querySelector("#header-menu a[numero='#"+element+"']");
-        } else {
-            el = element;
-            tab = element.getAttribute('numero').substr(1);
-        }
-        utils.addClass(el, "is-active");
-        document.getElementById(tab).style.display = "";
-    },
-    showParameters:function(id){
-        let ids = ["paramsdiapo","paramsexos", "paramsinterro", "paramsflashcards", "paramswhogots", "paramsdominos"];//"paramsceinture",
-        if(ids.indexOf(id)<0) return false;
-        // hide all
-        for(let i=0,len=ids.length;i<len;i++){
-            document.getElementById(ids[i]).className = "hidden";
-        }
-        document.getElementById(id).className = "";
-    },
-    resetAllTabs : function(){
-        // fermeture des espaces d'annotation.
-        utils.annotate(false);
-        let tabsButtons = document.querySelectorAll("#header-menu .tabs-menu-link");
-        let contents = document.querySelectorAll(".tabs-content-item");
-        document.getElementById("tab-accueil").display = "none";
-        contents.forEach(element => {
-            element.style.display = "none";
-        });
-        utils.removeClass(document.getElementById("btnaccueil"), "is-active");
-        tabsButtons.forEach(element => {
-            utils.removeClass(element, "is-active");
-        });
-    },
-    toDecimalFr:function(value){
-        let parties = value.split(".");
-        let partieEntiere = parties[0];
-        let partieDecimale = "";
-        if(parties.length>1)partieDecimale = parties[1];
-        if(partieEntiere.length>3){
-            let s = partieEntiere.length%3;
-            partieEntiere = partieEntiere.substring(0,s)+"~"+partieEntiere.substring(s).match(/\d{3}/g).join("~");
-        }
-        if(partieDecimale.length>3){
-            let nbgp = ~~(partieDecimale.length/3);
-            partieDecimale = partieDecimale.match(/\d{3}/g).join("~")+"~"+partieDecimale.substring(nbgp*3);
-        }
-        if(partieDecimale.length){
-            partieDecimale = "{,}"+partieDecimale;
-            }
-        //debug(partieEntiere+partieDecimale);
-        return partieEntiere+partieDecimale;
-    },
-    annotate:function(target,btnId){
-        if(target === false && MM.annotate !== undefined){
-            MM.annotate.destroy();
-            MM.annotate = undefined;
-        } else if(MM.annotate === undefined && _.isString(target)){
-            MM.annotate = new draw(target,btnId);
-        } else if(MM.annotate !== undefined) {
-            MM.annotate.destroy();
-            MM.annotate = undefined;
-        }
-    },
-    /**
-     * 
-     * @param {integer} billets id des billets
-     * @param {boolean} entier true pour générer des montants entiers, false pour des centimes
-     * @param {boolean} tot true pour donner le montant total, false pour donner un montant inférieur
-     */
-    montant:function(billets,entier,tot){
-        let valeursBillets = [5,10,20,50,100];
-        let min=Infinity;
-        let total=0;
-        for(let i=0,len=billets.length;i<len;i++){
-            if(min>valeursBillets[billets[i]])
-                min = valeursBillets[billets[i]];
-            total+=valeursBillets[billets[i]];
-        }
-        if(tot){
-            return total;
-        } else {
-            if(entier){
-                return utils.aleaInt(total-min+1,total);
-            } else {
-                return utils.aleaFloat(total-min+1,total,2);
-        }}
-    },
-    listeBillets:function(billets){
-        let valeursBillets = [5,10,20,50,100];
-        let lesbillets = {5:0,10:0,20:0,50:0,100:0};
-        let txt = "des billets : ";
-        for(let i=0,len=billets.length;i<len;i++){
-             lesbillets[valeursBillets[billets[i]]]++;
-        }
-        for(let val in lesbillets){
-            if(lesbillets[val]>1){
-                txt += lesbillets[val]+" de "+val+" €, ";
-            } else if(lesbillets[val]>0){
-                txt += val+" €, ";
-            }
-        }
-        return txt;
-    },
-    /**
-     * Render the math
-     * @param (dom) wtarget : window reference
-     */
-    mathRender: function(wtarget) {
-        let contents = ["tab-enonce", "tab-corrige", "activityOptions"];
-        contents.forEach(id => {
-            // search for $$ formulas $$ => span / span
-            let content = document.getElementById(id).innerHTML;
-            document.getElementById(id).innerHTML = content.replace(/\$\$([^$]*)\$\$/gi, '<span class="math">$1</span>');
-        });
-        document.querySelectorAll(".slide").forEach(elt => {
-            elt.innerHTML = elt.innerHTML.replace(/\$\$([^$]*)\$\$/gi, '<span class="math">$1</span>');
-
-        });
-        if(wtarget !== undefined){
-            let content = wtarget.document.getElementById("creator-content");
-            content.innerHTML = content.innerHTML.replace(/\$\$([^$]*)\$\$/gi, '<span class="math">$1</span>');
-            content.querySelectorAll(".math").forEach(function(item){
-                var texTxt = item.innerHTML.replace(/\&amp\;/g,"&");
-                // recherche les nombres, décimaux ou pas
-                let nbrgx = /(\d+\.*\d*)/g;
-                // insère des espaces tous les 3 chiffres;
-                texTxt = texTxt.replace(nbrgx, utils.toDecimalFr);
-                try {
-                  katex.render(texTxt, item, {
-                    throwOnError: false,
-                    errorColor: "#FFF",
-                    colorIsTextColor: true
-                  });
-                  utils.removeClass(item,"math");
-                } catch (err) {
-                  item.innerHTML = "<span class='err'>" + err + ' avec '+texTxt + '</span>';
-                };      
-            })
-        }
-        document.querySelectorAll(".math").forEach(function(item) {
-            // transform ascii to Latex
-          //var texTxt = MM.ascii2tex.parse(item.innerHTML);
-        var texTxt = item.innerHTML.replace(/\&amp\;/g,"&");
-          // recherche les nombres, décimaux ou pas
-          let nbrgx = /(\d+\.*\d*)/g;
-          // insère des espaces tous les 3 chiffres;
-          
-          texTxt = texTxt.replace(nbrgx, utils.toDecimalFr);
-          //texTxt = texTxt.replace(/\.(\d{3})(?=(\d+))/g,"$1~");
-          //texTxt = texTxt.replace(/\./g, "{,}");
-          try {
-            katex.render(texTxt, item, { //"\\displaystyle "+
-              throwOnError: false,
-              errorColor: "#FFF",
-              colorIsTextColor: true
-            });
-            utils.removeClass(item,"math");
-          } catch (err) {
-            item.innerHTML = "<span class='err'>" + err + ' avec '+texTxt + '</span>';
-          };
-        });
-      },
-      /**
-       * 
-       * @param {object} someThing json object or array
-       * @returns a clone of the object
-       */
-      clone(someThing){
-          if(someThing === undefined) return false;
-          else if(typeof someThing === "object"){
-              return JSON.parse(JSON.stringify(someThing));
-          } else {
-              return someThing;
-          }
-      },
-      sToMin(sec){
-          sec = Number(sec);
-          let time = "";
-          if(sec>3600){
-            time += ~~(sec/3600) + " h ";
-            sec = sec%3600;
-          }
-          if(sec>60){
-            time += ~~(sec/60) + " min ";
-            sec = sec%60;
-          }
-          return time += sec;
-      },
-    /**
-     * 
-     * @param {Number} value 
-     * @param {Number} digits
-     * 
-     * return {string} number with a fix digits
-     */
-    toDigits(value,digits){
-        let puissance = Number(1+"e"+digits)-1;
-        while(String(value).length < String(puissance).length){
-            value = "0"+value;
-        }
-        return value;
-    },
-    /**
-     * return one or the number
-     * @param {Number} value 
-     */
-    unOuNombre(value){
-        value = Number(value);
-        if(Math.round(Math.random())){
-            return 1;
-        } else return value;
-    }
-}
-var math ={
-    premiers: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599, 601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997, 1009, 1013, 1019, 1021, 1031, 1033, 1039, 1049, 1051, 1061, 1063, 1069, 1087, 1091, 1093, 1097, 1103, 1109, 1117, 1123, 1129, 1151, 1153, 1163, 1171, 1181, 1187, 1193, 1201, 1213, 1217, 1223, 1229, 1231, 1237, 1249, 1259, 1277, 1279, 1283, 1289, 1291, 1297, 1301, 1303, 1307, 1319, 1321, 1327, 1361, 1367, 1373, 1381, 1399, 1409, 1423, 1427, 1429, 1433, 1439, 1447, 1451, 1453, 1459, 1471, 1481, 1483, 1487, 1489, 1493, 1499, 1511, 1523, 1531, 1543, 1549, 1553, 1559, 1567, 1571, 1579, 1583, 1597, 1601, 1607, 1609, 1613, 1619, 1621, 1627, 1637, 1657, 1663, 1667, 1669, 1693, 1697, 1699, 1709, 1721, 1723, 1733, 1741, 1747, 1753, 1759, 1777, 1783, 1787, 1789, 1801, 1811, 1823, 1831, 1847, 1861, 1867, 1871, 1873, 1877, 1879, 1889, 1901, 1907, 1913, 1931, 1933, 1949, 1951, 1973, 1979, 1987, 1993, 1997, 1999],
-    /**
-     * 
-     * @param {float} nb number to be rounded
-     * @param {integer} precision may positiv or negativ
-     */
-    round: function(nb, precision){
-        if(precision === undefined){
-            return Math.round(nb);
-        } else{
-            if(precision < 5)
-                return Number(Math.round(Number(nb+'e'+precision))+'e'+(-precision));
-            else{
-                let z=new Big(nb);
-                return z.round(precision).toFixed();
-            }
-        }
-    },
-    valeurParDefaut: function(valeur, precision) {
-        if(precision === undefined){
-            return Math.floor(valeur);
-        } else
-        return Number(Math.floor(Number(valeur + 'e' + precision)) + 'e' + (-precision));
-      },
-    valeurParExces: function(valeur, precision) {
-        if(precision === undefined){
-            return Math.ceil(valeur);
-        } else
-        return Number(Math.ceil(Number(valeur + 'e' + precision)) + 'e' + (-precision));
     },
     /**
      * donne la liste des produits de 2 facteurs égaux
@@ -918,7 +874,7 @@ var math ={
      */
     nonDiviseur(nb){
         let unnondiviseur=0;
-        do { unnondiviseur = utils.aleaInt(2,nb-1); }
+        do { unnondiviseur = math.aleaInt(2,nb-1); }
         while (nb%unnondiviseur===0)
         return unnondiviseur;
     },
@@ -930,7 +886,7 @@ var math ={
     unDiviseur(nb,notOne=false){
         let diviseurs = math.listeDiviseurs(nb,true);
         if(notOne) diviseurs = _.rest(diviseurs); // on enlève la première valeur qui est 1.
-        return diviseurs[utils.aleaInt(0,diviseurs.length-1)];
+        return diviseurs[math.aleaInt(0,diviseurs.length-1)];
     },
     unpower:function(value){
         let matches = value.match(/(\d*)\^(\d*)/g);
@@ -948,6 +904,19 @@ var math ={
             a.push(nb);
         }
         return a.join("*");
+    },
+    sToMin(sec){
+        sec = Number(sec);
+        let time = "";
+        if(sec>3600){
+          time += ~~(sec/3600) + " h ";
+          sec = sec%3600;
+        }
+        if(sec>60){
+          time += ~~(sec/60) + " min ";
+          sec = sec%60;
+        }
+        return time += sec;
     },
     toTex(string){
         return string.replace(/\*/g, "\\times");
@@ -996,7 +965,7 @@ var math ={
     },
     calc:function(expr,notex){
         let ret;
-        if(notex === undefined || notex===false) ret = Algebrite.run('printlatex('+expr+')');
+        if(notex === undefined || notex===false) ret = Algebrite.run('printlatex('+expr+')').replace(/frac/g,'dfrac');
         else ret = Algebrite.run(expr);
         return ret;
     },
@@ -1085,7 +1054,47 @@ var math ={
     bigDecimal(a,op,b){
         let x = Big(a);
         return eval('x.'+op+'('+b+').toString()');
-    }
+    },
+        /**
+     * 
+     * @param {integer} billets id des billets
+     * @param {boolean} entier true pour générer des montants entiers, false pour des centimes
+     * @param {boolean} tot true pour donner le montant total, false pour donner un montant inférieur
+     */
+         montant:function(billets,entier,tot){
+            let valeursBillets = [5,10,20,50,100];
+            let min=Infinity;
+            let total=0;
+            for(let i=0,len=billets.length;i<len;i++){
+                if(min>valeursBillets[billets[i]])
+                    min = valeursBillets[billets[i]];
+                total+=valeursBillets[billets[i]];
+            }
+            if(tot){
+                return total;
+            } else {
+                if(entier){
+                    return math.aleaInt(total-min+1,total);
+                } else {
+                    return math.aleaFloat(total-min+1,total,2);
+            }}
+        },
+        listeBillets:function(billets){
+            let valeursBillets = [5,10,20,50,100];
+            let lesbillets = {5:0,10:0,20:0,50:0,100:0};
+            let txt = "des billets : ";
+            for(let i=0,len=billets.length;i<len;i++){
+                 lesbillets[valeursBillets[billets[i]]]++;
+            }
+            for(let val in lesbillets){
+                if(lesbillets[val]>1){
+                    txt += lesbillets[val]+" de "+val+" €, ";
+                } else if(lesbillets[val]>0){
+                    txt += val+" €, ";
+                }
+            }
+            return txt;
+        }
 }
 // test de seedrandom
 window.onload = function(){
@@ -1156,6 +1165,8 @@ class cart {
         //à revoir
         this.title = obj.t;
         this.target = obj.c;
+        //
+        MM.slidersNumber += this.target.length;
         this.ordered = obj.o;
         let activitiesNumber = _.size(obj.a);
         let count = 0;
@@ -1218,7 +1229,7 @@ class cart {
         }
         let spans = document.querySelectorAll("#cart"+(this.id)+" div.totaux span");
         //debug(spans);
-        spans[0].innerHTML = utils.sToMin(this.time);
+        spans[0].innerHTML = math.sToMin(this.time);
         spans[1].innerHTML = this.nbq;
         spans[2].innerHTML = this.target;
         this.sortable = new Sortable(dom, {
@@ -3285,9 +3296,9 @@ class activity {
      */
     getOption(){
         if(this.chosenOptions.length === 0 && this.options){
-            return utils.aleaInt(0, this.options.length-1);
+            return math.aleaInt(0, this.options.length-1);
         } else if(this.chosenOptions.length > 0){
-            return this.chosenOptions[utils.aleaInt(0,this.chosenOptions.length-1)];
+            return this.chosenOptions[math.aleaInt(0,this.chosenOptions.length-1)];
         } else return false;
     }
     setMath(content){
@@ -3428,7 +3439,7 @@ class activity {
      */
     getPattern(option){
         if(this.chosenQuestionTypes.length > 0){
-            return this.chosenQuestionTypes[utils.aleaInt(0, this.chosenQuestionTypes.length-1)];
+            return this.chosenQuestionTypes[math.aleaInt(0, this.chosenQuestionTypes.length-1)];
         }
         // no option
         if(option === false)return false;
@@ -3438,13 +3449,13 @@ class activity {
         }
         // no pattern chosen : we choose one
         if(this.chosenQuestions[option].length === 0 && Array.isArray(this.options[option].question)){
-            return utils.aleaInt(0, this.options[option].question.length-1);
+            return math.aleaInt(0, this.options[option].question.length-1);
         } else if(this.chosenQuestions[option].length === 0 && !this.options[option].question && Array.isArray(this.questionPatterns)){
             // no question in option, but global question is an array
-            return utils.aleaInt(0, this.questionPatterns.length-1);
+            return math.aleaInt(0, this.questionPatterns.length-1);
         } else if(this.chosenQuestions[option].length > 0){
             // list of patterns chosen, we pick one
-            return this.chosenQuestions[option][utils.aleaInt(0,this.chosenQuestions[option].length-1)];
+            return this.chosenQuestions[option][math.aleaInt(0,this.chosenQuestions[option].length-1)];
         } else return false;
     }
     /**
@@ -3656,7 +3667,7 @@ class activity {
                     if(this.cAnswer.length === lenQ){
                         this.cAnswer = this.cAnswer[patternNumber]; // same answer index as question index
                     } else { // alea answer
-                        this.cAnswer = this.cAnswer[utils.aleaInt(0,this.cAnswer.length-1)];
+                        this.cAnswer = this.cAnswer[math.aleaInt(0,this.cAnswer.length-1)];
                     }
                     if(this.cValue.length === lenQ){ // same values index as question index
                         this.cValue = this.cValue[patternNumber];
@@ -3693,14 +3704,14 @@ class activity {
                     // var is defined with an array of values
                     // we sort one of them
                     // but it can content some vars value
-                    this.wVars[name] = this.replaceVars(this.wVars[name][utils.aleaInt(0,this.wVars[name].length-1)]);
+                    this.wVars[name] = this.replaceVars(this.wVars[name][math.aleaInt(0,this.wVars[name].length-1)]);
                 } else if(typeof this.wVars[name] === "string" && this.wVars[name].indexOf("_")>-1){
                     // var is defined with a min-max interval within a string
                     var bornes = this.wVars[name].split("_");
                     if(bornes[0].indexOf("d")>-1) {// float case
-                        this.wVars[name] = utils.aleaFloat(Number(bornes[0].substring(1)), Number(bornes[1]), Number(bornes[2]), bornes[3], bornes[4]);
+                        this.wVars[name] = math.aleaFloat(Number(bornes[0].substring(1)), Number(bornes[1]), Number(bornes[2]), bornes[3], bornes[4]);
                     } else { // integer case
-                        this.wVars[name] = utils.aleaInt(Number(bornes[0]), Number(bornes[1]), bornes[2], bornes[3]);                        
+                        this.wVars[name] = math.aleaInt(Number(bornes[0]), Number(bornes[1]), bornes[2], bornes[3]);                        
                     }
                 }
             }
