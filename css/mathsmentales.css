@@ -78,6 +78,16 @@ mark {
 #app-container > #contents{
     flex-grow: 8;
 }
+#figures-container{
+  position:absolute;
+  display:flex;
+  flex-wrap: wrap;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  /*visibility: hidden;*/
+}
 .bold {
   font-weight: bold;
 }

@@ -13,8 +13,8 @@
             "axis":false,
             "boundingbox":[0,10,10,0],
             "content":[
-                ["jessiescript", "A=point(2,2);B=point(8,2);C=point(8,8);D=point(2,8);AB=segment(A,B);BC=segment(B,C);CD=segment(C,D);DA=segment(D,A);"],
-                ["text", [5,1.5,"${:a} ${:unites[:u]}"], {"anchorX":"middle", "fontSize":20}]
+                ["jessiescript", "A1=point(2,2);A2=point(8,2);A3=point(8,8);A4=point(2,8);AB=segment(A1,A2);BC=segment(A2,A3);CD=segment(A3,A4);DA=segment(A4,A1);"],
+                ["text", [5,1.5,"${:a} ${:unites[:u]}"], {"anchorX":"middle","anchorY":"top", "fontSize":20}]
             ]
         },
         "question": "Quelle est l'<b>aire</b> d'un carré de côté $$${:a}\\text{ ${:unites[:u]}}$$ ?",
@@ -28,9 +28,9 @@
             "axis":false,
             "boundingbox":[0,10,10,0],
             "content":[
-                ["jessiescript", "A=point(0.5,0.5);B=point(${0.5+:b},0.5);C=point(${0.5+:b},${0.5+:a});D=point(0.5,${0.5+:a});AB=segment(A,B);BC=segment(B,C);CD=segment(C,D);DA=segment(D,A);"],
+                ["jessiescript", "A1=point(0.5,0.5);A2=point(${0.5+:b},0.5);A3=point(${0.5+:b},${0.5+:a});A4=point(0.5,${0.5+:a});S1=segment(A1,A2);S2=segment(A2,A3);S3=segment(A3,A4);S4=segment(A4,A1);"],
                 ["text", ["${.5+:b/2}",0.5,"${:b} ${:unites[:u]}"], {"anchorX":"middle", "fontSize":20}],
-                ["text", ["${:b}","${.5+:a/2}","${:a} ${:unites[:u]}"], {"anchorX":"left", "fontSize":20}]
+                ["text", ["${:b+1}","${.5+:a/2}","${:a} ${:unites[:u]}"], {"anchorX":"left", "fontSize":20}]
             ]
         },
         "question": "Quelle est l'<b>aire</b> d'un rectangle de côtés $$${:a}\\text{ ${:unites[:u]}}$$ et  $$${:b}\\text{ ${:unites[:u]}}$$?",
@@ -44,7 +44,7 @@
             "axis":false,
             "boundingbox":[0,10,10,0],
             "content":[
-                ["jessiescript","A=point(1,1);B=point(${:a},1);C=point(${:xc},${:h});AB=segment(A,B);AC=segment(A,C);BC=segment(B,C);H=point(${:xc},1);HC=segment(H,C);"]
+                ["jessiescript","A1=point(1,1);A2=point(${:a},1);A3=point(${:xc},${:h});AB=segment(A1,A2);AC=segment(A1,A3);BC=segment(A2,A3);H=point(${:xc},1);HC=segment(H,A3);"]
             ]
         },
         "question":"Quelle est l'<b>aire</b> d'un triangle de côté $$${:a}\\text{ ${:unites[:u]}}$$ et de hauteur $$${:h}\\text{ ${:unites[:u]}}$$ ?",
