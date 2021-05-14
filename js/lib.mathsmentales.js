@@ -19,12 +19,11 @@ String.prototype.minusculesSansAccent = function(){
     }
     return str.toLowerCase();
 }
-Array.prototype.indexOfForArrays = function(search) {
- var searchJson = JSON.stringify(search); // "[3,566,23,79]"
- var arrJson = this.map(JSON.stringify); // ["[2,6,89,45]", "[3,566,23,79]", "[434,677,9,23]"]
-
- return arrJson.indexOf(searchJson);
-};
+/**
+ * Supprime un élément d'un tableau
+ * @param {various} value 
+ * @returns 
+ */
 Array.prototype.removeValue = function(value){
     // the value must be unique
     let index = this.indexOf(value);
@@ -33,6 +32,10 @@ Array.prototype.removeValue = function(value){
         return true;
     } else return false;
 };
+/**
+ * récupère un tableau des clés d'un tableau
+ * @returns keys if array
+ */
 Array.prototype.getKeys = function(){
     let table = [];
     for(let i=0,j=this.length;i<j;i++){
@@ -40,7 +43,11 @@ Array.prototype.getKeys = function(){
     }
     return table;
 }
-// function to shuffle a string
+
+/**
+ * shuffle values of an array
+ * @returns array
+ */
 String.prototype.shuffle = function() {
  return this
    .split("")
@@ -55,15 +62,10 @@ var debug = function(){
 var moisFR = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
 var joursFR = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
 
-// utils
-var modeDebug = true;
 /**
-* function addClass
-* Add a class to a DOM element
-* 
-* @params elt (DOMelt)
-* @params newClass (String) : string of coma separated classnames
-*/
+ * objet contenant des fonctions utiles à MathsMentales
+ */
+var modeDebug = true;
 var utils = {
     baseURL:/^.*\//.exec(window.location.href),
     seed: "sample",
@@ -98,8 +100,8 @@ var utils = {
     /**
      * 
      */
-    checkURL:function(){
-        const vars = utils.getUrlVars();
+    checkURL:function(urlString=false,start=true){
+        const vars = utils.getUrlVars(urlString);
         if(vars.n!== undefined && vars.cd===undefined){ // un niveau à afficher
             library.displayContent(vars.n,true);
             return;
@@ -134,31 +136,42 @@ var utils = {
             utils.checkRadio("beforeSlider",vars.i);
             //MM.setEndType(vars.e);
             utils.checkRadio("endOfSlideRadio",vars.e);
-            MM.onlineState = vars.o==="false"?false:true;
-            if(vars.s)utils.setSeed(vars.s);
+            // Mode online
+            MM.onlineState = vars.o;
+            utils.checkRadio("online",vars.o);
+            // le seed d'aléatorisation est fourni
+            if(vars.a)utils.setSeed(vars.a);
+            // on supprime tous les paniers
             MM.resetCarts();
-            //if(vars.s)MM.slidersNumber = Number(vars.s);
-            //else
-            MM.slidersNumber = 0;// sera alimenté par l'import des carts.
+            // nombre de diaporamas
+            MM.slidersNumber = Number(vars.s);
+            // orientation dans le cas de 2 diapos
             MM.slidersOrientation = vars.so;
+            utils.checkRadio("direction",vars.so);
+            // paramètres des activités des paniers
             let json = JSON.parse(decodeURIComponent(vars.c));
             for(const i in json){
                 MM.carts[i] = new cart(i);
                 MM.carts[i].import(json[i]);
             }
-            if(MM.carts.length > 1){
-                MM.restoreCartsInterface();
+            // on affiche à nouveau les paniers
+            MM.resetInterface();
+            MM.restoreCartsInterface();
+            if(MM.carts[0].activities.length>1 || MM.carts.length>1)
                 MM.showCartInterface();
-                // on attend un peu que les fichiers chargent aussi...
-                // en attendant de trouver une autre méthode qui ne se déclenche qu'à la fin des chargements.
-                setTimeout(()=>{
-                    for(let i=0;i<MM.carts.length;i++){
-                        MM.carts[i].display();
-                    }    
-                },2200);
-            }
+            // on attend un peu que les fichiers chargent aussi...
+            // en attendant de trouver une autre méthode qui ne se déclenche qu'à la fin des chargements.
+            setTimeout(()=>{
+                for(let i=0;i<MM.carts.length;i++){
+                    MM.carts[i].display();
+                }    
+            },2200);
             // il y a des chargements, alors on attend un peu
-            setTimeout(()=>{MM.start()},2000);
+            if(start){
+                setTimeout(()=>{MM.start()},2000);
+            } else {
+                utils.showTab("tab-parameters");
+            }
         } else if(vars.cd !== undefined || vars.parnier !== undefined){ // activité unique importée de MM v1
             // affichage d'un message de redirection
             let alert = utils.create("div",{className:"message",innerHTML:"Ceci est le nouveau MathsMentales, les anciennes adresses ne sont malheureusement plus compatibles.<hr class='center w50'>Vous allez être redirigé vers l'ancienne version de MathsMentales dans 10 s. <a href='javascript:utils.goToOldVersion();'>Go !</a>"});
@@ -166,6 +179,11 @@ var utils = {
             setTimeout(utils.goToOldVersion,10000);
         }
     },
+    /**
+     * Endode les accolades dans une chaine car encodeURIComponent ne le fait pas
+     * @param {String} url a string corresponding an URL
+     * @returns better encoded string
+     */
     superEncodeURI:function(url) {
         var encodedStr = '', encodeChars = ["(", ")","{","}"];
         url = encodeURIComponent(url);
@@ -184,24 +202,37 @@ var utils = {
      * get data form url
      * @returns array of datas from GET vars
      */
-    getUrlVars: function() {
+    getUrlVars: function(urlString) {
+        if(!urlString)urlString = window.location.href;
         var vars = {},
           hash;
-        if(location.href.indexOf("#")>0 && location.href.indexOf("?")<0){ // cas d'une activité MMv1
+        if(urlString.indexOf("#")>0 && urlString.indexOf("?")<0){ // cas d'une activité MMv1
             // cas d'une référence simple à l'exo
             // pour ouvrir l'éditeur sur cet exo
-            let idExo = location.href.substring(location.href.indexOf("#") + 1, location.href.length);
+            let idExo = urlString.substring(urlString.indexOf("#") + 1, urlString.length);
             if(MM1toMM2[idExo].new !== undefined){
                 vars.u = MM1toMM2[idExo].new;
             }
         }
-        var hashes = window.location.href.replace(/\|/g,'/').slice(window.location.href.indexOf('?') + 1).split('&');
+        var hashes = urlString.replace(/\|/g,'/').slice(urlString.indexOf('?') + 1).split('&');
         var len = hashes.length;
         for (var i = 0; i < len; i++) {
           hash = hashes[i].split('=');
           vars[hash[0]] = hash[1];
         }
         return vars;
+    },
+    /**
+     * Donne la date du moment
+     * @returns date en français avec jour, heure etc
+     */
+    getDate(){
+        let ladate = new Date(),
+        lheure = ladate.getHours(),
+        lesminutes = ladate.getMinutes(),
+        lessecondes = ladate.getSeconds(),
+       ladateComplete = joursFR[ladate.getDay()] + " " + ladate.getDate() + " " + moisFR[ladate.getMonth()] + " " + ladate.getFullYear() + " - " + ((lheure < 10) ? "0" + lheure : lheure) + ":" + ((lesminutes < 10) ? "0" + lesminutes : lesminutes) + ":" + ((lessecondes < 10) ? "0" + lessecondes : lessecondes);
+       return ladateComplete;
     },
     /**
      * Create a string of six alphabetic letters
@@ -216,6 +247,10 @@ var utils = {
         }
         return code;
     },
+    /**
+     * Crée un grain pour la génération aléatoire des données
+     * @param {String} value 
+     */
     setSeed(value){
         if(value !== undefined){
             MM.seed = value;
@@ -229,6 +264,13 @@ var utils = {
         }
         utils.initializeAlea(MM.seed);
     },
+    /**
+    * function addClass
+    * Add a class to a DOM element
+    * 
+    * @params elt (DOMelt)
+    * @params newClass (String) : string of coma separated classnames
+    */
     addClass:function(elt,newClass){
         var n=0;
         newClass=newClass.split(",");
@@ -240,6 +282,11 @@ var utils = {
         }
         return n;
     },
+    /**
+     * Récupère la valeur cochée d'un groupe d'input radio
+     * @param {String} name nom DOM du groupe d'input radio
+     * @returns valeur du radio coché
+     */
     getRadioChecked:function(name){
         let radio = document.getElementsByName(name);
         for(let i=0,length=radio.length;i<length;i++){
@@ -249,6 +296,11 @@ var utils = {
         }
         return false;
     },
+    /**
+     * renvoit un nombre si le nombre est sous forme de chaine
+     * @param {String} value number
+     * @returns Number typed number or string
+     */
     numberIfNumber:function(value){
         if(String(Number(value))===value){
             return Number(value);
@@ -276,17 +328,9 @@ var utils = {
         arr.sort(()=>utils.alea()-0.5);
         return arr;
     },
+    
     /**
-     * 
-     * @param {array} array 
-     * @param {string} str
-     */
-    join:function(arr,str){
-        if(!Array.isArray(arr))return false;
-        return arr.join(str);
-    },
-    /**
-     * Création et complétion des infos de tuiles d'accueil
+     * Création et complétion des infos de tuiles de la page d'accueil
      */
     createTuiles(){
         let grille;
@@ -1166,8 +1210,6 @@ class cart {
         //à revoir
         this.title = obj.t;
         this.target = obj.c;
-        //
-        MM.slidersNumber += this.target.length;
         this.ordered = obj.o;
         let activitiesNumber = _.size(obj.a);
         let count = 0;
@@ -2111,7 +2153,7 @@ var MM = {
     seed:"", // String to initialize the randomization
     editedActivity:undefined, // object activity 
     slidersOrientation: "", // if vertical => vertical presentation for 2 sliders
-    onlineState:false, // true if user answers on computer (Cf start and online functions)
+    onlineState:"no", // true if user answers on computer (Cf start and online functions)
     carts:[], // max 4 carts
     steps:[],
     timers:[],
@@ -2125,10 +2167,7 @@ var MM = {
         this.introType = value;
     },
     setOnlineState(value){
-        if(value === "yes")
-            this.onlineState = true;
-        else
-            this.onlineState = false;
+        this.onlineState = value;
     },
     editActivity:function(index){
         MM.editedActivity = MM.carts[MM.selectedCart].activities[index];
@@ -2209,7 +2248,32 @@ var MM = {
             cartsMenu.appendChild(lastButton);
         }
     },
+    /**
+     * fonction qui récupère la liste des activités d'un panier
+     * 
+     * return DOM object
+     */
+    getCartsContent:function(){
+        let div = utils.create("div",{style:"display:flex;"});
+        for(let i=0;i<MM.carts.length;i++){
+            let ul = utils.create("ul",{innerHTML:"<h3>"+MM.carts[i].title+"</h3>"});
+            let acts = MM.carts[i].activities;
+            for(let j=0;j<acts.length;j++){
+                let li = utils.create("li", {innerText:acts[j].title});
+                ul.appendChild(li);
+            }
+            div.appendChild(ul);
+        }
+        return div;
+    },
+    /**
+    * recrée les boutons de sélection de panier en fonction des paniers existants.
+    *
+    */
     restoreCartsInterface:function(){
+        let cartsMenu = document.getElementById('cartsMenu');
+        cartsMenu.innerHTML = `<button onclick="MM.showCart(this.value);" class="tabs-menu-link is-active" value="1" id="button-cart1"><img src="img/cart1.png"></button>
+        <button id="addcart" title="Ajouter un panier" onclick="MM.addCart();"><img src="img/cartadd.png"></button>`;
         for(let i=1;i<this.carts.length;i++){
             let btnnb = i+1;
             let button = utils.create("button",{
@@ -2227,7 +2291,6 @@ var MM = {
                 MM.showCart(value);
             }
             let addcart = document.getElementById('addcart');
-            let cartsMenu = document.getElementById('cartsMenu');
             let lastButton = cartsMenu.removeChild(addcart);
             cartsMenu.appendChild(button);
             if(btnnb < 4){
@@ -2314,8 +2377,8 @@ var MM = {
         }
         enonces.innerHTML="";
         corriges.innerHTML="";
-        //MM.seed = "enonce";
         utils.setSeed();
+        MM.copyURLtoHistoric();
         for(let i=0;i<length;i++){
             for(let kk=0,clen=MM.carts[i].target.length;kk<clen;kk++){
                 let indiceSlide = 0;
@@ -2377,7 +2440,7 @@ var MM = {
                         spanAns.className += " math";
                     }
                     div.appendChild(span);
-                    if(!MM.onlineState){ // include answer
+                    if(MM.onlineState !=="yes"){ // include answer
                         div.appendChild(spanAns);
                     }
                     // insertion du div dans le slide
@@ -2410,7 +2473,7 @@ var MM = {
             }
         }
         utils.mathRender();
-        if(MM.onlineState) { // create inputs for user
+        if(MM.onlineState === "yes") { // create inputs for user
             MM.createUserInputs();
         }
     },
@@ -2492,7 +2555,7 @@ var MM = {
         if(!MM.carts[0].activities.length){
             MM.carts[0].addActivity(MM.editedActivity);
         }
-        if(MM.onlineState){
+        if(MM.onlineState === "yes"){
             MM.userAnswers = [];
             // security there should not be more than 1 cart for the online use
             if(MM.carts.length > 1){
@@ -2533,7 +2596,7 @@ var MM = {
             so:MM.slidersOrientation, // orientation en cas de 2 sliders
             c:utils.superEncodeURI(JSON.stringify(carts)) // encode également les accolades
         };
-        if(document.getElementById("aleaInURL").checked)params.s = MM.seed;
+        if(document.getElementById("aleaInURL").checked)params.a = MM.seed;
         input.value = this.setURL(params);
         // on affiche (furtivement) le input pour que son contenun puisse être sélectionné.
         input.className = "";
@@ -2545,6 +2608,32 @@ var MM = {
         document.querySelector(".button--inverse .tooltiptext").innerHTML = "Copié !";
         setTimeout(()=>document.querySelector(".button--inverse .tooltiptext").innerHTML = message,2500);
     },
+    copyURLtoHistoric(){
+        let carts = this.export();
+        let params = {
+            i:MM.introType,
+            e:MM.endType,
+            o:MM.onlineState,
+            s:MM.slidersNumber, // nombre de slides
+            a:MM.seed,
+            so:MM.slidersOrientation, // orientation en cas de 2 sliders
+            c:utils.superEncodeURI(JSON.stringify(carts)) // encode également les accolades
+        };
+        let url = this.setURL(params);
+        let li = utils.create("li");
+        let span = utils.create("span", {innerText:"Panier du "+utils.getDate()+": "});
+        li.appendChild(span);
+        let a = utils.create("a",{href:url,innerText:"🎯 lien direct"});
+        li.appendChild(a);
+        let button = `
+        <span class="pointer" data-url="${url}" onclick="utils.checkURL(this.dataset['url'],false)">
+            🛠 éditer
+        </span>
+        `;
+        li.innerHTML += button;
+        li.appendChild(this.getCartsContent());
+        document.querySelector("#tab-historique ol").appendChild(li);
+    },
     getQR(){
         let carts = this.export();
         let params = {
@@ -2553,7 +2642,7 @@ var MM = {
             o:MM.onlineState,
             s:MM.slidersNumber, // nombre de slides
             so:MM.slidersOrientation, // orientation en cas de 2 sliders
-            c:JSON.stringify(carts)
+            c:utils.superEncodeURI(JSON.stringify(carts)) // encode tout
         };
         if(document.getElementById("aleaInURL").checked)params.s = MM.seed;
         let url = this.setURL(params);
@@ -2578,7 +2667,7 @@ var MM = {
                 size: 200
             });
         }
-        shorter.open("get","getshort.php?url="+utils.superEncodeURI(url));
+        shorter.open("get","getshort.php?url="+url);
         shorter.send();
     },
     export(){
@@ -2698,7 +2787,7 @@ var MM = {
         let nb = MM.slidersNumber;
         let container = document.getElementById("slideshow");
         container.innerHTML = "";
-        if(MM.slidersOrientation === "vertical")container.className = "hidden vertical";
+        if(MM.slidersOrientation === "v")container.className = "hidden vertical";
         else container.className = "hidden";
         for(let i=0;i<nb;i++){
             let div = document.createElement("div");
@@ -2726,7 +2815,7 @@ var MM = {
     },
     showSlideShows:function(){
         utils.removeClass(document.getElementById("slideshow-container"),"hidden");
-        if(MM.onlineState){
+        if(MM.onlineState === "yes"){
             document.getElementById("userAnswer0").focus();
         }
         utils.addClass(document.getElementById("app-container"), "hidden");
@@ -2808,7 +2897,7 @@ var MM = {
      * @param {integer} id du slide (start to 1)
      */
     nextSlide:function(id){
-        if(MM.onlineState){ // save answer
+        if(MM.onlineState === "yes"){ // save answer
             MM.userAnswers[MM.steps[id].step]=document.getElementById("userAnswer"+(MM.steps[id].step)).value;
         }
         let step = MM.steps[id].nextStep();
@@ -2824,7 +2913,7 @@ var MM = {
             utils.removeClass(slide, "hidden");
             if(MM.figs[id+"-"+step] !== undefined)
                 MM.figs[id+"-"+step].display();
-            if(MM.onlineState){
+            if(MM.onlineState === "yes"){
                 document.getElementById("userAnswer"+step).focus();
             }
         } else {
@@ -2847,7 +2936,7 @@ var MM = {
         if(ended){
             MM.hideSlideshows();
             // correction si online
-            if(MM.onlineState){
+            if(MM.onlineState === "yes"){
                 let score = 0;
                 let div = document.createElement("div");
                 let ol = document.createElement("ol");
@@ -2929,6 +3018,12 @@ var MM = {
             }
         }
     },
+    /**
+     * déclenché par les boutons radio
+     * règle l'affichage des disposition dans la fenêtre de paramétrage
+     * et indique aux paniers où s'afficher
+     * @param {integer} value Nombre de diaporamas à afficher
+     */
     setDispositionEnonce:function(value){
         value = Number(value);
         MM.slidersNumber = value;
@@ -3011,10 +3106,10 @@ var MM = {
     },
     setDispositionDoubleEnonce:function(option){
         if(option === "h"){
-            MM.slidersOrientation = "horizontal";
+            MM.slidersOrientation = "h";
             document.getElementById("screen-division").className = "";
         } else {
-            MM.slidersOrientation = "vertical";
+            MM.slidersOrientation = "v";
             document.getElementById("screen-division").className = "vertical";
             document.querySelector("input[name='direction'][value='v']").checked = true;
         }
@@ -3285,7 +3380,7 @@ class activity {
      */
     import(obj){
         /* load */
-        let regexp = /(\d*|T)/;// le fichier commence par un nombre ou un T pour la terminale
+        let regexp = /(^[\d*TG])/;// le fichier commence par un nombre ou un T pour la terminale
         let level = regexp.exec(obj.i)[0];
         let url = "N"+level+"/"+obj.i+".json";
         library.import(this,url,obj); // synchrone, so no problem

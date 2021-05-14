@@ -10,8 +10,8 @@
         "name":"avec racine carré",
         "vars":{"a":"-3_3_2_^&,0","p":"1_3","cx":"0_3","x":"${:lettres[:cx]}","f1":"\\sqrt{${:x}${math.signedNumber(:a[0])}}","f2":"${:x}${:p>1?'^'+:p:''}${math.signedNumber(:a[1])}"},
         "question": "${:x}\\in\\rbrack${(-:a[0])};+\\infty\\lbrack, \\left(${:f1}\\left(${:f2}\\right)\\right)'",
-        "answer":":question=\\color{red}{${math.calc('d(sqrt('+:x+'('+:a[0]+'))*('+:x+'^'+:p+'))')}}",
-        "value":"${math.calc('d(sqrt('+:x+'('+:a[0]+'))*('+:x+'^'+:p+'))')}"
+        "answer":":question=\\color{red}{\\dfrac{${:x}${:p>1?'^'+:p:''}${math.signedNumber(:a[1])}}{2\\sqrt{${:x}${math.signedNumber(:a[0])}}}+${:p==1?''::p==2?'2'+:x:'3'+:x+'^2'}${:f1}}",
+        "value":"${math.calc('d(sqrt('+:x+'+('+:a[0]+'))*('+:x+'^'+:p+'+('+:a[1]+')))')}"
     },{
         "name":"avec inverse",
         "vars":{"a":"-3_3","p":"1_3","cx":"0_3","x":"${:lettres[:cx]}","f":"${:x}${:p>1?'^'+:p:''}${math.signedNumber(:a)}"},
