@@ -14,6 +14,17 @@ mark {
 .tabs-menu a, #btnaccueil, .pointer{
   cursor: pointer;
 }
+.underline{
+  text-decoration: underline;
+}
+#tab-historique ul {
+	background-color: #EDEDED;
+	margin-right: 1em;
+	border-radius: 5pt;
+	border: 1px solid black;
+	padding-right: 0.5em;
+	padding-bottom: 0.5em;
+}
 #searchLevels label {
   margin-left: 0.3rem;
   margin-right: 0.5rem;

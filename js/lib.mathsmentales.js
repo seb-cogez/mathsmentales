@@ -2256,7 +2256,7 @@ var MM = {
     getCartsContent:function(){
         let div = utils.create("div",{style:"display:flex;"});
         for(let i=0;i<MM.carts.length;i++){
-            let ul = utils.create("ul",{innerHTML:"<h3>"+MM.carts[i].title+"</h3>"});
+            let ul = utils.create("ul",{innerHTML:"<span class='bold'>"+MM.carts[i].title+"</span>"});
             let acts = MM.carts[i].activities;
             for(let j=0;j<acts.length;j++){
                 let li = utils.create("li", {innerText:acts[j].title});
@@ -2621,18 +2621,18 @@ var MM = {
         };
         let url = this.setURL(params);
         let li = utils.create("li");
-        let span = utils.create("span", {innerText:"Panier du "+utils.getDate()+": "});
+        let span = utils.create("span", {innerText:"Panier du "+utils.getDate()+": ",className:"bold"});
         li.appendChild(span);
         let a = utils.create("a",{href:url,innerText:"🎯 lien direct"});
         li.appendChild(a);
         let button = `
-        <span class="pointer" data-url="${url}" onclick="utils.checkURL(this.dataset['url'],false)">
+        <span class="pointer underline" data-url="${url}" onclick="utils.checkURL(this.dataset['url'],false)">
             🛠 éditer
         </span>
         `;
         li.innerHTML += button;
         li.appendChild(this.getCartsContent());
-        document.querySelector("#tab-historique ol").appendChild(li);
+        document.querySelector("#tab-historique ol").prepend(li);
     },
     getQR(){
         let carts = this.export();
