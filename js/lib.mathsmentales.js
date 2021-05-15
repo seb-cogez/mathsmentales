@@ -131,7 +131,8 @@ var utils = {
             document.getElementById("tab-accueil").appendChild(alert);
             setTimeout(()=>{
                 let div=document.getElementById('messageinfo');
-                div.parentNode.removeChild(div)},3000);
+                div.parentNode.removeChild(div)
+            },3000);
             //MM.setIntroType(vars.i);
             utils.checkRadio("beforeSlider",vars.i);
             //MM.setEndType(vars.e);
@@ -152,7 +153,7 @@ var utils = {
             let json = JSON.parse(decodeURIComponent(vars.c));
             for(const i in json){
                 MM.carts[i] = new cart(i);
-                MM.carts[i].import(json[i]);
+                MM.carts[i].import(json[i],start);
             }
             // on affiche à nouveau les paniers
             MM.resetInterface();
@@ -161,15 +162,13 @@ var utils = {
                 MM.showCartInterface();
             // on attend un peu que les fichiers chargent aussi...
             // en attendant de trouver une autre méthode qui ne se déclenche qu'à la fin des chargements.
-            setTimeout(()=>{
+            /*setTimeout(()=>{
                 for(let i=0;i<MM.carts.length;i++){
                     MM.carts[i].display();
                 }    
-            },2200);
+            },2200);*/
             // il y a des chargements, alors on attend un peu
-            if(start){
-                setTimeout(()=>{MM.start()},2000);
-            } else {
+            if(!start) {
                 utils.showTab("tab-parameters");
             }
         } else if(vars.cd !== undefined || vars.parnier !== undefined){ // activité unique importée de MM v1
@@ -550,7 +549,7 @@ var utils = {
      * @param (dom) wtarget : window reference
      */
     mathRender: function(wtarget) {
-        let contents = ["tab-enonce", "tab-corrige", "activityOptions"];
+        let contents = ["tab-enonce", "tab-corrige", "activityOptions", "activityDescription"];
         contents.forEach(id => {
             // search for $$ formulas $$ => span / span
             let content = document.getElementById(id).innerHTML;
@@ -1191,6 +1190,7 @@ class cart {
         this.nbq = 0;
         this.time = 0;
         this.title = "Diapo "+(id+1);
+        this.loaded = false;
     }
     export(){
         let activities={};
@@ -1206,22 +1206,32 @@ class cart {
         };
     }
     // TODO : à travailler
-    import(obj){
+    import(obj,start=false){
         //à revoir
         this.title = obj.t;
         this.target = obj.c;
         this.ordered = obj.o;
         let activitiesNumber = _.size(obj.a);
         let count = 0;
-        // activités
+        // activités, utilise Promise
+        let activities = [];
         for(const i in obj.a){
-            this.activities[i] = new activity({'id':obj.a[i].i});
-            this.activities[i].import(obj.a[i]);
+            activities.push(activity.import(obj.a[i],i));
             count++;
             if(activitiesNumber === count){
                 MM.editedActivity = this.activities[i];
             }
         }
+        Promise.all(activities).then(data=>{
+            data.forEach((table)=>{
+                this.activities[table[0]] = table[1];
+            });
+            this.loaded = true;
+            // on crée l'affichage du panier chargé
+            this.display();
+            if(start)
+                MM.checkLoadedCarts();
+        }).catch(err=>{debug("Pas possible de charger toutes les activités",err)});
     }
     addActivity(obj){
         this.editedActivityId = -1;
@@ -1498,6 +1508,7 @@ class Figure {
         this.grid = obj.grid;
         this.id = id;
         this.size = size;//[w,h]
+        this.imgSrc = obj.imgSrc||false;
         this.figure = undefined;
         this.displayed = false;
         this.create(target);
@@ -1524,6 +1535,25 @@ class Figure {
             destination.appendChild(div);
         }
     }
+    /**
+     * Crée une copie de la figure dans une nouvelle instance
+     * @param {Figure} figure instance d'une figure
+     * @returns false si figure n'est pas une instance de figure, sinon la nouvelle instance
+     */
+    static copyFig(figure, target){
+        if(!figure instanceof Figure){
+            return false;
+        }
+        return new this(
+                figure,
+                figure.id,
+                target,
+                figure.size
+            );
+    }
+    /**
+     * Affiche / cache le graphique dans le corrigé
+     */
     toggle(){
         let elt;
         if(this.type ==="chart")
@@ -1538,6 +1568,11 @@ class Figure {
             utils.removeClass(elt,"visible");
         }
     }
+    /**
+     * Crée la figure
+     * @param {window object} destination 
+     * @returns nothing if displayed yet
+     */
     display(destination){
         if(this.displayed) return;
         else this.displayed = true;
@@ -2365,6 +2400,19 @@ var MM = {
         document.getElementById("addToCart").className = "";
         document.getElementById("removeFromCart").className = "hidden";
     },
+    /**
+     * regarde si tous les paniers sont chargés
+     * si oui, on lance le diaporama.
+     */
+    checkLoadedCarts(){
+        let loaded = true;
+        for(cart of this.carts){
+            if(!cart.loaded)
+                loaded = false;
+        }
+        if(loaded)
+            this.start();
+    },
     populateQuestionsAndAnswers(withAnswer){
         if(withAnswer=== undefined)withAnswer = true;
         MM.figs = {};MM.steps=[];MM.timers=[];MM.memory={};
@@ -2488,12 +2536,8 @@ var MM = {
             for(let j=0,lenq=activity.questions.length;j<lenq;j++){
                 let element = document.getElementById("slide"+slider+"-"+slide);
                 let span = document.createElement("span");
-                let input = document.createElement("INPUT");
-                input.type = "text";
-                input.id = "userAnswer"+slide;
+                let input = utils.create("INPUT",{type:"text",id:"userAnswer"+slide,className:"inputUser",pattern:"[\dxsqrt\/\*+-^%]+"});
                 input.dataset.id = j;
-                input.className = "inputUser";
-                input.pattern = "[\dxsqrt\/\*+-^%]+"
                 if(activity.samples[j]!== undefined)
                     input.placeholder = "ex. : "+activity.samples[j];
                 else
@@ -2840,8 +2884,15 @@ var MM = {
             utils.showTab("tab-enonce");
         }
     },
+    /**
+     * Montre la réponse si l'une est indiquée (ne l'est pas pour un élève)
+     * @param {Integer} id id du slide où afficher la réponse
+     * @returns nothing
+     */
     showTheAnswer(id){
         let answerToShow = document.querySelector("#slide"+id+"-"+MM.steps[id].step+" .answerInSlide");
+        
+        if(!answerToShow)return;
         if(answerToShow.className.indexOf("hidden")>-1){
             MM.timers[id].pause();
             utils.removeClass(answerToShow, "hidden");
@@ -3138,23 +3189,19 @@ var library = {
             utils.setHistory("Exercice",{"u":url});
             this.open(json);
         }
-        reader.open("get", "library/"+url, true);
+        reader.open("get", "library/"+url);
         reader.send();
     },
-    import:function(objact,url,actparams,last=false){
+    import:function(url){
+        return new Promise((resolve,reject)=>{
         let reader = new XMLHttpRequest();
         reader.onload = function(){
-            let json = JSON.parse(reader.responseText);
-            let obj = objact;
-            obj.setParams(json);
-            obj.chosenOptions = actparams.o;
-            obj.chosenQuestionTypes = actparams.p;
-            obj.chosenQuestions = actparams.q;
-            obj.tempo = actparams.t;
-            obj.nbq = actparams.n;
+            resolve(JSON.parse(reader.responseText));
         }
-        reader.open("get", "library/"+url, true);
+        reader.onerror = err=>{reject(err)};
+        reader.open("get", "library/"+url);
         reader.send();
+        })
     },
     openContents:function(){
         let reader = new XMLHttpRequest();
@@ -3376,14 +3423,26 @@ class activity {
         };
     }
     /**
-     * import datas
+     * import datas et crée l'objet activité à partir d'un json
+     * appelé par l'import de l'activité (utilise Promises)
+     * 
+     * @param (JSON) obj
+     * @param (String) id : id de destination de l'activité
      */
-    import(obj){
+    static import(obj,id){
         /* load */
         let regexp = /(^[\d*TG])/;// le fichier commence par un nombre ou un T pour la terminale
         let level = regexp.exec(obj.i)[0];
         let url = "N"+level+"/"+obj.i+".json";
-        library.import(this,url,obj); // synchrone, so no problem
+        return library.import(url).then((json)=>{
+            let act = new this(json);
+            act.chosenOptions = obj.o;
+            act.chosenQuestionTypes = obj.p;
+            act.chosenQuestions = obj.q;
+            act.tempo = obj.t;
+            act.nbq = obj.n;
+            return [id,act];
+        },err=>{debug(err)});
     }
     /**
      * getOption
