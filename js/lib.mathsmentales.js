@@ -132,7 +132,8 @@ var utils = {
             if(vars.o === "yes" && !edit){
                 // cas d'un truc online : message à valider !
                 start = false;
-                alert.innerHTML += `<button onclick="utils.closeMessage('messageinfo');MM.checkLoadedCarts()">Commencer !
+                alert.innerHTML += `<br><br>
+                <button onclick="utils.closeMessage('messageinfo');MM.checkLoadedCarts()"> Commencer ! 
                 </button>`;
             } else {
                 setTimeout(()=>{
@@ -172,7 +173,7 @@ var utils = {
             if(edit) {
                 utils.showTab("tab-parameters");
             }
-        } else if(vars.cd !== undefined || vars.parnier !== undefined){ // activité unique importée de MM v1
+        } else if(vars.cd !== undefined || vars.panier !== undefined){ // activité unique importée de MM v1
             // affichage d'un message de redirection
             let alert = utils.create("div",{className:"message",innerHTML:"Ceci est le nouveau MathsMentales, les anciennes adresses ne sont malheureusement plus compatibles.<hr class='center w50'>Vous allez être redirigé vers l'ancienne version de MathsMentales dans 10 s. <a href='javascript:utils.goToOldVersion();'>Go !</a>"});
             document.getElementById("tab-accueil").appendChild(alert);
@@ -1682,9 +1683,11 @@ class timer {
         this.stop(); // just in case;
         if(this.ended) return false;
         this.break = false;
-        let btnPause = document.querySelectorAll("#slider"+this.id+" .slider-nav img")[1];
-        btnPause.src="img/slider-pause.png";
-        utils.removeClass(btnPause,"blink_me");
+        if(MM.onlineState==="no"){
+            let btnPause = document.querySelectorAll("#slider"+this.id+" .slider-nav img")[1];
+            btnPause.src="img/slider-pause.png";
+            utils.removeClass(btnPause,"blink_me");
+        }
         if(id>-1){
             this.timeLeft = this.durations[id]*1000;
             this.durationId = id;
@@ -2900,11 +2903,14 @@ var MM = {
             if(nb === 1)div.className = "slider-1";
             else if(nb===2)div.className = "slider-2";
             else div.className = "slider-34";
-            div.innerHTML = `<div class="slider-head"><div class="slider-nav">
-            <button title="Arrêter le diaporama" onclick="MM.timers[${i}].end()"><img src="img/slider-stop.png" /></button>
-            <button title="Mettre le diapo en pause" onclick="MM.timers[${i}].pause()"><img src="img/slider-pause.png" /></button>
-            <button title="Montrer la réponse" onclick="MM.showTheAnswer(${i});"><img src="img/slider-solution.png" /></button>
-            <button title="Passer la diapo" onclick="MM.nextSlide(${i});"><img src="img/slider-next.png" /></button>
+            let innerH = `<div class="slider-head"><div class="slider-nav">
+            <button title="Arrêter le diaporama" onclick="MM.timers[${i}].end()"><img src="img/slider-stop.png" /></button>`;
+            if(MM.onlineState==="no"){
+                // on crée les boutons de pause et montrer réponse si on n'est pas en mode online
+                innerH += `<button title="Mettre le diapo en pause" onclick="MM.timers[${i}].pause()"><img src="img/slider-pause.png" /></button>
+                <button title="Montrer la réponse" onclick="MM.showTheAnswer(${i});"><img src="img/slider-solution.png" /></button>`;
+            }
+            innerH += `<button title="Passer la diapo" onclick="MM.nextSlide(${i});"><img src="img/slider-next.png" /></button>
             </div>
             <div class="slider-title"></div>
             <div class="slider-chrono"><progress class="progress is-link is-large" value="0" max="100"></progress></div>
@@ -2914,6 +2920,7 @@ var MM = {
                 <span class="zoom-A1">A</span>
             </div></div>
             <div class="steps-container"></div>`;
+            div.innerHTML = innerH;
             container.appendChild(div);
             MM.zooms["zs"+i] = new Zoom("zs"+i,"#slider"+i+" .slide");
         }
@@ -2939,7 +2946,13 @@ var MM = {
         utils.addClass(document.getElementById("slideshow-container"),"hidden");
         utils.removeClass(document.getElementById("app-container"), "hidden");
         let whatToDo = utils.getRadioChecked("endOfSlideRadio");
-        if(whatToDo === "correction"){
+        if(MM.onlineState === "yes"){
+            // on affiche un message de fin qui attend une validation
+            let alert = utils.create("div",{id:"messagefin",className:"message",innerHTML:`L'activité MathsMentales est terminée.<br>Pour consulter les résultats, cliquer sur le bouton ci-dessous.<br><br>
+            <button onclick="utils.closeMessage('messagefin');utils.showTab('tab-corrige');"> Voir le corrigé 
+            </button>`});
+            document.body.appendChild(alert);
+        } else if(whatToDo === "correction"){
             utils.showTab("tab-corrige");
         } else if(whatToDo === "list"){
             utils.showTab("tab-enonce");
@@ -3025,7 +3038,8 @@ var MM = {
             utils.removeClass(slide, "hidden");
             if(MM.figs[id+"-"+step] !== undefined)
                 MM.figs[id+"-"+step].display();
-            if(MM.onlineState === "yes"){
+            if(MM.onlineState === "yes" && !MM.touched){
+                // on met le focus dans le champ seulement si on est online et pas sur tablette/smartphone
                 document.getElementById("userAnswer"+step).focus();
             }
         } else {
@@ -3046,6 +3060,7 @@ var MM = {
                 ended = false;
         }
         if(ended){
+            // tous les slides sont terminés
             MM.hideSlideshows();
             // correction si online
             if(MM.onlineState === "yes"){
@@ -3054,6 +3069,7 @@ var MM = {
                 let ol = document.createElement("ol");
                 ol.innerHTML = "<b>Tes réponses</b>";
                 let ia = 0;
+                // correction
                 for(let indexA=0,lenA=MM.carts[0].activities.length;indexA<lenA;indexA++){
                     for(let indexQ=0,lenQ=MM.carts[0].activities[indexA].questions.length;indexQ<lenQ;indexQ++){
                         let li = document.createElement("li");
