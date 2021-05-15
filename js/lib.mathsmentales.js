@@ -100,7 +100,7 @@ var utils = {
     /**
      * 
      */
-    checkURL:function(urlString=false,start=true){
+    checkURL:function(urlString=false,start=true,edit=false){
         const vars = utils.getUrlVars(urlString);
         if(vars.n!== undefined && vars.cd===undefined){ // un niveau à afficher
             library.displayContent(vars.n,true);
@@ -127,21 +127,30 @@ var utils = {
                 setTimeout(utils.goToOldVersion,10000);
             }
         } else if(vars.c!==undefined){ // une activité MM v2 à lancer
-            let alert = utils.create("div",{id:'messageinfo',className:"message",innerHTML:"L'activité à laquelle vous accédez va démarrer dans 2 secondes.<br>Merci d'utiliser MathsMentales !"});
+            let alert = utils.create("div",{id:'messageinfo',className:"message",innerHTML:"Chargement de l'activité MathsMentales.<br>Merci pour votre visite."});
             document.getElementById("tab-accueil").appendChild(alert);
-            setTimeout(()=>{
-                let div=document.getElementById('messageinfo');
-                div.parentNode.removeChild(div)
-            },3000);
-            //MM.setIntroType(vars.i);
+            if(vars.o === "yes" && !edit){
+                // cas d'un truc online : message à valider !
+                start = false;
+                alert.innerHTML += `<button onclick="utils.closeMessage('messageinfo');MM.checkLoadedCarts()">Commencer !
+                </button>`;
+            } else {
+                setTimeout(()=>{
+                    utils.closeMessage('messageinfo');
+                },3000);
+            }
+            // indique quoi faire avant le slide
             utils.checkRadio("beforeSlider",vars.i);
-            //MM.setEndType(vars.e);
+            // indique quoi faire après le slide
             utils.checkRadio("endOfSlideRadio",vars.e);
             // Mode online
             MM.onlineState = vars.o;
             utils.checkRadio("online",vars.o);
-            // le seed d'aléatorisation est fourni
-            if(vars.a)utils.setSeed(vars.a);
+            // le seed d'aléatorisation est fourni et on n'est pas en mode online
+            if((vars.a && MM.onlineState === "no") || edit)
+                utils.setSeed(vars.a);
+            else if(MM.onlineState=="yes")
+                utils.setSeed(utils.seedGenerator());
             // on supprime tous les paniers
             MM.resetCarts();
             // nombre de diaporamas
@@ -160,15 +169,7 @@ var utils = {
             MM.restoreCartsInterface();
             if(MM.carts[0].activities.length>1 || MM.carts.length>1)
                 MM.showCartInterface();
-            // on attend un peu que les fichiers chargent aussi...
-            // en attendant de trouver une autre méthode qui ne se déclenche qu'à la fin des chargements.
-            /*setTimeout(()=>{
-                for(let i=0;i<MM.carts.length;i++){
-                    MM.carts[i].display();
-                }    
-            },2200);*/
-            // il y a des chargements, alors on attend un peu
-            if(!start) {
+            if(edit) {
                 utils.showTab("tab-parameters");
             }
         } else if(vars.cd !== undefined || vars.parnier !== undefined){ // activité unique importée de MM v1
@@ -350,6 +351,10 @@ var utils = {
                 setContent(ordre[o][i],MM.content[ordre[o][i]]);
             }
         }    
+    },
+    closeMessage(id){
+        let div=document.getElementById(id);
+        div.parentNode.removeChild(div)
     },
     /**
      * Création des checkbox pour sélectionner les niveaux dans lesquels chercher.
@@ -1170,6 +1175,9 @@ window.onload = function(){
     // load scratchblocks french translation
     // TODO : à changer au moment de l'utilisation de scratchblocks
     // doesn't work on local file :( with Chrome
+    if(window.localStorage){
+        document.querySelector("#tab-historique ol").innerHTML = localStorage.getItem("history");
+    }
     /*let reader = new XMLHttpRequest();
     reader.onload = function(){
         let json = JSON.parse(reader.responseText);
@@ -1205,33 +1213,49 @@ class cart {
             o:this.ordered
         };
     }
-    // TODO : à travailler
+    /**
+     * Importe un panier et toutes ses activités
+     * @param {json} obj objet importé d'un exo téléchargé
+     * @param {Boolean} start if true, will make start slideshow when all is ready
+     */
     import(obj,start=false){
         //à revoir
         this.title = obj.t;
         this.target = obj.c;
         this.ordered = obj.o;
-        let activitiesNumber = _.size(obj.a);
-        let count = 0;
         // activités, utilise Promise
         let activities = [];
         for(const i in obj.a){
             activities.push(activity.import(obj.a[i],i));
-            count++;
-            if(activitiesNumber === count){
-                MM.editedActivity = this.activities[i];
-            }
         }
         Promise.all(activities).then(data=>{
             data.forEach((table)=>{
                 this.activities[table[0]] = table[1];
             });
+            MM.editedActivity = this.activities[activities.length-1];
             this.loaded = true;
             // on crée l'affichage du panier chargé
             this.display();
             if(start)
                 MM.checkLoadedCarts();
-        }).catch(err=>{debug("Pas possible de charger toutes les activités",err)});
+            // on affiche l'activité si celle-ci est l'unique
+            else if(MM.carts[0].activities.length===1 && MM.carts.length===1){
+                MM.editedActivity.display();
+            }
+        }).catch(err=>{
+            let alert = utils.create(
+                "div",
+                {
+                    id:"messageerreur",
+                    className:"message",
+                    innerHTML:"Impossible de charger tous les exercices :(<br>"+err
+                });
+                document.getElementById("tab-accueil").appendChild(alert);
+                setTimeout(()=>{
+                    let div=document.getElementById('messageerreur');
+                    div.parentNode.removeChild(div)
+                },3000);
+            });
     }
     addActivity(obj){
         this.editedActivityId = -1;
@@ -1281,7 +1305,6 @@ class cart {
             dom.appendChild(li);
         }
         let spans = document.querySelectorAll("#cart"+(this.id)+" div.totaux span");
-        //debug(spans);
         spans[0].innerHTML = math.sToMin(this.time);
         spans[1].innerHTML = this.nbq;
         spans[2].innerHTML = this.target;
@@ -2406,8 +2429,8 @@ var MM = {
      */
     checkLoadedCarts(){
         let loaded = true;
-        for(cart of this.carts){
-            if(!cart.loaded)
+        for(const panier of this.carts){
+            if(!panier.loaded)
                 loaded = false;
         }
         if(loaded)
@@ -2426,7 +2449,7 @@ var MM = {
         enonces.innerHTML="";
         corriges.innerHTML="";
         utils.setSeed();
-        MM.copyURLtoHistoric();
+        MM.copyURLtoHistory();
         for(let i=0;i<length;i++){
             for(let kk=0,clen=MM.carts[i].target.length;kk<clen;kk++){
                 let indiceSlide = 0;
@@ -2488,7 +2511,8 @@ var MM = {
                         spanAns.className += " math";
                     }
                     div.appendChild(span);
-                    if(MM.onlineState !=="yes"){ // include answer
+                    if(MM.onlineState !=="yes"){
+                        // include answer if not online state
                         div.appendChild(spanAns);
                     }
                     // insertion du div dans le slide
@@ -2652,7 +2676,7 @@ var MM = {
         document.querySelector(".button--inverse .tooltiptext").innerHTML = "Copié !";
         setTimeout(()=>document.querySelector(".button--inverse .tooltiptext").innerHTML = message,2500);
     },
-    copyURLtoHistoric(){
+    copyURLtoHistory(){
         let carts = this.export();
         let params = {
             i:MM.introType,
@@ -2670,13 +2694,44 @@ var MM = {
         let a = utils.create("a",{href:url,innerText:"🎯 lien direct"});
         li.appendChild(a);
         let button = `
-        <span class="pointer underline" data-url="${url}" onclick="utils.checkURL(this.dataset['url'],false)">
+        <span class="pointer underline" data-url="${url}" onclick="utils.checkURL(this.dataset['url'],false,true)">
             🛠 éditer
         </span>
+        <span class="pointer underline" onclick="MM.removeFromHistory(this.parentNode)">❌ Supprimer</span>
         `;
         li.innerHTML += button;
         li.appendChild(this.getCartsContent());
         document.querySelector("#tab-historique ol").prepend(li);
+        if(window.localStorage){
+            localStorage.setItem("history",document.querySelector("#tab-historique ol").innerHTML);
+        }
+    },
+    /**
+     * Enlève un élément du DOM de l'historique et enregistre localement au cas où.
+     * @param {DOM element} elem 
+     */
+    removeFromHistory(elem){
+        if(!confirm("Supprimer cet élément : \n"+elem.childNodes[0].innerText+" ?"))return false;
+        document.querySelector("#tab-historique ol").removeChild(elem);
+        if(window.localStorage){
+            localStorage.setItem("history",document.querySelector("#tab-historique ol").innerHTML);
+        }
+    },
+    /**
+     * Supprime tous les éléments de l'historique
+     */
+    emptyHistory(){
+        if(!confirm("Confirmez-vous la suppression de tout l'historique ?"))return false;
+        document.querySelector("#tab-historique ol").innerHTML = "";
+        if(window.localStorage){
+            localStorage.setItem("history","");
+        }
+    },
+    generatePage(){
+        window.alert("Fonctionalité en cours de développement.");
+    },
+    generateCode(){
+        window.alert("Fonctionnalité en cours de développement");
     },
     getQR(){
         let carts = this.export();
@@ -2691,20 +2746,26 @@ var MM = {
         if(document.getElementById("aleaInURL").checked)params.s = MM.seed;
         let url = this.setURL(params);
         // raccourcissement de l'url
+        let alert = utils.create("div",{className:"message",id:'messagealert',style:"padding:0.5rem"});
+        let close = utils.create("button",{innerHTML:"<img src='img/closebutton32.png'>",style:"position:absolute;top:0.5rem;right:0.5rem;padding:0;background:transparent"});
+        close.onclick = ()=>{let m = document.getElementById("messagealert");m.parentNode.removeChild(m)};
+        alert.appendChild(close);
+        let div = utils.create("div",{className:'lds-ellipsis',innerHTML:"<div></div><div></div><div></div><div></div>"});
+        let div2 = utils.create("div",{innerHTML:"Génération en cours"});
+        alert.appendChild(div);
+        alert.appendChild(div2);
+        document.getElementById("colparameters").appendChild(alert);                
         let shorter = new XMLHttpRequest();
         shorter.onload = function(){
+            alert.removeChild(div);
+            alert.removeChild(div2);
             let shorturl = shorter.responseText;
-            let alert = utils.create("div",{className:"message",id:'messagealert',style:"padding:0.5rem"});
-            let close = utils.create("button",{innerHTML:"<img src='img/closebutton32.png'>",style:"position:absolute;top:0.5rem;right:0.5rem;padding:0;background:transparent"});
-            close.onclick = ()=>{let m = document.getElementById("messagealert");m.parentNode.removeChild(m)};
-            alert.appendChild(close);
             alert.appendChild(utils.create("h2",{innerText:"QRcode de l'exercice"}));
             let qrdest = utils.create("img",{id:"qrious","title":"Clic droit pour copier l'image"});
             alert.appendChild(qrdest);
             alert.appendChild(utils.create("br"));
             let a = utils.create("a",{href:shorturl,innerText:shorturl});
             alert.appendChild(a);
-            document.getElementById("colparameters").appendChild(alert);                
             let QR = new QRious({
                 element: qrdest,// DOM destination
                 value : shorturl,
@@ -2859,7 +2920,7 @@ var MM = {
     },
     showSlideShows:function(){
         utils.removeClass(document.getElementById("slideshow-container"),"hidden");
-        if(MM.onlineState === "yes"){
+        if(MM.onlineState === "yes" && !MM.touched){
             document.getElementById("userAnswer0").focus();
         }
         utils.addClass(document.getElementById("app-container"), "hidden");

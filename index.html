@@ -274,12 +274,15 @@
                 <span class="tooltiptext">Copie l'adresse de<br>l'activité dans<br>le presse papier</span>
                 </button>
                 <button class="btn tooltip" onclick="MM.getQR();">QRCode
-                    <span class="tooltiptext">Affiche le QRCode<br>de l'adresse</span>
+                    <span class="tooltiptext">Propose un QRCode<br>et<br>l'adresse raccourcie</span>
                 </button>
                 <input type="text" class="hidden" id="acturl" maxlength="1024">
-                <button class="button--success tooltip" onclick="MM.generateCode();">Codes élève
-                    <span class="tooltiptext">Génère plusieurs <b>codes</b><br>élèves pour répondre en ligne</span>
+                <button class="button--success tooltip" onclick="MM.copyURLtoHistory()">→ Historique
+                <span class="tooltiptext">Copie la sélection<br>dans l'historique</span>
                 </button>
+                <!--<button class="button--success tooltip" onclick="MM.generateCode();">Codes élève
+                    <span class="tooltiptext">Génère plusieurs <b>codes</b><br>élèves pour répondre en ligne</span>
+                </button>-->
             </section>
         </div>
         <div id="paramsexos" class="hidden">
@@ -398,7 +401,7 @@
         </div>
     </section>
     <section id="tab-historique" class="tabs-content-item" style="display: none;">
-        Ici, l'historique des activités pour pouvoir les relancer, les imprimer...
+        Ici, l'historique des activités pour pouvoir les relancer, les imprimer... <span class="pointer underline" onclick="MM.emptyHistory();">💥Vider l'historique</span> <!--<span class="pointer underline" onclick="MM.generatePage()">🧾 Générer une page de liens</span>-->
         <ol reversed></ol>
     </section>
     <section id="tab-telechargements" class="tabs-content-item" style="display: none;">
