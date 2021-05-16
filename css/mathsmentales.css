@@ -95,19 +95,12 @@ mark {
   content:"[-]";
 }
 .grille {
-  width:1080px;
-  display: grid;
-  gap: 3rem;
-  grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
-  margin: auto;
-  position: relative;
+  display:flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin:auto;
+  position:relative;
   padding: 2rem 10rem;
-}
-.grille .accueillogo{
-  grid-row-start: 1;
-  grid-row-end: 3;
-  grid-column-start: 1;
-  grid-column-end: 6;
 }
 .grille .accueillogo img{
   float: left;
@@ -132,6 +125,22 @@ mark {
 .grille .tuile:hover h3{
   font-weight: bolder;
 }
+@media (min-width:1080px) {
+  .grille {
+    width:1080px;
+    display: grid;
+    justify-content: unset;
+    gap: 3rem;
+    grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
+  }
+  .grille .accueillogo{
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 6;
+  }    
+}
+
 #btnCode {
   margin-left:0.3rem;
 }
@@ -140,10 +149,6 @@ mark {
     height: 100%;
     flex-direction: column;
     margin:0 10px;
-}
-#app-container > header {
-    background-color: linen;
-    height: 3em;
 }
 #app-container > #contents{
     flex-grow: 8;
@@ -253,8 +258,15 @@ mark {
 }
 
 /* Menu */
+#app-container > header {
+  background-color: linen;
+  line-height: 1em;
+}
 .logo {
     float:left;
+}
+header nav{
+  display: inline-block;
 }
 ul.menu, .menu ul {
     margin:0;
@@ -280,11 +292,11 @@ ul.menu, .menu ul {
 .menu li ul {
     display:none;
 }
-.menu li:hover ul {
+.menu li:hover ul, .menu li.active ul {
     display:block;
     z-index: 500;
 }
-.menu li:hover ul li {
+.menu li:hover ul li, .menu li:active ul li {
     float:none;
 }
 .menu li ul {
@@ -296,6 +308,10 @@ ul.menu, .menu ul {
     padding:5px;
     line-height: 3em;
     text-decoration: none;
+}
+#header-menu{
+  display: inline-block;
+  vertical-align: top;
 }
 /* tab-telechargements */
 #tab-telechargements > p, #tab-telechargements > ul{
@@ -558,6 +574,11 @@ h2.sg-title, h3.sg-title {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 	font-weight: normal;
 }
+@media (max-width:1000px){
+  h2.sg-title{
+    width:80%;
+  }
+}
 /*carts */
 #addToCart, #removeFromCart, #unlinkCart, #btn-shuffle, #btn-annotation2, #btnCode {
     background-color: rgba(0,0,0,0);
@@ -779,6 +800,11 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
 .slider-nav button{
     background-color: rgba(0,0,0,0);
     padding:0.5rem;
+}
+@media (max-width:575px){
+  .slider-nav button {
+    width:28px;
+  }
 }
 .slider-1 {
     width: calc(100% - 20px);

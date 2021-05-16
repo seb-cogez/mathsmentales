@@ -82,6 +82,9 @@ var utils = {
         }
         return elt;
     },
+    pageWidth() {
+        return window.innerWidth != null? window.innerWidth : document.documentElement && document.documentElement.clientWidth ? document.documentElement.clientWidth : document.body != null ? document.body.clientWidth : null;
+    },
     /**
      * La transformation d'une ou d'un panier MMv1 étant assez compliquée,
      * redirection vers le dosser comportant l'ancienne version : /old
@@ -175,9 +178,9 @@ var utils = {
             }
         } else if(vars.cd !== undefined || vars.panier !== undefined){ // activité unique importée de MM v1
             // affichage d'un message de redirection
-            let alert = utils.create("div",{className:"message",innerHTML:"Ceci est le nouveau MathsMentales, les anciennes adresses ne sont malheureusement plus compatibles.<hr class='center w50'>Vous allez être redirigé vers l'ancienne version de MathsMentales dans 10 s. <a href='javascript:utils.goToOldVersion();'>Go !</a>"});
+            let alert = utils.create("div",{className:"message",innerHTML:"Ceci est le nouveau MathsMentales, les anciennes adresses ne sont malheureusement plus compatibles.<hr class='center w50'>Vous allez être redirigé vers l'ancienne version de MathsMentales dans 6 s. <a href='javascript:utils.goToOldVersion();'>Go !</a>"});
             document.getElementById("tab-accueil").appendChild(alert);
-            setTimeout(utils.goToOldVersion,10000);
+            setTimeout(utils.goToOldVersion,6000);
         }
     },
     /**
@@ -3417,8 +3420,8 @@ var library = {
         let target = document.getElementById("tab-chercher");
         target.className = "tabs-content-item";
         // Nombre de colonnes en fonction du contenu
-        if(itemsNumber > 40) utils.addClass(target,"cols3");
-        else if(itemsNumber > 20) utils.addClass(target, "cols2");
+        if(itemsNumber > 40 && utils.pageWidth()>1000) utils.addClass(target,"cols3");
+        else if(itemsNumber > 20 && utils.pageWidth()>840) utils.addClass(target, "cols2");
         document.querySelector("#header-menu a[numero='#tab-chercher']").click();
     }
 }
