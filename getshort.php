@@ -3,6 +3,7 @@
  * script qui envoie l'url longue au raccourcisseur d'url
  */
 $api_url =  'http://bref.jeduque.net/MathsMentalesShortener.php';
+
 // Init the CURL session
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $api_url);
@@ -15,6 +16,5 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, array(     // Data to POST
 // Fetch and return content
 $data = curl_exec($ch);
 curl_close($ch);
-
 // Do something with the result. Here, we echo the long URL
 echo $data;

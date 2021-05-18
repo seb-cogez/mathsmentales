@@ -30,7 +30,7 @@
         "value":"${math.calc(:a+'*'+:x+'*'+:y)}"
     },{
         "name":"Réduire un produit avec 2 nombres relatifs et une lettre",
-        "vars":{"l":"0_7","a":"-9_9_^0","b":"-9_9_0","x":"${:lettres[:l]}"},
+        "vars":{"l":"0_7","a":"-9_9_^0","b":"-9_9_^0","x":"${:lettres[:l]}"},
         "question": ["${:a}\\times${(:b<0)?'('+:b+')'::b}\\times ${:x}","${:a}\\times ${:x}\\times ${(:b<0)?'('+:b+')'::b}","${:x}\\times${(:a<0)?'('+:a+')'::a}\\times${(:b<0)?'('+:b+')'::b}"],
         "answer":":question=\\color{red}{${math.calc(:a+'*('+:b+')*'+:x)}}",
         "value":"${math.calc(:a+'*('+:b+')*'+:x)}"

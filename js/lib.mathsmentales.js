@@ -2747,10 +2747,10 @@ var MM = {
             o:MM.onlineState,
             s:MM.slidersNumber, // nombre de slides
             so:MM.slidersOrientation, // orientation en cas de 2 sliders
-            c:utils.superEncodeURI(JSON.stringify(carts)) // encode tout
+            c:JSON.stringify(carts) // encode tout
         };
         if(document.getElementById("aleaInURL").checked)params.s = MM.seed;
-        let url = this.setURL(params);
+        let url = utils.superEncodeURI(this.setURL(params));
         // raccourcissement de l'url
         let alert = utils.create("div",{className:"message",id:'messagealert',style:"padding:0.5rem"});
         let close = utils.create("button",{innerHTML:"<img src='img/closebutton32.png'>",style:"position:absolute;top:0.5rem;right:0.5rem;padding:0;background:transparent"});

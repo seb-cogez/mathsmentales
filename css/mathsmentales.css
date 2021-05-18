@@ -429,10 +429,10 @@ ul.menu, .menu ul {
   display: block;
 }
 /* surcouche de correction pour TBI */
-#btn-annotation {
+#btn-annotation-enonce, #btn-annotation-corrige {
   float:left;
 }
-#corrige-content #painting, #divparams #painting, #slideshow #painting {
+#painting {
   position: absolute;
   display:block;
   cursor: url(../img/iconfinder_pencil.png), auto;
@@ -585,7 +585,7 @@ h2.sg-title, h3.sg-title {
     padding:0;
     float:right;
 }
-#btn-annotation{
+#btn-annotation-corrige, #btn-annotation-enonce{
   background-color: rgba(0,0,0,0);
   padding:0;
 }

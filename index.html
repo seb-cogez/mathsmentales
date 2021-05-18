@@ -46,7 +46,7 @@
     <nav>
         <!--<div class="icon-menu"></div>-->
         <ul class="menu color-inverse">
-            <li><a href="#nothing">Ecole</a>
+            <li><a numero="nothing">Ecole</a>
                 <ul>
                     <li onclick="library.displayContent(11,true)">CP</li>
                     <li onclick="library.displayContent(10,true)">CE1</li>
@@ -55,7 +55,7 @@
                     <li onclick="library.displayContent(7,true)">CM2</li>
                 </ul>
             </li>
-            <li><a href="#nothing">Collège</a>
+            <li><a numero="nothing">Collège</a>
                 <ul>
                     <li onclick="library.displayContent(6,true)">6e</li>
                     <li onclick="library.displayContent(5,true)">5e</li>
@@ -63,7 +63,7 @@
                     <li onclick="library.displayContent(3,true)">3e</li>
                 </ul>    
             </li>
-            <li><a href="#nothing">Lycée</a>
+            <li><a numero="nothing">Lycée</a>
                 <ul>
                     <li onclick="library.displayContent(2,true)">2nde</li>
                     <li onclick="library.displayContent('G',true)">1ère Générale</li>
@@ -392,12 +392,15 @@
         </div>
     </section>
     <section id="tab-enonce" class="tabs-content-item" style="display: none;">
+        <button id="btn-annotation-enonce" onclick="utils.annotate('enonce-content', this.id)">
+            <img src="img/iconfinder_pencil_1055013.png" title="Annoter">
+        </button>
         <div id="enonce-content" class="grid">
             Ici s'affichent les énoncés du diaporama.
         </div>
     </section>
     <section id="tab-corrige" class="tabs-content-item" style="display: none;">
-        <button id="btn-annotation" onclick="utils.annotate('corrige-content', this.id)">
+        <button id="btn-annotation-corrige" onclick="utils.annotate('corrige-content', this.id)">
             <img src="img/iconfinder_pencil_1055013.png" title="Annoter le corrigé">
         </button>
         <div id="corrige-content" class="grid">
