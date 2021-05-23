@@ -101,9 +101,21 @@ var utils = {
         document.querySelector("input[type=radio][name='"+name+"'][value='"+value+"']").click();
     },
     /**
-     * 
+     * Tourne un slide de 180°
+     * @param {integet} id number of the slider to turn
      */
-    checkURL:function(urlString=false,start=true,edit=false){
+    turnSlide(id){
+        const SLIDER = document.getElementById("slider"+id);
+        if(SLIDER.className.indexOf("return")<0){
+            utils.addClass(SLIDER,"return");
+        } else {
+            utils.removeClass(SLIDER,"return");
+        }
+    },
+    /**
+     * regarde les paramètres fournis dans l'url
+     */
+    checkURL(urlString=false,start=true,edit=false){
         const vars = utils.getUrlVars(urlString);
         if(vars.n!== undefined && vars.cd===undefined){ // un niveau à afficher
             library.displayContent(vars.n,true);
@@ -188,7 +200,7 @@ var utils = {
      * @param {String} url a string corresponding an URL
      * @returns better encoded string
      */
-    superEncodeURI:function(url) {
+    superEncodeURI:function(url){
         var encodedStr = '', encodeChars = ["(", ")","{","}"];
         url = encodeURIComponent(url);
         for(var i = 0, len = url.length; i < len; i++) {
@@ -256,10 +268,11 @@ var utils = {
      * @param {String} value 
      */
     setSeed(value){
-        if(value !== undefined){
+        if(value !== undefined && value !== "sample"){
             MM.seed = value;
-            if(value !== "sample") // on ne met pas le seed de l'exemple dans le champ
-                document.getElementById("aleaKey").value = value;
+            document.getElementById("aleaKey").value = value;
+        } else if(value === "sample"){
+            MM.seed = utils.seedGenerator();
         } else if(document.getElementById("aleaKey").value === ""){
             MM.seed = utils.seedGenerator();
             document.getElementById("aleaKey").value = MM.seed;
@@ -2560,26 +2573,31 @@ var MM = {
      * 
      */
     createUserInputs:function(){
+        MM.mf = {};
         let slider=0,slide = 0;
         for(let i=0,len=MM.carts[0].activities.length;i<len;i++){
             let activity = MM.carts[0].activities[i];
+            const MFTARGET = document.getElementById("slider"+slider);
             for(let j=0,lenq=activity.questions.length;j<lenq;j++){
                 let element = document.getElementById("slide"+slider+"-"+slide);
-                let span = document.createElement("span");
-                let input = utils.create("INPUT",{type:"text",id:"userAnswer"+slide,className:"inputUser",pattern:"[\dxsqrt\/\*+-^%]+"});
-                input.dataset.id = j;
-                if(activity.samples[j]!== undefined)
-                    input.placeholder = "ex. : "+activity.samples[j];
-                else
-                    input.placeholder = "Réponse ici";
-                // helpers buttons
-                input.addEventListener("keyup",function(event){
-                    if(event.key === "Enter"){
-                        MM.nextSlide(0);
-                    }
-                });//update katex value
-                span.appendChild(input);
-                element.appendChild(span);
+
+               const id = 'ansInput'+slider+'-'+slide;
+               MM.mf[id] = new MathfieldElement({
+                smartMode:true,
+                virtualKeyboardMode:'manual',
+                virtualKeyboards:'numeric',
+                fontsDirectory:'../katex/fonts',
+                virtualKeyboardContainer:MFTARGET,
+                virtualKeyboardTheme:"material"
+               });
+               MM.mf[id].id = id;
+               MM.mf[id].addEventListener("keyup",function(event){
+                if(event.key === "Enter" || event.keyCode === 9){
+                    MM.nextSlide(0);
+                    event.preventDefault();
+                }
+            });//update katex value
+                element.appendChild(MM.mf[id]);
                 slide++;
             }
         }
@@ -2707,7 +2725,16 @@ var MM = {
         `;
         li.innerHTML += button;
         li.appendChild(this.getCartsContent());
+        // on supprime les anciennes références à la même activité
+        let lis = document.querySelectorAll("#tab-historique span[data-url='"+url+"']");
+        for(let k=0;k<lis.length;k++){
+            let parent = lis[k].parentNode;
+            document.querySelector("#tab-historique ol").removeChild(parent);
+        }
+        // insertion de l'élément
         document.querySelector("#tab-historique ol").prepend(li);
+        // TODO
+        // on supprime les références qui datent de plus de ...
         if(window.localStorage){
             localStorage.setItem("history",document.querySelector("#tab-historique ol").innerHTML);
         }
@@ -2921,7 +2948,11 @@ var MM = {
                 <span class="zoom-a0">A</span>
                 <input type="range" min="6" max="60" step="2" value="10" oninput="MM.zooms['zs${i}'].changeSize(this.value)" ondblclick="MM.zooms['zs${i}'].changeSize(10)">
                 <span class="zoom-A1">A</span>
-            </div></div>
+            </div>`
+            if((nb>1 && i===0) || (nb>2 && i==1)){
+                innerH += `<button onclick="utils.turnSlide(${i})"><img src="img/rotate180.png"></button>`
+            }
+            innerH +=`</div>
             <div class="steps-container"></div>`;
             div.innerHTML = innerH;
             container.appendChild(div);
@@ -2931,7 +2962,7 @@ var MM = {
     showSlideShows:function(){
         utils.removeClass(document.getElementById("slideshow-container"),"hidden");
         if(MM.onlineState === "yes" && !MM.touched){
-            document.getElementById("userAnswer0").focus();
+            document.getElementById("ansInput0-0").focus();
         }
         utils.addClass(document.getElementById("app-container"), "hidden");
         if(!utils.isEmpty(MM.figs)){
@@ -3026,7 +3057,8 @@ var MM = {
      */
     nextSlide:function(id){
         if(MM.onlineState === "yes"){ // save answer
-            MM.userAnswers[MM.steps[id].step]=document.getElementById("userAnswer"+(MM.steps[id].step)).value;
+            //MM.userAnswers[MM.steps[id].step]=document.getElementById("userAnswer"+(MM.steps[id].step)).value;
+            MM.userAnswers[MM.steps[id].step] = MM.mf["ansInput"+id+"-"+(MM.steps[id].step)].value;
         }
         let step = MM.steps[id].nextStep();
         if(step === false) {
@@ -3043,7 +3075,8 @@ var MM = {
                 MM.figs[id+"-"+step].display();
             if(MM.onlineState === "yes" && !MM.touched){
                 // on met le focus dans le champ seulement si on est online et pas sur tablette/smartphone
-                document.getElementById("userAnswer"+step).focus();
+                //document.getElementById("userAnswer"+step).focus();
+                MM.mf["ansInput"+id+"-"+step].focus();
             }
         } else {
             // fin du slide mais n'arrive jamais

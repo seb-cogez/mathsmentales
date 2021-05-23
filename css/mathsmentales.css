@@ -299,6 +299,9 @@ ul.menu, .menu ul {
 .menu li:hover ul li, .menu li:active ul li {
     float:none;
 }
+.menu li ul li:hover {
+  background-color: #555555;
+}
 .menu li ul {
     position:absolute;
 }
@@ -797,7 +800,7 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
     float:right;
     font-size: 1rem;
 }
-.slider-nav button{
+.slider-nav button, .slider-head button{
     background-color: rgba(0,0,0,0);
     padding:0.5rem;
 }
@@ -816,7 +819,7 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
     height: calc(100% - 20px);
     border: 1px solid black;
 }
-#slideshow:not(.vertical) .slider-2 .slider-nav img, .slider-34 .slider-nav img {
+#slideshow:not(.vertical) .slider-2 .slider-nav img, .slider-2 .slider-head img, .slider-34 .slider-nav img, .slider-34 .slider-head img {
     width: 32px;
     height: 32px;
 }
@@ -884,7 +887,16 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
 .blink_me {
     animation: blinker 2s linear infinite;
   }
-  
+math-field {
+    margin: 3em;
+    padding: 8px; 
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, .3); 
+    box-shadow: 0 0 8px rgba(0, 0, 0, .2);
+}
+.return {
+  transform: rotate(180deg);
+}
 @keyframes blinker {
     50% {
       opacity: 0.4;

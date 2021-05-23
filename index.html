@@ -18,10 +18,11 @@
     <link href="js/libs/katex/katex.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/knacss.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/bulma-steps.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="css/mathsmentales.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/mathsmentales.css?v=2" type="text/css" media="screen" />
     <link rel="stylesheet" href="js/libs/JSXGprah1.2.2/jsxgraph.css" type="text/css" />
     <script src="js/libs/katex/katex.min.js" type="text/javascript" defer></script>
     <script src="js/libs/asciimath2tex/asciimath2tex.min.js"></script>
+    <script src="js/libs/mathlive/mathlive.min.js"></script>
     <script src="js/libs/algebrite/algebrite.bundle-for-browser.js" type="text/javascript" defer></script>
     <script src="js/libs/bigjs/big.min.js" type="text/javascript" defer></script>
     <script src="js/libs/sortable/Sortable.js"></script>
@@ -33,9 +34,9 @@
     <script src="js/libs/underscore-min.js"></script>
     <script src="js/libs/kas.js" defer></script>
     <script src="js/MM1toMM2.min.js"></script>
-    <script src="js/lib.mathsmentales.js" type="text/javascript" defer></script>
+    <script src="js/lib.mathsmentales.js?v=2" type="text/javascript" defer></script>
 </head>
-<body>
+<body theme="dark">
     <div id="app-container">
 <header>
     <a id="btnaccueil" numero="#tab-accueil" class="logo tabs-menu-link"><img numero="#tab-accueil" src="img/android-icon-48x48.png" alt="logo" width="32" /></a>
@@ -80,6 +81,7 @@
             <a numero="#tab-corrige" class="tabs-menu-link">Corrigé</a>
             <a numero="#tab-historique" class="tabs-menu-link">Historique</a>
             <a numero="#tab-telechargements" class="tabs-menu-link">Téléchargements</a>
+            <a href="https://blog.mathsmentales.net" class="tabs-menu-link">Blog</a>
         </nav>
     </div>
 
@@ -384,7 +386,7 @@
         <button id="btn-annotation2" onclick="utils.annotate('divparams', this.id)">
             <img src="img/iconfinder_pencil_1055013.png" title="Annoter l'énoncé">
         </button>
-        <button id="btn-shuffle" onclick="MM.editedActivity.display(utils.seedGenerator())">
+        <button id="btn-shuffle" onclick="MM.editedActivity.display('sample')">
             <img src="img/iconfinder_die_1055072.png" title="Changer les exemples">
         </button>
             <h1><i class="icon-arrow--right"></i>Questions types</h1>

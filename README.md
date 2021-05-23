@@ -26,6 +26,7 @@ Démo : https://seb-cogez.github.io/mathsmentales/
  * [JSXGraph](http://jsxgraph.uni-bayreuth.de/wp/index.html) pour les représentations graphiques et la géométrie, notamment [JessieCode](https://github.com/jsxgraph/JessieCode) qui permet de réaliser des figures facilement (LGPL & MIT licences)
  * [asciimath2tex](https://github.com/christianp/asciimath2tex) pour taper plus rapidement les formules de maths (Licence Apache 2.0)
  * [qrious](https://github.com/neocotic/qrious) pour générer les qrcodes (GPLv3 licence)
+ * [mathlive](https://mathlive.io/) pour l'interface de saisie utilisateur pour répondre en ligne
 
 ### icones
 * "Circle Icons" de Nick Roach [iconfinder](https://www.iconfinder.com/iconsets/circle-icons-1) parfois retouchées, licence GPL
