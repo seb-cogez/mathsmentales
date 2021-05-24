@@ -101,18 +101,6 @@ var utils = {
         document.querySelector("input[type=radio][name='"+name+"'][value='"+value+"']").click();
     },
     /**
-     * Tourne un slide de 180°
-     * @param {integet} id number of the slider to turn
-     */
-    turnSlide(id){
-        const SLIDER = document.getElementById("slider"+id);
-        if(SLIDER.className.indexOf("return")<0){
-            utils.addClass(SLIDER,"return");
-        } else {
-            utils.removeClass(SLIDER,"return");
-        }
-    },
-    /**
      * regarde les paramètres fournis dans l'url
      */
     checkURL(urlString=false,start=true,edit=false){
@@ -156,12 +144,15 @@ var utils = {
                 },3000);
             }
             // indique quoi faire avant le slide
-            utils.checkRadio("beforeSlider",vars.i);
+            MM.introType = vars.i;
             // indique quoi faire après le slide
-            utils.checkRadio("endOfSlideRadio",vars.e);
+            MM.endType = vars.e;
             // Mode online
-            MM.onlineState = vars.o;
-            utils.checkRadio("online",vars.o);
+            if(vars.o){
+                MM.onlineState = vars.o;
+            }
+            // Mode face to face
+            if(vars.f)MM.faceToFace = vars.f;
             // le seed d'aléatorisation est fourni et on n'est pas en mode online
             if((vars.a && MM.onlineState === "no") || edit)
                 utils.setSeed(vars.a);
@@ -170,10 +161,12 @@ var utils = {
             // on supprime tous les paniers
             MM.resetCarts();
             // nombre de diaporamas
-            MM.slidersNumber = Number(vars.s);
+            if(vars.s)
+                MM.slidersNumber = Number(vars.s);
             // orientation dans le cas de 2 diapos
-            MM.slidersOrientation = vars.so;
-            utils.checkRadio("direction",vars.so);
+            if(vars.so){
+                MM.slidersOrientation = vars.so;
+            }
             // paramètres des activités des paniers
             let json = JSON.parse(decodeURIComponent(vars.c));
             for(const i in json){
@@ -2237,6 +2230,7 @@ var MM = {
     figs:{}, // 
     userAnswers:[],
     slidersNumber:1,
+    faceToFace:'n',
     setEndType(value){
         this.endType = value;
     },
@@ -2245,6 +2239,9 @@ var MM = {
     },
     setOnlineState(value){
         this.onlineState = value;
+    },
+    getOnlineState(){
+        this.onlineState = utils.getRadioChecked("online");
     },
     editActivity:function(index){
         MM.editedActivity = MM.carts[MM.selectedCart].activities[index];
@@ -2290,6 +2287,14 @@ var MM = {
         document.getElementById("divcarts").className="hidden";
         document.getElementById("phantom").className="";
         document.getElementById("divparams").className="col-2 row-3";
+        // on check tous les boutons radio en fonction des valeurs en méméoire
+        utils.checkRadio("online",MM.onlineState);
+        utils.checkRadio("direction",MM.slidersOrientation);
+        utils.checkRadio("beforeSlider",MM.introType);
+        utils.checkRadio("endOfSlideRadio",MM.endType);
+        utils.checkRadio("online",MM.onlineState);
+        utils.checkRadio("facetoface",MM.faceToFace);
+        utils.checkRadio("Enonces",MM.slidersNumber);
     },
     showCartInterface(){
         document.getElementById("divcarts").className="row-4";
@@ -2579,10 +2584,9 @@ var MM = {
             let activity = MM.carts[0].activities[i];
             const MFTARGET = document.getElementById("slider"+slider);
             for(let j=0,lenq=activity.questions.length;j<lenq;j++){
-                let element = document.getElementById("slide"+slider+"-"+slide);
-
-               const id = 'ansInput'+slider+'-'+slide;
-               MM.mf[id] = new MathfieldElement({
+                const element = document.getElementById("slide"+slider+"-"+slide);
+               const ID = 'ansInput'+slider+'-'+slide;
+               MM.mf[ID] = new MathfieldElement({
                 smartMode:true,
                 virtualKeyboardMode:'manual',
                 virtualKeyboards:'numeric',
@@ -2590,17 +2594,31 @@ var MM = {
                 virtualKeyboardContainer:MFTARGET,
                 virtualKeyboardTheme:"material"
                });
-               MM.mf[id].id = id;
-               MM.mf[id].addEventListener("keyup",function(event){
+               MM.mf[ID].id = ID;
+               MM.mf[ID].addEventListener("keyup",function(event){
                 if(event.key === "Enter" || event.keyCode === 9){
                     MM.nextSlide(0);
                     event.preventDefault();
                 }
             });//update katex value
-                element.appendChild(MM.mf[id]);
+                element.appendChild(MM.mf[ID]);
                 slide++;
             }
         }
+    },
+    setFacetoFace(etat){
+        this.faceToFace = etat;
+        if(etat === "y"){
+            utils.addClass(document.getElementById("sddiv1"),"return");
+            if(MM.slidersNumber>2)
+                utils.addClass(document.getElementById("sddiv2"),"return");
+        } else {
+            utils.removeClass(document.getElementById("sddiv1"),"return");
+            utils.removeClass(document.getElementById("sddiv2"),"return");
+        }
+    },
+    getFacetoFace(){
+        this.faceToFace = utils.getRadioChecked("facetoface");
     },
     /**
      * Create a sheet of exercices
@@ -2647,6 +2665,7 @@ var MM = {
         if(!MM.carts[0].activities.length){
             MM.carts[0].addActivity(MM.editedActivity);
         }
+        MM.getOnlineState();
         if(MM.onlineState === "yes"){
             MM.userAnswers = [];
             // security there should not be more than 1 cart for the online use
@@ -2686,7 +2705,8 @@ var MM = {
             o:MM.onlineState,
             s:MM.slidersNumber, // nombre de slides
             so:MM.slidersOrientation, // orientation en cas de 2 sliders
-            c:utils.superEncodeURI(JSON.stringify(carts)) // encode également les accolades
+            c:utils.superEncodeURI(JSON.stringify(carts)), // encode également les accolades
+            f:MM.faceToFace
         };
         if(document.getElementById("aleaInURL").checked)params.a = MM.seed;
         input.value = this.setURL(params);
@@ -2709,7 +2729,8 @@ var MM = {
             s:MM.slidersNumber, // nombre de slides
             a:MM.seed,
             so:MM.slidersOrientation, // orientation en cas de 2 sliders
-            c:utils.superEncodeURI(JSON.stringify(carts)) // encode également les accolades
+            c:utils.superEncodeURI(JSON.stringify(carts)), // encode également les accolades
+            f:MM.faceToFace
         };
         let url = this.setURL(params);
         let li = utils.create("li");
@@ -2774,7 +2795,8 @@ var MM = {
             o:MM.onlineState,
             s:MM.slidersNumber, // nombre de slides
             so:MM.slidersOrientation, // orientation en cas de 2 sliders
-            c:JSON.stringify(carts) // encode tout
+            c:JSON.stringify(carts), // encode tout
+            f:MM.faceToFace
         };
         if(document.getElementById("aleaInURL").checked)params.s = MM.seed;
         let url = utils.superEncodeURI(this.setURL(params));
@@ -2933,6 +2955,9 @@ var MM = {
             if(nb === 1)div.className = "slider-1";
             else if(nb===2)div.className = "slider-2";
             else div.className = "slider-34";
+            // facetoface option
+            if(nb>1 && MM.faceToFace==="y" && i===0)div.className += " return";
+            else if(nb>2 && MM.faceToFace==="y" && i===1)div.className +=" return";
             let innerH = `<div class="slider-head"><div class="slider-nav">
             <button title="Arrêter le diaporama" onclick="MM.timers[${i}].end()"><img src="img/slider-stop.png" /></button>`;
             if(MM.onlineState==="no"){
@@ -2948,11 +2973,7 @@ var MM = {
                 <span class="zoom-a0">A</span>
                 <input type="range" min="6" max="60" step="2" value="10" oninput="MM.zooms['zs${i}'].changeSize(this.value)" ondblclick="MM.zooms['zs${i}'].changeSize(10)">
                 <span class="zoom-A1">A</span>
-            </div>`
-            if((nb>1 && i===0) || (nb>2 && i==1)){
-                innerH += `<button onclick="utils.turnSlide(${i})"><img src="img/rotate180.png"></button>`
-            }
-            innerH +=`</div>
+            </div></div>
             <div class="steps-container"></div>`;
             div.innerHTML = innerH;
             container.appendChild(div);
@@ -3110,11 +3131,8 @@ var MM = {
                     for(let indexQ=0,lenQ=MM.carts[0].activities[indexA].questions.length;indexQ<lenQ;indexQ++){
                         let li = document.createElement("li");
                         let span = document.createElement("span");
-                        const userAnswer = MM.userAnswers[ia];
+                        let userAnswer = MM.userAnswers[ia];
                         const expectedAnswer = MM.carts[0].activities[indexA].values[indexQ];
-                        if(!/[^-\d]/.test(userAnswer))
-                            span.className ="math";
-                        span.textContent = userAnswer;
                         // TODO : better correction value
                         // prendre en compte les cas où plusieurs réponses sont possibles
                         if(String(userAnswer)==String(expectedAnswer)){
@@ -3134,6 +3152,12 @@ var MM = {
                                 li.className = "wrong";
                             }
                         }
+                        // on teste si la réponse est un nombre ou si elle contient des caractères echapé auquel cas on considère que c'est du latex
+                        if(!/[^-\d]/.test(userAnswer) || /\\/.test(userAnswer)){
+                            span.className ="math";
+                            userAnswer = "\\displaystyle "+userAnswer;
+                        }
+                        span.textContent = userAnswer;
                         ia++;
                         li.appendChild(span);
                         ol.appendChild(li);
@@ -3191,6 +3215,7 @@ var MM = {
     setDispositionEnonce:function(value){
         value = Number(value);
         MM.slidersNumber = value;
+        document.getElementById("facetofaceOption").className = "";
         if(value === 1){
             document.getElementById("sddiv1").className = "sddiv1";
             document.getElementById("sddiv2").className = "hidden";
@@ -3200,6 +3225,7 @@ var MM = {
             document.getElementById("onlinechoice").className = "";
             MM.setDispositionDoubleEnonce('h');
             MM.carts[0].target = [1];
+            document.getElementById("facetofaceOption").className = "hidden";
         } else if(value === 2){
             let directions = document.querySelectorAll("input[name='direction']");
             if(directions[0].checked){ // horizontal
@@ -3207,7 +3233,10 @@ var MM = {
             } else {
                 MM.setDispositionDoubleEnonce('v');
             }
-            document.getElementById("sddiv1").className = "sddiv2";
+            if(MM.faceToFace === "y")
+                document.getElementById("sddiv1").className = "sddiv2 return";
+            else
+                document.getElementById("sddiv1").className = "sddiv2";
             document.getElementById("sddiv2").className = "sddiv2";
             document.getElementById("sddiv3").className = "hidden";
             document.getElementById("sddiv4").className = "hidden";
@@ -3221,8 +3250,13 @@ var MM = {
                 MM.carts[1].target = [2];
             }
         } else if(value === 3){
-            document.getElementById("sddiv1").className = "sddiv34";
-            document.getElementById("sddiv2").className = "sddiv34";
+            if(MM.faceToFace === "y"){
+                document.getElementById("sddiv1").className = "sddiv34 return";
+                document.getElementById("sddiv2").className = "sddiv34 return";    
+            } else {
+                document.getElementById("sddiv1").className = "sddiv34";
+                document.getElementById("sddiv2").className = "sddiv34";    
+            }
             document.getElementById("sddiv3").className = "sddiv34";
             document.getElementById("sddiv4").className = "hidden";
             document.getElementById("divisionsOption").className = "hidden";
@@ -3240,8 +3274,13 @@ var MM = {
                 MM.carts[2].target = [3];
             }
         } else if(value === 4){
-            document.getElementById("sddiv1").className = "sddiv34";
-            document.getElementById("sddiv2").className = "sddiv34";
+            if(MM.faceToFace === "y"){
+                document.getElementById("sddiv1").className = "sddiv34 return";
+                document.getElementById("sddiv2").className = "sddiv34 return";
+                } else {
+                document.getElementById("sddiv1").className = "sddiv34";
+                document.getElementById("sddiv2").className = "sddiv34";    
+            }
             document.getElementById("sddiv3").className = "sddiv34";
             document.getElementById("sddiv4").className = "sddiv34";
             document.getElementById("onlinechoice").className = "hidden";

@@ -694,13 +694,13 @@ ul.cart-list{
 .beaubutton {
   margin: 1em;
 }
-#divisionsOption {
+#divisionsOption, #facetofaceOption {
     display: inline-block;
     margin-left: 1em;
     margin-top: 1em;
     line-height: 2em
 }
-#divisionsOption.hidden {
+#divisionsOption.hidden, #facetofaceOption.hidden {
     display: none;
 }
 #onlinechoice.hidden {
@@ -951,6 +951,7 @@ math-field {
     width: 6em;
     height: 4.5em;
     text-align: center;
+    position: relative;
 }
 #screen-division > div {
     border: 1px solid black;
@@ -982,7 +983,6 @@ math-field {
     width: 50%;
     height: 50%;
 }
-
 .message {
   display: block;
   width: 420px;

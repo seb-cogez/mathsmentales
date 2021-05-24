@@ -36,7 +36,7 @@
     <script src="js/MM1toMM2.min.js"></script>
     <script src="js/lib.mathsmentales.js?v=2" type="text/javascript" defer></script>
 </head>
-<body theme="dark">
+<body>
     <div id="app-container">
 <header>
     <a id="btnaccueil" numero="#tab-accueil" class="logo tabs-menu-link"><img numero="#tab-accueil" src="img/android-icon-48x48.png" alt="logo" width="32" /></a>
@@ -253,6 +253,10 @@
                 <div id="divisionsOption" class="hidden">
                     <input type="radio" class="radio" name="direction" value="h" onclick="MM.setDispositionDoubleEnonce('h');"> Horizontale<br>
                     <input type="radio" class="radio" name="direction" value="v" checked="true" onclick="MM.setDispositionDoubleEnonce('v');"> Verticale
+                </div>
+                <div id="facetofaceOption" class="hidden">
+                    <input type="radio" class="radio" name="facetoface" value="n" checked="true" onclick="MM.setFacetoFace('n');"> Normal<br>
+                    <input type="radio" class="radio" name="facetoface" value="y" onclick="MM.setFacetoFace('y');"> <img src="img/facetoface.png" title="Face à face sur une tablette">
                 </div>
                 <fieldset id="onlinechoice">
                     <legend>Répondre en ligne</legend>
