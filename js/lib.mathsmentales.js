@@ -3200,7 +3200,7 @@ var MM = {
             } else {
                 radios[i].disabled = false;
             }
-            if(i===index){
+            if(i===index && MM.slidersNumber<=index+1){
                 radios[i].checked = true;
                 MM.setDispositionEnonce(index+1);
             }
