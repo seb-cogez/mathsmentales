@@ -1,5 +1,5 @@
 {
-    "title":"Divisions",
+    "title":"Division entière, division euclidienne",
     "ID":"6ND10",
     "dest":["6ND", "7ND","5ND", "4ND", "3NC", "2N2"],
     "options":[{
@@ -17,13 +17,13 @@
     },{
         "name":"Division euclidienne (petits nombres)",
         "vars":{"a":"11_50","b":"2_10", "qo":"${~~(:a/:b)}", "r":"${:a%:b}"},
-        "question":"\\text{Quel sont le quotient et le reste de }${:a}\\div ${:b} ?",
+        "question":"\\text{Quels sont le quotient et }\\\\\\text{le reste de }${:a}\\div ${:b} ?",
         "answer":"${:a}=${:b}\\times\\color{red}{${:qo}}+\\color{red}{${:r}}\\text{ ou }\\color{green}{Q=${:qo}; R=${:r}}",
         "value":["${:qo};${:r}", "Q=${:qo};R=${:r}"]
     },{
         "name":"Division euclidienne (grands nombres)",
         "vars":{"a":"25_300","b":"2_25", "qo":"${~~(:a/:b)}", "r":"${:a%:b}"},
-        "question":"\\text{Quel sont le quotient et le reste de }${:a}\\div ${:b} ?",
+        "question":"\\text{Quels sont le quotient et }\\\\\\text{le reste de }${:a}\\div ${:b} ?",
         "answer":"${:a}=${:b}\\times\\color{red}{${:qo}}+\\color{red}{${:r}}\\text{ ou }\\color{green}{Q=${:qo}; R=${:r}}",
         "value":["${:qo};${:r}", "Q=${:qo};R=${:r}"]
     }

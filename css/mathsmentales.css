@@ -468,7 +468,7 @@ ul.menu, .menu ul {
 /* Ranges de taille de texte */
 #slideshow-container input[type=range], #tab-enonce input[type=range], #tab-corrige input[type=range]{
   vertical-align: middle;
-  width: 40px;
+  width: 60px;
   margin: 0 2pt;
 }
 .zoom {

@@ -173,7 +173,7 @@ var utils = {
                 MM.carts[i] = new cart(i);
                 MM.carts[i].import(json[i],start);
             }
-            // on affiche à nouveau les paniers
+            // on prépare l'affichage des paniers
             MM.resetInterface();
             MM.restoreCartsInterface();
             if(MM.carts[0].activities.length>1 || MM.carts.length>1)
@@ -2457,8 +2457,13 @@ var MM = {
             if(!panier.loaded)
                 loaded = false;
         }
-        if(loaded)
-            this.start();
+        if(loaded){
+            let alert=utils.create("div",{id:"messageinfo",className:"message",innerHTML:`Tu as suivi un lien d'activité préconfigurée MathsMentales.<br>Clique ci-dessous pour démarrer.<br><br><button onclick="utils.closeMessage('messageinfo');MM.start()"> Commencer ! 
+            </button> `});
+            document.getElementById("tab-accueil").appendChild(alert);
+            //utils.showTab("tab-accueil");
+            //this.start();
+        }
     },
     populateQuestionsAndAnswers(withAnswer){
         if(withAnswer=== undefined)withAnswer = true;

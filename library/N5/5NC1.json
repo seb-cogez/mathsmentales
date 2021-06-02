@@ -21,7 +21,7 @@
     },{
         "name":"Somme algébrique de 4 termes",
         "vars":{"n":"-20_20_4_^0"},
-        "question":"${:n[0]}${(:n[1]>0)?'+'+:n[1]::n[1]}${(:n[2]>0)?'+'+:n[2]::n[2]}${(:n[23]>0)?'+'+:n[3]::n[3]}",
+        "question":"${:n[0]}${(:n[1]>0)?'+'+:n[1]::n[1]}${(:n[2]>0)?'+'+:n[2]::n[2]}${(:n[3]>0)?'+'+:n[3]::n[3]}",
         "answer":":question=\\color{red}{${:n[0]+:n[1]+:n[2]+:n[3]}}"
     },{
         "name":"Somme algébrique de 5 termes",
