@@ -162,12 +162,16 @@ h3.exercice-title{
     clear: both;
     margin-bottom: 1rem;
 }
+.enonce {
+    margin-top:10pt;
+}
 .corrige {
     font-size:smaller;
+    color:grey;
 }
 .correction {
-    margin-top:2rem !important;
-    color:grey !important;
+    margin-top:2rem;
+    color:grey;
 }
 .clearfix {
     clear:both;

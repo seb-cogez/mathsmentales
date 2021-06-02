@@ -34,7 +34,7 @@
     <script src="js/libs/underscore-min.js"></script>
     <script src="js/libs/kas.js" defer></script>
     <script src="js/MM1toMM2.min.js"></script>
-    <script src="js/lib.mathsmentales.js?v=3" type="text/javascript" defer></script>
+    <script src="js/lib.mathsmentales.js?v=4" type="text/javascript" defer></script>
 </head>
 <body>
     <div id="app-container">
@@ -309,6 +309,10 @@
                 <input id="exTxtSizeValue" type="range" min="8" max="16" step="0.5" value="12" oninput="document.getElementById('exTxtSize').innerHTML=this.value;">
             </fieldset>
             <fieldset>
+                <legend>Nombres d'exemplaires différents</legend>
+                <input id="exQtyValue" type="number" value="1">
+            </fieldset>
+            <fieldset>
                 <legend>Corrigé</legend>
                 <input type="radio" name="excorr" value="each"> Après chaque exercice <input type="radio" name="excorr" value="end" checked> En fin de fiche
             </fieldset>
@@ -328,6 +332,10 @@
             <fieldset>
                 <legend>Taille des caractères : <span id="intTxtSize" class="blue">12</span>pt</legend>
                 <input id="intTxtSizeValue" type="range" min="8" max="16" step="0.5" value="12" oninput="document.getElementById('intTxtSize').innerHTML=this.value;">
+            </fieldset>
+            <fieldset>
+                <legend>Nombres d'exemplaires différents</legend>
+                <input id="intQtyValue" type="number" value="1">
             </fieldset>
             <section>
                 <button class="button--primary beaubutton" onclick="MM.createExamSheet();">Générer</button>

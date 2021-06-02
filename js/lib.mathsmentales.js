@@ -1753,7 +1753,6 @@ class ficheToPrint {
         }
     }
     generateQuestions(){
-        utils.setSeed()
         // generate questions and answers
         for(let index=0;index<this.activities.length;index++){
             const activity = this.activities[index];
@@ -1765,18 +1764,22 @@ class ficheToPrint {
         this.wsheet.document.getElementsByTagName('html')[0].className = "s"+document.getElementById('exTxtSizeValue').value.replace(".","");
         this.content =this.wsheet.document.getElementById("creator-content");
         this.docsheet = this.wsheet.document;
-        this.generateQuestions();
+        utils.setSeed();
         if(this.type === "exo"){
             this.createExoSheet();
         } else if(this.type === "exam"){
             this.createInterroSheet();
         } else if(this.type === "ceinture"){
+            this.generateQuestions();
             this.createCeintureSheet();
         } else if(this.type === "flashcard"){
+            this.generateQuestions();
             this.createFlashCards();
         } else if(this.type === "whogots"){
+            this.generateQuestions();
             this.createWhoGots();
         } else if(this.type === "dominos"){
+            this.generateQuestions();
             this.createDominos();
         }
         // render the math
@@ -1801,8 +1804,29 @@ class ficheToPrint {
         return elm;
     }
     createExoSheet(){
+        let correction = "end";
+        let radios = document.getElementsByName("excorr");
+        for (let index = 0; index < radios.length; index++) {
+            if(radios[index].checked)
+                correction = radios[index].value;
+        }
+        let script = this.create("script",{text:`function changecols(dest,nb){document.getElementById(dest).className="grid g"+nb};
+        function pagebreak(){let cor=document.querySelectorAll('.correction'),btn=document.getElementById('btn-break');if(cor[0].className==="correction"){for(i=0;i<cor.length;i++){cor[i].className="correction pagebreak";}btn.innerText='Corrigé à la suite des énoncés';}else {for(i=0;i<cor.length;i++){cor[i].className="correction";}btn.innerText='Corrigé sur page séparée';}}
+        `});
+        this.docsheet.head.appendChild(script);
+        if(correction === "end")
+            this.docsheet.getElementById('creator-menu').innerHTML += "<button id='btn-break' onclick='pagebreak();'>Corrigé sur page séparée</button>"
+
+        MM.memory = {};
+
+        for(let qty=0;qty<document.getElementById("exQtyValue").value;qty++){
+            this.generateQuestions();
+
+            // si plus d'une interro, on introduit un pagebreak
+            if(qty>0)
+                this.content.appendChild(this.create("footer"));
         // set elements :
-        let aleaCode = this.create("div",{className:"floatright",innerHTML:"Clé : "+MM.seed});
+        let aleaCode = this.create("div",{className:"floatright",innerHTML:"Clé : "+MM.seed+" p."+(qty+1)});
         this.content.appendChild(aleaCode);
         // get the titlesheet
         let sheetTitle = document.getElementById("extitle").value||"Fiche d'exercices";
@@ -1812,35 +1836,23 @@ class ficheToPrint {
         // get the exercice title
         let exTitle = document.getElementById("exeachex").value||"Exercice n°";
         // get the position of the correction
-        let correction = "end";
-        let radios = document.getElementsByName("excorr");
-        for (let index = 0; index < radios.length; index++) {
-            if(radios[index].checked)
-                correction = radios[index].value;
-        }
         let correctionContent = this.create("div",{className:"correction"});
         let titleCorrection = this.create("header", {className:"clearfix",innerHTML:"Correction des exercices"});
         if(correction === "end"){
             correctionContent.appendChild(titleCorrection);
-            this.docsheet.getElementById('creator-menu').innerHTML += "<button id='btn-break' onclick='pagebreak();'>Corrigé sur page séparée</button>"
         }
         // in case of figures
-        MM.memory = {};
         // create a shit because of the li float boxes
         let divclear = this.create("div", {className:"clearfix"});
-        let script = this.create("script",{text:`function changecols(dest,nb){document.getElementById(dest).className="grid g"+nb};
-        function pagebreak(){let cor=document.querySelector('.correction'),btn=document.getElementById('btn-break');if(cor.className==="correction"){cor.className="correction pagebreak";btn.innerText='Corrigé à la suite des énoncés'}else {cor.className="correction";btn.innerText='Corrigé sur page séparée'}}
-        `});
-        this.docsheet.head.appendChild(script);
     for(let i=0;i<this.activities.length;i++){
             const activity = this.activities[i];
-            let sectionEnonce = this.create("section",{id:"enonce"+i,className:"enonce"});
-            let sectionCorrection = this.create("section",{id:"corrige"+i});
-            let input = `<input id="nbcols${i}" class="noprint fright" value="2" title="Nb de colonnes" type="number" size="2" min="1" max="6" oninput="changecols('ol${i}',this.value)">`;
+            let sectionEnonce = this.create("section",{id:"enonce"+qty+"-"+i,className:"enonce"});
+            let sectionCorrection = this.create("section",{id:"corrige"+qty+"-"+i});
+            let input = `<input id="nbcols${qty}-${i}" class="noprint fright" value="2" title="Nb de colonnes" type="number" size="2" min="1" max="6" oninput="changecols('ol${qty}-${i}',this.value)">`;
             sectionEnonce.innerHTML += input;
             let h3 = this.create("h3", {className:"exercice-title",innerHTML:exTitle+(i+1)+" : "+activity.title});
             sectionEnonce.appendChild(h3);
-            let ol = this.create("ol",{id:"ol"+i,className:"grid g2"});
+            let ol = this.create("ol",{id:"ol"+qty+"-"+i,className:"grid g2"});
             let olCorrection = this.create("ol", {className:"corrige"});
             for(let j=0;j<activity.questions.length;j++){
                 let li = this.create("li",{className:"c3"});
@@ -1858,7 +1870,7 @@ class ficheToPrint {
                 // figures
                 if(activity.figures[j] !== undefined){
                     if(i===0 && j=== 0)MM.memory["dest"] = this.wsheet;
-                    MM.memory["f"+i+"-"+j] = new Figure(utils.clone(activity.figures[j]), "f"+i+"-"+j,li);
+                    MM.memory[qty+"-"+"f"+i+"-"+j] = new Figure(utils.clone(activity.figures[j]), qty+"-"+"f"+i+"-"+j,li);
                 }
                 olCorrection.appendChild(liCorrection);
             }
@@ -1867,7 +1879,7 @@ class ficheToPrint {
             sectionEnonce.appendChild(ds);
             // affichage de la correction
             if(correction !== "end" ){
-                let hr = docsheet.create("hr");
+                let hr = this.docsheet.createElement("hr");
                 hr.style.width = "50%";
                 sectionEnonce.appendChild(hr);
                 sectionEnonce.appendChild(olCorrection);
@@ -1884,6 +1896,7 @@ class ficheToPrint {
             let ds = divclear.cloneNode(true);
             this.content.appendChild(ds);
         }
+    }
         if(!utils.isEmpty(MM.memory)){
             setTimeout(function(){
                 for(const k in MM.memory){
@@ -1906,8 +1919,14 @@ class ficheToPrint {
         }
         `});
         this.docsheet.head.appendChild(script);
-        // set elements :
-        let aleaCode = this.create("div",{className:"floatright",innerHTML:"Clé : "+MM.seed});
+        for(let qty=0;qty<document.getElementById("intQtyValue").value;qty++){
+            this.generateQuestions();
+
+            // si plus d'une interro, on introduit un pagebreak
+            if(qty>0)
+                this.content.appendChild(this.create("footer"));
+            // set elements :
+        let aleaCode = this.create("div",{className:"floatright",innerHTML:"Clé : "+MM.seed+" p."+(qty+1)});
         this.content.appendChild(aleaCode);
         // get the titlesheet
         let sheetTitle = document.getElementById("inttitle").value||"Interrogation écrite";
@@ -1926,15 +1945,15 @@ class ficheToPrint {
         let divclear = this.create("div",{className: "clearfix"});
         for (let i = 0; i < this.activities.length; i++) {
             const activity = this.activities[i];
-            let sectionEnonce = this.create("section",{id:"section"+i});
+            let sectionEnonce = this.create("section",{id:"section"+qty+"-"+i});
             let sectionCorrection = this.create("section");
-            let input = `<input id="nbcols${i}" class="noprint fright" value="30" title="Taille réponse" type="number" size="3" min="10" max="200" oninput="changeheight('ol${i}',this.value)">`;
+            let input = `<input id="nbcols${qty}-${i}" class="noprint fright" value="30" title="Taille réponse" type="number" size="3" min="10" max="200" oninput="changeheight('ol${qty}-${i}',this.value)">`;
             sectionEnonce.innerHTML += input;
-            input = `<input id="nbcols${i}" class="noprint fright" value="2" title="Nb de colonnes" type="number" size="2" min="1" max="6" oninput="changecols('ol${i}',this.value)">`;
+            input = `<input id="nbcols${qty}-${i}" class="noprint fright" value="2" title="Nb de colonnes" type="number" size="2" min="1" max="6" oninput="changecols('ol${qty}-${i}',this.value)">`;
             sectionEnonce.innerHTML += input;
             let h3 = this.create("h3", {className:"exercice-title",innerHTML:exTitle+(i+1)+" : "+activity.title});
             sectionEnonce.appendChild(h3);
-            let ol = this.create("ol",{id:"ol"+i,className:"grid g2"});
+            let ol = this.create("ol",{id:"ol"+qty+"-"+i,className:"grid g2"});
             let olCorrection = this.create("ol", {className:"corrige"});
             for(let j=0;j<activity.questions.length;j++){
                 let li = this.create("li",{className:"interro"});
@@ -1952,7 +1971,7 @@ class ficheToPrint {
                 // figures
                 if(activity.figures[j] !== undefined){
                     if(i===0 && j=== 0)MM.memory["dest"] = this.wsheet;
-                    MM.memory["f"+i+"-"+j] = new Figure(utils.clone(activity.figures[j]), "f"+i+"-"+j,li);
+                    MM.memory["f"+qty+"-"+i+"-"+j] = new Figure(utils.clone(activity.figures[j]), "f"+qty+"-"+i+"-"+j,li);
                 }                
                 let article = this.create("article");
                 li.appendChild(article);
@@ -1973,6 +1992,7 @@ class ficheToPrint {
         this.content.appendChild(correctionContent);
         let ds = divclear.cloneNode(true);
         this.content.appendChild(ds);
+        }
         if(!utils.isEmpty(MM.memory)){
             setTimeout(function(){
                 for(const k in MM.memory){
