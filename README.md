@@ -27,6 +27,7 @@ Démo : https://seb-cogez.github.io/mathsmentales/
  * [asciimath2tex](https://github.com/christianp/asciimath2tex) pour taper plus rapidement les formules de maths (Licence Apache 2.0)
  * [qrious](https://github.com/neocotic/qrious) pour générer les qrcodes (GPLv3 licence)
  * [mathlive](https://mathlive.io/) pour l'interface de saisie utilisateur pour répondre en ligne
+ * [tinyweb](https://www.ritlabs.com/en/products/tinyweb/) pour le mini serveur web sous windows.
 
 ### icones
 * "Circle Icons" de Nick Roach [iconfinder](https://www.iconfinder.com/iconsets/circle-icons-1) parfois retouchées, licence GPL

@@ -1,0 +1,132 @@
+127.0.0.1 - - [07/Jun/2021:22:56:02 +0200] "GET /library/N8/8NE3.json HTTP/1.1" 200 853
+127.0.0.1 - - [07/Jun/2021:22:56:14 +0200] "GET /img/editcart.png HTTP/1.1" 200 1479
+127.0.0.1 - - [07/Jun/2021:22:56:14 +0200] "GET /img/slider-solution.png HTTP/1.1" 200 2921
+127.0.0.1 - - [07/Jun/2021:22:56:22 +0200] "GET /library/N9/9NE2.json HTTP/1.1" 200 1225
+127.0.0.1 - - [07/Jun/2021:23:08:15 +0200] "GET /img/docs.png HTTP/1.1" 200 1058
+127.0.0.1 - - [07/Jun/2021:23:08:15 +0200] "GET /img/recyclecart.png HTTP/1.1" 200 2874
+127.0.0.1 - - [07/Jun/2021:23:08:15 +0200] "GET /img/clock.png HTTP/1.1" 200 1645
+127.0.0.1 - - [07/Jun/2021:23:08:15 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:08:15 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:08:15 +0200] "GET /img/iconfinder_stack_1054970.png HTTP/1.1" 200 1545
+127.0.0.1 - - [07/Jun/2021:23:08:15 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:08:15 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:08:15 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:08:15 +0200] "GET /img/slider-stop.png HTTP/1.1" 200 2556
+127.0.0.1 - - [07/Jun/2021:23:08:15 +0200] "GET /img/slider-pause.png HTTP/1.1" 200 1461
+127.0.0.1 - - [07/Jun/2021:23:08:15 +0200] "GET /img/cartadd.png HTTP/1.1" 200 1368
+127.0.0.1 - - [07/Jun/2021:23:08:15 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:08:15 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:08:15 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:08:15 +0200] "GET /img/target.png HTTP/1.1" 200 1208
+127.0.0.1 - - [07/Jun/2021:23:08:15 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:08:15 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:08:15 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:08:15 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:08:22 +0200] "GET /library/N6/6NE6.json HTTP/1.1" 200 1132
+127.0.0.1 - - [07/Jun/2021:23:08:22 +0200] "GET /js/libs/katex/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 32464
+127.0.0.1 - - [07/Jun/2021:23:14:09 +0200] "GET /css/knacss.css HTTP/1.1" 200 36974
+127.0.0.1 - - [07/Jun/2021:23:14:09 +0200] "GET /js/libs/katex/katex.min.css HTTP/1.1" 200 22113
+127.0.0.1 - - [07/Jun/2021:23:18:47 +0200] "GET /index.html HTTP/1.1" 200 32482
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /js/libs/katex/katex.min.css HTTP/1.1" 200 22113
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /css/knacss.css HTTP/1.1" 200 36974
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /css/bulma-steps.css HTTP/1.1" 200 100062
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /css/mathsmentales.min.css HTTP/1.1" 200 23279
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /js/libs/JSXGprah1.2.2/jsxgraph.css HTTP/1.1" 200 3284
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /js/libs/asciimath2tex/asciimath2tex.min.js HTTP/1.1" 200 24660
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /js/libs/mathlive/mathlive.min.js HTTP/1.1" 200 612446
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /js/libs/sortable/Sortable.js HTTP/1.1" 200 120578
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /js/libs/seedrandom/seedrandom.min.js HTTP/1.1" 200 1631
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /js/libs/JSXGprah1.2.2/jsxgraphcore.js HTTP/1.1" 200 698018
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /js/libs/chartjs/Chart.bundle.min.js HTTP/1.1" 200 226227
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /js/libs/qrious.min.js HTTP/1.1" 200 17579
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /js/libs/underscore-min.js HTTP/1.1" 200 19466
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /js/MM1toMM2.min.js HTTP/1.1" 200 12059
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /js/libs/katex/katex.min.js HTTP/1.1" 200 255602
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /js/libs/algebrite/algebrite.bundle-for-browser.js HTTP/1.1" 200 684643
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /js/libs/kas.js HTTP/1.1" 200 170491
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /js/lib.mathsmentales.js HTTP/1.1" 200 181084
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/android-icon-48x48.png HTTP/1.1" 200 3171
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/iconfinder_takeoff.png HTTP/1.1" 200 1254
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/logocm.png HTTP/1.1" 200 65048
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/addtocart.png HTTP/1.1" 200 2288
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/iconfinder_pin.png HTTP/1.1" 200 1714
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/removefromcart.png HTTP/1.1" 200 2305
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/cart1.png HTTP/1.1" 200 1487
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/cartadd.png HTTP/1.1" 200 1368
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/recyclecart.png HTTP/1.1" 200 2874
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /js/libs/bigjs/big.min.js HTTP/1.1" 200 7704
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/clock.png HTTP/1.1" 200 1645
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/docs.png HTTP/1.1" 200 1058
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/target.png HTTP/1.1" 200 1208
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/iconfinder_stack_1054970.png HTTP/1.1" 200 1545
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/iconfinder_copy.png HTTP/1.1" 200 1290
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/burnCart.png HTTP/1.1" 200 2488
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/iconfinder_die_32px.png HTTP/1.1" 200 1767
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/facetoface.png HTTP/1.1" 200 829
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/iconfinder_pencil_1055013.png HTTP/1.1" 200 2432
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/iconfinder_die_1055072.png HTTP/1.1" 200 3901
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/slider-stop.png HTTP/1.1" 200 2556
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/slider-pause.png HTTP/1.1" 200 1461
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/slider-next.png HTTP/1.1" 200 1827
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /library/content.json HTTP/1.1" 200 36831
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /manifest.json HTTP/1.1" 403 -
+127.0.0.1 - - [07/Jun/2021:23:18:48 +0200] "GET /img/favicon-32x32.png HTTP/1.1" 200 2141
+127.0.0.1 - - [07/Jun/2021:23:18:52 +0200] "GET /library/N9/9NE3.json HTTP/1.1" 200 1599
+127.0.0.1 - - [07/Jun/2021:23:18:52 +0200] "GET /js/libs/katex/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 32464
+127.0.0.1 - - [07/Jun/2021:23:18:54 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:18:54 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:18:54 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:18:54 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:18:54 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:18:54 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:19:03 +0200] "GET /index.html HTTP/1.1" 200 32482
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /js/libs/katex/katex.min.css HTTP/1.1" 200 22113
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /css/knacss.css HTTP/1.1" 200 36974
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /css/bulma-steps.css HTTP/1.1" 200 100062
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /js/libs/asciimath2tex/asciimath2tex.min.js HTTP/1.1" 200 24660
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /css/mathsmentales.min.css HTTP/1.1" 200 23279
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /js/libs/JSXGprah1.2.2/jsxgraph.css HTTP/1.1" 200 3284
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /js/libs/mathlive/mathlive.min.js HTTP/1.1" 200 612446
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /js/libs/sortable/Sortable.js HTTP/1.1" 200 120578
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /js/libs/seedrandom/seedrandom.min.js HTTP/1.1" 200 1631
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /js/libs/JSXGprah1.2.2/jsxgraphcore.js HTTP/1.1" 200 698018
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /js/libs/chartjs/Chart.bundle.min.js HTTP/1.1" 200 226227
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /js/libs/qrious.min.js HTTP/1.1" 200 17579
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /js/libs/underscore-min.js HTTP/1.1" 200 19466
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /js/MM1toMM2.min.js HTTP/1.1" 200 12059
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /js/libs/katex/katex.min.js HTTP/1.1" 200 255602
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /js/libs/algebrite/algebrite.bundle-for-browser.js HTTP/1.1" 200 684643
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /js/libs/bigjs/big.min.js HTTP/1.1" 200 7704
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/android-icon-48x48.png HTTP/1.1" 200 3171
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /js/lib.mathsmentales.js HTTP/1.1" 200 181084
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/iconfinder_takeoff.png HTTP/1.1" 200 1254
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/logocm.png HTTP/1.1" 200 65048
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/addtocart.png HTTP/1.1" 200 2288
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/iconfinder_pin.png HTTP/1.1" 200 1714
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/removefromcart.png HTTP/1.1" 200 2305
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/cart1.png HTTP/1.1" 200 1487
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/cartadd.png HTTP/1.1" 200 1368
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/recyclecart.png HTTP/1.1" 200 2874
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/clock.png HTTP/1.1" 200 1645
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/docs.png HTTP/1.1" 200 1058
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /js/libs/kas.js HTTP/1.1" 200 170491
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/target.png HTTP/1.1" 200 1208
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/iconfinder_stack_1054970.png HTTP/1.1" 200 1545
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/iconfinder_copy.png HTTP/1.1" 200 1290
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/burnCart.png HTTP/1.1" 200 2488
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/iconfinder_die_32px.png HTTP/1.1" 200 1767
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/facetoface.png HTTP/1.1" 200 829
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/iconfinder_pencil_1055013.png HTTP/1.1" 200 2432
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/iconfinder_die_1055072.png HTTP/1.1" 200 3901
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/slider-stop.png HTTP/1.1" 200 2556
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/slider-pause.png HTTP/1.1" 200 1461
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/slider-next.png HTTP/1.1" 200 1827
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /library/content.json HTTP/1.1" 200 36831
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /manifest.json HTTP/1.1" 403 -
+127.0.0.1 - - [07/Jun/2021:23:19:04 +0200] "GET /img/favicon-32x32.png HTTP/1.1" 200 2141
+127.0.0.1 - - [07/Jun/2021:23:19:07 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:19:07 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:19:07 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:19:07 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:19:07 +0200] " " 400 -
+127.0.0.1 - - [07/Jun/2021:23:19:07 +0200] " " 400 -
