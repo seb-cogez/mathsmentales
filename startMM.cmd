@@ -5,6 +5,7 @@
 @echo off
 SET _location=%CD%
 SET _locMM=%_location:MathsMentales\=MathsMentales%
+SET _locMM=%_location:mathsmentales-master\=mathsmentales-master%
 echo demarrage de tiny dans %_locMM%
 start tinyweb-1-94\tiny.exe %_locMM% 8081
 CHOICE /N /C:123 /M "Demarrer avec [1]Firefox / [2]Edge / [3]Chrome ?"%1
