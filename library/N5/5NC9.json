@@ -27,7 +27,7 @@
     }
     ],
     "question":["${:p} % de $$${:qte}$$","${:p} % de $$${:qte/10}$$"],
-    "answer":["$$\\dfrac{${:p}}{100}\\times${:qte}=\\color{red}{${math.round(:qte*:p/100)}}$$",
-        "$$\\dfrac{${:p}}{100}\\times${:qte/10}=\\color{red}{${math.round(:qte*:p/1000,1)}}$$"],
-    "value":["${math.round(:qte*:p/100)}","${math.round(:qte*:p/1000,1)}"]
+    "answer":["$$\\dfrac{${:p}}{100}\\times${:qte}=\\color{red}{${math.round(:qte*:p/100,2)}}$$",
+        "$$\\dfrac{${:p}}{100}\\times${:qte/10}=\\color{red}{${math.round(:qte*:p/1000,2)}}$$"],
+    "value":["${math.round(:qte*:p/100,2)}","${math.round(:qte*:p/1000,2)}"]
 }

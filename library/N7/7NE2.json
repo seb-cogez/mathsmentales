@@ -1,0 +1,24 @@
+{
+    "title":"Diviser un entier par 10, 100, 1000",
+    "ID":"7NE2",
+    "description":"",
+    "dest":["7NE", "6NE"],
+    "vars":{"a":[9,99,999], "b":"1_${:a}"},
+        "options":[{
+        "name":"Diviser un entier par 10",
+        "question": "${:b}\\div 10",
+        "answer":":question=\\color{red}{${math.round(:b/10,1)}}",
+        "value":"${math.round(:b/10,1)}"
+    },{
+        "name":"Diviser un entier par 100",
+        "question": "${:b}\\div 100",
+        "answer":":question=\\color{red}{${math.round(:b/100,2)}}",
+        "value":"${math.round(:b/100,2)}"
+    },{
+        "name":"Diviser un entier par 1000",
+        "question": "${:b}\\div 1000",
+        "answer":":question=\\color{red}{${math.round(:b/1000,3)}}",
+        "value":"${math.round(:b/10000,3)}"
+    }
+    ]
+}
