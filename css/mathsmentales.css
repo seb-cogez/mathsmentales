@@ -102,10 +102,16 @@ mark {
   position:relative;
   padding: 2rem 10rem;
 }
-.grille .accueillogo img{
+.grille .logoMM{
   float: left;
   margin-right: 1rem;
 }
+.grille .logoCM{
+  float: right;
+  margin-right: 1rem;
+  width: 120px;
+}
+
 .grille .tuile {
   cursor: pointer;
   text-align: center;
@@ -432,8 +438,12 @@ ul.menu, .menu ul {
   display: block;
 }
 /* surcouche de correction pour TBI */
-#btn-annotation-enonce, #btn-annotation-corrige {
+aside{
   float:left;
+  width:48px;
+}
+aside > button {
+  margin-bottom:5px;
 }
 #painting {
   position: absolute;
@@ -588,7 +598,7 @@ h2.sg-title, h3.sg-title {
     padding:0;
     float:right;
 }
-#btn-annotation-corrige, #btn-annotation-enonce{
+#btn-annotation-corrige, #btn-annotation-enonce, #btn-restart-otherdata, #btn-restart-samedata{
   background-color: rgba(0,0,0,0);
   padding:0;
 }
@@ -997,6 +1007,11 @@ math-field {
   border-radius: 0.5em;
   box-shadow: 0 8px 6px -6px #000,-1px 2px 20px rgba(47, 91, 235, 0.6) inset;
   z-index: 10;
+}
+.copied {
+  background-image: url(../img/copied.png);
+  background-repeat: no-repeat;
+  background-position: bottom right;
 }
 
 /* progress bar */

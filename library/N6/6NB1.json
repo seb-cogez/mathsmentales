@@ -3,8 +3,21 @@
     "ID":"6NB1",
     "description":"",
     "dest":["6NB","5NA","4NA","3NA"],
-    "vars":{"den":"2_5_^3", "num":"0_10"},
-    "question":"\\dfrac{${:num}}{${:den}}",
-    "answer":":question=\\color{red}{${:num/:den}}",
-    "value":"${:num/:den}"
+    "options":[{
+        "name":"Fractions simples",
+        "vars":{"den":"2_5_^3", "num":"0_10"},
+        "value":"${:num/:den}"
+    },{
+        "name":"Fractions décimales",
+        "vars":{"den":[10,100,1000],"puis":"1_4", "num":"0_${Math.pow(10,:puis)}"},
+        "value":"${math.round(:num/:den,4)}"
+    },{
+        "name":"Trouver la fraction décimale",
+        "vars":{"precision":"1_3_2","nb":"d0_${Math.pow(10,:precision[0])}_${:precision[1]}"},
+        "question":"\\text{Quelle est la plus petite fraction décimale égale à }${:nb} ?",
+        "answer":"${:nb}=\\color{red}{${math.fractionDecimale(:nb)}}",
+        "value":"${math.fractionDecimale(:nb)}"
+    }],
+    "question":"\\text{Quelle est l'écriture décimale de }\\dfrac{${:num}}{${:den}} ?",
+    "answer":"\\dfrac{${:num}}{${:den}}=\\color{red}{${math.round(:num/:den,4)}}"
 }

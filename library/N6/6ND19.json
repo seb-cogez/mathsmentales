@@ -1,0 +1,28 @@
+{
+    "title":"Multiplier par 101, 102, 99, 98",
+    "ID":"6ND19",
+    "dest":["6ND","7ND","5NC","4NC","3NB"],
+    "options":[{
+        "name":"Multiplier par 101",
+        "vars":{"a":101,"c":"1_99"}
+    },{
+        "name":"Multiplier par 102 (sans retenue centaine)",
+        "vars":{"a":102,"c":"1_49"}
+    },{
+        "name":"Multiplier par 102 (avec retenue)",
+        "vars":{"a":102,"c":"51_99"}
+    },{
+        "name":"Multiplier par 99",
+        "vars":{"a":99,"c":"1_99"}
+    },{
+        "name":"Multiplier par 98 (sans retenue centaine)",
+        "vars":{"a":98,"c":"11_49"}
+    },{
+        "name":"Multiplier par 98 (avec retenue)",
+        "vars":{"a":98,"c":"51_99"}
+    }
+    ],
+    "question": ["${:a}\\times ${:c}", "${:c}\\times ${:a}"],
+    "answer":":question = \\color{red}{${:a*:c}}",
+    "value":"${:a*:c}"
+}

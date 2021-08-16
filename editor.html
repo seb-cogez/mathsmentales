@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="fr">
+<head>
+    <!-- when using the mode "code", it's important to specify charset utf-8 -->
+    <meta charset="utf-8">
+
+    <link href="js/libs/jsoneditor-9.5.3/dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
+    <script src="js/libs/jsoneditor-9.5.3/dist/jsoneditor.min.js"></script>
+</head>
+<body>
+    <head>
+        <article>Renseigner obligatoirement title, ID, dest.<br>
+            Un exercice est déterminé par question (question posée), answer (corrigé) et value (valeur pour évaluation).<br>
+            Pour aléatoiriser les exercices, on utilise vars (des variables) et consts (des constantes)
+            Si on veut faire des variations d'un exercice, on crée des "options" qui supplantent les valeurs par défaut.
+        </article>
+    </head>
+    <div id="jsoneditor" style="width: 50%; height: 640px;"></div>
+    <script>
+        // create the editor
+        const container = document.getElementById("jsoneditor")
+        const options = {mode:'code',modes:['code','text', 'tree']};
+        const jsonEditor = new JSONEditor(container, options)
+
+        // set json
+        const initialJson = {
+    "title":"",
+    "type":"latex",
+    "ID":"",
+    "description":"",
+    "dest":[""],
+    "consts":{},
+    "vars":{"a":"", "b":"", "c":["u","v","t","x", "y", "z"]},
+    "options":[{
+        "name":"",
+        "vars":{},
+        "consts":{},
+        "question": ["", ""],
+        "answer":"",
+        "value":""
+    }
+    ],
+    "question":"",
+    "answer":"",
+    "value":""
+};
+        jsonEditor.set(initialJson)
+
+        // get json
+        function getJson(){
+            return jsonEditor.get();
+        }
+    </script>
+</body>
+</html>

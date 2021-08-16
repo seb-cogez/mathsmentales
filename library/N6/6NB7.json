@@ -9,13 +9,13 @@
     },
     "options":[{
         "name":"Moitié, double",
-        "vars":{"a":"0_1","text":"${(:a<1)?'Quelle est la ':'Quel est le '}","e":"1_30","qte":"${:e*12}"}
+        "vars":{"a":"0_1","text":"${(:a<1)?'Quelle est la ':'Quel est le '}","e":"1_10","qte":"${:e*12}"}
         },{
             "name":"Tiers, triple",
-            "vars":{"a":"2_3","text":"Quel est le ","e":"1_30","qte":"${:e*12}"}
+            "vars":{"a":"2_3","text":"Quel est le ","e":"1_10","qte":"${:e*12}"}
         },{
             "name":"Quart, quadruple",
-            "vars":{"a":"4_5","text":"Quel est le ","e":"1_30","qte":"${:e*12}"}
+            "vars":{"a":"4_5","text":"Quel est le ","e":"1_10","qte":"${:e*12}"}
         }
     ],
     "question":"${:text}<b>${:vocab[:a]}</b> de $$${:qte}$$ ?",

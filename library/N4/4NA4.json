@@ -22,6 +22,11 @@
             "racine":"${:entier*:mult}",
             "carre":"${:racine*:racine}"
         }
+    },{
+        "name":"Racines de carrés parfaits inférieurs à 144",
+        "vars":{"racine":"1_12",
+            "carre":"${:racine*:racine}"
+        }
     }
     ],
     "question": "\\sqrt{${:carre}} = ?",

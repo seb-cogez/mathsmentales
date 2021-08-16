@@ -5,7 +5,7 @@
     "repeat":true,
     "type":"text",
     "consts":{"points":"ABCDEFGHJKLMNPRST"},
-    "vars":{"pts":"0_16_3_^&","A":"${:points[:pts[0]]}","B":"${:points[:pts[1]]}","C":"${:points[:pts[2]]}","xa":"d-4_-2_1", "ya":"d-4_-2_1", "xb":"d2_4_1","yb":"d-4_-1_1","xc":"d-4_4_1","yc":"1_4","AB":"${math.round(:xb-:xa,1)}${math.round(:yb-:ya,1)>0?'+':''}${math.round(:yb-:ya,1)}i", "AC":"${math.round(:xc-:xa,1)}${math.round(:yc-:ya,1)>0?'+':''}${math.round(:yc-:ya,1)}i","BA":"${math.round(:xa-:xb,1)}${math.round(:ya-:yb,1)>0?'+':''}${math.round(:ya-:yb,1)}i","BC":"${math.round(:xc-:xb,1)}${math.round(:yc-:yb,1)>0?'+':''}${math.round(:yc-:yb,1)}i", "CAB":"${math.round(Number(math.calc('180*arg(('+:AC+')/('+:AB+'))/pi').replace('...','')))}","ABC":"${math.round(Number(math.calc('180*arg(('+:BA+')/('+:BC+'))/pi').replace('...','')))}", "BCA":"${180-:CAB-:ABC}"},
+    "vars":{"pts":"0_16_3_^&","A":"${:points[:pts[0]]}","B":"${:points[:pts[1]]}","C":"${:points[:pts[2]]}","xa":"d-4_-2_1", "ya":"d-4_-2_1", "xb":"d2_4_1","yb":"d-4_-1_1","xc":"d-4_4_1","yc":"1_4","AB2":"${(:xb-:xa)*(:xb-:xa)+(:yb-:ya)*(:yb-:ya)}", "BC2":"${(:xb-:xc)*(:xb-:xc)+(:yb-:yc)*(:yb-:yc)}","AC2":"${(:xc-:xa)*(:xc-:xa)+(:yc-:ya)*(:yc-:ya)}", "CAB":"${math.round(Math.acos((:AC2+:AB2-:BC2)/(2*Math.sqrt(:AC2)*Math.sqrt(:AB2)))/Math.PI*180)}","ABC":"${math.round(Math.acos((:BC2+:AB2-:AC2)/(2*Math.sqrt(:BC2)*Math.sqrt(:AB2)))/Math.PI*180)}", "BCA":"${180-:CAB-:ABC}"},
     "figure":{
         "type":"graph", 
         "boundingbox":[-5,5,5,-5],
@@ -16,8 +16,8 @@
                 ["point",["${:xb}","${:yb}"],{"name":"${:B}","size":4, "face":"x"}],
                 ["point",["${:xc}","${:yc}"],{"name":"${:C}","size":4, "face":"x"}],
                 ["polygon",["${:A}","${:C}", "${:B}"]],
-                ["angle", ["${:B}", "${:A}", "${:C}"],{"radius":1,"name":"${:CAB}°","label":{"offset":[10,2]}}],
-                ["angle", ["${:C}", "${:B}", "${:A}"],{"radius":1,"name":"${:ABC}°","label":{"offset":[-8,-10]}}]
+                ["angle", ["${:B}", "${:A}", "${:C}"],{"radius":1, "orthoSensitivity":0.5,"name":"${:CAB}°","label":{"offset":[10,2]}}],
+                ["angle", ["${:C}", "${:B}", "${:A}"],{"radius":1, "orthoSensitivity":0.5,"name":"${:ABC}°","label":{"offset":[-8,-10]}}]
             ]    
         },
     "question":"Quelle est la mesure de l'angle $$\\widehat{${:B+:C+:A}}$$ sachant que $$\\widehat{${:C+:A+:B}}=${:CAB}°$$ et $$\\widehat{${:A+:B+:C}}=${:ABC}°$$ ?",
