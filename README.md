@@ -36,7 +36,7 @@ Démo : https://seb-cogez.github.io/mathsmentales/
 ### liens directs :
 * https://seb-cogez.github.io/mathsmentales/index.html?n=4 envoie sur le niveau 4e
 * https://seb-cogez.github.io/mathsmentales/index.html?u=5NC7 envoie directement sur l'activité 5NC7
-* https://seb-cogez.github.io/mathsmentales/index.html?o=false&c=%7B%220%22%3A%7B%22y%22%3A%22c%22%2C%22i%22%3A0%2C%22a%22%3A%7B%220%22%3A%7B%22y%22%3A%22a%22%2C%22i%22%3A%225NC7%22%2C%22o%22%3A%5B2%5D%2C%22q%22%3A%7B%222%22%3A%5B0%5D%7D%2C%22p%22%3A%5B%5D%2C%22t%22%3A8%2C%22n%22%3A5%7D%2C%221%22%3A%7B%22y%22%3A%22a%22%2C%22i%22%3A%225NC5%22%2C%22o%22%3A%5B1%5D%2C%22q%22%3A%7B%221%22%3A%5B%5D%7D%2C%22p%22%3A%5B%5D%2C%22t%22%3A8%2C%22n%22%3A5%7D%7D%2C%22t%22%3A%22Diapo%201%22%2C%22c%22%3A%5B1%5D%2C%22e%22%3A%22correction%22%2C%22r%22%3A%22countdown%22%7D%7D envoie sur un diaporama qui démarre automatiquement.
+* https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=&p=0~t=ceinturebleue2br~c=1~o=true_i=6ND10~o=2~q=2.~p=~t=32~n=2_i=8MC1~o=2,3,4,5~q=2.0,1-3.-4.0,1-5.~p=~t=30~n=3_i=5DA2~o=4~q=1.-3.-4.~p=~t=41~n=2_i=3NB3~o=1~q=1.~p=~t=15~n=3 envoie sur un diaporama qui démarre automatiquement.
 
 ### Changement de fonctionnement de la bibliothèque d'activités.
 Elle est à présent réalisée à l'aide de fichiers json peu complexes
@@ -204,7 +204,7 @@ Exemple avec chartjs : représentation de données statistiques
 ``` js
 {
     "title":"Test de graphique",
-    "type":"text",
+    "type":"text", // pour affichier des maths, il faudra utiliser les marqueurs $$ $$ autour des expressions
     "dest":["5DA", "4DA", "3DA"],
     "ID":"5DA1",
     "vars":{
