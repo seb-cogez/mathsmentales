@@ -2251,10 +2251,13 @@ class ficheToPrint {
         let header = this.create("header",{innerHTML:sheetTitle});
         this.content.appendChild(header);
         let sectionCartes = this.create("section",{className:"whogot-section"});
+        //Nombre de cartes
+        let nbOfCards = 0;
         for (let i = 0; i < this.activities.length; i++) {
             const activity = this.activities[i];
             for(let j=0;j<activity.questions.length;j++){
-                let carte = this.create("article", {className:"whogot-carte",id:"carte"+i+"-"+j});
+                nbOfCards++;
+                let carte = this.create("article", {className:"whogot-carte",id:"carte"+nbOfCards});
                 let artQuestion = this.create("article",{className:"whogot-question",innerHTML:"<h3>"+WGquestion+"</h3>"});
                 let divq = this.create("div");
                 if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
@@ -2267,23 +2270,25 @@ class ficheToPrint {
                 carte.appendChild(artQuestion);
                 // figures
                 if(activity.figures[j] !== undefined){
-                    if(i===0 && j=== 0)MM.memory["dest"] = this.wsheet;
-                    MM.memory["f"+i+"-"+j] = new Figure(utils.clone(activity.figures[j]), "f"+i+"-"+j, divq);
+                    if(MM.memory["dest"]===undefined)MM.memory["dest"] = this.wsheet;
+                    MM.memory["f"+nbOfCards] = new Figure(utils.clone(activity.figures[j]), "f"+nbOfCards, divq);
                 }
                 sectionCartes.appendChild(carte);
             }
         }
         this.content.appendChild(sectionCartes);
+        // numéro de la carte où placer la réponse, décalé de 1 par rapport aux questions
+        let numAnswer = 1;
         for (let i = 0; i < this.activities.length; i++) {
             const activity = this.activities[i];
             for(let j=0;j<activity.questions.length;j++){
-                let carte = this.docsheet.getElementById("carte"+i+"-"+(j===activity.questions.length-1?0:j+1));
+                numAnswer++;
+                let carte = this.docsheet.getElementById("carte"+(numAnswer>nbOfCards?1:numAnswer));
                 let artCorrection = this.create("article",{className:"whogot-reponse",innerHTML:"<h3>"+WGaffirmation+"</h3"});
                 let divr = this.create("div");
                 let answer = activity.values[j];
                 if(_.isArray(answer))answer = answer[0];
                 if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
-
                     let spanCorrection = this.create("span", {className:"math", innerHTML:answer});
                     divr.appendChild(spanCorrection);
                 } else {
@@ -2337,10 +2342,12 @@ class ficheToPrint {
         let header = this.create("header",{innerHTML:sheetTitle});
         this.content.appendChild(header);
         let sectionCartes = this.create("section",{className:"dominos-section"});
+        let nbOfCards=0;
         for (let i = 0; i < this.activities.length; i++) {
             const activity = this.activities[i];
             for(let j=0;j<activity.questions.length;j++){
-                let carte = this.create("article", {className:"dominos-carte",id:"domino"+i+"-"+j});
+                nbOfCards++;
+                let carte = this.create("article", {className:"dominos-carte",id:"domino"+nbOfCards});
                 let hr = this.create("div",{className:"barrev",innerHTML:"&nbsp;"});
                 carte.appendChild(hr);
                 let artQuestion = this.create("article",{className:"dominos-question"});
@@ -2355,17 +2362,19 @@ class ficheToPrint {
                 carte.appendChild(artQuestion);
                 // figures
                 if(activity.figures[j] !== undefined){
-                    if(i===0 && j=== 0)MM.memory["dest"] = this.wsheet;
-                    MM.memory["f"+i+"-"+j] = new Figure(utils.clone(activity.figures[j]), "f"+i+"-"+j, divq);
+                    if(MM.memory["dest"]===undefined)MM.memory["dest"] = this.wsheet;
+                    MM.memory["f"+nbOfCards] = new Figure(utils.clone(activity.figures[j]), "f"+nbOfCards, divq);
                 }
                 sectionCartes.appendChild(carte);
             }
         }
         this.content.appendChild(sectionCartes);
+        let numAnswer=1;
         for (let i = 0; i < this.activities.length; i++) {
             const activity = this.activities[i];
             for(let j=0;j<activity.questions.length;j++){
-                let carte = this.docsheet.getElementById("domino"+i+"-"+(j===activity.questions.length-1?0:j+1));
+                numAnswer++;
+                let carte = this.docsheet.getElementById("domino"+(numAnswer>nbOfCards?1:numAnswer));
                 let artCorrection = this.create("article",{className:"dominos-reponse"});
                 let divr = this.create("div");
                 let answer = activity.values[j];
