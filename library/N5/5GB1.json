@@ -28,12 +28,12 @@
         },{
             "name":"Version courte",
             "question":"$$\\widehat{${:A}}=${:CAB}°$$, $$\\widehat{${:B}}=${:ABC}°$$, $$\\widehat{${:C}}$$ = ?",
-            "answer":"$$\\widehat{${:C}}$$ = \\color{red}{${:BCA}°}"
+            "answer":"$$\\widehat{${:C}} = \\color{red}{${:BCA}°}$$"
         },{
             "name":"Version courte, multiples de 5",
             "vars":{"pts":"0_16_3_^&","A":"${:points[:pts[0]]}","B":"${:points[:pts[1]]}","C":"${:points[:pts[2]]}","xa":"d-4_-2_1", "ya":"d-4_-2_1", "xb":"d2_4_1","yb":"d-4_-1_1","xc":"d-4_4_1","yc":"1_4", "a":"1_34","b":"1_${35-:a}", "CAB":"${:a*5}","ABC":"${:b*5}", "BCA":"${180-:CAB-:ABC}"},
             "question":"$$\\widehat{${:A}}=${:CAB}°$$, $$\\widehat{${:B}}=${:ABC}°$$, $$\\widehat{${:C}}$$ = ?",
-            "answer":"$$\\widehat{${:C}}$$ = \\color{red}{${:BCA}°}"
+            "answer":"$$\\widehat{${:C}} = \\color{red}{${:BCA}°}$$"
         }
     ],
     "value":"${:BCA}°"

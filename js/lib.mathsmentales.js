@@ -2031,7 +2031,7 @@ class ficheToPrint {
         // in case of figures
         // create a shit because of the li float boxes
         let divclear = this.create("div", {className:"clearfix"});
-    for(let i=0;i<this.activities.length;i++){
+        for(let i=0;i<this.activities.length;i++){
             const activity = this.activities[i];
             let sectionEnonce = this.create("section",{id:"enonce"+qty+"-"+i,className:"enonce"});
             let sectionCorrection = this.create("section",{id:"corrige"+qty+"-"+i});
@@ -2236,13 +2236,16 @@ class ficheToPrint {
             this.content.innerHTML += input;
         }
         let correction = utils.create("div",{id:"correction",className:"pagebreak"});
-        correction.appendChild(utils.create("div",{innerHTML:"Correction"}));       
+        correction.appendChild(utils.create("div",{innerHTML:"Correction"}));
+        // on crée autant de ceintures que demandées      
         for(let qty=0;qty<nbCeintures;qty++){
+            // un conteneur pour la ceinture
             let ceinture = utils.create("div",{className:"ceinture"});
+            // un conteneur pour le corrigé
             let corrige = utils.create("div",{className:"corrige ceinture"});
             this.generateQuestions();
             let header = utils.create("div",{className:"ceinture-header"});
-            // si plus d'une interro, on introduit un pagebreak
+            // Entêtes
             let bloc1 = utils.create("div",{className:"border-black ceinture-titre", innerHTML:document.getElementById("ceinttitle").value||"Ceinture"});
             let bloc2 = utils.create("div",{className:"border-black", innerHTML:"NOM :<br>Classe :"});
             let bloc3 = this.create("div",{className:"border-black", innerHTML:"Clé : "+MM.seed+"<br> grille "+(qty+1)});
@@ -2250,8 +2253,11 @@ class ficheToPrint {
             header.appendChild(bloc2);
             header.appendChild(bloc3);
             ceinture.appendChild(header);
+            // entête du corrigé
             corrige.appendChild(utils.create("div",{innerHTML:(document.getElementById("ceinttitle").value||"Ceinture")+"<br>Clé : "+MM.seed+" / grille : "+(qty+1), className:"border-black"}));
+            // un repère de colonne
             let colsid=0;
+            // le css directement dans le DOM pour pouvoir le modifier ensuite
             let stylecols = Array(nbcols).fill("auto").join(" ");
             const divColonnes = utils.create("div",{className:"ceinture-content grid",style:"grid-template-columns:"+stylecols});
             let divColsCorrige = utils.create("div",{className:"ceinture-corrige grid",style:"grid-template-columns:"+stylecols});
