@@ -389,6 +389,18 @@ var utils = {
         }
         return n;
     },
+    createCeintureTitres(qty){
+        const dest = document.getElementById("ceintcolumnTitle");
+        const champs = dest.querySelectorAll("input");
+        // création de champ :
+        if(champs.length<qty){
+            dest.appendChild(utils.create("label",{for:"ceinttitlecol"+qty,innerHTML:"Colonne "+qty}));
+            dest.appendChild(utils.create("input",{type:"text",id:"ceinttitlecol"+qty,placeholder:"Texte, ou rien"}));
+        } else if(champs.length>qty) {
+            // suppression du dernier champ
+            dest.removeChild(champs[champs.length-1]);
+        }
+    },
     /**
      * Récupère la valeur cochée d'un groupe d'input radio
      * @param {String} name nom DOM du groupe d'input radio
@@ -641,7 +653,7 @@ var utils = {
         document.getElementById(tab).style.display = "";
     },
     showParameters:function(id){
-        let ids = ["paramsdiapo","paramsexos", "paramsinterro", "paramsflashcards", "paramswhogots", "paramsdominos"];//"paramsceinture",
+        let ids = ["paramsdiapo","paramsexos", "paramsinterro", "paramsceinture", "paramsflashcards", "paramswhogots", "paramsdominos"];//
         if(ids.indexOf(id)<0) return false;
         // hide all
         for(let i=0,len=ids.length;i<len;i++){
@@ -1424,6 +1436,23 @@ class cart {
                 },3000);
             });
     }
+    /**
+     * Ducplicate this object
+     */
+    duplicate(){
+        if(MM.carts.length<4){
+            // on ajoute un panier et l'affiche
+            MM.addCart();
+            // on affecte des copies des activités à ce nouveau panier.
+            let cart = MM.carts[MM.carts.length-1];
+            for(let i=0;i<this.activities.length;i++){
+                cart.addActivity(this.activities[i]);
+            }
+            // on affiche le panier.
+            cart.display();
+        }
+
+    }
     addActivity(obj){
         this.editedActivityId = -1;
         let temp = new activity(obj);
@@ -1919,7 +1948,7 @@ class ficheToPrint {
     populate(){
         // taille des caractères
         this.wsheet.document.getElementsByTagName('html')[0].className = "s"+document.getElementById('exTxtSizeValue').value.replace(".","");
-        this.content =this.wsheet.document.getElementById("creator-content");
+        this.content = this.wsheet.document.getElementById("creator-content");
         this.docsheet = this.wsheet.document;
         utils.setSeed();
         if(this.type === "exo"){
@@ -1927,7 +1956,6 @@ class ficheToPrint {
         } else if(this.type === "exam"){
             this.createInterroSheet();
         } else if(this.type === "ceinture"){
-            this.generateQuestions();
             this.createCeintureSheet();
         } else if(this.type === "flashcard"){
             this.generateQuestions();
@@ -2078,77 +2106,76 @@ class ficheToPrint {
         this.docsheet.head.appendChild(script);
         for(let qty=0;qty<document.getElementById("intQtyValue").value;qty++){
             this.generateQuestions();
-
             // si plus d'une interro, on introduit un pagebreak
             if(qty>0)
                 this.content.appendChild(this.create("footer"));
             // set elements :
-        let aleaCode = this.create("div",{className:"floatright",innerHTML:"Clé : "+MM.seed+" p."+(qty+1)});
-        this.content.appendChild(aleaCode);
-        // get the titlesheet
-        let sheetTitle = document.getElementById("inttitle").value||"Interrogation écrite";
-        // set the titlesheet
-        let header = this.create("header",{innerHTML:sheetTitle});
-        this.content.appendChild(header);
-        let div1 = this.create("div",{className:"studenName",innerHTML:"Nom, prénom, classe :"});
-        this.content.appendChild(div1);
-        let div2 = this.create("div",{className:"remarques",innerHTML:"Remarques :"});
-        this.content.appendChild(div2);
-        // get the exercice title
-        let exTitle = document.getElementById("inteachex").value||"Exercice n°";
-        let correctionContent = this.create("div",{className:"correction"});
-        let titleCorrection = this.create("header", {className:"clearfix",innerHTML:"Correction des exercices"});
-        correctionContent.appendChild(titleCorrection);
-        let divclear = this.create("div",{className: "clearfix"});
-        for (let i = 0; i < this.activities.length; i++) {
-            const activity = this.activities[i];
-            let sectionEnonce = this.create("section",{id:"section"+qty+"-"+i});
-            let sectionCorrection = this.create("section");
-            let input = `<input id="nbcols${qty}-${i}" class="noprint fright" value="30" title="Taille réponse" type="number" size="3" min="10" max="200" oninput="changeheight('ol${qty}-${i}',this.value)">`;
-            sectionEnonce.innerHTML += input;
-            input = `<input id="nbcols${qty}-${i}" class="noprint fright" value="2" title="Nb de colonnes" type="number" size="2" min="1" max="6" oninput="changecols('ol${qty}-${i}',this.value)">`;
-            sectionEnonce.innerHTML += input;
-            let h3 = this.create("h3", {className:"exercice-title",innerHTML:exTitle+(i+1)+" : "+activity.title});
-            sectionEnonce.appendChild(h3);
-            let ol = this.create("ol",{id:"ol"+qty+"-"+i,className:"grid g2"});
-            let olCorrection = this.create("ol", {className:"corrige"});
-            for(let j=0;j<activity.questions.length;j++){
-                let li = this.create("li",{className:"interro"});
-                let liCorrection = this.create("li");
-                if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
-                    let span = this.create("span",{className:"math", innerHTML:activity.questions[j]});
-                    let spanCorrection = this.create("span", {className:"math", innerHTML:activity.answers[j]});
-                    li.appendChild(span);
-                    liCorrection.appendChild(spanCorrection);
-                } else {
-                    li.innerHTML = activity.questions[j];
-                    liCorrection.innerHTML = activity.answers[j];
+            let aleaCode = this.create("div",{className:"floatright",innerHTML:"Clé : "+MM.seed+" p."+(qty+1)});
+            this.content.appendChild(aleaCode);
+            // get the titlesheet
+            let sheetTitle = document.getElementById("inttitle").value||"Interrogation écrite";
+            // set the titlesheet
+            let header = this.create("header",{innerHTML:sheetTitle});
+            this.content.appendChild(header);
+            let div1 = this.create("div",{className:"studenName",innerHTML:"Nom, prénom, classe :"});
+            this.content.appendChild(div1);
+            let div2 = this.create("div",{className:"remarques",innerHTML:"Remarques :"});
+            this.content.appendChild(div2);
+            // get the exercice title
+            let exTitle = document.getElementById("inteachex").value||"Exercice n°";
+            let correctionContent = this.create("div",{className:"correction"});
+            let titleCorrection = this.create("header", {className:"clearfix",innerHTML:"Correction des exercices"});
+            correctionContent.appendChild(titleCorrection);
+            let divclear = this.create("div",{className: "clearfix"});
+            for (let i = 0; i < this.activities.length; i++) {
+                const activity = this.activities[i];
+                let sectionEnonce = this.create("section",{id:"section"+qty+"-"+i});
+                let sectionCorrection = this.create("section");
+                let input = `<input id="nbcols${qty}-${i}" class="noprint fright" value="30" title="Taille réponse" type="number" size="3" min="10" max="200" oninput="changeheight('ol${qty}-${i}',this.value)">`;
+                sectionEnonce.innerHTML += input;
+                input = `<input id="nbcols${qty}-${i}" class="noprint fright" value="2" title="Nb de colonnes" type="number" size="2" min="1" max="6" oninput="changecols('ol${qty}-${i}',this.value)">`;
+                sectionEnonce.innerHTML += input;
+                let h3 = this.create("h3", {className:"exercice-title",innerHTML:exTitle+(i+1)+" : "+activity.title});
+                sectionEnonce.appendChild(h3);
+                let ol = this.create("ol",{id:"ol"+qty+"-"+i,className:"grid g2"});
+                let olCorrection = this.create("ol", {className:"corrige"});
+                for(let j=0;j<activity.questions.length;j++){
+                    let li = this.create("li",{className:"interro"});
+                    let liCorrection = this.create("li");
+                    if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
+                        let span = this.create("span",{className:"math", innerHTML:activity.questions[j]});
+                        let spanCorrection = this.create("span", {className:"math", innerHTML:activity.answers[j]});
+                        li.appendChild(span);
+                        liCorrection.appendChild(spanCorrection);
+                    } else {
+                        li.innerHTML = activity.questions[j];
+                        liCorrection.innerHTML = activity.answers[j];
+                    }
+                    ol.appendChild(li);
+                    // figures
+                    if(activity.figures[j] !== undefined){
+                        if(i===0 && j=== 0)MM.memory["dest"] = this.wsheet;
+                        MM.memory["f"+qty+"-"+i+"-"+j] = new Figure(utils.clone(activity.figures[j]), "f"+qty+"-"+i+"-"+j,li);
+                    }                
+                    let article = this.create("article");
+                    li.appendChild(article);
+                    olCorrection.appendChild(liCorrection);
                 }
-                ol.appendChild(li);
-                // figures
-                if(activity.figures[j] !== undefined){
-                    if(i===0 && j=== 0)MM.memory["dest"] = this.wsheet;
-                    MM.memory["f"+qty+"-"+i+"-"+j] = new Figure(utils.clone(activity.figures[j]), "f"+qty+"-"+i+"-"+j,li);
-                }                
-                let article = this.create("article");
-                li.appendChild(article);
-                olCorrection.appendChild(liCorrection);
+                sectionEnonce.appendChild(ol);
+                let ds = divclear.cloneNode(true);
+                sectionEnonce.appendChild(ds);
+                let h3correction = h3.cloneNode(true);
+                sectionCorrection.appendChild(h3correction);
+                sectionCorrection.appendChild(olCorrection);
+                correctionContent.appendChild(sectionCorrection);
+                this.content.appendChild(sectionEnonce);
             }
-            sectionEnonce.appendChild(ol);
+            // insert footer for print page break
+            this.content.appendChild(this.create("footer",{innerHTML:"Fin"}));
+            // insert correction
+            this.content.appendChild(correctionContent);
             let ds = divclear.cloneNode(true);
-            sectionEnonce.appendChild(ds);
-            let h3correction = h3.cloneNode(true);
-            sectionCorrection.appendChild(h3correction);
-            sectionCorrection.appendChild(olCorrection);
-            correctionContent.appendChild(sectionCorrection);
-            this.content.appendChild(sectionEnonce);
-        }
-        // insert footer for print page break
-        this.content.appendChild(this.create("footer",{innerHTML:"Fin"}));
-        // insert correction
-        this.content.appendChild(correctionContent);
-        let ds = divclear.cloneNode(true);
-        this.content.appendChild(ds);
+            this.content.appendChild(ds);
         }
         if(!utils.isEmpty(MM.memory)){
             setTimeout(function(){
@@ -2158,6 +2185,131 @@ class ficheToPrint {
                 }
             }, 300);
         }
+    }
+    createCeintureSheet(){
+        // in case of figures
+        MM.memory = {};
+        const nbCeintures = document.getElementById("ceintqtyvalue").value;
+        const nbcols = Number(document.getElementById("ceintcolsval").value);
+        const nbrows = Number(document.getElementById("ceintrowsval").value);
+        let script = this.create("script",{text:`
+        function changeHeight(nb){
+            let elts = document.querySelectorAll(".ans");
+            for(let i=0;i<elts.length;i++){
+                elts[i].style.height = nb+"pt";
+            }
+            elts = document.querySelectorAll(".quest");
+            for(let i=0;i<elts.length;i++){
+                elts[i].style.lineHeight = nb+"pt";
+            }
+        }
+        function changeFontSize(dest,value){
+            let elts = document.querySelectorAll(".question"+dest);
+            for(let i=0;i<elts.length;i++){
+                elts[i].style.fontSize = value+"pt";
+            }
+        }
+        function changeWidth(dest,nb){
+            let elts = document.querySelectorAll(".ceinture-content");
+            console.log(dest,nb);
+            for(let i=0;i<elts.length;i++){
+                let style = elts[i].style["grid-template-columns"];
+                let stylecols = style.split(" ");
+                stylecols[dest-1] = nb+"fr";
+                style = stylecols.join(" ");
+                elts[i].style["grid-template-columns"] = style;
+            }
+        }
+        `});
+        this.docsheet.head.appendChild(script);
+        this.content.innerHTML += "<span>Lignes :</span>"+`<input id="inputheight" class="noprint" value="20" title="Hauteur en pt" type="number" size="3" min="10" max="200" oninput="changeHeight(this.value)">`;
+        this.content.innerHTML += "<span>Texte</span>";
+        for(let i=1;i<=nbcols;i++){
+            let input = `<input id="fsize${i}" class="noprint" value="12" title="Taille énoncé colonne ${i}" type="number" size="3" min="8" max="16" step="0.5" oninput="changeFontSize('${i}',this.value)">`;
+            this.content.innerHTML += input;
+        }
+        this.content.innerHTML += "<span>Largeur colonne</span>";
+        for(let i=1;i<=nbcols;i++){
+            let input = `<input id="asize${i}" class="noprint" value="1" title="Taille colonne ${i}" type="number" size="3" min="0.5" max="4" step="0.1" oninput="changeWidth(${i},this.value)">`;
+            this.content.innerHTML += input;
+        }
+        let correction = utils.create("div",{id:"correction",className:"pagebreak"});
+        correction.appendChild(utils.create("div",{innerHTML:"Correction"}));       
+        for(let qty=0;qty<nbCeintures;qty++){
+            let ceinture = utils.create("div",{className:"ceinture"});
+            let corrige = utils.create("div",{className:"corrige ceinture"});
+            this.generateQuestions();
+            let header = utils.create("div",{className:"ceinture-header"});
+            // si plus d'une interro, on introduit un pagebreak
+            let bloc1 = utils.create("div",{className:"border-black ceinture-titre", innerHTML:document.getElementById("ceinttitle").value||"Ceinture"});
+            let bloc2 = utils.create("div",{className:"border-black", innerHTML:"NOM :<br>Classe :"});
+            let bloc3 = this.create("div",{className:"border-black", innerHTML:"Clé : "+MM.seed+"<br> grille "+(qty+1)});
+            header.appendChild(bloc1);
+            header.appendChild(bloc2);
+            header.appendChild(bloc3);
+            ceinture.appendChild(header);
+            corrige.appendChild(utils.create("div",{innerHTML:(document.getElementById("ceinttitle").value||"Ceinture")+"<br>Clé : "+MM.seed+" / grille : "+(qty+1), className:"border-black"}));
+            let colsid=0;
+            let stylecols = Array(nbcols).fill("auto").join(" ");
+            const divColonnes = utils.create("div",{className:"ceinture-content grid",style:"grid-template-columns:"+stylecols});
+            let divColsCorrige = utils.create("div",{className:"ceinture-corrige grid",style:"grid-template-columns:"+stylecols});
+            corrige.appendChild(divColsCorrige);
+            let divs=[],divCorr=[];
+            let nbq = 0;
+            for(let i=0;i<this.activities.length;i++){
+                const activity = this.activities[i];
+                for(let j=0;j<activity.questions.length;j++){
+                    if(nbq%nbrows === 0){
+                        // nouvelle colonne
+                        divs.push(utils.create("div",{className:"column"}));
+                        divCorr.push(utils.create("div",{className:"column"}));
+                        colsid++;
+                        let titre = document.getElementById("ceinttitlecol"+colsid).value;
+                        if(titre!==""){
+                            divs[colsid-1].appendChild(utils.create("div",{innerHTML:titre,className:"ceinture-titre-colonne border-black"}));
+                        }
+                    }
+                    nbq++;
+                    let ligne = utils.create("div",{className:"grid border-black"});
+                    let ligneCorr = utils.create("div",{className:"grid border-black"});
+                    if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
+                        let divq = utils.create("div",{className:"question"+colsid+" quest"});
+                        let span = utils.create("span",{className:"math", innerHTML:activity.questions[j]});
+                        divq.appendChild(span);
+                        ligne.appendChild(divq);
+                        
+                    } else {
+                        ligne.appendChild(utils.create("div",{innerHTML:activity.questions[j],className:"question"+colsid+" quest"}));
+                        divs[colsid-1].appendChild(ligne)
+                    }
+                    let spanc = utils.create("span", {className:"math", innerHTML:activity.values[j]});
+                    ligneCorr.appendChild(spanc);
+                    divCorr[colsid-1].appendChild(ligneCorr);
+                    let divans = utils.create("div",{className:"bg-grey ans answer"+colsid,style:"height:20pt;"});
+                    ligne.appendChild(divans);
+                    divs[colsid-1].appendChild(ligne);
+                    if(nbq%nbrows === 0 && nbrows>0){
+                        let pied = document.getElementById("ceintpiedcol").value;
+                        if(pied !== ""){
+                            divs[colsid-1].appendChild(utils.create("div",{innerHTML:pied,className:"ceinture-pied-colonne border-black"}));
+                        }
+                    }
+                }
+            }
+            for(let i=0;i<divs.length;i++){
+                divColonnes.appendChild(divs[i]);
+            }
+            ceinture.appendChild(divColonnes);
+            this.content.appendChild(ceinture);
+            for(let i=0;i<divCorr.length;i++){
+                divColsCorrige.appendChild(divCorr[i]);
+            }
+            corrige.appendChild(divColsCorrige)
+            correction.appendChild(corrige);
+        }
+        //this.content.appendChild(utils.create("div",{className:"footer"}));
+        // on ajoute la correction à la fin.
+        this.content.appendChild(correction);
     }
     createFlashCards(){
         // in case of figures
@@ -2837,6 +2989,31 @@ var MM = {
         }
         MM.fiche = new ficheToPrint("exam",MM.carts[0]);
     },
+    createCeintureSheet:function(){
+        if(!MM.carts[0].activities.length){
+            MM.carts[0].addActivity(MM.editedActivity);
+        }
+        // vérification du nombre de questions du panier
+        let nbq = 0;
+        for(let i=0;i<MM.carts[0].activities.length;i++){
+            nbq += Number(MM.carts[0].activities[i].nbq);
+        }
+        // calcul du nombre de questions de la ceinture
+        let nbqc = Number(document.getElementById("ceintcolsval").value)*Number(document.getElementById("ceintrowsval").value);
+        if(nbq<nbqc){ // si pas assez de questions dans le panier, alerter et s'arrêter
+            alert("Pas assez de questions dans le panier pour alimenter la ceinture\nde "+
+            document.getElementById("ceintcolsval").value+"×"+document.getElementById("ceintrowsval").value+
+            "="+nbqc+" emplacements"
+            );
+            return;
+        } else if(nbq>nbqc){
+            if(!confirm("Vous allez créé une ceinture de "+nbqc+" emplacements\nalors que vous avez créé un panier de"+
+            nbq+"questions.\nToutes ne seront donc pas imprimées. Continuer ?")){
+                return;
+            }
+        }
+        MM.fiche = new ficheToPrint("ceinture",MM.carts[0]);
+    },
     createFlashCards:function(){
         if(!MM.carts[0].activities.length){
             MM.carts[0].addActivity(MM.editedActivity);
@@ -2970,11 +3147,15 @@ var MM = {
         let withSeed = true;
         let params = this.paramsToURL(withSeed);
         let url = this.setURL(params);
+        let paramsSansSeed = this.paramsToURL(false);
+        let urlSansSeed = this.setURL(paramsSansSeed);
         let li = utils.create("li");
         let span = utils.create("span", {innerText:"Panier du "+utils.getDate()+": ",className:"bold"});
         li.appendChild(span);
-        let a = utils.create("a",{href:url,innerText:"🎯 lien direct"});
+        const a = utils.create("a",{href:url,innerText:"🎯 lien (mêmes données)"});
         li.appendChild(a);
+        const a2 = utils.create("a",{href:urlSansSeed,innerText:"🎯 lien (autres données)"});
+        li.appendChild(a2);
         let button = `
         <span class="pointer underline" data-url="${url}" onclick="utils.checkURL(this.dataset['url'],false,true)">
             🛠 éditer
@@ -3132,10 +3313,15 @@ var MM = {
             if(nb === 1)div.className = "slider-1";
             else if(nb===2)div.className = "slider-2";
             else div.className = "slider-34";
+            let nextActivity = "";
+            if(MM.carts[i].activities.length>1) {
+                nextActivity = `<button title="Activité suivante du panier" data-actid="0" onclick="MM.newSample(${i},true)" id="ButtonNextAct${i}"><img src="img/slider-next.png"></button>`;
+            }
             div.innerHTML = `Exemple <div class="slider-nav">
             <button title="Annoter l'exemple" id="btn-sample-annotate${i}" onclick="utils.annotate('sampleSlide${i}',this.id);"><img src="img/iconfinder_pencil_1055013.png"></button>
             <button title="Montrer la réponse" onclick="MM.showSampleAnswer(${i});"><img src="img/slider-solution.png"></button>
             <button title="Autre exemple" onclick="MM.newSample(${i});"><img src="img/newsample.png"></button>
+            ${nextActivity}
             <button title="Démarrer le diaporama" onclick="MM.startSlideShow(${i});"><img src="img/fusee.png"></button>
             </div>`;
             let divContent = utils.create("div",{className:"slide",id:"sampleSlide"+i});
@@ -3296,10 +3482,22 @@ var MM = {
             utils.addClass(answerToShow, "hidden");
         }
     },
-    newSample(id){
+    /**
+     * 
+     * @param {id} id id de l'emplacement de l'exemple
+     * @param {boolean} next passe à l'activité suivante du panier.
+     */
+    newSample(id,next=false){
         for(let i=0,len=MM.carts.length;i<len;i++){
             if(MM.carts[i].target.indexOf(id+1)>-1){
-                let act = MM.carts[i].activities[0];
+                let nbActivities = MM.carts[i].activities.length;
+                let actId = document.getElementById("ButtonNextAct"+id).dataset.actid;
+                if(next){
+                    actId++;
+                    if(actId>=nbActivities) actId=0;
+                    document.getElementById("ButtonNextAct"+id).dataset.actid = actId;
+                }
+                let act = MM.carts[i].activities[actId];
                 act.generateSample();
                 document.getElementById("sample"+id+"-enonce").innerHTML = act.sample.question;
                 document.getElementById("sample"+id+"-corr").innerHTML = act.sample.answer;

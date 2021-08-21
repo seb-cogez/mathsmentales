@@ -1,5 +1,5 @@
 {
-    "title":"Tables classiques",
+    "title":"Tables de multiplications classiques",
     "ID":"6ND6",
     "dest":["6ND", "7ND", "8NE", "9NE"],
     "options":[{
@@ -29,6 +29,12 @@
     },{
         "name":"Table de 10",
         "vars":{"a":10, "b":"0_10"}
+    },{
+        "name":"Table de 11",
+        "vars":{"a":11, "b":"0_11"}
+    },{
+        "name":"Table de 12",
+        "vars":{"a":12, "b":"0_12"}
     }
     ],
     "question":["${:a}\\times${:b}", "${:b}\\times${:a}"],

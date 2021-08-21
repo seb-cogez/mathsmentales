@@ -195,6 +195,48 @@ h3.exercice-title{
     height: 30pt;
     border: 1pt solid black;
 }
+/* ceinture spec */
+.ceinture {
+    border-top: 1pt solid black;
+    border-left: 1pt solid black;
+    page-break-inside:avoid;
+    margin-top:15pt;
+}
+.ceinture.corrige {
+    float:left;
+    margin-right:15pt;
+}
+.ceinture-header {
+    display: grid;
+    grid-template-columns: 4cm auto 4cm;
+}
+.ceinture-titre {
+    line-height: 2;
+    text-align: center;
+    font-size: large;
+}
+.ceinture-titre-colonne {
+    text-align: center;
+    font-weight: bold;
+}
+.ceinture-pied-colonne {
+    text-align: center;
+}
+.border-black {
+    border-right: 1pt solid black;
+    border-bottom: 1pt solid black;
+    padding: 2pt 4pt;
+}
+.bg-grey {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAMAAAC6sdbXAAAAA1BMVEXW1taWrGEgAAAACklEQVR42mPACwAAHgAB3XenRQAAAABJRU5ErkJggg==);
+    background-repeat:no-repeat;
+    background-size:cover;
+}
+.column .grid {
+    grid-template-columns: max-content auto;
+    gap: 5pt;
+    width:100%;
+}
 /*whogot specs*/
 .whogot-carte {
     padding: 3pt;

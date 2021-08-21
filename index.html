@@ -18,7 +18,7 @@
     <link href="js/libs/katex/katex.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/knacss.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/bulma-steps.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="css/mathsmentales.min.css?v=2" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/mathsmentales.min.css?v=3" type="text/css" media="screen" />
     <link rel="stylesheet" href="js/libs/JSXGprah1.2.2/jsxgraph.css" type="text/css" />
     <script src="js/libs/katex/katex.min.js" type="text/javascript" defer></script>
     <script src="js/libs/asciimath2tex/asciimath2tex.min.js"></script>
@@ -34,7 +34,7 @@
     <script src="js/libs/underscore-min.js"></script>
     <script src="js/libs/kas.js" defer></script>
     <script src="js/MM1toMM2.min.js"></script>
-    <script src="js/lib.mathsmentales.js?v=7" type="text/javascript" defer></script>
+    <script src="js/lib.mathsmentales.js?v=9" type="text/javascript" defer></script>
 </head>
 <body>
     <div id="app-container">
@@ -147,7 +147,7 @@
                         <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
                         <img src="img/target.png" title="Zone d'énoncé"> <span>1</span>
                         <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" onclick="MM.carts[0].changeOrder(this);">
-                        <img src="img/iconfinder_copy.png" class="pointer" title="Dupliquer le panier (pas encore développé)">
+                        <img src="img/iconfinder_copy.png" class="pointer" title="Dupliquer le panier" onclick="MM.carts[0].duplicate();">
                     </div>
                     <ul id="cart0-list" class="cart-list">
                     </ul>
@@ -161,6 +161,7 @@
                         <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
                         <img src="img/target.png" title="Zone d'énoncé"> <span>2</span>
                         <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" onclick="MM.carts[0].changeOrder(this);">
+                        <img src="img/iconfinder_copy.png" class="pointer" title="Dupliquer le panier" onclick="MM.carts[1].duplicate();">
                     </div>
                     <ul id="cart1-list" class="cart-list">
                     </ul>
@@ -174,6 +175,7 @@
                         <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
                         <img src="img/target.png" title="Zone d'énoncé"> <span>3</span>
                         <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" onclick="MM.carts[0].changeOrder(this);">
+                        <img src="img/iconfinder_copy.png" class="pointer" title="Dupliquer le panier" onclick="MM.carts[2].duplicate();">
                     </div>
                     <ul id="cart2-list" class="cart-list">
                     </ul>
@@ -200,7 +202,7 @@
                 <option value="paramsdiapo" selected="selected">Diaporama</option>
                 <option value="paramsexos">Feuille d'exercices</option>
                 <option value="paramsinterro">Feuille d'interro</option>
-                <!--<option value="paramsceinture">Ceintures de CM</option>-->
+                <option value="paramsceinture">Ceintures de CM</option>
                 <option value="paramsflashcards">Cartes flash</option>
                 <option value="paramswhogots">J'ai/qui a ?</option>
                 <option value="paramsdominos">Dominos</option>
@@ -318,23 +320,40 @@
                 <button class="button--primary beaubutton" onclick="MM.createExamSheet();">Générer</button>
             </section>
         </div>
-        <!--<div id="paramsceinture" class="hidden">
+        <div id="paramsceinture" class="hidden">
             <fieldset>
                 <legend>Titre de la ceinture</legend>
-                <input type="text" placeholder="Interrogation écrite" id="ceinttitle">
+                <input type="text" placeholder="Ceinture blanche" id="ceinttitle">
             </fieldset>
             <fieldset>
                 <legend>Nb de colonnes : <span id="ceintcols" class="blue">4</span></legend>
-                <input type="range" min="1" max="5" step="1" value="4" oninput="document.getElementById('ceintcols').innerHTML=this.value;">
+                <input id="ceintcolsval" type="range" min="1" max="5" step="1" value="4" oninput="document.getElementById('ceintcols').innerHTML=this.value;utils.createCeintureTitres(this.value)">
             </fieldset>
             <fieldset>
-                <legend>Nb de sujets : <span id="ceintnb" class="blue">4</span></legend>
-                <input type="range" min="1" max="30" step="1" value="3" oninput="document.getElementById('ceintnb').innerHTML=this.value;">
+                <legend>Titres des colonnes</legend>
+                <div id="ceintcolumnTitle">
+                    <label for="ceinttitlecol1">Colonne 1 : </label><input type="text" id="ceinttitlecol1" placeholder="Tables de multiplication">
+                    <label for="ceinttitlecol2">Colonne 2 : </label><input type="text" id="ceinttitlecol2" placeholder="Trouver le 3e angle">
+                    <label for="ceinttitlecol3">Colonne 3 : </label><input type="text" id="ceinttitlecol3" placeholder="Ecriture décimale de">
+                    <label for="ceinttitlecol4">Colonne 4 : </label><input type="text" id="ceinttitlecol4" placeholder="Somme de 3 termes">
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Nb de lignes : <span id="ceintrows" class="blue">5</span></legend>
+                <input id="ceintrowsval" type="range" min="1" max="10" step="1" value="5" oninput="document.getElementById('ceintrows').innerHTML=this.value;">
+            </fieldset>
+            <fieldset>
+                <legend>Nb de sujets : <span id="ceintqty" class="blue">3</span></legend>
+                <input id="ceintqtyvalue" type="range" min="1" max="30" step="1" value="3" oninput="document.getElementById('ceintqty').innerHTML=this.value;">
+            </fieldset>
+            <fieldset>
+                <legend>Pied des colonnes</legend>
+                <input type="text" id="ceintpiedcol" placeholder="😕 😀 😎" value="😕 😀 😎" title="Laisser vide si vous ne voulez pas de pied">
             </fieldset>
             <section>
                 <button class="button--primary beaubutton" onclick="MM.createCeintureSheet();">Générer</button>
             </section>
-        </div>-->
+        </div>
         <div id="paramsflashcards" class="hidden">
             <fieldset>
                 <legend>Titre de la page</legend>
