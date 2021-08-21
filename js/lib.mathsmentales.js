@@ -392,12 +392,14 @@ var utils = {
     createCeintureTitres(qty){
         const dest = document.getElementById("ceintcolumnTitle");
         const champs = dest.querySelectorAll("input");
+        const labels = dest.querySelectorAll("label");
         // création de champ :
         if(champs.length<qty){
             dest.appendChild(utils.create("label",{for:"ceinttitlecol"+qty,innerHTML:"Colonne "+qty}));
             dest.appendChild(utils.create("input",{type:"text",id:"ceinttitlecol"+qty,placeholder:"Texte, ou rien"}));
         } else if(champs.length>qty) {
             // suppression du dernier champ
+            dest.removeChild(labels[champs.length-1]);
             dest.removeChild(champs[champs.length-1]);
         }
     },
