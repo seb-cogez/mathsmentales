@@ -2224,13 +2224,13 @@ class ficheToPrint {
         }
         `});
         this.docsheet.head.appendChild(script);
-        this.content.innerHTML += "<span>Lignes :</span>"+`<input id="inputheight" class="noprint" value="20" title="Hauteur en pt" type="number" size="3" min="10" max="200" oninput="changeHeight(this.value)">`;
-        this.content.innerHTML += "<span>Texte</span>";
+        this.content.innerHTML += "<span class='noprint'>Lignes :</span>"+`<input id="inputheight" class="noprint" value="20" title="Hauteur en pt" type="number" size="3" min="10" max="200" oninput="changeHeight(this.value)">`;
+        this.content.innerHTML += "<span class='noprint'>Texte</span>";
         for(let i=1;i<=nbcols;i++){
             let input = `<input id="fsize${i}" class="noprint" value="12" title="Taille énoncé colonne ${i}" type="number" size="3" min="8" max="16" step="0.5" oninput="changeFontSize('${i}',this.value)">`;
             this.content.innerHTML += input;
         }
-        this.content.innerHTML += "<span>Largeur colonne</span>";
+        this.content.innerHTML += "<span class='noprint'>Largeur colonne</span>";
         for(let i=1;i<=nbcols;i++){
             let input = `<input id="asize${i}" class="noprint" value="1" title="Taille colonne ${i}" type="number" size="3" min="0.5" max="4" step="0.1" oninput="changeWidth(${i},this.value)">`;
             this.content.innerHTML += input;
@@ -4007,7 +4007,7 @@ class activity {
         this.description = obj.description; // long description
         this.vars = obj.vars;
         this.consts = obj.consts;
-        this.canrepeat = obj.repeat||false; // question & answers peuvent être répétées
+        this.canrepeat = obj.repeat||false; // question & answers peuvent être répétées ou pas
         this.options = utils.clone(obj.options)||undefined;
         this.questionPatterns = utils.clone(obj.questionPatterns)||obj.question;
         this.answerPatterns = utils.clone(obj.answerPatterns) || obj.answer;
@@ -4513,8 +4513,24 @@ class activity {
             let thevalue = this.replaceVars(utils.clone(this.cValue));
             loopProtect++;
             // on évite les répétitions
-            // TODO : à améliorer !!!
-            if(this.questions.indexOf(thequestion)<0 || this.values.indexOf(thevalue)<0 || !this.canrepeat){
+            if(this.questions.indexOf(thequestion)<0 || this.values.indexOf(thevalue)<0 || this.canrepeat){
+                // cas d'une répétition autorisée, on va éviter que cela arrive quand même dans les 5 précédents.
+                if(this.canrepeat){
+                    // on extrait les 5 dernières questions et réponses (il y a des activités avec des questions identiques mais pas les mêmes réponses)
+                    let last5Questions = this.questions.slice(-5); // ça marche, même si le tableau a moins de 5 éléménts
+                    let last5values = this.values.slice(-5);
+                    // on teste la présence de la question dans l'extrait
+                    if(last5Questions.indexOf(thequestion)>-1 && last5values.indexOf(thevalue)>-1){
+                        // on a trouvé la question dans la série, on ne prend pas et on passe à la génération suivante
+                        i--;
+                        if(loopProtect<maxLoop) // attention à pas tourner en rond
+                            continue;
+                        else { // on tourne en rond, donc on arrête le script
+                            debug("Pas assez de données pour éviter les répétitions")
+                            break;
+                        }
+                    }
+                }
                 this.questions[i] = thequestion;
                 this.answers[i] = this.replaceVars(utils.clone(this.cAnswer), thequestion);
                 this.values[i] = thevalue;
