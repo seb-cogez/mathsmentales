@@ -9,6 +9,7 @@
     ],
     "description":"Conversions des multiples et sous-multiples des m, L et g vers les m, L et g",
     "question":"\\text{Convertir } ${:x} \\text{ ${:k[0]} en }\\color{blue}{\\text{${:q}}}",
+    "shortq":"${:x} \\text{ ${:k[0]} en }\\color{blue}{\\text{${:q}}}",
     "answer":"${:x} \\text{ ${:k[0]}} = \\color{red}{${math.round(:x*:k[1],7)}\\text{ ${:q}}}",
     "value":"${math.round(:x*:k[1],7)}\\text{ ${:q}}"
 }

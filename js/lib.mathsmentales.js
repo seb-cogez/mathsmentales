@@ -390,17 +390,21 @@ var utils = {
         return n;
     },
     createCeintureTitres(qty){
+        if(qty<1 || qty>5)return false;
         const dest = document.getElementById("ceintcolumnTitle");
         const champs = dest.querySelectorAll("input");
         const labels = dest.querySelectorAll("label");
+        const br = dest.querySelectorAll("br");
         // création de champ :
         if(champs.length<qty){
+            dest.appendChild(utils.create("br"));
             dest.appendChild(utils.create("label",{for:"ceinttitlecol"+qty,innerHTML:"Colonne "+qty}));
             dest.appendChild(utils.create("input",{type:"text",id:"ceinttitlecol"+qty,placeholder:"Texte, ou rien"}));
         } else if(champs.length>qty) {
             // suppression du dernier champ
             dest.removeChild(labels[champs.length-1]);
             dest.removeChild(champs[champs.length-1]);
+            dest.removeChild(br[champs.length-1]);
         }
     },
     /**
@@ -2195,25 +2199,69 @@ class ficheToPrint {
         const nbcols = Number(document.getElementById("ceintcolsval").value);
         const nbrows = Number(document.getElementById("ceintrowsval").value);
         let script = this.create("script",{text:`
+        let exercicesColumn = Array(${nbcols}).fill("column");
+        let nbcols = ${nbcols};
+        /*
+        * change la hauteur des cases réponses, et de l'élément question si réponse dessous plutôt que dessus
+        */
         function changeHeight(nb){
             let elts = document.querySelectorAll(".ans");
             for(let i=0;i<elts.length;i++){
                 elts[i].style.height = nb+"pt";
             }
-            elts = document.querySelectorAll(".quest");
-            for(let i=0;i<elts.length;i++){
-                elts[i].style.lineHeight = nb+"pt";
-            }
         }
+        /*
+        * change la taille des caractères d'une colonne
+        */
         function changeFontSize(dest,value){
+            // il peut y avoir plusieurs sujets, donc on doit faire un traitement multiple
             let elts = document.querySelectorAll(".question"+dest);
             for(let i=0;i<elts.length;i++){
                 elts[i].style.fontSize = value+"pt";
             }
         }
+        /*
+        * change la disposition des lignes d'exercices d'une colonne
+        * dest : id de la colonne où changer la place des réponses.
+        * (String) how : column/columnv pour colonnes en ligne ou verticales
+        */
+        function setDispositionReponse(dest,how){
+            let setr="auto auto",setc="none";
+            if(how==="row"){
+                setr="none";setc="max-content auto";
+            }
+            // il peut y avoir plusieurs sujets, donc on doit faire un traitement multiple
+            let elts = document.querySelectorAll(".col"+dest);
+            for(let i=0;i<elts.length;i++){
+                elts[i].style["grid"] = setr+" / "+setc;
+            }
+        }
+        /*
+        * Change la disposition de toutes les lignes d'exercices
+        */
+        function setDispositionReponseAll(how){
+            let setr="auto auto",setc="none";
+            if(how==="row"){
+                setr="none";setc="max-content auto";
+            }
+            // on sélectionne toutes colonnes
+            let elts = document.querySelectorAll(".ceinture .grid .grid");
+            for(let i=0;i<elts.length;i++){
+                elts[i].style["grid"] = setr+" / "+setc;
+            }
+        }
+        /*
+        * Change la largeur des colonnes
+        */
         function changeWidth(dest,nb){
             let elts = document.querySelectorAll(".ceinture-content");
-            console.log(dest,nb);
+            if(elts[0].style["grid-template-columns"].indexOf("auto")>-1){
+                for(let i=0;i<elts.length;i++){
+                    let stylecols = elts[i].style["grid-template-columns"].split(" ");
+                    let style = Array(stylecols.length).fill("1fr").join(" ");
+                    elts[i].style["grid-template-columns"] = style;
+                }
+            }
             for(let i=0;i<elts.length;i++){
                 let style = elts[i].style["grid-template-columns"];
                 let stylecols = style.split(" ");
@@ -2224,17 +2272,34 @@ class ficheToPrint {
         }
         `});
         this.docsheet.head.appendChild(script);
-        this.content.innerHTML += "<span class='noprint'>Lignes :</span>"+`<input id="inputheight" class="noprint" value="20" title="Hauteur en pt" type="number" size="3" min="10" max="200" oninput="changeHeight(this.value)">`;
-        this.content.innerHTML += "<span class='noprint'>Texte</span>";
+        let headnoprint = utils.create("section",{className:"noprint",id:"headnoprint"})
+        headnoprint.innerHTML += "<span>Lignes :</span>"+`<input id="inputheight" value="20" title="Hauteur en pt" type="number" size="3" min="10" max="200" oninput="changeHeight(this.value)">`;
+        headnoprint.innerHTML += "<span>Texte</span>";
         for(let i=1;i<=nbcols;i++){
-            let input = `<input id="fsize${i}" class="noprint" value="12" title="Taille énoncé colonne ${i}" type="number" size="3" min="8" max="16" step="0.5" oninput="changeFontSize('${i}',this.value)">`;
-            this.content.innerHTML += input;
+            let input = `<input id="fsize${i}" value="12" title="Taille énoncé colonne ${i}" type="number" size="3" min="8" max="16" step="0.5" oninput="changeFontSize('${i}',this.value)">`;
+            headnoprint.innerHTML += input;
         }
-        this.content.innerHTML += "<span class='noprint'>Largeur colonne</span>";
+        headnoprint.innerHTML += "<span>Largeur colonne</span>";
         for(let i=1;i<=nbcols;i++){
-            let input = `<input id="asize${i}" class="noprint" value="1" title="Taille colonne ${i}" type="number" size="3" min="0.5" max="4" step="0.1" oninput="changeWidth(${i},this.value)">`;
-            this.content.innerHTML += input;
+            let input = `<input id="asize${i}" value="1" title="Taille colonne ${i}" type="number" size="3" min="0.5" max="4" step="0.1" oninput="changeWidth(${i},this.value)">`;
+            headnoprint.innerHTML += input;
         }
+        headnoprint.appendChild(utils.create("br"));
+        headnoprint.innerHTML += "<span>Réponse</span>";
+        for(let i=1;i<=nbcols;i++){
+            let input = `<select onchange="setDispositionReponse(${i},this.value)">
+            <option value="row">à côté</option>
+            <option value="column">dessous</option>
+            </select>`;
+            headnoprint.innerHTML += input;
+        }
+        headnoprint.innerHTML += `<span>Tous</span>
+        <select onchange="setDispositionReponseAll(this.value)">
+            <option value="row">à côté</option>
+            <option value="column">dessous</option>
+            </select>`;
+
+        this.content.appendChild(headnoprint);
         let correction = utils.create("div",{id:"correction",className:"pagebreak"});
         correction.appendChild(utils.create("div",{innerHTML:"Correction"}));
         // on crée autant de ceintures que demandées      
@@ -2248,69 +2313,83 @@ class ficheToPrint {
             // Entêtes
             let bloc1 = utils.create("div",{className:"border-black ceinture-titre", innerHTML:document.getElementById("ceinttitle").value||"Ceinture"});
             let bloc2 = utils.create("div",{className:"border-black", innerHTML:"NOM :<br>Classe :"});
-            let bloc3 = this.create("div",{className:"border-black", innerHTML:"Clé : "+MM.seed+"<br> grille "+(qty+1)});
+            let cleseed = "";
+            if(document.getElementById("ceintprintToEnonce").checked)cleseed = "Clé : "+MM.seed+"<br> ";
+            let bloc3 = this.create("div",{className:"border-black", innerHTML:cleseed+"grille "+(qty+1)});
             header.appendChild(bloc1);
             header.appendChild(bloc2);
             header.appendChild(bloc3);
             ceinture.appendChild(header);
             // entête du corrigé
-            corrige.appendChild(utils.create("div",{innerHTML:(document.getElementById("ceinttitle").value||"Ceinture")+"<br>Clé : "+MM.seed+" / grille : "+(qty+1), className:"border-black"}));
+            if(document.getElementById("ceintprintToCorrige").checked)cleseed = "Clé : "+MM.seed+" / ";
+            else cleseed="";
+            corrige.appendChild(utils.create("div",{innerHTML:(document.getElementById("ceinttitle").value||"Ceinture")+"<br>"+cleseed+"grille : "+(qty+1), className:"border-black"}));
             // un repère de colonne
             let colsid=0;
             // le css directement dans le DOM pour pouvoir le modifier ensuite
             let stylecols = Array(nbcols).fill("auto").join(" ");
-            const divColonnes = utils.create("div",{className:"ceinture-content grid",style:"grid-template-columns:"+stylecols});
-            let divColsCorrige = utils.create("div",{className:"ceinture-corrige grid",style:"grid-template-columns:"+stylecols});
-            corrige.appendChild(divColsCorrige);
-            let divs=[],divCorr=[];
+            let stylerows = Array(nbrows).fill("auto").join(" ");
+            const divColonnes = utils.create("div",{className:"ceinture-content grid",style:"grid-template-columns:"+stylecols+";grid-template-rows:"+(stylerows+1)});
+            let divColsCorrige = utils.create("div",{className:"ceinture-corrige grid",style:"grid-template-columns:"+stylecols+";grid-template-rows:"+stylerows});
+            // conteners corrections et enoncés (objet de tableaux)
+            let divCorr={},cols={};
             let nbq = 0;
             for(let i=0;i<this.activities.length;i++){
                 const activity = this.activities[i];
                 for(let j=0;j<activity.questions.length;j++){
                     if(nbq%nbrows === 0){
                         // nouvelle colonne
-                        divs.push(utils.create("div",{className:"column"}));
-                        divCorr.push(utils.create("div",{className:"column"}));
                         colsid++;
+                        cols[colsid]=[];
+                        // on donne  à la colonne une classe pour pouvoir modifier des choses dedans.
+                        divCorr[colsid]=[]
                         let titre = document.getElementById("ceinttitlecol"+colsid).value;
                         if(titre!==""){
-                            divs[colsid-1].appendChild(utils.create("div",{innerHTML:titre,className:"ceinture-titre-colonne border-black"}));
+                            cols[colsid].push(utils.create("div",{innerHTML:titre,className:"ceinture-titre-colonne border-black"}))
                         }
                     }
                     nbq++;
-                    let ligne = utils.create("div",{className:"grid border-black"});
+                    let ligne = utils.create("div",{className:"grid border-black col"+colsid,style:"grid-column:"+colsid});
                     let ligneCorr = utils.create("div",{className:"grid border-black"});
                     if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
                         let divq = utils.create("div",{className:"question"+colsid+" quest"});
-                        let span = utils.create("span",{className:"math", innerHTML:activity.questions[j]});
+                        let span = utils.create("span",{className:"math", innerHTML:activity.shortQuestions[j]||activity.questions[j]});
                         divq.appendChild(span);
                         ligne.appendChild(divq);
                         
                     } else {
-                        ligne.appendChild(utils.create("div",{innerHTML:activity.questions[j],className:"question"+colsid+" quest"}));
-                        divs[colsid-1].appendChild(ligne)
+                        ligne.appendChild(utils.create("div",{innerHTML:activity.shortQuestions[j]||activity.questions[j],className:"question"+colsid+" quest"}));
                     }
-                    let spanc = utils.create("span", {className:"math", innerHTML:activity.values[j]});
+                    let value = activity.values[j];
+                    if(Array.isArray(value))value=value[0];
+                    let spanc = utils.create("span", {className:"math", innerHTML:value});
                     ligneCorr.appendChild(spanc);
-                    divCorr[colsid-1].appendChild(ligneCorr);
+                    divCorr[colsid].push(ligneCorr);
                     let divans = utils.create("div",{className:"bg-grey ans answer"+colsid,style:"height:20pt;"});
                     ligne.appendChild(divans);
-                    divs[colsid-1].appendChild(ligne);
+                    //divs[colsid-1].appendChild(ligne);
+                    cols[colsid].push(ligne);
                     if(nbq%nbrows === 0 && nbrows>0){
                         let pied = document.getElementById("ceintpiedcol").value;
                         if(pied !== ""){
-                            divs[colsid-1].appendChild(utils.create("div",{innerHTML:pied,className:"ceinture-pied-colonne border-black"}));
+                            cols[colsid].push(utils.create("div",{innerHTML:pied,className:"ceinture-pied-colonne border-black"}));
                         }
                     }
                 }
             }
-            for(let i=0;i<divs.length;i++){
-                divColonnes.appendChild(divs[i]);
+            // on insère les enfants
+            for(let i=0;i<cols[1].length;i++){
+                for(let j=1;j<=nbcols;j++){
+                    divColonnes.appendChild(cols[j][i]);
+                }
             }
             ceinture.appendChild(divColonnes);
             this.content.appendChild(ceinture);
-            for(let i=0;i<divCorr.length;i++){
-                divColsCorrige.appendChild(divCorr[i]);
+
+            for(let i=0;i<divCorr[1].length;i++){
+                for(let j=1;j<=nbcols;j++){
+                    divColsCorrige.appendChild(divCorr[j][i]);
+                }
             }
             corrige.appendChild(divColsCorrige)
             correction.appendChild(corrige);
@@ -3117,6 +3196,7 @@ var MM = {
                 <textarea readonly="true" id="bigurl" cols="38" onfocus="utils.copy(this);"></textarea><br>
                 <button onclick="MM.getQR();">Raccourcir l'url</button><br>
                 <input readonly="true" type="url" id="shorturl" size="38" onfocus="utils.copy(this)">
+                <div id="shortQRdiv"></div>
                 `
             }
             )
@@ -3215,27 +3295,19 @@ var MM = {
     },
     getQR(){
         // si on n'est pas en mode edition de panier.
-        if(MM.carts.length === 1 && MM.carts[0].activities.length < 2){
+        if(MM.carts.length < 2 && MM.carts[0].activities.length < 2){
             MM.carts[0].activities = [];
             MM.carts[0].addActivity(MM.editedActivity);
         }
-//        let carts = this.export();
+        // let carts = this.export();
         let withSeed = false;
         if(document.getElementById("aleaInURL").checked)
             withSeed = true;
-        let params = this.paramsToURL(withSeed);/*{
-            i:MM.introType,
-            e:MM.endType,
-            o:MM.onlineState,
-            s:MM.slidersNumber, // nombre de slides
-            so:MM.slidersOrientation, // orientation en cas de 2 sliders
-            c:JSON.stringify(carts), // encode tout
-            f:MM.faceToFace
-        };*/
-
-        let url = this.setURL(params);//utils.superEncodeURI(this.setURL(params));
+        let params = this.paramsToURL(withSeed);
+        let url = this.setURL(params);
         // raccourcissement de l'url
-        let alert = document.getElementById("urlCopy");
+        let alert = document.getElementById("shortQRdiv");
+        alert.innerHTML = "";
         let div = utils.create("div",{className:'lds-ellipsis',innerHTML:"<div></div><div></div><div></div><div></div>"});
         let div2 = utils.create("div",{innerHTML:"Génération en cours"});
         alert.appendChild(div);
@@ -3245,6 +3317,10 @@ var MM = {
             alert.removeChild(div);
             alert.removeChild(div2);
             let shorturl = shorter.responseText;
+            if(shorturl.indexOf("http:")!==0){
+                alert.appendChild(utils.create("h2",{innertext:"Problème de récupération de l'url courte"}));
+                return;
+            }
             alert.appendChild(utils.create("h2",{innerText:"QRcode de l'exercice"}));
             let qrdest = utils.create("img",{id:"qrious","title":"Clic droit pour copier l'image"});
             alert.appendChild(qrdest);
@@ -4010,9 +4086,11 @@ class activity {
         this.canrepeat = obj.repeat||false; // question & answers peuvent être répétées ou pas
         this.options = utils.clone(obj.options)||undefined;
         this.questionPatterns = utils.clone(obj.questionPatterns)||obj.question;
+        this.shortQuestionPatterns = utils.clone(obj.shortQuestionPatterns)||obj.shortq||false;
         this.answerPatterns = utils.clone(obj.answerPatterns) || obj.answer;
         this.valuePatterns = utils.clone(obj.valuePatterns) || obj.value;
         this.questions = utils.clone(obj.questions)||[];
+        this.shortQuestions = utils.clone(obj.shortQuestions)||[];
         this.answers = utils.clone(obj.answers)||[];
         this.samples = utils.clone(obj.samples)||[];// samples of answers, for online answer
         this.values = utils.clone(obj.values)||[];
@@ -4026,6 +4104,7 @@ class activity {
     }
     initialize(){
         this.questions = [];
+        this.shortQuestions = [];
         this.answers = [];
         this.values = [];
         this.figures = [];
@@ -4221,7 +4300,7 @@ class activity {
     }
     /**
      * getPattern
-     * 
+     * récupère 
      * @param {integer} option id de l'option dont dépend le pattern
      * 
      * return uniqueId (Integer)
@@ -4435,13 +4514,20 @@ class activity {
                     if(this.options[optionNumber].question !== undefined){
                         this.cQuestion = this.options[optionNumber].question[patternNumber];
                         lenQ = this.options[optionNumber].question.length;
+                        if(this.options[optionNumber].shortq !== undefined)
+                            this.cShortQ = this.options[optionNumber].shortq[patternNumber]||false;
                     } else { // elle est définie globalement
                         this.cQuestion = this.questionPatterns[patternNumber];
+                        this.cShortQ = this.shortQuestionPatterns[patternNumber]||false;
                         lenQ = this.questionPatterns.length;
                     }
                 } else if(this.options[optionNumber].question === undefined){ // question définie dans l'option
                     this.cQuestion = this.questionPatterns;
-                } else this.cQuestion = this.options[optionNumber].question; // question définie globalement
+                    this.cShortQ = this.shortQuestionPatterns||false;
+                } else {
+                    this.cQuestion = this.options[optionNumber].question; // question définie globalement
+                    this.cShortQ = this.options[optionNumber].shortq||false;
+                }
                 // traitement des réponses
                 if(this.options[optionNumber].answer === undefined){ //des réponses sont définies pour l'option
                     this.cAnswer = this.answerPatterns;
@@ -4472,8 +4558,10 @@ class activity {
                 this.cConsts = utils.clone(this.consts);
                 if(patternNumber!==false){
                     this.cQuestion = this.questionPatterns[patternNumber];
+                    this.cShortQ = this.shortQuestionPatterns[patternNumber]||false;
                 } else {
                     this.cQuestion = this.questionPatterns;
+                    this.cShortQ = this.shortQuestionPatterns||false;
                 }
                 this.cAnswer = this.answerPatterns;
                 this.cValue = this.valuePatterns;
@@ -4511,6 +4599,10 @@ class activity {
             // question text generation
             let thequestion = this.replaceVars(utils.clone(this.cQuestion));
             let thevalue = this.replaceVars(utils.clone(this.cValue));
+            let theshort = false;
+            if(this.cShortQ){
+                theshort = this.replaceVars(this.cShortQ);
+            }
             loopProtect++;
             // on évite les répétitions
             if(this.questions.indexOf(thequestion)<0 || this.values.indexOf(thevalue)<0 || this.canrepeat){
@@ -4532,6 +4624,7 @@ class activity {
                     }
                 }
                 this.questions[i] = thequestion;
+                this.shortQuestions[i] = theshort;
                 this.answers[i] = this.replaceVars(utils.clone(this.cAnswer), thequestion);
                 this.values[i] = thevalue;
                 if(this.cFigure!== undefined){
@@ -4556,6 +4649,7 @@ class activity {
                 this.sample = {
                     question:this.replaceVars(this.cQuestion)
                 };
+                if(this.cShortQ)this.sample.shortQuestion = this.replaceVars(this.cShortQ);
                 this.sample.answer=this.replaceVars(this.cAnswer, this.sample.question);
                 
                 if(this.cFigure !== undefined){

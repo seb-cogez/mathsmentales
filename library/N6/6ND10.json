@@ -18,12 +18,14 @@
         "name":"Division euclidienne (petits nombres)",
         "vars":{"a":"11_50","b":"2_10", "qo":"${~~(:a/:b)}", "r":"${:a%:b}"},
         "question":"\\text{Quels sont le quotient et }\\\\\\text{le reste de }${:a}\\div ${:b} ?",
+        "shortq":"${:a}\\div ${:b}",
         "answer":"${:a}=${:b}\\times\\color{red}{${:qo}}+\\color{red}{${:r}}\\text{ ou }\\color{green}{Q=${:qo}; R=${:r}}",
         "value":["${:qo};${:r}", "Q=${:qo};R=${:r}"]
     },{
         "name":"Division euclidienne (grands nombres)",
         "vars":{"a":"25_300","b":"2_25", "qo":"${~~(:a/:b)}", "r":"${:a%:b}"},
         "question":"\\text{Quels sont le quotient et }\\\\\\text{le reste de }${:a}\\div ${:b} ?",
+        "shortq":"${:a}\\div ${:b}",
         "answer":"${:a}=${:b}\\times\\color{red}{${:qo}}+\\color{red}{${:r}}\\text{ ou }\\color{green}{Q=${:qo}; R=${:r}}",
         "value":["${:qo};${:r}", "Q=${:qo};R=${:r}"]
     }

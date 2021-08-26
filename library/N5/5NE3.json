@@ -43,6 +43,7 @@
     }
     ],
     "question":"\\begin{gathered} \\text{Calculer }${:exp} \\\\ \\text{ pour } ${:x}=${:v}\\end{gathered}",
+    "shortq":"\\begin{gathered} ${:exp} \\\\ \\text{ pour } ${:x}=${:v}\\end{gathered}",
     "answer":"\\text{Pour }${:x}=${:v}\\quad ${:exp}=\\color{red}{${:ans}}",
     "value":"${:ans}"
 }

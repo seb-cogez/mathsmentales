@@ -57,6 +57,7 @@ Ces fichiers json comportent des *données obligatoires* :
 * **consts** : objet contenant des données constantes, telles que des tableaux
 * **question** : chaine unique ou tableau de chaines contenant le texte de la question
   * pour le cas du tableau, il est possible de choisir le type de question à afficher lors du paramétrage de l'activité
+* **shortq** : question au format court (pas la consigne par exemple) pour un export plus lisible dans les ceintures, doit suivre la forme de "questions" : une chaine ou un tableau
 * **answer** : chaine unique  ou tableau de chaines contenant la réponse à la question
 
 ainsi que des *données optionnelles* :
@@ -258,7 +259,8 @@ Fichier structure pour démarrer la création d'un exercice
     "vars":{"a":"", "b":"", "c":["u","v","t","x", "y", "z"]}, // variables utilisées, non obligatoires si dans les options
     "options":[{
         "name":"", // utilisé pour l'affichage des exemples
-        "question": ["", ""], // remplace la variable commune, peut être omis
+        "question": ["", ""], // [] ou txt, remplace la variable commune, peut être omis
+        "shortq":["",""]// version courte de la/des question(s)
         "answer":"", // remplace la variable commune, peut être omis
         "vars":{}, // remplace les variables communes, peut être omis
         "consts":{}, // remplace les constantes communes, peut être omis
@@ -266,6 +268,7 @@ Fichier structure pour démarrer la création d'un exercice
     }
     ],
     "question":"", // question commune non obligatoire si dans touetes les options
+    "shortq":"",// question courte (pour les ceintures par exemple)
     "answer":"", // réponse commune non obligatoire si dans touetes les options
     "value":""  // valeurs attendue si réponse online commune non obligatoire si dans toutes les options
 }

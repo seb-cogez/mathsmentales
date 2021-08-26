@@ -34,7 +34,7 @@
     <script src="js/libs/underscore-min.js"></script>
     <script src="js/libs/kas.js" defer></script>
     <script src="js/MM1toMM2.min.js"></script>
-    <script src="js/lib.mathsmentales.js?v=10" type="text/javascript" defer></script>
+    <script src="js/lib.mathsmentales.js?v=11" type="text/javascript" defer></script>
 </head>
 <body>
     <div id="app-container">
@@ -322,6 +322,11 @@
         </div>
         <div id="paramsceinture" class="hidden">
             <fieldset>
+                <legend>Imprimer la clé</legend>
+                <input type="checkbox" id="ceintprintToEnonce" value="1" class="switch"> Dans les énoncés<br>
+                <input type="checkbox" id="ceintprintToCorrige" value="1" class="switch"> Dans les corrigés
+            </fieldset>
+            <fieldset>
                 <legend>Titre de la ceinture</legend>
                 <input type="text" placeholder="Ceinture blanche" id="ceinttitle">
             </fieldset>
@@ -332,9 +337,9 @@
             <fieldset>
                 <legend>Titres des colonnes</legend>
                 <div id="ceintcolumnTitle">
-                    <label for="ceinttitlecol1">Colonne 1 : </label><input type="text" id="ceinttitlecol1" placeholder="Tables de multiplication">
-                    <label for="ceinttitlecol2">Colonne 2 : </label><input type="text" id="ceinttitlecol2" placeholder="Trouver le 3e angle">
-                    <label for="ceinttitlecol3">Colonne 3 : </label><input type="text" id="ceinttitlecol3" placeholder="Ecriture décimale de">
+                    <label for="ceinttitlecol1">Colonne 1 : </label><input type="text" id="ceinttitlecol1" placeholder="Tables de multiplication"><br>
+                    <label for="ceinttitlecol2">Colonne 2 : </label><input type="text" id="ceinttitlecol2" placeholder="Trouver le 3e angle"><br>
+                    <label for="ceinttitlecol3">Colonne 3 : </label><input type="text" id="ceinttitlecol3" placeholder="Ecriture décimale de"><br>
                     <label for="ceinttitlecol4">Colonne 4 : </label><input type="text" id="ceinttitlecol4" placeholder="Somme de 3 termes">
                 </div>
             </fieldset>

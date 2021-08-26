@@ -1,6 +1,7 @@
 {
     "title":"Carrés des nombres entiers",
     "ID":"6ND13",
+    "canrepeat":true,
     "dest":["6ND", "5NC", "4NC", "3NB"],
     "options":[{
         "name":"Carrés de 1 à 10 (6e, 5e)",
@@ -11,6 +12,9 @@
         },{
             "name":"Carrés de 13 à 20",
             "vars":{"a":"13_20"}
+        },{
+            "name":"Carrés de 1 à 15",
+            "vars":{"a":"1_15"}
         }
     ],
     "question":["${:a}^2","${:a}\\times${:a}"],

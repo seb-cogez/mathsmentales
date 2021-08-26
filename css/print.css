@@ -233,10 +233,10 @@ h3.exercice-title{
     background-repeat:no-repeat;
     background-size:cover;
 }
-.column .grid {
-    grid-template-columns: max-content auto;
-    gap: 5pt;
-    width:100%;
+.ceinture .grid .grid {
+    align-content: center;
+    grid:none / max-content auto;
+    grid-column-gap:4pt;
 }
 /*whogot specs*/
 .whogot-carte {

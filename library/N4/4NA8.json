@@ -10,24 +10,28 @@
         "name":"Petits préfixes",
         "vars":{"c":"0_11"},
         "question":"Quelle puissance de 10 correspond à <b>${:prefixes[:c]}</b> ?",
+        "shortq":"<b>${:prefixes[:c]}</b>=",
         "answer":"<b>${:prefixes[:c]}</b> correspond à $$\\color{red}{10^{${:puissances[:c]}}}$$",
         "value":"10^{${:puissances[:c]}}"
     },{
         "name":"Grands préfixes",
         "vars":{"c":"12_23"},
         "question":"Quelle puissance de 10 correspond à <b>${:prefixes[:c]}</b> ?",
+        "shortq":"<b>${:prefixes[:c]}</b>=",
         "answer":"<b>${:prefixes[:c]}</b> correspond à $$\\color{red}{10^{${:puissances[:c]}}}$$",
         "value":"10^{${:puissances[:c]}}"
     },{
         "name":"Petites puissances",
         "vars":{"c":"0_11"},
         "question":"Quel préfixe correspond à <b>$$10^{${:puissances[:c]}}$$</b> ?",
+        "shortq":"<b>${:puissances[:c]}</b>=",
         "answer":"<b>$$10^{${:puissances[:c]}}$$</b> correspond à <span class='red'>${:prefixes[:c]}</span>",
         "value":"${:prefixes[:c]}"
     },{
         "name":"Grandes puissances",
         "vars":{"c":"12_23"},
         "question":"Quel préfixe correspond à <b>$$10^{${:puissances[:c]}}$$</b> ?",
+        "shortq":"<b>${:puissances[:c]}</b>=",
         "answer":"<b>$$10^{${:puissances[:c]}}$$</b> correspond à <span class='red'>${:prefixes[:c]}</span>",
         "value":"${:prefixes[:c]}"
     }

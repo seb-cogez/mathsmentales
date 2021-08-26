@@ -2,20 +2,22 @@
     "title":"Décomposer en facteurs premiers",
     "ID":"5ND1",
     "dest":["5ND", "4ND", "3NC"],
+    "consts":[2,3,5,7,11,13,17],
     "options":[{
         "name":"Nombres inférieurs à 30 (5e)",
-        "vars":{"a":"4_30", "b":"factor(${:a})"},
-        "answer":"${:a}=\\color{red}{${math.toTex(math.unpower(Algebrite.run(:b)))}}"
+        "vars":{"p":"4_30", "b":"factor(${:p})"},
+        "answer":"${:p}=\\color{red}{${math.toTex(math.unpower(Algebrite.run(:b)))}}"
     },{
         "name":"Nombres inférieurs à 100 (4e)",
-        "vars":{"a":"4_100", "b":"factor(${:a})"},
-        "answer":"${:a}=\\color{red}{${math.toTex(Algebrite.run(:b))}}"
+        "vars":{"a":"4_10_2","p":"${:a[0]*:a[1]}", "b":"factor(${:p})"},
+        "answer":"${:p}=\\color{red}{${math.toTex(Algebrite.run(:b))}}"
     },{
         "name":"Nombres inférieurs à 1000 (3e)",
-        "vars":{"a":"4_1000", "b":"factor(${:a})"},
-        "answer":"${:a}=\\color{red}{${math.toTex(Algebrite.run(:b))}}"
+        "vars":{"a":"2_11_3","p":"${:a[0]*:a[1]*:a[2]}", "b":"factor(${:p})"},
+        "answer":"${:p}=\\color{red}{${math.toTex(Algebrite.run(:b))}}"
     }
     ],
-    "question":"\\text{Décomposer }${:a}",
+    "question":"\\text{Décomposer }${:p}",
+    "shortq":"${:p}",
     "value":["${math.unpower(Algebrite.run(:b))}", "${Algebrite.run(:b)}"]
 }
