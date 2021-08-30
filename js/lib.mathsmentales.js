@@ -4323,12 +4323,13 @@ class activity {
     }
     /**
      * getPattern
-     * récupère 
+     * récupère 1 pattern unique
      * @param {integer} option id de l'option dont dépend le pattern
      * 
      * return uniqueId (Integer)
      */
     getPattern(option){
+        // 
         if(this.chosenQuestionTypes.length > 0){
             return this.chosenQuestionTypes[math.aleaInt(0, this.chosenQuestionTypes.length-1)];
         }

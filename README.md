@@ -2,6 +2,10 @@
 Projet de réécriture du site MathsMentales.net qui permet de créer des diaporamas de calcul mental sans effort
 Démo : https://seb-cogez.github.io/mathsmentales/
 
+### Auteurs
+L'auteur principal est Sébastien COGEZ. Des collègues ont suggéré des activités qu'il a développées.
+Fayçal TIB l'a rejoint le 31/08/21 pour créer des activités, notamment en lycée.
+
 ### Nouveautés apportées par cette version :
  * nouvelle interface : tous les réglages dans une page, affichage d'exemples de questions pour mieux comprendre
  * possibilité de créer jusqu'à 4 paniers d'activités

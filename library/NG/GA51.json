@@ -1,0 +1,15 @@
+{
+    "title":"Calculer delta",
+    "type":"latex",
+    "ID":"GA51",
+    "description":"",
+    "dest":["GA5"],
+    "consts":{},
+    "vars":{"a":"-10_10_^0", "b":"-10_10_^0", "c":"-10_10_^0","delta":"${math.round(:b*:b-4*:a*:c,2)}"},
+    "question":["\\text{Calculer delta : }${math.signIfOne(:a)}x^2${math.signedNumberButOne(:b)}x${math.signedNumberButOne(:c)}",
+				"\\text{Calculer delta : }${math.signIfOne(:b)}x${math.signedNumberButOne(:a)}x^2${math.signedNumberButOne(:c)}",
+				"\\text{Calculer delta : }${:c}${math.signedNumberButOne(:a)}x^2${math.signedNumberButOne(:b)}x"
+	],
+    "answer":"${math.nP(:b)}^2-4\\times${math.nP(:a)}\\times${math.nP(:c)}=\\color{red}{${:delta}}",
+    "value":"${:delta}"
+}
