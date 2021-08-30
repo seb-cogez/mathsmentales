@@ -1411,10 +1411,13 @@ class cart {
      */
     import(obj,start=false){
         // à revoir
-        debug(obj.t);
         this.title = obj.t;
         this.target = obj.c;
-        this.ordered = obj.o;
+        if(obj.o==="false" || !obj.o){
+            this.ordered = false;
+        } else {
+            this.ordered = true;
+        }
         // activités, utilise Promise
         let activities = [];
         for(const i in obj.a){
