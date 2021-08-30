@@ -140,7 +140,7 @@ var utils = {
                 document.getElementById("tab-accueil").appendChild(alert);
                 setTimeout(utils.goToOldVersion,10000);
             }
-        } else if(vars.c!==undefined){ // une activité MM v2 à lancer ou éditer
+        } else if(vars.c!==undefined){ // présence de carts MM v2 à lancer ou éditer
             let alert = utils.create("div",{id:'messageinfo',className:"message",innerHTML:"Chargement de l'activité MathsMentales.<br>Merci pour la visite."});
             document.getElementById("tab-accueil").appendChild(alert);
             if(vars.o === "yes" && !edit){
@@ -212,6 +212,7 @@ var utils = {
                     }
                 }
             }).catch(err=>{
+                // erreur à l'importation :(
                 let alert=utils.create("div",
                 {
                     id:"messageerreur",
@@ -219,6 +220,7 @@ var utils = {
                     innerHTML:"Impossible de charger les paniers :(<br>"+err
                 });
                 document.getElementById("tab-accueil").appendChild(alert);
+                // on fermet le message d'alerte après 3 secondes
                 setTimeout(()=>{
                     let div=document.getElementById('messageerreur');
                     div.parentNode.removeChild(div);
@@ -266,9 +268,11 @@ var utils = {
                 vars.u = MM1toMM2[idExo].new;
             }
         }
+        // on fait un tableau de données qui sont séparées par le &
         var hashes = urlString.replace(/\|/g,'/').slice(urlString.indexOf('?') + 1).split('&');
         var len = hashes.length;
-        // cas de la version avant le 15/08/21
+        // cas de la version avant le 15/08/21 - simple
+        // le tilde ~ est une caractéristique des nouvelles url
         if(urlString.indexOf("~")<0){
             for (var i = 0; i < len; i++) {
                 hash = hashes[i].split('=');
@@ -286,23 +290,31 @@ var utils = {
             _i=activityId2~o=optionsIds~q=subOptionsIds~p=???~t=durée~n=nbquestions
           optionsIds et subOptionsIds peuvent être une liste d'id séparés par des virgules ou rien
         */
-    } else {
+        } else {
             // données générales :
+            // la virgule est le séparateur de données avec affectation
+            // ces données sont les premières du tableau hashes
             hash = hashes[0].split(",");
             for(let i=0;i<hash.length;i++){
+                // le signe égal est le séparateur variable/valeur
                 let data = hash[i].split("=");
                 vars[data[0]] = data[1]?data[1]:false;
             }
-            // vars.c contient les carts. Dans la version après 15/08/21, vars.c est une chaine
+            // vars.c doit contenir les carts. Dans la version après 15/08/21, vars.c est une chaine
             // on reconstruit l'objet json à partir de la chaine
             vars.c = {};
             for(let i=1;i<len;i++){
+                // on ne commence qu'à 1, le zéro ayant déjà été traité ci-dessus
+                // si la première lettre est p, on a un panier
                 if(hashes[i].indexOf("p")===0){
+                    // le séparateur d'activités est le _
                     let parts = hashes[i].split("_");
-                    // parts[0] : parameters of the cart
+                    // parts[0] contient les données du panier, que l'on stocke dans data
+                    // le séparateur de couples var/valeur est ~
                     let data = parts[0].split("~");
                     let datas = {};
                     for(let j=0;j<data.length;j++){
+                        // le séparateur var/valeur est =
                         let dataparts = data[j].split("=");
                         datas[dataparts[0]]=decodeURI(dataparts[1]);
                     }
@@ -398,7 +410,7 @@ var utils = {
         // création de champ :
         if(champs.length<qty){
             dest.appendChild(utils.create("br"));
-            dest.appendChild(utils.create("label",{for:"ceinttitlecol"+qty,innerHTML:"Colonne "+qty}));
+            dest.appendChild(utils.create("label",{for:"ceinttitlecol"+qty,innerHTML:"Colonne "+qty+" : "}));
             dest.appendChild(utils.create("input",{type:"text",id:"ceinttitlecol"+qty,placeholder:"Texte, ou rien"}));
         } else if(champs.length>qty) {
             // suppression du dernier champ
@@ -1384,21 +1396,12 @@ class cart {
      */
     export(){
         let urlString = "&p="+this.id+
-            "~t="+this.title+
+            "~t="+encodeURI(this.title)+
             "~c="+this.target+
             "~o="+this.ordered;
-        //let activities={};
         for(let i=0,l=this.activities.length;i<l;i++){
-            //activities[i]=this.activities[i].export();
             urlString += "_"+this.activities[i].export();
         }
-        /*return {
-            i:this.id,
-            a:activities,
-            t:this.title,
-            c:this.target,
-            o:this.ordered
-        };*/
         return urlString;
     }
     /**
@@ -1407,7 +1410,8 @@ class cart {
      * @param {Boolean} start if true, will make start slideshow when all is ready
      */
     import(obj,start=false){
-        //à revoir
+        // à revoir
+        debug(obj.t);
         this.title = obj.t;
         this.target = obj.c;
         this.ordered = obj.o;
@@ -1493,6 +1497,7 @@ class cart {
      * display the cart in his content area
      */
     display(){
+        document.querySelector("#cart"+this.id+" h3").innerText=this.title;
         let dom = document.getElementById("cart"+(this.id)+"-list");
         dom.innerHTML = "";
         this.time = 0;
@@ -2241,13 +2246,20 @@ class ficheToPrint {
         */
         function setDispositionReponseAll(how){
             let setr="auto auto",setc="none";
+            let selindex = 1;
             if(how==="row"){
                 setr="none";setc="max-content auto";
+                selindex = 0;
             }
             // on sélectionne toutes colonnes
             let elts = document.querySelectorAll(".ceinture .grid .grid");
             for(let i=0;i<elts.length;i++){
                 elts[i].style["grid"] = setr+" / "+setc;
+            }
+            // on met les valeurs des autres input à cette valeur
+            let inputs = document.querySelectorAll(".selectpos");
+            for(let i=0;i<inputs.length;i++){
+                inputs[i].selectedIndex = selindex;
             }
         }
         /*
@@ -2270,9 +2282,33 @@ class ficheToPrint {
                 elts[i].style["grid-template-columns"] = style;
             }
         }
-        `});
+        /*
+        * change la couleur du fond des réponses
+        * what : bg (background) || bd (border)
+        */
+       function changeColor(hexa,what){
+           let elts = document.querySelectorAll(".ans");
+           let styleAttr = "background-color";
+           let styleVal = hexa;
+           if(what==="bd"){
+                styleAttr="border";
+                if(hexa==="none")styleVal = "none";
+                else styleVal="1pt solid "+hexa;
+           }
+           for(let i=0;i<elts.length;i++){
+               elts[i].style[styleAttr] = styleVal;
+           }
+       }
+       function changeBorder(bool){
+        if(bool){
+            changeColor(document.getElementById("colorpicker2").value,'bd');
+        } else {
+            changeColor('none','bd');
+        }
+       }
+       `});
         this.docsheet.head.appendChild(script);
-        let headnoprint = utils.create("section",{className:"noprint",id:"headnoprint"})
+        let headnoprint = utils.create("section",{className:"noprint",id:"headnoprint"});
         headnoprint.innerHTML += "<span>Lignes :</span>"+`<input id="inputheight" value="20" title="Hauteur en pt" type="number" size="3" min="10" max="200" oninput="changeHeight(this.value)">`;
         headnoprint.innerHTML += "<span>Texte</span>";
         for(let i=1;i<=nbcols;i++){
@@ -2285,20 +2321,20 @@ class ficheToPrint {
             headnoprint.innerHTML += input;
         }
         headnoprint.appendChild(utils.create("br"));
-        headnoprint.innerHTML += "<span>Réponse</span>";
+        headnoprint.innerHTML += "<strong>Réponse</strong> ";
         for(let i=1;i<=nbcols;i++){
-            let input = `<select onchange="setDispositionReponse(${i},this.value)">
+            let input = `<select class="selectpos" oninput="setDispositionReponse(${i},this.value)">
             <option value="row">à côté</option>
             <option value="column">dessous</option>
             </select>`;
             headnoprint.innerHTML += input;
         }
-        headnoprint.innerHTML += `<span>Tous</span>
-        <select onchange="setDispositionReponseAll(this.value)">
+        headnoprint.innerHTML += `<span>Tous</span> 
+        <select oninput="setDispositionReponseAll(this.value)">
             <option value="row">à côté</option>
             <option value="column">dessous</option>
             </select>`;
-
+        headnoprint.innerHTML+= ` Coul <input type="color" id="colorpicker" oninput="changeColor(this.value,'bg')" value="#ECECEC"> Cadre avec <input type="checkbox" value="true" onclick="changeBorder(this.checked)"> <input type="color" value="#111111" id="colorpicker2" oninput="changeColor(this.value,'bd')" size="8">`;
         this.content.appendChild(headnoprint);
         let correction = utils.create("div",{id:"correction",className:"pagebreak"});
         correction.appendChild(utils.create("div",{innerHTML:"Correction"}));
@@ -2640,6 +2676,7 @@ class ficheToPrint {
 };
 // MathsMentales core
 var MM = {
+    version:2,// à mettre à jour à chaque upload pour régler les pb de cache
     content:undefined, // liste des exercices classés niveau/theme/chapitre chargé au démarrage
     introType:"321",// type of the slide's intro values : "example" "321" "nothing"
     endType:"nothing",// type of end slide's values : "correction", "nothing", "list"
@@ -2664,6 +2701,8 @@ var MM = {
     },
     setOnlineState(value){
         this.onlineState = value;
+        // Mise à jour du champ
+        document.querySelector("input[name='online'][value='"+value+"']").checked = true;
     },
     getOnlineState(){
         this.onlineState = utils.getRadioChecked("online");
@@ -2886,7 +2925,7 @@ var MM = {
                 MM.start();
             else {
                 let alert=utils.create("div",{id:"messageinfo",className:"message",innerHTML:`Tu as suivi un lien d'activité préconfigurée MathsMentales.<br>Clique ci-dessous pour démarrer.<br><br><button onclick="utils.closeMessage('messageinfo');MM.start()"> Commencer ! 
-            </button> `});
+            </button><br><br> ou <button onclick="utils.closeMessage('messageinfo');MM.setOnlineState('yes');MM.start()"> Commencer (réponse en ligne) !</button>`});
                 document.getElementById("tab-accueil").appendChild(alert);
             }
         } else {
@@ -3174,15 +3213,6 @@ var MM = {
             ",f="+MM.faceToFace+
             ",a="+(withAleaSeed?MM.seed:"")+
             this.export();
-        /*{
-            i:MM.introType,
-            e:MM.endType,
-            o:MM.onlineState,
-            s:MM.slidersNumber, // nombre de slides
-            so:MM.slidersOrientation, // orientation en cas de 2 sliders
-            c:utils.superEncodeURI(JSON.stringify(carts)), // encode également les accolades
-            f:MM.faceToFace
-        };*/
     },
     // open an modal and
     // get the URL of direct access to the activity with actual parameters
@@ -3204,15 +3234,6 @@ var MM = {
         let withSeed = false;
         if(document.getElementById("aleaInURL").checked)withSeed = true;
         let params = this.paramsToURL(withSeed);
-        /*{
-            i:MM.introType,
-            e:MM.endType,
-            o:MM.onlineState,
-            s:MM.slidersNumber, // nombre de slides
-            so:MM.slidersOrientation, // orientation en cas de 2 sliders
-            c:utils.superEncodeURI(JSON.stringify(carts)), // encode également les accolades
-            f:MM.faceToFace
-        };*/
         let close = utils.create("button",{innerHTML:"<img src='img/closebutton32.png'>",style:"position:absolute;top:0.5rem;right:0.5rem;padding:0;background:transparent"});
         close.onclick = ()=>{let m = document.getElementById("urlCopy");m.parentNode.removeChild(m)};
         modalMessage.appendChild(close);
@@ -3677,7 +3698,7 @@ var MM = {
                     for(let indexQ=0,lenQ=MM.carts[0].activities[indexA].questions.length;indexQ<lenQ;indexQ++){
                         let li = document.createElement("li");
                         let span = document.createElement("span");
-                        let userAnswer = MM.userAnswers[ia];
+                        let userAnswer = MM.userAnswers[ia].replace(",",".");// on remplace la virgule française par un point, au cas où
                         const expectedAnswer = MM.carts[0].activities[indexA].values[indexQ];
                         // TODO : better correction value
                         // prendre en compte les cas où plusieurs réponses sont possibles
@@ -3714,6 +3735,8 @@ var MM = {
                 section.innerHTML = "<b>Score :</b> "+score+"/"+ia;
                 div.appendChild(section);
                 document.getElementById("corrige-content").appendChild(div);
+                // Mise en forme Maths
+                utils.mathRender();
             }
             // if only one activity in one cart, we empty it
             // TODO : why do that ?
@@ -3890,7 +3913,7 @@ var library = {
             utils.setHistory("Exercice","u="+url);
             this.open(json);
         }
-        reader.open("get", "library/"+url);
+        reader.open("get", "library/"+url+"?v"+MM.version);
         reader.send();
     },
     // import activity data from file
@@ -3901,7 +3924,7 @@ var library = {
             resolve(JSON.parse(reader.responseText));
         }
         reader.onerror = err=>{reject(err)};
-        reader.open("get", "library/"+url);
+        reader.open("get", "library/"+url+"?v"+MM.version);
         reader.send();
         })
     },
@@ -3917,7 +3940,7 @@ var library = {
             // check if parameters from URL
             utils.checkURL();
         }
-        reader.open("get", "library/content.json", true);
+        reader.open("get", "library/content.json?v"+MM.version, true);
         reader.send();
     },
     displayContent:function(level,base=false){

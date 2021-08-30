@@ -229,9 +229,12 @@ h3.exercice-title{
     padding: 2pt 4pt;
 }
 .bg-grey {
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAMAAAC6sdbXAAAAA1BMVEXW1taWrGEgAAAACklEQVR42mPACwAAHgAB3XenRQAAAABJRU5ErkJggg==);
-    background-repeat:no-repeat;
-    background-size:cover;
+    background-color: #ECECEC;
+}
+input[type="color"]{
+    width: 20pt;
+    height: 20pt;
+    vertical-align: middle;
 }
 .ceinture .grid .grid {
     align-content: center;

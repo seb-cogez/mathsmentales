@@ -34,7 +34,7 @@
     <script src="js/libs/underscore-min.js"></script>
     <script src="js/libs/kas.js" defer></script>
     <script src="js/MM1toMM2.min.js"></script>
-    <script src="js/lib.mathsmentales.js?v=11" type="text/javascript" defer></script>
+    <script src="js/lib.mathsmentales.js?v=12" type="text/javascript" defer></script>
 </head>
 <body>
     <div id="app-container">
@@ -141,7 +141,7 @@
             <div id="cartscontainer">
                 <section id="cart0" class="cartcontent">
                     <button class="cart-close" onclick="MM.emptyCart(1);" title="Vider le panier"><img src="img/recyclecart.png"></button>
-                    <h3 contenteditable="true" onblur="MM.carts[0].title = this.innerHTML;" title="Cliquer pour éditer">Groupe 1</h3>
+                    <h3 contenteditable="true" onblur="MM.carts[0].title = this.innerText;" title="Cliquer pour éditer">Groupe 1</h3>
                     <div class="totaux">
                         <img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
                         <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
@@ -155,7 +155,7 @@
                 <section id="cart1" class="hidden">
                     <button class="cart-close" onclick="MM.removeCart(2);" title="Supprimer le panier"><img src="img/burnCart.png"></button>
                     <button class="cart-close" onclick="MM.emptyCart(2);" title="Vider le panier"><img src="img/recyclecart.png"></button>
-                    <h3 contenteditable="true" onblur="MM.carts[1].title = this.innerHTML;" title="Cliquer pour éditer">Groupe 2</h3>
+                    <h3 contenteditable="true" onblur="MM.carts[1].title = this.innerText;" title="Cliquer pour éditer">Groupe 2</h3>
                     <div class="totaux">
                         <img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
                         <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
@@ -169,7 +169,7 @@
                 <section id="cart2" class="hidden">
                     <button class="cart-close" onclick="MM.removeCart(3);" title="Supprimer le panier"><img src="img/burnCart.png"></button>
                     <button class="cart-close" onclick="MM.emptyCart(3);" title="Vider le panier"><img src="img/recyclecart.png"></button>
-                    <h3 contenteditable="true" onblur="MM.carts[2].title = this.innerHTML;" title="Cliquer pour éditer">Groupe 3</h3>
+                    <h3 contenteditable="true" onblur="MM.carts[2].title = this.innerText;" title="Cliquer pour éditer">Groupe 3</h3>
                     <div class="totaux">
                         <img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
                         <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
@@ -183,7 +183,7 @@
                 <section id="cart3" class="hidden">
                     <button class="cart-close" onclick="MM.removeCart(4);" title="Supprimer le panier"><img src="img/burnCart.png"></button>
                     <button class="cart-close" onclick="MM.emptyCart(4);" title="Vider le panier"><img src="img/recyclecart.png"></button>
-                    <h3 contenteditable="true" onblur="MM.carts[3].title = this.innerHTML;" title="Cliquer pour éditer">Groupe 4</h3>
+                    <h3 contenteditable="true" onblur="MM.carts[3].title = this.innerText;" title="Cliquer pour éditer">Groupe 4</h3>
                     <div class="totaux">
                         <img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
                         <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
