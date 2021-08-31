@@ -4124,7 +4124,7 @@ class activity {
         this.examplesFigs = {}; // genrated graphics from Class Figure
         this.chosenOptions = utils.clone(obj.chosenOptions)||[]; // options choisies (catégories)
         this.chosenQuestions = utils.clone(obj.chosenQuestions)||{}; // questions parmi les options (sous catégories)
-        this.chosenQuestionTypes = utils.clone(obj.chosenQuestionTypes)||[]; // TODO : est-ce que cela sert ?
+        this.chosenQuestionTypes = utils.clone(obj.chosenQuestionTypes)||[]; // pattern parmi les questions
         this.tempo = utils.clone(obj.tempo) || Number(document.getElementById("tempo-slider").value);
         this.nbq = utils.clone(obj.nbq) || Number(document.getElementById("nbq-slider").value);
     }
@@ -4332,11 +4332,14 @@ class activity {
      * return uniqueId (Integer)
      */
     getPattern(option){
-        // 
+        // l'utilisateur a choisi plusieurs types de questions, on prend l'une des valeurs
         if(this.chosenQuestionTypes.length > 0){
             return this.chosenQuestionTypes[math.aleaInt(0, this.chosenQuestionTypes.length-1)];
         }
-        // no option
+        // no option mais plusieurs pattern possibles
+        if(option === false && Array.isArray(this.questionPatterns)){
+            return math.aleaInt(0,this.questionPatterns.length-1);
+        }
         if(option === false)return false;
         // if option, patterns ?
         if(!Array.isArray(this.chosenQuestions[option])){
@@ -4527,6 +4530,7 @@ class activity {
         for(let i=0;i<n;i++){
             optionNumber = opt!==undefined?opt:this.getOption();
             patternNumber = patt!==undefined?patt:this.getPattern(optionNumber);
+            // cas d'une option qui a été choisie
             if(optionNumber !== false){
                 // set chosen vars
                 if(this.options[optionNumber].vars === undefined){
@@ -4590,7 +4594,11 @@ class activity {
                     this.cQuestion = this.questionPatterns;
                     this.cShortQ = this.shortQuestionPatterns||false;
                 }
-                this.cAnswer = this.answerPatterns;
+                if(Array.isArray(this.answerPatterns) && this.answerPatterns.length===this.questionPatterns.length){
+                    this.cAnswer = this.answerPatterns[patternNumber];
+                } else{
+                    this.cAnswer = this.answerPatterns;
+                }
                 this.cValue = this.valuePatterns;
                 if(this.figure !== undefined){
                     this.cFigure = utils.clone(this.figure);
@@ -4628,7 +4636,7 @@ class activity {
             let thevalue = this.replaceVars(utils.clone(this.cValue));
             let theshort = false;
             if(this.cShortQ){
-                theshort = this.replaceVars(this.cShortQ);
+                theshort = this.replaceVars(utils.clone(this.cShortQ));
             }
             loopProtect++;
             // on évite les répétitions
