@@ -3701,16 +3701,21 @@ var MM = {
                     for(let indexQ=0,lenQ=MM.carts[0].activities[indexA].questions.length;indexQ<lenQ;indexQ++){
                         let li = document.createElement("li");
                         let span = document.createElement("span");
-                        let userAnswer = MM.userAnswers[ia].replace(",",".");// on remplace la virgule française par un point, au cas où
+                        let userAnswer = MM.userAnswers[ia].replace(",",".").trim();// on remplace la virgule française par un point, au cas où
+                        if(userAnswer.indexOf("\\text")===0){
+                            userAnswer = userAnswer.substring(6,userAnswer.length-1);
+                        }
                         const expectedAnswer = MM.carts[0].activities[indexA].values[indexQ];
                         // TODO : better correction value
                         // prendre en compte les cas où plusieurs réponses sont possibles
+                        // attention, si c'est du texte, il faut supprimer des choses car mathlive transforme 
                         if(Array.isArray(expectedAnswer)){
-                            let classe = "wrong";
+                            debug(userAnswer);
                             for(let i=0;i<expectedAnswer.length;i++){
                                 if(String(userAnswer).toLowerCase()==String(expectedAnswer[i]).toLowerCase()){
                                     li.className = "good";
                                     score++;
+                                    break;
                                 } else {
                                     const expr1 = KAS.parse(expectedAnswer[i]).expr;
                                     const expr2 = KAS.parse(String(userAnswer).replace('²', '^2')).expr;
@@ -3718,6 +3723,7 @@ var MM = {
                                         // use KAS.compare for algebraics expressions.
                                         li.className = "good";
                                         score++;
+                                        break;
                                     } else {
                                         li.className = "wrong";
                                     }
