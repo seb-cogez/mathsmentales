@@ -2679,7 +2679,7 @@ class ficheToPrint {
 };
 // MathsMentales core
 var MM = {
-    version:2,// à mettre à jour à chaque upload pour régler les pb de cache
+    version:3,// à mettre à jour à chaque upload pour régler les pb de cache
     content:undefined, // liste des exercices classés niveau/theme/chapitre chargé au démarrage
     introType:"321",// type of the slide's intro values : "example" "321" "nothing"
     endType:"nothing",// type of end slide's values : "correction", "nothing", "list"
@@ -3701,25 +3701,54 @@ var MM = {
                     for(let indexQ=0,lenQ=MM.carts[0].activities[indexA].questions.length;indexQ<lenQ;indexQ++){
                         let li = document.createElement("li");
                         let span = document.createElement("span");
-                        let userAnswer = MM.userAnswers[ia].replace(",",".");// on remplace la virgule française par un point, au cas où
+                        let userAnswer = MM.userAnswers[ia].replace(",",".").trim();// on remplace la virgule française par un point, au cas où
+                        if(userAnswer.indexOf("\\text")===0){
+                            userAnswer = userAnswer.substring(6,userAnswer.length-1);
+                        }
                         const expectedAnswer = MM.carts[0].activities[indexA].values[indexQ];
                         // TODO : better correction value
                         // prendre en compte les cas où plusieurs réponses sont possibles
-                        if(String(userAnswer)==String(expectedAnswer)){
-                            li.className = "good";
-                            score++;
+                        // attention, si c'est du texte, il faut supprimer des choses car mathlive transforme 
+                        if(Array.isArray(expectedAnswer)){
+                            debug(userAnswer);
+                            for(let i=0;i<expectedAnswer.length;i++){
+                                if(String(userAnswer).toLowerCase()==String(expectedAnswer[i]).toLowerCase()){
+                                    li.className = "good";
+                                    score++;
+                                    break;
+                                } else {
+                                    const expr1 = KAS.parse(expectedAnswer[i]).expr;
+                                    const expr2 = KAS.parse(String(userAnswer).replace('²', '^2')).expr;
+                                    try{if(KAS.compare(expr1,expr2,{form:true,simplify:false}).equal){
+                                        // use KAS.compare for algebraics expressions.
+                                        li.className = "good";
+                                        score++;
+                                        break;
+                                    } else {
+                                        li.className = "wrong";
+                                    }
+                                    } catch(error){
+                                        li.className = "wrong";
+                                    }
+                                }
+                            }
                         } else {
-                            const expr1 = KAS.parse(expectedAnswer).expr;
-                            const expr2 = KAS.parse(String(userAnswer).replace('²', '^2')).expr;
-                            try{if(KAS.compare(expr1,expr2,{form:true,simplify:false}).equal){
-                                // use KAS.compare for algebraics expressions.
+                            if(String(userAnswer).toLowerCase()==String(expectedAnswer).toLowerCase()){
                                 li.className = "good";
                                 score++;
                             } else {
-                                li.className = "wrong";
-                            }
-                            } catch(error){
-                                li.className = "wrong";
+                                const expr1 = KAS.parse(expectedAnswer).expr;
+                                const expr2 = KAS.parse(String(userAnswer).replace('²', '^2')).expr;
+                                try{if(KAS.compare(expr1,expr2,{form:true,simplify:false}).equal){
+                                    // use KAS.compare for algebraics expressions.
+                                    li.className = "good";
+                                    score++;
+                                } else {
+                                    li.className = "wrong";
+                                }
+                                } catch(error){
+                                    li.className = "wrong";
+                                }
                             }
                         }
                         // on teste si la réponse est un nombre ou si elle contient des caractères echapé auquel cas on considère que c'est du latex
@@ -4518,6 +4547,7 @@ class activity {
     * @param {integer} patt id of question pattern (otional)
     * @param {boolean} sample if true generate a sample question to show before starting slideshow
     * return nothing
+    * utilise des variables de travail this.cVars, this.cConsts, this.cFigure, this.cQuestion, this.cShortQ, this.cAnswer, this.cValue qui vont contenir les différentes définitions, this.wVars contient les variables où les variables vont être remplacées par les valeurs générées
     * 
     */
     generate(n=this.nbq, opt, patt, sample){
@@ -4626,7 +4656,7 @@ class activity {
                     }
                 }
             }
-            // généralement pas utilisé ! à supprimer.
+            // généralement pas utilisé, mais cela arrive.
             if(this.cConsts !== undefined){
                 this.cConsts = this.replaceVars(this.cConsts);
             }

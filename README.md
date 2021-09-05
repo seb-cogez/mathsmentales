@@ -30,8 +30,8 @@ Fayçal TIB l'a rejoint le 31/08/21 pour créer des activités, notamment en lyc
  * [JSXGraph](http://jsxgraph.uni-bayreuth.de/wp/index.html) pour les représentations graphiques et la géométrie, notamment [JessieCode](https://github.com/jsxgraph/JessieCode) qui permet de réaliser des figures facilement (LGPL & MIT licences)
  * [asciimath2tex](https://github.com/christianp/asciimath2tex) pour taper plus rapidement les formules de maths (Licence Apache 2.0)
  * [qrious](https://github.com/neocotic/qrious) pour générer les qrcodes (GPLv3 licence)
- * [mathlive](https://mathlive.io/) pour l'interface de saisie utilisateur pour répondre en ligne
- * [tinyweb](https://www.ritlabs.com/en/products/tinyweb/) pour le mini serveur web sous windows.
+ * [mathlive](https://mathlive.io/) pour l'interface de saisie utilisateur pour répondre en ligne (MIT license)
+ * [tinyweb](https://www.ritlabs.com/en/products/tinyweb/) pour le mini serveur web sous windows. (licence non libre, Cf. fichier de licence)
 
 ### icones
 * "Circle Icons" de Nick Roach [iconfinder](https://www.iconfinder.com/iconsets/circle-icons-1) parfois retouchées, licence GPL

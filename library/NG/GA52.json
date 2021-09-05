@@ -1,0 +1,13 @@
+{
+    "title":"Mettre sous forme canonique",
+    "type":"latex",
+    "ID":"GA52",
+    "description":"",
+    "dest":["GA5"],
+    "consts":{},
+    "vars":{"a":"-10_10_^0", "b":"-10_10_^0", "c":"-10_10_^0","alpha":"${math.round(-:b/(2*:a),2)}","beta":"${math.round(:a*:alpha*:alpha+:b*:alpha+:c,2)}"},
+    "question":["\\text{Mettre }${:a}x^2${:b<0?:b:'+'+:b}x${:c<0?:c:'+'+:c}\\text{ sous forme canonique}"
+	],
+    "answer":"${:a}x^2${:b<0?:b:'+'+:b}x${:c<0?:c:'+'+:c}=\\color{red}{${:a}('x'${:alpha<0?'+'+(-:alpha):'-'+:alpha})+${:beta<0?:beta:'+'+:beta}}",
+    "value":"${:a}*(x-${:alpha})+${:beta}}"
+}
