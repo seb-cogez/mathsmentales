@@ -3705,21 +3705,44 @@ var MM = {
                         const expectedAnswer = MM.carts[0].activities[indexA].values[indexQ];
                         // TODO : better correction value
                         // prendre en compte les cas où plusieurs réponses sont possibles
-                        if(String(userAnswer)==String(expectedAnswer)){
-                            li.className = "good";
-                            score++;
+                        if(Array.isArray(expectedAnswer)){
+                            let classe = "wrong";
+                            for(let i=0;i<expectedAnswer.length;i++){
+                                if(String(userAnswer).toLowerCase()==String(expectedAnswer[i]).toLowerCase()){
+                                    li.className = "good";
+                                    score++;
+                                } else {
+                                    const expr1 = KAS.parse(expectedAnswer[i]).expr;
+                                    const expr2 = KAS.parse(String(userAnswer).replace('²', '^2')).expr;
+                                    try{if(KAS.compare(expr1,expr2,{form:true,simplify:false}).equal){
+                                        // use KAS.compare for algebraics expressions.
+                                        li.className = "good";
+                                        score++;
+                                    } else {
+                                        li.className = "wrong";
+                                    }
+                                    } catch(error){
+                                        li.className = "wrong";
+                                    }
+                                }
+                            }
                         } else {
-                            const expr1 = KAS.parse(expectedAnswer).expr;
-                            const expr2 = KAS.parse(String(userAnswer).replace('²', '^2')).expr;
-                            try{if(KAS.compare(expr1,expr2,{form:true,simplify:false}).equal){
-                                // use KAS.compare for algebraics expressions.
+                            if(String(userAnswer).toLowerCase()==String(expectedAnswer).toLowerCase()){
                                 li.className = "good";
                                 score++;
                             } else {
-                                li.className = "wrong";
-                            }
-                            } catch(error){
-                                li.className = "wrong";
+                                const expr1 = KAS.parse(expectedAnswer).expr;
+                                const expr2 = KAS.parse(String(userAnswer).replace('²', '^2')).expr;
+                                try{if(KAS.compare(expr1,expr2,{form:true,simplify:false}).equal){
+                                    // use KAS.compare for algebraics expressions.
+                                    li.className = "good";
+                                    score++;
+                                } else {
+                                    li.className = "wrong";
+                                }
+                                } catch(error){
+                                    li.className = "wrong";
+                                }
                             }
                         }
                         // on teste si la réponse est un nombre ou si elle contient des caractères echapé auquel cas on considère que c'est du latex
@@ -4518,6 +4541,7 @@ class activity {
     * @param {integer} patt id of question pattern (otional)
     * @param {boolean} sample if true generate a sample question to show before starting slideshow
     * return nothing
+    * utilise des variables de travail this.cVars, this.cConsts, this.cFigure, this.cQuestion, this.cShortQ, this.cAnswer, this.cValue qui vont contenir les différentes définitions, this.wVars contient les variables où les variables vont être remplacées par les valeurs générées
     * 
     */
     generate(n=this.nbq, opt, patt, sample){
@@ -4626,7 +4650,7 @@ class activity {
                     }
                 }
             }
-            // généralement pas utilisé ! à supprimer.
+            // généralement pas utilisé, mais cela arrive.
             if(this.cConsts !== undefined){
                 this.cConsts = this.replaceVars(this.cConsts);
             }
