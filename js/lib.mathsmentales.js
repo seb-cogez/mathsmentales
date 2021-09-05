@@ -2679,7 +2679,7 @@ class ficheToPrint {
 };
 // MathsMentales core
 var MM = {
-    version:2,// à mettre à jour à chaque upload pour régler les pb de cache
+    version:3,// à mettre à jour à chaque upload pour régler les pb de cache
     content:undefined, // liste des exercices classés niveau/theme/chapitre chargé au démarrage
     introType:"321",// type of the slide's intro values : "example" "321" "nothing"
     endType:"nothing",// type of end slide's values : "correction", "nothing", "list"
