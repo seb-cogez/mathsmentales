@@ -32,6 +32,7 @@ Fayçal TIB l'a rejoint le 31/08/21 pour créer des activités, notamment en lyc
  * [qrious](https://github.com/neocotic/qrious) pour générer les qrcodes (GPLv3 licence)
  * [mathlive](https://mathlive.io/) pour l'interface de saisie utilisateur pour répondre en ligne (MIT license)
  * [tinyweb](https://www.ritlabs.com/en/products/tinyweb/) pour le mini serveur web sous windows. (licence non libre, Cf. fichier de licence)
+ * [sonothèque](https://lasonotheque.org), source des bruitages utilisés pour réveiller l'attention des élèves entre chaque diapo
 
 ### icones
 * "Circle Icons" de Nick Roach [iconfinder](https://www.iconfinder.com/iconsets/circle-icons-1) parfois retouchées, licence GPL

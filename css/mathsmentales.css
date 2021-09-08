@@ -846,11 +846,13 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
     width:28px;
   }
 }
+/* un unique slide */
 .slider-1 {
     width: calc(100% - 20px);
     height: calc(100% - 20px);
     border: 1px solid black;
 }
+/* deux slides en même temps */
 .slider-2 {
     width: calc(50% - 10px);
     height: calc(100% - 20px);
@@ -864,6 +866,7 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
     width: calc(100% - 20px);
     height: calc(50% - 10px);
 }
+/* 3 ou 4 slides en même temps */
 .slider-34{
     width: calc(50% - 10px);
     height: calc(50% - 10px);
@@ -874,6 +877,22 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
 }
 .slider-1, .slider-2, .slider-34 {
     font-size: 2em;
+}
+/* TODO à revoir selon résolution écran */
+.slider-1 .slide {
+  font-size : 3em;
+}
+.slider-2 .slide {
+  font-size : 2em;
+}
+/* pour les medias touchables */
+@media (hover:none),(hover:on-demand){
+  .slider-1 .slide{
+    font-size: 1em;
+  }
+  .slider-2 .slide {
+    font-size : 1em;
+  }
 }
 .slider-bigger {
     font-size: 3em;

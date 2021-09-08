@@ -18,7 +18,7 @@
     <link href="js/libs/katex/katex.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/knacss.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/bulma-steps.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="css/mathsmentales.min.css?v=3" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/mathsmentales.min.css?v=4" type="text/css" media="screen" />
     <link rel="stylesheet" href="js/libs/JSXGprah1.2.2/jsxgraph.css" type="text/css" />
     <script src="js/libs/katex/katex.min.js" type="text/javascript" defer></script>
     <script src="js/libs/asciimath2tex/asciimath2tex.min.js"></script>
@@ -34,7 +34,7 @@
     <script src="js/libs/underscore-min.js"></script>
     <script src="js/libs/kas.js" defer></script>
     <script src="js/MM1toMM2.min.js"></script>
-    <script src="js/lib.mathsmentales.js?v=19" type="text/javascript" defer></script>
+    <script src="js/lib.mathsmentales.js?v=20" type="text/javascript" defer></script>
 </head>
 <body>
     <div id="app-container">
@@ -222,7 +222,7 @@
             </fieldset>
             <fieldset class="lh2">
                 <legend>Son</legend>
-                <select title="Son entre chaque diapo" oninput="sound.select(this.value)" id="playerlist">
+                <select title="Son entre chaque diapo - panier unique" oninput="sound.select(this.value)" id="playerlist">
                 <option value="null">Aucun</option>
                 </select>
                 <audio src="" autoplay id="soundplayer"></audio>
@@ -487,6 +487,7 @@
         <button title="Tout arrêter" id="stop-all" onclick="MM.stopAllSliders()"><img src="img/slider-stop.png"></button>
         <button title="Tout mettre en pause" id="pause-all" onclick="MM.pauseAllSliders();"><img src="img/slider-pause.png"></button>
         <button title="Passer à la suivante pour tous" id="next-all" onclick="MM.nextAllSliders()"><img src="img/slider-next.png"></button>
+        <input type="range" step="2" min="6" max="60" value="10" oninput="MM.changeSizeText(this.value)" ondblclick="MM.changeSizeText(10,this)">
     </header>
     <section id="slideshow"></section>
 </div>

@@ -1762,7 +1762,10 @@ class Zoom {
         this.target = targetSelector;
         this.id=id;
     }
-    changeSize(value){
+    changeSize(value,obj=false){
+        if(value===10 && obj){
+            obj.value = 10;
+        }
         let dest = document.querySelectorAll(this.target);
         dest.forEach(elt=>elt.style.fontSize = math.round(Number(value)/10,1)+"em");
     }
@@ -1770,7 +1773,7 @@ class Zoom {
         let div = utils.create("div",{id:this.id, className:"zoom"});
         let span = utils.create("span",{className:"zoom-a0",innerText:"A"});
         let span2 = utils.create("span",{className:"zoom-A1",innerText:"A"});
-        let cursor = `<input type="range" min="6" max="60" step="2" value="10" oninput="MM.zooms['${this.id}'].changeSize(this.value)" ondblclick=MM.zooms['${this.id}'].changeSize(10)>`;
+        let cursor = `<input id="zoom${this.id}" type="range" min="6" max="60" step="2" value="10" oninput="MM.zooms['${this.id}'].changeSize(this.value)" ondblclick="MM.zooms['${this.id}'].changeSize(10,this)">`;
         div.appendChild(span);
         div.innerHTML += cursor;
         div.appendChild(span2);
@@ -2778,6 +2781,13 @@ var MM = {
         MM.editedActivity.display();
         MM.carts[MM.selectedCart].editedActivityId = -1;
         MM.carts[MM.selectedCart].display();
+    },
+    changeSizeText(value,obj=false){
+        if(value === 10 && obj){
+            obj.value=10;
+        }
+        const elts = document.querySelectorAll("#slideshow .slide");
+        elts.forEach(elt=>elt.style.fontSize = math.round(Number(value)/10,1)+"em");
     },
     setTempo:function(value){
         document.getElementById("tempo-slider").value = value;
