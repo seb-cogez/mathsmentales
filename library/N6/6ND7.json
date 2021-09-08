@@ -19,13 +19,13 @@
         "question": "${:p}=?\\times?",
         "answer":"${:p}=\\color{red}{${math.listeProduits(:p)}}",
         "vars":{"a":"1_10", "b":"1_10", "p":"${:a*:b}"},
-        "value":"${:b}"
+        "value":"${math.listeProduits(:p)}"
     }, {
         "name":"Trouver le produit (inférieur à 12)",
         "question": "${:p}=?\\times?",
         "answer":"${:p}=\\color{red}{${math.listeProduits(:p,12)}}",
         "vars":{"a":"3_12", "b":"4_12", "p":"${:a*:b}"},
-        "value":"${:b}"
+        "value":"${math.listeProduits(:p,12)}"
     }
     ]
 }

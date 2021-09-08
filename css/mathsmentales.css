@@ -355,13 +355,17 @@ ul.menu, .menu ul {
   font-weight: bolder;
 }
 #tab-parameters fieldset {
-    border: 2px solid grey;
-    border-radius: 0.3em;
-    background-color: white;
-    display: inline-block;
-    box-shadow: 4px 4px 6px #AAA;
-    padding: 1.5rem;
-    line-height: 1rem;
+  border: 2px solid grey;
+  border-radius: 0.3em;
+  background-color: white;
+  display: inline-block;
+  box-shadow: 4px 4px 6px #AAA;
+  padding: 1.5rem;
+  line-height: 1rem;
+}
+#tab-parameters fieldset.lh2 {
+  line-height: 2rem;
+  padding: 1rem;
 }
 #tab-parameters div > fieldset {
     margin-top: 1em;

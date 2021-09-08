@@ -34,7 +34,7 @@
     <script src="js/libs/underscore-min.js"></script>
     <script src="js/libs/kas.js" defer></script>
     <script src="js/MM1toMM2.min.js"></script>
-    <script src="js/lib.mathsmentales.js?v=18" type="text/javascript" defer></script>
+    <script src="js/lib.mathsmentales.js?v=19" type="text/javascript" defer></script>
 </head>
 <body>
     <div id="app-container">
@@ -219,7 +219,15 @@
                 <span title="Commencer sur un exemple que l'on pourra discuter"><input type="radio" class="radio" name="beforeSlider" value="example" onclick="MM.setIntroType(this.value);"> Exemple</span>
                 <span title="Commener par un décompte 3...2...1..."><input type="radio" class="radio" name="beforeSlider" value="321" checked="true" onclick="MM.setIntroType(this.value);"> Décompte</span>
                 <span title="Commencer directement"><input type="radio" class="radio" name="beforeSlider" value="nothing" onclick="MM.setIntroType(this.value);"> Rien</span>
-            </fieldset><br>
+            </fieldset>
+            <fieldset class="lh2">
+                <legend>Son</legend>
+                <select title="Son entre chaque diapo" oninput="sound.select(this.value)" id="playerlist">
+                <option value="null">Aucun</option>
+                </select>
+                <audio src="" autoplay id="soundplayer"></audio>
+            </fieldset>
+            <br>
             <fieldset>
                 <legend>Enoncé</legend>
                 <input type="radio" class="radio" name="Enonces" value="1" checked="true" onclick="MM.setDispositionEnonce(1);"> Simple
