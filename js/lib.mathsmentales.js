@@ -2927,8 +2927,11 @@ var MM = {
             if(start)
                 MM.start();
             else {
-                let alert=utils.create("div",{id:"messageinfo",className:"message",innerHTML:`Tu as suivi un lien d'activité préconfigurée MathsMentales.<br>Clique ci-dessous pour démarrer.<br><br><button onclick="utils.closeMessage('messageinfo');MM.start()"> Commencer ! 
-            </button><br><br> ou <button onclick="utils.closeMessage('messageinfo');MM.setOnlineState('yes');MM.start()"> Commencer (réponse en ligne) !</button>`});
+                let message = `Tu as suivi un lien d'activité préconfigurée MathsMentales.<br>Clique ci-dessous pour démarrer.<br><br><button onclick="utils.closeMessage('messageinfo');MM.start()"> Commencer ! 
+                </button>`;
+                if(MM.carts.length===1 && MM.carts[0].target.length===1)
+                message +=`<br><br> ou <button onclick="utils.closeMessage('messageinfo');MM.setOnlineState('yes');MM.start()"> Commencer (réponse en ligne) !</button>`;
+                let alert=utils.create("div",{id:"messageinfo",className:"message",innerHTML:message});
                 document.getElementById("tab-accueil").appendChild(alert);
             }
         } else {
@@ -2941,6 +2944,7 @@ var MM = {
     populateQuestionsAndAnswers(withAnswer){
         if(withAnswer=== undefined)withAnswer = true;
         MM.figs = {};MM.steps=[];MM.timers=[];MM.memory={};
+        // length = nombre de paniers
         let length=MM.carts.length;
         let enonces = document.getElementById('enonce-content');
         let corriges = document.getElementById('corrige-content');
@@ -2953,6 +2957,7 @@ var MM = {
         utils.setSeed();
         MM.copyURLtoHistory();
         for(let i=0;i<length;i++){
+            MM.carts[i].actsArrays = [];
             for(let kk=0,clen=MM.carts[i].target.length;kk<clen;kk++){
                 let indiceSlide = 0;
                 let slideNumber = MM.carts[i].target[kk]-1;
@@ -2990,10 +2995,13 @@ var MM = {
                 if(!MM.carts[i].ordered){
                     actsArray = _.shuffle(actsArray);
                 }
+                // on stocke les associations pour pouvoir comparer quand on fera le online
+                MM.carts[i].actsArrays[kk] = actsArray;
                 // parcours des questions
                 for(let ff=0;ff<actsArray.length;ff++){
                     let activity = MM.carts[i].activities[actsArray[ff][0]];
                     // pour ne pas tout réécrire :
+                    // j est le numéro de la question
                     let j = actsArray[ff][1];
                     let question = activity.questions[j];
                     let answer = activity.answers[j];
@@ -3050,12 +3058,39 @@ var MM = {
     },
     /**
      * Create the user inputs to answer the questions
+     * Ne fonctionnera qu'avec un panier unique
      * 
      */
     createUserInputs:function(){
         MM.mf = {};
-        let slider=0,slide = 0;
-        for(let i=0,len=MM.carts[0].activities.length;i<len;i++){
+        //let slider=0,slide = 0;
+        for(let slider=0,len=MM.carts[0].target.length;slider<len;slider++){
+            for(let slide=0,len2=MM.carts[0].actsArrays[slider].length;slide<len2;slide++){
+                const MFTARGET = document.getElementById("slider"+slider);
+                const element = document.getElementById("slide"+slider+"-"+slide);
+                const ID = 'ansInput'+slider+'-'+slide;
+                MM.mf[ID] = new MathfieldElement({
+                    smartMode:true,
+                    virtualKeyboardMode:'manual',
+                    virtualKeyboards:'numeric',
+                    fontsDirectory:'../katex/fonts',
+                    virtualKeyboardContainer:MFTARGET,
+                    virtualKeyboardTheme:"material"
+               });
+               MM.mf[ID].id = ID;
+               MM.mf[ID].target = element;
+               MM.mf[ID].addEventListener("keyup",function(event){
+                    if(event.key === "Enter" || event.keyCode === 9){
+                        MM.nextSlide(0);
+                        event.preventDefault();
+                }
+                });
+                element.appendChild(MM.mf[ID]);
+                element.appendChild(utils.create("div",{style:"height:270px;"}));
+                MM.mf[ID].addEventListener("virtual-keyboard-toggle",(evt)=>{console.log(evt)});
+            }
+        }
+        /*for(let i=0,len=MM.carts[0].target[0].actsArray.length;i<len;i++){
             let activity = MM.carts[0].activities[i];
             const MFTARGET = document.getElementById("slider"+slider);
             for(let j=0,lenq=activity.questions.length;j<lenq;j++){
@@ -3082,7 +3117,7 @@ var MM = {
                 MM.mf[ID].addEventListener("virtual-keyboard-toggle",(evt)=>{console.log(evt)});
                 slide++;
             }
-        }
+        }*/
     },
     setFacetoFace(etat){
         this.faceToFace = etat;
@@ -3697,20 +3732,26 @@ var MM = {
                 ol.innerHTML = "<b>Tes réponses</b>";
                 let ia = 0;
                 // correction
-                for(let indexA=0,lenA=MM.carts[0].activities.length;indexA<lenA;indexA++){
-                    for(let indexQ=0,lenQ=MM.carts[0].activities[indexA].questions.length;indexQ<lenQ;indexQ++){
+                // TODO : modifier pour les cas où il y aura plusieurs champs réponse
+                // attention, les questions ont pu être mélangées, on va donc devoir associer correctement les réponses/questions
+                // les réponses sont données dans l'ordre, mais pas les questions.
+                // on peut avoir plusieurs utilisateurs... pour les duels
+                // 1 utilisateur = un actArray
+                for(let slider=0,len=MM.carts[0].actsArrays.length;slider<len;slider++){
+                    // pour un target, on a l'ordre des activités et des réponses.
+                    for(let slide=0,len2=MM.carts[0].actsArrays[slider].length;slide<len2;slide++){
+                        let refs = MM.carts[0].actsArrays[slider][slide];
                         let li = document.createElement("li");
                         let span = document.createElement("span");
                         let userAnswer = MM.userAnswers[ia].replace(",",".").trim();// on remplace la virgule française par un point, au cas où
                         if(userAnswer.indexOf("\\text")===0){
                             userAnswer = userAnswer.substring(6,userAnswer.length-1);
                         }
-                        const expectedAnswer = MM.carts[0].activities[indexA].values[indexQ];
+                        const expectedAnswer = MM.carts[0].activities[refs[0]].values[refs[1]];
                         // TODO : better correction value
                         // prendre en compte les cas où plusieurs réponses sont possibles
                         // attention, si c'est du texte, il faut supprimer des choses car mathlive transforme 
                         if(Array.isArray(expectedAnswer)){
-                            debug(userAnswer);
                             for(let i=0;i<expectedAnswer.length;i++){
                                 if(String(userAnswer).toLowerCase()==String(expectedAnswer[i]).toLowerCase()){
                                     li.className = "good";
@@ -3762,6 +3803,70 @@ var MM = {
                         ol.appendChild(li);
                     }
                 }
+                /*for(let indexA=0,lenA=MM.carts[0].activities.length;indexA<lenA;indexA++){
+                    for(let indexQ=0,lenQ=MM.carts[0].activities[indexA].questions.length;indexQ<lenQ;indexQ++){
+                        let li = document.createElement("li");
+                        let span = document.createElement("span");
+                        let userAnswer = MM.userAnswers[ia].replace(",",".").trim();// on remplace la virgule française par un point, au cas où
+                        if(userAnswer.indexOf("\\text")===0){
+                            userAnswer = userAnswer.substring(6,userAnswer.length-1);
+                        }
+                        const expectedAnswer = MM.carts[0].activities[indexA].values[indexQ];
+                        // TODO : better correction value
+                        // prendre en compte les cas où plusieurs réponses sont possibles
+                        // attention, si c'est du texte, il faut supprimer des choses car mathlive transforme 
+                        if(Array.isArray(expectedAnswer)){
+                            for(let i=0;i<expectedAnswer.length;i++){
+                                if(String(userAnswer).toLowerCase()==String(expectedAnswer[i]).toLowerCase()){
+                                    li.className = "good";
+                                    score++;
+                                    break;
+                                } else {
+                                    const expr1 = KAS.parse(expectedAnswer[i]).expr;
+                                    const expr2 = KAS.parse(String(userAnswer).replace('²', '^2')).expr;
+                                    try{if(KAS.compare(expr1,expr2,{form:true,simplify:false}).equal){
+                                        // use KAS.compare for algebraics expressions.
+                                        li.className = "good";
+                                        score++;
+                                        break;
+                                    } else {
+                                        li.className = "wrong";
+                                    }
+                                    } catch(error){
+                                        li.className = "wrong";
+                                    }
+                                }
+                            }
+                        } else {
+                            if(String(userAnswer).toLowerCase()==String(expectedAnswer).toLowerCase()){
+                                li.className = "good";
+                                score++;
+                            } else {
+                                const expr1 = KAS.parse(expectedAnswer).expr;
+                                const expr2 = KAS.parse(String(userAnswer).replace('²', '^2')).expr;
+                                try{if(KAS.compare(expr1,expr2,{form:true,simplify:false}).equal){
+                                    // use KAS.compare for algebraics expressions.
+                                    li.className = "good";
+                                    score++;
+                                } else {
+                                    li.className = "wrong";
+                                }
+                                } catch(error){
+                                    li.className = "wrong";
+                                }
+                            }
+                        }
+                        // on teste si la réponse est un nombre ou si elle contient des caractères echapé auquel cas on considère que c'est du latex
+                        if(!/[^-\d]/.test(userAnswer) || /\\/.test(userAnswer)){
+                            span.className ="math";
+                            userAnswer = "\\displaystyle "+userAnswer;
+                        }
+                        span.textContent = userAnswer;
+                        ia++;
+                        li.appendChild(span);
+                        ol.appendChild(li);
+                    }
+                }*/
                 div.appendChild(ol);
                 let section = document.createElement("section");
                 section.innerHTML = "<b>Score :</b> "+score+"/"+ia;

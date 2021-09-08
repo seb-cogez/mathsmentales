@@ -749,6 +749,29 @@ ul.cart-list{
   color:red;
   margin-left: 3px;
 }
+#tab-enonce ol, #tab-corrige ol {
+  counter-reset: pas;
+}
+#tab-enonce ol li, #tab-corrige ol li{
+  counter-increment: pas;
+  list-style: none;
+}
+#tab-enonce ol li::before, #tab-corrige ol li::before{
+  content: counter(pas) ")";
+  margin-right: 0.8em;
+  text-align: right;
+  vertical-align: middle;
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+}
+.alpha #tab-enonce ol li::before, .alpha #tab-corrige ol li::before{
+  content: counter(pas, lower-greek) ")";
+}
+.MAJUSCULE #tab-enonce ol li::before, .MAJUSCULE #tab-corrige ol li::before{
+  content: counter(pas, upper-alpha) ")";
+}
+
 /* Slides
 Animations from https://www.w3schools.com/w3css/4/w3.css 
 */

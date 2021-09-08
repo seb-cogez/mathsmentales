@@ -1,2 +1,19 @@
 attendus fin annee/Exos MMv1 à transposer.ods
-attendus fin annee/.~lock.Exos MMv1 à transposer.ods#
+attendus fin annee/.~lock.Exos MMv1 à transposer.ods
+
+# ignorer le dossier de config de visual studio code
+.vscode/ 
+
+# les dépendances
+node_modules
+# la doc
+documentation
+src/js/modules/doc
+# la conf privée
+_private
+
+# traces MacOS
+.DS_Store
+
+# fichiers du serveur
+tinyweb-1-94
