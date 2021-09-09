@@ -196,15 +196,22 @@ h3.exercice-title{
     border: 1pt solid black;
 }
 /* ceinture spec */
-.ceinture {
+.ceinture, .ceintCorrige {
     border-top: 1pt solid black;
     border-left: 1pt solid black;
     page-break-inside:avoid;
     margin-top:15pt;
 }
-.ceinture.corrige {
+.ceintCorrige {
     float:left;
     margin-right:15pt;
+}
+.ceintCorrige + .ceinture {
+    clear: both;
+}
+.ceinture + .ceintCorrige {
+    margin-top:15pt;
+    margin-bottom: 15pt;
 }
 .ceinture-header {
     display: grid;
@@ -236,7 +243,7 @@ input[type="color"]{
     height: 20pt;
     vertical-align: middle;
 }
-.ceinture .grid .grid {
+.ceinture .grid .grid, .ceintCorrige .grid .grid {
     align-content: center;
     grid:none / max-content auto;
     grid-column-gap:4pt;

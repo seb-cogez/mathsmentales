@@ -2255,6 +2255,7 @@ class ficheToPrint {
         const nbCeintures = document.getElementById("ceintqtyvalue").value;
         const nbcols = Number(document.getElementById("ceintcolsval").value);
         const nbrows = Number(document.getElementById("ceintrowsval").value);
+        const posCorrection = utils.getRadioChecked("ceintcorrpos"); // fin ou apres
         let script = this.create("script",{text:`
         let exercicesColumn = Array(${nbcols}).fill("column");
         let nbcols = ${nbcols};
@@ -2388,14 +2389,17 @@ class ficheToPrint {
             </select>`;
         headnoprint.innerHTML+= ` Coul <input type="color" id="colorpicker" oninput="changeColor(this.value,'bg')" value="#ECECEC"> Cadre avec <input type="checkbox" value="true" onclick="changeBorder(this.checked)"> <input type="color" value="#111111" id="colorpicker2" oninput="changeColor(this.value,'bd')" size="8">`;
         this.content.appendChild(headnoprint);
-        let correction = utils.create("div",{id:"correction",className:"pagebreak"});
-        correction.appendChild(utils.create("div",{innerHTML:"Correction"}));
+        let correction;
+        if(posCorrection === "fin"){
+            correction = utils.create("div",{id:"correction",className:"pagebreak"});
+            correction.appendChild(utils.create("div",{innerHTML:"Correction"}));
+        }
         // on crée autant de ceintures que demandées      
         for(let qty=0;qty<nbCeintures;qty++){
             // un conteneur pour la ceinture
             let ceinture = utils.create("div",{className:"ceinture"});
             // un conteneur pour le corrigé
-            let corrige = utils.create("div",{className:"corrige ceinture"});
+            let corrige = utils.create("div",{className:"ceintCorrige corrige"});
             this.generateQuestions();
             let header = utils.create("div",{className:"ceinture-header"});
             // Entêtes
@@ -2479,12 +2483,17 @@ class ficheToPrint {
                     divColsCorrige.appendChild(divCorr[j][i]);
                 }
             }
-            corrige.appendChild(divColsCorrige)
-            correction.appendChild(corrige);
+            corrige.appendChild(divColsCorrige);
+            if(posCorrection === "fin")
+                correction.appendChild(corrige);
+            else {
+                this.content.appendChild(corrige);
+            }
         }
         //this.content.appendChild(utils.create("div",{className:"footer"}));
         // on ajoute la correction à la fin.
-        this.content.appendChild(correction);
+        if(posCorrection ==="fin")
+            this.content.appendChild(correction);
     }
     createFlashCards(){
         // in case of figures
@@ -3062,7 +3071,8 @@ var MM = {
                     let question = activity.questions[j];
                     let answer = activity.answers[j];
                     // slides
-                    let div = utils.create("div",{className:"slide w3-animate-top"+(indiceSlide>0?" hidden":""),id:"slide"+slideNumber+"-"+indiceSlide});
+                    let color = ff%2?"":" impair";
+                    let div = utils.create("div",{className:"slide w3-animate-top"+(indiceSlide>0?" hidden":"")+color,id:"slide"+slideNumber+"-"+indiceSlide});
                     let span = utils.create("span",{innerHTML:question});
                     let spanAns = utils.create("span",{className:"answerInSlide hidden",innerHTML:answer});
                     // timers

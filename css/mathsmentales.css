@@ -822,6 +822,9 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
 #slideshow {
   background-color: ivory;
 }
+.slide.impair {
+  background-color: rgb(250, 221, 189);
+}
 #slideshow .sample{
   z-index: 200;
   background: #d6d7df;
