@@ -144,7 +144,7 @@ mark {
     grid-row-end: 3;
     grid-column-start: 1;
     grid-column-end: 6;
-  }    
+  }
 }
 
 #btnCode {
@@ -265,7 +265,7 @@ mark {
 
 /* Menu */
 #app-container > header {
-  background-color: linen;
+  background-color: #025296;
   line-height: 1em;
 }
 .logo {
@@ -538,7 +538,7 @@ aside > button {
       height:auto;
   }
 }
-#tab-chercher ul.showdown { 
+#tab-chercher ul.showdown {
     animation: growDown 300ms ease-in-out forwards;
     transform-origin: top center;
 }
@@ -644,7 +644,7 @@ h2.sg-title, h3.sg-title {
 .cartcontent {
     background-color: ivory;
     width:100%;
-    height: 100%;    
+    height: 100%;
 }
 .cartcontent .cart-close{
     padding:0;
@@ -777,7 +777,7 @@ ul.cart-list{
 }
 
 /* Slides
-Animations from https://www.w3schools.com/w3css/4/w3.css 
+Animations from https://www.w3schools.com/w3css/4/w3.css
 */
 /* Font sizes
 */
@@ -948,9 +948,9 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
   }
 math-field {
     margin: 3em;
-    padding: 8px; 
+    padding: 8px;
     border-radius: 8px;
-    border: 1px solid rgba(0, 0, 0, .3); 
+    border: 1px solid rgba(0, 0, 0, .3);
     box-shadow: 0 0 8px rgba(0, 0, 0, .2);
 }
 .return {
@@ -1075,120 +1075,120 @@ math-field {
     padding: 0;
     width: 100%;
   }
-  
+
   .progress::-webkit-progress-bar {
     background-color: #ededed;
   }
-  
+
   .progress::-webkit-progress-value {
     background-color: #4a4a4a;
   }
-  
+
   .progress::-moz-progress-bar {
     background-color: #4a4a4a;
   }
-  
+
   .progress::-ms-fill {
     background-color: #4a4a4a;
     border: none;
   }
-  
+
   .progress.is-primary::-webkit-progress-value {
     background-color: #00d1b2;
   }
-  
+
   .progress.is-primary::-moz-progress-bar {
     background-color: #00d1b2;
   }
-  
+
   .progress.is-primary::-ms-fill {
     background-color: #00d1b2;
   }
-  
+
   .progress.is-primary:indeterminate {
     background-image: linear-gradient(to right, #00d1b2 30%, #ededed 30%);
   }
-  
+
   .progress.is-link::-webkit-progress-value {
     background-color: #3273dc;
   }
-  
+
   .progress.is-link::-moz-progress-bar {
     background-color: #3273dc;
   }
-  
+
   .progress.is-link::-ms-fill {
     background-color: #3273dc;
   }
-  
+
   .progress.is-link:indeterminate {
     background-image: linear-gradient(to right, #3273dc 30%, #ededed 30%);
   }
-  
+
   .progress.is-info::-webkit-progress-value {
     background-color: #3298dc;
   }
-  
+
   .progress.is-info::-moz-progress-bar {
     background-color: #3298dc;
   }
-  
+
   .progress.is-info::-ms-fill {
     background-color: #3298dc;
   }
-  
+
   .progress.is-info:indeterminate {
     background-image: linear-gradient(to right, #3298dc 30%, #ededed 30%);
   }
-  
+
   .progress.is-success::-webkit-progress-value {
     background-color: #48c774;
   }
-  
+
   .progress.is-success::-moz-progress-bar {
     background-color: #48c774;
   }
-  
+
   .progress.is-success::-ms-fill {
     background-color: #48c774;
   }
-  
+
   .progress.is-success:indeterminate {
     background-image: linear-gradient(to right, #48c774 30%, #ededed 30%);
   }
-  
+
   .progress.is-warning::-webkit-progress-value {
     background-color: #ffdd57;
   }
-  
+
   .progress.is-warning::-moz-progress-bar {
     background-color: #ffdd57;
   }
-  
+
   .progress.is-warning::-ms-fill {
     background-color: #ffdd57;
   }
-  
+
   .progress.is-warning:indeterminate {
     background-image: linear-gradient(to right, #ffdd57 30%, #ededed 30%);
   }
-  
+
   .progress.is-danger::-webkit-progress-value {
     background-color: #f14668;
   }
-  
+
   .progress.is-danger::-moz-progress-bar {
     background-color: #f14668;
   }
-  
+
   .progress.is-danger::-ms-fill {
     background-color: #f14668;
   }
-  
+
   .progress.is-danger:indeterminate {
     background-image: linear-gradient(to right, #f14668 30%, #ededed 30%);
   }
-  
+
   .progress:indeterminate {
     -webkit-animation-duration: 1.5s;
             animation-duration: 1.5s;
@@ -1204,27 +1204,27 @@ math-field {
     background-repeat: no-repeat;
     background-size: 150% 150%;
   }
-  
+
   .progress:indeterminate::-webkit-progress-bar {
     background-color: transparent;
   }
-  
+
   .progress:indeterminate::-moz-progress-bar {
     background-color: transparent;
   }
-  
+
   .progress.is-small {
     height: 0.75rem;
   }
-  
+
   .progress.is-medium {
     height: 1.25rem;
   }
-  
+
   .progress.is-large {
     height: 1.5rem;
   }
-  
+
   @-webkit-keyframes moveIndeterminate {
     from {
       background-position: 200% 0;
@@ -1233,7 +1233,7 @@ math-field {
       background-position: -200% 0;
     }
   }
-  
+
   @keyframes moveIndeterminate {
     from {
       background-position: 200% 0;
