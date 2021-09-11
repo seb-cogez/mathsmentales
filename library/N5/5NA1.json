@@ -6,7 +6,7 @@
     "consts":{"datas": {"-1":["# ans avant J.C.", "#e sous-sol", "#°C en dessous de zéro", "une perte de # €", "une profondeur de # m", "un dépense de # €"],
         "1":["# ans après J.C.", "#e étage", "#°C au dessus de zéro", "un gain de # points", "une altitude de # m", "un recette de # €"]}},
     "vars":{"n":"2_20","s":"-1_1_^0", "p":"0_5", "n2":"${(:p==0)?:n*23:(:p==4)?:n*50::n}"},
-    "question": "Traduis pas un nombre relatif :<br><b>${:datas[:s][:p].replace('#',:n2)}</b>",
+    "question": "Traduis par un nombre relatif :<br><b>${:datas[:s][:p].replace('#',:n2)}</b>",
     "answer":"${:datas[:s][:p].replace('#',:n2)} peut se traduire par <span class='red'>${(:s>0)?'+'+:n2*:s::n2*:s}</span>",
     "value":"${(:s>0)?'+'+:n2*:s::n2*:s}"
 }
