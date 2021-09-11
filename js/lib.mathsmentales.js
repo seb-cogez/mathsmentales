@@ -176,6 +176,12 @@ var utils = {
                 // gros bug du à une variable mal préparée
                 MM.slidersNumber = Number(vars.s);
             }
+            // son
+            if(vars.snd !== undefined){
+                if(vars.snd !== "null"){
+                    sound.setSound(Number(vars.snd));
+                }
+            }
             // le seed d'aléatorisation est fourni et on n'est pas en mode online
             if((vars.a && MM.onlineState === "no") || edit){
                 utils.setSeed(vars.a);
@@ -3341,6 +3347,7 @@ var MM = {
             ",f="+MM.faceToFace+
             ",a="+(withAleaSeed?MM.seed:"")+
             ",colors="+colors+
+            ",snd="+sound.selected+
             this.export();
     },
     // open an modal and
