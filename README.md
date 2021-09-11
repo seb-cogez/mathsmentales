@@ -1,3 +1,6 @@
+## Maths er Matic Projector
+Maths et Matic Projector, l'automatisme et le calcul mental pour la classe (projet forké depuis MathsMentales)
+
 ## Mathsmentales
 Projet de réécriture du site MathsMentales.net qui permet de créer des diaporamas de calcul mental sans effort
 Démo : https://seb-cogez.github.io/mathsmentales/
