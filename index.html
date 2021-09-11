@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
+<!--Maths et Mattic Projector, projet sous licence Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0.html), 2021 Vapps Line std
+Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmentales)-->
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="description" content="Mathsmentales est une webapplication qui facilite la mise en place de rituels de calcul mental avec un corrigé final. Les questions aléatoires portent sur de nombreux thèmes." />
-    <meta name="keywords" content="Mathématiques, automatisme, calcul mental, images mentales, entiers, décimaux, relatifs,
+    <meta name="description" content="Maths et Matic Projector est une Wep App qui permet de faire du calcul mental en classe" />
+    <meta name="keywords" content="Maths et Matic, Mathématiques, automatisme, calcul mental, images mentales, entiers, décimaux, relatifs,
                 fractions, fonctions, géométrie, calcul littéral, variable, aléatoire" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MathsMentales : Automatismes et calcul mental en mathématiques</title>
+    <title>Maths et Matic Projector, votre plateforme de celcul mentales en classe</title>
     <link rel="apple-touch-icon" sizes="72x72" href="img/apple-icon-72x72.png" />
     <link rel="apple-touch-icon" sizes="144x144" href="img/apple-icon-144x144.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png" />
@@ -62,7 +64,7 @@
                     <li onclick="library.displayContent(5,true)">5e</li>
                     <li onclick="library.displayContent(4,true)">4e</li>
                     <li onclick="library.displayContent(3,true)">3e</li>
-                </ul>    
+                </ul>
             </li>
             <li><a numero="nothing">Lycée</a>
                 <ul>
@@ -80,8 +82,8 @@
             <a numero="#tab-enonce" class="tabs-menu-link">Enoncé</a>
             <a numero="#tab-corrige" class="tabs-menu-link">Corrigé</a>
             <a numero="#tab-historique" class="tabs-menu-link">Historique</a>
-            <a numero="#tab-telechargements" class="tabs-menu-link">Téléchargements</a>
-            <a href="https://blog.mathsmentales.net" class="tabs-menu-link">Blog<span class="red">*</span></a>
+            <a numero="#tab-telechargements" class="tabs-menu-link">À propos</a>
+            <a href="https://maths-et-matic.jimdofree.com/" class="tabs-menu-link">Maths et Matic<span class="red">*</span></a>
         </nav>
     </div>
 
@@ -99,10 +101,7 @@
              <p>
                  Dans Téléchargements : des fichers de <b>ceintures de calcul mental</b> à imprimer pour le collège.
              </p>
-             <p><b>Contact</b> : <a href="mailto:contact@mathsmentales.net">contact@mathsmentales.net</a> pour signaler les problèmes, faire des suggestions...</p>
-            <p>
-                <a href="https://coopmaths.fr/"><img src="img/logo-coopmaths-final.png" class="logoCM"></a>Je collabore avec <a href="https://coopmaths.fr/">CoopMaths</a> qui propose de nombreuses <b>fiches d'exercices</b> à données aléatoires ainsi que tout un tas d'outils pour l'individualisation des apprentissages.
-            </p>
+             <p><b>Nous contacter</b> : <a href="https://maths-et-matic.jimdofree.com/accueil/contact">https://maths-et-matic.jimdofree.com/accueil/contact</a> pour signaler les problèmes, faire des suggestions...</p>
             </article>
         </section>
         <h2 class="sg-title">École</h2>
@@ -143,8 +142,8 @@
                     <button class="cart-close" onclick="MM.emptyCart(1);" title="Vider le panier"><img src="img/recyclecart.png"></button>
                     <h3 contenteditable="true" onblur="MM.carts[0].title = this.innerText;" title="Cliquer pour éditer">Groupe 1</h3>
                     <div class="totaux">
-                        <img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
-                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
+                        <img src="img/clock.png" title="Durée totale"> <span>0</span> s.
+                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest.
                         <img src="img/target.png" title="Zone d'énoncé"> <span>1</span>
                         <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" onclick="MM.carts[0].changeOrder(this);">
                         <img src="img/iconfinder_copy.png" class="pointer" title="Dupliquer le panier" onclick="MM.carts[0].duplicate();">
@@ -157,8 +156,8 @@
                     <button class="cart-close" onclick="MM.emptyCart(2);" title="Vider le panier"><img src="img/recyclecart.png"></button>
                     <h3 contenteditable="true" onblur="MM.carts[1].title = this.innerText;" title="Cliquer pour éditer">Groupe 2</h3>
                     <div class="totaux">
-                        <img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
-                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
+                        <img src="img/clock.png" title="Durée totale"> <span>0</span> s.
+                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest.
                         <img src="img/target.png" title="Zone d'énoncé"> <span>2</span>
                         <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" onclick="MM.carts[0].changeOrder(this);">
                         <img src="img/iconfinder_copy.png" class="pointer" title="Dupliquer le panier" onclick="MM.carts[1].duplicate();">
@@ -171,8 +170,8 @@
                     <button class="cart-close" onclick="MM.emptyCart(3);" title="Vider le panier"><img src="img/recyclecart.png"></button>
                     <h3 contenteditable="true" onblur="MM.carts[2].title = this.innerText;" title="Cliquer pour éditer">Groupe 3</h3>
                     <div class="totaux">
-                        <img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
-                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
+                        <img src="img/clock.png" title="Durée totale"> <span>0</span> s.
+                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest.
                         <img src="img/target.png" title="Zone d'énoncé"> <span>3</span>
                         <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" onclick="MM.carts[0].changeOrder(this);">
                         <img src="img/iconfinder_copy.png" class="pointer" title="Dupliquer le panier" onclick="MM.carts[2].duplicate();">
@@ -185,8 +184,8 @@
                     <button class="cart-close" onclick="MM.emptyCart(4);" title="Vider le panier"><img src="img/recyclecart.png"></button>
                     <h3 contenteditable="true" onblur="MM.carts[3].title = this.innerText;" title="Cliquer pour éditer">Groupe 4</h3>
                     <div class="totaux">
-                        <img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
-                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
+                        <img src="img/clock.png" title="Durée totale"> <span>0</span> s.
+                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest.
                         <img src="img/target.png" title="Zone d'énoncé"> <span>4</span>
                         <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" onclick="MM.carts[0].changeOrder(this);">
                     </div>
@@ -445,33 +444,19 @@
         </div>
     </section>
     <section id="tab-historique" class="tabs-content-item" style="display: none;">
-        Ici, l'historique des activités pour pouvoir les relancer, les imprimer... <span class="pointer underline" onclick="MM.emptyHistory();">💥Vider l'historique</span> <!--<span class="pointer underline" onclick="MM.generatePage()">🧾 Générer une page de liens</span>-->
+        Ici, l'historique des activités pour pouvoir les relancer, les imprimer... <span class="pointer underline" onclick="MM.emptyHistory();">🚮 Vider l'historique</span> <!--<span class="pointer underline" onclick="MM.generatePage()">🧾 Générer une page de liens</span>-->
         <ol reversed></ol>
     </section>
     <section id="tab-telechargements" class="tabs-content-item" style="display: none;">
-        <p>MathsMentales est gratuit et placé sous licence libre apache 2.0</p>
+        <p>Maths et Matic Projector est gratuit est open-source, le projet esrt un fork de Maths MathsMentales</p>
+        <h2 class="sg-title">Code source de Maths et Matic Projector</h2>
+        <p>Le code source du projet est sous licence Apache 2.0 : <a href="https://github.com/seb-cogez/mathsmentales">https://github.com/seb-cogez/mathsmentales</a></p>
         <h2 class="sg-title">Code source de MathsMentales</h2>
-        <p>Le code source de MathsMentales est visibile, téléchargeable, forkable sur la page Github du développeur : <a href="https://github.com/seb-cogez/mathsmentales">https://github.com/seb-cogez/mathsmentales</a></p>
+        <p>Maths et Matic Projector est un forf de MathsMentales : <a href="https://github.com/seb-cogez/mathsmentales">https://github.com/seb-cogez/mathsmentales</a></p>
         <p></p>
         <p>Tous les documents ci-dessous sont sous licence libre GPL</p>
         <h2 class="sg-title">Documentation de MathsMentales</h2>
         <p>En attendant des tutos en vidéo, voici une courte documentation de MathsMentales : <a href="docs/MathsMentales documentation.pdf" target="_blank">Télécharger le pdf</a></p>
-        <h2 class="sg-title">Livrets de Ceinture de calcul mental</h2>
-        <p>Un descriptif plus approfondi est donné sur la page <a href="http://olibo.jeduque.net/ceintures-de-calcul-mental-au-college/">ceintures de calcul mental</a> de mon site.</p>
-        <ul>
-            <li><a href="docs/Livret CM 6e 2019-min.pdf">Livret d'entrainement 6e 2020</a></li>
-            <li><a href="docs/Livret CM 5e 2019.pdf">Livret d'entrainement 5e 2019</a></li>
-            <li><a href="docs/Livret CM 4e 2019_compressed.pdf">Livret d'entrainement 4e 2019</a></li>
-            <li><a href="docs/Livret CM 3e 2021.pdf">Livret d'entrainement 3e 2021</a></li>
-        </ul>
-        <h2 class="sg-title">Générateurs LibreOffice Calc de feuilles de passage</h2>
-        <p>Ces fichiers permettent de générer des fiches ainsi que leurs corrigés. Ils sont présentés de manière à avoir 3 ou 4 fiches par page. Libre à vous de générer autant de fiches que désirer, d'exporter en pdf...</p>
-        <ul>
-            <li><a href="docs/generateur CM 6e 2019.ods">Fichier générateur 6e 2020</a></li>
-            <li><a href="docs/generateur CM 5e 2019.ods">Fichier générateur 5e 2019</a></li>
-            <li><a href="docs/generateur CM 4e 2019.ods">Fichier générateur 4e 2019</a></li>
-            <li><a href="docs/generateur CM 3e 2021.ods">Fichier générateur 3e 2021</a></li>
-        </ul>
     </section>
     <section id="tab-chercher" class="tabs-content-item" style="display: none;">
         <div class="flex-container">
@@ -515,11 +500,11 @@
               <path class="demo__num-join-2-3" d="M28,69 Q25,44 34.4,27.4"/>
               <path class="demo__num-path-3" d="M30,20 60,20 40,50 a18,15 0 1,1 -12,19"/>
             </defs>
-            <path class="demo__numbers-path" 
-                  d="M-10,20 60,20 40,50 a18,15 0 1,1 -12,19 
+            <path class="demo__numbers-path"
+                  d="M-10,20 60,20 40,50 a18,15 0 1,1 -12,19
                      Q25,44 34.4,27.4
-                     l7,-7 a16,16 0 0,1 22.6,22.6 l-30,30 l35,0 L69,73 
-                     a20,10 0 0,1 20,10 a17,17 0 0,1 -34,0 L55,83 
+                     l7,-7 a16,16 0 0,1 22.6,22.6 l-30,30 l35,0 L69,73
+                     a20,10 0 0,1 20,10 a17,17 0 0,1 -34,0 L55,83
                      l0,-61 L40,28" />
           </svg>
         </div>
