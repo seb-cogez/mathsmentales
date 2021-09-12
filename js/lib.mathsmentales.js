@@ -158,6 +158,13 @@ var utils = {
             MM.introType = vars.i;
             // indique quoi faire après le slide
             MM.endType = vars.e;
+            // couleurs des diaporamas
+            if(vars.colors !== undefined){
+                let couleurs = vars.colors.split("~");
+                for(let i=0;i<couleurs.length;i++){
+                    MM.colors[i]=couleurs[i].replace(/_/g,",");
+                }
+            }
             // Mode online
             if(vars.o){
                 MM.onlineState = vars.o;
@@ -168,6 +175,12 @@ var utils = {
             if(vars.s){
                 // gros bug du à une variable mal préparée
                 MM.slidersNumber = Number(vars.s);
+            }
+            // son
+            if(vars.snd !== undefined){
+                if(vars.snd !== "null"){
+                    sound.setSound(Number(vars.snd));
+                }
             }
             // le seed d'aléatorisation est fourni et on n'est pas en mode online
             if((vars.a && MM.onlineState === "no") || edit){
@@ -281,7 +294,7 @@ var utils = {
         // version après le 15/08/21
         // reconstruction de la chaine pour en faire un objet
         // la chaine est de la forme
-        /* url?i=intro,e=end,o=online,s=nbsliders,so=orientation,f=facetotface,a=seed
+        /* url?i=intro,e=end,o=online,s=nbsliders,so=orientation,f=facetotface,a=seed,colors=color0~color1~color2~color3
              &p=cartId1~t=title1~c=target1~o=ordered
             _i=activityId1~o=optionsIds~q=subOptionsIds~p=???~t=durée~n=nbquestions
             _i=activityId2~o=optionsIds~q=subOptionsIds~p=???~t=durée~n=nbquestions
@@ -824,7 +837,8 @@ var sound = {
         ["sounds/SWSH_Whoosh 3 (ID 1795)_LS.mp3","whoosh"],
         ["sounds/TOONHorn_Klaxon poire double 1 (ID 1830)_LS.mp3","Pouet"],
         ["sounds/VEHHorn_Klaxon de voiture recente 4 (ID 0260)_LS.mp3","Klaxon"],
-        ["sounds/WATRSplsh_Plouf petit 6 (ID 1534)_LS.mp3","Plouf"]
+        ["sounds/WATRSplsh_Plouf petit 6 (ID 1534)_LS.mp3","Plouf"],
+        ["sounds/ANMLFarm_Canards (ID 0276).mp3","Coincoin"]
     ],
     selected:"null",
     player:null,
@@ -1040,6 +1054,7 @@ var math ={
      * @returns a number always with sign (+/-) or only the sign if nb=1 or -1
      */
     signedNumberButOne:function(nb){
+        nb = Number(nb);
         if(nb===0)return "";
         if(nb===1)return "+";
         if(nb===-1)return "-";
@@ -1410,6 +1425,15 @@ window.onload = function(){
     // take history if present
     if(window.localStorage){
         document.querySelector("#tab-historique ol").innerHTML = localStorage.getItem("history");
+    }
+    // ajout des pickers de colors
+    for(let i=0;i<4;i++){
+        let leparent = document.getElementById("sddiv"+(i+1));
+        MM.colorSelectors[i] = new Picker({parent:leparent,color:'#FFFFFF'});
+        MM.colorSelectors[i].onChange = function(color){
+            leparent.style.background = color.rgbaString;
+            MM.colors[i] = color.rgbaString;
+        }
     }
     // load scratchblocks french translation
     // TODO : à changer au moment de l'utilisation de scratchblocks
@@ -2754,6 +2778,8 @@ var MM = {
     userAnswers:[],
     slidersNumber:1,
     faceToFace:'n',
+    colorSelectors:[],
+    colors:[],// couleurs de fond des diaporamas
     setEndType(value){
         this.endType = value;
     },
@@ -3027,6 +3053,9 @@ var MM = {
                 let indiceSlide = 0;
                 let slideNumber = MM.carts[i].target[kk]-1;
                 let slider = document.getElementById("slider"+slideNumber);
+                if(MM.colors[slideNumber]!==undefined){
+                    slider.style["background"] = MM.colors[slideNumber];
+                }
                 let addTitle = "";
                 if(clen>1)addTitle = "-"+(kk+1);
                 let titleSlider = MM.carts[i].title+addTitle;
@@ -3071,7 +3100,7 @@ var MM = {
                     let question = activity.questions[j];
                     let answer = activity.answers[j];
                     // slides
-                    let color = ff%2?"":" impair";
+                    let color = ff%2?" pair":" impair";
                     let div = utils.create("div",{className:"slide w3-animate-top"+(indiceSlide>0?" hidden":"")+color,id:"slide"+slideNumber+"-"+indiceSlide});
                     let span = utils.create("span",{innerHTML:question});
                     let spanAns = utils.create("span",{className:"answerInSlide hidden",innerHTML:answer});
@@ -3309,6 +3338,7 @@ var MM = {
         }
     },
     paramsToURL(withAleaSeed=false){
+        let colors = MM.colors.join("~").replace(/\,/g,"_");
         return "i="+MM.introType+
             ",e="+MM.endType+
             ",o="+MM.onlineState+
@@ -3316,6 +3346,8 @@ var MM = {
             ",so="+MM.slidersOrientation+
             ",f="+MM.faceToFace+
             ",a="+(withAleaSeed?MM.seed:"")+
+            ",colors="+colors+
+            ",snd="+sound.selected+
             this.export();
     },
     // open an modal and

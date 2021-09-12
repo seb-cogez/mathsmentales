@@ -23,8 +23,8 @@
         {
             "name":"$$a^2-b^2$$",
             "question":["${math.signIfOne(:k*:k)+:c}^2-${:b*:b}", "${:b*:b}-${math.signIfOne(:k*:k)+:c}^2"],
-            "answer":":question=\\color{red}{(${math.signIfOne(:k)+:c}+${:b})(${:k+:c}-${:b})}",
-            "value":"(${math.signIfOne(:k)+:c}+${:b})(${:k+:c}-${:b})"
+            "answer":[":question=\\color{red}{(${math.signIfOne(:k)+:c}+${:b})(${math.signIfOne(:k)+:c}-${:b})}",":question=\\color{red}{(${:b}+${math.signIfOne(:k)+:c})(${:b}-${math.signIfOne(:k)+:c})}"],
+            "value":["(${math.signIfOne(:k)+:c}+${:b})(${:k+:c}-${:b})","(${:b}+${math.signIfOne(:k)+:c})(${:b}-${math.signIfOne(:k)+:c})"]
         },
         {
             "name":"$$(ax+b)^2-c^2$$",
