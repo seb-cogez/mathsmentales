@@ -1,15 +1,9 @@
-## Maths er Matic Projector
+## Maths et Matic Projector
 Maths et Matic Projector, l'automatisme et le calcul mental pour la classe (projet forké depuis MathsMentales)
 
-## Mathsmentales
-Projet de réécriture du site MathsMentales.net qui permet de créer des diaporamas de calcul mental sans effort
-Démo : https://seb-cogez.github.io/mathsmentales/
+Maths et Matic permet de créer des diaporamas en ligne en rapport avec le calcul mental pour ainsi faire de faire de la projection de calcul en classe, pas besoin de conaissances techniques particulières ! Les éléves pourront répondre soit en présentiel en classe, soit en ditanciel grâce à l'option "répondre en ligne", pour pouvoir accéder au site : http://mem-projector.ml
 
-### Auteurs
-L'auteur principal est Sébastien COGEZ. Des collègues ont suggéré des activités qu'il a développées.
-Fayçal TIB l'a rejoint le 31/08/21 pour créer des activités, notamment en lycée.
-
-### Nouveautés apportées par cette version :
+### Principales fonctions
  * nouvelle interface : tous les réglages dans une page, affichage d'exemples de questions pour mieux comprendre
  * possibilité de créer jusqu'à 4 paniers d'activités
  * possibilité d'afficher des exemples avant de commencer le diaporama
@@ -20,7 +14,7 @@ Fayçal TIB l'a rejoint le 31/08/21 pour créer des activités, notamment en lyc
  * d'autres possibilités d'affichage que le diaporama : mur d'activités, flash cards... (développement non commencé)
  * internationalisation (ou pas)
 
-### bibliothèques externes
+### Frameworks et librairies utilisées
  * [KateX](https://katex.org/) pour afficher les maths (MIT licence)
  * [KAS](https://github.com/Khan/KAS) outil de la Kahn academy pour évaluer des expressions littérales (MIT licence)
  * [Underscore](https://underscorejs.org/) pour pouvoir invoquer KAS (MIT Licence)
@@ -35,17 +29,19 @@ Fayçal TIB l'a rejoint le 31/08/21 pour créer des activités, notamment en lyc
  * [qrious](https://github.com/neocotic/qrious) pour générer les qrcodes (GPLv3 licence)
  * [mathlive](https://mathlive.io/) pour l'interface de saisie utilisateur pour répondre en ligne (MIT license)
  * [tinyweb](https://www.ritlabs.com/en/products/tinyweb/) pour le mini serveur web sous windows. (licence non libre, Cf. fichier de licence)
- * [sonothèque](https://lasonotheque.org), source des bruitages utilisés pour réveiller l'attention des élèves entre chaque diapo
  * [Vanilla-picker](https://github.com/Sphinxxxx/vanilla-picker) sélectionneur de couleur en pur javascript (ISC Licence)
 
-### icones
+### Crédits images
 * "Circle Icons" de Nick Roach [iconfinder](https://www.iconfinder.com/iconsets/circle-icons-1) parfois retouchées, licence GPL
 * usage d'[Emoji](https://emojipedia.org/) dans l'affichage des ressources
 
-### liens directs :
-* https://seb-cogez.github.io/mathsmentales/index.html?n=4 envoie sur le niveau 4e
-* https://seb-cogez.github.io/mathsmentales/index.html?u=5NC7 envoie directement sur l'activité 5NC7
-* https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=&p=0~t=ceinturebleue2br~c=1~o=true_i=6ND10~o=2~q=2.~p=~t=32~n=2_i=8MC1~o=2,3,4,5~q=2.0,1-3.-4.0,1-5.~p=~t=30~n=3_i=5DA2~o=4~q=1.-3.-4.~p=~t=41~n=2_i=3NB3~o=1~q=1.~p=~t=15~n=3 envoie sur un diaporama qui démarre automatiquement.
+### Crédits audio
+ * [sonothèque](https://lasonotheque.org), source des bruitages utilisés pour réveiller l'attention des élèves entre chaque diapo
+
+### Exemples de lien directs :
+* http://mem-projector.ml/index.html?n=4 > envoie sur le niveau 4e
+* http://mem-projector.ml/index.html?u=5NC7 > envoie directement sur l'activité 5NC7
+* http://mem-projector.ml/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=&p=0~t=ceinturebleue2br~c=1~o=true_i=6ND10~o=2~q=2.~p=~t=32~n=2_i=8MC1~o=2,3,4,5~q=2.0,1-3.-4.0,1-5.~p=~t=30~n=3_i=5DA2~o=4~q=1.-3.-4.~p=~t=41~n=2_i=3NB3~o=1~q=1.~p=~t=15~n=3 > envoie sur un diaporama qui démarre automatiquement.
 
 ### Changement de fonctionnement de la bibliothèque d'activités.
 Elle est à présent réalisée à l'aide de fichiers json peu complexes
@@ -77,7 +73,7 @@ ainsi que des *données optionnelles* :
  * **type** : valeurs possible : "texte", "latex" qui indique le type de rendu des questions/réponses
  * **figure** : chaine contenant une figure illustrant l'activité
 ---
-### à faire à l'insertion d'un nouvel exercice
+### À faire à l'insertion d'un nouvel exercice
 à l'aide de Node.js (à installer) lancer library/scan.js pour recréer le fichier qui référence tous les exercices dans une arborescence chargée au lancement de MathsMentales
 
 ### Fichiers exemple :
@@ -281,3 +277,11 @@ Fichier structure pour démarrer la création d'un exercice
     "answer":"", // réponse commune non obligatoire si dans touetes les options
     "value":""  // valeurs attendue si réponse online commune non obligatoire si dans toutes les options
 }
+```
+
+### À propos
+Maths et Matic Projector est développé par Vapps Line std
+
+Le site est une fourche (un fork) de MathsMentales développé par Sébastien COGEZ et Fayçal TIB
+
+Maths et Matic est un projet Open-Source

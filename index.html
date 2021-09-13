@@ -9,10 +9,10 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
                 fractions, fonctions, géométrie, calcul littéral, variable, aléatoire" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Maths et Matic Projector, votre plateforme de calcul mentales en classe</title>
-    <link rel="apple-touch-icon" sizes="72x72" href="img/apple-icon-72x72.png" />
-    <link rel="apple-touch-icon" sizes="144x144" href="img/apple-icon-144x144.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="96x96" href="img/favicon-96x96.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="img/logo-72.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="img/logo-144.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://u.jimcdn.com/cms/o/sef6091d0cde7bfc1/img/favicon.png?t=1607971695" />
+    <!--<link rel="icon" type="image/png" sizes="96x96" href="img/favicon-96x96.png" />-->
     <link rel="manifest" href="manifest.json" />
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="msapplication-TileImage" content="img/ms-icon-144x144.png" />
@@ -84,14 +84,14 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
             <a numero="#tab-corrige" class="tabs-menu-link">Corrigé</a>
             <a numero="#tab-historique" class="tabs-menu-link">Historique</a>
             <a numero="#tab-telechargements" class="tabs-menu-link">À propos</a>
-            <a href="https://maths-et-matic.jimdofree.com/" class="tabs-menu-link">Maths et Matic</a>
+            <a href="https://maths-et-matic.jimdofree.com/" class="tabs-menu-link">Maths et Matic</a> <!-- Envoie sur le site de Maths et Matic -->
         </nav>
     </div>
 
 </header>
 <div class="clearfix"></div>
 <div id="contents" class="tabs-content">
-    <section id="tab-accueil" class="tabs-content-item">
+    <section id="tab-accueil" class="tabs-content-item"> <!-- Section : Accueil -->
         <section class="grille">
         <article class="accueillogo">
             <div class="fr jaiuncode"><input type="text" id="inputCode" placeholder="J'ai un code" size="10"><button id="btnCode" onclick="MM.takeOff()"><img src="img/iconfinder_takeoff.png"></button></div>
@@ -116,7 +116,7 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
             <article></article>
         </section>
     </section>
-    <section id="tab-parameters" class="grid-3 has-gutter tabs-content-item" style="display: none;">
+    <section id="tab-parameters" class="grid-3 has-gutter tabs-content-item" style="display: none;"> <!-- Section : Configuration -->
         <div>
             <button id="addToCart" onclick="MM.addToCart();" title="Ajouter au panier"><img src="img/addtocart.png"></button>
             <button id="unlinkCart" onclick="MM.unlinkActivity();" class="hidden" title="Désolidariser l'édition du panier"><img src="img/iconfinder_pin.png"></button>
@@ -418,7 +418,7 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
             <div id="activityOptions"></div>
         </div>
     </section>
-    <section id="tab-enonce" class="tabs-content-item" style="display: none;">
+    <section id="tab-enonce" class="tabs-content-item" style="display: none;"> <!-- Section : Enoncé -->
         <aside>
             <button id="btn-annotation-enonce" onclick="utils.annotate('enonce-content', this.id)">
                 <img src="img/iconfinder_pencil_1055013.png" title="Annoter">
@@ -428,7 +428,7 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
             Ici s'affichent les énoncés du diaporama.
         </div>
     </section>
-    <section id="tab-corrige" class="tabs-content-item" style="display: none;">
+    <section id="tab-corrige" class="tabs-content-item" style="display: none;"> <!-- Section : Corrigé -->
         <aside>
             <button id="btn-annotation-corrige" onclick="utils.annotate('corrige-content', this.id)">
                 <img src="img/iconfinder_pencil_1055013.png" title="Annoter le corrigé">
@@ -444,11 +444,11 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
             Ici s'affichent les corrigés du diaporama
         </div>
     </section>
-    <section id="tab-historique" class="tabs-content-item" style="display: none;">
+    <section id="tab-historique" class="tabs-content-item" style="display: none;"> <!-- Section : Historique (des diapos faits) -->
         Ici, l'historique des activités pour pouvoir les relancer, les imprimer... <span class="pointer underline" onclick="MM.emptyHistory();">🚮 Vider l'historique</span> <!--<span class="pointer underline" onclick="MM.generatePage()">🧾 Générer une page de liens</span>-->
         <ol reversed></ol>
     </section>
-    <section id="tab-telechargements" class="tabs-content-item" style="display: none;">
+    <section id="tab-telechargements" class="tabs-content-item" style="display: none;"> <!-- Section : À propos -->
         <p>Maths et Matic Projector est gratuit est open-source, le projet est un fork de Maths MathsMentales</p>
         <h2 class="sg-title">Code source de Maths et Matic Projector</h2>
         <p>Le code source du projet est sous licence Apache 2.0 : <a href="https://github.com/Vapps-Line-std/mem-projector">https://github.com/Vapps-Line-std/mem-projector</a></p>
@@ -459,7 +459,7 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
         <h2 class="sg-title">Documentation de MathsMentales</h2>
         <p>En attendant des tutos en vidéo, voici une courte documentation de MathsMentales : <a href="docs/MathsMentales documentation.pdf" target="_blank">Télécharger le pdf</a></p>
     </section>
-    <section id="tab-chercher" class="tabs-content-item" style="display: none;">
+    <section id="tab-chercher" class="tabs-content-item" style="display: none;"> <!-- Section : Recherche -->
         <div class="flex-container">
             <div>
                 <input type="text" onkeyup="library.displayContent(this.value)" placeholder="Mot clé (au moins 3 caractères)" id="searchinput">
