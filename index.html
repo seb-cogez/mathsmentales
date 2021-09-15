@@ -261,20 +261,20 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
                 <input type="radio" class="radio" name="endOfSlideRadio" value="list" onclick="MM.setEndType(this.value)"> Énoncés
             </fieldset><br>
             <section class="txtcenter" id="startbuttons">
-                <button class="button--primary tooltip" onclick="MM.start();">C'est parti !
+                <button class="button--primary tooltip" onclick="MM.start();"><b>Démmarer</b>
                     <span class="tooltiptext">Démarre le diaporama</span>
                 </button>
-                <button class="button--info tooltip" onclick="MM.showQuestions();">Énoncés
+                <button class="button--info tooltip" onclick="MM.showQuestions();">Passer aux énoncés
                     <span class="tooltiptext">Affiche directement<br>les énoncés</span>
                 </button>
-                <button class="button--warning tooltip" onclick="MM.showAnswers();">Réponses
+                <button class="button--warning tooltip" onclick="MM.showAnswers();">Passer aux réponses
                     <span class="tooltiptext">Affiche directement<br>les réponses</span>
                 </button> <br>
-                <button class="button--inverse tooltip" onclick="MM.copyURL();">Adresse/QRCode
+                <button class="button--inverse tooltip" onclick="MM.copyURL();">Générer le lien
                 <span class="tooltiptext">Copie l'adresse de<br>l'activité dans<br>le presse papier</span>
                 </button>
                 <input type="text" class="hidden" id="acturl" maxlength="1024">
-                <button class="button--success tooltip" onclick="MM.copyURLtoHistory()">→ Historique
+                <button class="button--success tooltip" onclick="MM.copyURLtoHistory()">Ajouter à l'historique
                 <span class="tooltiptext">Copie la sélection<br>dans l'historique</span>
                 </button>
                 <!--<button class="button--success tooltip" onclick="MM.generateCode();">Codes élève
@@ -462,7 +462,7 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
     <section id="tab-chercher" class="tabs-content-item" style="display: none;"> <!-- Section : Recherche -->
         <div class="flex-container">
             <div>
-                <input type="text" onkeyup="library.displayContent(this.value)" placeholder="Mot clé (au moins 3 caractères)" id="searchinput">
+                <input type="text" onkeyup="library.displayContent(this.value)" placeholder="Rechercher quelque chose..." id="searchinput">
             </div>
             <div id="searchLevels" class="flex-container"></div>
         </div>
