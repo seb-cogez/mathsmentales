@@ -2013,10 +2013,13 @@ class timer {
     }
 }
 class ficheToPrint {
-    constructor(type,cart){
+    constructor(type,cart,orientation='portrait'){
         this.type = type; // type = exos, interro, ceinture
         this.activities = cart.activities;
-        this.wsheet = window.open("pagetoprint.html","mywindow","location=no,menubar=no,titlebar=no,width=794");
+        if(orientation ==="portrait")
+            this.wsheet = window.open("pagetoprint.html","mywindow","location=no,menubar=no,titlebar=no,width=794");
+        else
+            this.wsheet = window.open("pagetoprintlandscape.html","mywindow","location=no,menubar=no,titlebar=no,width=1123");
         this.wsheet.onload = function(){MM.fiche.populate()};
         this.nbq = undefined;
         if(this.type === "whogots" && this.activities.length === 1){
@@ -3270,7 +3273,7 @@ var MM = {
                 return;
             }
         }
-        MM.fiche = new ficheToPrint("ceinture",MM.carts[0]);
+        MM.fiche = new ficheToPrint("ceinture",MM.carts[0],utils.getRadioChecked("ceintorientation"));
     },
     createFlashCards:function(){
         if(!MM.carts[0].activities.length){
