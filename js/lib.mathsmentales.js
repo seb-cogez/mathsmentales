@@ -21,8 +21,8 @@ String.prototype.minusculesSansAccent = function(){
 }
 /**
  * Supprime un élément d'un tableau
- * @param {various} value 
- * @returns 
+ * @param {various} value
+ * @returns
  */
 Array.prototype.removeValue = function(value){
     // the value must be unique
@@ -71,7 +71,7 @@ var utils = {
     seed: "sample",
     security:300,// max number for boucles
     /**
-     * 
+     *
      * @param {String} type of DOM element
      * @param {object} props properties of the element
      */
@@ -134,7 +134,7 @@ var utils = {
              } else if(vars.u !== undefined) {
                  // s'il n'y a qu'une activité, on l'affiche.
                 let level = regexp.exec(vars.u)[0];
-                library.load("N"+level+"/"+vars.u+".json"); 
+                library.load("N"+level+"/"+vars.u+".json");
             } else {
                 let alert = utils.create("div",{className:"message",innerHTML:"Cette activité n'a pas de correspondance dans cette nouvelle version de MathsMentales.<hr class='center w50'>Vous allez être redirigé vers l'ancienne version dans 10s. <a href='javascript:utils.goToOldVersion();'>Go !</a>"});
                 document.getElementById("tab-accueil").appendChild(alert);
@@ -346,7 +346,7 @@ var utils = {
                             } else{
                                 vars.c[id].a[j-1][dataparts[0]]=dataparts[1];
                             }
-                        }                            
+                        }
                     }
                 }
             }
@@ -380,7 +380,7 @@ var utils = {
     },
     /**
      * Crée un grain pour la génération aléatoire des données
-     * @param {String} value 
+     * @param {String} value
      */
     setSeed(value){
         if(value !== undefined && value !== "sample"){
@@ -399,7 +399,7 @@ var utils = {
     /**
     * function addClass
     * Add a class to a DOM element
-    * 
+    *
     * @params elt (DOMelt)
     * @params newClass (String) : string of coma separated classnames
     */
@@ -471,14 +471,14 @@ var utils = {
     },
     /**
      * shuffle an array
-     * @param {Array} arr 
+     * @param {Array} arr
      */
     shuffle : function(arr){
         if(!Array.isArray(arr))return false;
         arr.sort(()=>utils.alea()-0.5);
         return arr;
     },
-    
+
     /**
      * Création et complétion des infos de tuiles de la page d'accueil
      */
@@ -500,7 +500,7 @@ var utils = {
                 if(MM.content[ordre[o][i]].activitiesNumber === undefined || MM.content[ordre[o][i]].activitiesNumber ===0 || i==="activitiesNumber")continue;
                 setContent(ordre[o][i],MM.content[ordre[o][i]]);
             }
-        }    
+        }
     },
     closeMessage(id){
         let div=document.getElementById(id);
@@ -572,8 +572,8 @@ var utils = {
     },
     /**
      * fonctions utilisées pour l'import/export des activités.
-     * @param {Array} array 
-     * @returns 
+     * @param {Array} array
+     * @returns
      */
     tableToText(array){
         if(array === undefined) return "";
@@ -644,7 +644,7 @@ var utils = {
     },
     /**
      * checkSecurity to avoid infinite loop
-     * 
+     *
      */
     checkSecurity(){
         utils.security--;
@@ -655,19 +655,19 @@ var utils = {
         else return true;
     },
     /**
-    * 
+    *
     * @params {string} seed valeur d'initialisation des données aléatoires
     * return nothing
     */
     initializeAlea:function(seed){
         if(seed)
             utils.alea = new Math.seedrandom(seed);
-        else 
+        else
             utils.alea = new Math.seedrandom(MM.seed);
     },
     /**
-     * 
-     * @param {DOM obj or string} element 
+     *
+     * @param {DOM obj or string} element
      * Show the selected Tab
      */
     showTab:function(element){
@@ -769,7 +769,7 @@ var utils = {
                   utils.removeClass(item,"math");
                 } catch (err) {
                   item.innerHTML = "<span class='err'>" + err + ' avec '+texTxt + '</span>';
-                };      
+                };
             })
         }
         document.querySelectorAll(".math").forEach(function(item) {
@@ -779,7 +779,7 @@ var utils = {
           // recherche les nombres, décimaux ou pas
           let nbrgx = /(\d+\.*\d*)/g;
           // insère des espaces tous les 3 chiffres;
-          
+
           texTxt = texTxt.replace(nbrgx, utils.toDecimalFr);
           //texTxt = texTxt.replace(/\.(\d{3})(?=(\d+))/g,"$1~");
           //texTxt = texTxt.replace(/\./g, "{,}");
@@ -796,7 +796,7 @@ var utils = {
         });
       },
       /**
-       * 
+       *
        * @param {object} someThing json object or array
        * @returns a clone of the object
        */
@@ -808,12 +808,12 @@ var utils = {
               return someThing;
           }
       },
-      
+
     /**
-     * 
-     * @param {Number} value 
+     *
+     * @param {Number} value
      * @param {Number} digits
-     * 
+     *
      * return {string} number with a fix digits
      */
     toDigits(value,digits){
@@ -873,7 +873,7 @@ var sound = {
 var math ={
     premiers: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599, 601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997, 1009, 1013, 1019, 1021, 1031, 1033, 1039, 1049, 1051, 1061, 1063, 1069, 1087, 1091, 1093, 1097, 1103, 1109, 1117, 1123, 1129, 1151, 1153, 1163, 1171, 1181, 1187, 1193, 1201, 1213, 1217, 1223, 1229, 1231, 1237, 1249, 1259, 1277, 1279, 1283, 1289, 1291, 1297, 1301, 1303, 1307, 1319, 1321, 1327, 1361, 1367, 1373, 1381, 1399, 1409, 1423, 1427, 1429, 1433, 1439, 1447, 1451, 1453, 1459, 1471, 1481, 1483, 1487, 1489, 1493, 1499, 1511, 1523, 1531, 1543, 1549, 1553, 1559, 1567, 1571, 1579, 1583, 1597, 1601, 1607, 1609, 1613, 1619, 1621, 1627, 1637, 1657, 1663, 1667, 1669, 1693, 1697, 1699, 1709, 1721, 1723, 1733, 1741, 1747, 1753, 1759, 1777, 1783, 1787, 1789, 1801, 1811, 1823, 1831, 1847, 1861, 1867, 1871, 1873, 1877, 1879, 1889, 1901, 1907, 1913, 1931, 1933, 1949, 1951, 1973, 1979, 1987, 1993, 1997, 1999],
     /**
-     * 
+     *
      * @param {float} nb number to be rounded
      * @param {integer} precision may positiv or negativ
      */
@@ -902,7 +902,7 @@ var math ={
         return Number(Math.ceil(Number(valeur + 'e' + precision)) + 'e' + (-precision));
     },
     /**
-     *  
+     *
      * @param {integer} min relativ
      * @param {integer} max relativ
      * optionals
@@ -959,7 +959,7 @@ var math ={
         }
     },
     /**
-     * 
+     *
      * @param {float} min minimal value
      * @param {float} max maximal value
      * @param {integer} precision relativ
@@ -1014,7 +1014,7 @@ var math ={
     },
     /**
      * return one or the number
-     * @param {Number} value 
+     * @param {Number} value
      */
     unOuNombre(value){
         value = Number(value);
@@ -1022,11 +1022,11 @@ var math ={
             return 1;
         } else return value;
     },
-    
+
     /**
      * tranform a number to a signed number
-     * 
-     * @param {number} nb 
+     *
+     * @param {number} nb
      * @returns a number with his sign
      */
     signedNumber:function(nb){
@@ -1036,8 +1036,8 @@ var math ={
     },
     /**
      * tranform the number 1 or -1 to + or -
-     * 
-     * @param {Number} nb 
+     *
+     * @param {Number} nb
      * @returns nothing if nb=1, - if nb=-1 the number in other cases
      */
     signIfOne:function(nb){
@@ -1049,8 +1049,8 @@ var math ={
     },
     /**
      * tranform a number to a signed number and 1, -1 or 0 to +, - or ""
-     * 
-     * @param {Number} nb 
+     *
+     * @param {Number} nb
      * @returns a number always with sign (+/-) or only the sign if nb=1 or -1
      */
     signedNumberButOne:function(nb){
@@ -1064,8 +1064,8 @@ var math ={
     /**
      * needsParenthesis
      * return a number with parenthesis if the number is negative
-     * 
-     * @param {number or string} nb 
+     *
+     * @param {number or string} nb
      * @returns nb with parenthesis if nb 1st char is -
      */
     nP:function(nb){
@@ -1088,7 +1088,7 @@ var math ={
         }
         return liste.join("; ");
     },
-    /** 
+    /**
     * donne la liste des diviseurs d'un nombre sous forme de chaine
     * @param {integer} nb nombre à décomposer
     * @param {boolean} array false ou undefined renvoie une chaine, un tableau sinon
@@ -1111,8 +1111,8 @@ var math ={
             return diviseurs.join("; ");
     },
     /**
-     * 
-     * @param {integer} nb 
+     *
+     * @param {integer} nb
      * @returns integer : le plus grand diviseur non égal au nombre
      */
     plusGrandDiviseur:function(nb){
@@ -1120,8 +1120,8 @@ var math ={
         return liste[liste.length-2];
     },
     /**
-     * 
-     * @param {integer} nb 
+     *
+     * @param {integer} nb
      * @returns integer
      */
     plusGrandDiviseurPremier(nb){
@@ -1137,7 +1137,7 @@ var math ={
     /**
     *
     * donne la liste des diviseurs inférieurs à 10 sous forme de chaine
-    * 
+    *
     *
     * */
     listeDiviseurs10:function(nb){
@@ -1151,7 +1151,7 @@ var math ={
         else return "aucun des nombres"
     },
     /**
-     * 
+     *
      * @param {integer} nb
      * return un non diviseur d'un nombre
      */
@@ -1162,7 +1162,7 @@ var math ={
         return unnondiviseur;
     },
     /**
-     * 
+     *
      * @param {float} decimal nombre décimal
      * return une fraction
      */
@@ -1175,11 +1175,11 @@ var math ={
             let nbChiffres = string.length - pointPosition - 1;
             return "\\dfrac{"+math.round(decimal*Math.pow(10,nbChiffres),0) +"}{"+Math.pow(10,nbChiffres)+"}";
         }
-        
+
     },
     /**
-     * 
-     * @param {integer} nb 
+     *
+     * @param {integer} nb
      * return un diviseur de nb
      */
     unDiviseur(nb,notOne=false){
@@ -1221,9 +1221,9 @@ var math ={
         return string.replace(/\*/g, "\\times");
     },
     /**
-     * 
-     * @param {Integer} radicande 
-     * @returns 
+     *
+     * @param {Integer} radicande
+     * @returns
      */
     simplifieRacine(radicande){
         const factors = Algebrite.run('factor('+radicande+')').split('*');
@@ -1285,7 +1285,7 @@ var math ={
         const gcd = math.pgcd(n,d);
         if(Number.isInteger(n/d))
             return n/d;
-        else 
+        else
             return "\\dfrac{"+(n/gcd)+"}{"+(d/gcd)+"}";
     },
     simplifyFracDec(n,d){
@@ -1295,7 +1295,7 @@ var math ={
         return "\\dfrac{"+n+"}{"+d+"}";
     },
     /**
-     * 
+     *
      * @param {array} operandes array of numbers
      * @param {array} operations array of symbols : +, -, *, / or q
      * @param {string} option "p" renvoie une phrase, "a" renvoie latex, "v" renvoie asccii
@@ -1355,7 +1355,7 @@ var math ={
         return eval('x.'+op+'('+b+').toString()');
     },
         /**
-     * 
+     *
      * @param {integer} billets id des billets
      * @param {boolean} entier true pour générer des montants entiers, false pour des centimes
      * @param {boolean} tot true pour donner le montant total, false pour donner un montant inférieur
@@ -1595,7 +1595,7 @@ class cart {
         });
     }
     /**
-     * 
+     *
      * @param {Object} objImage DOM object of the clicked image
      */
     changeOrder(objImage){
@@ -1615,10 +1615,10 @@ class cart {
 /**
  * offer the possibility to anotate the page
  * designed for interactive screens
- * 
+ *
  * @param {String} tgt id de l'élément à couvrir
  * @param {String} btnId id du bouton qui déclenche le draw pour changer son image
- * 
+ *
  * fonctionne avec une variable d'environnement, ici MM.touched qui prend true si on a des évennements touch
  * détecté ainsi :
  *     let listener = function(evt){
@@ -1653,7 +1653,7 @@ class draw {
         // changement d'aspect du bouton "annoter"
         this.btn = document.querySelector("#"+btnId + " img");
         this.btn.src = "img/iconfinder_pencil_activ.png";
-        //insertion du canvas dans 
+        //insertion du canvas dans
         target.appendChild(c);
         this.canvas = c;
         if(btnId.indexOf("btn-sample")>-1){
@@ -1779,7 +1779,7 @@ class steps {
 }
 class Zoom {
     /**
-     * 
+     *
      * @param {String} targetSelector Id de l'élément du DOM à zoomer/dézoomer
      */
     constructor(id,targetSelector){
@@ -1876,7 +1876,7 @@ class Figure {
     }
     /**
      * Crée la figure
-     * @param {window object} destination 
+     * @param {window object} destination
      * @returns nothing if displayed yet
      */
     display(destination){
@@ -1938,7 +1938,7 @@ class Figure {
 // Timer
 class timer {
     constructor(slideid){
-        this.durations = []; 
+        this.durations = [];
         this.durationId = 0; // id of the currect duration timer
         this.startTime = 0; // start time of the timer
         this.endTime = 0; // end time of the timer
@@ -2000,7 +2000,7 @@ class timer {
         if(this.timer){
             clearInterval(this.timer);
             this.timer = false;
-        }        
+        }
     }
     end(){
         this.stop();
@@ -2066,7 +2066,7 @@ class ficheToPrint {
         }
     }
     /**
-     * 
+     *
      * @param {string} type element name
      * @param {string} className
      * @param {string} innerHTML
@@ -2246,7 +2246,7 @@ class ficheToPrint {
                     if(activity.figures[j] !== undefined){
                         if(i===0 && j=== 0)MM.memory["dest"] = this.wsheet;
                         MM.memory["f"+qty+"-"+i+"-"+j] = new Figure(utils.clone(activity.figures[j]), "f"+qty+"-"+i+"-"+j,li);
-                    }                
+                    }
                     let article = this.create("article");
                     li.appendChild(article);
                     olCorrection.appendChild(liCorrection);
@@ -2409,7 +2409,7 @@ class ficheToPrint {
             </select>`;
             headnoprint.innerHTML += input;
         }
-        headnoprint.innerHTML += `<span>Tous</span> 
+        headnoprint.innerHTML += `<span>Tous</span>
         <select oninput="setDispositionReponseAll(this.value)">
             <option value="row">à côté</option>
             <option value="column">dessous</option>
@@ -2421,7 +2421,7 @@ class ficheToPrint {
             correction = utils.create("div",{id:"correction",className:"pagebreak"});
             correction.appendChild(utils.create("div",{innerHTML:"Correction"}));
         }
-        // on crée autant de ceintures que demandées      
+        // on crée autant de ceintures que demandées
         for(let qty=0;qty<nbCeintures;qty++){
             // un conteneur pour la ceinture
             let ceinture = utils.create("div",{className:"ceinture"});
@@ -2475,7 +2475,7 @@ class ficheToPrint {
                         let span = utils.create("span",{className:"math", innerHTML:activity.shortQuestions[j]||activity.questions[j]});
                         divq.appendChild(span);
                         ligne.appendChild(divq);
-                        
+
                     } else {
                         ligne.appendChild(utils.create("div",{innerHTML:activity.shortQuestions[j]||activity.questions[j],className:"question"+colsid+" quest"}));
                     }
@@ -2693,7 +2693,7 @@ class ficheToPrint {
         // set elements :
         let aleaCode = this.create("div",{className:"floatright",innerHTML:"Clé : "+MM.seed});
         this.content.appendChild(aleaCode);
-        let input = `<div class="noprint fright">Largeur : 
+        let input = `<div class="noprint fright">Largeur :
         <input value="60" title="Largeur domino" type="number" size="3" min="60" max="180" oninput="changewidth(this.value)">
         Hauteur :
         <input value="25" title="Hauteur domino" type="number" size="3" min="25" max="180" oninput="changeheight(this.value)">
@@ -2771,13 +2771,13 @@ var MM = {
     touched:false,// marker to know if the screen has been touched => online answers with virtual keyboard
     selectedCart:0,
     seed:"", // String to initialize the randomization
-    editedActivity:undefined, // object activity 
+    editedActivity:undefined, // object activity
     slidersOrientation: "", // if vertical => vertical presentation for 2 sliders
     onlineState:"no", // true if user answers on computer (Cf start and online functions)
     carts:[], // max 4 carts
     steps:[],
     timers:[],
-    figs:{}, // 
+    figs:{}, //
     userAnswers:[],
     slidersNumber:1,
     faceToFace:'n',
@@ -2892,7 +2892,7 @@ var MM = {
     },
     /**
      * fonction qui récupère la liste des activités d'un panier
-     * 
+     *
      * return DOM object
      */
     getCartsContent:function(){
@@ -2937,7 +2937,7 @@ var MM = {
             cartsMenu.appendChild(button);
             if(btnnb < 4){
                 cartsMenu.appendChild(lastButton);
-            }    
+            }
         }
     },
     removeCart:function(index){
@@ -3020,10 +3020,10 @@ var MM = {
             if(start)
                 MM.start();
             else {
-                let message = `Tu as suivi un lien d'activité préconfigurée MathsMentales.<br>Clique ci-dessous pour démarrer.<br><br><button onclick="utils.closeMessage('messageinfo');MM.start()"> Commencer ! 
+                let message = `Ce lien mène a une activité préconfigurée Maths et Matic Projector.<br>Cliquez ci-dessous pour commencer.<br><br><button onclick="utils.closeMessage('messageinfo');MM.start()"> Démmarrer
                 </button>`;
                 if(MM.carts.length===1 && MM.carts[0].target.length===1)
-                message +=`<br><br> ou <button onclick="utils.closeMessage('messageinfo');MM.setOnlineState('yes');MM.start()"> Commencer (réponse en ligne) !</button>`;
+                message +=`<br><br> ou <button onclick="utils.closeMessage('messageinfo');MM.setOnlineState('yes');MM.start()"> Répondre en ligne </button>`;
                 let alert=utils.create("div",{id:"messageinfo",className:"message",innerHTML:message});
                 document.getElementById("tab-accueil").appendChild(alert);
             }
@@ -3156,7 +3156,7 @@ var MM = {
     /**
      * Create the user inputs to answer the questions
      * Ne fonctionnera qu'avec un panier unique
-     * 
+     *
      */
     createUserInputs:function(){
         MM.mf = {};
@@ -3427,7 +3427,7 @@ var MM = {
     },
     /**
      * Enlève un élément du DOM de l'historique et enregistre localement au cas où.
-     * @param {DOM element} elem 
+     * @param {DOM element} elem
      */
     removeFromHistory(elem){
         if(!confirm("Supprimer cet élément : \n"+elem.childNodes[0].innerText+" ?"))return false;
@@ -3500,7 +3500,7 @@ var MM = {
     },
     /**
      * Export all carts as string
-     * @returns String 
+     * @returns String
      */
     export(){
         let urlString = "";
@@ -3617,11 +3617,11 @@ var MM = {
         if(MM.carts.length === 1 && MM.carts[0].activities.length === 1){
             MM.resetCarts();
             MM.editedActivity.display();
-        }    
+        }
     },
     /**
-     * 
-     * 
+     *
+     *
      */
     createSlideShows:function(){
         MM.zooms={};
@@ -3691,7 +3691,7 @@ var MM = {
         if(MM.onlineState === "yes"){
             // on affiche un message de fin qui attend une validation
             let alert = utils.create("div",{id:"messagefin",className:"message",innerHTML:`L'activité MathsMentales est terminée.<br>Pour consulter les résultats, cliquer sur le bouton ci-dessous.<br><br>
-            <button onclick="utils.closeMessage('messagefin');utils.showTab('tab-corrige');"> Voir le corrigé 
+            <button onclick="utils.closeMessage('messagefin');utils.showTab('tab-corrige');"> Voir le corrigé
             </button>`});
             document.body.appendChild(alert);
         } else if(whatToDo === "correction"){
@@ -3707,7 +3707,7 @@ var MM = {
      */
     showTheAnswer(id){
         let answerToShow = document.querySelector("#slide"+id+"-"+MM.steps[id].step+" .answerInSlide");
-        
+
         if(!answerToShow)return;
         if(answerToShow.className.indexOf("hidden")>-1){
             MM.timers[id].pause();
@@ -3726,7 +3726,7 @@ var MM = {
         }
     },
     /**
-     * 
+     *
      * @param {id} id id de l'emplacement de l'exemple
      * @param {boolean} next passe à l'activité suivante du panier.
      */
@@ -3778,7 +3778,7 @@ var MM = {
         MM.startTimers();
     },
     /**
-     * 
+     *
      * @param {integer} id du slide (start to 1)
      */
     nextSlide:function(id){
@@ -3860,7 +3860,7 @@ var MM = {
                         const expectedAnswer = MM.carts[0].activities[refs[0]].values[refs[1]];
                         // TODO : better correction value
                         // prendre en compte les cas où plusieurs réponses sont possibles
-                        // attention, si c'est du texte, il faut supprimer des choses car mathlive transforme 
+                        // attention, si c'est du texte, il faut supprimer des choses car mathlive transforme
                         if(Array.isArray(expectedAnswer)){
                             for(let i=0;i<expectedAnswer.length;i++){
                                 if(String(userAnswer).toLowerCase()==String(expectedAnswer[i]).toLowerCase()){
@@ -3924,7 +3924,7 @@ var MM = {
                         const expectedAnswer = MM.carts[0].activities[indexA].values[indexQ];
                         // TODO : better correction value
                         // prendre en compte les cas où plusieurs réponses sont possibles
-                        // attention, si c'est du texte, il faut supprimer des choses car mathlive transforme 
+                        // attention, si c'est du texte, il faut supprimer des choses car mathlive transforme
                         if(Array.isArray(expectedAnswer)){
                             for(let i=0;i<expectedAnswer.length;i++){
                                 if(String(userAnswer).toLowerCase()==String(expectedAnswer[i]).toLowerCase()){
@@ -4068,10 +4068,10 @@ var MM = {
         } else if(value === 3){
             if(MM.faceToFace === "y"){
                 document.getElementById("sddiv1").className = "sddiv34 return";
-                document.getElementById("sddiv2").className = "sddiv34 return";    
+                document.getElementById("sddiv2").className = "sddiv34 return";
             } else {
                 document.getElementById("sddiv1").className = "sddiv34";
-                document.getElementById("sddiv2").className = "sddiv34";    
+                document.getElementById("sddiv2").className = "sddiv34";
             }
             document.getElementById("sddiv3").className = "sddiv34";
             document.getElementById("sddiv4").className = "hidden";
@@ -4095,7 +4095,7 @@ var MM = {
                 document.getElementById("sddiv2").className = "sddiv34 return";
                 } else {
                 document.getElementById("sddiv1").className = "sddiv34";
-                document.getElementById("sddiv2").className = "sddiv34";    
+                document.getElementById("sddiv2").className = "sddiv34";
             }
             document.getElementById("sddiv3").className = "sddiv34";
             document.getElementById("sddiv4").className = "sddiv34";
@@ -4260,11 +4260,11 @@ var library = {
                                 niveau.themes[theme].chapitres[chap] = {n:MM.content[niv].themes[theme].chapitres[chap].n,e:chapExo};
                             }
                         }
-                    }    
+                    }
                 } else continue;
             }
             // cas d'un clic sur un niveau
-        } else 
+        } else
             niveau = MM.content[level];
         let html = "";
         if(!base && !_.isObject(level))
@@ -4273,7 +4273,7 @@ var library = {
             html = "<h1 class='pointer moins' onclick='utils.deploy(this)'>Niveau "+niveau["nom"]+" ("+niveau["activitiesNumber"]+" act.)</h1>";
             // on vide le champ de recherche
             document.getElementById("searchinput").value = "";
-        }else 
+        }else
             html = "<h2>Cette activité MathsMentales v1 a été répartie en plusieurs activités</h2>";
         if(base && !_.isObject(level)) // on change l'url level est un niveau de la bibliothèque
             utils.setHistory(niveau["nom"],"n="+level);
@@ -4410,7 +4410,7 @@ class activity {
     /**
      * import datas et crée l'objet activité à partir d'un json
      * appelé par l'import de l'activité (utilise Promises)
-     * 
+     *
      * @param (JSON) obj
      * @param (String) id : id de destination de l'activité
      */
@@ -4431,15 +4431,15 @@ class activity {
     }
     /**
      * getOption
-     * 
+     *
      * return uniqueId (Integer)
-     * 
+     *
      * Si plusieurs options sont disponibles, on va tirer dans les différentes options
      * (qui peuvent avoir été sélectionnées) mélangées pour éviter les répétitions trop suivies
      * Ainsi si les options choisies sont [0,2,5]
      * Les tirages successifs verront se succéder les 3 valeurs avant de les mélanger et
      * de recommencer exemple : [2,0,5] puis [5,2,0] puis [0,5,2]
-     * 
+     *
      */
     getOption(){
         if(!this.options) return false;
@@ -4580,7 +4580,7 @@ class activity {
             examples.appendChild(p);
         }
         if(!utils.isEmpty(this.examplesFigs)){
-            // it has to take his time... 
+            // it has to take his time...
             setTimeout(()=>{
                 for(let i in this.examplesFigs){
                     this.examplesFigs[i].display();
@@ -4593,7 +4593,7 @@ class activity {
      * getPattern
      * récupère 1 pattern unique
      * @param {integer} option id de l'option dont dépend le pattern
-     * 
+     *
      * return uniqueId (Integer)
      */
     getPattern(option){
@@ -4651,10 +4651,10 @@ class activity {
     }
     /**
      * setOption
-     * 
+     *
      * @param {string} value optionId || optionID-renderID
      * @param {boolean} check check state
-     * 
+     *
      */
     setOption(value, check){
         var optionId, renderId;
@@ -4737,7 +4737,7 @@ class activity {
         }
     }
     /**
-     * 
+     *
      * @param {integer} value index of the choosen question type
      * @param {boolean} check true if check, false if not
      */
@@ -4753,9 +4753,9 @@ class activity {
         }
     }
     /**
-     * 
-     * @param {string} chaine : chaine où se trouve la variable 
-     * @param {integer} index : 
+     *
+     * @param {string} chaine : chaine où se trouve la variable
+     * @param {integer} index :
      */
     replaceVars(chaine, questiontext){
         function onlyVarw(all,p1,p2,decal,chaine){
@@ -4802,9 +4802,9 @@ class activity {
         } else return chaine;
     }
     /**
-    * 
+    *
     * générateur de questions et réponses
-    * 
+    *
     * generate this.questions, this.answers and this.values
     * @param {integer} n number of questions to create
     * @param {integer} option id of an option (optional)
@@ -4812,7 +4812,7 @@ class activity {
     * @param {boolean} sample if true generate a sample question to show before starting slideshow
     * return nothing
     * utilise des variables de travail this.cVars, this.cConsts, this.cFigure, this.cQuestion, this.cShortQ, this.cAnswer, this.cValue qui vont contenir les différentes définitions, this.wVars contient les variables où les variables vont être remplacées par les valeurs générées
-    * 
+    *
     */
     generate(n=this.nbq, opt, patt, sample){
         // optionNumber is the number of the choosen option
@@ -4916,7 +4916,7 @@ class activity {
                     if(bornes[0].indexOf("d")>-1) {// float case
                         this.wVars[name] = math.aleaFloat(Number(bornes[0].substring(1)), Number(bornes[1]), Number(bornes[2]), bornes[3], bornes[4]);
                     } else { // integer case
-                        this.wVars[name] = math.aleaInt(Number(bornes[0]), Number(bornes[1]), bornes[2], bornes[3]);                        
+                        this.wVars[name] = math.aleaInt(Number(bornes[0]), Number(bornes[1]), bornes[2], bornes[3]);
                     }
                 }
             }
@@ -4967,7 +4967,7 @@ class activity {
                 }
             } else {
                 i--;
-                if(loopProtect<maxLoop) // avoid too many attempts 
+                if(loopProtect<maxLoop) // avoid too many attempts
                     continue;
                 else {
                     debug("Pas assez de données pour éviter les répétitions")
@@ -4980,7 +4980,7 @@ class activity {
                 };
                 if(this.cShortQ)this.sample.shortQuestion = this.replaceVars(this.cShortQ);
                 this.sample.answer=this.replaceVars(this.cAnswer, this.sample.question);
-                
+
                 if(this.cFigure !== undefined){
                     this.sample.figure = {
                         "type":this.cFigure.type,
