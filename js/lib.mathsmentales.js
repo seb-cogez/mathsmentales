@@ -159,7 +159,7 @@ var utils = {
             // indique quoi faire après le slide
             MM.endType = vars.e;
             // couleurs des diaporamas
-            if(vars.colors !== undefined){
+            if(typeof vars.colors === "string"){
                 let couleurs = vars.colors.split("~");
                 for(let i=0;i<couleurs.length;i++){
                     MM.colors[i]=couleurs[i].replace(/_/g,",");
@@ -2013,10 +2013,13 @@ class timer {
     }
 }
 class ficheToPrint {
-    constructor(type,cart){
+    constructor(type,cart,orientation='portrait'){
         this.type = type; // type = exos, interro, ceinture
         this.activities = cart.activities;
-        this.wsheet = window.open("pagetoprint.html","mywindow","location=no,menubar=no,titlebar=no,width=794");
+        if(orientation ==="portrait")
+            this.wsheet = window.open("pagetoprint.html","mywindow","location=no,menubar=no,titlebar=no,width=794");
+        else
+            this.wsheet = window.open("pagetoprintlandscape.html","mywindow","location=no,menubar=no,titlebar=no,width=1123");
         this.wsheet.onload = function(){MM.fiche.populate()};
         this.nbq = undefined;
         if(this.type === "whogots" && this.activities.length === 1){
@@ -2988,7 +2991,6 @@ var MM = {
         if(window.confirm("Vous êtes sur le point de vider ce panier.\nConfirmez-vous ?")){
             MM.carts[index-1].activities = [];
             MM.carts[index-1].editedActivityId = -1;
-            document.getElementById("cart"+index+"-list").innerHTML = "";
             MM.carts[index-1].display();
         } else return false;
     },
@@ -3271,7 +3273,7 @@ var MM = {
                 return;
             }
         }
-        MM.fiche = new ficheToPrint("ceinture",MM.carts[0]);
+        MM.fiche = new ficheToPrint("ceinture",MM.carts[0],utils.getRadioChecked("ceintorientation"));
     },
     createFlashCards:function(){
         if(!MM.carts[0].activities.length){
@@ -4369,6 +4371,8 @@ class activity {
         this.chosenQuestionTypes = utils.clone(obj.chosenQuestionTypes)||[]; // pattern parmi les questions
         this.tempo = utils.clone(obj.tempo) || Number(document.getElementById("tempo-slider").value);
         this.nbq = utils.clone(obj.nbq) || Number(document.getElementById("nbq-slider").value);
+        this.getOptionHistory = [];
+        this.getPatternHistory = {global:[]};
     }
     initialize(){
         this.questions = [];
@@ -4429,13 +4433,32 @@ class activity {
      * getOption
      * 
      * return uniqueId (Integer)
+     * 
+     * Si plusieurs options sont disponibles, on va tirer dans les différentes options
+     * (qui peuvent avoir été sélectionnées) mélangées pour éviter les répétitions trop suivies
+     * Ainsi si les options choisies sont [0,2,5]
+     * Les tirages successifs verront se succéder les 3 valeurs avant de les mélanger et
+     * de recommencer exemple : [2,0,5] puis [5,2,0] puis [0,5,2]
+     * 
      */
     getOption(){
-        if(this.chosenOptions.length === 0 && this.options){
-            return math.aleaInt(0, this.options.length-1);
-        } else if(this.chosenOptions.length > 0){
-            return this.chosenOptions[math.aleaInt(0,this.chosenOptions.length-1)];
-        } else return false;
+        if(!this.options) return false;
+        let ret = 0;
+        // si l'historique de piochage est vide, on le remplit des options choisies mélangées
+        if(this.getOptionHistory.length === 0){
+            if(this.chosenOptions.length > 0){
+                // on pense à cloner la table, sinon celle-ci est touchée par les manipulations suivantes
+                this.getOptionHistory = utils.shuffle(utils.clone(this.chosenOptions));
+            } else {
+                // Array.from(Array(integer).keys()) créé un tableau [0,1,2,...integer-1]
+                this.getOptionHistory = utils.shuffle(Array.from(Array(this.options.length).keys()));
+            }
+        }
+        // on prend la première option de l'historique
+        ret = this.getOptionHistory[0];
+        // on supprime la première option de l'historique
+        this.getOptionHistory.shift();
+        return ret;
     }
     setMath(content){
         if(this.type === undefined || this.type === "latex"){
@@ -4576,26 +4599,54 @@ class activity {
     getPattern(option){
         // l'utilisateur a choisi plusieurs types de questions, on prend l'une des valeurs
         if(this.chosenQuestionTypes.length > 0){
-            return this.chosenQuestionTypes[math.aleaInt(0, this.chosenQuestionTypes.length-1)];
+            if(this.getPatternHistory.global.length === 0){
+                this.getPatternHistory.global = utils.shuffle(utils.clone(this.chosenQuestionTypes));
+            }
+            let ret = this.getPatternHistory.global[0];
+            this.getPatternHistory.global.shift();
+            return ret;
         }
         // no option mais plusieurs pattern possibles
         if(option === false && Array.isArray(this.questionPatterns)){
-            return math.aleaInt(0,this.questionPatterns.length-1);
+            if(this.getPatternHistory.global.length === 0){
+                this.getPatternHistory.global = utils.shuffle(Array.from(Array(this.questionPatterns.length).keys()));
+            }
+            let ret = this.getPatternHistory.global[0];
+            this.getPatternHistory.global.shift();
+            return ret;
         }
         if(option === false)return false;
         // if option, patterns ?
         if(!Array.isArray(this.chosenQuestions[option])){
             this.chosenQuestions[option] = [];
         }
+        if(!Array.isArray(this.getPatternHistory[option])){
+            this.getPatternHistory[option] = [];
+        }
         // no pattern chosen : we choose one
         if(this.chosenQuestions[option].length === 0 && Array.isArray(this.options[option].question)){
-            return math.aleaInt(0, this.options[option].question.length-1);
+            if(this.getPatternHistory[option].length === 0){
+                this.getPatternHistory[option] = utils.shuffle(Array.from(Array(this.options[option].question.length).keys()));
+            }
+            let ret = this.getPatternHistory[option][0];
+            this.getPatternHistory[option].shift();
+            return ret;
         } else if(this.chosenQuestions[option].length === 0 && !this.options[option].question && Array.isArray(this.questionPatterns)){
             // no question in option, but global question is an array
-            return math.aleaInt(0, this.questionPatterns.length-1);
+            if(this.getPatternHistory.global.length === 0){
+                this.getPatternHistory.global = utils.shuffle(Array.from(Array(this.questionPatterns.length).keys()));
+            }
+            let ret = this.getPatternHistory.global[0];
+            this.getPatternHistory.global.shift();
+            return ret;
         } else if(this.chosenQuestions[option].length > 0){
             // list of patterns chosen, we pick one
-            return this.chosenQuestions[option][math.aleaInt(0,this.chosenQuestions[option].length-1)];
+            if(this.getPatternHistory[option].length === 0){
+                this.getPatternHistory[option] = utils.shuffle(Array.from(Array(this.chosenQuestions[option].length).keys()));
+            }
+            let ret = this.getPatternHistory[option][0];
+            this.getPatternHistory[option].shift();
+            return ret;
         } else return false;
     }
     /**
