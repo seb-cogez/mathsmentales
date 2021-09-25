@@ -7,7 +7,7 @@
         "name":"Quotient et produit de puissances de 10",
         "vars":{"a":"-10_10_3_^0","r":"${:a[0]+:a[1]-:a[2]}"},
         "question": ["\\dfrac{10^{${:a[0]}}\\times 10^{${:a[1]}}}{10^{${:a[2]}}}",
-        "\\dfrac{10^{${:a[0]}}}{10^${-:a[1]}\\times 10^{${:a[2]}}}"]
+        "\\dfrac{10^{${:a[0]}}}{10^{${-:a[1]}}\\times 10^{${:a[2]}}}"]
     },{
         "name":"Quotient de produits de puissances de 10",
         "vars":{"a":"-10_10_4_^0","r":"${:a[0]+:a[1]-:a[2]-:a[3]}"},
