@@ -838,7 +838,7 @@ var sound = {
         ["sounds/TOONHorn_Klaxon poire double 1 (ID 1830)_LS.mp3","Pouet"],
         ["sounds/VEHHorn_Klaxon de voiture recente 4 (ID 0260)_LS.mp3","Klaxon"],
         ["sounds/WATRSplsh_Plouf petit 6 (ID 1534)_LS.mp3","Plouf"],
-        ["sounds/ANMLFarm_Canards (ID 0276).mp3","Coincoin"]
+        ["sounds/Anas_platyrhynchos_-_Mallard_-_XC62258.mp3","Coincoin"]
     ],
     selected:"null",
     player:null,
@@ -857,6 +857,7 @@ var sound = {
             this.player.play();
     },
     next(){
+        if(this.selected==="null")this.selected=-1;
         this.setSound((this.selected+1)%this.list.length);
         this.play();
     },
@@ -3020,10 +3021,11 @@ var MM = {
             if(start)
                 MM.start();
             else {
-                let message = `Tu as suivi un lien d'activité préconfigurée MathsMentales.<br>Clique ci-dessous pour démarrer.<br><br><button onclick="utils.closeMessage('messageinfo');MM.start()"> Commencer ! 
-                </button>`;
+                let message = `Tu as suivi un lien d'activité préconfigurée MathsMentales.<br>Clique ci-dessous pour démarrer.<br><br><button class="button--primary" onclick="utils.closeMessage('messageinfo');MM.start()"> Démarrer le diaporama </button>`;
+                if(MM.carts.length === 1 && sound.selected==="null")
+                    message += `<br><br><button class="button--info" onclick="sound.next();">Avec du son</button>`;
                 if(MM.carts.length===1 && MM.carts[0].target.length===1)
-                message +=`<br><br> ou <button onclick="utils.closeMessage('messageinfo');MM.setOnlineState('yes');MM.start()"> Commencer (réponse en ligne) !</button>`;
+                    message +=`<br><br> ou <button class="button--success" onclick="utils.closeMessage('messageinfo');MM.setOnlineState('yes');MM.start()"> Commencer (interactif)</button>`;
                 let alert=utils.create("div",{id:"messageinfo",className:"message",innerHTML:message});
                 document.getElementById("tab-accueil").appendChild(alert);
             }
@@ -3545,9 +3547,13 @@ var MM = {
         let nb = MM.slidersNumber;
         utils.setSeed("sample");
         let container = document.getElementById("slideshow");
+        let assocSliderActivity=[];
         // génération des données aléatoires pour les exemples
         for(let i=0,len=MM.carts.length;i<len;i++){
             MM.carts[i].activities[0].generateSample();
+            for(let j=0;j<MM.carts[i].target.length;j++){
+                assocSliderActivity[MM.carts[i].target[j]-1] = i;
+            }
         }
         let divSample = utils.create("div",{id:"sampleLayer",className:"sample"});
         // creation des emplacements d'affichage
@@ -3557,7 +3563,7 @@ var MM = {
             else if(nb===2)div.className = "slider-2";
             else div.className = "slider-34";
             let nextActivity = "";
-            if(MM.carts[i].activities.length>1) {
+            if(MM.carts[assocSliderActivity[i]].activities.length>1) {
                 nextActivity = `<button title="Activité suivante du panier" data-actid="0" onclick="MM.newSample(${i},true)" id="ButtonNextAct${i}"><img src="img/slider-next.png"></button>`;
             }
             div.innerHTML = `Exemple <div class="slider-nav">
@@ -3734,11 +3740,16 @@ var MM = {
         for(let i=0,len=MM.carts.length;i<len;i++){
             if(MM.carts[i].target.indexOf(id+1)>-1){
                 let nbActivities = MM.carts[i].activities.length;
-                let actId = document.getElementById("ButtonNextAct"+id).dataset.actid;
-                if(next){
-                    actId++;
-                    if(actId>=nbActivities) actId=0;
-                    document.getElementById("ButtonNextAct"+id).dataset.actid = actId;
+                let actId = 0;
+                // si le panier contient plusieurs activités,
+                // on regarde l'id de l'activité à afficher.
+                if(MM.carts[i].activities.length>1){
+                    actId = document.getElementById("ButtonNextAct"+id).dataset.actid;
+                    if(next){
+                        actId++;
+                        if(actId>=nbActivities) actId=0;
+                        document.getElementById("ButtonNextAct"+id).dataset.actid = actId;
+                    }
                 }
                 let act = MM.carts[i].activities[actId];
                 act.generateSample();
@@ -4642,7 +4653,7 @@ class activity {
         } else if(this.chosenQuestions[option].length > 0){
             // list of patterns chosen, we pick one
             if(this.getPatternHistory[option].length === 0){
-                this.getPatternHistory[option] = utils.shuffle(Array.from(Array(this.chosenQuestions[option].length).keys()));
+                this.getPatternHistory[option] = utils.shuffle(utils.clone(this.chosenQuestions[option]));
             }
             let ret = this.getPatternHistory[option][0];
             this.getPatternHistory[option].shift();
