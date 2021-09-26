@@ -3866,7 +3866,7 @@ var MM = {
                         if(userAnswer.indexOf("\\text")===0){
                             userAnswer = userAnswer.substring(6,userAnswer.length-1);
                         }
-                        // remplacer un espace par un espace
+                        // remplacer un espace texte par un espace
                         userAnswer = userAnswer.replace("\\text{ }"," ");
                         const expectedAnswer = MM.carts[0].activities[refs[0]].values[refs[1]];
                         // TODO : better correction value
@@ -3913,8 +3913,8 @@ var MM = {
                                 }
                             }
                         }
-                        // on teste si la réponse est un nombre ou si elle contient des caractères echapé auquel cas on considère que c'est du latex
-                        if(!/[^-\d]/.test(userAnswer) || /\\/.test(userAnswer)){
+                        // on teste si la réponse est un nombre ou si elle contient des caractères echapés auquel cas on considère que c'est du latex
+                        if(!/[^-\d\.]/.test(userAnswer) || /\\/.test(userAnswer)){
                             span.className ="math";
                             userAnswer = "\\displaystyle "+userAnswer;
                         }
@@ -4328,6 +4328,31 @@ var library = {
         if(itemsNumber > 40 && utils.pageWidth()>1000) utils.addClass(target,"cols3");
         else if(itemsNumber > 20 && utils.pageWidth()>840) utils.addClass(target, "cols2");
         document.querySelector("#header-menu a[numero='#tab-chercher']").click();
+    }
+}
+/**
+ * keyboard interactif
+ * Permet d'entrer des données, traitées ensuite par MathLive
+ * 
+ */
+class keyBoard {
+    /**
+     * 
+     * @param {Integer} target champ MathLive à alimenter
+     * @param {Array} keys touches à afficher
+     */
+    constructor(target,keys){
+        this.targetField = target;
+        this.keys = keys;
+    }
+    defaut(){
+
+    }
+    show(){
+
+    }
+    hide(){
+
     }
 }
 // lecture des fichiers exercice
