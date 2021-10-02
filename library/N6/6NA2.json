@@ -1,5 +1,5 @@
 {
-    "title":"Quel est le chiffre des ... ?",
+    "title":"Quel est le chiffre des ... ? (entiers)",
     "type":"text",
     "ID":"6NA2",
     "dest":["7NA", "6NA", "5NA"],

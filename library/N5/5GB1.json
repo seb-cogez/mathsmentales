@@ -31,12 +31,12 @@
             "answer":"$$\\widehat{${:C}} = \\color{red}{${:BCA}°}$$"
         },{
             "name":"Version courte, multiples de 5",
-            "vars":{"pts":"0_16_3_^&","A":"${:points[:pts[0]]}","B":"${:points[:pts[1]]}","C":"${:points[:pts[2]]}","xa":"d-4_-2_1", "ya":"d-4_-2_1", "xb":"d2_4_1","yb":"d-4_-1_1","xc":"d-4_4_1","yc":"1_4", "a":"1_34","b":"1_${35-:a}", "CAB":"${:a*5}","ABC":"${:b*5}", "BCA":"${180-:CAB-:ABC}"},
+            "vars":{"pts":"0_16_3_^&","A":"${:points[:pts[0]]}","B":"${:points[:pts[1]]}","C":"${:points[:pts[2]]}","xa":"d-4_-2_1", "ya":"d-4_-2_1", "xb":"d2_4_1","yb":"d-3_-2_1", "a":"1_34","b":"1_${35-:a}", "CAB":"${:a*5}","ABC":"${:b*5}", "BCA":"${180-:CAB-:ABC}"},
             "question":"$$\\widehat{${:A}}=${:CAB}°$$, $$\\widehat{${:B}}=${:ABC}°$$, $$\\widehat{${:C}}$$ = ?",
             "answer":"$$\\widehat{${:C}} = \\color{red}{${:BCA}°}$$"
         },{
             "name":"Avec figure, multiples de 5",
-            "vars":{"pts":"0_16_3_^&","A":"${:points[:pts[0]]}","B":"${:points[:pts[1]]}","C":"${:points[:pts[2]]}","xa":"d-4_-2_1", "ya":"d-4_-2_1", "xb":"d2_4_1","yb":"d-4_-1_1","xc":"d-4_4_1","yc":"1_4", "a":"1_34","b":"1_${35-:a}", "CAB":"${:a*5}","ABC":"${:b*5}", "BCA":"${180-:CAB-:ABC}"},
+            "vars":{"pts":"0_16_3_^&","A":"${:points[:pts[0]]}","B":"${:points[:pts[1]]}","C":"${:points[:pts[2]]}","xa":"d-2_-0.5_1", "ya":"d-4_-2_1", "xb":"d2_4_1","yb":"d-4_-1_1","xc":"d-4_4_1","yc":"1_4", "a":"1_34","b":"1_${35-:a}", "CAB":"${:a*5}","ABC":"${:b*5}", "BCA":"${180-:CAB-:ABC}"},
             "figure":{
                 "type":"graph",
                 "boundingbox":[-5,5,5,-5],
@@ -45,9 +45,15 @@
                 "content" :[
                         ["point",["${:xa}","${:ya}"],{"name":"${:A}","size":4, "face":"x", "label":{"offset":[-12,-12]}}],
                         ["point",["${:xb}","${:yb}"],{"name":"${:B}","size":4, "face":"x"}],
-                        ["point",["${:xc}","${:yc}"],{"name":"${:C}","size":4, "face":"x"}],
+                        ["transform",["${math.round(Math.PI*:CAB/180,2)}","ref0"],{"type":"rotate"},"ref"],
+                        ["point",["ref1","ref2"],{"name":"W","visible":false},"ref"],
+                        ["line",["ref0","ref3"],{"visible":false},"ref"],
+                        ["transform",["${-math.round(Math.PI*:ABC/180,2)}","ref1"],{"type":"rotate"},"ref"],
+                        ["point",["ref0","ref5"],{"name":"Y","visible":false},"ref"],
+                        ["line",["ref1","ref6"],{"visible":false},"ref"],
+                        ["intersection",["ref4","ref7"],{"name":"${:C}","size":4, "face":"x"},"ref"],
                         ["polygon",["${:A}","${:C}", "${:B}"]],
-                        ["angle", ["${:B}", "${:A}", "${:C}"],{"radius":1, "orthoSensitivity":0.5,"name":"${:CAB}°","label":{"offset":[10,2]}}],
+                        ["angle", ["${:B}", "${:A}", "${:C}"],{"radius":1, "orthoSensitivity":0.5,"name":"${:CAB}°","label":{"offset":[1,2]}}],
                         ["angle", ["${:C}", "${:B}", "${:A}"],{"radius":1, "orthoSensitivity":0.5,"name":"${:ABC}°","label":{"offset":[-8,-10]}}]
                     ]    
                 },

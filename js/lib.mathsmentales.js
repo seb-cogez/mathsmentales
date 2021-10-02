@@ -1908,12 +1908,30 @@ class Figure {
                     this.figure = destination.JXG.JSXGraph.initBoard(this.id, {boundingbox:this.boundingbox, keepaspectratio: true, showNavigation: false, showCopyright: false,registerEvents:false, axis:this.axis, grid:this.grid});
                 }
                 let content = utils.clone(this.content);
+                let elements = [];
+                // content est un tableau de tableaux à 2, 3 ou 4 éléments
+                // le premier contient le type d'élément à créer
+                // le 2e contient la "commande", généralement un tableau de 2 coordonnées, ou éléments
+                // le 3e contient les options pour la création (affichage, taille, ...)
+                // le 4e contient la référence à un élément précédemment créé pour l'utiliser dans la commande.
+                // pour ce 4e, il faut bien compter les contents en partant de zéro.
                 for(let i=0,len=content.length;i<len;i++){
                     let type = content[i][0];
                     let commande = content[i][1];
                     let options = false;
+                    let reference = false;
                     if(content[i][2] !== undefined)
                         options = content[i][2];
+                    if(content[i][3] !== undefined){
+                        reference = elements[content[i][3]];
+                        // normalement, il faut remplacer la référence dans la commande
+                        commande.forEach(function(elt,index){
+                            if(typeof elt === "string")
+                                if(elt.indexOf("ref")===0){
+                                    commande[index] = elements[Number(elt.substr(3))];
+                                }
+                        })
+                    }
                     if(type === "functiongraph"){
                         let formule = commande;
                         if(!options)
@@ -1926,11 +1944,11 @@ class Figure {
                             this.figure.jc.use(this.figure);
                         }
                         this.figure.jc.parse(commande);
-                    } else if(["text", "point","axis", "line", "segment", "angle", "polygon"].indexOf(type)>-1){
+                    } else if(["text", "point","axis", "line", "segment", "angle", "polygon", "transform","intersection"].indexOf(type)>-1){
                         if(!options)
-                            this.figure.create(type, commande);
+                            elements[i] = this.figure.create(type, commande);
                         else
-                            this.figure.create(type,commande,options);
+                            elements[i] = this.figure.create(type,commande,options);
                     }
                 }
             } catch(error){
