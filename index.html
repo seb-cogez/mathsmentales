@@ -35,7 +35,7 @@
     <script src="js/libs/kas.js" defer></script>
     <script src="js/MM1toMM2.min.js"></script>
     <script src="js/libs/vanilla-picker/vanilla-picker.min.js"></script>
-    <script src="js/lib.mathsmentales.js?v=25" type="text/javascript" defer></script>
+    <script src="js/lib.mathsmentales.js?v=26" type="text/javascript" defer></script>
 </head>
 <body>
     <div id="app-container">
@@ -450,7 +450,9 @@
         </div>
     </section>
     <section id="tab-historique" class="tabs-content-item" style="display: none;">
-        Ici, l'historique des activités pour pouvoir les relancer, les imprimer... <span class="pointer underline" onclick="MM.emptyHistory();">💥Vider l'historique</span> <!--<span class="pointer underline" onclick="MM.generatePage()">🧾 Générer une page de liens</span>-->
+        Ici, l'historique des activités pour pouvoir les relancer, les imprimer... <span class="pointer underline" onclick="MM.emptyHistory();">💥Vider l'historique</span> <span class="pointer underline" onclick="MM.createSelectHistory();">⚙ Sélectionner</span>
+        <span id="actionsSelectHist" class="hidden">Pour la sélection : <span class="underline pointer" onclick="MM.removeSelectionFromHistory();">Supprimer</span><!-- <span>Générer page</span>--></span>
+        <!--<span class="pointer underline" onclick="MM.generatePage()">🧾 Générer une page de liens</span>-->
         <ol reversed></ol>
     </section>
     <section id="tab-telechargements" class="tabs-content-item" style="display: none;">

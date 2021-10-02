@@ -113,6 +113,7 @@ var utils = {
     /**
      * regarde les paramètres fournis dans l'url
      * et lance le diapo ou passe en mode édition
+     * edit est true si appelé par l'historique pour édition
      */
     checkURL(urlString=false,start=true,edit=false){
         const vars = utils.getUrlVars(urlString);
@@ -199,6 +200,7 @@ var utils = {
             if(typeof vars.c === "string")
                 json = JSON.parse(decodeURIComponent(vars.c));
             // la version à partir du 15/08/21 fonctionne avec un objet vars.c déjà construit.
+            // alcarts contient des promises qu'il faut charger
             let allcarts = [];
             for(const i in json){
                 MM.carts[i] = new cart(i);
@@ -213,16 +215,18 @@ var utils = {
                 if(MM.carts[0].activities.length>1 || MM.carts.length>1){
                     MM.showCartInterface();
                 }
-                // on affiche l'interface de paramétrage si on est en mode édition
+                // on affecte l'activité 0 du panier comme activité en cours d'édition.
+                MM.editedActivity = MM.carts[0].activities[0];
+                // si panier avec plusieurs activités, on affiche le panier
+                if(MM.carts[0].activities.length>1 || MM.carts.length>1){
+                    MM.showCart(1);
+                    MM.editActivity(0);
+                } else {
+                    MM.editedActivity.display();
+                }
+            // on affiche l'interface de paramétrage si on est en mode édition
                 if(edit) {
                     utils.showTab("tab-parameters");
-                    MM.editedActivity = MM.carts[0].activities[0];
-                    if(MM.carts[0].activities.length>1 || MM.carts.length>1){
-                        MM.showCart(1);
-                        MM.editActivity(0);
-                    } else {
-                        MM.editedActivity.display();
-                    }
                 }
             }).catch(err=>{
                 // erreur à l'importation :(
@@ -2765,7 +2769,7 @@ class ficheToPrint {
 };
 // MathsMentales core
 var MM = {
-    version:3,// à mettre à jour à chaque upload pour régler les pb de cache
+    version:5,// à mettre à jour à chaque upload pour régler les pb de cache
     content:undefined, // liste des exercices classés niveau/theme/chapitre chargé au démarrage
     introType:"321",// type of the slide's intro values : "example" "321" "nothing"
     endType:"nothing",// type of end slide's values : "correction", "nothing", "list"
@@ -3434,8 +3438,50 @@ var MM = {
     removeFromHistory(elem){
         if(!confirm("Supprimer cet élément : \n"+elem.childNodes[0].innerText+" ?"))return false;
         document.querySelector("#tab-historique ol").removeChild(elem);
+        // sauvergarde du résultat
         if(window.localStorage){
             localStorage.setItem("history",document.querySelector("#tab-historique ol").innerHTML);
+        }
+    },
+    /**
+     * Supprime les éléments d'un historique
+     */
+    removeSelectionFromHistory(){
+        const CHECKED = document.querySelectorAll("#tab-historique input[class='checkhistoric']:checked");
+        for(let i=CHECKED.length-1;i>=0;i--){
+            let parent = CHECKED[i].parentNode;
+            parent.parentNode.removeChild(parent);
+        }
+        // sauvergarde du résultat
+        if(window.localStorage){
+            localStorage.setItem("history",document.querySelector("#tab-historique ol").innerHTML);
+        }
+    },
+    /**
+     * Ajoute des cases de sélection de l'historique pour des actions groupées.
+     */
+    createSelectHistory(){
+        if(!this.historySelectCreated){
+            this.historySelectCreated=true;
+            const LISTE = document.querySelectorAll("#tab-historique > ol > li");
+            for(let i=0;i<LISTE.length;i++){
+                let input = utils.create("input",{type:"checkbox",value:i,selected:false,className:"checkhistoric"});
+                LISTE[i].prepend(input);
+            }
+            document.getElementById("actionsSelectHist").className = "";
+        } else {
+            this.destroySelectHistory();
+            document.getElementById("actionsSelectHist").className = "hidden";
+        }
+    },
+    /**
+     * Détruit les cases de sélection.
+     */
+    destroySelectHistory(){
+        this.historySelectCreated = false;
+        const LISTE = document.querySelectorAll("#tab-historique > ol > li > input");
+        for(let i=0;i<LISTE.length;i++) {
+            LISTE[i].parentNode.removeChild(LISTE[i]);
         }
     },
     /**
@@ -3506,7 +3552,8 @@ var MM = {
      */
     export(){
         let urlString = "";
-        if(!MM.carts[0].activities.length){
+        if(!MM.carts[0].activities.length < 2 && MM.carts.length === 1){
+            MM.carts[0].activities = [];
             MM.carts[0].addActivity(MM.editedActivity);
         }
         MM.checkIntro();
@@ -4253,11 +4300,22 @@ var library = {
                         for(let chap in MM.content[niv].themes[theme].chapitres){
                             let chapExo=[];
                             for(let exo=0,lene=MM.content[niv].themes[theme].chapitres[chap].e.length;exo<lene;exo++){
-                                if(MM.content[niv].themes[theme].chapitres[chap].e[exo].t.toLowerCase().indexOf(level.toLowerCase())>-1){
+                                let lexo = MM.content[niv].themes[theme].chapitres[chap].e[exo];
+                                if(lexo.t.toLowerCase().indexOf(level.toLowerCase())>-1){
                                     // we find a candidate !!!
                                     let reg = new RegExp(level.toLowerCase(),"gi");
-                                    chapExo.push({"u":MM.content[niv].themes[theme].chapitres[chap].e[exo].u,
-                                    "t":MM.content[niv].themes[theme].chapitres[chap].e[exo].t.replace(reg,function(x){return "<mark>"+x+"</mark>"})})
+                                    chapExo.push({"u":lexo.u,
+                                    "t":lexo.t.replace(reg,function(x){return "<mark>"+x+"</mark>"})})
+                                } else
+                                // recherche dans le code de l'exo
+                                if(lexo.u.toLowerCase().indexOf(level.toLowerCase())>-1){
+                                    chapExo.push({"u":lexo.u,"t":lexo.t});
+                                } else
+                                // recherche dans les descriptifs
+                                if(lexo.d !== undefined){
+                                    if(lexo.d.toLowerCase().indexOf(level.toLowerCase())>-1){
+                                        chapExo.push({"u":lexo.u,"t":lexo.t});
+                                    }
                                 }
                             }
                             // si chapExo! == [], alors on créée l'arbo
@@ -4854,10 +4912,13 @@ class activity {
         // optionNumber is the number of the choosen option
         // patternNumber is the number of the choosen sub option
         let optionNumber, patternNumber, lenQ=false;
+        // variables de travail
         this.wVars={};
-        this.cFigure = undefined;
         let loopProtect = 0, maxLoop = 100;
+        // vidage de figures pour éviter les traces.
+        this.figures = [];
         for(let i=0;i<n;i++){
+            this.cFigure = undefined;
             optionNumber = opt!==undefined?opt:this.getOption();
             patternNumber = patt!==undefined?patt:this.getPattern(optionNumber);
             // cas d'une option qui a été choisie

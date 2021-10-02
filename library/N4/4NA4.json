@@ -23,8 +23,22 @@
             "carre":"${:racine*:racine}"
         }
     },{
-        "name":"Racines de carrés parfaits inférieurs à 144",
+        "name":"Racines de carrés parfaits ≤144",
         "vars":{"racine":"1_12",
+            "carre":"${:racine*:racine}"
+        }
+    },{
+        "name":"Racines d'entiers ≤144 divisés par 10, 100, 1000",
+        "vars":{"entier":"1_12",
+            "diviseur":[10,100,1000],
+            "racine":"${math.round(:entier/:diviseur,3)}",
+            "carre":"${math.round(:racine*:racine,6)}"
+        }
+    },{
+        "name":"Racines d'entiers ≤144 multipliés par 10, 100, 1000",
+        "vars":{"entier":"1_12",
+            "mult":[10,100,1000],
+            "racine":"${:entier*:mult}",
             "carre":"${:racine*:racine}"
         }
     }

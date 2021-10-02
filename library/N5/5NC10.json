@@ -1,0 +1,34 @@
+{
+    "title":"Pourcentage d'une quantité (simple)",
+    "descriptif":"Calculer 10%,, 20%, 30%, 40%, 50%, 25%, 75%, 33%",
+    "type":"text",
+    "ID":"5NC10",
+    "dest":["5NC", "4NC", "3NC"],
+    "options":[{
+        "name":"10%",
+        "vars":{"p":10,"qte":"2_50"}
+    },{
+        "name":"20, 30, 40%",
+        "vars":{"a":"2_4","p":"${10*:a}","qte":"2_50"}
+    },{
+        "name":"50%",
+        "vars":{"p":50,"qte":"2_50"}
+    },{
+        "name":"5%",
+        "vars":{"p":5,"qte":"2_50"}
+    },{
+        "name":"25%",
+        "vars":{"p":25,"qte":"2_50"}
+    },{
+        "name":"75%",
+        "vars":{"p":75,"qte":"2_50"}
+    },{
+        "name":"33% (environ 1/3)",
+        "vars":{"p":33,"b":"1_20","qte":"${:b*3}"}
+    }
+    ],
+    "question":["${:p} % de $$${:qte}$$","${:p} % de $$${:qte/10}$$"],
+    "answer":["$$\\dfrac{${:p}}{100}\\times${:qte}=\\color{red}{${math.round(:qte*:p/100,2)}}$$",
+        "$$\\dfrac{${:p}}{100}\\times${:qte/10}=\\color{red}{${math.round(:qte*:p/1000,2)}}$$"],
+    "value":["${math.round(:qte*:p/100,2)}","${math.round(:qte*:p/1000,2)}"]
+}

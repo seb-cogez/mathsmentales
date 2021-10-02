@@ -1,0 +1,32 @@
+{
+    "title":"Multiplier un entier par 0,1 0,01 0,001",
+    "ID":"6NE9",
+    "repeat":"true",
+    "dest":["6NE","5NC","4NC","3NB"],
+    "options":[{
+        "name":"Entier à 1 chiffre",
+        "vars":{"n":"1_9"}
+    },{
+        "name":"Entier à deux chiffres",
+        "vars":{"ns":"1_9_2","n":"${Number(:ns[0]+''+:ns[1])}"}
+    },{
+        "name":"Entier à trois chiffres",
+        "vars":{"n13":"1_9_2","n2":"0_9","n":"${Number(:n13[0]+''+:n2+''+:n13[1])}"}
+    }
+    ],
+    "question":[
+        "${:n}\\times 0,1",
+        "${:n}\\times 0,01",
+        "${:n}\\times 0,001"
+    ],
+    "answer":[
+        ":question=\\color{red}{${math.round(:n*0.1,3)}}",
+        ":question=\\color{red}{${math.round(:n*0.01,3)}}",
+        ":question=\\color{red}{${math.round(:n*0.001,3)}}"
+    ],
+    "value":[
+        "${math.round(:n*0.1,3)}",
+        "${math.round(:n*0.01,3)}",
+        "${math.round(:n*0.001,3)}"
+    ]
+}
