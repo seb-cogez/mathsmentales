@@ -1,5 +1,5 @@
 {
-    "title":"Complément à une dizaine, une centaire",
+    "title":"Complément à une dizaine, une centaine",
     "type":"text",
     "ID":"6ND4",
     "dest":["6ND", "7ND", "8ND"],
@@ -11,7 +11,7 @@
         "answer":"$$${:c}+\\color{red}{${:b-:c}}=${:b}$$",
         "vars":{"a":"2_9", "b":"${10*:a}", "c":"2_${:b-1}"}
     },{
-        "name":"Trouver le complément à une centaire",
+        "name":"Trouver le complément à une centaine",
         "question": ["Combien manque-t-il à ${:c} pour faire ${:b} ?",
             "$$${:c}+?=${:b}$$",
             "$$${:b}-${:c}$$"],

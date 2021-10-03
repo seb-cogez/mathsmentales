@@ -37,6 +37,10 @@ for (const niveau in structure){
   listOfFiles.forEach(function(fichierExo){
     let json = JSON.parse(fs.readFileSync(fichierExo[1]));
     let exo = {"u":"N"+niveau+"/"+fichierExo[0], "t":json.title};//url ; title
+    // descriptif
+    if(json.description !== undefined){
+      exo.d = json.description;
+    }
     structure.activitiesNumber++;
     for(let i in json.dest){
       let codechap = json.dest[i];

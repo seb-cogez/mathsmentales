@@ -84,6 +84,9 @@ mark {
 #tab-historique ol > li {
   margin-top:0.6em;
 }
+.checkhistoric {
+  margin-right: 0.5em;
+}
 #searchLevels label {
   margin-left: 0.3rem;
   margin-right: 0.5rem;

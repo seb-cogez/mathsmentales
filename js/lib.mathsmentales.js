@@ -113,6 +113,7 @@ var utils = {
     /**
      * regarde les paramètres fournis dans l'url
      * et lance le diapo ou passe en mode édition
+     * edit est true si appelé par l'historique pour édition
      */
     checkURL(urlString=false,start=true,edit=false){
         const vars = utils.getUrlVars(urlString);
@@ -199,6 +200,7 @@ var utils = {
             if(typeof vars.c === "string")
                 json = JSON.parse(decodeURIComponent(vars.c));
             // la version à partir du 15/08/21 fonctionne avec un objet vars.c déjà construit.
+            // alcarts contient des promises qu'il faut charger
             let allcarts = [];
             for(const i in json){
                 MM.carts[i] = new cart(i);
@@ -213,16 +215,19 @@ var utils = {
                 if(MM.carts[0].activities.length>1 || MM.carts.length>1){
                     MM.showCartInterface();
                 }
-                // on affiche l'interface de paramétrage si on est en mode édition
+                // si panier avec plusieurs activités, on prépare l'affichage du panier
+                if(MM.carts[0].activities.length>1 || MM.carts.length>1){
+                    MM.showCart(1);
+                    MM.editActivity(0);
+                } else {
+                    // sinon
+                    // on affecte l'activité 0 du panier comme activité en cours d'édition.
+                    MM.editedActivity = MM.carts[0].activities[0];
+                    MM.editedActivity.display();
+                }
+            // on affiche l'interface de paramétrage si on est en mode édition
                 if(edit) {
                     utils.showTab("tab-parameters");
-                    MM.editedActivity = MM.carts[0].activities[0];
-                    if(MM.carts[0].activities.length>1 || MM.carts.length>1){
-                        MM.showCart(1);
-                        MM.editActivity(0);
-                    } else {
-                        MM.editedActivity.display();
-                    }
                 }
             }).catch(err=>{
                 // erreur à l'importation :(
@@ -1329,12 +1334,11 @@ var math ={
                 x=r;y=operandes[2];z=x;
                 if(["*","/"].indexOf(operations[1])>-1 && ["-","+"].indexOf(operations[0])>-1)
                     z="("+x+")";
-                //debug(z);
-            } else {
+            } else { // la deuxième opération est le 2e argument
                 x=operandes[2];y=r;z=y;
-                if(["*","/"].indexOf(operations[1])>-1 && ["-","+"].indexOf(operations[0])>-1 || operations[1]==="/")
+                if(["*","/","-"].indexOf(operations[1])>-1 && ["-","+"].indexOf(operations[0])>-1 || operations[0]==="/")
                     z="("+y+")";
-            }
+                }
             switch(option){
                 case "p":
                     r=eval("`"+phrases[operations[1]][0]+"`").replace("de le", "du");
@@ -1904,12 +1908,30 @@ class Figure {
                     this.figure = destination.JXG.JSXGraph.initBoard(this.id, {boundingbox:this.boundingbox, keepaspectratio: true, showNavigation: false, showCopyright: false,registerEvents:false, axis:this.axis, grid:this.grid});
                 }
                 let content = utils.clone(this.content);
+                let elements = [];
+                // content est un tableau de tableaux à 2, 3 ou 4 éléments
+                // le premier contient le type d'élément à créer
+                // le 2e contient la "commande", généralement un tableau de 2 coordonnées, ou éléments
+                // le 3e contient les options pour la création (affichage, taille, ...)
+                // le 4e contient la référence à un élément précédemment créé pour l'utiliser dans la commande.
+                // pour ce 4e, il faut bien compter les contents en partant de zéro.
                 for(let i=0,len=content.length;i<len;i++){
                     let type = content[i][0];
                     let commande = content[i][1];
                     let options = false;
+                    let reference = false;
                     if(content[i][2] !== undefined)
                         options = content[i][2];
+                    if(content[i][3] !== undefined){
+                        reference = elements[content[i][3]];
+                        // normalement, il faut remplacer la référence dans la commande
+                        commande.forEach(function(elt,index){
+                            if(typeof elt === "string")
+                                if(elt.indexOf("ref")===0){
+                                    commande[index] = elements[Number(elt.substr(3))];
+                                }
+                        })
+                    }
                     if(type === "functiongraph"){
                         let formule = commande;
                         if(!options)
@@ -1922,11 +1944,11 @@ class Figure {
                             this.figure.jc.use(this.figure);
                         }
                         this.figure.jc.parse(commande);
-                    } else if(["text", "point","axis", "line", "segment", "angle", "polygon"].indexOf(type)>-1){
+                    } else if(["text", "point","axis", "line", "segment", "angle", "polygon", "transform","intersection"].indexOf(type)>-1){
                         if(!options)
-                            this.figure.create(type, commande);
+                            elements[i] = this.figure.create(type, commande);
                         else
-                            this.figure.create(type,commande,options);
+                            elements[i] = this.figure.create(type,commande,options);
                     }
                 }
             } catch(error){
@@ -2765,7 +2787,7 @@ class ficheToPrint {
 };
 // MathsMentales core
 var MM = {
-    version:3,// à mettre à jour à chaque upload pour régler les pb de cache
+    version:5,// à mettre à jour à chaque upload pour régler les pb de cache
     content:undefined, // liste des exercices classés niveau/theme/chapitre chargé au démarrage
     introType:"321",// type of the slide's intro values : "example" "321" "nothing"
     endType:"nothing",// type of end slide's values : "correction", "nothing", "list"
@@ -3433,8 +3455,52 @@ var MM = {
     removeFromHistory(elem){
         if(!confirm("Supprimer cet élément : \n"+elem.childNodes[0].innerText+" ?"))return false;
         document.querySelector("#tab-historique ol").removeChild(elem);
+        // sauvergarde du résultat
         if(window.localStorage){
             localStorage.setItem("history",document.querySelector("#tab-historique ol").innerHTML);
+        }
+    },
+    /**
+     * Supprime les éléments d'un historique
+     */
+    removeSelectionFromHistory(){
+        const CHECKED = document.querySelectorAll("#tab-historique input[class='checkhistoric']:checked");
+        for(let i=CHECKED.length-1;i>=0;i--){
+            let parent = CHECKED[i].parentNode;
+            parent.parentNode.removeChild(parent);
+        }
+        // sauvergarde du résultat
+        if(window.localStorage){
+            this.createSelectHistory();
+            localStorage.setItem("history",document.querySelector("#tab-historique ol").innerHTML);
+            this.createSelectHistory();
+        }
+    },
+    /**
+     * Ajoute des cases de sélection de l'historique pour des actions groupées.
+     */
+    createSelectHistory(){
+        if(!this.historySelectCreated){
+            this.historySelectCreated=true;
+            const LISTE = document.querySelectorAll("#tab-historique > ol > li");
+            for(let i=0;i<LISTE.length;i++){
+                let input = utils.create("input",{type:"checkbox",value:i,selected:false,className:"checkhistoric"});
+                LISTE[i].prepend(input);
+            }
+            document.getElementById("actionsSelectHist").className = "";
+        } else {
+            this.destroySelectHistory();
+            document.getElementById("actionsSelectHist").className = "hidden";
+        }
+    },
+    /**
+     * Détruit les cases de sélection.
+     */
+    destroySelectHistory(){
+        this.historySelectCreated = false;
+        const LISTE = document.querySelectorAll("#tab-historique > ol > li > input");
+        for(let i=0;i<LISTE.length;i++) {
+            LISTE[i].parentNode.removeChild(LISTE[i]);
         }
     },
     /**
@@ -3505,7 +3571,8 @@ var MM = {
      */
     export(){
         let urlString = "";
-        if(!MM.carts[0].activities.length){
+        if(MM.carts[0].activities.length < 2 && MM.carts.length === 1){
+            MM.carts[0].activities = [];
             MM.carts[0].addActivity(MM.editedActivity);
         }
         MM.checkIntro();
@@ -4252,11 +4319,22 @@ var library = {
                         for(let chap in MM.content[niv].themes[theme].chapitres){
                             let chapExo=[];
                             for(let exo=0,lene=MM.content[niv].themes[theme].chapitres[chap].e.length;exo<lene;exo++){
-                                if(MM.content[niv].themes[theme].chapitres[chap].e[exo].t.toLowerCase().indexOf(level.toLowerCase())>-1){
+                                let lexo = MM.content[niv].themes[theme].chapitres[chap].e[exo];
+                                if(lexo.t.toLowerCase().indexOf(level.toLowerCase())>-1){
                                     // we find a candidate !!!
                                     let reg = new RegExp(level.toLowerCase(),"gi");
-                                    chapExo.push({"u":MM.content[niv].themes[theme].chapitres[chap].e[exo].u,
-                                    "t":MM.content[niv].themes[theme].chapitres[chap].e[exo].t.replace(reg,function(x){return "<mark>"+x+"</mark>"})})
+                                    chapExo.push({"u":lexo.u,
+                                    "t":lexo.t.replace(reg,function(x){return "<mark>"+x+"</mark>"})})
+                                } else
+                                // recherche dans le code de l'exo
+                                if(lexo.u.toLowerCase().indexOf(level.toLowerCase())>-1){
+                                    chapExo.push({"u":lexo.u,"t":lexo.t});
+                                } else
+                                // recherche dans les descriptifs
+                                if(lexo.d !== undefined){
+                                    if(lexo.d.toLowerCase().indexOf(level.toLowerCase())>-1){
+                                        chapExo.push({"u":lexo.u,"t":lexo.t});
+                                    }
                                 }
                             }
                             // si chapExo! == [], alors on créée l'arbo
@@ -4853,10 +4931,13 @@ class activity {
         // optionNumber is the number of the choosen option
         // patternNumber is the number of the choosen sub option
         let optionNumber, patternNumber, lenQ=false;
+        // variables de travail
         this.wVars={};
-        this.cFigure = undefined;
         let loopProtect = 0, maxLoop = 100;
+        // vidage de figures pour éviter les traces.
+        this.figures = [];
         for(let i=0;i<n;i++){
+            this.cFigure = undefined;
             optionNumber = opt!==undefined?opt:this.getOption();
             patternNumber = patt!==undefined?patt:this.getPattern(optionNumber);
             // cas d'une option qui a été choisie

@@ -1,11 +1,12 @@
 {
-    "title":"Quel est le chiffre des ... ?",
+    "title":"Quel est le chiffre des ... ? (entiers)",
     "type":"text",
     "ID":"6NA2",
     "dest":["7NA", "6NA", "5NA"],
     "consts":{"u":["centaines", "dizaines", "unités"],
         "v":["centaines de mille", "dizaines de mille", "unités de mille","centaines", "dizaines", "unités"],
-        "w":["centaines de million", "dizaines de millions", "unités de millions","centaines de mille", "dizaines de mille", "unités de mille","centaines", "dizaines", "unités"]
+        "w":["centaines de million", "dizaines de millions", "unités de millions","centaines de mille", "dizaines de mille", "unités de mille","centaines", "dizaines", "unités"],
+        "x":["centaines de milliards","dizaines de milliards","unités de milliards","centaines de million", "dizaines de millions", "unités de millions","centaines de mille", "dizaines de mille", "unités de mille","centaines", "dizaines", "unités"]
     },
     "options":[{
         "name":"Nombres inférieurs à $$1000$$",
@@ -16,6 +17,11 @@
         },{
         "name":"Nombres inférieurs à $$1000000000$$",
         "vars":{"a":"0_9_9_^&", "b":"0_8", "c":"${:a.join('')}", "d":"${:w[:b]}"}
+        },{
+            "name":"Nombres inférieurs à $$1000000000000$$",
+            "vars":{"a0":"0_9","a":"0_9_12_^${:a0}", "b":"0_11", "c":"${:a.slice(0,:b).concat([:a0]).concat(:a.slice(:b+1)).join('')}", "d":"${:x[:b]}"},
+            "answer":"Dans $$${:c}$$, le chiffre des <u>${:d}</u> est <span class='red'>${:a0}</span>",
+            "value":"${:a0}"
         }
     ],
     "answer":"Dans $$${:c}$$, le chiffre des <u>${:d}</u> est <span class='red'>${:a[:b]}</span>",

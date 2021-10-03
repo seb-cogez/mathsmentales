@@ -17,38 +17,38 @@
         "answer":":question : $$\\color{red}{${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}}$$",
         "value":"${math.phrase([:x,:y,:z],[:o1,:o2],'v',:o)}"
     },{
-        "name":"Additions, soustractions, multiplications",
-        "vars":{"o1":["+","-","*"],"o2":["+","-","*"],"x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
+        "name":"Additions ou soustractions, multiplication",
+        "vars":{"op1":["+","-"],"c":"0_1","o1":"${:c?:op1:'*'}","o2":"${:c?'*'::op1}","x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
         "question": "${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}",
         "answer":":question : $$\\color{red}{${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}}$$",
         "value":"${math.phrase([:x,:y,:z],[:o1,:o2],'v',:o)}"
     },{
-        "name":"Additions, soustractions, division (en ligne)",
-        "vars":{"o1":["+","-","/"],"o2":["+","-","/"],"x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
+        "name":"Additions ou soustractions, division (en ligne)",
+        "vars":{"op1":["+","-"],"c":"0_1","o1":"${:c?:op1:'/'}","o2":"${:c?'/'::op1}","x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
         "question": "${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}",
         "answer":":question : $$\\color{red}{${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}}$$",
         "value":"${math.phrase([:x,:y,:z],[:o1,:o2],'v',:o)}"
     },{
-        "name":"Additions, soustractions, division (en ligne)",
-        "vars":{"o1":["+","-","*"],"o2":["+","-","*"],"x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
+        "name":"Additions ou soustractions ou division (en ligne)",
+        "vars":{"op1":["+","-","/"],"c":"0_1","o1":"${:c?:op1:'/'}","o2":"${:c?'/'::op1}","x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
         "question": "${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}",
         "answer":":question : $$\\color{red}{${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}}$$",
         "value":"${math.phrase([:x,:y,:z],[:o1,:o2],'v',:o)}"
     },{
         "name":"Additions, soustractions, division (fractionnaire)",
-        "vars":{"o1":["+","-","q"],"o2":["+","-","q"],"x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
+        "vars":{"op1":["+","-","q"],"c":"0_1","o1":"${:c?:op1:'q'}","o2":"${:c?'q'::op1}","x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
         "question": "${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}",
         "answer":":question : $$\\color{red}{${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}}$$",
         "value":"${math.phrase([:x,:y,:z],[:o1,:o2],'v',:o)}"
     },{
-        "name":"Additions, soustractions, multiplication, division",
-        "vars":{"o1":["+","-","*","/"],"o2":["+","-","*","/"],"x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
+        "name":"Additions ou soustractions, multiplication ou division",
+        "vars":{"op1":["+","-"],"op2":["*","/"],"c":"0_1","o1":"${:c?:op1::op2}","o2":"${:c?:op2::op1}","x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
         "question": "${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}",
         "answer":":question : $$\\color{red}{${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}}$$",
         "value":"${math.phrase([:x,:y,:z],[:o1,:o2],'v',:o)}"
     },{
         "name":"Additions, soustractions, multiplication, division (fractionnaire)",
-        "vars":{"o1":["+","-","*","q"],"o2":["+","-","*","q"],"x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
+        "vars":{"op1":["+","-","*","q"],"op2":["*","q"],"c":"0_1","o1":"${:c?:op1::op2}","o2":"${:c?:op2::op1}","x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
         "question": "${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}",
         "answer":":question : $$\\color{red}{${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}}$$",
         "value":"${math.phrase([:x,:y,:z],[:o1,:o2],'v',:o)}"

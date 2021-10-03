@@ -1,10 +1,10 @@
 {
     "title":"Diviser un décimal par 10, 100, 1000",
+    "description":"Division de nombres tirés au hasard par 10, 100, 1000 ou à 3 chiffres significatifs",
     "ID":"8NE3",
-    "description":"",
     "dest":["8NE", "7NE", "6NE", "5NC", "4NC", "3NB"],
     "vars":{"a":[1,9,99,999,9999], "b":"1_3", "c":"d0_${:a}_${:b}_^0"},
-        "options":[{
+    "options":[{
         "name":"Diviser un décimal par 10",
         "question": "${:c}\\div 10",
         "answer":":question=\\color{red}{${math.round(:c/10,4)}}",
@@ -16,6 +16,39 @@
         "value":"${math.round(:c/100,5)}"
     },{
         "name":"Diviser un décimal par 1000",
+        "question": "${:c}\\div 1000",
+        "answer":":question=\\color{red}{${math.round(:c/1000,6)}}",
+        "value":"${math.round(:c/1000,6)}"
+    },{
+        "name":"Diviser un décimal à 3 chiffres par 10",
+        "vars":{
+            "max":[9,99,999],
+            "decs":"1_${:max}",
+            "p":"-3_3",
+            "c":"${math.round(:decs*Math.pow(10,:p),3)}"
+        },
+        "question": "${:c}\\div 10",
+        "answer":":question=\\color{red}{${math.round(:c/10,4)}}",
+        "value":"${math.round(:c/10,4)}"
+    },{
+        "name":"Diviser un décimal  à 3 chiffres par 100",
+        "vars":{
+            "max":[9,99,999],
+            "decs":"1_${:max}",
+            "p":"-3_3",
+            "c":"${math.round(:decs*Math.pow(10,:p),3)}"
+        },
+        "question": "${:c}\\div 100",
+        "answer":":question=\\color{red}{${math.round(:c/100,5)}}",
+        "value":"${math.round(:c/100,5)}"
+    },{
+        "name":"Diviser un décimal à 3 chiffres par 1000",
+        "vars":{
+            "max":[9,99,999],
+            "decs":"1_${:max}",
+            "p":"-3_3",
+            "c":"${math.round(:decs*Math.pow(10,:p),3)}"
+        },
         "question": "${:c}\\div 1000",
         "answer":":question=\\color{red}{${math.round(:c/1000,6)}}",
         "value":"${math.round(:c/1000,6)}"
