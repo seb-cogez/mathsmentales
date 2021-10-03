@@ -215,13 +215,14 @@ var utils = {
                 if(MM.carts[0].activities.length>1 || MM.carts.length>1){
                     MM.showCartInterface();
                 }
-                // on affecte l'activité 0 du panier comme activité en cours d'édition.
-                MM.editedActivity = MM.carts[0].activities[0];
-                // si panier avec plusieurs activités, on affiche le panier
+                // si panier avec plusieurs activités, on prépare l'affichage du panier
                 if(MM.carts[0].activities.length>1 || MM.carts.length>1){
                     MM.showCart(1);
                     MM.editActivity(0);
                 } else {
+                    // sinon
+                    // on affecte l'activité 0 du panier comme activité en cours d'édition.
+                    MM.editedActivity = MM.carts[0].activities[0];
                     MM.editedActivity.display();
                 }
             // on affiche l'interface de paramétrage si on est en mode édition
@@ -1333,12 +1334,11 @@ var math ={
                 x=r;y=operandes[2];z=x;
                 if(["*","/"].indexOf(operations[1])>-1 && ["-","+"].indexOf(operations[0])>-1)
                     z="("+x+")";
-                //debug(z);
-            } else {
+            } else { // la deuxième opération est le 2e argument
                 x=operandes[2];y=r;z=y;
-                if(["*","/"].indexOf(operations[1])>-1 && ["-","+"].indexOf(operations[0])>-1 || operations[1]==="/")
+                if(["*","/","-"].indexOf(operations[1])>-1 && ["-","+"].indexOf(operations[0])>-1 || operations[0]==="/")
                     z="("+y+")";
-            }
+                }
             switch(option){
                 case "p":
                     r=eval("`"+phrases[operations[1]][0]+"`").replace("de le", "du");
@@ -3472,7 +3472,9 @@ var MM = {
         }
         // sauvergarde du résultat
         if(window.localStorage){
+            this.createSelectHistory();
             localStorage.setItem("history",document.querySelector("#tab-historique ol").innerHTML);
+            this.createSelectHistory();
         }
     },
     /**
@@ -3570,7 +3572,7 @@ var MM = {
      */
     export(){
         let urlString = "";
-        if(!MM.carts[0].activities.length < 2 && MM.carts.length === 1){
+        if(MM.carts[0].activities.length < 2 && MM.carts.length === 1){
             MM.carts[0].activities = [];
             MM.carts[0].addActivity(MM.editedActivity);
         }
