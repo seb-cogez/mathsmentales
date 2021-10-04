@@ -1,0 +1,62 @@
+{
+    "title":"Multiplier un décimal (simple) par 10, 100, 1000",
+    "ID":"8NE4",
+    "description":"Multiplication de nombres à 1, 2 ou 3 chiffres significatifs par 10, 100, 1000",
+    "dest":["8NE", "7NE", "6NE", "5NC", "4NC", "3NB"],
+    "options":[{
+        "name":"Décimal à 1 chiffre significatif par 10",
+        "vars":{"a":"1_9","p":"-3_3", "c":"${math.round(:a*Math.pow(10,:p),3)}"},
+        "question":"${:c}\\times 10",
+        "answer":":question=\\color{red}{${math.round(:c*10,3)}}",
+        "value":"${math.round(:c*10,3)}"
+    },{
+        "name":"Décimal à 1 chiffre significatif par 100",
+        "vars":{"a":"1_9","p":"-3_3", "c":"${math.round(:a*Math.pow(10,:p),3)}"},
+        "question": "${:c}\\times 100",
+        "answer":":question=\\color{red}{${math.round(:c*100,3)}}",
+        "value":"${math.round(:c*100,3)}"
+    },{
+        "name":"Décimal à 1 chiffre significatif par 1000",
+        "vars":{"a":"1_9","p":"-3_3", "c":"${math.round(:a*Math.pow(10,:p),3)}"},
+        "question": "${:c}\\times 1000",
+        "answer":":question=\\color{red}{${math.round(:c*1000,3)}}",
+        "value":"${math.round(:c*1000,3)}"
+    },{
+        "name":"Décimal à 2 chiffres significatifs par 10",
+        "vars":{"a":"1_9_2","p":"-3_3", "c":"${math.round((:a[0]*10+:a[1])*Math.pow(10,:p),3)}"},
+        "question":"${:c}\\times 10",
+        "answer":":question=\\color{red}{${math.round(:c*10,3)}}",
+        "value":"${math.round(:c*10,3)}"
+    },{
+        "name":"Décimal à 2 chiffres significatifs par 100",
+        "vars":{"a":"1_9_2","p":"-3_3", "c":"${math.round((:a[0]*10+:a[1])*Math.pow(10,:p),3)}"},
+        "question": "${:c}\\times 100",
+        "answer":":question=\\color{red}{${math.round(:c*100,3)}}",
+        "value":"${math.round(:c*100,3)}"
+    },{
+        "name":"Décimal à 2 chiffres significatifs par 1000",
+        "vars":{"a":"1_9_2","p":"-3_3", "c":"${math.round((:a[0]*10+:a[1])*Math.pow(10,:p),3)}"},
+        "question": "${:c}\\times 1000",
+        "answer":":question=\\color{red}{${math.round(:c*1000,3)}}",
+        "value":"${math.round(:c*1000,3)}"
+    },{
+        "name":"Décimal à 3 chiffres significatifs par 10",
+        "vars":{"a":"1_9_2","b":"0_9","p":"-4_4", "c":"${math.round((:a[0]*100+:b*10+:a[1])*Math.pow(10,:p),4)}"},
+        "question": "${:c}\\times 10",
+        "answer":":question=\\color{red}{${math.round(:c*10,3)}}",
+        "value":"${math.round(:c*10,3)}"
+    },{
+        "name":"Décimal à 3 chiffres significatifs par 100",
+        "vars":{"a":"1_9_2","b":"0_9","p":"-4_4", "c":"${math.round((:a[0]*100+:b*10+:a[1])*Math.pow(10,:p),4)}"},
+        "question": "${:c}\\times 100",
+        "answer":":question=\\color{red}{${math.round(:c*100,3)}}",
+        "value":"${math.round(:c*100,3)}"
+    },{
+        "name":"Décimal à 3 chiffres significatifs par 1000",
+        "vars":{"a":"1_9_2","b":"0_9","p":"-4_4", "c":"${math.round((:a[0]*100+:b*10+:a[1])*Math.pow(10,:p),4)}"},
+        "question": "${:c}\\times 1000",
+        "answer":":question=\\color{red}{${math.round(:c*1000,3)}}",
+        "value":"${math.round(:c*1000,3)}"
+    }
+    ]
+}
