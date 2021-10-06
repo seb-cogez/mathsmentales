@@ -4,15 +4,15 @@ Maths et Matic Projector, l'automatisme et le calcul mental pour la classe (proj
 Maths et Matic permet de créer des diaporamas en ligne en rapport avec le calcul mental pour ainsi faire de faire de la projection de calcul en classe, pas besoin de conaissances techniques particulières ! Les éléves pourront répondre soit en présentiel en classe, soit en ditanciel grâce à l'option "répondre en ligne", pour pouvoir accéder au site : http://mem-projector.ml
 
 ### Principales fonctions
- * nouvelle interface : tous les réglages dans une page, affichage d'exemples de questions pour mieux comprendre
- * possibilité de créer jusqu'à 4 paniers d'activités
- * possibilité d'afficher des exemples avant de commencer le diaporama
- * possibilité d'affichage multiples des questions
-   * jusqu'à 4 différents
-   * à chaque affichage peut être associé un panier différent
- * possibilité de créer son propre diapo en ligne (développement non commencé)
- * d'autres possibilités d'affichage que le diaporama : mur d'activités, flash cards... (développement non commencé)
- * internationalisation (ou pas)
+ * Interfaces claire et compréhensible
+ * Possibilité de créer jusqu'à 4 paniers d'activités
+ * Possibilité d'afficher des exemples avant de commencer le diaporama
+ * Possibilité d'affichage multiples des questions
+   * Jusqu'à 4 différents
+   * À chaque affichage peut être associé un panier différent
+ * Possibilité de créer son propre diapo en ligne (développement non commencé)
+ * P'autres possibilités d'affichage que le diaporama : mur d'activités, flash cards... (développement non commencé)
+ * Internationalisation (ou pas)
 
 ### Frameworks et librairies utilisées
  * [KateX](https://katex.org/) pour afficher les maths (MIT licence)
