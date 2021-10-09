@@ -142,7 +142,7 @@ var utils = {
                 setTimeout(utils.goToOldVersion,10000);
             }
         } else if(vars.c!==undefined){ // présence de carts MM v2 à lancer ou éditer
-            let alert = utils.create("div",{id:'messageinfo',className:"message",innerHTML:'Chargement de l'"activité"'Maths et Matic Projector.<br>Veuillez patienter <img src="img/loading7_gray.gif" width="50px" height="50px" alt="loading" >'});
+            let alert = utils.create("div",{id:'messageinfo',className:"message",innerHTML:'Chargement de Maths et Matic Projector.<br>Veuillez patienter <img src="img/loading7_gray.gif" width="50px" height="50px" alt="loading" >'});
             document.getElementById("tab-accueil").appendChild(alert);
             if(vars.o === "yes" && !edit){
                 // cas d'un truc online : message à valider !
