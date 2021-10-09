@@ -3389,7 +3389,7 @@ var MM = {
                 style:"padding:1.5rem",
                 innerHTML:`<div>Adresse longue<div>
                 <textarea readonly="true" id="bigurl" cols="38" onfocus="utils.copy(this);"></textarea><br>
-                <button onclick="Raccourci();">Raccourcir l'url</button>
+                <button onclick="Raccourci();">Raccourcir cet url</button>
                 <script>
                 function Raccourci() {
                 utils.copy(document.getElementById("bigurl").value)
