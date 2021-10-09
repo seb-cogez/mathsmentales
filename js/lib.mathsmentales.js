@@ -3098,6 +3098,9 @@ var MM = {
                 divc.append(h3c);
                 let ole = utils.create("ol");
                 let olc = utils.create("ol");
+                if(MM.colors[slideNumber]!==undefined){
+                    olc.style["background"] = MM.colors[slideNumber];
+                }
                 MM.steps[slideNumber] = new steps({size:0, container:sliderSteps});
                 MM.timers[slideNumber] = new timer(slideNumber);
                 let actsArray=[];
