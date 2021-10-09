@@ -94,7 +94,22 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
     <section id="tab-accueil" class="tabs-content-item"> <!-- Section : Accueil -->
         <section class="grille">
         <article class="accueillogo">
-            <div class="fr jaiuncode"><input type="text" id="inputCode" placeholder="J'ai un code" size="10"><button id="btnCode" onclick="MM.takeOff()"><img src="img/iconfinder_takeoff.png"></button></div>
+          <!-- Action JavaScript MM.takeOff()-->
+            <div class="fr jaiuncode"><input type="text" id="inputCode" placeholder="Saisir une URL préconfigurée" size="10"><button id="btnCode" onclick="URLPreconfig()"><img src="img/iconfinder_takeoff.png"></button>
+              <script>
+              function URLPreconfig() {
+            var URLCode = document.getElementById("inputCode").value;
+
+            if (URLCode === "") {
+                alert("Veuillez saisir une URL")
+            }
+            else {
+            window.open(URLCode, "projection", "width=1080,height=720")
+                }
+
+        }
+              </script>
+            </div>
             <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=320x10000:format=png/path/sef6091d0cde7bfc1/image/iacfaba7d247d2f62/version/1612443176/image.png" width="160" class="logoMM">
             <p>
                 <b>Maths et Matic Projector</b> votre plateforme de calcul mentales en classe

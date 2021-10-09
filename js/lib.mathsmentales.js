@@ -3380,6 +3380,7 @@ var MM = {
     },
     // open an modal and
     // get the URL of direct access to the activity with actual parameters
+    // Action JS : MM.getQR();
     copyURL(){
         let modalMessage = utils.create("div",
             {
@@ -3388,7 +3389,15 @@ var MM = {
                 style:"padding:1.5rem",
                 innerHTML:`<div>Adresse longue<div>
                 <textarea readonly="true" id="bigurl" cols="38" onfocus="utils.copy(this);"></textarea><br>
-                <button onclick="MM.getQR();">Raccourcir l'url</button><br>
+                <button onclick="Raccourci();">Raccourcir l'url</button>
+                <script>
+                function Raccourci() {
+                utils.copy(document.getElementById("bigurl").value)
+                alert("Le lien à été copiée, vous allez être redirigée vers un service de raccourcissement de liens")
+                window.open(https://link.infini.fr/, "projection", "width=1080,height=720")
+          }
+                </script>
+                <br>
                 <input readonly="true" type="url" id="shorturl" size="38" onfocus="utils.copy(this)">
                 <div id="shortQRdiv"></div>
                 `
