@@ -3389,14 +3389,10 @@ var MM = {
                 style:"padding:1.5rem",
                 innerHTML:`<div>Adresse longue<div>
                 <textarea readonly="true" id="bigurl" cols="38" onfocus="utils.copy(this);"></textarea><br>
-                <button onclick="Raccourci();">Raccourcir cet url</button>
-                <script>
-                function Raccourci() {
-                utils.copy(document.getElementById("bigurl").value)
-                alert("Le lien à été copiée, vous allez être redirigée vers un service de raccourcissement de liens")
-                window.open(https://link.infini.fr/, "projection", "width=1080,height=720")
-          }
-                </script>
+                <div id="RacID">
+                <button onclick="window.open('https://link.infini.fr/', 'projection', 'width=1080,height=720')">Raccourcir cet url</button>
+                <p>En raccourcissant l'url, vous serez redirigé vers https://link.infini.fr/, le lien etant déja copié, il vous suffira de coller l'url sur le champ dédié<p>
+                </div>
                 <br>
                 <input readonly="true" type="url" id="shorturl" size="38" onfocus="utils.copy(this)">
                 <div id="shortQRdiv"></div>
