@@ -30,15 +30,15 @@
         "vars":{"l":"0_8","x":"${:lettres[:l]}", "a":"-10_10_^0","b":"-10_10_^0"},
         "question": "\\begin{array}{c} \\text{Développer et réduire}\\\\(${:x}${math.signedNumber(:a)})(${:x}${math.signedNumber(:b)})\\end{array}",
         "shortq": "(${:x}${math.signedNumber(:a)})(${:x}${math.signedNumber(:b)})",
-        "answer":"(${:x}${math.signedNumber(:a)})(${:x}${math.signedNumber(:b)})=\\color{red}{${:x}^2${math.signedNumberButOne(:a+:b)}${:x}${math.signedNumber(:a*:b)}}",
-        "value":"${:x}^2${math.signedNumberButOne(:a+:b)}${:x}${math.signedNumber(:a*:b)}"
+        "answer":"(${:x}${math.signedNumber(:a)})(${:x}${math.signedNumber(:b)})=\\color{red}{${:x}^2${(:a+:b!=0)?math.signedNumberButOne(:a+:b)+:x:''}${math.signedNumber(:a*:b)}}",
+        "value":"${:x}^2${(:a+:b!=0)?math.signedNumberButOne(:a+:b)+:x:''}${math.signedNumber(:a*:b)}"
     },{
         "name":"Double distributivité coeffs relatifs",
-        "vars":{"l":"0_8","x":"${:lettres[:l]}", "a":"-10_10_^0","b":"-10_10_^0","c":"-10_10_^0","d":"-10_10_^0"},
+        "vars":{"l":"0_8","x":"${:lettres[:l]}", "a":"-10_10_^0","b":"-10_10_^0","c":"-10_10_^0","d":"-10_10_^0,${-:b*:c/:a}"},
         "question": "\\begin{array}{c} \\text{Développer et réduire}\\\\(${math.signIfOne(:a)+:x}${math.signedNumber(:b)})(${math.signIfOne(:c)+:x}${math.signedNumber(:d)})\\end{array}",
         "shortq": "(${math.signIfOne(:a)+:x}${math.signedNumber(:b)})(${math.signIfOne(:c)+:x}${math.signedNumber(:d)})",
-        "answer":"(${math.signIfOne(:a)+:x}${math.signedNumber(:b)})(${math.signIfOne(:c)+:x}${math.signedNumber(:d)})=\\color{red}{${math.signIfOne(:a*:c)+:x}^2${math.signedNumberButOne(:a*:d+:b*:c)}${:x}${math.signedNumber(:b*:d)}}",
-        "value":"${math.signIfOne(:a*:c)+:x}^2${math.signedNumberButOne(:a*:d+:b*:c)}${:x}${math.signedNumber(:b*:d)}"
+        "answer":"(${math.signIfOne(:a)+:x}${math.signedNumber(:b)})(${math.signIfOne(:c)+:x}${math.signedNumber(:d)})=\\color{red}{${math.signIfOne(:a*:c)+:x}^2${(:a*:d+:b*:c!=0)?math.signedNumberButOne(:a*:d+:b*:c)+:x:''}${math.signedNumber(:b*:d)}}",
+        "value":"${math.signIfOne(:a*:c)+:x}^2${(:a*:d+:b*:c!=0)?math.signedNumberButOne(:a*:d+:b*:c)+:x:''}${math.signedNumber(:b*:d)}"
     }
     ]
 }

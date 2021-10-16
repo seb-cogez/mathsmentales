@@ -117,13 +117,6 @@ Taille carte de visite
 }
 /* Commons
 */
-#creator-container::before{
-    content:"\ CC-BY-NC © 2021 MathsMentales.net";
-    color:darkblue !important;
-    font-size: 0.8rem;
-    border-bottom: 1pt solid black;
-    text-align: end;
-}
 #creator-container {
     display: flex;
     height:100%;
@@ -296,6 +289,13 @@ input[type="color"]{
 @media screen {
     body {
         padding: 10mm;
+    }
+    #creator-container::before{
+        content:"\ CC-BY-NC © 2021 MathsMentales.net";
+        color:darkblue !important;
+        font-size: 0.8rem;
+        border-bottom: 1pt solid black;
+        text-align: end;
     }
 }
 @media print {

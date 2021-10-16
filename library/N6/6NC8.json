@@ -27,7 +27,13 @@
         "vars":{"a":"0_8_15", "b":"0_14", "c":"${Number(:a.slice(0,:b).concat([9]).concat(:a.slice(:b+1)).join(''))/1000000}"},
         "answer":"Dans $$${:c}$$, 9 est le chiffre des <span class='red'>${:w[:b]}</span>",
         "value":"${:w[:b]}"
-        }
+        },{
+            "name":"Entiers entre 1 milliard et 1000 milliards",
+            "consts":{"u":["centaines de milliards", "dizaines de milliards", "unités de milliards","centaines de million", "dizaines de millions", "unités de millions","centaines de mille", "dizaines de mille", "unités de mille","centaines", "dizaines", "unités"]},
+            "vars":{"a0":"1_8","a1":"0_8_11", "b":"0_11", "c":"${Number([:a0,...:a1].slice(0,:b).concat([9]).concat([:a0,...:a1].slice(:b+1)).join(''))}"},
+            "answer":"Dans $$${:c}$$, 9 est le chiffre des <span class='red'>${:u[:b]}</span>",
+            "value":"${:u[:b]}"
+            }
     ],
     "question": "Dans $$${:c}$$, quelle est la valeur du chiffre 9 ?"
 }

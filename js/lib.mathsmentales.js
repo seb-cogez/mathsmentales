@@ -113,6 +113,7 @@ var utils = {
     /**
      * regarde les paramètres fournis dans l'url
      * et lance le diapo ou passe en mode édition
+     * edit est true si appelé par l'historique pour édition
      */
     checkURL(urlString=false,start=true,edit=false){
         const vars = utils.getUrlVars(urlString);
@@ -199,6 +200,7 @@ var utils = {
             if(typeof vars.c === "string")
                 json = JSON.parse(decodeURIComponent(vars.c));
             // la version à partir du 15/08/21 fonctionne avec un objet vars.c déjà construit.
+            // alcarts contient des promises qu'il faut charger
             let allcarts = [];
             for(const i in json){
                 MM.carts[i] = new cart(i);
@@ -213,16 +215,19 @@ var utils = {
                 if(MM.carts[0].activities.length>1 || MM.carts.length>1){
                     MM.showCartInterface();
                 }
-                // on affiche l'interface de paramétrage si on est en mode édition
+                // si panier avec plusieurs activités, on prépare l'affichage du panier
+                if(MM.carts[0].activities.length>1 || MM.carts.length>1){
+                    MM.showCart(1);
+                    MM.editActivity(0);
+                } else {
+                    // sinon
+                    // on affecte l'activité 0 du panier comme activité en cours d'édition.
+                    MM.editedActivity = MM.carts[0].activities[0];
+                    MM.editedActivity.display();
+                }
+            // on affiche l'interface de paramétrage si on est en mode édition
                 if(edit) {
                     utils.showTab("tab-parameters");
-                    MM.editedActivity = MM.carts[0].activities[0];
-                    if(MM.carts[0].activities.length>1 || MM.carts.length>1){
-                        MM.showCart(1);
-                        MM.editActivity(0);
-                    } else {
-                        MM.editedActivity.display();
-                    }
                 }
             }).catch(err=>{
                 // erreur à l'importation :(
@@ -838,7 +843,7 @@ var sound = {
         ["sounds/TOONHorn_Klaxon poire double 1 (ID 1830)_LS.mp3","Pouet"],
         ["sounds/VEHHorn_Klaxon de voiture recente 4 (ID 0260)_LS.mp3","Klaxon"],
         ["sounds/WATRSplsh_Plouf petit 6 (ID 1534)_LS.mp3","Plouf"],
-        ["sounds/ANMLFarm_Canards (ID 0276).mp3","Coincoin"]
+        ["sounds/Anas_platyrhynchos_-_Mallard_-_XC62258.mp3","Coincoin"]
     ],
     selected:"null",
     player:null,
@@ -857,6 +862,7 @@ var sound = {
             this.player.play();
     },
     next(){
+        if(this.selected==="null")this.selected=-1;
         this.setSound((this.selected+1)%this.list.length);
         this.play();
     },
@@ -1328,12 +1334,11 @@ var math ={
                 x=r;y=operandes[2];z=x;
                 if(["*","/"].indexOf(operations[1])>-1 && ["-","+"].indexOf(operations[0])>-1)
                     z="("+x+")";
-                //debug(z);
-            } else {
+            } else { // la deuxième opération est le 2e argument
                 x=operandes[2];y=r;z=y;
-                if(["*","/"].indexOf(operations[1])>-1 && ["-","+"].indexOf(operations[0])>-1 || operations[1]==="/")
+                if(["*","/","-"].indexOf(operations[1])>-1 && ["-","+"].indexOf(operations[0])>-1 || operations[0]==="/")
                     z="("+y+")";
-            }
+                }
             switch(option){
                 case "p":
                     r=eval("`"+phrases[operations[1]][0]+"`").replace("de le", "du");
@@ -1903,12 +1908,30 @@ class Figure {
                     this.figure = destination.JXG.JSXGraph.initBoard(this.id, {boundingbox:this.boundingbox, keepaspectratio: true, showNavigation: false, showCopyright: false,registerEvents:false, axis:this.axis, grid:this.grid});
                 }
                 let content = utils.clone(this.content);
+                let elements = [];
+                // content est un tableau de tableaux à 2, 3 ou 4 éléments
+                // le premier contient le type d'élément à créer
+                // le 2e contient la "commande", généralement un tableau de 2 coordonnées, ou éléments
+                // le 3e contient les options pour la création (affichage, taille, ...)
+                // le 4e contient la référence à un élément précédemment créé pour l'utiliser dans la commande.
+                // pour ce 4e, il faut bien compter les contents en partant de zéro.
                 for(let i=0,len=content.length;i<len;i++){
                     let type = content[i][0];
                     let commande = content[i][1];
                     let options = false;
+                    let reference = false;
                     if(content[i][2] !== undefined)
                         options = content[i][2];
+                    if(content[i][3] !== undefined){
+                        reference = elements[content[i][3]];
+                        // normalement, il faut remplacer la référence dans la commande
+                        commande.forEach(function(elt,index){
+                            if(typeof elt === "string")
+                                if(elt.indexOf("ref")===0){
+                                    commande[index] = elements[Number(elt.substr(3))];
+                                }
+                        })
+                    }
                     if(type === "functiongraph"){
                         let formule = commande;
                         if(!options)
@@ -1921,11 +1944,11 @@ class Figure {
                             this.figure.jc.use(this.figure);
                         }
                         this.figure.jc.parse(commande);
-                    } else if(["text", "point","axis", "line", "segment", "angle", "polygon"].indexOf(type)>-1){
+                    } else if(["text", "point","axis", "line", "segment", "angle", "polygon", "transform","intersection"].indexOf(type)>-1){
                         if(!options)
-                            this.figure.create(type, commande);
+                            elements[i] = this.figure.create(type, commande);
                         else
-                            this.figure.create(type,commande,options);
+                            elements[i] = this.figure.create(type,commande,options);
                     }
                 }
             } catch(error){
@@ -2764,7 +2787,7 @@ class ficheToPrint {
 };
 // MathsMentales core
 var MM = {
-    version:3,// à mettre à jour à chaque upload pour régler les pb de cache
+    version:5,// à mettre à jour à chaque upload pour régler les pb de cache
     content:undefined, // liste des exercices classés niveau/theme/chapitre chargé au démarrage
     introType:"321",// type of the slide's intro values : "example" "321" "nothing"
     endType:"nothing",// type of end slide's values : "correction", "nothing", "list"
@@ -3020,10 +3043,11 @@ var MM = {
             if(start)
                 MM.start();
             else {
-                let message = `Tu as suivi un lien d'activité préconfigurée MathsMentales.<br>Clique ci-dessous pour démarrer.<br><br><button onclick="utils.closeMessage('messageinfo');MM.start()"> Commencer ! 
-                </button>`;
+                let message = `Tu as suivi un lien d'activité préconfigurée MathsMentales.<br>Clique ci-dessous pour démarrer.<br><br><button class="button--primary" onclick="utils.closeMessage('messageinfo');MM.start()"> Démarrer le diaporama </button>`;
+                if(MM.carts.length === 1 && sound.selected==="null")
+                    message += `<br><br><button class="button--info" onclick="sound.next();">Avec du son</button>`;
                 if(MM.carts.length===1 && MM.carts[0].target.length===1)
-                message +=`<br><br> ou <button onclick="utils.closeMessage('messageinfo');MM.setOnlineState('yes');MM.start()"> Commencer (réponse en ligne) !</button>`;
+                    message +=`<br><br> ou <button class="button--success" onclick="utils.closeMessage('messageinfo');MM.setOnlineState('yes');MM.start()"> Commencer (interactif)</button>`;
                 let alert=utils.create("div",{id:"messageinfo",className:"message",innerHTML:message});
                 document.getElementById("tab-accueil").appendChild(alert);
             }
@@ -3075,6 +3099,9 @@ var MM = {
                 divc.append(h3c);
                 let ole = utils.create("ol");
                 let olc = utils.create("ol");
+                if(MM.colors[slideNumber]!==undefined){
+                    olc.style["background"] = MM.colors[slideNumber];
+                }
                 MM.steps[slideNumber] = new steps({size:0, container:sliderSteps});
                 MM.timers[slideNumber] = new timer(slideNumber);
                 let actsArray=[];
@@ -3432,8 +3459,52 @@ var MM = {
     removeFromHistory(elem){
         if(!confirm("Supprimer cet élément : \n"+elem.childNodes[0].innerText+" ?"))return false;
         document.querySelector("#tab-historique ol").removeChild(elem);
+        // sauvergarde du résultat
         if(window.localStorage){
             localStorage.setItem("history",document.querySelector("#tab-historique ol").innerHTML);
+        }
+    },
+    /**
+     * Supprime les éléments d'un historique
+     */
+    removeSelectionFromHistory(){
+        const CHECKED = document.querySelectorAll("#tab-historique input[class='checkhistoric']:checked");
+        for(let i=CHECKED.length-1;i>=0;i--){
+            let parent = CHECKED[i].parentNode;
+            parent.parentNode.removeChild(parent);
+        }
+        // sauvergarde du résultat
+        if(window.localStorage){
+            this.createSelectHistory();
+            localStorage.setItem("history",document.querySelector("#tab-historique ol").innerHTML);
+            this.createSelectHistory();
+        }
+    },
+    /**
+     * Ajoute des cases de sélection de l'historique pour des actions groupées.
+     */
+    createSelectHistory(){
+        if(!this.historySelectCreated){
+            this.historySelectCreated=true;
+            const LISTE = document.querySelectorAll("#tab-historique > ol > li");
+            for(let i=0;i<LISTE.length;i++){
+                let input = utils.create("input",{type:"checkbox",value:i,selected:false,className:"checkhistoric"});
+                LISTE[i].prepend(input);
+            }
+            document.getElementById("actionsSelectHist").className = "";
+        } else {
+            this.destroySelectHistory();
+            document.getElementById("actionsSelectHist").className = "hidden";
+        }
+    },
+    /**
+     * Détruit les cases de sélection.
+     */
+    destroySelectHistory(){
+        this.historySelectCreated = false;
+        const LISTE = document.querySelectorAll("#tab-historique > ol > li > input");
+        for(let i=0;i<LISTE.length;i++) {
+            LISTE[i].parentNode.removeChild(LISTE[i]);
         }
     },
     /**
@@ -3504,7 +3575,8 @@ var MM = {
      */
     export(){
         let urlString = "";
-        if(!MM.carts[0].activities.length){
+        if(MM.carts[0].activities.length < 2 && MM.carts.length === 1){
+            MM.carts[0].activities = [];
             MM.carts[0].addActivity(MM.editedActivity);
         }
         MM.checkIntro();
@@ -3545,9 +3617,13 @@ var MM = {
         let nb = MM.slidersNumber;
         utils.setSeed("sample");
         let container = document.getElementById("slideshow");
+        let assocSliderActivity=[];
         // génération des données aléatoires pour les exemples
         for(let i=0,len=MM.carts.length;i<len;i++){
             MM.carts[i].activities[0].generateSample();
+            for(let j=0;j<MM.carts[i].target.length;j++){
+                assocSliderActivity[MM.carts[i].target[j]-1] = i;
+            }
         }
         let divSample = utils.create("div",{id:"sampleLayer",className:"sample"});
         // creation des emplacements d'affichage
@@ -3557,7 +3633,7 @@ var MM = {
             else if(nb===2)div.className = "slider-2";
             else div.className = "slider-34";
             let nextActivity = "";
-            if(MM.carts[i].activities.length>1) {
+            if(MM.carts[assocSliderActivity[i]].activities.length>1) {
                 nextActivity = `<button title="Activité suivante du panier" data-actid="0" onclick="MM.newSample(${i},true)" id="ButtonNextAct${i}"><img src="img/slider-next.png"></button>`;
             }
             div.innerHTML = `Exemple <div class="slider-nav">
@@ -3734,11 +3810,16 @@ var MM = {
         for(let i=0,len=MM.carts.length;i<len;i++){
             if(MM.carts[i].target.indexOf(id+1)>-1){
                 let nbActivities = MM.carts[i].activities.length;
-                let actId = document.getElementById("ButtonNextAct"+id).dataset.actid;
-                if(next){
-                    actId++;
-                    if(actId>=nbActivities) actId=0;
-                    document.getElementById("ButtonNextAct"+id).dataset.actid = actId;
+                let actId = 0;
+                // si le panier contient plusieurs activités,
+                // on regarde l'id de l'activité à afficher.
+                if(MM.carts[i].activities.length>1){
+                    actId = document.getElementById("ButtonNextAct"+id).dataset.actid;
+                    if(next){
+                        actId++;
+                        if(actId>=nbActivities) actId=0;
+                        document.getElementById("ButtonNextAct"+id).dataset.actid = actId;
+                    }
                 }
                 let act = MM.carts[i].activities[actId];
                 act.generateSample();
@@ -3855,7 +3936,7 @@ var MM = {
                         if(userAnswer.indexOf("\\text")===0){
                             userAnswer = userAnswer.substring(6,userAnswer.length-1);
                         }
-                        // remplacer un espace par un espace
+                        // remplacer un espace texte par un espace
                         userAnswer = userAnswer.replace("\\text{ }"," ");
                         const expectedAnswer = MM.carts[0].activities[refs[0]].values[refs[1]];
                         // TODO : better correction value
@@ -3902,8 +3983,8 @@ var MM = {
                                 }
                             }
                         }
-                        // on teste si la réponse est un nombre ou si elle contient des caractères echapé auquel cas on considère que c'est du latex
-                        if(!/[^-\d]/.test(userAnswer) || /\\/.test(userAnswer)){
+                        // on teste si la réponse est un nombre ou si elle contient des caractères echapés auquel cas on considère que c'est du latex
+                        if(!/[^-\d\.]/.test(userAnswer) || /\\/.test(userAnswer)){
                             span.className ="math";
                             userAnswer = "\\displaystyle "+userAnswer;
                         }
@@ -4242,11 +4323,22 @@ var library = {
                         for(let chap in MM.content[niv].themes[theme].chapitres){
                             let chapExo=[];
                             for(let exo=0,lene=MM.content[niv].themes[theme].chapitres[chap].e.length;exo<lene;exo++){
-                                if(MM.content[niv].themes[theme].chapitres[chap].e[exo].t.toLowerCase().indexOf(level.toLowerCase())>-1){
+                                let lexo = MM.content[niv].themes[theme].chapitres[chap].e[exo];
+                                if(lexo.t.toLowerCase().indexOf(level.toLowerCase())>-1){
                                     // we find a candidate !!!
                                     let reg = new RegExp(level.toLowerCase(),"gi");
-                                    chapExo.push({"u":MM.content[niv].themes[theme].chapitres[chap].e[exo].u,
-                                    "t":MM.content[niv].themes[theme].chapitres[chap].e[exo].t.replace(reg,function(x){return "<mark>"+x+"</mark>"})})
+                                    chapExo.push({"u":lexo.u,
+                                    "t":lexo.t.replace(reg,function(x){return "<mark>"+x+"</mark>"})})
+                                } else
+                                // recherche dans le code de l'exo
+                                if(lexo.u.toLowerCase().indexOf(level.toLowerCase())>-1){
+                                    chapExo.push({"u":lexo.u,"t":lexo.t});
+                                } else
+                                // recherche dans les descriptifs
+                                if(lexo.d !== undefined){
+                                    if(lexo.d.toLowerCase().indexOf(level.toLowerCase())>-1){
+                                        chapExo.push({"u":lexo.u,"t":lexo.t});
+                                    }
                                 }
                             }
                             // si chapExo! == [], alors on créée l'arbo
@@ -4317,6 +4409,31 @@ var library = {
         if(itemsNumber > 40 && utils.pageWidth()>1000) utils.addClass(target,"cols3");
         else if(itemsNumber > 20 && utils.pageWidth()>840) utils.addClass(target, "cols2");
         document.querySelector("#header-menu a[numero='#tab-chercher']").click();
+    }
+}
+/**
+ * keyboard interactif
+ * Permet d'entrer des données, traitées ensuite par MathLive
+ * 
+ */
+class keyBoard {
+    /**
+     * 
+     * @param {Integer} target champ MathLive à alimenter
+     * @param {Array} keys touches à afficher
+     */
+    constructor(target,keys){
+        this.targetField = target;
+        this.keys = keys;
+    }
+    defaut(){
+
+    }
+    show(){
+
+    }
+    hide(){
+
     }
 }
 // lecture des fichiers exercice
@@ -4642,7 +4759,7 @@ class activity {
         } else if(this.chosenQuestions[option].length > 0){
             // list of patterns chosen, we pick one
             if(this.getPatternHistory[option].length === 0){
-                this.getPatternHistory[option] = utils.shuffle(Array.from(Array(this.chosenQuestions[option].length).keys()));
+                this.getPatternHistory[option] = utils.shuffle(utils.clone(this.chosenQuestions[option]));
             }
             let ret = this.getPatternHistory[option][0];
             this.getPatternHistory[option].shift();
@@ -4818,10 +4935,13 @@ class activity {
         // optionNumber is the number of the choosen option
         // patternNumber is the number of the choosen sub option
         let optionNumber, patternNumber, lenQ=false;
+        // variables de travail
         this.wVars={};
-        this.cFigure = undefined;
         let loopProtect = 0, maxLoop = 100;
+        // vidage de figures pour éviter les traces.
+        this.figures = [];
         for(let i=0;i<n;i++){
+            this.cFigure = undefined;
             optionNumber = opt!==undefined?opt:this.getOption();
             patternNumber = patt!==undefined?patt:this.getPattern(optionNumber);
             // cas d'une option qui a été choisie
