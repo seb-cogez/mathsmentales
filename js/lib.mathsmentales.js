@@ -3390,8 +3390,8 @@ var MM = {
                 innerHTML:`<div>Adresse longue<div>
                 <textarea readonly="true" id="bigurl" cols="38" onfocus="utils.copy(this);"></textarea><br>
                 <div id="RacID">
-                <button onclick="window.open('https://link.infini.fr/', 'projection', 'width=1080,height=720')">Raccourcir cet url</button>
-                <p>En raccourcissant l'url, vous serez redirigé vers https://link.infini.fr/, le lien etant déja copié, il vous suffira de coller l'url sur le champ dédié<p>
+                <button onclick="window.open('https://s.42l.fr/', 'projection', 'width=1080,height=720')">Raccourcir cet url</button>
+                <p>En raccourcissant l'url, vous serez redirigé vers https://s.42l.fr/, le lien etant déja copié, il vous suffira de coller l'url sur le champ dédié<p>
                 </div>
                 <br>
                 <input readonly="true" type="url" id="shorturl" size="38" onfocus="utils.copy(this)">
