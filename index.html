@@ -98,21 +98,20 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
             <div class="fr jaiuncode"><input type="text" id="inputCode" placeholder="Saisir une URL préconfigurée" size="10"><button id="btnCode" onclick="URLPreconfig()"><img src="img/iconfinder_takeoff.png" alt="Saisir une URL ou un code"></button>
               <script>
               function URLPreconfig() {
-            var URLCode = document.getElementById("inputCode").value;
+                var URLCode = document.getElementById("inputCode").value;
 
-            if (URLCode === "") {
-                alert("Veuillez saisir une URL")
-            }
-            else {
-              if (example.includes("code=")) {
-              	var CodeSaisiBrut = document.getElementById("inputCode").value;
-                var CodeSaisiNet = CodeSaisiBrut.replace('code=','');
-                window.open("https://s.42l.fr/" + CodeSaisiNet , "projection", "width=1080,height=720");
-              } else {
-              	window.open(URLCode, "projection", "width=1080,height=720");
-              }
+                if (URLCode === "") {
+                    alert("Veuillez saisir une URL")
                 }
-
+                else {
+                  if (URLCode.includes("code=")) {
+                  	var CodeSaisiBrut = document.getElementById("inputCode").value;
+                    var CodeSaisiNet = CodeSaisiBrut.replace('code=','');
+                    window.open("https://s.42l.fr/" + CodeSaisiNet , "projection", "width=1080,height=720");
+                  } else {
+                  	window.open(URLCode, "projection", "width=1080,height=720");
+                  }
+                    }
              }
               </script>
             </div>
