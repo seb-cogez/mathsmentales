@@ -13,7 +13,7 @@
         "vars":{"i":"0_1", "n":"0_167", "premier":"${math.premiers[:n]}", "pasPremier":"1_1000_^prime", "p":"${:i==1?:premier::pasPremier}"}
     }
     ],
-    "question":"${:p}\\text{ est un nombre premier.}\\\\\\footnotesize{\\text{Vrai (V) ou Faux (F) ?}}",
+    "question":"\\begin{array}{c} ${:p}\\text{ est un nombre premier.}\\\\\\footnotesize{\\text{Vrai (V) ou Faux (F) ?}}\\end{array}",
     "answer":"${math.premiers.indexOf(:p)>-1?`\\text{Vrai. }${:p}\\text{ est un nombre premier}`:`\\text{Faux. }${:p}\\text{ n'est pas un nombre premier}`}",
     "shortq":"${:p}",
     "value":["${math.premiers.indexOf(:p)>-1?'V':'F'}","${math.premiers.indexOf(:p)>-1?'Vrai':'Faux'}"]
