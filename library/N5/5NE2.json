@@ -4,6 +4,7 @@
     "ID":"5NE2",
     "dest":["5NE","4NE","3ND"],
     "consts":{"lettres":["a","b","c","t","u","x","y","z"]},
+    "keys":["a","b","c","t","u","x","y","z"],
     "options":[{
         "name":"Réduire un produit de deux nombres",
         "vars":{"l":"1_7","a":"1_9","x":"${:lettres[:l]}"},

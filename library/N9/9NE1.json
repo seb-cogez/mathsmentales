@@ -1,6 +1,7 @@
 {
     "title":"Multiplier un entier par 10, 100, 1000",
     "ID":"9NE1",
+    "keys":["_","_","_","_","_","_","_","_"],
     "description":"",
     "dest":["9NE", "8ND", "7ND", "6ND"],
     "vars":{"a":[9,99,999,9999], "b":"1_${:a}"},

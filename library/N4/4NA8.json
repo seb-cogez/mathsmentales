@@ -5,6 +5,7 @@
     "consts":{"prefixes" :["kilo", "k", "hecto", "h", "déca", "da", "déci", "d", "centi", "c", "milli", "m", "Méga", "M", "Giga", "G", "Téra", "T", "micro", "μ", "nano", "n", "pico", "p"],
         "puissances":[3, 3, 2, 2,1,1, -1,-1,-2, -2, -3,-3,6, 6, 9,9,12, 12,-6, -6,-9, -9, -12,-12]
     },
+    "keys":["^","_","-","_"],
     "dest":["4NA", "3NA"],
     "options":[{
         "name":"Petits préfixes",
@@ -24,14 +25,14 @@
         "name":"Petites puissances",
         "vars":{"c":"0_11"},
         "question":"Quel préfixe correspond à <b>$$10^{${:puissances[:c]}}$$</b> ?",
-        "shortq":"<b>${:puissances[:c]}</b>=",
+        "shortq":"<b>$$10^{${:puissances[:c]}}$$</b>=",
         "answer":"<b>$$10^{${:puissances[:c]}}$$</b> correspond à <span class='red'>${:prefixes[:c]}</span>",
         "value":"${:prefixes[:c]}"
     },{
         "name":"Grandes puissances",
         "vars":{"c":"12_23"},
         "question":"Quel préfixe correspond à <b>$$10^{${:puissances[:c]}}$$</b> ?",
-        "shortq":"<b>${:puissances[:c]}</b>=",
+        "shortq":"<b>$$10^{${:puissances[:c]}}$$</b>=",
         "answer":"<b>$$10^{${:puissances[:c]}}$$</b> correspond à <span class='red'>${:prefixes[:c]}</span>",
         "value":"${:prefixes[:c]}"
     }
