@@ -2,6 +2,7 @@
     "title":"Repérer les nombres qui se marient bien",
     "type":"text",
     "ID":"9NE2",
+    "keys":["_",";","_","_","_","_","_","_","_"],
     "description":"",
     "dest":["9NE", "8ND", "7ND", "6ND"],
     "options":[{
@@ -17,5 +18,5 @@
     ],
     "question": "Dans $$${:d}$$, quels nombres se marient bien ?",
     "answer":"Dans $$${:d}$$, les nombres $$\\color{red}{${:nb1}}\\text{ et }\\color{red}{${:nb2}}$$ se marient bien $$\\color{green}{${:nb1}+${:nb2}=${:nb1+:nb2}}$$",
-    "value":["${:nb1} ${:nb2}", "${:nb2} ${:nb1}"]
+    "value":["${:nb1};${:nb2}", "${:nb2};${:nb1}"]
 }

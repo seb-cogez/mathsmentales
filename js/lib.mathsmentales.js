@@ -62,6 +62,43 @@ var debug = function(){
 var moisFR = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
 var joursFR = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
 
+var keysSVG ={
+    enterKey : `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.1495 13.4005C18.2541 13.4005 19.1495 12.5051 19.1495 11.4005V3.40051H21.1495V11.4005C21.1495 13.6097 19.3587 15.4005 17.1495 15.4005H6.84398L10.6286 19.1852L9.21443 20.5994L2.85046 14.2354L9.21443 7.87146L10.6286 9.28567L6.5138 13.4005H17.1495Z" fill="currentColor" />
+              </svg>`,
+    backspaceKey: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M17.7427 8.46448L19.1569 9.87869L17.0356 12L19.157 14.1214L17.7428 15.5356L15.6214 13.4142L13.5 15.5355L12.0858 14.1213L14.2072 12L12.0859 9.87878L13.5002 8.46457L15.6214 10.5858L17.7427 8.46448Z"
+      fill="currentColor" />
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M8.58579 19L2.29289 12.7071C1.90237 12.3166 1.90237 11.6834 2.29289 11.2929L8.58579 5H22.5857V19H8.58579ZM9.41421 7L4.41421 12L9.41421 17H20.5857V7H9.41421Z"
+      fill="currentColor"
+    /></svg>`,
+    leftArrowKey : `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M20.3284 11.0001V13.0001L7.50011 13.0001L10.7426 16.2426L9.32842 17.6568L3.67157 12L9.32842 6.34314L10.7426 7.75735L7.49988 11.0001L20.3284 11.0001Z"
+      fill="currentColor" />
+  </svg>`,
+    rightArrowKey:`<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+    xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M15.0378 6.34317L13.6269 7.76069L16.8972 11.0157L3.29211 11.0293L3.29413 13.0293L16.8619 13.0157L13.6467 16.2459L15.0643 17.6568L20.7079 11.9868L15.0378 6.34317Z"
+      fill="currentColor" />
+  </svg>`,
+  undoKey:`<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+  xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M5.33929 4.46777H7.33929V7.02487C8.52931 6.08978 10.0299 5.53207 11.6607 5.53207C15.5267 5.53207 18.6607 8.66608 18.6607 12.5321C18.6607 16.3981 15.5267 19.5321 11.6607 19.5321C9.51025 19.5321 7.58625 18.5623 6.30219 17.0363L7.92151 15.8515C8.83741 16.8825 10.1732 17.5321 11.6607 17.5321C14.4222 17.5321 16.6607 15.2935 16.6607 12.5321C16.6607 9.77065 14.4222 7.53207 11.6607 7.53207C10.5739 7.53207 9.56805 7.87884 8.74779 8.46777L11.3393 8.46777V10.4678H5.33929V4.46777Z"
+    fill="currentColor" />
+</svg>`,
+redoKey:`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path
+  d="M13.1459 11.0499L12.9716 9.05752L15.3462 8.84977C14.4471 7.98322 13.2242 7.4503 11.8769 7.4503C9.11547 7.4503 6.87689 9.68888 6.87689 12.4503C6.87689 15.2117 9.11547 17.4503 11.8769 17.4503C13.6977 17.4503 15.2911 16.4771 16.1654 15.0224L18.1682 15.5231C17.0301 17.8487 14.6405 19.4503 11.8769 19.4503C8.0109 19.4503 4.87689 16.3163 4.87689 12.4503C4.87689 8.58431 8.0109 5.4503 11.8769 5.4503C13.8233 5.4503 15.5842 6.24474 16.853 7.52706L16.6078 4.72412L18.6002 4.5498L19.1231 10.527L13.1459 11.0499Z"
+  fill="currentColor" />
+</svg>`
+}
 /**
  * objet contenant des fonctions utiles à MathsMentales
  */
@@ -413,8 +450,8 @@ var utils = {
         newClass=newClass.split(",");
         for(let i=0;i<newClass.length;i++){
             if((" "+elt.className+" ").indexOf(" "+newClass[i]+" ")==-1){
-                    elt.className+=" "+newClass[i];
-                    n++;
+                elt.className+=" "+newClass[i];
+                n++;
             }
         }
         return n;
@@ -1440,6 +1477,7 @@ window.onload = function(){
             MM.colors[i] = color.rgbaString;
         }
     }
+    document.querySelector("input[name='online'][value='no']").checked = true;
     // load scratchblocks french translation
     // TODO : à changer au moment de l'utilisation de scratchblocks
     // doesn't work on local file :( with Chrome
@@ -2402,6 +2440,10 @@ class ficheToPrint {
                elts[i].style[styleAttr] = styleVal;
            }
        }
+       /**
+        * Change la couleur du cadre des réponses
+        *
+        */
        function changeBorder(bool){
         if(bool){
             changeColor(document.getElementById("colorpicker2").value,'bd');
@@ -2409,6 +2451,27 @@ class ficheToPrint {
             changeColor('none','bd');
         }
        }
+       /**
+        * Change l'ordre d'une colonne
+        * (Integer) colId : numéro entier de la colonne (commence par 1)
+        */
+       function changeOrder(colId){
+           // on récupère l'ensemble des tableaux
+            let tableaux = document.querySelectorAll(".ceinture-content");
+            for(let i=0;i<tableaux.length;i++){
+                // on récupère les celulles de la colonne choisie:
+                let cels = tableaux[i].querySelectorAll(".col"+colId);
+                // on crée un tableau des clés de lignes
+                let cles = [...Array(cels.length)].map((a,b)=>b+1);
+                // on mélange les clés
+                cles.sort(()=>Math.random()-0.5);
+                // on met les celulles dans l'ordre
+                for(let j=0;j<cels.length;j++){
+                    cels[j].style["grid-row"]=cles[j];
+                }
+            }
+       }
+
        `});
         this.docsheet.head.appendChild(script);
         let headnoprint = utils.create("section",{className:"noprint",id:"headnoprint"});
@@ -2438,6 +2501,11 @@ class ficheToPrint {
             <option value="column">dessous</option>
             </select>`;
         headnoprint.innerHTML+= ` Coul <input type="color" id="colorpicker" oninput="changeColor(this.value,'bg')" value="#ECECEC"> Cadre avec <input type="checkbox" value="true" onclick="changeBorder(this.checked)"> <input type="color" value="#111111" id="colorpicker2" oninput="changeColor(this.value,'bd')" size="8">`;
+        headnoprint.innerHTML += `<br>Mélanger la colonne : `;
+        for(let i=1;i<=nbcols;i++){
+            let bouton = `<button onclick="changeOrder(${i})">${i}</button> `;
+            headnoprint.innerHTML += bouton;
+        }
         this.content.appendChild(headnoprint);
         let correction;
         if(posCorrection === "fin"){
@@ -2801,11 +2869,17 @@ var MM = {
     steps:[],
     timers:[],
     figs:{}, //
-    userAnswers:[],
+    userAnswers:[[],[],[],[]],
     slidersNumber:1,
     faceToFace:'n',
     colorSelectors:[],
     colors:[],// couleurs de fond des diaporamas
+    memory:[],// memoire des figures
+    goodAnswers:[],// stockage des réponses attendues dans le online,
+    zooms:{},// zooms créés pour chaque élément d'affichage,
+    mf:{},// MathFields pour réponses en ligne,
+    keyboards:{},// claviers virtuels pour réponses en ligne
+    ended:true,
     setEndType(value){
         this.endType = value;
     },
@@ -3059,7 +3133,7 @@ var MM = {
     },
     populateQuestionsAndAnswers(withAnswer){
         if(withAnswer=== undefined)withAnswer = true;
-        MM.figs = {};MM.steps=[];MM.timers=[];MM.memory={};
+        MM.figs = {};MM.steps=[];MM.timers=[];MM.memory={};MM.goodAnswers=[];
         // length = nombre de paniers
         let length=MM.carts.length;
         let enonces = document.getElementById('enonce-content');
@@ -3076,6 +3150,7 @@ var MM = {
             MM.carts[i].actsArrays = [];
             for(let kk=0,clen=MM.carts[i].target.length;kk<clen;kk++){
                 let indiceSlide = 0;
+                MM.goodAnswers[kk]=[];
                 let slideNumber = MM.carts[i].target[kk]-1;
                 let slider = document.getElementById("slider"+slideNumber);
                 if(MM.colors[slideNumber]!==undefined){
@@ -3108,6 +3183,7 @@ var MM = {
                 for(let z=0,alen=MM.carts[i].activities.length;z<alen;z++){
                     let activity = MM.carts[i].activities[z];
                     activity.generate();
+                    MM.goodAnswers[kk][z]=utils.clone(activity.values);
                     MM.steps[slideNumber].addSize(activity.nbq);
                     for(let j=0;j<activity.questions.length;j++){
                         actsArray.push([z,j]);
@@ -3115,7 +3191,7 @@ var MM = {
                 }
                 // on mélange les références si on veut que tout soit mélangé.
                 if(!MM.carts[i].ordered){
-                    actsArray = _.shuffle(actsArray);
+                    actsArray = utils.shuffle(actsArray);
                 }
                 // on stocke les associations pour pouvoir comparer quand on fera le online
                 MM.carts[i].actsArrays[kk] = actsArray;
@@ -3186,6 +3262,7 @@ var MM = {
      */
     createUserInputs:function(){
         MM.mf = {};
+        MM.keyboards = {};
         //let slider=0,slide = 0;
         for(let slider=0,len=MM.carts[0].target.length;slider<len;slider++){
             for(let slide=0,len2=MM.carts[0].actsArrays[slider].length;slide<len2;slide++){
@@ -3194,53 +3271,25 @@ var MM = {
                 const ID = 'ansInput'+slider+'-'+slide;
                 MM.mf[ID] = new MathfieldElement({
                     smartMode:true,
-                    virtualKeyboardMode:'manual',
-                    virtualKeyboards:'numeric',
+                    virtualKeyboardMode:'off',
                     fontsDirectory:'../katex/fonts',
-                    virtualKeyboardContainer:MFTARGET,
-                    virtualKeyboardTheme:"material"
                });
+               //if(MM.touched){
+                    let keys = MM.carts[0].activities[MM.carts[0].actsArrays[slider][slide][0]].keys || undefined;
+                    MM.keyboards[ID]= new keyBoard(MM.mf[ID],keys,element,slider);
+                //}
                MM.mf[ID].id = ID;
                MM.mf[ID].target = element;
                MM.mf[ID].addEventListener("keyup",function(event){
                     if(event.key === "Enter" || event.keyCode === 9){
-                        MM.nextSlide(0);
+                        MM.nextSlide(slider);
                         event.preventDefault();
                 }
                 });
                 element.appendChild(MM.mf[ID]);
                 element.appendChild(utils.create("div",{style:"height:270px;"}));
-                MM.mf[ID].addEventListener("virtual-keyboard-toggle",(evt)=>{console.log(evt)});
             }
         }
-        /*for(let i=0,len=MM.carts[0].target[0].actsArray.length;i<len;i++){
-            let activity = MM.carts[0].activities[i];
-            const MFTARGET = document.getElementById("slider"+slider);
-            for(let j=0,lenq=activity.questions.length;j<lenq;j++){
-                const element = document.getElementById("slide"+slider+"-"+slide);
-                const ID = 'ansInput'+slider+'-'+slide;
-                MM.mf[ID] = new MathfieldElement({
-                    smartMode:true,
-                    virtualKeyboardMode:'manual',
-                    virtualKeyboards:'numeric',
-                    fontsDirectory:'../katex/fonts',
-                    virtualKeyboardContainer:MFTARGET,
-                    virtualKeyboardTheme:"material"
-               });
-               MM.mf[ID].id = ID;
-               MM.mf[ID].target = element;
-               MM.mf[ID].addEventListener("keyup",function(event){
-                    if(event.key === "Enter" || event.keyCode === 9){
-                        MM.nextSlide(0);
-                        event.preventDefault();
-                }
-                });
-                element.appendChild(MM.mf[ID]);
-                element.appendChild(utils.create("div",{style:"height:270px;"}));
-                MM.mf[ID].addEventListener("virtual-keyboard-toggle",(evt)=>{console.log(evt)});
-                slide++;
-            }
-        }*/
     },
     setFacetoFace(etat){
         this.faceToFace = etat;
@@ -3328,7 +3377,7 @@ var MM = {
         }
         MM.getOnlineState();
         if(MM.onlineState === "yes"){
-            MM.userAnswers = [];
+            MM.userAnswers = [[],[],[],[]];
             // security there should not be more than 1 cart for the online use
             // TODO à adapter pour le mode duel
             if(MM.carts.length > 1){
@@ -3364,6 +3413,7 @@ var MM = {
             MM.showSlideShows();
             MM.startTimers();
         }
+        this.ended=false;// utilisé à la fin du diapo
     },
     paramsToURL(withAleaSeed=false){
         let colors = MM.colors.join("~").replace(/\,/g,"_");
@@ -3717,8 +3767,9 @@ var MM = {
         let nb = MM.slidersNumber;
         let container = document.getElementById("slideshow");
         container.innerHTML = "";
-        if(MM.slidersOrientation === "v")container.className = "hidden vertical";
-        else container.className = "hidden";
+        if(MM.slidersOrientation === "v")utils.addClass(container,"vertical");
+        if(MM.faceToFace==="y") utils.addClass(container,"return");
+        else utils.removeClass(container,"return");
         for(let i=0;i<nb;i++){
             let div = document.createElement("div");
             div.id = "slider"+i;
@@ -3726,8 +3777,8 @@ var MM = {
             else if(nb===2)div.className = "slider-2";
             else div.className = "slider-34";
             // facetoface option
-            if(nb>1 && MM.faceToFace==="y" && i===0)div.className += " return";
-            else if(nb>2 && MM.faceToFace==="y" && i===1)div.className +=" return";
+            /*if(nb>1 && MM.faceToFace==="y" && i===0)div.className += " return";
+            else if(nb>2 && MM.faceToFace==="y" && i===1)div.className +=" return";*/
             let innerH = `<div class="slider-head"><div class="slider-nav">
             <button title="Arrêter le diaporama" onclick="MM.timers[${i}].end()"><img src="img/slider-stop.png" /></button>`;
             if(MM.onlineState==="no"){
@@ -3765,6 +3816,7 @@ var MM = {
         }
     },
     hideSlideshows:function(){
+        if(this.ended)return false; // on l'a déjà fait
         utils.addClass(document.getElementById("slideshow-container"),"hidden");
         utils.removeClass(document.getElementById("app-container"), "hidden");
         let whatToDo = utils.getRadioChecked("endOfSlideRadio");
@@ -3779,6 +3831,7 @@ var MM = {
         } else if(whatToDo === "list"){
             utils.showTab("tab-enonce");
         }
+        this.ended=true;
     },
     /**
      * Montre la réponse si l'une est indiquée (ne l'est pas pour un élève)
@@ -3864,12 +3917,11 @@ var MM = {
     },
     /**
      *
-     * @param {integer} id du slide (start to 1)
+     * @param {integer} id du slider (start to 0)
      */
     nextSlide:function(id){
         if(MM.onlineState === "yes"){ // save answer
-            //MM.userAnswers[MM.steps[id].step]=document.getElementById("userAnswer"+(MM.steps[id].step)).value;
-            MM.userAnswers[MM.steps[id].step] = MM.mf["ansInput"+id+"-"+(MM.steps[id].step)].value;
+            MM.userAnswers[id][MM.steps[id].step] = MM.mf["ansInput"+id+"-"+(MM.steps[id].step)].value;
         }
         let step = MM.steps[id].nextStep();
         if(step === false) {
@@ -3894,7 +3946,6 @@ var MM = {
                 MM.mf["ansInput"+id+"-"+step].focus();
             } else if(MM.onlineState === "yes" && MM.touched){
                 // on affiche le clavier quand on a un appareil touchable
-                MM.mf["ansInput"+id+"-"+step].setOptions({virtualKeyboardMode:'onfocus'});
                 MM.mf["ansInput"+id+"-"+step].focus();
             }
         } else {
@@ -3919,11 +3970,7 @@ var MM = {
             MM.hideSlideshows();
             // correction si online
             if(MM.onlineState === "yes"){
-                let score = 0;
                 let div = document.createElement("div");
-                let ol = document.createElement("ol");
-                ol.innerHTML = "<b>Tes réponses</b>";
-                let ia = 0;
                 // correction
                 // TODO : modifier pour les cas où il y aura plusieurs champs réponse
                 // attention, les questions ont pu être mélangées, on va donc devoir associer correctement les réponses/questions
@@ -3931,18 +3978,25 @@ var MM = {
                 // on peut avoir plusieurs utilisateurs... pour les duels
                 // 1 utilisateur = un actArray
                 for(let slider=0,len=MM.carts[0].actsArrays.length;slider<len;slider++){
+                    let score = 0;
+                    let ol = document.createElement("ol");
+                    ol.innerHTML = "<b>Réponses de "+(slider+1)+"</b>";
+                    let ia = 0;
                     // pour un target, on a l'ordre des activités et des réponses.
                     for(let slide=0,len2=MM.carts[0].actsArrays[slider].length;slide<len2;slide++){
                         let refs = MM.carts[0].actsArrays[slider][slide];
                         let li = document.createElement("li");
                         let span = document.createElement("span");
-                        let userAnswer = MM.userAnswers[ia].replace(",",".").trim();// on remplace la virgule française par un point, au cas où
+                        let userAnswer = MM.userAnswers[slider][ia].replace(",",".").trim();// on remplace la virgule française par un point, au cas où
                         if(userAnswer.indexOf("\\text")===0){
                             userAnswer = userAnswer.substring(6,userAnswer.length-1);
                         }
                         // remplacer un espace texte par un espace
                         userAnswer = userAnswer.replace("\\text{ }"," ");
-                        const expectedAnswer = MM.carts[0].activities[refs[0]].values[refs[1]];
+                        userAnswer = userAnswer.replace(">","\\gt");
+                        userAnswer = userAnswer.replace("<","\\lt");
+                        const expectedAnswer = MM.goodAnswers[slider][refs[0]][refs[1]];//MM.carts[0].activities[refs[0]].values[refs[1]];
+                        debug(userAnswer,expectedAnswer);
                         // TODO : better correction value
                         // prendre en compte les cas où plusieurs réponses sont possibles
                         // attention, si c'est du texte, il faut supprimer des choses car mathlive transforme
@@ -3997,75 +4051,11 @@ var MM = {
                         li.appendChild(span);
                         ol.appendChild(li);
                     }
+                    div.appendChild(ol);
+                    let section = document.createElement("section");
+                    section.innerHTML = "<b>Score :</b> "+score+"/"+ia;
+                    div.appendChild(section);
                 }
-                /*for(let indexA=0,lenA=MM.carts[0].activities.length;indexA<lenA;indexA++){
-                    for(let indexQ=0,lenQ=MM.carts[0].activities[indexA].questions.length;indexQ<lenQ;indexQ++){
-                        let li = document.createElement("li");
-                        let span = document.createElement("span");
-                        let userAnswer = MM.userAnswers[ia].replace(",",".").trim();// on remplace la virgule française par un point, au cas où
-                        if(userAnswer.indexOf("\\text")===0){
-                            userAnswer = userAnswer.substring(6,userAnswer.length-1);
-                        }
-                        const expectedAnswer = MM.carts[0].activities[indexA].values[indexQ];
-                        // TODO : better correction value
-                        // prendre en compte les cas où plusieurs réponses sont possibles
-                        // attention, si c'est du texte, il faut supprimer des choses car mathlive transforme
-                        if(Array.isArray(expectedAnswer)){
-                            for(let i=0;i<expectedAnswer.length;i++){
-                                if(String(userAnswer).toLowerCase()==String(expectedAnswer[i]).toLowerCase()){
-                                    li.className = "good";
-                                    score++;
-                                    break;
-                                } else {
-                                    const expr1 = KAS.parse(expectedAnswer[i]).expr;
-                                    const expr2 = KAS.parse(String(userAnswer).replace('²', '^2')).expr;
-                                    try{if(KAS.compare(expr1,expr2,{form:true,simplify:false}).equal){
-                                        // use KAS.compare for algebraics expressions.
-                                        li.className = "good";
-                                        score++;
-                                        break;
-                                    } else {
-                                        li.className = "wrong";
-                                    }
-                                    } catch(error){
-                                        li.className = "wrong";
-                                    }
-                                }
-                            }
-                        } else {
-                            if(String(userAnswer).toLowerCase()==String(expectedAnswer).toLowerCase()){
-                                li.className = "good";
-                                score++;
-                            } else {
-                                const expr1 = KAS.parse(expectedAnswer).expr;
-                                const expr2 = KAS.parse(String(userAnswer).replace('²', '^2')).expr;
-                                try{if(KAS.compare(expr1,expr2,{form:true,simplify:false}).equal){
-                                    // use KAS.compare for algebraics expressions.
-                                    li.className = "good";
-                                    score++;
-                                } else {
-                                    li.className = "wrong";
-                                }
-                                } catch(error){
-                                    li.className = "wrong";
-                                }
-                            }
-                        }
-                        // on teste si la réponse est un nombre ou si elle contient des caractères echapé auquel cas on considère que c'est du latex
-                        if(!/[^-\d]/.test(userAnswer) || /\\/.test(userAnswer)){
-                            span.className ="math";
-                            userAnswer = "\\displaystyle "+userAnswer;
-                        }
-                        span.textContent = userAnswer;
-                        ia++;
-                        li.appendChild(span);
-                        ol.appendChild(li);
-                    }
-                }*/
-                div.appendChild(ol);
-                let section = document.createElement("section");
-                section.innerHTML = "<b>Score :</b> "+score+"/"+ia;
-                div.appendChild(section);
                 document.getElementById("corrige-content").appendChild(div);
                 // Mise en forme Maths
                 utils.mathRender();
@@ -4123,7 +4113,6 @@ var MM = {
             document.getElementById("sddiv3").className = "hidden";
             document.getElementById("sddiv4").className = "hidden";
             document.getElementById("divisionsOption").className = "hidden";
-            document.getElementById("onlinechoice").className = "";
             MM.setDispositionDoubleEnonce('h');
             MM.carts[0].target = [1];
             document.getElementById("facetofaceOption").className = "hidden";
@@ -4142,8 +4131,6 @@ var MM = {
             document.getElementById("sddiv3").className = "hidden";
             document.getElementById("sddiv4").className = "hidden";
             document.getElementById("divisionsOption").className = "";
-            document.querySelector("input[name='online'][value='no']").checked = true;
-            document.getElementById("onlinechoice").className = "hidden";
             if(value > MM.carts.length){
                 MM.carts[0].target = [1,2];
             } else {
@@ -4161,8 +4148,6 @@ var MM = {
             document.getElementById("sddiv3").className = "sddiv34";
             document.getElementById("sddiv4").className = "hidden";
             document.getElementById("divisionsOption").className = "hidden";
-            document.querySelector("input[name='online'][value='no']").checked = true;
-            document.getElementById("onlinechoice").className = "hidden";
             MM.setDispositionDoubleEnonce('h');
             if(MM.carts.length === 1){
                 MM.carts[0].target = [1,2,3];
@@ -4184,8 +4169,6 @@ var MM = {
             }
             document.getElementById("sddiv3").className = "sddiv34";
             document.getElementById("sddiv4").className = "sddiv34";
-            document.getElementById("onlinechoice").className = "hidden";
-            document.querySelector("input[name='online'][value='no']").checked = true;
             document.getElementById("divisionsOption").className = "hidden";
             MM.setDispositionDoubleEnonce('h');
             if(MM.carts.length === 1){
@@ -4425,13 +4408,165 @@ class keyBoard {
      *
      * @param {Integer} target champ MathLive à alimenter
      * @param {Array} keys touches à afficher
+     * @param {DOMelt} displayContener élément du DOM où ajouter le clavier à afficher
      */
-    constructor(target,keys){
+    constructor(target,keys,displayContener,sliderId){
+        this.keyConf = {
+            "÷":["key colored","÷",()=>{this.targetField.executeCommand(["insert","\\div"]);this.focus();}],
+            "×":["key colored","×",()=>{this.targetField.executeCommand(["insert","\\times"]);this.focus();}],
+            "-":["key colored","-",()=>{this.targetField.executeCommand(["insert","-"]);this.focus();}],
+            "+":["key colored","+",()=>{this.targetField.executeCommand(["insert","+"]);this.focus();}],
+            "(":["key colored","( )",()=>{this.targetField.executeCommand(["insert","(#0)"]);this.focus();}],
+            "x²":["key times colored","x²",()=>{this.targetField.executeCommand(["insert","^2"]);this.focus();}],
+            "√":["key colored","√¯",()=>{this.targetField.executeCommand(["insert","\\sqrt(#0)"]);this.focus();}],
+            "/":["key colored","/",()=>{this.targetField.executeCommand(["insert","\\dfrac{#0}{#0}"]);this.focus();}],
+            "pi":["key colored","π",()=>{this.targetField.executeCommand(["insert","\\pi"]);this.focus();}],
+            ";":["key colored",";",()=>{this.targetField.executeCommand(["insert",";"]),this.focus();}],
+            "<":["key colored","<",()=>{this.targetField.executeCommand(["insert","<"]),this.focus();}],
+            ">":["key colored",">",()=>{this.targetField.executeCommand(["insert",">"]),this.focus();}],
+            "=":["key colored","=",()=>{this.targetField.executeCommand(["insert","="]),this.focus();}],
+            "^":["key colored","x<sup>n</sup>",()=>{this.targetField.executeCommand(["insert","^{#0}"]),this.focus();}],
+            "h":["key colored","h",()=>{this.targetField.executeCommand(["insert","\\text{ h }#0"]),this.focus();}],
+            "min":["key colored","min",()=>{this.targetField.executeCommand(["insert","\\text{ min}"]),this.focus();}],
+            "o":["key colored","O",()=>{this.targetField.executeCommand(["insert","\\text{oui}"]),this.focus();}],
+            "n":["key colored","N",()=>{this.targetField.executeCommand(["insert","\\text{non}"]),this.focus();}],
+            "V":["key colored","O",()=>{this.targetField.executeCommand(["insert","\\text{vrai}"]),this.focus();}],
+            "F":["key colored","O",()=>{this.targetField.executeCommand(["insert","\\text{faux}"]),this.focus();}]
+        }
         this.targetField = target;
-        this.keys = keys;
+        this.sliderId = sliderId;
+        if(keys === undefined){
+            this.defaut();
+        } else {
+            this.create(keys);
+        }
+        displayContener.appendChild(this.content);
     }
+    /**
+     * give the focus to the target if only one player
+     */
+    focus(){
+        if(MM.slidersNumber<2)
+            this.targetField.focus();
+    }
+    /**
+     *
+     * @param {string} className liste des classes de la touche
+     * @param {display} display html à afficher sur la touche
+     * @param {function} afunction ()=>{} à éxécuter à l'appui de la touche
+     */
+    addKey(className,display=undefined,afunction){
+        if(display === undefined){
+            let elm;
+            if(className ==="_"){
+                elm = utils.create("div");
+            } else if(["a","b","c","e","t",":","u","v","x","y","z"].indexOf(className)>-1){
+                elm =utils.create("div",{className:"key times colored",innerHTML:className});
+                if(MM.touched)
+                    elm.ontouchend = ()=>{this.targetField.executeCommand(["insert",className]);this.focus();};
+                else
+                    elm.onclick = ()=>{this.targetField.executeCommand(["insert",className]);this.focus();}
+            } else {
+                elm =utils.create("div",{className:this.keyConf[className][0],innerHTML:this.keyConf[className][1]});
+                if(MM.touched)
+                    elm.ontouchend = this.keyConf[className][2];
+                else
+                    elm.onclick = this.keyConf[className][2];
+            }
+            this.content.appendChild(elm);
+        } else {
+            let elm =utils.create("div",{className:className,innerHTML:display});
+            if(MM.touched)
+                elm.ontouchend = afunction;
+            else
+                elm.onclick = afunction;
+            this.content.appendChild(elm);
+        }
+    }
+    create(config=[]){
+        this.content = utils.create("div",{className:"numkey-base"});
+        /** Première ligne */
+        // touches 7 8 et 9
+        ["7","8","9"].forEach((val)=>{
+            this.addKey("key",val,()=>{this.targetField.executeCommand(["insert",val]);this.focus();});
+        });
+        if(config[0]!== undefined)
+            this.addKey(config[0])
+        // touche diviser
+        else
+            this.addKey("÷");
+        // touche Backspace
+        this.addKey("key backspace",keysSVG.backspaceKey, ()=>{this.targetField.executeCommand("deleteBackward");this.focus();});
+        // trou
+        this.content.appendChild(utils.create("div"));
+        // touche parenthèses
+        if(config[4]!==undefined)
+            this.addKey(config[4]);
+        else this.addKey("(");
+        // touche lettre x
+        if(config[5]!==undefined)
+            this.addKey(config[5])
+        else this.addKey("x");
+        /** Deuxième ligne */
+        // touches 7 8 et 9
+        ["4","5","6"].forEach((val)=>{
+            this.addKey("key",val,()=>{this.targetField.executeCommand(["insert",val]);this.focus();});
+        });
+        // touche multiplier
+        if(config[1]!==undefined)
+            this.addKey(config[1])
+        else this.addKey("×");
+        // touche Enter
+        this.addKey("key enter",keysSVG.enterKey,()=>{
+            this.targetField.executeCommand("complete");
+            MM.nextSlide(this.sliderId);
+        });
+        // trou
+        this.content.appendChild(utils.create("div"));
+        // touche carré
+        if(config[6]!==undefined)
+            this.addKey(config[6]);
+        else this.addKey("x²");
+        // touche racine
+        if(config[7]!==undefined)
+            this.addKey(config[7]);
+        else this.addKey("√");
+        /** Troisième ligne */
+        // touches 7 8 et 9
+        ["1","2","3"].forEach((val)=>{
+            this.addKey("key",val,()=>{this.targetField.executeCommand(["insert",val]);this.focus();});
+        });
+        // touche moins
+        if(config[2]!==undefined)
+            this.addKey(config[2]);
+        else this.addKey("-");
+        // trou
+        this.content.appendChild(utils.create("div"));
+        // touche annuler
+        this.addKey("key action",keysSVG.undoKey,()=>{this.targetField.executeCommand("undo");this.focus();});
+        // touche refaire
+        this.addKey("key action",keysSVG.redoKey,()=>{this.targetField.executeCommand("redo");this.focus();});
+        /** Quatrième ligne */
+        // touches 0
+        this.addKey("key zero","0",()=>{this.targetField.executeCommand(["insert","0"]);this.focus();});
+        // touches ,
+        this.addKey("key",",",()=>{this.targetField.executeCommand(["insert","."]);this.focus();});
+        // touche plus
+        if(config[3]!==undefined)
+            this.addKey(config[3]);
+        else this.addKey("+");
+        // trou
+        this.content.appendChild(utils.create("div"));
+        // touche flèche gauche
+        this.addKey("key action",keysSVG.leftArrowKey,()=>{this.targetField.executeCommand("moveToPreviousChar");this.focus();});
+        // touche refaire
+        this.addKey("key action",keysSVG.rightArrowKey,()=>{this.targetField.executeCommand("moveToNextChar");this.focus();});
+    }
+    /**
+     * crée un clavier par défaut
+     */
     defaut(){
-
+        this.create();
     }
     show(){
 
@@ -4494,6 +4629,7 @@ class activity {
         this.nbq = utils.clone(obj.nbq) || Number(document.getElementById("nbq-slider").value);
         this.getOptionHistory = [];
         this.getPatternHistory = {global:[]};
+        this.keys = obj.keys||[];
     }
     initialize(){
         this.questions = [];

@@ -2,6 +2,7 @@
     "title":"Comparer des nombres décimaux",
     "type":"text",
     "ID":"6NC7",
+    "keys":["<",">","=","_"],
     "description":"",
     "dest":["9NC", "8NC","7NC","6NC", "5NA"],
     "options":[{
@@ -19,5 +20,5 @@
     ],
     "question": "Compare $$${:a}$$ et $$${:b}$$",
     "answer":"$$${:a}\\color{red}{${:s}}${:b}$$",
-    "value":"${:s}"
+    "value":"${:a}${:s}${:b}"
 }

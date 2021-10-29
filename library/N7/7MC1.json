@@ -2,6 +2,7 @@
     "title":"Ajouter retirer des durées, calculer un horaire, une durée",
     "type":"text",
     "ID":"7MC1",
+    "keys":["h","_","_","_"],
     "dest":["9MC", "8MC","7MC", "6MB"],
     "options":[{
         "name":"Après, en retard en min",

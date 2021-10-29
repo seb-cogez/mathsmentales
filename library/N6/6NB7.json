@@ -16,6 +16,15 @@
         },{
             "name":"Quart, quadruple",
             "vars":{"a":"4_5","text":"Quel est le ","e":"1_10","qte":"${:e*12}"}
+        },{
+            "name":"Moitié, double (tables)",
+            "vars":{"a":"0_1","text":"${(:a<1)?'Quelle est la ':'Quel est le '}","e":"1_10","qte":"${(:a<1)?:e*2::e+1}"}
+        },{
+            "name":"Tiers, triple (tables)",
+            "vars":{"a":"2_3","text":"Quel est le ","e":"1_10","qte":"${(:a==2)?:e*3::e+2}"}
+        },{
+            "name":"Quart, quadruple (tables)",
+            "vars":{"a":"4_5","text":"Quel est le ","e":"1_10","qte":"${(:a==4)?:e*4::e+3}"}
         }
     ],
     "question":"${:text}<b>${:vocab[:a]}</b> de $$${:qte}$$ ?",

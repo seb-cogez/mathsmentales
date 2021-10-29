@@ -62,16 +62,33 @@ Ces fichiers json comportent des *données obligatoires* :
 * **consts** : objet contenant des données constantes, telles que des tableaux
 * **question** : chaine unique ou tableau de chaines contenant le texte de la question
   * pour le cas du tableau, il est possible de choisir le type de question à afficher lors du paramétrage de l'activité
-* **shortq** : question au format court (pas la consigne par exemple) pour un export plus lisible dans les ceintures, doit suivre la forme de "questions" : une chaine ou un tableau
 * **answer** : chaine unique  ou tableau de chaines contenant la réponse à la question
 
 ainsi que des *données optionnelles* :
- * **description** : texte décrivant de manière plus précise l'activité
- * **options** : tableau d'objets json pouvant contenir *title*, *vars*, *question*, *answer* et/ou *value*
-   * une variable non définie prend la valeur de l'objet parent.
- * **value** : chaine ou tableau de chaines contenant les réponses attendues dans le formulaire de réponse en ligne
- * **type** : valeurs possible : "texte", "latex" qui indique le type de rendu des questions/réponses
- * **figure** : chaine contenant une figure illustrant l'activité
+* **description** : texte décrivant de manière plus précise l'activité
+* **options** : tableau d'objets json pouvant contenir *title*, *vars*, *question*, *answer* et/ou *value*
+  * une variable non définie prend la valeur de l'objet parent.
+* **value** : chaine ou tableau de chaines contenant les réponses attendues dans le formulaire de réponse en ligne
+* **type** : valeurs possible : "texte", "latex" qui indique le type de rendu des questions/réponses
+* **figure** : chaine contenant une figure illustrant l'activité
+* **keys** : tableau d'au plus huit éléments contenant les touches optionnelles pour le clavier virtuel.
+* **shortq** : question au format court (pas la consigne par exemple) pour un export plus lisible dans les ceintures, doit suivre la forme de "questions" : une chaine ou un tableau
+* **valuetype** : chaine qui indique le type de réponse attendue, pour une correction en ligne plus précise
+ 
+ Le tableau de touches par défaut est ["÷","×","-","+","(","x","x²","√"];
+ 
+ Les touches disponibles pour le moment :
+ * "_" touche vide
+ * "/" fraction
+ * "pi"
+ * ";"
+ * "<"
+ * ">"
+ * "="
+ * "^" exposant
+ * "h"
+ * "min"
+ * les caractères a, b, c, e, t, :, u, v, x, y, z
 ---
 ### À faire à l'insertion d'un nouvel exercice
 à l'aide de Node.js (à installer) lancer library/scan.js pour recréer le fichier qui référence tous les exercices dans une arborescence chargée au lancement de MathsMentales

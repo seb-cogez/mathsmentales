@@ -247,6 +247,11 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
                 </select>
                 <audio src="" autoplay id="soundplayer"></audio>
             </fieldset>
+            <fieldset id="onlinechoice">
+                <legend>Répondre en ligne</legend>
+                <input type="radio" class="radio" name="online" value="no" checked="true" onclick="MM.setOnlineState(this.value)"> Non
+                <input type="radio" class="radio" name="online" value="yes" onclick="MM.setOnlineState(this.value)"> Oui
+            </fieldset>
             <br>
             <fieldset>
                 <legend>Enoncé</legend>
@@ -268,11 +273,6 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
                     <input type="radio" class="radio" name="facetoface" value="n" checked="true" onclick="MM.setFacetoFace('n');"> Normal<br>
                     <input type="radio" class="radio" name="facetoface" value="y" onclick="MM.setFacetoFace('y');"> <img src="img/facetoface.png" title="Face à face sur une tablette">
                 </div>
-                <fieldset id="onlinechoice">
-                    <legend>Répondre en ligne</legend>
-                    <input type="radio" class="radio" name="online" value="no" checked="true" onclick="MM.setOnlineState(this.value)"> Non
-                    <input type="radio" class="radio" name="online" value="yes" onclick="MM.setOnlineState(this.value)"> Oui
-                </fieldset>
                 </fieldset><br>
             <fieldset>
                 <legend>Fin de diaporama</legend>
@@ -381,7 +381,7 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
             </fieldset>
             <fieldset>
                 <legend>Position corrigé</legend>
-                <input type="radio" class="radio" name="ceintcorrpos" value="fin" selected="true"> à part <input type="radio" class="radio" name="ceintcorrpos" value="apres"> après ceinture
+                <input type="radio" class="radio" name="ceintcorrpos" value="fin" selected> à part <input type="radio" class="radio" name="ceintcorrpos" value="apres"> après ceinture
             </fieldset>
             <fieldset>
                 <legend>Pied des colonnes</legend>
@@ -389,7 +389,7 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
             </fieldset>
             <fieldset>
                 <legend>Orientation page</legend>
-                <input type="radio" class="radio" name="ceintorientation" value="portrait" selected="true"> portrait <input type="radio" class="radio" name="ceintorientation" value="landscape"> paysage
+                <input type="radio" class="radio" name="ceintorientation" value="portrait" selected> portrait <input type="radio" class="radio" name="ceintorientation" value="landscape"> paysage
             </fieldset>
             <section>
                 <button class="button--primary beaubutton" onclick="MM.createCeintureSheet();">Générer</button>
