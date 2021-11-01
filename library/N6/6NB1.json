@@ -1,7 +1,8 @@
 {
     "title":"Valeur décimale de fraction simple",
     "ID":"6NB1",
-    "description":"",
+    "description":"Donner l'écriture décimale d'une fraction, donner une fraction égale à une écriture décimale",
+    "textSize":"medium",
     "dest":["6NB","5NA","4NA","3NA"],
     "options":[{
         "name":"Fractions simples",
@@ -14,10 +15,10 @@
     },{
         "name":"Trouver la fraction décimale",
         "vars":{"precision":"1_3_2","nb":"d0_${Math.pow(10,:precision[0])}_${:precision[1]}"},
-        "question":"\\begin{array}{c} \\text{Quelle est} \\\\ \\text{la plus petite fraction décimale} \\\\ \\\\ \\text{égale à }${:nb} ?\\end{array}",
+        "question":"\\begin{array}{c} \\text{Quelle est la plus petite fraction décimale} \\\\ \\text{égale à }${:nb} ?\\end{array}",
         "answer":"${:nb}=\\color{red}{${math.fractionDecimale(:nb)}}",
         "value":"${math.fractionDecimale(:nb)}"
     }],
-    "question":"\\begin{array}{c} \\text{Quelle est} \\\\ \\text{l'écriture décimale} \\\\ \\\\ \\text{de } \\dfrac{${:num}}{${:den}} ?\\end{array}",
+    "question":"\\begin{array}{c} \\text{Quelle est l'écriture décimale} \\\\ \\text{de } \\dfrac{${:num}}{${:den}} ?\\end{array}",
     "answer":"\\dfrac{${:num}}{${:den}}=\\color{red}{${math.round(:num/:den,4)}}"
 }

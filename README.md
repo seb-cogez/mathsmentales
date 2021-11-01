@@ -57,7 +57,7 @@ Ces fichiers json comportent des *données obligatoires* :
      * des entiers min_max ou min_max_quantité ou min_max_^liste de valeurs à éviter ou min_max_quantité_^&,val1,val2... & signifie pas de double
      * des décimaux dmin_max_précision (pouvant être négative pour les puissances de 10 positives)
      * une valeur dans un tableau
-   * une variable a pourra être reprise dans une autre variable par un appel de type ${:a}
+   * une variable a pourra être reprise dans une autre variable par un appel de type ${:a} pour utiliser la variable a
    * des calculs utilisant la bibliothèque math peuvent être effectués dans les paires d'accolades, exemple : ${math.multiply(:a,:b)}
    * d'autres traitements peuvent être effectués à l'aide de fonctions javascript ${:a.toUpperCase()}
 * **consts** : objet contenant des données constantes, telles que des tableaux
@@ -66,15 +66,21 @@ Ces fichiers json comportent des *données obligatoires* :
 * **answer** : chaine unique  ou tableau de chaines contenant la réponse à la question
 
 ainsi que des *données optionnelles* :
-* **description** : texte décrivant de manière plus précise l'activité
-* **options** : tableau d'objets json pouvant contenir *title*, *vars*, *question*, *answer* et/ou *value*
-  * une variable non définie prend la valeur de l'objet parent.
-* **value** : chaine ou tableau de chaines contenant les réponses attendues dans le formulaire de réponse en ligne
-* **type** : valeurs possible : "texte", "latex" qui indique le type de rendu des questions/réponses
-* **figure** : chaine contenant une figure illustrant l'activité
-* **keys** : tableau d'au plus huit éléments contenant les touches optionnelles pour le clavier virtuel.
-* **shortq** : question au format court (pas la consigne par exemple) pour un export plus lisible dans les ceintures, doit suivre la forme de "questions" : une chaine ou un tableau
-* **valuetype** : chaine qui indique le type de réponse attendue, pour une correction en ligne plus précise
+
+* Pour l'activité :
+  * **description** : texte décrivant de manière plus précise l'activité
+  * **options** : tableau d'objets json pouvant contenir *title*, *vars*, *question*, *answer* et/ou *value*
+    * une variable non définie prend la valeur de l'objet parent.
+  * **type** : valeurs possible : "texte", "latex" qui indique le type de rendu des questions/réponses
+  * **repeat** : Possibilité de répéter une question (le moteur évite normalement les répétitions de questions, mais parfois, c'est impossible car l'énoncé est visuel et les questions sont toujours les mêmes) valeurs possibles : true (on évite que la question se répète dans les 5 dernières questions) ou un nombre x (on évite que la réponse se répète plus de 2 fois dans les x dernières questions)
+  * **keys** : tableau d'au plus huit éléments contenant les touches optionnelles pour le clavier virtuel.
+  * **textsize** : taille du texte de la question, permet de modifier la taille d'affichage par défaut. valeurs possibles : "medium" ou "small" 
+
+* Pour l'activité ou une option :
+  * **value** : chaine ou tableau de chaines contenant les réponses attendues dans le formulaire de réponse en ligne
+  * **figure** : chaine contenant une figure illustrant l'activité
+  * **shortq** : question au format court (pas la consigne par exemple) pour un export plus lisible dans les ceintures, doit suivre la forme de "questions" : une chaine ou un tableau
+  * **valuetype** : chaine qui indique le type de réponse attendue, pour une correction en ligne plus précise
  
  Le tableau de touches par défaut est ["÷","×","-","+","(","x","x²","√"];
  
@@ -89,7 +95,7 @@ ainsi que des *données optionnelles* :
  * "^" exposant
  * "h"
  * "min"
- * les caractères a, b, c, e, t, :, u, v, x, y, z
+ * les caractères a, b, c, e, t, :, u, v, x, y, z, A, L
 ---
 ### à faire à l'insertion d'un nouvel exercice
 à l'aide de Node.js (à installer) lancer library/scan.js pour recréer le fichier qui référence tous les exercices dans une arborescence chargée au lancement de MathsMentales

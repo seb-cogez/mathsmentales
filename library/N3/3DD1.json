@@ -3,6 +3,7 @@
     "dest":["3DD"],
     "title":"Lire l'ordonnée à l'origine",
     "type":"text",
+    "textSize":"small",
     "vars":{"a":"d-2_2_1", "c":"-6_6", "b":"${:c/2}"},
     "figure":{
         "type":"graph", 
@@ -14,6 +15,6 @@
             ]    
         },
     "question":"Quelle est l'<b>ordonnée à l'origine</b> de la fonction affine ?",
-    "answer":"L'ordonnée à l'origine de la fonction est <span class='red'>${:b}</span>",
+    "answer":"L'ordonnée à l'origine de la fonction est <span class='red'>$$${:b}$$</span>",
     "value":"${:b}"
 }

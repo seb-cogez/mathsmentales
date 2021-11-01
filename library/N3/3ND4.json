@@ -3,18 +3,19 @@
     "type":"latex",
     "ID":"3ND4",
     "dest":["3ND"],
-    "consts":{"lettres":["a","b","c","t","u","x","y","z"]},
+    "keys":["-","+","a","b","c","x","y","z"],
+    "consts":{"lettres":["a","b","c","x","y","z"]},
     "options":[{
-        "name":"Supprimer les parenthèses et réduire - 1",
-        "vars":{"a":"-9_9_3_^0","l":"0_7","x":"${:lettres[:l]}","posx":"1_2","s":"${:a[0]+:a[1]+:a[2]}","sm":"${:a[0]-:a[1]-:a[2]}","sx":"${:a[0]+:a[:posx]}","smx":"${:a[0]-:a[:posx]}"},
+        "name":"Supprimer les parenthèses et réduire(1)",
+        "vars":{"a":"-9_9_3_^0","l":"0_5","x":"${:lettres[:l]}","posx":"1_2","s":"${:a[0]+:a[1]+:a[2]}","sm":"${:a[0]-:a[1]-:a[2]}","sx":"${:a[0]+:a[:posx]}","smx":"${:a[0]-:a[:posx]}"},
         "question":["${math.signIfOne(:a[0])}${:x}-(${(:posx==1)?math.signIfOne(:a[1])+:x::a[1]}${(:posx==2)?math.signedNumberButOne(:a[2])+:x:math.signedNumber(:a[2])})","${math.signIfOne(:a[0])}${:x}+(${(:posx==1)?math.signIfOne(:a[1])+:x::a[1]}${(:posx==2)?math.signedNumberButOne(:a[2])+:x:math.signedNumber(:a[2])})"],
         "answer":[":question=\\color{red}{${math.signIfOne(:smx)}${:x}${math.signedNumber(:sm-:smx)}}",
         ":question=\\color{red}{${math.signIfOne(:sx)}${:x}${math.signedNumber(:s-:sx)}}"],
         "value":["${math.signIfOne(:smx)}${:x}${math.signedNumber(:s-:smx)}",
             "${math.signIfOne(:sx)}${:x}${math.signedNumber(:s-:sx)}"]
     },{
-        "name":"Supprimer les parenthèses et réduire - 2",
-        "vars":{"a":"-9_9_4_^0","l":"0_7","x":"${:lettres[:l]}"},
+        "name":"Supprimer les parenthèses et réduire(2)",
+        "vars":{"a":"-9_9_4_^0","l":"0_5","x":"${:lettres[:l]}"},
         "question":[
             "(${math.signIfOne(:a[0])+:x+math.signedNumber(:a[1])})-(${math.signIfOne(:a[2])+:x+math.signedNumber(:a[3])})",
             "-(${math.signIfOne(:a[0])+:x+math.signedNumber(:a[1])})+(${math.signIfOne(:a[2])+:x+math.signedNumber(:a[3])})",

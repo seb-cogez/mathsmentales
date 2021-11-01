@@ -3,6 +3,7 @@
     "type":"latex",
     "ID":"2G14",
     "dest":["2G1"],
+    "textSize":"medium",
     "consts":{"vecteurs":["u", "v", "w", "u'", "v'", "w'"]},
     "options":[{
         "name":"Vecteurs à coordonnées positives",

@@ -3,6 +3,7 @@
     "type":"latex",
     "ID":"3NB3",
     "dest":["3NB","2N1"],
+    "keys":["(","-","^","_","_","_","_","_"],
     "options":[{
         "name":"Produit de puissances",
         "vars":{"a":"-10_10_2_^0","r":"${:a[0]+:a[1]}","n":"-9_9_^0"},

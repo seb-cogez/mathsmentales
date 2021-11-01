@@ -2,7 +2,8 @@
     "title":"Factoriser avec les identités remarquables",
     "dest":["3ND"],
     "ID":"3ND1",
-    "vars":{"k":"1_10", "b":"1_10", "c":["u","v","t","x", "y", "z"]},
+    "keys":["x²","-","+","u","v","t","x","y"],
+    "vars":{"k":"1_10", "b":"1_10", "c":["u","v","t","x", "y"]},
     "options":[
         {
             "name":"$$ax^2+2abx+b^2$$",

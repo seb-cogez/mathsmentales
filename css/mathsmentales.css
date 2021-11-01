@@ -516,6 +516,9 @@ aside > button {
   grid-row: span 2;
   user-select: none;
 }
+.numkey-base .key svg {
+  vertical-align: text-bottom;
+}
 .slider-34 .numkey-base .key {
   border: 1px solid rgb(44, 44, 44);
 }
@@ -533,7 +536,7 @@ aside > button {
   grid-row: span 2;
 }
 .numkey-base .key:hover {
-  border: 1px solid #eeeeee;
+  border: 1px solid #aaaaaa;
 }
 .numkey-base .key:active {
   background-color: lightgreen;
@@ -542,9 +545,17 @@ aside > button {
   grid-row: 1 / 4;
   grid-column: 5 / 6;
 }
+.numkey-base .backspace svg {
+  position: relative;
+  top: 16%;
+}
 .numkey-base .enter {
   grid-row: 4 / 9;
   grid-column: 5 / 6;
+}
+.numkey-base .enter svg {
+  position: relative;
+  top: 30%;
 }
 .numkey-base .zero {
   grid-column: 1 / 3;
@@ -961,6 +972,17 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
 .slider-2 .slide {
   font-size : 2em;
 }
+/*taille des spans */
+.slide > span.medium {
+  font-size: .666em;
+}
+/*taille des spans */
+.slide > span.small {
+  font-size: .333em;
+}
+.slide > span {
+  min-height: initial;
+}
 .vertical.return .slider-2 .slide {
   font-size: 1em;
 }
@@ -1004,6 +1026,10 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
 }
 .slide > span, .slide > div {
     margin:auto;
+}
+.slide .fig {
+  height:50%;
+  width:50%;
 }
 /*.slide > div:not(.numkey-base) {
   height: 60%;
