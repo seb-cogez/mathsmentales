@@ -3,6 +3,8 @@
     "type":"latex",
     "repeat":true,
     "ID":"GA42",
+    "textSize":"medium",
+    "keys":["pi","/","√","-","_","_","_","_"],
     "description":"Valeurs exactes de certains angles en radians",
     "dest":["GA4"],
     "consts":{"angles":[0,"\\pi\\over6","\\pi\\over4","\\pi\\over3","\\pi\\over2","2\\pi\\over3","\\pi\\over4","5\\pi\\over6","\\pi","7\\pi\\over6","5\\pi\\over4","4\\pi\\over3","3\\pi\\over2","5\\pi\\over3","7\\pi\\over4","11\\pi\\over6"],

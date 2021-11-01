@@ -2,6 +2,8 @@
     "title":"Quotient de fractions",
     "type":"latex",
     "ID":"4NC4",
+    "textSize":"medium",
+    "keys":["_","_","-","/","_","_","_","_"],
     "dest":["4NC", "3NB"],
     "options":[{
         "name":"Quotient de fractions positives",

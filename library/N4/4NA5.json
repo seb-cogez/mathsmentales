@@ -1,7 +1,9 @@
 {
     "title":"Sens des puissances de 10",
     "type":"latex",
+    "description":"Donner l'écriture décimale d'une puissance de 10, ou la puissance de 10 correspondant à une écriture décimale",
     "ID":"4NA5",
+    "keys":["_","_","^","10n","_","_","_","_"],
     "dest":["4NA","3NA"],
     "options":[{
         "name":"Ecriture décimale d'une puissance de 10 positive",

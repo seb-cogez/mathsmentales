@@ -2,7 +2,9 @@
     "title":"Résoudre une équation de type a ± x = b",
     "type":"latex",
     "ID":"4NE7",
+    "textSize":"medium",
     "dest":["4NE", "3ND", "2N3"],
+    "keys":["_","_","/","-","_","_","_","_"],
     "consts":{"lettres":["u","v","t","x", "y", "z"]},
     "options":[{
         "name":"a ± x = b, a et b entiers",

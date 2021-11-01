@@ -2,6 +2,7 @@
     "title":"Développer à l'aide de la distributivité",
     "type":"latex",
     "ID":"4NE4",
+    "textSize":"medium",
     "dest":["4NE","3ND","2N3"],
     "consts":{"lettres":["a","b","t","x", "y"]},
     "keys":["x²","+","-","a","b","t","x","y"],

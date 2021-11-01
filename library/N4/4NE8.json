@@ -3,6 +3,8 @@
     "type":"latex",
     "ID":"4NE8",
     "dest":["4NE", "3ND", "2N3"],
+    "keys":["_","_","/","-","_","_","_","_"],
+    "textSize":"medium",
     "consts":{"lettres":["u","v","t","x", "y", "z"]},
     "options":[{
         "name":"ax = b, a et b entiers",

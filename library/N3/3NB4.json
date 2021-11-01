@@ -2,6 +2,7 @@
     "title":"Calculs complexes avec des puissances",
     "type":"latex",
     "ID":"3NB4",
+    "textSize":"medium",
     "dest":["3NB","2N1"],
     "keys":["(","-","^","_","_","_","_","_"],
     "options":[{

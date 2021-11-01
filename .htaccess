@@ -3,7 +3,6 @@ AddCharset UTF-8 .html
 AddCharset UTF-8 .css
 AddCharset UTF-8 .js
 
-
 # Canonical HTTPS/non-WWW
 <IfModule mod_rewrite.c>
 	RewriteCond %{HTTPS} off [OR]
@@ -14,7 +13,7 @@ AddCharset UTF-8 .js
 <IfModule mod_headers.c>
 Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains"
 #Header set Content-Security-Policy "default-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'"
-Header always set X-FRAME-OPTIONS "DENY"
+#Header always set X-FRAME-OPTIONS "DENY"
 Header always set X-Content-Type-Options "nosniff"
 </IfModule>
 

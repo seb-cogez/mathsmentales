@@ -4046,10 +4046,10 @@ var MM = {
                             }
                         }
                         // on teste si la réponse est un nombre ou si elle contient des caractères echapés auquel cas on considère que c'est du latex
-                        if(!/[^-\d\.]/.test(userAnswer) || /\\/.test(userAnswer)){
+                        //if(!/[^-\d\.]/.test(userAnswer) || /\\/.test(userAnswer)){
                             span.className ="math";
                             userAnswer = "\\displaystyle "+userAnswer;
-                        }
+                        //}
                         span.textContent = userAnswer;
                         ia++;
                         li.appendChild(span);
@@ -4438,6 +4438,7 @@ class keyBoard {
         this.keyConf = {
             "÷":["key colored","÷",()=>{this.targetField.executeCommand(["insert","\\div"]);this.focus();}],
             "×":["key colored","×",()=>{this.targetField.executeCommand(["insert","\\times"]);this.focus();}],
+            "*":["key colored","×",()=>{this.targetField.executeCommand(["insert","\\times"]);this.focus();}],
             "-":["key colored","−",()=>{this.targetField.executeCommand(["insert","-"]);this.focus();}],
             "+":["key colored","+",()=>{this.targetField.executeCommand(["insert","+"]);this.focus();}],
             "(":["key colored","( )",()=>{this.targetField.executeCommand(["insert","(#0)"]);this.focus();}],

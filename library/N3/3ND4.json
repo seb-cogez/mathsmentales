@@ -2,6 +2,7 @@
     "title":"Réduire avec des parenthèses",
     "type":"latex",
     "ID":"3ND4",
+    "textSize":"medium",
     "dest":["3ND"],
     "keys":["-","+","a","b","c","x","y","z"],
     "consts":{"lettres":["a","b","c","x","y","z"]},

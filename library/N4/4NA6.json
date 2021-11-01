@@ -1,5 +1,6 @@
 {
     "title":"Puissance de relatif",
+    "description":"Donner l'écriture décimale d'une puissance, attention aux parenthèses !",
     "type":"latex",
     "ID":"4NA6",
     "dest":["4NA", "3NA"],

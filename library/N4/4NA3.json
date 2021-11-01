@@ -1,7 +1,9 @@
 {
     "title":"Encadrer une racine carrée entre deux entiers consécutifs",
+    "description":"Donner l'entier immédiatement inférieur et l'entier immédiatement supérieur à une racine carrée",
     "type":"latex",
     "ID":"4NA3",
+    "keys":["-","+","*",";","_","_","_","_"],
     "dest":["4NA","3NA","2N1"],
     "options":[{
         "name":"Racines de nombres inférieurs à 100",

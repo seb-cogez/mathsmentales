@@ -5,6 +5,8 @@
     "ID":"GA12",
     "description":"Trouver la dérivée des fonctions de la forme f(x)/g(x)",
     "dest":["GA1"],
+    "textSize":"medium",
+    "keys":["x²","/","+","-","x","y","z","t"],
     "consts":{"lettres":["x","y","z","t"]},
     "options":[{
         "name":"Inverse d'une puissance",

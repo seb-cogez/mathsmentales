@@ -2,6 +2,7 @@
     "title":"Calculs complexes avec puissances de 10",
     "type":"latex",
     "ID":"3NB2",
+    "textSize":"medium",
     "dest":["3NB","2N1"],
     "keys":["_","-","^","10n","_","_","_","_"],
     "options":[{

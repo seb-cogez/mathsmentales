@@ -1,6 +1,7 @@
 {
     "title":"Résoudre une équation produit nul",
     "type":"latex",
+    "textSize":"medium",
     "ID":"3ND6",
     "dest":["3ND","2N3"],
     "keys":["{","-",";","/","_","_","_","_"],

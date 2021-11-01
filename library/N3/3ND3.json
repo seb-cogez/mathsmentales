@@ -3,6 +3,7 @@
     "type":"latex",
     "ID":"3ND3",
     "dest":["3ND"],
+    "textSize":"medium",
     "keys":["-","+","a","b","c","x","y","z"],
     "consts":{"lettres":["a","b","c","x","y","z"]},
     "options":[{

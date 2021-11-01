@@ -2,6 +2,7 @@
     "title":"Calculs avec les puissances",
     "type":"latex",
     "ID":"3NB3",
+    "textSize":"medium",
     "dest":["3NB","2N1"],
     "keys":["(","-","^","_","_","_","_","_"],
     "options":[{

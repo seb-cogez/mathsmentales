@@ -5,6 +5,8 @@
     "ID":"GA14",
     "description":"Trouver la dérivée des fonctions polynomes à partir de $$g(ax+b)'=ag'(ax+b)$$",
     "dest":["GA1"],
+    "textSize":"medium",
+    "keys":["x²","/","+","-","x","y","z","t"],
     "consts":{"lettres":["x","y","z","t"]},
     "vars":{"a":"-3_3_^0","b":"-3_3","cx":"0_3","x":"${:lettres[:cx]}","f":"${math.signIfOne(:a)+:x}${math.signedNumber(:b)}","s":"${math.calc((-:b)+'/('+:a+')')}"},
     "options":[{
