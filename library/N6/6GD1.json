@@ -1,6 +1,8 @@
 {
     "title":"Lien entre aire d'un carré et côté",
+    "description":"Pas encore compatible avec la saisie en ligne",
     "type":"text",
+    "textSize":"medium",
     "ID":"6GD1",
     "dest":["6GD", "5MA", "4MA", "3MA"],
     "vars":{"a":"1_10", "b":"${:a*:a}", "c":["mm","cm","dm","m", "dam", "hm", "km"]},

@@ -1,5 +1,6 @@
 {
     "title":"Traduire un relatif par une phrase",
+    "description":"La réponse positive peut être précédée d'un signe +, ou pas.",
     "ID":"5NA1",
     "type":"text",
     "dest":["5NA","4NA","3NA"],
@@ -8,5 +9,5 @@
     "vars":{"n":"2_20","s":"-1_1_^0", "p":"0_5", "n2":"${(:p==0)?:n*23:(:p==4)?:n*50::n}"},
     "question": "Traduis par un nombre relatif :<br><b>${:datas[:s][:p].replace('#',:n2)}</b>",
     "answer":"${:datas[:s][:p].replace('#',:n2)} peut se traduire par <span class='red'>${(:s>0)?'+'+:n2*:s::n2*:s}</span>",
-    "value":"${(:s>0)?'+'+:n2*:s::n2*:s}"
+    "value":["${(:s>0)?'+'+:n2*:s::n2*:s}","${:n2*:s}"]
 }

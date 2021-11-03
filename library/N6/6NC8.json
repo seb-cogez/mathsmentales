@@ -1,6 +1,8 @@
 {
     "title":"Place du chiffre 9 dans un décimal",
     "type":"text",
+    "description":"Ne pas utiliser en mode online pour le moment",
+    "textSize":"medium",
     "ID":"6NC8",
     "dest":["7NC", "6NC", "5NA", "4NA","3NA"],
     "consts":{"u":["centaines", "dizaines", "unités","dixièmes","centièmes","millièmes"],

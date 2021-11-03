@@ -2,6 +2,7 @@
     "title":"Calculer une expression",
     "type":"latex",
     "ID":"5NE3",
+    "textSize":"medium",
     "dest":["5NE", "4NE", "3ND"],
     "consts":{"lettres":["u","v","t","x", "y", "z"]},
     "options":[{

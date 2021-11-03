@@ -3,6 +3,7 @@
     "ID":"8NE1",
     "description":"",
     "dest":["8NE", "7NE", "6NE"],
+    "keys":["_","_","_","_","_","_","_","_"],
     "options":[{
         "name":"Ajouter un entier",
         "vars":{"a":[9,99,999],"d":"1_3", "t1":"d1_${:a}_${:d}", "t2":"1_9"}

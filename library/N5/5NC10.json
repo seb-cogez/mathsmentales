@@ -1,6 +1,6 @@
 {
     "title":"Pourcentage d'une quantité (simple)",
-    "descriptif":"Calculer 10%,, 20%, 30%, 40%, 50%, 25%, 75%, 33%",
+    "description":"Calculer 10%,, 20%, 30%, 40%, 50%, 25%, 75%, 33%",
     "type":"text",
     "ID":"5NC10",
     "dest":["5NC", "4NC", "3NC"],

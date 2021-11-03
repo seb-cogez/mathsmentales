@@ -500,6 +500,17 @@ aside > button {
   grid-auto-columns: 2em;
   grid-auto-rows: 1em;
 }
+@media screen and (max-width: 800px) {
+  .numkey-base {
+    padding: 6px;
+    border-radius: 3px;
+    grid-template-columns: repeat(5, 2.2em) 0.73em 2.2em 2.2em;
+    grid-template-rows: repeat(8, 1em);
+    grid-gap: 5px;
+    font-size: 1.5rem;
+    font-weight: 550;
+  }
+}
 .slider-34 .numkey-base {
   font-size: 1.5rem;
 }
@@ -535,8 +546,10 @@ aside > button {
 .numkey-base > div:not(.key){
   grid-row: span 2;
 }
-.numkey-base .key:hover {
-  border: 1px solid #aaaaaa;
+@media (hover:hover){
+  .numkey-base .key:hover {
+    border: 1px solid #aaaaaa;
+  }
 }
 .numkey-base .key:active {
   background-color: lightgreen;
@@ -978,7 +991,7 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
 }
 /*taille des spans */
 .slide > span.small {
-  font-size: .333em;
+  font-size: .4em;
 }
 .slide > span {
   min-height: initial;
@@ -987,7 +1000,7 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
   font-size: 1em;
 }
 /* pour les medias touchables */
-@media (hover:none),(hover:on-demand){
+@media screen and (max-width : 800px){
   .slider-1 .slide{
     font-size: 1em;
   }
@@ -1054,7 +1067,7 @@ math-field {
     padding: 8px; 
     border-radius: 8px;*/
     margin: auto;
-    min-width:400px;
+    min-width:300px;
     width: 80%;
     border: 1px solid rgba(0, 0, 0, .3); 
     box-shadow: 0 0 8px rgba(0, 0, 0, .2);

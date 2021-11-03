@@ -2,7 +2,9 @@
     "title":"Opposé d'un nombre",
     "type":"text",
     "ID":"5NA2",
-    "description":"",
+    "textSize":"medium",
+    "keys":["/"],
+    "description":"Donner l'opposé d'un nombre, positif, ou négatif. Mode online : pour les fractions, laisser les numérateurs et dénominateurs positifs et mettre le moins devant la fraction négative.",
     "dest":["5NA", "4NA", "3NA"],
     "options":[{
         "name":"Opposé d'un entier",
@@ -12,11 +14,11 @@
         "vars":{"a":"d-100_100_2", "opp":"${-:a}"}
     },{
         "name":"Opposé d'une fraction",
-        "vars":{"n":"-50_50","d":"-50_50_^${:n}", "opp":""},
-        "question":["Quel est l'opposé de $$\\dfrac{${:n}}{${:d}}$$ ?","$$-\\left(\\dfrac{${:n}}{${:d}}\\right)$$"],
-        "answer":["L'opposé de $$\\dfrac{${:n}}{${:d}}$$ est $$\\color{red}{${:n*:d<0?'':'-'}\\dfrac{${Math.abs(:n)}}{${Math.abs(:d)}}}$$",
-        "$$-\\left(\\dfrac{${:n}}{${:d}}\\right)=\\color{red}{${:n*:d<0?'':'-'}\\dfrac{${Math.abs(:n)}}{${Math.abs(:d)}}}$$"],
-        "value":"${:n*:d<0?'':'-'}\\dfrac{${Math.abs(:n)}}{${Math.abs(:d)}}"
+        "vars":{"n":"-50_50","d":"-50_50_^${:n},1,0", "frac":"${math.fractionSimplifiee(:n,:d)}","fracpos":"${math.fractionSimplifiee(Math.abs(:n),Math.abs(:d))}", "opp":""},
+        "question":["Quel est l'opposé de $$${:frac}$$ ?","$$-\\left(${:frac}\\right)$$"],
+        "answer":["L'opposé de $$${:frac}$$ est $$\\color{red}{${:n*:d<0?'':'-'}${:fracpos}}$$",
+        "$$-\\left(${:frac}\\right)=\\color{red}{${:n*:d<0?'':'-'}${:fracpos}}$$"],
+        "value":"${:n*:d<0?'':'-'}${:fracpos}"
     }],
     "question":["Quel est l'opposé de $$${:a}$$ ?", "$$-(${:a})=?$$"],
     "answer":["L'opposé de $$${:a}$$ est $$\\color{red}{${:opp}}$$", "$$-(${:a})=\\color{red}{${:opp}}$$"],

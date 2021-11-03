@@ -2,6 +2,7 @@
     "title":"Trouver le plus grand diviseur commun",
     "type":"text",
     "ID":"5ND4",
+    "textSize":"medium",
     "dest":["5ND", "4ND", "3NC"],
     "options":[{
         "name":"Nombres inférieurs à 36",

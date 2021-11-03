@@ -1,6 +1,7 @@
 {
     "title":"Additions de petit entiers",
     "type":"text",
+    "textSize":"medium",
     "ID":"6ND1",
     "dest":["7ND","6ND"],
     "vars":{"a":"0_20_2", "c":"${:a[0]+:a[1]}"},

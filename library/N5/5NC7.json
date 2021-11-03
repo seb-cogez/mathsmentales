@@ -2,6 +2,8 @@
     "title":"Ajouter des fractions",
     "type":"latex",
     "ID":"5NC7",
+    "keys":["/"],
+    "textSize":"medium",
     "dest":["6NB", "5NC", "4NC", "3NB"],
     "options":[{
         "name":"Ajouter des fractions décimales (6e)",

@@ -74,13 +74,14 @@ ainsi que des *données optionnelles* :
   * **type** : valeurs possible : "texte", "latex" qui indique le type de rendu des questions/réponses
   * **repeat** : Possibilité de répéter une question (le moteur évite normalement les répétitions de questions, mais parfois, c'est impossible car l'énoncé est visuel et les questions sont toujours les mêmes) valeurs possibles : true (on évite que la question se répète dans les 5 dernières questions) ou un nombre x (on évite que la réponse se répète plus de 2 fois dans les x dernières questions)
   * **keys** : tableau d'au plus huit éléments contenant les touches optionnelles pour le clavier virtuel.
-  * **textsize** : taille du texte de la question, permet de modifier la taille d'affichage par défaut. valeurs possibles : "medium" ou "small" 
+  * **textSize** : taille du texte de la question, permet de modifier la taille d'affichage par défaut. valeurs possibles : "medium" ou "small" 
 
 * Pour l'activité ou une option :
   * **value** : chaine ou tableau de chaines contenant les réponses attendues dans le formulaire de réponse en ligne
   * **figure** : chaine contenant une figure illustrant l'activité
   * **shortq** : question au format court (pas la consigne par exemple) pour un export plus lisible dans les ceintures, doit suivre la forme de "questions" : une chaine ou un tableau
-  * **valuetype** : chaine qui indique le type de réponse attendue, pour une correction en ligne plus précise
+  * **valueType** : chaine qui indique le type de réponse attendue, pour une correction en ligne plus précise
+    * "liste" pour des listes de nombres séparées par des point-virgule
  
  Le tableau de touches par défaut est ["÷","×","-","+","(","x","x²","√"];
  

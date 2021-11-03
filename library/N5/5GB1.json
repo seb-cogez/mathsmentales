@@ -1,9 +1,10 @@
 {
     "ID":"5GB1",
     "dest":["5GB","4GB","3GB"],
-    "title":"Trouver la mesure d'un 3e angle",
+    "title":"Trouver la mesure d'un 3e angle, en degrés.",
     "repeat":true,
     "type":"text",
+    "keys":["_","_","_","°","_","_","_","_"],
     "consts":{"points":"ABCDEFGHJKLMNPRST"},
     "vars":{"pts":"0_16_3_^&","A":"${:points[:pts[0]]}","B":"${:points[:pts[1]]}","C":"${:points[:pts[2]]}","xa":"d-4_-2_1", "ya":"d-4_-2_1", "xb":"d2_4_1","yb":"d-4_-1_1","xc":"d-4_4_1","yc":"1_4","AB2":"${(:xb-:xa)*(:xb-:xa)+(:yb-:ya)*(:yb-:ya)}", "BC2":"${(:xb-:xc)*(:xb-:xc)+(:yb-:yc)*(:yb-:yc)}","AC2":"${(:xc-:xa)*(:xc-:xa)+(:yc-:ya)*(:yc-:ya)}", "CAB":"${math.round(Math.acos((:AC2+:AB2-:BC2)/(2*Math.sqrt(:AC2)*Math.sqrt(:AB2)))/Math.PI*180)}","ABC":"${math.round(Math.acos((:BC2+:AB2-:AC2)/(2*Math.sqrt(:BC2)*Math.sqrt(:AB2)))/Math.PI*180)}", "BCA":"${180-:CAB-:ABC}"},
     "options":[
@@ -61,5 +62,5 @@
             "answer":"L'angle $$\\widehat{${:B+:C+:A}}$$ mesure $$180°-(${:CAB}°+${:ABC}°)=\\color{red}{${:BCA}°}$$"
         }
     ],
-    "value":"${:BCA}°"
+    "value":["${:BCA}°","${:BCA}"]
 }

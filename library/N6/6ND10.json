@@ -1,6 +1,8 @@
 {
     "title":"Division entière, division euclidienne",
     "ID":"6ND10",
+    "description":"Pour répondre, donner le quotient, puis le reste si nécessaire, séparés d'un point-virgule",
+    "keys":["_","_",";","_","_","_","_","_"],
     "dest":["6ND", "7ND","5ND", "4ND", "3NC", "2N2"],
     "options":[{
         "name":"Division entière",

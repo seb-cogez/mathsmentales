@@ -2,7 +2,7 @@
     "title":"Ajouter, soustraire 9, 11, 19...",
     "type":"latex",
     "ID":"8ND1",
-    "description":"",
+    "keys":["_","_","_","_","_","_","_","_"],
     "dest":["8ND","7ND","6ND"],
     "options":[{
         "name":"Ajouter 9 ou 99",

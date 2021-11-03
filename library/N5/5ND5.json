@@ -2,6 +2,8 @@
     "title":"Reconnaître un nombre premier",
     "ID":"5ND5",
     "dest":["5ND", "4ND", "3NC"],
+    "keys":["_","_","V","F","_","_","_","_"],
+    "textSize":"medium",
     "options":[{
         "name":"Nombres inférieurs à 30 (5e)",
         "vars":{"i":"0_1", "n":"0_9", "premier":"${math.premiers[:n]}", "pasPremier":"1_30_^prime", "p":"${:i==1?:premier::pasPremier}"}

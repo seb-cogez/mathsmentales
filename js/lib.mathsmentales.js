@@ -1136,7 +1136,7 @@ var math ={
     * @param {integer} nb nombre à décomposer
     * @param {boolean} array false ou undefined renvoie une chaine, un tableau sinon
     */
-    listeDiviseurs:function(nb, array){
+    listeDiviseurs:function(nb, array=false){
         let maxSearch = Math.floor(Math.sqrt(nb));
         let diviseurs = [];
         let grandsdiviseurs = [];
@@ -3289,7 +3289,7 @@ var MM = {
                MM.mf[ID].id = ID;
                MM.mf[ID].target = element;
                MM.mf[ID].addEventListener("keyup",function(event){
-                    if(event.key === "Enter" || event.keyCode === 9){
+                    if(event.key === "Enter" || event.code === "NumpadEnter"){
                         MM.nextSlide(slider);
                         event.preventDefault();
                 }
@@ -4000,7 +4000,8 @@ var MM = {
                         userAnswer = userAnswer.replace(">","\\gt");
                         userAnswer = userAnswer.replace("<","\\lt");
                         const expectedAnswer = MM.goodAnswers[slider][refs[0]][refs[1]];//MM.carts[0].activities[refs[0]].values[refs[1]];
-                        debug(userAnswer,expectedAnswer);
+                        let valueType = MM.carts[0].activities[refs[0]].valueType;
+                        //debug(userAnswer,expectedAnswer);
                         // TODO : better correction value
                         // prendre en compte les cas où plusieurs réponses sont possibles
                         // attention, si c'est du texte, il faut supprimer des choses car mathlive transforme 
@@ -4024,6 +4025,29 @@ var MM = {
                                     } catch(error){
                                         li.className = "wrong";
                                     }
+                                }
+                            }
+                        } else if(valueType !== false){
+                            // confrontation de listes séparées par des ;
+                            if(valueType === "liste"){
+                                let arrayUser = userAnswer.split(";").map(value=>value.trim()).sort((a,b)=>a-b);
+                                let arrayExpected = expectedAnswer.split(";").map(value=>value.trim()).sort((a,b)=>a-b);
+                                // comparons les contenus en transformant en une chaine
+                                if(arrayUser.toString()===arrayExpected.toString()){
+                                    li.className = "good";
+                                    score++;
+                                } else {
+                                    li.className = "wrong";
+                                }
+                            } else if(valueType === "inInterval"){
+                                // ici la valeur doit être comprise entre les deux bornes de l'intervalle
+                                let minmax = expectedAnswer.split("-").map(value=>Number(value));
+                                //minmax[0] est la borne inf et minmax[1] est la borne sup;
+                                if(Number(userAnswer)>minmax[0] && Number(userAnswer) < minmax[1]){
+                                    li.className = "good";
+                                    score++;
+                                } else {
+                                    li.className = "wrong";
                                 }
                             }
                         } else {
@@ -4342,7 +4366,7 @@ var library = {
                                     "t":lexo.t.replace(reg,function(x){return "<mark>"+x+"</mark>"})})
                                 } else
                                 // recherche dans le code de l'exo
-                                if(lexo.u.toLowerCase().indexOf(level.toLowerCase())>-1){
+                                if(lexo.u.toLowerCase()===level.toLowerCase()){
                                     chapExo.push({"u":lexo.u,"t":lexo.t});
                                 } else
                                 // recherche dans les descriptifs
@@ -4440,27 +4464,28 @@ class keyBoard {
             "×":["key colored","×",()=>{this.targetField.executeCommand(["insert","\\times"]);this.focus();}],
             "*":["key colored","×",()=>{this.targetField.executeCommand(["insert","\\times"]);this.focus();}],
             "-":["key colored","−",()=>{this.targetField.executeCommand(["insert","-"]);this.focus();}],
-            "+":["key colored","+",()=>{this.targetField.executeCommand(["insert","+"]);this.focus();}],
             "(":["key colored","( )",()=>{this.targetField.executeCommand(["insert","(#0)"]);this.focus();}],
             "{":["key colored","{ }",()=>{this.targetField.executeCommand(["insert","{#0;#0}"]);this.focus();}],
             "x²":["key times colored","x²",()=>{this.targetField.executeCommand(["insert","^2"]);this.focus();}],
             "√":["key colored","√¯",()=>{this.targetField.executeCommand(["insert","\\sqrt{#0}"]);this.focus();}],
             "/":["key colored","/",()=>{this.targetField.executeCommand(["insert","\\dfrac{#0}{#0}"]);this.focus();}],
             "pi":["key colored","π",()=>{this.targetField.executeCommand(["insert","\\pi"]);this.focus();}],
-            ";":["key colored",";",()=>{this.targetField.executeCommand(["insert",";"]),this.focus();}],
-            "<":["key colored","<",()=>{this.targetField.executeCommand(["insert","<"]),this.focus();}],
-            ">":["key colored",">",()=>{this.targetField.executeCommand(["insert",">"]),this.focus();}],
-            "=":["key colored","=",()=>{this.targetField.executeCommand(["insert","="]),this.focus();}],
             "^":["key colored","x<sup>n</sup>",()=>{this.targetField.executeCommand(["insert","^{#0}",{format:"latex"}]),this.focus();}],
             "10n":["key colored","10<sup>n</sup>",()=>{this.targetField.executeCommand(["insert","10^{#0}",{format:"latex"}]),this.focus();}],
-            "h":["key colored","h",()=>{this.targetField.executeCommand(["insert","\\text{ h }#0"]),this.focus();}],
-            "min":["key colored","min",()=>{this.targetField.executeCommand(["insert","\\text{ min}"]),this.focus();}],
+            "h":["key colored","h",()=>{this.targetField.executeCommand(["insert","h"]),this.focus();}],
+            "min":["key colored","min",()=>{this.targetField.executeCommand(["insert","min"]),this.focus();}],
+            "aigu":["key colored","aig",()=>{this.targetField.executeCommand(["insert","aigu"]),this.focus();}],
+            "obtus":["key colored","obt",()=>{this.targetField.executeCommand(["insert","obtus"]),this.focus();}],
+            "droit":["key colored","drt",()=>{this.targetField.executeCommand(["insert","droit"]),this.focus();}],
             "o":["key colored","O",()=>{this.targetField.executeCommand(["insert","\\text{oui}"]),this.focus();}],
             "n":["key colored","N",()=>{this.targetField.executeCommand(["insert","\\text{non}"]),this.focus();}],
-            "V":["key colored","O",()=>{this.targetField.executeCommand(["insert","\\text{vrai}"]),this.focus();}],
-            "F":["key colored","O",()=>{this.targetField.executeCommand(["insert","\\text{faux}"]),this.focus();}],
+            "V":["key colored","V",()=>{this.targetField.executeCommand(["insert","\\text{VRAI}"]),this.focus();}],
+            "F":["key colored","F",()=>{this.targetField.executeCommand(["insert","\\text{FAUX}"]),this.focus();}],
             "A":["key colored","A",()=>{this.targetField.executeCommand(["insert","\\text{affine non linéaire}"]),this.focus();}],
             "L":["key colored","L",()=>{this.targetField.executeCommand(["insert","\\text{linéaire}"]),this.focus();}],
+            "l":["key colored","L",()=>{this.targetField.executeCommand(["insert","\\text{ L}"]),this.focus();}],
+            "l":["key colored","m",()=>{this.targetField.executeCommand(["insert","\\text{ m}"]),this.focus();}],
+            "l":["key colored","g",()=>{this.targetField.executeCommand(["insert","\\text{ g}"]),this.focus();}],
             "%":["key colored","%",()=>{this.targetField.executeCommand(["insert","\\%"]),this.focus();}]
         }
         this.targetField = target;
@@ -4490,7 +4515,7 @@ class keyBoard {
             let elm;
             if(className ==="_"){
                 elm = utils.create("div");                
-            } else if(["a","b","c","e","t",":","u","v","x","y","z"].indexOf(className)>-1){
+            } else if(["a","b","c","e","i","t",":","u","v","x","y","z","€",";","<",">","=","+","°"].indexOf(className)>-1){
                 elm =utils.create("div",{className:"key times colored",innerHTML:className});
                 if(MM.touched)
                     elm.ontouchend = ()=>{this.targetField.executeCommand(["insert",className]);this.focus();};
@@ -4669,6 +4694,7 @@ class activity {
         this.getPatternHistory = {global:[]};
         this.keys = obj.keys||[];
         this.textSize = obj.textSize||false;
+        this.valueType = obj.valueType||false;
     }
     initialize(){
         this.questions = [];

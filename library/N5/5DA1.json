@@ -2,6 +2,7 @@
     "title":"Données les plus/moins représentées",
     "type":"text",
     "dest":["5DA", "4DA", "3DA"],
+    "description":"Observer et trouver la donnée la plus ou la moins représentée. Ne pas utiliser en mode online pour le moment.",
     "ID":"5DA1",
     "consts":{
         "b":[["fraises", "bananes", "oranges", "kiwis", "pommes"],

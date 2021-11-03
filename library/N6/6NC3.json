@@ -1,6 +1,8 @@
 {
     "title":"Encadrer un décimal",
     "type":"text",
+    "description":"Donner les deux nombres encadrant, le plus petit d'abord, séparés par un point-virgule",
+    "keys":["_","_","_",";"],
     "ID":"6NC3",
     "dest":["6NC"],
     "options":[

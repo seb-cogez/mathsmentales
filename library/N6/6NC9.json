@@ -2,6 +2,7 @@
     "title":"Quel est le chiffre des ... ? (décimaux)",
     "type":"text",
     "ID":"6NC9",
+    "textSize":"medium",
     "dest":["7NC", "6NC", "5NA"],
     "consts":{"u":["centaines", "dizaines", "unités","dixièmes","centièmes","millièmes"],
         "v":["centaines de mille", "dizaines de mille", "unités de mille","centaines", "dizaines", "unités", "dixièmes","centièmes","millièmes"],

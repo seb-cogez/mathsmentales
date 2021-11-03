@@ -3,6 +3,7 @@
     "type":"text",
     "ID":"7MC1",
     "keys":["h","_","_","_"],
+    "description":"Donner la réponse en indiquant l'heure au format 9h05",
     "dest":["9MC", "8MC","7MC", "6MB"],
     "options":[{
         "name":"Après, en retard en min",

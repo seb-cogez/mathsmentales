@@ -1,6 +1,7 @@
 {
     "title":"Tables de Multiplications",
     "ID":"mult",
+    "keys":["_","_","_","_","_","_","_","_"],
     "options":[
         {"name":"Petites", "vars":{"a":"1_4", "b":"1_4"}},
         {"name": "Moyennes", "vars":{"a":"5_7", "b":"5_7"}}

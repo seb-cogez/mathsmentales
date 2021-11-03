@@ -1,6 +1,7 @@
 {
     "title":"Augmenter ou réduire en pourcentage",
     "type":"text",
+    "textSize":"medium",
     "ID":"5DC1",
     "dest":["5DC", "4DC","3DC"],
     "options":[{

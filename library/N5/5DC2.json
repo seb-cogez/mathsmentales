@@ -1,5 +1,7 @@
 {
     "title":"Utiliser l'échelle d'une carte, d'un plan, d'un modèle réduit",
+    "description":"Ne pas utiliser la saisie en ligne pour le moment.",
+    "textSize":"small",
     "type":"text",
     "ID":"5DC2",
     "dest":["5DC","6NC","7NH","4DC"],
