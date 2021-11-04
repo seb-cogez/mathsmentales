@@ -2,6 +2,8 @@
     "ID":"8ME1",
     "dest":["8ME","7ME","6ME"],
     "title":"Reconnaître un angle",
+    "textSize":"small",
+    "keys":["obtus","aigu","droit","_"],
     "repeat":true,
     "type":"text",
     "consts":{"vocab":["aigu", "droit", "obtus"],"points":"ABCDEFGHJKLMNPRST"},

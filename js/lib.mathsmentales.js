@@ -1136,7 +1136,7 @@ var math ={
     * @param {integer} nb nombre à décomposer
     * @param {boolean} array false ou undefined renvoie une chaine, un tableau sinon
     */
-    listeDiviseurs:function(nb, array){
+    listeDiviseurs:function(nb, array=false){
         let maxSearch = Math.floor(Math.sqrt(nb));
         let diviseurs = [];
         let grandsdiviseurs = [];
@@ -3203,11 +3203,14 @@ var MM = {
                     let j = actsArray[ff][1];
                     let question = activity.questions[j];
                     let answer = activity.answers[j];
+                    let fontSize = activity.textSize || false;
                     // slides
                     let color = ff%2?" pair":" impair";
                     let div = utils.create("div",{className:"slide w3-animate-top"+(indiceSlide>0?" hidden":"")+color,id:"slide"+slideNumber+"-"+indiceSlide});
                     let span = utils.create("span",{innerHTML:question});
+                    if(fontSize)span.className=fontSize;
                     let spanAns = utils.create("span",{className:"answerInSlide hidden",innerHTML:answer});
+                    if(fontSize)spanAns.className+=" "+fontSize;
                     // timers
                     MM.timers[slideNumber].addDuration(activity.tempo);
                     // enoncés et corrigés
@@ -3216,7 +3219,7 @@ var MM = {
                     if(activity.type === undefined || activity.type === "" || activity.type === "latex"){
                         lie.className = "math";
                         lic.className = "math";
-                        span.className="math";
+                        span.className +=" math";
                         spanAns.className += " math";
                     }
                     div.appendChild(span);
@@ -3277,11 +3280,15 @@ var MM = {
                //if(MM.touched){
                     let keys = MM.carts[0].activities[MM.carts[0].actsArrays[slider][slide][0]].keys || undefined;
                     MM.keyboards[ID]= new keyBoard(MM.mf[ID],keys,element,slider);
+                    // si on affiche une figure, on diminue la taille du champ de réponse.
+                    if(MM.figs[slider+"-"+slide]!== undefined){
+                        MM.mf[ID].style.fontSize = "0.333em";
+                    }
                 //}
                MM.mf[ID].id = ID;
                MM.mf[ID].target = element;
                MM.mf[ID].addEventListener("keyup",function(event){
-                    if(event.key === "Enter" || event.keyCode === 9){
+                    if(event.key === "Enter" || event.code === "NumpadEnter"){
                         MM.nextSlide(slider);
                         event.preventDefault();
                 }
@@ -3768,6 +3775,7 @@ var MM = {
         let container = document.getElementById("slideshow");
         container.innerHTML = "";
         if(MM.slidersOrientation === "v")utils.addClass(container,"vertical");
+        else utils.removeClass(container,"vertical");
         if(MM.faceToFace==="y") utils.addClass(container,"return");
         else utils.removeClass(container,"return");
         for(let i=0;i<nb;i++){
@@ -3996,7 +4004,8 @@ var MM = {
                         userAnswer = userAnswer.replace(">","\\gt");
                         userAnswer = userAnswer.replace("<","\\lt");
                         const expectedAnswer = MM.goodAnswers[slider][refs[0]][refs[1]];//MM.carts[0].activities[refs[0]].values[refs[1]];
-                        debug(userAnswer,expectedAnswer);
+                        let valueType = MM.carts[0].activities[refs[0]].valueType;
+                        //debug(userAnswer,expectedAnswer);
                         // TODO : better correction value
                         // prendre en compte les cas où plusieurs réponses sont possibles
                         // attention, si c'est du texte, il faut supprimer des choses car mathlive transforme
@@ -4022,6 +4031,29 @@ var MM = {
                                     }
                                 }
                             }
+                        } else if(valueType !== false){
+                            // confrontation de listes séparées par des ;
+                            if(valueType === "liste"){
+                                let arrayUser = userAnswer.split(";").map(value=>value.trim()).sort((a,b)=>a-b);
+                                let arrayExpected = expectedAnswer.split(";").map(value=>value.trim()).sort((a,b)=>a-b);
+                                // comparons les contenus en transformant en une chaine
+                                if(arrayUser.toString()===arrayExpected.toString()){
+                                    li.className = "good";
+                                    score++;
+                                } else {
+                                    li.className = "wrong";
+                                }
+                            } else if(valueType === "inInterval"){
+                                // ici la valeur doit être comprise entre les deux bornes de l'intervalle
+                                let minmax = expectedAnswer.split("-").map(value=>Number(value));
+                                //minmax[0] est la borne inf et minmax[1] est la borne sup;
+                                if(Number(userAnswer)>minmax[0] && Number(userAnswer) < minmax[1]){
+                                    li.className = "good";
+                                    score++;
+                                } else {
+                                    li.className = "wrong";
+                                }
+                            }
                         } else {
                             if(String(userAnswer).toLowerCase()==String(expectedAnswer).toLowerCase()){
                                 li.className = "good";
@@ -4042,10 +4074,10 @@ var MM = {
                             }
                         }
                         // on teste si la réponse est un nombre ou si elle contient des caractères echapés auquel cas on considère que c'est du latex
-                        if(!/[^-\d\.]/.test(userAnswer) || /\\/.test(userAnswer)){
+                        //if(!/[^-\d\.]/.test(userAnswer) || /\\/.test(userAnswer)){
                             span.className ="math";
                             userAnswer = "\\displaystyle "+userAnswer;
-                        }
+                        //}
                         span.textContent = userAnswer;
                         ia++;
                         li.appendChild(span);
@@ -4195,6 +4227,7 @@ var MM = {
         if(option === "h"){
             MM.slidersOrientation = "h";
             document.getElementById("screen-division").className = "";
+            document.querySelector("input[name='direction'][value='h']").checked = true;
         } else {
             MM.slidersOrientation = "v";
             document.getElementById("screen-division").className = "vertical";
@@ -4206,6 +4239,10 @@ var MM = {
 // lecture de la bibliotheque
 var library = {
     ordre:{"grille-ecole":["11","10","9","8","7"],"grille-college":["6","5","4","3"],"grille-lycee":["2","G","T"]},
+    /**
+     * Affiche une activité dans l'onglet de paramètres
+     * @param {JSON} json description de l'objet
+     */
     open:function(json){
         let obj = new activity(json);
         MM.editedActivity = obj;
@@ -4218,7 +4255,10 @@ var library = {
         document.getElementById("removeFromCart").className = "hidden";
         obj.display();
     },
-    // open file from library
+    /**
+     * Ouvre un fichier de la library
+     * @param {String} url adresse du fihcier à ouvrir
+     */
     load:function(url){
         let reader = new XMLHttpRequest();
         reader.onload = ()=>{
@@ -4231,7 +4271,11 @@ var library = {
         reader.open("get", "library/"+url+"?v"+MM.version);
         reader.send();
     },
-    // import activity data from file
+    /**
+     * Récupère les données d'une activité lors d'un import venant du chargement d'un panier préconfiguré.
+     * @param {String} url adresse
+     * @returns Promesse de chargement du fichier à charger
+     */
     import:function(url){
         return new Promise((resolve,reject)=>{
         let reader = new XMLHttpRequest();
@@ -4243,7 +4287,9 @@ var library = {
         reader.send();
         })
     },
-    // load data from content file = list of all activities
+    /**
+     * Ouvre le fichier de description de toutes les activités disponibles sur MathsMentales
+     */
     openContents:function(){
         let reader = new XMLHttpRequest();
         reader.onload = function(){
@@ -4258,6 +4304,12 @@ var library = {
         reader.open("get", "library/content.json?v"+MM.version, true);
         reader.send();
     },
+    /**
+     * Affiche la liste des activités provenant d'une recherche ou d'un niveau à afficher (base=true)
+     * @param {String} level Niveau à afficher
+     * @param {Boolean} base Niveau de base ou pas
+     * @returns
+     */
     displayContent:function(level,base=false){
         if(MM.content === undefined) {console.log("Pas de bibliothèque"); return false;}
         let niveau={nom:"Recherche",themes:{}};
@@ -4318,7 +4370,7 @@ var library = {
                                     "t":lexo.t.replace(reg,function(x){return "<mark>"+x+"</mark>"})})
                                 } else
                                 // recherche dans le code de l'exo
-                                if(lexo.u.toLowerCase().indexOf(level.toLowerCase())>-1){
+                                if(lexo.u.toLowerCase()===level.toLowerCase()){
                                     chapExo.push({"u":lexo.u,"t":lexo.t});
                                 } else
                                 // recherche dans les descriptifs
@@ -4414,24 +4466,31 @@ class keyBoard {
         this.keyConf = {
             "÷":["key colored","÷",()=>{this.targetField.executeCommand(["insert","\\div"]);this.focus();}],
             "×":["key colored","×",()=>{this.targetField.executeCommand(["insert","\\times"]);this.focus();}],
-            "-":["key colored","-",()=>{this.targetField.executeCommand(["insert","-"]);this.focus();}],
-            "+":["key colored","+",()=>{this.targetField.executeCommand(["insert","+"]);this.focus();}],
+            "*":["key colored","×",()=>{this.targetField.executeCommand(["insert","\\times"]);this.focus();}],
+            "-":["key colored","−",()=>{this.targetField.executeCommand(["insert","-"]);this.focus();}],
             "(":["key colored","( )",()=>{this.targetField.executeCommand(["insert","(#0)"]);this.focus();}],
+            "{":["key colored","{ }",()=>{this.targetField.executeCommand(["insert","{#0;#0}"]);this.focus();}],
             "x²":["key times colored","x²",()=>{this.targetField.executeCommand(["insert","^2"]);this.focus();}],
-            "√":["key colored","√¯",()=>{this.targetField.executeCommand(["insert","\\sqrt(#0)"]);this.focus();}],
+            "√":["key colored","√¯",()=>{this.targetField.executeCommand(["insert","\\sqrt{#0}"]);this.focus();}],
             "/":["key colored","/",()=>{this.targetField.executeCommand(["insert","\\dfrac{#0}{#0}"]);this.focus();}],
             "pi":["key colored","π",()=>{this.targetField.executeCommand(["insert","\\pi"]);this.focus();}],
-            ";":["key colored",";",()=>{this.targetField.executeCommand(["insert",";"]),this.focus();}],
-            "<":["key colored","<",()=>{this.targetField.executeCommand(["insert","<"]),this.focus();}],
-            ">":["key colored",">",()=>{this.targetField.executeCommand(["insert",">"]),this.focus();}],
-            "=":["key colored","=",()=>{this.targetField.executeCommand(["insert","="]),this.focus();}],
-            "^":["key colored","x<sup>n</sup>",()=>{this.targetField.executeCommand(["insert","^{#0}"]),this.focus();}],
-            "h":["key colored","h",()=>{this.targetField.executeCommand(["insert","\\text{ h }#0"]),this.focus();}],
-            "min":["key colored","min",()=>{this.targetField.executeCommand(["insert","\\text{ min}"]),this.focus();}],
+            "^":["key colored","x<sup>n</sup>",()=>{this.targetField.executeCommand(["insert","^{#0}",{format:"latex"}]),this.focus();}],
+            "10n":["key colored","10<sup>n</sup>",()=>{this.targetField.executeCommand(["insert","10^{#0}",{format:"latex"}]),this.focus();}],
+            "h":["key colored","h",()=>{this.targetField.executeCommand(["insert","h"]),this.focus();}],
+            "min":["key colored","min",()=>{this.targetField.executeCommand(["insert","min"]),this.focus();}],
+            "aigu":["key colored","aig",()=>{this.targetField.executeCommand(["insert","aigu"]),this.focus();}],
+            "obtus":["key colored","obt",()=>{this.targetField.executeCommand(["insert","obtus"]),this.focus();}],
+            "droit":["key colored","drt",()=>{this.targetField.executeCommand(["insert","droit"]),this.focus();}],
             "o":["key colored","O",()=>{this.targetField.executeCommand(["insert","\\text{oui}"]),this.focus();}],
             "n":["key colored","N",()=>{this.targetField.executeCommand(["insert","\\text{non}"]),this.focus();}],
-            "V":["key colored","O",()=>{this.targetField.executeCommand(["insert","\\text{vrai}"]),this.focus();}],
-            "F":["key colored","O",()=>{this.targetField.executeCommand(["insert","\\text{faux}"]),this.focus();}]
+            "V":["key colored","V",()=>{this.targetField.executeCommand(["insert","\\text{VRAI}"]),this.focus();}],
+            "F":["key colored","F",()=>{this.targetField.executeCommand(["insert","\\text{FAUX}"]),this.focus();}],
+            "A":["key colored","A",()=>{this.targetField.executeCommand(["insert","\\text{affine non linéaire}"]),this.focus();}],
+            "L":["key colored","L",()=>{this.targetField.executeCommand(["insert","\\text{linéaire}"]),this.focus();}],
+            "l":["key colored","L",()=>{this.targetField.executeCommand(["insert","\\text{ L}"]),this.focus();}],
+            "l":["key colored","m",()=>{this.targetField.executeCommand(["insert","\\text{ m}"]),this.focus();}],
+            "l":["key colored","g",()=>{this.targetField.executeCommand(["insert","\\text{ g}"]),this.focus();}],
+            "%":["key colored","%",()=>{this.targetField.executeCommand(["insert","\\%"]),this.focus();}]
         }
         this.targetField = target;
         this.sliderId = sliderId;
@@ -4460,7 +4519,7 @@ class keyBoard {
             let elm;
             if(className ==="_"){
                 elm = utils.create("div");
-            } else if(["a","b","c","e","t",":","u","v","x","y","z"].indexOf(className)>-1){
+            } else if(["a","b","c","e","i","t",":","u","v","x","y","z","€",";","<",">","=","+","°"].indexOf(className)>-1){
                 elm =utils.create("div",{className:"key times colored",innerHTML:className});
                 if(MM.touched)
                     elm.ontouchend = ()=>{this.targetField.executeCommand(["insert",className]);this.focus();};
@@ -4594,6 +4653,10 @@ class keyBoard {
 }
 */
 class activity {
+    /**
+     * Création d'une activité à partir d'un objet javascript ou d'un code d'activité
+     * @param {json ou string} obj
+     */
     constructor(obj){
         if(_.isObject(obj)){
             this.setParams(obj);
@@ -4601,6 +4664,10 @@ class activity {
             this.id = obj;
         }
     }
+    /**
+     *
+     * @param {Object} obj objet javascript contenant les paramètres d'une activités
+     */
     setParams(obj){
         this.id = obj.id||obj.ID;
         this.type = obj.type; // undefined => latex , "text" can include math, with $$ around
@@ -4609,7 +4676,7 @@ class activity {
         this.description = obj.description; // long description
         this.vars = obj.vars;
         this.consts = obj.consts;
-        this.canrepeat = obj.repeat||false; // question & answers peuvent être répétées ou pas
+        this.repeat = obj.repeat||false; // question & answers peuvent être répétées ou pas
         this.options = utils.clone(obj.options)||undefined;
         this.questionPatterns = utils.clone(obj.questionPatterns)||obj.question;
         this.shortQuestionPatterns = utils.clone(obj.shortQuestionPatterns)||obj.shortq||false;
@@ -4630,6 +4697,8 @@ class activity {
         this.getOptionHistory = [];
         this.getPatternHistory = {global:[]};
         this.keys = obj.keys||[];
+        this.textSize = obj.textSize||false;
+        this.valueType = obj.valueType||false;
     }
     initialize(){
         this.questions = [];
@@ -5194,9 +5263,28 @@ class activity {
             }
             loopProtect++;
             // on évite les répétitions
-            if(this.questions.indexOf(thequestion)<0 || this.values.indexOf(thevalue)<0 || this.canrepeat){
+            if(this.questions.indexOf(thequestion)<0 || this.values.indexOf(thevalue)<0 || this.repeat){
                 // cas d'une répétition autorisée, on va éviter que cela arrive quand même dans les 5 précédents.
-                if(this.canrepeat){
+                // généralement les VRAI/FAUX, ou 2 réponses possibles seulement.
+                if(typeof this.repeat === "number"){
+                    // pour les données binaire, on fera attention à ce que cela ne se répète pas trop de fois d'affilée
+                    let last2Values = this.values.slice(-this.repeat);
+                    let count = 0
+                    for(let i=0;i<last2Values.length;i++){
+                        if(last2Values[i]===thevalue)count++;
+                    }
+                    // on a 2 occurences de la valeur, on n'en veut pas 3.
+                    if(count>=2){
+                        i--;
+                        if(loopProtect<maxLoop) // attention à pas tourner en rond
+                            continue;
+                        else { // on tourne en rond, donc on arrête le script
+                            debug("To many loops");
+                            break;
+                        }
+                    }
+                    // autres cas de répétitions
+                } else if(this.repeat){
                     // on extrait les 5 dernières questions et réponses (il y a des activités avec des questions identiques mais pas les mêmes réponses)
                     let last5Questions = this.questions.slice(-5); // ça marche, même si le tableau a moins de 5 éléménts
                     let last5values = this.values.slice(-5);
@@ -5207,7 +5295,7 @@ class activity {
                         if(loopProtect<maxLoop) // attention à pas tourner en rond
                             continue;
                         else { // on tourne en rond, donc on arrête le script
-                            debug("Pas assez de données pour éviter les répétitions")
+                            debug("Pas assez de données pour éviter les répétitions");
                             break;
                         }
                     }

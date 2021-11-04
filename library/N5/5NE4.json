@@ -4,6 +4,8 @@
     "ID":"5NE4",
     "description":"Tester des égalités de",
     "dest":["5NE","4NE","3ND"],
+    "textSize":"medium",
+    "keys":["V","F"],
     "consts":{"lettres":["u","v","t","x", "y", "z"]},
     "options":[{
         "name":"ax + b = cx + d, paramètres positifs",

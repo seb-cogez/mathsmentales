@@ -3,6 +3,8 @@
     "type":"latex",
     "ID":"2G12",
     "dest":["2G1"],
+    "textSize":"medium",
+    "keys":["(",";","-","_","_","_","_","_"],
     "consts":{"vecteurs":["u", "v", "w", "u'", "v'", "w'"]},
     "options":[{
         "name":"Somme à coordonnées positives",
@@ -20,5 +22,5 @@
     ],
     "question": "\\begin{cases}\\overrightarrow{${:vecteurs[:v[0]]}}(${:x[0]+';\\color{blue}{'+:x[1]}}) \\\\ \\overrightarrow{${:vecteurs[:v[1]]}}(${:x[2]+';\\color{blue}{'+:x[3]}})\\end{cases} \\quad \\overrightarrow{${:vecteurs[:v[0]]}}${:signe}\\overrightarrow{${:vecteurs[:v[1]]}}(? ; ?)",
     "answer":"\\text{Pour }${:vecteurs[:v[0]]}(${:x[0]+';\\color{blue}{'+:x[1]}}) \\text{ et } ${:vecteurs[:v[1]]}(${:x[2]+';\\color{blue}{'+:x[3]}}), \\overrightarrow{${:vecteurs[:v[0]]+:vecteurs[:v[1]]}}\\color{red}{(${math.round(:signe=='+'?:x[2]+:x[0]::x[0]-:x[2],2)};${math.round(:signe=='-'?:x[1]-:x[3]::x[3]+:x[1],2)})}",
-    "value":"(${math.round(:signe=='+'?:x[2]+:x[0]::x[0]-:x[2],2)};${math.round(:signe=='-'?:x[1]-:x[3]::x[3]+:x[1],2)})"
+    "value":"\\left(${math.round(:signe=='+'?:x[2]+:x[0]::x[0]-:x[2],2)};${math.round(:signe=='-'?:x[1]-:x[3]::x[3]+:x[1],2)}\\right)"
 }

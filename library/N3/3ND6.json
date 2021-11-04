@@ -1,21 +1,27 @@
 {
     "title":"Résoudre une équation produit nul",
     "type":"latex",
+    "textSize":"medium",
     "ID":"3ND6",
     "dest":["3ND","2N3"],
+    "keys":["{","-",";","/","_","_","_","_"],
     "consts":{"lettres":["u","v","t","x", "y", "z"]},
     "options":[{
         "name":"Résoudre (x+a)(x+b)=0",
         "vars":{"a":"-10_10_2_^&","l":"0_5","x":"${:lettres[:l]}"},
         "question": "${:a[0]!=0?'('+:x+math.signedNumber(:a[0])+')'::x}${:a[1]!=0?'('+:x+math.signedNumber(:a[1])+')'::x}=0",
-        "answer":":question \\text{ si } ${:x}=\\color{red}{${-:a[0]}} \\text{ ou } ${:x}=\\color{red}{${-:a[1]}}",
-        "value":"${-:a[0]};${-:a[1]}"
+        "answer":":question \\\\ \\text{ si } ${:x}=\\color{red}{${-:a[0]}} \\text{ ou } ${:x}=\\color{red}{${-:a[1]}}",
+        "value":["${-:a[0]};${-:a[1]}","${-:a[1]};${-:a[0]}","\\left\\{${-:a[0]};${-:a[1]}\\right\\}","\\left\\{${-:a[0]};${-:a[1]}\\right\\}"]
     },{
         "name":"Résoudre (ax+b)(cx+d)=0",
         "vars":{"a":"-10_10_2_^0","b":"-10_10_2_^&","l":"0_5","x":"${:lettres[:l]}"},
         "question": "${:b[0]!=0?'('+math.signIfOne(:a[0])+:x+math.signedNumber(:b[0])+')':math.signIfOne(:a[0])+:x}${:b[1]!=0?'('+math.signIfOne(:a[1])+:x+math.signedNumber(:b[1])+')':'\\times'+math.signIfOne(:a[1])+:x}=0",
-        "answer":":question \\text{ si } ${:x}=\\color{red}{${math.fractionSimplifiee(-:b[0],:a[0])}} \\text{ ou } ${:x}=\\color{red}{${math.fractionSimplifiee(-:b[1],:a[1])}}",
-        "value":"${math.fractionSimplifiee(-:b[0],:a[0])};${math.fractionSimplifiee(-:b[1],:a[1])}"
+        "answer":":question \\\\ \\text{ si } ${:x}=\\color{red}{${math.fractionSimplifiee(-:b[0],:a[0])}} \\text{ ou } ${:x}=\\color{red}{${math.fractionSimplifiee(-:b[1],:a[1])}}",
+        "value":["${math.fractionSimplifiee(-:b[0],:a[0])};${math.fractionSimplifiee(-:b[1],:a[1])}",
+            "\\left\\{${math.fractionSimplifiee(-:b[0],:a[0])};${math.fractionSimplifiee(-:b[1],:a[1])}\\right\\}",
+            "${math.fractionSimplifiee(-:b[1],:a[1])};${math.fractionSimplifiee(-:b[0],:a[0])}",
+            "\\left\\{${math.fractionSimplifiee(-:b[1],:a[1])};${math.fractionSimplifiee(-:b[0],:a[0])}\\right\\}"
+        ]
     }
     ]
 }

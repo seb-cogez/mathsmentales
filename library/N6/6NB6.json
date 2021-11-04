@@ -1,7 +1,7 @@
 {
     "title":"Trouver la fraction égale",
     "ID":"6NB6",
-    "description":"",
+    "description":"Compléter une fraction en donnant le nombre manquant",
     "dest":["6NB","5NA","4NA","3NA"],
     "options":[{
         "name":"Trouver le numérateur, tables jusqu'à 10",

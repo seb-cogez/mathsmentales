@@ -1,6 +1,7 @@
 {
     "title":"Addition de relatifs",
     "ID":"5NC1",
+    "textSize":"medium",
     "dest":["5NC","4NC","3NB"],
     "options":[{
         "name":"Notation avec parenthèses",

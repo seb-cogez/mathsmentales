@@ -2,6 +2,7 @@
     "title":"Déterminer si un nombre est un multiple, un diviseur d'un autre nombre",
     "type":"text",
     "ID":"6ND14",
+    "textSize":"small",
     "dest":["6ND", "5NA", "4NA", "3NA"],
     "vars":{
         "a":"8_24_^prime",

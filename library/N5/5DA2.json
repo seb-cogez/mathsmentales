@@ -1,5 +1,8 @@
 {
     "title":"Calculs statistiques : moyenne, médiane, étendue de 2 à 5 valeurs",
+    "description":"Pour le mode online, séparer les valeurs par le point-virugle.",
+    "keys":["+","-","_",";","_","_","_","_"],
+    "textSize":"small",
     "type":"text",
     "ID":"5DA2",
     "dest":["5DA","4DA","3DA"],

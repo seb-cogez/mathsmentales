@@ -3,7 +3,7 @@
     "type":"text",
     "ID":"6NC7",
     "keys":["<",">","=","_"],
-    "description":"",
+    "description":"Pour comparer les nombres, utiliser l'un des symboles <, > ou =",
     "dest":["9NC", "8NC","7NC","6NC", "5NA"],
     "options":[{
         "name":"Comparer des petits entiers",
@@ -20,5 +20,5 @@
     ],
     "question": "Compare $$${:a}$$ et $$${:b}$$",
     "answer":"$$${:a}\\color{red}{${:s}}${:b}$$",
-    "value":"${:a}${:s}${:b}"
+    "value":["${:a}${:s}${:b}","${:s}"]
 }

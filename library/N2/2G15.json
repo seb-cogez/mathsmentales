@@ -3,6 +3,8 @@
     "type":"latex",
     "ID":"2G15",
     "dest":["2G1"],
+    "textSize":"medium",
+    "keys":["o","n","_","_","_","_","_","_"],
     "consts":{"vecteurs":["u", "v", "w", "u'", "v'", "w'"]},
     "options":[{
         "name":"Vecteurs à coordonnées positives",
@@ -15,5 +17,5 @@
         "\\overrightarrow{${:vecteurs[:v[0]]}}(${:a+';\\color{blue}{'+:b}}) \\text{ et } \\overrightarrow{${:vecteurs[:v[1]]}}(${:c+';\\color{blue}{'+:d}})\\text{ colinéaires ?}",
         "\\overrightarrow{${:vecteurs[:v[0]]}}\\begin{pmatrix}${:a}\\\\${:b}\\end{pmatrix} \\text{ et }\\overrightarrow{${:vecteurs[:v[1]]}}\\begin{pmatrix}${:c}\\\\${:d}\\end{pmatrix}\\text{ colinéaires ?}"],
     "answer":"${:a}\\times${:d<0?'('+:d+')'::d}-${:b<0?'('+:b+')'::b}\\times${:c<0?'('+:c+')'::c}=${:a*:d-:b*:c}\\color{red}{\\text{ ${:yn>0?'OUI':'NON'}}}${:yn>0?'\\quad\\overrightarrow{'+:vecteurs[:v[1]]+'}='+:k+'\\overrightarrow{'+:vecteurs[:v[0]]+'}':''}",
-    "value":["${:yn>0?'OUI':'NON'}","${:yn>0?'O':'N'}"]
+    "value":["${:yn>0?'OUI':'NON'}","${:yn>0?'O':'N'}","${:yn>0?'Y':'N'}","${:yn>0?'Yes':'No'}"]
 }

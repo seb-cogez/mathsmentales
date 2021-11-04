@@ -3,8 +3,8 @@
     "type":"text",
     "ID":"4NA1",
     "dest":["4NA","3NA"],
-    "consts":{"d":""},
-    "vars":{"a":"", "b":"", "c":["u","v","t","x", "y", "z"]},
+    "keys":["_","-","×","10n"],
+    "textSize":"small",
     "options":[{
         "name":"Donner l'écriture scientifique d'un décimal supérieur à 1",
         "vars":{
@@ -16,7 +16,7 @@
         },
         "question": "Quelle est l'écriture scientifique de $$${:d}$$ ?",
         "answer":"$$${:d}=\\color{red}{${math.round(:i+:b,4)}\\times10^{${:c}}}$$",
-        "value":"${:i+:b}\\time10^{${:c}}"
+        "value":"${:i+:b}\\times10^{${:c}}"
     },
     {
         "name":"Donner l'écriture scientifique d'un décimal inférieur à 1",
@@ -29,7 +29,7 @@
         },
         "question": "Quelle est l'écriture scientifique de $$${:d}$$ ?",
         "answer":"$$${:d}=\\color{red}{${math.round(:i+:b,4)}\\times10^{${:c}}}$$",
-        "value":"${:i+:b}\\time10^{${:c}"
+        "value":"${:i+:b}\\times10^{${:c}}"
     },{
         "name":"Donner l'écriture décimale à partir de l'écriture scientifique supérieure à 1",
         "vars":{
@@ -65,7 +65,7 @@
         },
         "question": "$$${:d}$$",
         "answer":"$$${:d}=\\color{red}{${math.round(:i+:b,4)}\\times10^{${:c}}}$$",
-        "value":"${:i+:b}\\time10^{${:c}}"
+        "value":"${:i+:b}\\times10^{${:c}}"
     },{
         "name":"Enoncé court : donner l'écriture décimale",
         "vars":{

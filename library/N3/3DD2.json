@@ -3,6 +3,7 @@
     "type":"text",
     "ID":"3DD2",
     "dest":["3DD"],
+    "textSize":"medium",
     "vars":{"a":"-30_30", "b":"-30_30_^${:a}"},
     "options":[{
         "name":"Image d'un nombre",
@@ -20,7 +21,7 @@
             "Dans l'écriture $$f(${:a})=${:b}$$, quel nombre est un <b>antécédent</b> ?",
             "Dans le tableau $$\\begin{array}{|c|c|}\\hline x & ${:a} \\\\ \\hline f(x) & ${:b} \\\\ \\hline \\end{array}$$ quel nombre est un <b>antécédent</b> ?"
         ],
-        "answer":"L'antécédent est ${:a}",
+        "answer":"L'antécédent est $$\\color{red}{${:a}}$$",
         "value":"${:a}"
     }]
 }

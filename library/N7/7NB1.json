@@ -1,7 +1,9 @@
 {
     "title":"Fraction de quantité",
     "ID":"7NB1",
+    "description":"Éviter le mode online pour la première activité, elle ne sera pas correctement corrigée",
     "type":"text",
+    "textSize":"small",
     "dest":["7NB", "6NB", "5NC", "4NC", "3NB"],
     "options":[{
         "name":"Fraction de quantité en CM2",

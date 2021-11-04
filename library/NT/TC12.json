@@ -3,20 +3,21 @@
     "type":"latex",
     "ID":"TC12",
     "description":"Somme, produit, quotient",
+    "keys":["+","-","/","i","_","_","_","_"],
     "dest":["TC1"],
     "options":[{
         "name":"Somme de deux complexes",
         "vars":{"a":"-20_20_2","b":"-20_20_2_^${:a}","pr":"${:a[0]+:a[1]}","pi":"${:b[0]+:b[1]}"},
         "question":"${:a[0]!=0?:a[0]:''}${:b[0]!=0?:a[0]==0?math.signIfOne(:b[0])+'i':math.signedNumberButOne(:b[0])+'i':''}${:a[1]!=0?math.signedNumber(:a[1]):''}${:b[1]!=0?math.signedNumberButOne(:b[1])+'i':''}",
         "answer":":question=\\color{red}{${:pr!=0?:pr:''}${:pi!=0?:pr==0?math.signIfOne(:pi)+'i':math.signedNumber(:pi)+'i':''}}",
-        "value":"${:pr!=0?:pr:''}${:pi!=0?:pr==0?math.signIfOne(:pi)+'i':math.signedNumber(:pi)+'i':''}}"
+        "value":"${:pr!=0?:pr:''}${:pi!=0?:pr==0?math.signIfOne(:pi)+'i':math.signedNumber(:pi)+'i':''}"
     
     },{
         "name":"Différence de deux complexes",
         "vars":{"a":"-20_20_2","b":"-20_20_2_^${:a}","pr":"${:a[0]-:a[1]}","pi":"${:b[0]-:b[1]}"},
         "question":"${:a[0]!=0?:a[0]:''}${:b[0]!=0?:a[0]==0?math.signIfOne(:b[0])+'i':math.signedNumberButOne(:b[0])+'i':''}-(${:a[1]!=0?math.signIfOne(:a[1]):''}${:b[1]!=0?:a[1]==0?math.signIfOne(:b[1])+'i':math.signedNumberButOne(:b[1])+'i':''})",
         "answer":":question=\\color{red}{${:pr!=0?:pr:''}${:pi!=0?:pr==0?math.signIfOne(:pi)+'i':math.signedNumber(:pi)+'i':''}}",
-        "value":"${:pr!=0?:pr:''}${:pi!=0?:pr==0?math.signIfOne(:pi)+'i':math.signedNumber(:pi)+'i':''}}"
+        "value":"${:pr!=0?:pr:''}${:pi!=0?:pr==0?math.signIfOne(:pi)+'i':math.signedNumber(:pi)+'i':''}"
     
     },{
         "name":"Produit de deux complexes",

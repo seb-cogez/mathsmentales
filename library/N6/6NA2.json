@@ -2,6 +2,7 @@
     "title":"Quel est le chiffre des ... ? (entiers)",
     "type":"text",
     "ID":"6NA2",
+    "textSize":"medium",
     "dest":["7NA", "6NA", "5NA"],
     "consts":{"u":["centaines", "dizaines", "unités"],
         "v":["centaines de mille", "dizaines de mille", "unités de mille","centaines", "dizaines", "unités"],

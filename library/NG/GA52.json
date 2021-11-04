@@ -4,7 +4,6 @@
     "ID":"GA52",
     "description":"",
     "dest":["GA5"],
-    "consts":{},
     "vars":{"a":"-10_10_^0", "b":"-10_10_^0", "c":"-10_10_^0","alpha":"${math.round(-:b/(2*:a),2)}","beta":"${math.round(:a*:alpha*:alpha+:b*:alpha+:c,2)}"},
     "question":["\\text{Mettre }${:a}x^2${:b<0?:b:'+'+:b}x${:c<0?:c:'+'+:c}\\text{ sous forme canonique}"
 	],

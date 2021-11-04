@@ -1,5 +1,6 @@
 {
     "name": "Maths et Matic Projector",
+    "description": "Votre plateforme de calcul mentales en classe",
     "icons": [
         {
             "src": "/img/logo-144.png",
@@ -14,5 +15,5 @@
     ],
     "theme_color": "#025296",
     "background_color": "#ffffff",
-    "display": "standalone"
+    "display": "standalone",
 }

@@ -2,6 +2,9 @@
     "title":"Liste des diviseurs",
     "type":"text",
     "ID":"5ND3",
+    "valueType":"liste",
+    "textSize":"medium",
+    "keys":["_","_","-",";","_","_","_","_"],
     "dest":["5ND", "4ND", "3NC"],
     "options":[{
         "name":"Nombres inférieurs à 50",

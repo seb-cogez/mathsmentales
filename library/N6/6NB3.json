@@ -1,7 +1,8 @@
 {
     "title":"Comparaison de fractions",
     "ID":"6NB3",
-    "description":"",
+    "description":"Comparer des fractions, avec 1 ou entre elles. Utiliser <, > ou =",
+    "keys":["<",">","="],
     "dest":["6NB","5NA","4NA","3NA"],
     "options":[{
         "name":"Comparer à 1",
@@ -56,6 +57,17 @@
         },
         "question":"\\dfrac{${:num2}}{${:den2}}~...~\\dfrac{${:num1}}{${:den1}}",
         "answer":"\\dfrac{${:num2}}{${:den2}} \\color{red}{${:sym}} \\dfrac{${:num1}}{${:den1}}",
+        "value":"${:symv}"
+    },{
+        "name":"Mêmes numérateur",
+        "vars":{
+            "num":"2_100",
+            "den":"2_100_2",
+            "sym":"${(:den[0]<:den[1])?'\\gt':((:den[0]>:den[1])?'\\lt':'=')}",
+            "symv":"${(:den[0]<:den[1])?'>':((:den[0]>:den[1])?'<':'=')}"
+        },
+        "question":"\\dfrac{${:num}}{${:den[0]}}~...~\\dfrac{${:num}}{${:den[1]}}",
+        "answer":"\\dfrac{${:num}}{${:den[0]}} \\color{red}{${:sym}} \\dfrac{${:num}}{${:den[1]}}",
         "value":"${:symv}"
     }
     ]

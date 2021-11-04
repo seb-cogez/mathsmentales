@@ -20,7 +20,8 @@
         "name":"Simplification de racine carré",
         "vars":{"a":"2_10","b":"2_5"},
         "question":"\\sqrt{${:a*:b*:b}}",
-        "answer":":question=\\color{red}{${math.simplifieRacine(:a*:b*:b)}}"
+        "answer":":question=\\color{red}{${math.simplifieRacine(:a*:b*:b)}}",
+        "value":"${math.simplifieRacine(:a*:b*:b)}"
     }
     ]
 }

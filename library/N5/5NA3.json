@@ -2,7 +2,8 @@
     "title":"Comparer des décimaux relatifs",
     "type":"text",
     "ID":"5NA3",
-    "description":"",
+    "description":"Donner le plus petit ou le plus grand de deux nombres.",
+    "textSize":"medium",
     "dest":["5NA", "4NA", "3NA"],
     "consts":{"voc":["petit","grand"]},
     "options":[{

@@ -1,6 +1,8 @@
 {
     "title":"Préfixes et puissances de 10",
+    "description":"Ne pas utiliser en exercice online sur smarphone !",
     "type":"text",
+    "textSize":"small",
     "ID":"4NA8",
     "consts":{"prefixes" :["kilo", "k", "hecto", "h", "déca", "da", "déci", "d", "centi", "c", "milli", "m", "Méga", "M", "Giga", "G", "Téra", "T", "micro", "μ", "nano", "n", "pico", "p"],
         "puissances":[3, 3, 2, 2,1,1, -1,-1,-2, -2, -3,-3,6, 6, 9,9,12, 12,-6, -6,-9, -9, -12,-12]

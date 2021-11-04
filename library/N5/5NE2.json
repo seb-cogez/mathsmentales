@@ -3,41 +3,41 @@
     "type":"latex",
     "ID":"5NE2",
     "dest":["5NE","4NE","3ND"],
-    "consts":{"lettres":["a","b","c","t","u","x","y","z"]},
-    "keys":["a","b","c","t","u","x","y","z"],
+    "consts":{"lettres":["a","b","c","x","y","z"]},
+    "keys":["-","x²","a","b","c","x","y","z"],
     "options":[{
         "name":"Réduire un produit de deux nombres",
-        "vars":{"l":"1_7","a":"1_9","x":"${:lettres[:l]}"},
+        "vars":{"l":"1_5","a":"1_9","x":"${:lettres[:l]}"},
         "question": ["${:a}\\times ${:x}", "${:x}\\times${:a}"],
         "answer":":question=\\color{red}{${math.calc(:a+'*'+:x)}}",
         "value":"${math.calc(:a+'*'+:x)}"
     },{
         "name":"Réduire un produit de deux lettres",
-        "vars":{"l":"0_7_2","x":"${:lettres[:l[0]]}","y":"${:lettres[:l[1]]}"},
+        "vars":{"l":"0_5_2","x":"${:lettres[:l[0]]}","y":"${:lettres[:l[1]]}"},
         "question": "${:x}\\times ${:y}",
         "answer":":question=\\color{red}{${math.calc(:x+'*'+:y)}}",
         "value":"${math.calc(:x+'*'+:y)}"
     },{
         "name":"Réduire un produit avec 2 nombres et une lettre",
-        "vars":{"l":"0_7","a":"1_9","b":"1_9","x":"${:lettres[:l]}"},
+        "vars":{"l":"0_5","a":"1_9","b":"1_9","x":"${:lettres[:l]}"},
         "question": ["${:a}\\times${:b}\\times ${:x}","${:a}\\times ${:x}\\times ${:b}","${:x}\\times${:a}\\times${:b}"],
         "answer":":question=\\color{red}{${math.calc(:a+'*'+:b+'*'+:x)}}",
         "value":"${math.calc(:a+'*'+:b+'*'+:x)}"
     },{
         "name":"Réduire un produit avec 1 nombre et deux lettres",
-        "vars":{"l":"0_7_2","a":"1_9","x":"${:lettres[:l[0]]}","y":"${:lettres[:l[1]]}"},
+        "vars":{"l":"0_5_2","a":"1_9","x":"${:lettres[:l[0]]}","y":"${:lettres[:l[1]]}"},
         "question": ["${:a}\\times ${:y}\\times ${:x}","${:x}\\times${:a}\\times ${:y}","${:x}\\times ${:y}\\times${:a}"],
         "answer":":question=\\color{red}{${math.calc(:a+'*'+:x+'*'+:y)}}",
         "value":"${math.calc(:a+'*'+:x+'*'+:y)}"
     },{
         "name":"Réduire un produit avec 2 nombres relatifs et une lettre",
-        "vars":{"l":"0_7","a":"-9_9_^0","b":"-9_9_^0","x":"${:lettres[:l]}"},
+        "vars":{"l":"0_5","a":"-9_9_^0","b":"-9_9_^0","x":"${:lettres[:l]}"},
         "question": ["${:a}\\times${(:b<0)?'('+:b+')'::b}\\times ${:x}","${:a}\\times ${:x}\\times ${(:b<0)?'('+:b+')'::b}","${:x}\\times${(:a<0)?'('+:a+')'::a}\\times${(:b<0)?'('+:b+')'::b}"],
         "answer":":question=\\color{red}{${math.calc(:a+'*('+:b+')*'+:x)}}",
         "value":"${math.calc(:a+'*('+:b+')*'+:x)}"
     },{
         "name":"Réduire un produit avec 1 nombre relatif et deux lettres",
-        "vars":{"l":"0_7_2","a":"-9_9_^0","x":"${:lettres[:l[0]]}","y":"${:lettres[:l[1]]}"},
+        "vars":{"l":"0_5_2","a":"-9_9_^0","x":"${:lettres[:l[0]]}","y":"${:lettres[:l[1]]}"},
         "question": ["${:a}\\times ${:y}\\times ${:x}","${:x}\\times ${(:a<0)?'('+:a+')'::a}\\times ${:y}","${:x}\\times ${:y}\\times${(:a<0)?'('+:a+')'::a}"],
         "answer":":question=\\color{red}{${math.calc(:a+'*'+:x+'*'+:y)}}",
         "value":"${math.calc(:a+'*'+:x+'*'+:y)}"

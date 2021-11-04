@@ -2,6 +2,8 @@
     "title":"Moitié, double ...",
     "type":"text",
     "ID":"6NB7",
+    "description":"Calculer le double, la moitié, le tiers, le triple, le quart ou le quadruple d'un nombre entier.",
+    "textSize":"medium",
     "dest":["6NB", "5NA", "4NA", "3NA"],
     "consts":{"vocab":["moitié", "double","tiers","triple","quart","quadruple"],
         "coef":[0.5,2,"1/3",3,0.25,4],

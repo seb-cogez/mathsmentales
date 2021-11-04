@@ -3,6 +3,7 @@
     "type":"text",
     "ID":"8MC1",
     "dest":["8MC", "7MC", "6MB"],
+    "keys":["_","h","min",":"],
     "options":[{
         "name":"CM : valeurs par quarts h min => h",
         "vars":{"h":"0_23","m":"0_3","min":"${:m*15}", "dec":"${math.round(:min/60,2)}"},

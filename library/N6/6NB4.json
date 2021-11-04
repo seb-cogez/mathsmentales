@@ -1,7 +1,8 @@
 {
     "title":"Décomposition de fraction en entier + fraction inférieure à 1",
     "ID":"6NB4",
-    "description":"",
+    "keys":["_","_","/","+"],
+    "description":"Écrire une fraction en utilisant la décomposition qui correspond aux notations anglo saxones.",
     "dest":["7NB","6NB","5NA","4NA","3NA"],
     "options":[{
         "name":"Dénominateur entre 2 et 11",

@@ -1,5 +1,7 @@
 {
     "title":"Arrondir un nombre décimal",
+    "description":"Donner le décimal le plus proche en fonction de la précision demandée.",
+    "textSize":"medium",
     "type":"text",
     "ID":"6NC2",
     "dest":["6NC", "5NA", "4NA", "3NA"],

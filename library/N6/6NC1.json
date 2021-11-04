@@ -1,7 +1,9 @@
 {
     "title":"Décompositions décimales",
     "ID":"6NC1",
+    "description":"Passer d'une écriture décimale à une décomposition parfois à l'aide de fractions décimales.",
     "dest":["6NC", "7NC"],
+    "keys":["+","/","_","_"],
     "options":[{
         "name":"Entier et partie décimale -> décimal",
         "consts":{"dix":[10,100,1000]},

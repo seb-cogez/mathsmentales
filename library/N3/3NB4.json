@@ -2,7 +2,9 @@
     "title":"Calculs complexes avec des puissances",
     "type":"latex",
     "ID":"3NB4",
+    "textSize":"medium",
     "dest":["3NB","2N1"],
+    "keys":["(","-","^","_","_","_","_","_"],
     "options":[{
         "name":"Quotient et produit de puissances",
         "vars":{"a":"-10_10_3_^0","r":"${:a[0]+:a[1]-:a[2]}", "b":"-9_9_^0","bs":"${:b<0?'('+:b+')'::b}"},

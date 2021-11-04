@@ -1,7 +1,8 @@
 {
     "title":"Simplifier une fraction",
     "ID":"6NB5",
-    "description":"",
+    "description":"Écrire une fraction égale avec numérateur et dénominateurs les plus petits possibles",
+    "keys":["_","_","_","/"],
     "dest":["6NB","5NA","4NA","3NA"],
     "options":[{
         "name":"Niveau 6e, reconnaissance des fractions 1/2, 1/10, 1/100",

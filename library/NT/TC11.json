@@ -3,6 +3,7 @@
     "type":"latex",
     "ID":"TC11",
     "description":"Conjugué, module, carré, inverse",
+    "keys":["+","-","/","i","_","_","_","_"],
     "dest":["TC1"],
     "options":[{
         "name":"Conjugué d'un complexe",

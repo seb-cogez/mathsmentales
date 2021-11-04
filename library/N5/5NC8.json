@@ -2,6 +2,8 @@
     "title":"Soustraire des fractions",
     "type":"latex",
     "ID":"5NC8",
+    "keys":["/"],
+    "textSize":"medium",
     "dest":["5NC", "4NC", "3NB"],
     "options":[{
         "name":"Soustraire des fractions de même dénominateur",
