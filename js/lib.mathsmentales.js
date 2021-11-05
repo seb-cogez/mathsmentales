@@ -5381,7 +5381,36 @@ class activity {
                     } else { // integer case
                         // on va faire un historique des données et tourner dessus, sous certaines conditions.
                         if(this.intVarsHistoric[name] === undefined){
-                            this.intVarsHistoric[name]=[];
+                            let nbValues = Math.abs(Number(bornes[1])-Number(bornes[0]))+1;
+                            let max = Math.max(Number(bornes[0]),Number(bornes[1]));
+                            let min = Math.min(Number(bornes[0]),Number(bornes[1]));
+                            let primes = [];
+                            let objContraintes = false;
+                            if(bornes[2]){
+                                if(bornes[2].indexOf("^")>-1){
+                                    objContraintes = bornes[2];
+                                }
+                            }
+                            if(bornes[3]){
+                                if(bornes[3].indexOf("^")>-1){
+                                    objContraintes = bornes[3];
+                                }
+                            }
+                            if(objContraintes){
+                                let liste = objContraintes.substring(1).split(",");
+                                // on liste les nombre premiers à éviter
+                                if(liste.indexOf("prime")>-1){
+                                    for(let i=0;i<math.premiers.length;i++){
+                                        if(math.premiers[i]<=max && math.premiers[i]>=min){
+                                            primes.push(math.premiers[i]);
+                                        } else if(math.premiers[i]>max) {
+                                            break;
+                                        }
+                                    }
+                                }
+                                nbValues = nbValues - liste.length - primes.length + (liste.indexOf("prime")>-1?1:0)+(liste.indexOf("&")>-1?1:0);
+                            }
+                            this.intVarsHistoric[name]=[nbValues];
                         }
                         let entier;
                         // on tire un entier au hasard tant qu'il n'est pas dans l'historique
@@ -5391,9 +5420,8 @@ class activity {
                         // on stocke dans le tableau
                         this.intVarsHistoric[name].push(entier);
                         // si le tableau est plein, on le vide
-                        if(Math.abs(Number(bornes[1])-Number(bornes[0]))<this.intVarsHistoric[name].length){
-                            debug("réinitialisation "+name);
-                            this.intVarsHistoric[name] = [];
+                        if(this.intVarsHistoric[name][0] <= this.intVarsHistoric[name].length){
+                            this.intVarsHistoric[name].splice(1);
                         }
                         this.wVars[name] = entier;
                     }
