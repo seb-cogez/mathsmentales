@@ -1,0 +1,54 @@
+{
+    "title":"Nombre de, chiffre des ... ?",
+    "description":"Indiquer le chiffre de, ou le nombre (entier) d'unités, dizaines, ...",
+    "type":"text",
+    "ID":"9NA1",
+    "textSize":"medium",
+    "dest":["7NA", "6NA", "8NA","9NA"],
+    "consts":{"u":["centaines", "dizaines", "unités"],
+        "dm":["unités de mille","centaines", "dizaines", "unités"],
+        "v":["centaines de mille", "dizaines de mille", "unités de mille","centaines", "dizaines", "unités"],
+        "w":["centaines de millions", "dizaines de millions", "unités de millions","centaines de mille", "dizaines de mille", "unités de mille","centaines", "dizaines", "unités"]
+    },
+    "options":[{
+            "name":"Chiffre des ... entier inférieur à $$1000$$",
+            "vars":{"a0":"1_9","a":"0_9_2_^&,${:a0}", "b":"0_2", "c":"${:a0+''+:a.join('')}", "d":"${:u[:b]}"}
+        },{
+            "name":"Nombre de ... entier inférieur à $$1000$$",
+            "vars":{"a0":"1_9","a":"0_9_2_^&,${:a0}", "b":"0_2", "c":"${:a0+''+:a.join('')}", "d":"${:u[:b]}"},
+            "question":"Dans $$${:c}$$, quel est le nombre ${:b==2?'d’':'de '}<b>${:d}</b> ?",
+            "answer":"Dans $$${:c}$$, le nombre ${:b==2?'d’':'de '}<b>${:d}</b> est $$\\color{red}{${Math.floor(Number(:c)/Math.pow(10,2-:b))}}$$",
+            "value":"${Math.floor(Number(:c)/Math.pow(10,2-:b))}"
+        },{
+            "name":"Chiffre des ... entier inférieur à $$10000$$ (CE2)",
+            "vars":{"a0":"1_9","a":"0_9_3_^&,${:a0}", "b":"0_3", "c":"${:a0+''+:a.join('')}", "d":"${:dm[:b]}"}
+        },{
+            "name":"Nombre de ... entier inférieur à $$10000$$",
+            "vars":{"a0":"1_9","a":"0_9_3_^&,${:a0}", "b":"0_3", "c":"${:a0+''+:a.join('')}", "d":"${:dm[:b]}"},
+            "question":"Dans $$${:c}$$, quel est le nombre ${:b==0||:b==3?'d’':'de '}<b>${:d}</b> ?",
+            "answer":"Dans $$${:c}$$, le nombre ${:b==0||:b==3?'d’':'de '}<b>${:d}</b> est $$\\color{red}{${Math.floor(Number(:c)/Math.pow(10,3-:b))}}$$",
+            "value":"${Math.floor(Number(:c)/Math.pow(10,3-:b))}"
+        },{
+            "name":"Chiffre des ... entier inférieur à $$1000000$$ (CM)",
+            "vars":{"a":"0_9_6_^&", "b":"0_5", "c":"${:a.join('')}", "d":"${:v[:b]}"}
+        },{
+            "name":"Nombre de ... entier inférieur à $$1000000$$",
+            "vars":{"a":"0_9_6_^&", "b":"0_5", "c":"${:a.join('')}", "d":"${:v[:b]}"},
+            "question":"Dans $$${:c}$$, quel est le nombre ${:b==2||:b==5?'d’':'de '}<b>${:d}</b> ?",
+            "answer":"Dans $$${:c}$$, le nombre ${:b==2||:b==5?'d’':'de '}<b>${:d}</b> est $$\\color{red}{${Math.floor(Number(:c)/Math.pow(10,5-:b))}}$$",
+            "value":"${Math.floor(Number(:c)/Math.pow(10,5-:b))}"
+        },{
+            "name":"Chiffre des ... entier inférieur à $$1000000000$$ (CM)",
+            "vars":{"a":"0_9_9_^&", "b":"0_8", "c":"${:a.join('')}", "d":"${:w[:b]}"}
+        },{
+            "name":"Nombre de ... entier inférieur à $$1000000000$$",
+            "vars":{"a":"0_9_9_^&", "b":"0_8", "c":"${:a.join('')}", "d":"${:w[:b]}"},
+            "question":"Dans $$${:c}$$, quel est le nombre ${:b==2||:b==5||:b==8?'d’':'de '}<b>${:d}</b> ?",
+            "answer":"Dans $$${:c}$$, le nombre ${:b==2||:b==5||:b==8?'d’':'de '}<b>${:d}</b> est $$\\color{red}{${Math.floor(Number(:c)/Math.pow(10,8-:b))}}$$",
+            "value":"${Math.floor(Number(:c)/Math.pow(10,8-:b))}"
+        }
+    ],
+    "answer":"Dans $$${:c}$$, le chiffre des <u>${:d}</u> est $$\\color{red}{${String(:c).charAt(Number(:b))}}$$",
+    "value":"${String(:c).charAt(Number(:b))}",
+    "question": "Dans $$${:c}$$, quel est le chiffre des <b>${:d}</b> ?"
+}

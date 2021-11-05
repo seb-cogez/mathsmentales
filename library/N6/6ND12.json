@@ -16,13 +16,13 @@
         "value":"${:a*(:b-:c)}"
     },{
         "name":"Quotient d'une somme par un nombre",
-        "vars":{"r":"1_10", "d":"1_10", "n":"1_${:r*:d}", "m":"${:r*:d-:n}"},
+        "vars":{"r":"1_10", "d":"2_10", "n":"1_${:r*:d}", "m":"${:r*:d-:n}"},
         "question": "(${:n}+${:m})\\div ${:d}",
         "answer":":question=\\color{red}{${:r}}",
         "value":"${:r}"
     },{
         "name":"Quotient d'une différence par un nombre",
-        "vars":{"r":"1_10", "d":"1_10", "m":"1_20", "n":"${:r*:d+:m}"},
+        "vars":{"r":"1_10", "d":"2_10", "m":"1_20", "n":"${:r*:d+:m}"},
         "question":"(${:n}-${:m})\\div ${:d}",
         "answer":":question=\\color{red}{${:r}}",
         "value":"${:r}"
