@@ -5414,8 +5414,11 @@ class activity {
                         }
                         let entier;
                         // on tire un entier au hasard tant qu'il n'est pas dans l'historique
+                        let protectionLoop = 0;
                         do {
                             entier = math.aleaInt(Number(bornes[0]), Number(bornes[1]), bornes[2], bornes[3]);
+                            protectionLoop++;
+                            if(protectionLoop>100)break;
                         } while (this.intVarsHistoric[name].indexOf(entier)>-1)
                         // on stocke dans le tableau
                         this.intVarsHistoric[name].push(entier);
