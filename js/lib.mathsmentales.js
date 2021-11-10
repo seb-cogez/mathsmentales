@@ -223,6 +223,8 @@ var utils = {
             // le seed d'aléatorisation est fourni et on n'est pas en mode online
             if((vars.a && MM.onlineState === "no") || edit){
                 utils.setSeed(vars.a);
+                // on check la clé de donnée incluse
+                document.getElementById("aleaInURL").checked = true;
             } else if(MM.onlineState=="yes" || !vars.a)
                 utils.setSeed(utils.seedGenerator());
             // on supprime tous les paniers
@@ -1435,7 +1437,142 @@ var math ={
                 }
             }
             return txt;
-        }
+        },
+            // JavaScript Document
+            /****************************************************************************
+            *________________________________________________________________________   *
+            *   About       :   Convertit jusqu'à  999 999 999 999 999 (billion)        *
+            *                   avec respect des accords                                *
+            *_________________________________________________________________________  *
+            *   Auteur      :   GALA OUSSE Brice, Engineer programmer of management     *
+            *   Mail        :   bricegala@yahoo.fr, bricegala@gmail.com                 *
+            *   Tél         :   +237 99 37 95 83 / +237 79 99 82 80                     *
+            *   Copyright   :   avril  2007                                             *
+            * Ce document intitulé « Conversion des nombres en lettre » issu de CommentCaMarche
+            * (codes-sources.commentcamarche.net) est mis à disposition sous les termes de
+            * la licence Creative Commons. Vous pouvez copier, modifier des copies de cette
+            * source, dans les conditions fixées par la licence, tant que cette note    *
+            * apparaît clairement.                                                      *
+            *_________________________________________________________________________  *
+            *****************************************************************************
+            */
+            NumberToLetter:function(nombre, U=null, D=null) {
+                const letter = {
+                    0: "zéro",
+                    1: "un",
+                    2: "deux",
+                    3: "trois",
+                    4: "quatre",
+                    5: "cinq",
+                    6: "six",
+                    7: "sept",
+                    8: "huit",
+                    9: "neuf",
+                    10: "dix",
+                    11: "onze",
+                    12: "douze",
+                    13: "treize",
+                    14: "quatorze",
+                    15: "quinze",
+                    16: "seize",
+                    17: "dix-sept",
+                    18: "dix-huit",
+                    19: "dix-neuf",
+                    20: "vingt",
+                    30: "trente",
+                    40: "quarante",
+                    50: "cinquante",
+                    60: "soixante",
+                    70: "soixante-dix",
+                    80: "quatre-vingt",
+                    90: "quatre-vingt-dix",
+                };
+
+                let i, j, n, quotient, reste, nb;
+                let ch
+                let numberToLetter = '';
+                //__________________________________
+
+                if (nombre.toString().replace(/ /gi, "").length > 15) return "dépassement de capacité";
+                if (isNaN(nombre.toString().replace(/ /gi, ""))) return "Nombre non valide";
+
+                nb = parseFloat(nombre.toString().replace(/ /gi, ""));
+                //if (Math.ceil(nb) != nb) return "Nombre avec virgule non géré.";
+                if(Math.ceil(nb) != nb){
+                    nb = nombre.toString().split('.');
+                    //return NumberToLetter(nb[0]) + " virgule " + NumberToLetter(nb[1]);
+                    return NumberToLetter(nb[0]) + (U ? " " + U + " et " : " virgule ") + NumberToLetter(nb[1]) + (D ? " " + D : "");
+                }
+
+                n = nb.toString().length;
+                switch (n) {
+                    case 1:
+                        numberToLetter = letter[nb];
+                        break;
+                    case 2:
+                        if (nb > 19) {
+                            quotient = Math.floor(nb / 10);
+                            reste = nb % 10;
+                            if (nb < 71 || (nb > 79 && nb < 91)) {
+                                if (reste == 0) numberToLetter = letter[quotient * 10];
+                                if (reste == 1) numberToLetter = letter[quotient * 10] + "-et-" + letter[reste];
+                                if (reste > 1) numberToLetter = letter[quotient * 10] + "-" + letter[reste];
+                            } else numberToLetter = letter[(quotient - 1) * 10] + "-" + letter[10 + reste];
+                        } else numberToLetter = letter[nb];
+                        break;
+                    case 3:
+                        quotient = Math.floor(nb / 100);
+                        reste = nb % 100;
+                        if (quotient == 1 && reste == 0) numberToLetter = "cent";
+                        if (quotient == 1 && reste != 0) numberToLetter = "cent" + " " + NumberToLetter(reste);
+                        if (quotient > 1 && reste == 0) numberToLetter = letter[quotient] + " cents";
+                        if (quotient > 1 && reste != 0) numberToLetter = letter[quotient] + " cent " + NumberToLetter(reste);
+                        break;
+                    case 4 :
+                    case 5 :
+                    case 6 :
+                        quotient = Math.floor(nb / 1000);
+                        reste = nb - quotient * 1000;
+                        if (quotient == 1 && reste == 0) numberToLetter = "mille";
+                        if (quotient == 1 && reste != 0) numberToLetter = "mille" + " " + NumberToLetter(reste);
+                        if (quotient > 1 && reste == 0) numberToLetter = NumberToLetter(quotient) + " mille";
+                        if (quotient > 1 && reste != 0) numberToLetter = NumberToLetter(quotient) + " mille " + NumberToLetter(reste);
+                        break;
+                    case 7:
+                    case 8:
+                    case 9:
+                        quotient = Math.floor(nb / 1000000);
+                        reste = nb % 1000000;
+                        if (quotient == 1 && reste == 0) numberToLetter = "un million";
+                        if (quotient == 1 && reste != 0) numberToLetter = "un million" + " " + NumberToLetter(reste);
+                        if (quotient > 1 && reste == 0) numberToLetter = NumberToLetter(quotient) + " millions";
+                        if (quotient > 1 && reste != 0) numberToLetter = NumberToLetter(quotient) + " millions " + NumberToLetter(reste);
+                        break;
+                    case 10:
+                    case 11:
+                    case 12:
+                        quotient = Math.floor(nb / 1000000000);
+                        reste = nb - quotient * 1000000000;
+                        if (quotient == 1 && reste == 0) numberToLetter = "un milliard";
+                        if (quotient == 1 && reste != 0) numberToLetter = "un milliard" + " " + NumberToLetter(reste);
+                        if (quotient > 1 && reste == 0) numberToLetter = NumberToLetter(quotient) + " milliards";
+                        if (quotient > 1 && reste != 0) numberToLetter = NumberToLetter(quotient) + " milliards " + NumberToLetter(reste);
+                        break;
+                    case 13:
+                    case 14:
+                    case 15:
+                        quotient = Math.floor(nb / 1000000000000);
+                        reste = nb - quotient * 1000000000000;
+                        if (quotient == 1 && reste == 0) numberToLetter = "un billion";
+                        if (quotient == 1 && reste != 0) numberToLetter = "un billion" + " " + NumberToLetter(reste);
+                        if (quotient > 1 && reste == 0) numberToLetter = NumberToLetter(quotient) + " billions";
+                        if (quotient > 1 && reste != 0) numberToLetter = NumberToLetter(quotient) + " billions " + NumberToLetter(reste);
+                        break;
+                }//fin switch
+                /*respect de l'accord de quatre-vingt*/
+                if (numberToLetter.substr(numberToLetter.length - "quatre-vingt".length, "quatre-vingt".length) == "quatre-vingt") numberToLetter = numberToLetter + "s";
+                return numberToLetter;
+            }
 }
 window.onload = function(){
     // detect if touching interface
@@ -4073,11 +4210,9 @@ var MM = {
                                 }
                             }
                         }
-                        // on teste si la réponse est un nombre ou si elle contient des caractères echapés auquel cas on considère que c'est du latex
-                        //if(!/[^-\d\.]/.test(userAnswer) || /\\/.test(userAnswer)){
-                            span.className ="math";
-                            userAnswer = "\\displaystyle "+userAnswer;
-                        //}
+                        // On transforme ça en champ LaTeX à afficher (vient mathlive qui renvoie du LaTeX)
+                        span.className ="math";
+                        userAnswer = "\\displaystyle "+userAnswer;
                         span.textContent = userAnswer;
                         ia++;
                         li.appendChild(span);
@@ -4363,19 +4498,20 @@ var library = {
                             let chapExo=[];
                             for(let exo=0,lene=MM.content[niv].themes[theme].chapitres[chap].e.length;exo<lene;exo++){
                                 let lexo = MM.content[niv].themes[theme].chapitres[chap].e[exo];
-                                if(lexo.t.toLowerCase().indexOf(level.toLowerCase())>-1){
+                                let chaineATrouver = level.toLowerCase();
+                                if(lexo.t.toLowerCase().indexOf(chaineATrouver)>-1){
                                     // we find a candidate !!!
-                                    let reg = new RegExp(level.toLowerCase(),"gi");
+                                    let reg = new RegExp(chaineATrouver,"gi");
                                     chapExo.push({"u":lexo.u,
                                     "t":lexo.t.replace(reg,function(x){return "<mark>"+x+"</mark>"})})
                                 } else
                                 // recherche dans le code de l'exo
-                                if(lexo.u.toLowerCase()===level.toLowerCase()){
+                                if(lexo.u.toLowerCase().indexOf(chaineATrouver+".")>-1){
                                     chapExo.push({"u":lexo.u,"t":lexo.t});
                                 } else
                                 // recherche dans les descriptifs
                                 if(lexo.d !== undefined){
-                                    if(lexo.d.toLowerCase().indexOf(level.toLowerCase())>-1){
+                                    if(lexo.d.toLowerCase().indexOf(chaineATrouver)>-1){
                                         chapExo.push({"u":lexo.u,"t":lexo.t});
                                     }
                                 }
@@ -5149,6 +5285,8 @@ class activity {
         let loopProtect = 0, maxLoop = 100;
         // vidage de figures pour éviter les traces.
         this.figures = [];
+        // données pour éviter une répétition acharnée des variables entières
+        this.intVarsHistoric = {};
         for(let i=0;i<n;i++){
             this.cFigure = undefined;
             optionNumber = opt!==undefined?opt:this.getOption();
@@ -5245,7 +5383,54 @@ class activity {
                     if(bornes[0].indexOf("d")>-1) {// float case
                         this.wVars[name] = math.aleaFloat(Number(bornes[0].substring(1)), Number(bornes[1]), Number(bornes[2]), bornes[3], bornes[4]);
                     } else { // integer case
-                        this.wVars[name] = math.aleaInt(Number(bornes[0]), Number(bornes[1]), bornes[2], bornes[3]);
+                        // on va faire un historique des données et tourner dessus, sous certaines conditions.
+                        if(this.intVarsHistoric[name] === undefined){
+                            let nbValues = Math.abs(Number(bornes[1])-Number(bornes[0]))+1;
+                            let max = Math.max(Number(bornes[0]),Number(bornes[1]));
+                            let min = Math.min(Number(bornes[0]),Number(bornes[1]));
+                            let primes = [];
+                            let objContraintes = false;
+                            if(bornes[2]){
+                                if(bornes[2].indexOf("^")>-1){
+                                    objContraintes = bornes[2];
+                                }
+                            }
+                            if(bornes[3]){
+                                if(bornes[3].indexOf("^")>-1){
+                                    objContraintes = bornes[3];
+                                }
+                            }
+                            if(objContraintes){
+                                let liste = objContraintes.substring(1).split(",");
+                                // on liste les nombre premiers à éviter
+                                if(liste.indexOf("prime")>-1){
+                                    for(let i=0;i<math.premiers.length;i++){
+                                        if(math.premiers[i]<=max && math.premiers[i]>=min){
+                                            primes.push(math.premiers[i]);
+                                        } else if(math.premiers[i]>max) {
+                                            break;
+                                        }
+                                    }
+                                }
+                                nbValues = nbValues - liste.length - primes.length + (liste.indexOf("prime")>-1?1:0)+(liste.indexOf("&")>-1?1:0);
+                            }
+                            this.intVarsHistoric[name]=[nbValues];
+                        }
+                        let entier;
+                        // on tire un entier au hasard tant qu'il n'est pas dans l'historique
+                        let protectionLoop = 0;
+                        do {
+                            entier = math.aleaInt(Number(bornes[0]), Number(bornes[1]), bornes[2], bornes[3]);
+                            protectionLoop++;
+                            if(protectionLoop>100)break;
+                        } while (this.intVarsHistoric[name].indexOf(entier)>-1)
+                        // on stocke dans le tableau
+                        this.intVarsHistoric[name].push(entier);
+                        // si le tableau est plein, on le vide
+                        if(this.intVarsHistoric[name][0] <= this.intVarsHistoric[name].length){
+                            this.intVarsHistoric[name].splice(1);
+                        }
+                        this.wVars[name] = entier;
                     }
                 }
             }
