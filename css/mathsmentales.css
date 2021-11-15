@@ -481,6 +481,10 @@ aside > button {
 .zoom-A1{
   font-size: 1.2em;
 }
+.zoominbtn, .zoomoutbtn{
+  background-color: transparent;
+  padding: 4px;
+}
 /* Keyboards */
 .numkey-base {
   padding: 10px;
@@ -581,6 +585,10 @@ aside > button {
 }
 .zoom {
   display: inline-block;
+}
+#thezoom svg {
+  width:32px;
+  height: 32px;
 }
 /* tab-chercher */
 #tab-chercher li{
@@ -849,6 +857,7 @@ ul.cart-list{
 }
 #tab-enonce ol, #tab-corrige ol {
   counter-reset: pas;
+  padding-left: 2rem;
 }
 #tab-enonce ol li, #tab-corrige ol li{
   counter-increment: pas;
