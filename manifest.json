@@ -11,7 +11,7 @@
         },
         {
             "src": "/img/logo-72.png",
-            "sizes": "256x256",
+            "sizes": "72x72",
             "type": "image/png"
         }
     ],
