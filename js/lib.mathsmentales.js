@@ -1605,6 +1605,8 @@ window.onload = function(){
     if(window.localStorage){
         document.querySelector("#tab-historique ol").innerHTML = localStorage.getItem("history");
     }
+    MM.zoom = new Zoom("thezoom","#slideshow .slide");
+    document.querySelector("#slideshow-container header").appendChild(MM.zoom.createCursor());
     // ajout des pickers de colors
     for(let i=0;i<4;i++){
         let leparent = document.getElementById("sddiv"+(i+1));
@@ -1959,28 +1961,81 @@ class steps {
 }
 class Zoom {
     /**
-     *
+     * @param {Integer} id id unique
      * @param {String} targetSelector Id de l'élément du DOM à zoomer/dézoomer
+     * @param {boolean} normaltarget indicate if targetSelector is the targeted elem (true) or children span
      */
-    constructor(id,targetSelector){
+    constructor(id,targetSelector,normaltarget=false){
         this.target = targetSelector;
         this.id=id;
+        this.value = 1;
+        this.normaltarget = normaltarget;
     }
     changeSize(value,obj=false){
         if(value===10 && obj){
-            obj.value = 10;
+            obj.value = 1;
         }
-        let dest = document.querySelectorAll(this.target);
-        dest.forEach(elt=>elt.style.fontSize = math.round(Number(value)/10,1)+"em");
+        let dest = undefined;
+        if(this.normaltarget)
+            dest = document.querySelectorAll(this.target);
+        else
+            dest = document.querySelectorAll(this.target+ " > span");
+        dest.forEach(elt=>elt.style.fontSize = value+"em");
+    }
+    minus(){
+        if(this.value<0.3)return;
+        if(this.value<=1)
+            this.value-=0.2;
+        else{
+            this.value-=0.5;
+        }
+        this.changeSize(this.value);
+    }
+    plus(){
+        if(this.value>=6)return;
+        if(this.value<1)this.value+=0.2;
+        else this.value +=0.5;
+        this.changeSize(this.value);
+    }
+    reset(){
+        this.value=1;
+        this.changeSize(this.value);
     }
     createCursor(){
         let div = utils.create("div",{id:this.id, className:"zoom"});
-        let span = utils.create("span",{className:"zoom-a0",innerText:"A"});
-        let span2 = utils.create("span",{className:"zoom-A1",innerText:"A"});
-        let cursor = `<input id="zoom${this.id}" type="range" min="6" max="60" step="2" value="10" oninput="MM.zooms['${this.id}'].changeSize(this.value)" ondblclick="MM.zooms['${this.id}'].changeSize(10,this)">`;
+        let span = utils.create("span",{className:"zoom-A1 pointer",innerText:"A", ondblclick:this.reset});
+        let btn2 = `<button class="zoominbtn" onclick="MM.zooms['${this.id}'].plus()"><svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M15.3431 15.2426C17.6863 12.8995 17.6863 9.1005 15.3431 6.75736C13 4.41421 9.20101 4.41421 6.85786 6.75736C4.51472 9.1005 4.51472 12.8995 6.85786 15.2426C9.20101 17.5858 13 17.5858 15.3431 15.2426ZM16.7574 5.34315C19.6425 8.22833 19.8633 12.769 17.4195 15.9075C17.4348 15.921 17.4498 15.9351 17.4645 15.9497L21.7071 20.1924C22.0976 20.5829 22.0976 21.2161 21.7071 21.6066C21.3166 21.9971 20.6834 21.9971 20.2929 21.6066L16.0503 17.364C16.0356 17.3493 16.0215 17.3343 16.008 17.319C12.8695 19.7628 8.32883 19.542 5.44365 16.6569C2.31946 13.5327 2.31946 8.46734 5.44365 5.34315C8.56785 2.21895 13.6332 2.21895 16.7574 5.34315ZM10.1005 7H12.1005V10H15.1005V12H12.1005V15H10.1005V12H7.10052V10H10.1005V7Z"
+          fill="currentColor"
+        />
+      </svg></button>`;
+      let btn1 = `<button class="zoomoutbtn" onclick="MM.zooms['${this.id}'].minus()"><svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M15.3431 15.2426C17.6863 12.8995 17.6863 9.1005 15.3431 6.75736C13 4.41421 9.20101 4.41421 6.85786 6.75736C4.51472 9.1005 4.51472 12.8995 6.85786 15.2426C9.20101 17.5858 13 17.5858 15.3431 15.2426ZM16.7574 5.34315C19.6425 8.22833 19.8633 12.769 17.4195 15.9075C17.4348 15.921 17.4498 15.9351 17.4645 15.9497L21.7071 20.1924C22.0976 20.5829 22.0976 21.2161 21.7071 21.6066C21.3166 21.9971 20.6834 21.9971 20.2929 21.6066L16.0503 17.364C16.0356 17.3493 16.0215 17.3343 16.008 17.319C12.8695 19.7628 8.32883 19.542 5.44365 16.6569C2.31946 13.5327 2.31946 8.46734 5.44365 5.34315C8.56785 2.21895 13.6332 2.21895 16.7574 5.34315ZM7.10052 10V12H15.1005V10L7.10052 10Z"
+        fill="currentColor"
+      />
+    </svg></button>`;
+        //let cursor = `<input id="zoom${this.id}" type="range" min="6" max="60" step="2" value="10" oninput="MM.zooms['${this.id}'].changeSize(this.value)" ondblclick="MM.zooms['${this.id}'].changeSize(10,this)">`;
+        div.innerHTML += btn1;
         div.appendChild(span);
-        div.innerHTML += cursor;
-        div.appendChild(span2);
+        div.innerHTML += btn2;
         return div;
     }
 }
@@ -3054,13 +3109,6 @@ var MM = {
         MM.carts[MM.selectedCart].editedActivityId = -1;
         MM.carts[MM.selectedCart].display();
     },
-    changeSizeText(value,obj=false){
-        if(value === 10 && obj){
-            obj.value=10;
-        }
-        const elts = document.querySelectorAll("#slideshow .slide");
-        elts.forEach(elt=>elt.style.fontSize = math.round(Number(value)/10,1)+"em");
-    },
     setTempo:function(value){
         document.getElementById("tempo-slider").value = value;
         document.getElementById('tempo-value').innerHTML = value+" s.";
@@ -3300,8 +3348,8 @@ var MM = {
                 let sliderSteps = document.querySelector("#slider"+slideNumber+" .steps-container");
                 let dive = utils.create("div",{id:"de"+i+"-"+kk});
                 let divc = utils.create("div",{id:"dc"+i+"-"+kk});
-                MM.zooms["zc"+i+"-"+kk] = new Zoom("zc"+i+"-"+kk,"#dc"+i+"-"+kk+" ol");
-                MM.zooms["ze"+i+"-"+kk] = new Zoom("ze"+i+"-"+kk,"#de"+i+"-"+kk+" ol");
+                MM.zooms["zc"+i+"-"+kk] = new Zoom("zc"+i+"-"+kk,"#dc"+i+"-"+kk+" ol", true);
+                MM.zooms["ze"+i+"-"+kk] = new Zoom("ze"+i+"-"+kk,"#de"+i+"-"+kk+" ol", true);
                 dive.appendChild(MM.zooms["ze"+i+"-"+kk].createCursor());
                 divc.appendChild(MM.zooms["zc"+i+"-"+kk].createCursor());
                 let h3e = utils.create("h3",{innerText:titleSlider}); // exercice's title
@@ -3899,6 +3947,13 @@ var MM = {
      */
     createSlideShows:function(){
         MM.zooms={};
+        MM.zooms["thezoom"] = new Zoom("thezoom","#slideshow .slide", true);
+        let insertTo = document.querySelector("#slideshow-container header");
+        let ispresent = insertTo.querySelector("#thezoom");
+        if(ispresent){
+            insertTo.removeChild(ispresent);
+        }
+        insertTo.appendChild(MM.zooms["thezoom"].createCursor());
         // pour compenser une erreur abominable créée lors de la création des urls.
         if(isNaN(MM.slidersNumber)){
             // on va checker le slidersNumber d'après les paniers
@@ -3931,19 +3986,16 @@ var MM = {
                 innerH += `<button title="Mettre le diapo en pause" onclick="MM.timers[${i}].pause()"><img src="img/slider-pause.png" /></button>
                 <button title="Montrer la réponse" onclick="MM.showTheAnswer(${i});"><img src="img/slider-solution.png" /></button>`;
             }
+            MM.zooms["zs"+i] = new Zoom("zs"+i,"#slider"+i+" .slide");
+            let zoom = MM.zooms["zs"+i].createCursor();
             innerH += `<button title="Passer la diapo" onclick="MM.nextSlide(${i});"><img src="img/slider-next.png" /></button>
             </div>
             <div class="slider-title"></div>
-            <div class="slider-chrono"><progress class="progress is-link is-large" value="0" max="100"></progress></div>
-            <div id="zs${i}" class="zoom">
-                <span class="zoom-a0">A</span>
-                <input type="range" min="6" max="60" step="2" value="10" oninput="MM.zooms['zs${i}'].changeSize(this.value)" ondblclick="MM.zooms['zs${i}'].changeSize(10)">
-                <span class="zoom-A1">A</span>
-            </div></div>
+            <div class="slider-chrono"><progress class="progress is-link is-large" value="0" max="100"></progress></div></div>
             <div class="steps-container"></div>`;
             div.innerHTML = innerH;
+            div.querySelector(".slider-head").appendChild(zoom);
             container.appendChild(div);
-            MM.zooms["zs"+i] = new Zoom("zs"+i,"#slider"+i+" .slide");
         }
     },
     showSlideShows:function(){
