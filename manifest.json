@@ -1,6 +1,8 @@
 {
     "name": "Maths et Matic Projector",
+    "short_name": "MathsMentales"
     "description": "Votre plateforme de calcul mentales en classe",
+    "start_url": "/",
     "icons": [
         {
             "src": "/img/logo-144.png",
