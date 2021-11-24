@@ -19,10 +19,22 @@
         "value":"${:a}-${:b}"
     },{
         "name":"Entre deux dixièmes consécutifs",
-        "vars":{"a":"10_99","b":"${:a+1}","c":"d0.01_0.09_2"},
-        "question": "Donne un nombre entre $$${math.round(:a/10,1)}$$ et $$${math.round(:b/10,1)}$$",
-        "answer":"$$${:a/10}\\lt\\color{red}{${math.round(:a/10+:c,2)}}\\lt${:b/10}$$",
-        "value":"${math.round(:a/10,1)}-${math.round(:b/10,1)}"
+        "vars":{"a":"10_99","b":"${:a+1}","n1":"${math.round(:a/10,1)}","n2":"${math.round(:b/10,1)}","c":"d0.01_0.09_2","ni":"${math.round(:a/10+:c,2)}"},
+        "question": "Donne un nombre entre $$${:n1}$$ et $$${:n2}$$",
+        "answer":"$$${:n1}\\lt\\color{red}{${:ni}}\\lt${:n2}$$",
+        "value":"${:n1}-${:n2}"
+    },{
+        "name":"Entre deux centièmes consécutifs",
+        "vars":{"a":"10_999","b":"${:a+1}","n1":"${math.round(:a/100,2)}","n2":"${math.round(:b/100,2)}","c":"d0.001_0.009_3","ni":"${math.round(:a/100+:c,3)}"},
+        "question": "Donne un nombre entre $$${:n1}$$ et $$${:n2}$$",
+        "answer":"$$${:n1}\\lt\\color{red}{${:ni}}\\lt${:n2}$$",
+        "value":"${:n1}-${:n2}"
+    },{
+        "name":"Entre deux millèmes consécutifs",
+        "vars":{"a":"10_9999","b":"${:a+1}","n1":"${math.round(:a/1000,3)}","n2":"${math.round(:b/1000,3)}","c":"d0.0001_0.0009_4","ni":"${math.round(:a/1000+:c,4)}"},
+        "question": "Donne un nombre entre $$${:n1}$$ et $$${:n2}$$",
+        "answer":"$$${:n1}\\lt\\color{red}{${:ni}}\\lt${:n2}$$",
+        "value":"${:n1}-${:n2}"
     }
     ]
 }

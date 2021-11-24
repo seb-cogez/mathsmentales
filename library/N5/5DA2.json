@@ -34,7 +34,7 @@
         "name":"Moyenne, médiane et étendue (3e)",
         "vars":{"nbvals":"2_5", "b":"1_20_${:nbvals-1}","m":"1_3","mn":"${:nbvals*:m}","c":"${:mn+:nbvals-_.reduce(:b,(a,b)=>a+b)%:nbvals}","sum":"${_.reduce(:b,(a,b)=>a+b)+:c}","bsorted":"${_.sortBy(:b.concat([:c]),a=>a)}","etendue":"${_.max(:b.concat([:c]))-_.min(:b.concat([:c]))}"},
         "question": "Quelles sont la moyenne, la médiane et l'étendue de ${:b.join(', ')} et ${:c} ?",
-        "answer":"Moyenne : $$(${:b.join('+')+'+'+:c})\\div${:nbvals}=\\color{red}{${:sum/:nbvals}}$$, médiane : $$\\color{red}{${:nbvals%2?:bsorted.split(',')[(:nbvals-1)/2]:(Number(:bsorted.split(',')[:nbvals/2-1])+Number(:bsorted.split(',')[:nbvals/2]))/2}}$$ et étendue : $$${_.max(:b)}-${_.min(:b)} = \\color{red}{${:etendue}}$$",
+        "answer":"Moyenne : $$(${:b.join('+')+'+'+:c})\\div${:nbvals}=\\color{red}{${:sum/:nbvals}}$$, médiane : $$\\color{red}{${:nbvals%2?:bsorted.split(',')[(:nbvals-1)/2]:(Number(:bsorted.split(',')[:nbvals/2-1])+Number(:bsorted.split(',')[:nbvals/2]))/2}}$$ et étendue : $$${_.max(:b.concat([:c]))}-${_.min(:b.concat([:c]))} = \\color{red}{${:etendue}}$$",
         "value":"${:sum/:nbvals};${:nbvals%2?:bsorted.split(',')[(:nbvals-1)/2]:(Number(:bsorted.split(',')[:nbvals/2-1])+Number(:bsorted.split(',')[:nbvals/2]))/2}};${:etendue}"
     }
     ]

@@ -1,5 +1,5 @@
 {
-    "title":"Quel est le chiffre des ... ? (décimaux)",
+    "title":"Quel est le chiffre des / le nombre de (entier) ... ? (décimaux)",
     "type":"text",
     "ID":"6NC9",
     "textSize":"medium",
@@ -9,17 +9,35 @@
         "w":["centaines de million", "dizaines de millions", "unités de millions","centaines de mille", "dizaines de mille", "unités de mille","centaines", "dizaines", "unités", "dixièmes","centièmes","millièmes","dix-millièmes","cent-millièmes","millionièmes"]
     },
     "options":[{
-        "name":"Nombres inférieurs à $$1000$$",
+        "name":"Chiffre des $$(10^2 \\text{ à } 10^{-3})$$",
         "vars":{"n":"0_9","a":"0_9_6_^${:n}", "b":"0_5", "c":"${Number(:a.slice(0,:b).concat([:n]).concat(:a.slice(:b+1)).join(''))/1000}", "d":"${:u[:b]}"}
         },{
-        "name":"Nombres inférieurs à $$1000000$$",
+        "name":"Chiffre des $$(10^5 \\text{ à } 10^{-3})$$",
         "vars":{"n":"0_9","a":"0_9_9_^${:n}", "b":"0_8", "c":"${Number(:a.slice(0,:b).concat([:n]).concat(:a.slice(:b+1)).join(''))/1000}", "d":"${:v[:b]}"}
         },{
-        "name":"Nombres inférieurs à $$1000000000$$",
+        "name":"Chiffre des $$(10^8 \\text{ à } 10^{-6})$$",
         "vars":{"n":"0_9","a":"0_9_15_^${:n}", "b":"0_14", "c":"${Number(:a.slice(0,:b).concat([:n]).concat(:a.slice(:b+1)).join(''))/1000000}", "d":"${:w[:b]}"}
+        },{
+            "name":"Nombre entier de $$(10^2 \\text{ à } 10^{-3})$$",
+            "vars":{"c":"d0_1000_3_^0,1000", "b":"0_5", "d":"${:u[:b]}", "de":"${:b==2?'d’':'de '}", "nb":"${Math.floor(Number(:c)*Math.pow(10,:b-2))}"},
+            "question":"Quel est le nombre ${:de}<b>${:d}</b> de $$${:c}$$&nbsp;?",
+            "answer":"Dans $$${:c}$$ le nombre ${:de}<b>${:d}</b> est $$\\color{red}{${:nb}}$$",
+            "value":":nb"
+        },{
+            "name":"Nombre entier de $$(10^5 \\text{ à } 10^{-3})$$",
+            "vars":{"c":"d0_1000000_3_^0,1000000", "b":"0_8", "d":"${:v[:b]}", "de":"${:b==2||:b==5?'d’':'de '}", "nb":"${Math.floor(Number(:c)*Math.pow(10,:b-5))}"},
+            "question":"Quel est le nombre ${:de}<b>${:d}</b> de $$${:c}$$&nbsp;?",
+            "answer":"Dans $$${:c}$$ le nombre ${:de}<b>${:d}</b> est $$\\color{red}{${:nb}}$$",
+            "value":":nb"
+        },{
+            "name":"Nombre entier de $$(10^8 \\text{ à } 10^{-6})$$",
+            "vars":{"c":"d0_1000000000_6_^0,1000000000", "b":"0_14", "d":"${:w[:b]}", "de":"${:b==2||:b==5||:d==8?'d’':'de '}", "nb":"${Math.floor(Number(:c)*Math.pow(10,:b-8))}"},
+            "question":"Quel est le nombre ${:de}<b>${:d}</b> de $$${:c}$$&nbsp;?",
+            "answer":"Dans $$${:c}$$ le nombre ${:de}<b>${:d}</b> est $$\\color{red}{${:nb}}$$",
+            "value":":nb"
         }
     ],
-    "answer":"Dans $$${:c}$$, le chiffre des <u>${:d}</u> est <span class='red'>${:n}</span>",
+    "answer":"Dans $$${:c}$$ le chiffre des <u>${:d}</u> est <span class='red'>${:n}</span>",
     "value":"${:a[:b]}",
-    "question": "Dans $$${:c}$$, quel est le chiffre des <b>${:d}</b> ?"
+    "question": "Quel est le chiffre des <b>${:d}</b> de $$${:c}$$&nbsp;?"
 }
