@@ -201,6 +201,7 @@ var utils = {
                 let couleurs = vars.colors.split("~");
                 for(let i=0;i<couleurs.length;i++){
                     MM.colors[i]=couleurs[i].replace(/_/g,",");
+                    document.getElementById("sddiv"+(i+1)).style.background = MM.colors[i];
                 }
             }
             // Mode online
@@ -5479,7 +5480,7 @@ class activity {
                         // on stocke dans le tableau
                         this.intVarsHistoric[name].push(entier);
                         // si le tableau est plein, on le vide
-                        if(this.intVarsHistoric[name][0] <= this.intVarsHistoric[name].length){
+                        if(this.intVarsHistoric[name][0]+1 <= this.intVarsHistoric[name].length){
                             this.intVarsHistoric[name].splice(1);
                         }
                         this.wVars[name] = entier;

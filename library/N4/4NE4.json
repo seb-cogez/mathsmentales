@@ -47,7 +47,7 @@
         "question": ["\\begin{array}{c} \\text{Développer}\\\\${:a}${:x}(${math.signIfOne(:b)}${:x}${math.signedNumber(:c)})\\end{array}","\\begin{array}{c} \\text{Développer}\\\\${:a}${:x}(${:c}${math.signedNumberButOne(:b)}${:x})\\end{array}"],
         "shortq":["${:a}${:x}(${math.signIfOne(:b)}${:x}${math.signedNumber(:c)})","${:a}(${:c}${math.signedNumberButOne(:b)}${:x})"],
         "answer":["${:a}${:x}(${math.signIfOne(:b)}${:x}${math.signedNumber(:c)})=\\color{red}{${math.signIfOne(:a*:b)}${:x}^2${math.signedNumber(:a*:c)}${:x}}","${:a}${:x}(${:c}${math.signedNumberButOne(:b)}${:x})=\\color{red}{${:a*:c}${:x}${math.signedNumberButOne(:a*:b)}${:x}^2}"],
-        "value":"${math.calc(:a+'*'+:x+'*('+:b+:x+')+('+:a+')*('+:c+')')}"
+        "value":"${math.calc(:a+'*'+:x+'*('+:b+')*'+:x+'+('+:a+')*('+:c+')*'+:x)}"
     }
     ]
 }
