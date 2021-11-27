@@ -518,7 +518,7 @@ var utils = {
      * shuffle an array
      * @param {Array} arr 
      */
-    shuffle : function(arr){
+    shuffle : function(arr){        
         if(!Array.isArray(arr))return false;
         arr.sort(()=>utils.alea()-0.5);
         return arr;
@@ -4957,7 +4957,9 @@ class activity {
         let ret = 0;
         // si l'historique de piochage est vide, on le remplit des options choisies mélangées
         if(this.getOptionHistory.length === 0){
-            if(this.chosenOptions.length > 0){
+            if(this.chosenOptions.length === 1){
+                this.getOptionHistory = utils.clone(this.chosenOptions);
+            } else if(this.chosenOptions.length > 1){
                 // on pense à cloner la table, sinon celle-ci est touchée par les manipulations suivantes
                 this.getOptionHistory = utils.shuffle(utils.clone(this.chosenOptions));
             } else {
