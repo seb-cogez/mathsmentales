@@ -382,6 +382,15 @@ var utils = {
                             }
                         }                            
                     }
+                } else if(hashes[i].indedOf("embed") === 0){
+                    // cas d'une activité embeded, on vérifie que l'url est conforme
+                    let parts = hashes[i].split("=");
+                    let url = parts[1];
+                    let expression = 
+/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+                    let regex = new RegExp(expression);
+                    if(url.match(regex))
+                        MM.embededIn = url;
                 }
             }
         }
@@ -1583,7 +1592,7 @@ window.onload = function(){
     }
     window.addEventListener('touchstart',listener,false);
     // for ascii notations, used by math parser
-    MM.ascii2tex = new AsciiMathParser();
+    //MM.ascii2tex = new AsciiMathParser();
     MM.resetCarts();
     // interface
     let tabsButtons = document.querySelectorAll("#header-menu .tabs-menu-link");
@@ -3057,7 +3066,7 @@ class ficheToPrint {
 };
 // MathsMentales core
 var MM = {
-    version:5,// à mettre à jour à chaque upload pour régler les pb de cache
+    version:6,// à mettre à jour à chaque upload pour régler les pb de cache
     content:undefined, // liste des exercices classés niveau/theme/chapitre chargé au démarrage
     introType:"321",// type of the slide's intro values : "example" "321" "nothing"
     endType:"nothing",// type of end slide's values : "correction", "nothing", "list"
@@ -3082,6 +3091,7 @@ var MM = {
     mf:{},// MathFields pour réponses en ligne,
     keyboards:{},// claviers virtuels pour réponses en ligne
     ended:true,
+    embededIn:false, // variable qui contient l'url du site dans lequel MM est affiché (vérifier url)
     setEndType(value){
         this.endType = value;
     },
@@ -4280,10 +4290,18 @@ var MM = {
                     let section = document.createElement("section");
                     section.innerHTML = "<b>Score :</b> "+score+"/"+ia;
                     div.appendChild(section);
+                    //envoi d'un message au site qui a intégré MM :
+                    if(MM.embededIn){
+                        window.parent.postMessage({ url: window.location.href, graine: MM.seed, nbBonnesReponses: score, nbMauvaisesReponses: parseInt(ia) - parseInt(score), slider: slider, touchable:MM.touched }, MM.embededIn);
+                    }
                 }
                 document.getElementById("corrige-content").appendChild(div);
                 // Mise en forme Maths
                 utils.mathRender();
+            } else {
+                if(MM.embededIn){
+                    window.parent.postMessage({ url: window.location.href, graine: MM.seed}, MM.embededIn);
+                }
             }
             // if only one activity in one cart, we empty it
             // TODO : why do that ?
