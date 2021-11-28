@@ -44,17 +44,6 @@ Array.prototype.getKeys = function(){
     return table;
 }
 
-/**
- * shuffle values of an array
- * @returns array
- */
-String.prototype.shuffle = function() {
- return this
-   .split("")
-   .sort(function(a, b) {
-     return (Math.random() < 0.5 ? 1 : -1);
-   }).join("");
-};
 var debug = function(){
     if(modeDebug)console.log(arguments);
 }
@@ -520,7 +509,14 @@ var utils = {
      */
     shuffle : function(arr){        
         if(!Array.isArray(arr))return false;
-        arr.sort(()=>utils.alea()-0.5);
+        let curId = arr.length;
+        while(0 !== curId){
+            let randId = Math.floor(utils.alea()*curId);
+            curId-=1;
+            let tmp = arr[curId];
+            arr[curId] = arr[randId];
+            arr[randId] = tmp;
+        }
         return arr;
     },
     
@@ -705,10 +701,13 @@ var utils = {
     * return nothing
     */
     initializeAlea:function(seed){
-        if(seed)
+        if(seed){
+            if(utils.alea)delete utils.alea;
             utils.alea = new Math.seedrandom(seed);
-        else 
+        } else {
+            if(utils.alea)delete utils.alea;
             utils.alea = new Math.seedrandom(MM.seed);
+        }
     },
     /**
      * 
@@ -1758,6 +1757,16 @@ class cart {
         dom.innerHTML = "";
         this.time = 0;
         this.nbq = 0;
+        let objImage = document.querySelector("#cart"+this.id+" img[data-ordered]");
+        if(this.ordered){
+            objImage.src = "img/iconfinder_stack_1054970.png";
+            objImage.title = "Affichage dans l'ordre des activités";
+            objImage.dataset["ordered"] = "true";
+        } else {
+            objImage.src = "img/iconfinder_windy_1054934.png";
+            objImage.title = "Affichage mélangé des questions";
+            objImage.dataset["ordered"] = "false";
+        }
         for(let i=0,l=this.activities.length; i<l;i++){
             let li = document.createElement("li");
             let activity = this.activities[i];
