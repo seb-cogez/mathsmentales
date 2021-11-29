@@ -43,6 +43,21 @@ Maths et Matic permet de créer des diaporamas en ligne en rapport avec le calcu
 * http://mem-projector.ml/index.html?u=5NC7 > envoie directement sur l'activité 5NC7
 * http://mem-projector.ml/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=&p=0~t=ceinturebleue2br~c=1~o=true_i=6ND10~o=2~q=2.~p=~t=32~n=2_i=8MC1~o=2,3,4,5~q=2.0,1-3.-4.0,1-5.~p=~t=30~n=3_i=5DA2~o=4~q=1.-3.-4.~p=~t=41~n=2_i=3NB3~o=1~q=1.~p=~t=15~n=3 > envoie sur un diaporama qui démarre automatiquement.
 
+# inclure dans un site :
+Rien n'empêche d'inclure un diaporama dans un site, ou sur un genialy.
+A présent, vous pouvez même récupérer le score, et d'autres données en utilisant le protocole postMessage de javascript. Pour cela, il faut ajouter &embed=http://votresite.org à la fin de l'url d'inclusion.
+En échange, MathsMentales renverra à votre site un objet JSON contenant les données suivantes :
+ * url: adresse du diaporama complète
+ * graine: la graine aléatoire utilisée pour la génération des données
+ * touchable : true si MM a été affiché dans un environnement tactile
+Cela permettra par exemple que le diaporama est terminé, et du coup déclencher d'autres actions.
+Au besoin, vous pouvez demander des paramètres supplémentaires.
+
+Et si on est en mode online :
+ * nbBonnesReponses: score de l'élève qui a répondu
+ * nbMauvaisesReponses: nombre de mauvaises réponses,
+ * slider: numero du panneau d'affichage (jusqu'à 4 possibles)
+
 ### Changement de fonctionnement de la bibliothèque d'activités.
 Elle est à présent réalisée à l'aide de fichiers json peu complexes
 
