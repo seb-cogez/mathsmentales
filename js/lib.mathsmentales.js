@@ -93,7 +93,7 @@ redoKey:`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http
  */
 var modeDebug = true;
 var utils = {
-    baseURL:/^.*\//.exec(window.location.href),
+    baseURL:window.location.href.split("?")[0],
     seed: "sample",
     security:300,// max number for boucles
     /**
@@ -143,6 +143,14 @@ var utils = {
      */
     checkURL(urlString=false,start=true,edit=false){
         const vars = utils.getUrlVars(urlString);
+        if(vars.embed !== undefined){
+            // cas d'une activité embeded, on vérifie que l'url est conforme
+            let expression = 
+/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+            let regex = new RegExp(expression);
+            if(vars.embed.match(regex))
+                MM.embededIn = vars.embed;
+        }
         if(vars.n!== undefined && vars.cd===undefined){ // un niveau à afficher
             library.displayContent(vars.n,true);
             return;
@@ -382,15 +390,9 @@ var utils = {
                             }
                         }                            
                     }
-                } else if(hashes[i].indedOf("embed") === 0){
-                    // cas d'une activité embeded, on vérifie que l'url est conforme
+                } else if(hashes[i].indexOf("embed")===0){
                     let parts = hashes[i].split("=");
-                    let url = parts[1];
-                    let expression = 
-/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
-                    let regex = new RegExp(expression);
-                    if(url.match(regex))
-                        MM.embededIn = url;
+                    vars.embed = parts[1];
                 }
             }
         }
@@ -893,7 +895,7 @@ var sound = {
         ["sounds/WATRSplsh_Plouf petit 6 (ID 1534)_LS.mp3","Plouf"],
         ["sounds/Anas_platyrhynchos_-_Mallard_-_XC62258.mp3","Coincoin"]
     ],
-    selected:"null",
+    selected:null,
     player:null,
     getPlayer(){
         // récup du player
@@ -905,12 +907,16 @@ var sound = {
             slct.appendChild(option);
         }
     },
+    beeps(){
+        this.player.src = "sounds/BEEP_Bips horaires 1 (ID 1627)_LS.mp3";
+        this.play();
+    },
     play(){
-        if(this.selected !== "null")
+        if(this.selected !== null)
             this.player.play();
     },
     next(){
-        if(this.selected==="null")this.selected=-1;
+        if(this.selected===null)this.selected=-1;
         this.setSound((this.selected+1)%this.list.length);
         this.play();
     },
@@ -919,8 +925,8 @@ var sound = {
         this.play();
     },
     setSound(id){
-        this.selected = id;
-        if(this.selected!=="null")
+        this.selected = eval(id);
+        if(this.selected!==null)
             this.player.src = this.list[id][0];
     }
 }
@@ -3066,7 +3072,7 @@ class ficheToPrint {
 };
 // MathsMentales core
 var MM = {
-    version:6,// à mettre à jour à chaque upload pour régler les pb de cache
+    version:7,// à mettre à jour à chaque upload pour régler les pb de cache
     content:undefined, // liste des exercices classés niveau/theme/chapitre chargé au démarrage
     introType:"321",// type of the slide's intro values : "example" "321" "nothing"
     endType:"nothing",// type of end slide's values : "correction", "nothing", "list"
@@ -3323,7 +3329,7 @@ var MM = {
                 MM.start();
             else {
                 let message = `Tu as suivi un lien d'activité préconfigurée MathsMentales.<br>Clique ci-dessous pour démarrer.<br><br><button class="button--primary" onclick="utils.closeMessage('messageinfo');MM.start()"> Démarrer le diaporama </button>`;
-                if(MM.carts.length === 1 && sound.selected==="null")
+                if(MM.carts.length === 1 && sound.selected===null)
                     message += `<br><br><button class="button--info" onclick="sound.next();">Avec du son</button>`;
                 if(MM.carts.length===1 && MM.carts[0].target.length===1)
                     message +=`<br><br> ou <button class="button--success" onclick="utils.closeMessage('messageinfo');MM.setOnlineState('yes');MM.start()"> Commencer (interactif)</button>`;
@@ -3606,6 +3612,10 @@ var MM = {
         MM.populateQuestionsAndAnswers();
         if(MM.introType === "321"){
             document.getElementById("countdown-container").className = "";
+            if(sound.selected){
+                setTimeout(()=>{sound.beeps();},800);
+                setTimeout(()=>{sound.setSound(sound.selected)},3500);
+            }
             setTimeout(function(){
                 document.getElementById("countdown-container").className = "hidden";
                 if(MM.onlineState === "yes") { // create inputs for user
@@ -3861,7 +3871,7 @@ var MM = {
                 chaine += "&"+i+"="+params[i];
             }
         }*/
-        return utils.baseURL+'index.html?'+string;
+        return utils.baseURL+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
     },
     checkIntro:function(){
         MM.introType = utils.getRadioChecked("beforeSlider");
@@ -4017,6 +4027,7 @@ var MM = {
     showSlideShows:function(){
         utils.removeClass(document.getElementById("slideshow-container"),"hidden");
         utils.addClass(document.getElementById("app-container"), "hidden");
+        if(sound.selected){sound.play();}
         if(!utils.isEmpty(MM.figs)){
             MM.displayFirstFigs();
         }
