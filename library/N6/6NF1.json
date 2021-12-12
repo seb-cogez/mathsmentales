@@ -29,5 +29,5 @@
     }
     ],
     "answer":"On me rend $$${:don}-${:d}=\\color{red}{${:r}}$$ €",
-    "value":["${:don-:d}€","${:don-:d}"]
+    "value":["${math.round(:don-:d,2)}€","${math.round(:don-:d,2)}"]
 }
