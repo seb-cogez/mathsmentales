@@ -18,3 +18,8 @@ _private
 # fichiers du serveur
 tinyweb-1-94
 *.log
+referer_log
+agent_log
+error_log
+access_log
+tinyweb-1-94.exe
