@@ -21,6 +21,7 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
     <link rel="stylesheet" href="css/knacss.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/bulma-steps.min.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/mathsmentales.css?v=6" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/mathsmentales.scss" type="text/css" media="screen" />
     <link rel="stylesheet" href="js/libs/JSXGprah1.2.2/jsxgraph.css" type="text/css" />
     <script src="js/libs/katex/katex.min.js" type="text/javascript" defer></script>
     <script src="js/libs/asciimath2tex/asciimath2tex.min.js" defer></script>
@@ -294,9 +295,23 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
                 <span class="tooltiptext">Copie l'adresse de<br>l'activité dans<br>le presse papier</span>
                 </button>
                 <input type="text" class="hidden" id="acturl" maxlength="1024">
-                <button class="button--success tooltip" onclick="MM.copyURLtoHistory()">Ajouter à l'historique
+                <button class="button--success tooltip" onclick="MM.copyURLtoHistory(); AnnonceHistorique()">Ajouter à l'historique
                 <span class="tooltiptext">Copie la sélection<br>dans l'historique</span>
                 </button>
+                <script>
+                    function AnnonceHistorique() {
+                        document.getElementById("ToastHistory").style.display("block")
+                    }
+                </script>
+                <div class="ToastHistory" id="ToastHistory">
+                    <h3>L'activité a été copiée dans l'historique</h3>
+                    <a id="LinkTH" onclick="Close()">Fermer</a>
+                    <script>
+                        function AnnonceHistorique() {
+                            document.getElementById("ToastHistory").style.display("none")
+                        }
+                    </script>
+                </div>
                 <!--<button class="button--success tooltip" onclick="MM.generateCode();">Codes élève
                     <span class="tooltiptext">Génère plusieurs <b>codes</b><br>élèves pour répondre en ligne</span>
                 </button>-->
