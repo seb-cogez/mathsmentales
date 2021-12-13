@@ -300,7 +300,8 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
                 </button>
                 <script>
                     function AnnonceHistorique() {
-                        document.getElementById("ToastHistory").style.display("block")
+                        var TH = document.getElementById("ToastHistory")
+                        TH.style.display("block")
                     }
                 </script>
                 <div class="ToastHistory" id="ToastHistory">
@@ -308,7 +309,7 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
                     <a id="LinkTH" onclick="Close()">Fermer</a>
                     <script>
                         function Close() {
-                            document.getElementById("ToastHistory").style.display("none")
+                            TH.style.display("none")
                         }
                     </script>
                 </div>
