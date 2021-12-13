@@ -297,13 +297,13 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
                 <input type="text" class="hidden" id="acturl" maxlength="1024">
                 <button class="button--success tooltip" onclick="MM.copyURLtoHistory(); AnnonceHistorique()">Ajouter à l'historique
                 <span class="tooltiptext">Copie la sélection<br>dans l'historique</span>
-                </button>
                 <script>
                     function AnnonceHistorique() {
                         var TH = document.getElementById("ToastHistory")
                         TH.style.display("block")
                     }
                 </script>
+                </button>
                 <div class="ToastHistory" id="ToastHistory">
                     <h3>L'activité a été copiée dans l'historique</h3>
                     <a id="LinkTH" onclick="Close()">Fermer</a>
