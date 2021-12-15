@@ -21,7 +21,9 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
     <link rel="stylesheet" href="css/knacss.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/bulma-steps.min.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/mathsmentales.css?v=6" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/mem-projector.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="js/libs/JSXGprah1.2.2/jsxgraph.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <script src="js/libs/katex/katex.min.js" type="text/javascript" defer></script>
     <script src="js/libs/asciimath2tex/asciimath2tex.min.js" defer></script>
     <script src="js/libs/mathlive/mathlive.min.js" defer></script>
@@ -95,13 +97,17 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
         <section class="grille">
         <article class="accueillogo">
           <!-- Action JavaScript MM.takeOff()-->
-            <div class="fr jaiuncode"><input type="text" id="inputCode" placeholder="Saisir une URL préconfigurée" size="10"><button id="btnCode" onclick="URLPreconfig()"><img src="img/iconfinder_takeoff.png" alt="Saisir une URL ou un code"></button>
+            <div class="fr jaiuncode"><input type="text" id="inputCode" placeholder="Saisir une URL préconfigurée" syle="width: 100%;"><button title="Saisir une URL ou un code" id="btnCode" onclick="URLPreconfig()"><!--<img src="img/iconfinder_takeoff.png" alt="Saisir une URL ou un code"> --><h1><i class="bi bi-check-circle-fill"></i></h1></button>
               <script>
               function URLPreconfig() {
                 var URLCode = document.getElementById("inputCode").value;
 
                 if (URLCode === "") {
-                    alert("Veuillez saisir une URL")
+                    ShowPUURLNS()
+                    function ShowPUURLNS(){
+                        var element = document.getElementById("PU-URLNS");
+                        element.style.display = "block";
+                    }
                 }
                 else {
                   if (URLCode.includes("code=")) {
@@ -114,8 +120,20 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
                     }
              }
               </script>
+              <div class="pop-up" id="PU-URLNS">
+                  <h2>
+                    <i class="bi bi-exclamation-triangle-fill"></i> Veuillez saisir une URL
+                  </h2>
+                  <button onclick="HidePUURLNS()">Fermer</button>
+                  <script>
+                      function HidePUURLNS(){
+                        var element = document.getElementById("PU-URLNS");
+                        element.style.display = "none";
+                      }
+                  </script>
+              </div>
             </div>
-            <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=320x10000:format=png/path/sef6091d0cde7bfc1/image/iacfaba7d247d2f62/version/1612443176/image.png" width="160" class="logoMM">
+            <img alt="logo" src="https://image.jimcdn.com/app/cms/image/transf/dimension=320x10000:format=png/path/sef6091d0cde7bfc1/image/iacfaba7d247d2f62/version/1612443176/image.png" width="160" class="logoMM">
             <p>
                 <b>Maths et Matic Projector</b> votre plateforme de calcul mentales en classe
              </p>
@@ -281,6 +299,18 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
                 <input type="radio" class="radio" name="endOfSlideRadio" value="list" onclick="MM.setEndType(this.value)"> Énoncés
             </fieldset><br>
             <section class="txtcenter" id="startbuttons">
+                <div class="pop-up" id="PU-HIST">
+                    <h2>
+                        <i class="bi bi-check-square-fill"></i> Activité ajoutée à l'historique
+                    </h2>
+                    <button onclick="HidePUHIST()">Fermer</button>
+                    <script>
+                        function HidePUHIST(){
+                          var element = document.getElementById("PU-HIST");
+                          element.style.display = "none";
+                        }
+                    </script>
+                </div>
                 <button class="button--primary tooltip" onclick="MM.start();"><b>Démmarer</b>
                     <span class="tooltiptext">Démarre le diaporama</span>
                 </button>
@@ -294,8 +324,14 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
                 <span class="tooltiptext">Copie l'adresse de<br>l'activité dans<br>le presse papier</span>
                 </button>
                 <input type="text" class="hidden" id="acturl" maxlength="1024">
-                <button class="button--success tooltip" onclick="MM.copyURLtoHistory(); alert(`Activité ajoutée à l'historique`)">Ajouter à l'historique
+                <button class="button--success tooltip" onclick="MM.copyURLtoHistory(); ShowPUHIST();">Ajouter à l'historique
                 <span class="tooltiptext">Copie la sélection<br>dans l'historique</span>
+                    <script>
+                        function ShowPUHIST(){
+                            var element = document.getElementById("PU-HIST");
+                            element.style.display = "block";
+                        }
+                    </script>
                 </button>
                 <!--<button class="button--success tooltip" onclick="MM.generateCode();">Codes élève
                     <span class="tooltiptext">Génère plusieurs <b>codes</b><br>élèves pour répondre en ligne</span>
@@ -469,7 +505,7 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
         </div>
     </section>
     <section id="tab-historique" class="tabs-content-item" style="display: none;">
-        Ici, l'historique des activités pour pouvoir les relancer, les imprimer... <span class="pointer underline" onclick="MM.emptyHistory();">🚮Vider l'historique</span> <span class="pointer underline" onclick="MM.createSelectHistory();">➕ Sélectionner</span>
+        Ici, l'historique des activités pour pouvoir les relancer, les imprimer... <span class="pointer underline" onclick="MM.emptyHistory();"><i class="bi bi-trash-fill"></i> Vider l'historique</span> <span class="pointer underline" onclick="MM.createSelectHistory();"><i class="bi bi-ui-checks-grid"></i> Sélectionner</span>
         <span id="actionsSelectHist" class="hidden">Pour la sélection : <span class="underline pointer" onclick="MM.removeSelectionFromHistory();">Supprimer</span><!-- <span>Générer page</span>--></span>
         <!--<span class="pointer underline" onclick="MM.generatePage()">🧾 Générer une page de liens</span>-->
         <ol reversed></ol>
@@ -500,9 +536,9 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
 </div>
 <div id="slideshow-container" class="hidden">
     <header>
-        <button title="Tout arrêter" id="stop-all" onclick="MM.stopAllSliders()"><img src="img/slider-stop.png"></button>
-        <button title="Tout mettre en pause" id="pause-all" onclick="MM.pauseAllSliders();"><img src="img/slider-pause.png"></button>
-        <button title="Passer à la suivante pour tous" id="next-all" onclick="MM.nextAllSliders()"><img src="img/slider-next.png"></button>
+        <button title="Tout arrêter" id="stop-all" onclick="MM.stopAllSliders()"><img alt="Stop" src="img/slider-stop.png"></button>
+        <button title="Tout mettre en pause" id="pause-all" onclick="MM.pauseAllSliders();"><img alt="Pause" src="img/slider-pause.png"></button>
+        <button title="Passer à la suivante pour tous" id="next-all" onclick="MM.nextAllSliders()"><img alt="Next" src="img/slider-next.png"></button>
     </header>
     <section id="slideshow"></section>
 </div>

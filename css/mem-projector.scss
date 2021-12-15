@@ -1,0 +1,20 @@
+/*CSS (SCSS) Propore à Maths et Matic projector*/
+
+$main-color: #025296;
+
+.pop-up {
+    background-color: $main-color;
+    border-radius: 10px;
+    margin: 5px;
+    display: none;
+    h2{
+        color: white;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    button{
+        border-radius: 50px;
+        margin-bottom: 5px;
+        margin-left: 5px;
+    }
+}

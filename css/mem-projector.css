@@ -1,0 +1,20 @@
+@charset "UTF-8";
+/*CSS (SCSS) Propore à Maths et Matic projector*/
+.pop-up {
+  background-color: #025296;
+  border-radius: 10px;
+  margin: 5px;
+  display: none;
+}
+.pop-up h2 {
+  color: white;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.pop-up button {
+  border-radius: 50px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+
+/*# sourceMappingURL=mem-projector.css.map */

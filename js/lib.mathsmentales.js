@@ -3703,15 +3703,15 @@ var MM = {
         let li = utils.create("li");
         let span = utils.create("span", {innerText:"Panier du "+utils.getDate()+": ",className:"bold"});
         li.appendChild(span);
-        const a = utils.create("a",{href:url,innerText:"🎯 lien (mêmes données)"});
+        const a = utils.create("a",{href:url,innerText:'🖇️lien (mêmes données)'});
         li.appendChild(a);
-        const a2 = utils.create("a",{href:urlSansSeed,innerText:"🎯 lien (autres données)"});
+        const a2 = utils.create("a",{href:urlSansSeed,innerText:'🖇️ lien (autres données)'});
         li.appendChild(a2);
         let button = `
         <span class="pointer underline" data-url="${url}" onclick="utils.checkURL(this.dataset['url'],false,true)">
-            🛠 éditer
+        <i class="bi bi-pencil-square"></i> éditer
         </span>
-        <span class="pointer underline" onclick="MM.removeFromHistory(this.parentNode)">❌ Supprimer</span>
+        <span class="pointer underline" onclick="MM.removeFromHistory(this.parentNode)"><i class="bi bi-trash-fill"></i> Supprimer</span>
         `;
         li.innerHTML += button;
         li.appendChild(this.getCartsContent());
