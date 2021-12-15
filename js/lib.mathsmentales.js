@@ -4011,15 +4011,15 @@ var MM = {
             /*if(nb>1 && MM.faceToFace==="y" && i===0)div.className += " return";
             else if(nb>2 && MM.faceToFace==="y" && i===1)div.className +=" return";*/
             let innerH = `<div class="slider-head"><div class="slider-nav">
-            <button title="Arrêter le diaporama" onclick="MM.timers[${i}].end()"><img src="img/slider-stop.png" /></button>`;
+            <button title="Arrêter le diaporama" onclick="MM.timers[${i}].end()"><h1><i class="bi bi-stop-btn-fill"></i></h1><!--<img alt="Stop" src="img/slider-stop.png">--></button>`;
             if(MM.onlineState==="no"){
                 // on crée les boutons de pause et montrer réponse si on n'est pas en mode online
-                innerH += `<button title="Mettre le diapo en pause" onclick="MM.timers[${i}].pause()"><img src="img/slider-pause.png" /></button>
-                <button title="Montrer la réponse" onclick="MM.showTheAnswer(${i});"><img src="img/slider-solution.png" /></button>`;
+                innerH += `<button title="Mettre le diapo en pause" onclick="MM.timers[${i}].pause()"><h1><i class="bi bi-pause-btn-fill"></i></h1><span style="display: none;"><img alt="Pause" src="img/slider-pause.png"></span></button>
+                <button title="Montrer la réponse" onclick="MM.showTheAnswer(${i});"><h1><i class="bi bi-lightbulb"></i></h1><span style="display: none;"><img src="img/slider-solution.png" /></span></button>`;
             }
             MM.zooms["zs"+i] = new Zoom("zs"+i,"#slider"+i+" .slide");
             let zoom = MM.zooms["zs"+i].createCursor();
-            innerH += `<button title="Passer la diapo" onclick="MM.nextSlide(${i});"><img src="img/slider-next.png" /></button>
+            innerH += `<button title="Passer la diapo" onclick="MM.nextSlide(${i});"><h1><i class="bi bi-skip-end-btn-fill"></i></h1><!--<img alt="Next" src="img/slider-next.png">--></button>
             </div>
             <div class="slider-title"></div>
             <div class="slider-chrono"><progress class="progress is-link is-large" value="0" max="100"></progress></div></div>

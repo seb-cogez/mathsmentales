@@ -156,9 +156,9 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
     </section>
     <section id="tab-parameters" class="grid-3 has-gutter tabs-content-item" style="display: none;"> <!-- Section : Configuration -->
         <div>
-            <button id="addToCart" onclick="MM.addToCart();" title="Ajouter au panier"><img src="img/addtocart.png"></button>
-            <button id="unlinkCart" onclick="MM.unlinkActivity();" class="hidden" title="Désolidariser l'édition du panier"><img src="img/iconfinder_pin.png"></button>
-            <button id="removeFromCart" onclick="MM.removeFromCart();" class="hidden" title="Supprimer du panier"><img src="img/removefromcart.png"></button>
+            <button id="addToCart" onclick="MM.addToCart();" title="Ajouter au panier"><!--<img src="img/addtocart.png">--><h1><i class="bi bi-bag-plus-fill"></i></h1></button>
+            <button id="unlinkCart" onclick="MM.unlinkActivity();" class="hidden" title="Désolidariser l'édition du panier"><!--<img src="img/iconfinder_pin.png">--><h1><i class="bi bi-bookmark-fill"></i></h1></button>
+            <button id="removeFromCart" onclick="MM.removeFromCart();" class="hidden" title="Supprimer du panier"><!--<img src="img/removefromcart.png">--><h1><i class="bi bi-bag-dash-fill"></i></h1></button>
             <h1><i class="icon-arrow--right"></i>Activité <span id="param-title-act"></span></h1>
             <div id="activityTitle"></div>
             <div id="activityDescription"></div>
@@ -468,11 +468,11 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
         </div>
         </div>
        <div class="row-4 colsx2" id="divparams">
-        <button id="btn-annotation2" onclick="utils.annotate('divparams', this.id)">
-            <img src="img/iconfinder_pencil_1055013.png" title="Annoter l'énoncé">
+        <button title="Annoter l'énoncé" id="btn-annotation2" onclick="utils.annotate('divparams', this.id)">
+            <h1><i class="bi bi-pencil-fill"></i></h1><span style="display: none;"><img src="img/iconfinder_pencil_1055013.png" title="Annoter l'énoncé"></span>
         </button>
-        <button id="btn-shuffle" onclick="MM.editedActivity.display('sample')">
-            <img src="img/iconfinder_die_1055072.png" title="Changer les exemples">
+        <button title="Changer les exemples" id="btn-shuffle" onclick="MM.editedActivity.display('sample')">
+            <!--<img src="img/iconfinder_die_1055072.png" title="Changer les exemples">--> <h1><i class="bi bi-dice-3"></i></h1>
         </button>
             <h1><i class="icon-arrow--right"></i>Questions types</h1>
             <div id="activityOptions"></div>
@@ -480,8 +480,8 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
     </section>
     <section id="tab-enonce" class="tabs-content-item" style="display: none;"> <!-- Section : Enoncé -->
         <aside>
-            <button id="btn-annotation-enonce" onclick="utils.annotate('enonce-content', this.id)">
-                <img src="img/iconfinder_pencil_1055013.png" title="Annoter">
+            <button title="Annoter" id="btn-annotation-enonce" onclick="utils.annotate('enonce-content', this.id)">
+                <h1><i class="bi bi-pencil-fill"></i></h1><span style="display: none;"><img src="img/iconfinder_pencil_1055013.png" title="Annoter"></span>
             </button>
         </aside>
         <div id="enonce-content" class="grid">
@@ -489,15 +489,15 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
         </div>
     </section>
     <section id="tab-corrige" class="tabs-content-item" style="display: none;"> <!-- Section : Corrigé -->
-        <aside>
-            <button id="btn-annotation-corrige" onclick="utils.annotate('corrige-content', this.id)">
-                <img src="img/iconfinder_pencil_1055013.png" title="Annoter le corrigé">
+        <aside class="action-btn-corrige">
+            <button title="Annoter le corrigé" id="btn-annotation-corrige" onclick="utils.annotate('corrige-content', this.id)">
+                <h1><i class="bi bi-pencil-fill"></i></h1><span style="display: none;"><img src="img/iconfinder_pencil_1055013.png" title="Annoter le corrigé"></span>
             </button>
-            <button id="btn-restart-otherdata" onclick="utils.setSeed(utils.seedGenerator());MM.start();">
-                <img src="img/restart.png" title="Recommencer avec de nouvelles données">
+            <button title="Recommencer avec de nouvelles données" id="btn-restart-otherdata" onclick="utils.setSeed(utils.seedGenerator());MM.start();">
+                <h1><i class="bi bi-arrow-clockwise"></i><i class="bi bi-dice-3"></i></h1><!--<img src="img/restart.png" title="Recommencer avec de nouvelles données">-->
             </button>
-            <button id="btn-restart-samedata" onclick="MM.start();">
-                <img src="img/restartsame.png" title="Recommencer avec les mêmes données">
+            <button title="Recommencer avec les mêmes données" id="btn-restart-samedata" onclick="MM.start();">
+                <h1><i class="bi bi-arrow-clockwise"></i></h1><!--<img src="img/restartsame.png" title="Recommencer avec les mêmes données">-->
             </button>
         </aside>
         <div id="corrige-content" class="grid">
@@ -536,9 +536,9 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
 </div>
 <div id="slideshow-container" class="hidden">
     <header>
-        <button title="Tout arrêter" id="stop-all" onclick="MM.stopAllSliders()"><img alt="Stop" src="img/slider-stop.png"></button>
-        <button title="Tout mettre en pause" id="pause-all" onclick="MM.pauseAllSliders();"><img alt="Pause" src="img/slider-pause.png"></button>
-        <button title="Passer à la suivante pour tous" id="next-all" onclick="MM.nextAllSliders()"><img alt="Next" src="img/slider-next.png"></button>
+        <button title="Tout arrêter" id="stop-all" onclick="MM.stopAllSliders()"><h1><i class="bi bi-stop-btn-fill"></i></h1><!--<img alt="Stop" src="img/slider-stop.png">--></button>
+        <button title="Tout mettre en pause" id="pause-all" onclick="MM.pauseAllSliders();"><h1><i class="bi bi-pause-btn-fill"></i></h1><span style="display: none;"><img alt="Pause" src="img/slider-pause.png"></span></button>
+        <button title="Passer à la suivante pour tous" id="next-all" onclick="MM.nextAllSliders()"><h1><i class="bi bi-skip-end-btn-fill"></i></h1><!--<img alt="Next" src="img/slider-next.png">--></button>
     </header>
     <section id="slideshow"></section>
 </div>

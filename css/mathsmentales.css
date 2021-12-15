@@ -706,7 +706,6 @@ h2.sg-title, h3.sg-title {
 }
 #btn-annotation-corrige, #btn-annotation-enonce, #btn-restart-otherdata, #btn-restart-samedata{
   background-color: rgba(0,0,0,0);
-  padding:0;
 }
 #btn-annotation2{
   margin-left: 0.5rem;

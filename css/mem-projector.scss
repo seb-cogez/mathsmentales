@@ -18,3 +18,11 @@ $main-color: #025296;
         margin-left: 5px;
     }
 }
+
+.action-btn-corrige{
+    button{
+        box-shadow: 1px 2px 3px $main-color;
+        padding: 3px;
+        border-radius: 5px;
+    }
+}
