@@ -157,7 +157,7 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
     <section id="tab-parameters" class="grid-3 has-gutter tabs-content-item" style="display: none;"> <!-- Section : Configuration -->
         <div>
             <button id="addToCart" onclick="MM.addToCart();" title="Ajouter au panier"><!--<img src="img/addtocart.png">--><h1><i class="bi bi-bag-plus-fill"></i></h1></button>
-            <button id="unlinkCart" onclick="MM.unlinkActivity();" class="hidden" title="Désolidariser l'édition du panier"><!--<img src="img/iconfinder_pin.png">--><h1><i class="bi bi-bookmark-fill"></i></h1></button>
+            <button id="unlinkCart" onclick="MM.unlinkActivity();" class="hidden" title="Annuler la sélection"><!--<img src="img/iconfinder_pin.png">--><h1><i class="bi bi-x-circle-fill"></i></h1></button>
             <button id="removeFromCart" onclick="MM.removeFromCart();" class="hidden" title="Supprimer du panier"><!--<img src="img/removefromcart.png">--><h1><i class="bi bi-bag-dash-fill"></i></h1></button>
             <h1><i class="icon-arrow--right"></i>Activité <span id="param-title-act"></span></h1>
             <div id="activityTitle"></div>
@@ -173,12 +173,12 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
             <div class="tabs">
                 <nav class="tabs-menu" id="cartsMenu">
                     <button onclick="MM.showCart(this.value);" class="tabs-menu-link is-active" value="1" id="button-cart1"><img src="img/cart1.png"></button>
-                    <button id="addcart" title="Ajouter un panier" onclick="MM.addCart();"><img src="img/cartadd.png"></button>
+                    <button id="addcart" title="Ajouter un panier" onclick="MM.addCart();"><h1 class="cart-bs-icon"><i class="bi bi-cart-plus"></h1></i><!--<img src="img/cartadd.png">--></button>
                 </nav>
             </div>
             <div id="cartscontainer">
                 <section id="cart0" class="cartcontent">
-                    <button class="cart-close" onclick="MM.emptyCart(1);" title="Vider le panier"><img src="img/recyclecart.png"></button>
+                    <button class="cart-close" onclick="MM.emptyCart(1);" title="Vider le panier"><h1 id="button-type" class="cart-bs-icon"><i class="bi bi-cart-dash"></i></h1></i><!--<img src="img/recyclecart.png">--></button>
                     <h3 contenteditable="true" onblur="MM.carts[0].title = this.innerText;" title="Cliquer pour éditer">Groupe 1</h3>
                     <div class="totaux">
                         <img src="img/clock.png" title="Durée totale"> <span>0</span> s.
@@ -191,8 +191,8 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
                     </ul>
                 </section>
                 <section id="cart1" class="hidden">
-                    <button class="cart-close" onclick="MM.removeCart(2);" title="Supprimer le panier"><img src="img/burnCart.png"></button>
-                    <button class="cart-close" onclick="MM.emptyCart(2);" title="Vider le panier"><img src="img/recyclecart.png"></button>
+                    <button class="cart-close" onclick="MM.removeCart(2);" title="Supprimer le panier"><h1 id="button-type" class="cart-bs-icon"><i class="bi bi-cart-x-fill"></i></h1><!--<img src="img/burnCart.png">--></button>
+                    <button class="cart-close" onclick="MM.emptyCart(2);" title="Vider le panier"><h1 id="button-type" class="cart-bs-icon"><i class="bi bi-cart-dash"></i></h1><!--<img src="img/recyclecart.png">--></button>
                     <h3 contenteditable="true" onblur="MM.carts[1].title = this.innerText;" title="Cliquer pour éditer">Groupe 2</h3>
                     <div class="totaux">
                         <img src="img/clock.png" title="Durée totale"> <span>0</span> s.
@@ -205,8 +205,8 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
                     </ul>
                 </section>
                 <section id="cart2" class="hidden">
-                    <button class="cart-close" onclick="MM.removeCart(3);" title="Supprimer le panier"><img src="img/burnCart.png"></button>
-                    <button class="cart-close" onclick="MM.emptyCart(3);" title="Vider le panier"><img src="img/recyclecart.png"></button>
+                    <button class="cart-close" onclick="MM.removeCart(3);" title="Supprimer le panier"><h1 id="button-type" class="cart-bs-icon"><i class="bi bi-cart-x-fill"></i></h1><!--<img src="img/burnCart.png">--></button>
+                    <button class="cart-close" onclick="MM.emptyCart(3);" title="Vider le panier"><h1 id="button-type" class="cart-bs-icon"><i class="bi bi-cart-dash"></i></h1><!--<img src="img/recyclecart.png">--></button>
                     <h3 contenteditable="true" onblur="MM.carts[2].title = this.innerText;" title="Cliquer pour éditer">Groupe 3</h3>
                     <div class="totaux">
                         <img src="img/clock.png" title="Durée totale"> <span>0</span> s.
@@ -219,8 +219,8 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
                     </ul>
                 </section>
                 <section id="cart3" class="hidden">
-                    <button class="cart-close" onclick="MM.removeCart(4);" title="Supprimer le panier"><img src="img/burnCart.png"></button>
-                    <button class="cart-close" onclick="MM.emptyCart(4);" title="Vider le panier"><img src="img/recyclecart.png"></button>
+                    <button class="cart-close" onclick="MM.removeCart(4);" title="Supprimer le panier"><h1 class="cart-bs-icon"><i id="button-type" class="bi bi-cart-x-fill"></i></h1><!--<img src="img/burnCart.png">--></button>
+                    <button class="cart-close" onclick="MM.emptyCart(4);" title="Vider le panier"><h1 class="cart-bs-icon"><i id="button-type" class="bi bi-cart-dash"></i></h1><!--<img src="img/recyclecart.png">--></button>
                     <h3 contenteditable="true" onblur="MM.carts[3].title = this.innerText;" title="Cliquer pour éditer">Groupe 4</h3>
                     <div class="totaux">
                         <img src="img/clock.png" title="Durée totale"> <span>0</span> s.
@@ -520,6 +520,7 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
         <p>Tous les documents ci-dessous sont sous licence libre GPL</p>
         <h2 class="sg-title">Documentation de MathsMentales</h2>
         <p>En attendant des tutos en vidéo, voici une courte documentation de MathsMentales : <a href="docs/MathsMentales documentation.pdf" target="_blank">Télécharger le pdf</a></p>
+        <h3>2021 Vapps Line std</h3>
     </section>
     <section id="tab-chercher" class="tabs-content-item" style="display: none;"> <!-- Section : Recherche -->
         <div class="flex-container">

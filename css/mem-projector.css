@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/*CSS (SCSS) Propore à Maths et Matic projector*/
+/* CSS (SCSS) Propore à Maths et Matic projector */
 .pop-up {
   background-color: #025296;
   border-radius: 10px;
@@ -21,6 +21,34 @@
   box-shadow: 1px 2px 3px #025296;
   padding: 3px;
   border-radius: 5px;
+  transition: 0.5s;
+}
+.action-btn-corrige button:hover {
+  color: #025296;
+  box-shadow: 1px 2px 3px white;
+  transition: 0.5s;
+}
+
+.spanel-diapo-bs-icon {
+  font-size: 40px;
+}
+
+.cart-bs-icon {
+  font-size: 35px;
+}
+
+#button-type {
+  box-shadow: 1px 2px 3px #025296;
+  padding: 3px;
+  border-radius: 5px;
+  transition: 0.5s;
+  margin: 5px;
+}
+#button-type:hover {
+  background-color: #025296;
+  color: white;
+  box-shadow: 1px 2px 3px white;
+  transition: 0.5s;
 }
 
 /*# sourceMappingURL=mem-projector.css.map */
