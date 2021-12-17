@@ -27,14 +27,18 @@ Maths et Matic permet de créer des diaporamas en ligne en rapport avec le calcu
  * [JSXGraph](http://jsxgraph.uni-bayreuth.de/wp/index.html) pour les représentations graphiques et la géométrie, notamment 
  * [JessieCode](https://github.com/jsxgraph/JessieCode) qui permet de réaliser des figures facilement (LGPL & MIT licences)
  * [asciimath2tex](https://github.com/christianp/asciimath2tex) pour taper plus rapidement les formules de maths (Licence Apache 2.0)
- * [qrious](https://github.com/neocotic/qrious) pour générer les qrcodes (GPLv3 licence)
+ * ~~[qrious](https://github.com/neocotic/qrious) pour générer les qrcodes (GPLv3 licence)~~
  * [mathlive](https://mathlive.io/) pour l'interface de saisie utilisateur pour répondre en ligne (MIT license)
  * [tinyweb](https://www.ritlabs.com/en/products/tinyweb/) pour le mini serveur web sous windows. (licence non libre, Cf. fichier de licence)
  * [Vanilla-picker](https://github.com/Sphinxxxx/vanilla-picker) sélectionneur de couleur en pur javascript (ISC Licence)
 
+### APIs et services externes utilisés
+* [GoQR](https://goqr.me/) générateur de QR code
+* [Link-Shortener](https://git.42l.fr/42l/rs-short) racourcisseur de liens, licence MPL v2
+
 ### Crédits images
 * "Circle Icons" de Nick Roach [iconfinder](https://www.iconfinder.com/iconsets/circle-icons-1) parfois retouchées, licence GPL
-* usage d'[Emoji](https://emojipedia.org/) dans l'affichage des ressources
+* Utilisation d'[Emoji](https://emojipedia.org/) dans l'affichage des ressources
 * [Bootstrap-Icons](https://icons.getbootstrap.com/) librairies d'icones, licence MIT
 
 ### Crédits audio

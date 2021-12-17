@@ -3663,12 +3663,13 @@ var MM = {
                 innerHTML:`<div>Adresse longue<div>
                 <textarea readonly="true" id="bigurl" cols="38" onfocus="utils.copy(this);"></textarea><br>
                 <div id="RacID">
-                <button onclick="window.open('https://s.42l.fr/', 'projection', 'width=1080,height=720')">Raccourcir cet url</button>
+                <button onclick="navigator.clipboard.writeText(document.getElementById('bigurl').value); window.open('https://s.42l.fr/', 'projection', 'width=1080,height=720')">Raccourcir cet url</button>
+                <button onclick="window.open('https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + document.getElementById('bigurl').value, 'generationQR', 'width=300,height=300')">Obtenir un QR Code</button>
                 <p>En raccourcissant l'url, vous serez redirigé vers https://s.42l.fr/, le lien etant déja copié, il vous suffira de coller l'url sur le champ dédié<p>
                 </div>
                 <br>
-                <input readonly="true" type="url" id="shorturl" size="38" onfocus="utils.copy(this)">
-                <div id="shortQRdiv"></div>
+                <div style="display: none;"><input readonly="true" type="url" id="shorturl" size="38" onfocus="utils.copy(this)">
+                <div id="shortQRdiv"></div><div>
                 `
             }
             )

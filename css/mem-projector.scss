@@ -36,7 +36,7 @@ $main-color: #025296;
 .spanel-diapo-bs-icon{
     font-size: 40px;
 }
-
+/*Début de marquage cart-bs-icon*/
 .cart-bs-icon{
     font-size: 35px;
 }
@@ -54,9 +54,22 @@ $main-color: #025296;
         transition: 0.5s;
     }
 }
-
+/*Fin de marquage cart-bs-icon*/
 .h3-about{
     color: $main-color;
     text-align: center;
     font-size: 20px;
+}
+
+.button-cle-data{
+    box-shadow: 1px 2px 3px $main-color;
+    padding: 3px;
+    border-radius: 5px;
+    transition: 0.5s;
+    margin: 5px;
+    &:hover{
+        color: $main-color;
+        box-shadow: 1px 2px 3px white;
+        transition: 0.5s;
+    }
 }
