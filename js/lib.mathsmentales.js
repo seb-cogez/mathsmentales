@@ -4485,7 +4485,7 @@ var library = {
     },
     /**
      * Ouvre un fichier de la library
-     * @param {String} url adresse du fihcier à ouvrir
+     * @param {String} url adresse du fichier à ouvrir
      */
     load:function(url){
         let reader = new XMLHttpRequest();

@@ -1,0 +1,11 @@
+Correction (temporaire) du bug de l'activité 10NE1
+
+CAUSES :
+L'activite 10NE1 pointe vers un mauvais URL au lieu de pointer vers "N10/10NE1.json", elle pointe vers "N1/10NE1.json"
+
+CONSEQUENCES :
+Le site renvoie l'erreur 404 dans la console JS et l'activité ne démmare pas
+
+SOLUTION (temporaire) :
+Créer un fichier temporaire avec le mauvais URL, cela a pour effet de démmarer l'activité
+Des investigations plus poussées seront faites afin de corriger de manière définitive le bug
