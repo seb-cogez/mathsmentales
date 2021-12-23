@@ -3,6 +3,7 @@
     "dest":["5GB","4GB","3GB"],
     "title":"Trouver la mesure d'un 3e angle, en degrés.",
     "repeat":true,
+    "textSize":"small",
     "type":"text",
     "keys":["_","_","_","°","_","_","_","_"],
     "consts":{"points":"ABCDEFGHJKLMNPRST"},

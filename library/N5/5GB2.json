@@ -1,0 +1,30 @@
+{
+    "ID":"5GB2",
+    "dest":["5GB","4GB","3GB"],
+    "title":"Pythagore",
+    "repeat":true,
+    "type":"text",
+    "keys":["_","_","_","°","_","_","_","_"],
+    "consts":{"points":"ABCDEFGHJKLMNPRST"},
+    "vars":{"pts":"0_16_3_^&","A":"${:points[:pts[0]]}","B":"${:points[:pts[1]]}","C":"${:points[:pts[2]]}","u":"1_5","v":"1_5","xa":"0", "ya":"0", "xb":"${Math.abs(:u*:u-:v*:v)}","yb":"0","xc":"0","yc":"${2*:u*:v}"},
+    "options":[
+        {
+            "name":"Avec figure",
+            "figure":{
+                "type":"graph",
+                "boundingbox":[-2,-5,15,20],
+                "axis":false,
+                "grid":false,
+                "content" :[
+                        ["point",["${:xa}","${:ya}"],{"name":"${:A}","size":4, "face":"", "label":{"offset":[-10,10]}}],
+                        ["point",["${:xb}","${:yb}"],{"name":"${:B}","size":4, "face":"","label":{"offset":[10,10]}}],
+                        ["point",["${:xc}","${:yc}"],{"name":"${:C}","size":4, "face":"","label":{"offset":[-10,-10]}}],
+                        ["polygon",["${:A}","${:C}", "${:B}"],{"borders":{"strokeColor":"black"},"fillColor":"black"}]
+                    ]    
+                },
+            "question":"Combien vaut ${:B}${:C}",
+            "answer":"${:B}${:C}=${:u*:u+:v*:v}"
+        }
+    ],
+    "value":["${:u*:u+:v*:v}"]
+}
