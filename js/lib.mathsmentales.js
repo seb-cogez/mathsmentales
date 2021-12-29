@@ -1590,6 +1590,9 @@ var math ={
             }
 }
 window.onload = function(){
+    let scripturl = document.getElementById("mmscriptid").attributes.src.value;
+    /*get value from query parameters*/
+    MM.version = scripturl.replace(/\|/g,'/').slice(scripturl.indexOf('?') + 3);
     // detect if touching interface
     let listener = function(evt){
         // the user touched the screen!

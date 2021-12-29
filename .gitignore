@@ -17,4 +17,4 @@ _private
 
 # fichiers du serveur
 tinyweb-1-94
-*.log
+*_log
