@@ -1646,6 +1646,9 @@ window.onload = function(){
         }
     reader.open("get", "libs/scratchblocks/fr.json", false);
     reader.send();*/
+    if(MM.embededIn){
+        window.parent.postMessage({ready:"ok"}, MM.embededIn);
+    }
 }
 class cart {
     constructor(id){
