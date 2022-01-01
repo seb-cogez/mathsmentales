@@ -3349,6 +3349,10 @@ var MM = {
             }
         }
     },
+    /**
+     * création des affichages dans les diaporamas et les zones de rappel du site.
+     * @param {boolean} withAnswer insère les réponses dans le diaporama si true
+     */
     populateQuestionsAndAnswers(withAnswer){
         if(withAnswer=== undefined)withAnswer = true;
         MM.figs = {};MM.steps=[];MM.timers=[];MM.memory={};MM.goodAnswers=[];
@@ -3364,8 +3368,10 @@ var MM = {
         corriges.innerHTML="";
         utils.setSeed();
         MM.copyURLtoHistory();
+        // parcours des paniers
         for(let i=0;i<length;i++){
             MM.carts[i].actsArrays = [];
+            // parcours des destinations du panier
             for(let kk=0,clen=MM.carts[i].target.length;kk<clen;kk++){
                 let indiceSlide = 0;
                 MM.goodAnswers[kk]=[];
@@ -3391,7 +3397,9 @@ var MM = {
                 divc.append(h3c);
                 let ole = utils.create("ol");
                 let olc = utils.create("ol");
+                // mise en couleur des listes énoncés et corrigés. (pour bilan ou impression)
                 if(MM.colors[slideNumber]!==undefined){
+                    ole.style["background"] = MM.colors[slideNumber];
                     olc.style["background"] = MM.colors[slideNumber];
                 }
                 MM.steps[slideNumber] = new steps({size:0, container:sliderSteps});
@@ -3610,6 +3618,11 @@ var MM = {
                     delete MM.carts[i];
                 }
             }
+            // cacher le menu de commandes général
+            document.querySelector("#slideshow-container > header").className="hidden";
+        } else {
+            // montrer le menu de commandes général
+            document.querySelector("#slideshow-container > header").className="";
         }
         utils.showTab("none");
         // check if an option has been chosen
@@ -4335,8 +4348,11 @@ var MM = {
         }
     },
     pauseAllSliders(){
-        for(let i=0,l=MM.timers.length; i<l;i++){
-            MM.timers[i].pause();
+        // on permet de mettre en pause uniquement si on n'est pas en mode online.
+        if(MM.onlineState === "no"){
+            for(let i=0,l=MM.timers.length; i<l;i++){
+                MM.timers[i].pause();
+            }
         }
     },
     stopAllSliders:function(){
