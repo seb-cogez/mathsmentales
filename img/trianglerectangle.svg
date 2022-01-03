@@ -1,0 +1,9 @@
+<svg width="200" height="100" version="1.1" viewBox="0 0 52.9 26.5" xmlns="http://www.w3.org/2000/svg">
+ <path d="m28 3.08-10.7 13 10.7 8.3z" fill="none" stroke="#000" stroke-width=".265"/>
+ <rect transform="rotate(39.4)" x="23.6" y=".194" width="1.34" height="1.33" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".265"/>
+ <g fill="#000000" font-family="sans-serif" font-size="4.23px" letter-spacing="0px" stroke-width=".265" word-spacing="0px">
+  <text x="30.039349" y="25.453587" style="line-height:1.25" xml:space="preserve"><tspan x="30.039349" y="25.453587" font-family="Arial" font-size="4.23px" stroke-width=".265">A</tspan></text>
+  <text x="28.80274" y="3.7613585" style="line-height:1.25" xml:space="preserve"><tspan x="28.80274" y="3.7613585" font-size="4.23px" stroke-width=".265">B</tspan></text>
+  <text x="12.675263" y="18.291546" style="line-height:1.25" xml:space="preserve"><tspan x="12.675263" y="18.291546" font-size="4.23px" stroke-width=".265">C</tspan></text>
+ </g>
+</svg>

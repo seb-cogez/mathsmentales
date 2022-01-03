@@ -1,0 +1,15 @@
+<svg width="200" height="100" version="1.1" viewBox="0 0 52.9 26.5" xmlns="http://www.w3.org/2000/svg">
+ <g fill="#000000" font-family="sans-serif" font-size="3.88px" letter-spacing="0px" stroke-width=".265" word-spacing="0px">
+  <text x="2.1640711" y="15.406118" style="line-height:1.25" xml:space="preserve"><tspan x="2.1640711" y="15.406118" font-family="Arial" font-size="3.88px" stroke-width=".265">B</tspan></text>
+  <text x="1.8549169" y="25.865789" style="line-height:1.25" xml:space="preserve"><tspan x="1.8549169" y="25.865789" font-family="Arial" font-size="3.88px" stroke-width=".265">C</tspan></text>
+  <text x="18.549171" y="14.32408" style="line-height:1.25" xml:space="preserve"><tspan x="18.549171" y="14.32408" font-family="Arial" font-size="3.88px" stroke-width=".265">A</tspan></text>
+  <text x="48.743107" y="3.812886" style="line-height:1.25" xml:space="preserve"><tspan x="48.743107" y="3.812886" font-family="Arial" font-size="3.88px" stroke-width=".265">N</tspan></text>
+  <text x="48.124798" y="19.425104" style="line-height:1.25" xml:space="preserve"><tspan x="48.124798" y="19.425104" font-family="Arial" font-size="3.88px" stroke-width=".265">M</tspan></text>
+ </g>
+ <g fill="none" stroke="#000">
+  <path d="m21 15.9h-16v7.94z" stroke-width=".265px"/>
+  <path d="m21 15.9h26.4v-13.2z" stroke-width=".265px"/>
+  <rect x="5.05" y="15.9" width="1.24" height="1.24" stroke-linecap="round" stroke-linejoin="round" stroke-width=".265"/>
+  <rect x="46.2" y="14.7" width="1.24" height="1.24" stroke-linecap="round" stroke-linejoin="round" stroke-width=".265"/>
+ </g>
+</svg>
