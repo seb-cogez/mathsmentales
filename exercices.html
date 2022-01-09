@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr" id="thehtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <style>
+            @page{
+                size:A4 portrait;
+                margin:0.8cm;
+            }
+        </style>
+        <title>Fiche d'exercices MathsMentales</title>
+        <link rel="stylesheet" href="css/exercices.css?v=5" type="text/css" />
+        <link href="js/libs/katex/katex.min.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="js/libs/JSXGraph1.4.0/jsxgraph.css" type="text/css" />
+        <script src="js/libs/JSXGraph1.4.0/jsxgraphcore.js" defer></script>
+        <script src="js/libs/chartjs/Chart.bundle.min.js" defer></script>
+        <script src="js/libs/seedrandom/seedrandom.min.js" defer></script>
+        <script src="js/libs/underscore-min.js" defer></script>
+        <script src="js/libs/katex/katex.min.js" defer></script>
+        <script src="js/libs/algebrite/algebrite.bundle-for-browser.min.js" type="text/javascript" defer></script>
+        <script src="js/libs/bigjs/big.min.js" type="text/javascript" defer></script>
+        <script src="js/libs/chartjs/Chart.bundle.min.js" defer></script>
+
+        <script type="module" src="js/lib.exercices.js"></script>
+    </head>  
+    <body size="A4">
+        <div id="creator-container">
+            <section id="creator-menu" class="noprint">
+                <button id="pageOrientation" title="Change l'orientation de la page">paysage</button>
+                <button onclick="window.print();" title="Cliquer pour imprimer ou enregistrer en pdf">Print</button>
+                | Énoncés : 
+                <input type="number" min="1" id="nbFiches" size="3">
+                <button id="fichesSeparation" title="Regrouper ou Séparer les fiches d'exercices">Séparer</button>
+                | Corrigé :
+                <button id="toggleCorriges"> ▼ </button>
+            </section>
+            <section id="tab-accueil" class="noprint"></section>
+            <section id="creator-content">
+            
+            </section>
+            </div>
+    </body>
+</html>
