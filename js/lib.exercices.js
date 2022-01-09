@@ -32,8 +32,12 @@ document.getElementById("creator-menu").onclick = (evt)=>{
         if(evt.target.innerHTML === " ▼ "){
             evt.target.innerHTML = " ▲ ";
             lesCorriges.forEach(el=>{el.classList.remove("hidden")});
+            document.getElementById("divcorrection").classList.remove("noprint");
+            document.querySelectorAll("#divcorrection .titreCorrection").forEach(el=>{el.classList.remove("noprint")});
         } else {
             evt.target.innerHTML = " ▼ ";
+            document.getElementById("divcorrection").classList.add("noprint");
+            document.querySelectorAll("#divcorrection .titreCorrection").forEach(el=>{el.classList.add("noprint")});
             lesCorriges.forEach(el=>{el.classList.add("hidden")});
         }
     }
@@ -43,11 +47,31 @@ document.getElementById("creator-menu").oninput = (evt)=>{
         setNumberFiches(evt.target.value);
     }
 }
+/**
+ * gestion des click sur les éléments pour afficher les corrections
+ */
 document.getElementById("creator-content").onclick = (evt)=>{
     if(evt.target.id.indexOf("idCorrige")===0){
-        document.getElementById(evt.target.id.replace("idCorrige","corrige")).classList.toggle("hidden");
-    } else if(evt.target.id.indexOf("titreExo")===0){
-        document.getElementById(evt.target.id.replace("titreExo","corrige")).classList.toggle("hidden");
+        let target = document.getElementById(evt.target.id.replace("idCorrige","corrige"));
+        if(target.classList.toggle("hidden")){
+            document.getElementById(evt.target.id).classList.add("noprint");
+        } else {
+            document.getElementById(evt.target.id).classList.remove("noprint");
+        }
+    } else if(evt.target.id.indexOf("titreExo")===0){ // arrive sur le titre de l'exo ou le titre du corrigé.
+        let target = document.getElementById(evt.target.id.replace("titreExo","corrige"));
+        if(target.classList.toggle("hidden")){
+            // on cache
+            document.querySelector("#divcorrection #"+evt.target.id).classList.add("noprint");
+            // seulement si tous les éléments sont invisibles
+            let invisible = true;
+            document.querySelectorAll("#divcorrection .titreCorrection").forEach(el=>{if(!el.classList.contains("noprint")){invisible=false}});
+            if(invisible)
+                document.getElementById("divcorrection").classList.add("noprint");
+        } else {
+            document.querySelector("#divcorrection #"+evt.target.id).classList.remove("noprint");
+            document.getElementById("divcorrection").classList.remove("noprint");
+        }
     }
 }
 function setNumberFiches(nb){
@@ -62,16 +86,16 @@ function changecols(dest,nb){
 function pagebreak(){
     let cor = document.querySelectorAll('.correction'),
     btn = document.getElementById('btn-break');
-    if(cor[0].className==="correction"){
+    if(!cor[0].classList.contains("pagebreak")){
         for(let i=0;i<cor.length;i++){
-            cor[i].className="correction pagebreak";
+            cor[i].classList.add("pagebreak");
         }
-        btn.innerText='Corrigé suit l\'énoncé';
+        btn.innerText='même feuille';
     } else {
         for(let i=0;i<cor.length;i++){
-            cor[i].className="correction";
+            cor[i].classList.remove("pagebreak");
         }
-        btn.innerText='Corrigé à part';
+        btn.innerText='à part';
     }
 }
 function makePage(){
@@ -80,7 +104,7 @@ function makePage(){
     }
     content.innerHTML = "";
     if(parameters.positionCorrection === "end" && !document.getElementById('btn-break')){
-        document.getElementById('creator-menu').appendChild(utils.create("button",{id:"btn-break",innerText:"Corrigé à part"}))
+        document.getElementById('btpCorrigePlace').appendChild(utils.create("button",{id:"btn-break",innerText:"à part"}))
     }
     MM.memory = {};
     for(let qty=0;qty<parameters.nb;qty++){
@@ -99,7 +123,7 @@ function makePage(){
         // get the exercice title
         let exTitle = parameters.titreExerices||"Exercice n°";
         // get the position of the correction
-        let correctionContent = utils.create("div",{className:"correction"});
+        let correctionContent = utils.create("div",{className:"correction noprint", id:"divcorrection"});
         if(parameters.positionCorrection === "end"){
             let titleCorrection = utils.create("header", {className:"clearfix",innerHTML:"Correction des exercices"});
             correctionContent.appendChild(titleCorrection);
@@ -120,14 +144,15 @@ function makePage(){
             for(let j=0;j<activity.questions.length;j++){
                 let li = utils.create("li",{className:"c3"});
                 let liCorrection = utils.create("li");
+                let answer = (Array.isArray(activity.answers[j]))?activity.answers[j][0]:activity.answers[j];
                 if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
                     let span = utils.create("span",{className:"math", innerHTML:activity.questions[j]});
-                    let spanCorrection = utils.create("span", {className:"math",innerHTML:activity.answers[j]});
+                    let spanCorrection = utils.create("span", {className:"math",innerHTML:answer});
                     li.appendChild(span);
                     liCorrection.appendChild(spanCorrection);
                 } else {
                     li.innerHTML = activity.questions[j];
-                    liCorrection.innerHTML = activity.answers[j];
+                    liCorrection.innerHTML = answer;
                 }
                 ol.appendChild(li);
                 // figures
@@ -142,12 +167,12 @@ function makePage(){
             sectionEnonce.appendChild(ds);
             // affichage de la correction
             if(parameters.positionCorrection === "each" ){
-                let hr = utils.create("div",{className:"titreCorrection pointer",innerHTML:"Correction",id:"idCorrige"+qty+"-"+i});
+                let hr = utils.create("div",{className:"titreCorrection pointer noprint",innerHTML:"Correction",id:"idCorrige"+qty+"-"+i});
                 sectionEnonce.appendChild(hr);
                 sectionEnonce.appendChild(olCorrection);
             } else if(parameters.positionCorrection === "end"){
                 let h3correction = h3.cloneNode(true);
-                h3correction.classList.add("titreCorrection");
+                h3correction.classList.add("titreCorrection","noprint");
                 correctionContent.appendChild(h3correction);
                 correctionContent.appendChild(olCorrection);
                 correctionContent.appendChild(utils.create("div",{className:"clearfix"}));
@@ -162,7 +187,6 @@ function makePage(){
         }
     }
     if(!utils.isEmpty(MM.memory)){
-        utils.debug(MM.memory);
         setTimeout(function(){
             for(const k in MM.memory){
                 if(k!=="dest")
@@ -205,6 +229,16 @@ function checkURL(urlString){
         parameters.positionCorrection=vars.cor;
         parameters.titreFiche=decodeURI(vars.t);
         parameters.titreExerices=decodeURI(vars.ex).trim()+" ";
+        parameters.enoncesSepares=vars.es||0;
+        parameters.corrigeSepare=vars.cs||0;
+        parameters.activitesColonnes=vars.cols||[];
+        if(!Array.isArray(parameters.activitesColonnes)){
+            parameters.activitesColonnes.split("~");
+        }
+        parameters.corrigesVisibles=vars.cv||[];
+        if(!Array.isArray(parameters.corrigesVisibles)){
+            parameters.corrigesVisibles.split("~");
+        }
         // Affectation de la valeur au nombre de feuilles
         document.getElementById("nbFiches").value = parameters.nb;
         zoom = new Zoom("changeFontSize","#thehtml",true,"pt",parameters.tailleTexte);

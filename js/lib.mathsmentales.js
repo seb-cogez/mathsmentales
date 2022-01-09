@@ -39,7 +39,7 @@ window.onload = function(){
     MM.setDispositionEnonce(utils.getRadioChecked("Enonces"));
     // take history if present
     if(window.localStorage){
-        document.querySelector("#tab-historique ol").innerHTML = localStorage.getItem("history");
+        document.querySelector("#tab-historique ol").innerHTML = localStorage.getItem("history").replace(/onclick="utils\.checkurl\(this.dataset\['url'\]\,false\,true\)"/gi,"");
     }
     MM.zoom = new Zoom("thezoom","#slideshow .slide");
     document.querySelector("#slideshow-container header").appendChild(MM.zoom.createCursor());
@@ -254,10 +254,11 @@ window.onload = function(){
     /**
      * Comportements sur les éléments fixes
      */
+    // Suppression comportement avant modularisation  
     document.querySelector("#tab-historique ol").addEventListener("click",(evt)=>{
-        if(evt.target.innerHTML === "🛠 éditer"){
+        if(evt.target.innerHTML.indexOf("🛠 éditer")>-1){
             utils.checkURL(evt.target.dataset['url'],false,true)
-        } else if(evt.target.innerHTML === "❌ Supprimer"){
+        } else if(evt.target.innerHTML.indexOf("❌ Supprimer")>-1){
             MM.removeFromHistory(evt.target.parentNode);
         }
     })
@@ -307,6 +308,7 @@ window.onload = function(){
             MM.editedActivity.setOption(evt.target.value, evt.target.checked)
         }
     })
+
     // load scratchblocks french translation
     // TODO : à changer au moment de l'utilisation de scratchblocks
     // doesn't work on local file :( with Chrome

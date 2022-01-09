@@ -609,13 +609,14 @@ const utils = {
     * @param className (String) : name of classname
     */
     removeClass: function(elt, className){
-        if((" "+elt.className+" ").indexOf(" "+className+" ")>-1){
+        elt.classList.remove(className);
+        /*if((" "+elt.className+" ").indexOf(" "+className+" ")>-1){
             var classes = elt.className.split(" "), newclasses="";
             for(let i=0;i<classes.length;i++){
                 if(classes[i] !== className)newclasses+=" "+classes[i];
             }
             elt.className = newclasses.trim();
-        }
+        }*/
     },
     changeTempoValue:function(value){
         document.getElementById('tempo-value').innerHTML = value+" s.";

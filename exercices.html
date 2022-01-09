@@ -24,8 +24,9 @@
         <script type="module" src="js/lib.exercices.js"></script>
     </head>  
     <body size="A4">
+        <button onclick="document.getElementById('creator-menu').classList.toggle('hidden')" class="noprint" style="position: absolute;left:0;top:0;width:18pt;height:18pt;">🛠</button>
         <div id="creator-container">
-            <section id="creator-menu" class="noprint">
+            <section id="creator-menu" class="noprint hidden">
                 <button id="pageOrientation" title="Change l'orientation de la page">paysage</button>
                 <button onclick="window.print();" title="Cliquer pour imprimer ou enregistrer en pdf">Print</button>
                 | Énoncés : 
@@ -33,6 +34,8 @@
                 <button id="fichesSeparation" title="Regrouper ou Séparer les fiches d'exercices">Séparer</button>
                 | Corrigé :
                 <button id="toggleCorriges"> ▼ </button>
+                <spaan id="btpCorrigePlace"></spaan>
+                | Police :
             </section>
             <section id="tab-accueil" class="noprint"></section>
             <section id="creator-content">

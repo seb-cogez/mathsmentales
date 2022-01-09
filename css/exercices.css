@@ -185,6 +185,7 @@ h3.exercice-title{
         background: rgb(204,204,204); 
     }
     body {
+        position: relative;
         padding: 10mm;
         background: white;
         display: block;
@@ -194,15 +195,16 @@ h3.exercice-title{
     }
     footer.break::before, .pagebreak::before{
         content:"--> saut de page <--";
-        color:rgb(129, 238, 129);
+        color:rgb(18, 150, 47);
         font-size: 0.8rem;
         text-align: end;
     }
     footer.break {
-        border-bottom: 1px solid black;
+        border-bottom: 1px dashed rgb(18, 150, 47);
+        margin-bottom: 1em;
     }
     .pagebreak {
-        border-top: 1px solid black;
+        border-top: 1px dashed  rgb(18, 150, 47);
     }
     #creator-container::before{
         content:"\ CC-BY-NC © 2022 MathsMentales.net";

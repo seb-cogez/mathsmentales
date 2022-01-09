@@ -779,12 +779,8 @@ const MM = {
             MM.carts[0].activities = [];
             MM.carts[0].addActivity(MM.editedActivity);
         }
-        // let carts = this.export();
-        let withSeed = false;
-        if(document.getElementById("aleaInURL").checked)
-            withSeed = true;
-        let params = this.paramsToURL(withSeed);
-        let url = this.setURL(params);
+        // on récupère l'adresse créée
+        let url = document.getElementById("bigurl").value;
         // raccourcissement de l'url
         let alert = document.getElementById("shortQRdiv");
         alert.innerHTML = "";

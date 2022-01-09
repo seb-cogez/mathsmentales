@@ -32,7 +32,7 @@
         {
             "name":"À partir de 2 côtés",
             "vars":{"l":"0_19_3_^&","choixangle":"0_1","choixligne":"0_2", "A":"${:lettres[:l[0]]}", "B":"${:lettres[:l[1]]}", "C":"${:lettres[:l[2]]}", "idfig":"0_7", "AB":["${:A+:B}","${:B+:A}"],"BC":["${:B+:C}","${:C+:B}"],"CA":["${:C+:A}","${:A+:C}"], "oA":["${:choixligne==0?:CA+' et '+:AB::choixligne==1?:BC+' et '+:AB::BC+' et '+:CA}","${:choixligne==0?:AB+' et '+:CA::choixligne==1?:AB+' et '+:BC::CA+' et '+:BC}"], "oB":["${:choixligne==0?:BC+' et '+:AB::choixligne==1?:CA+' et '+:AB::BC+' et '+:CA}","${:choixligne==0?:AB+' et '+:BC::choixligne==1?:AB+' et '+:CA::CA+' et '+:BC}"]},
-            "question":"On connait <b>${:choixangle==0?:oA::oB}</b>. Sont-ils liés à $$\\color{red}{\\widehat{${:choixangle==0?:A::B}}}$$ par cosinus, sinus ou tangente ?<br>${:figures[:choixangle][:idfig]}",
+            "question":"On connait <b>${:choixangle==0?:oA::oB}</b>. Sont-ils liés à $$\\color{red}{\\widehat{${:choixangle==0?:A::B}}}$$ par cosinus, sinus ou tangente&nbsp;?<br>${:figures[:choixangle][:idfig]}",
             "shortQ":"sin, cos ou tan relie ${:choixangle==0?:oA::oB} et $$\\color{red}{\\widehat{${:choixangle==0?:A::B}}}$$ ?<br>${:figures[:choixangle][:idfig]}",
             "answer":"$$\\color{red}{${:choixligne==0?'cosinus'::choixligne==1?'sinus':'tangente'}}$$ car $$\\color{green}{${:choixligne==0?'cos'::choixligne==1?'sin':'tan'}}(\\widehat{${:choixangle==0?:A::B}})=\\dfrac{${(:choixangle==0?:oA::oB).replace(' et ','}{')}}$$",
             "value":"${:choixligne==0?'cos'::choixligne==1?'sin':'tan'}"
@@ -40,7 +40,7 @@
         {
             "name":"À partir de l'angle et d'un côté",
             "vars":{"l":"0_19_3_^&","choixangle":"0_1","choixligne":"0_2", "A":"${:lettres[:l[0]]}", "B":"${:lettres[:l[1]]}", "C":"${:lettres[:l[2]]}", "idfig":"0_7", "AB":["${:A+:B}","${:B+:A}"],"BC":["${:B+:C}","${:C+:B}"],"CA":["${:C+:A}","${:A+:C}"], "oA":["${:choixligne==0?:CA+' et '+:AB::choixligne==1?:BC+' et '+:AB::BC+' et '+:CA}","${:choixligne==0?:AB+' et '+:CA::choixligne==1?:AB+' et '+:BC::CA+' et '+:BC}"], "oB":["${:choixligne==0?:BC+' et '+:AB::choixligne==1?:CA+' et '+:AB::BC+' et '+:CA}","${:choixligne==0?:AB+' et '+:BC::choixligne==1?:AB+' et '+:CA::CA+' et '+:BC}"]},
-            "question":"On connait $$\\widehat{${:choixangle==0?:A::B}}$$ et <b>${(:choixangle==0?:oA::oB).split(' et ')[0]}</b>. Utilise-t-on cosinus, sinus ou tangente pour déterminer <b>${(:choixangle==0?:oA::oB).split(' et ')[1]}</b> ?<br>${:figures[:choixangle][:idfig]}",
+            "question":"On connait $$\\widehat{${:choixangle==0?:A::B}}$$ et <b>${(:choixangle==0?:oA::oB).split(' et ')[0]}</b>. Utilise-t-on cosinus, sinus ou tangente pour déterminer <b>${(:choixangle==0?:oA::oB).split(' et ')[1]}</b>&nbsp;?<br>${:figures[:choixangle][:idfig]}",
             "shortQ":"sin, cos ou tan avec ${:choixangle==0?:oA::oB} et ${(:choixangle==0?:oA::oB).split(' et ')[0]} pour trouver ${(:choixangle==0?:oA::oB).split(' et ')[1]} ?<br>${:figures[:choixangle][:idfig]}",
             "answer":"$$\\color{red}{${:choixligne==0?'cosinus'::choixligne==1?'sinus':'tangente'}}$$ car $$\\color{green}{${:choixligne==0?'cos'::choixligne==1?'sin':'tan'}}(\\widehat{${:choixangle==0?:A::B}})=\\dfrac{${(:choixangle==0?:oA::oB).replace(' et ','}{')}}$$",
             "value":"${:choixligne==0?'cos'::choixligne==1?'sin':'tan'}"

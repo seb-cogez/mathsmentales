@@ -30,7 +30,7 @@
         {
             "name":"Déterminer le côté adjacent",
             "vars":{"l":"0_19_3_^&","choix":"0_1","A":"${:choix==0?'<tspan style=\"fill:#ff0000;\">'+:lettres[:l[0]]+'</tspan>'::lettres[:l[0]]}", "B":"${:choix==0?:lettres[:l[1]]:'<tspan style=\"fill:#ff0000;\">'+:lettres[:l[1]]+'</tspan>'}", "C":"${:lettres[:l[2]]}", "idfig":"0_7", "lettreB":"${:lettres[:l[1]]}", "lettreA":"${:lettres[:l[0]]}"},
-            "question":"Quel côté est le côté adjacent à <span class='red'>${:choix==0?:lettreA::lettreB}</span> ?<br>${:figures[:idfig]}",
+            "question":"Quel côté est le côté adjacent à <span class='red'>${:choix==0?:lettreA::lettreB}</span>&nbsp;?<br>${:figures[:idfig]}",
             "shortQ":"Adjacent à  <span class='red'>${:choix==0?:lettreA::lettreB}</span> ?<br>${:figures[:idfig]}",
             "answer":["$$[${(:choix==0?:lettreA::lettreB)+:C}]$$","$$[${:C+(:choix==0?:lettreA::lettreB)}]$$"],
             "value":["$$[${(:choix==0?:lettreA::lettreB)+:C}]$$","$$[${:C+(:choix==0?:lettreA::lettreB)}]$$"]
@@ -38,7 +38,7 @@
         {
             "name":"Déterminer le côté opposé",
             "vars":{"l":"0_19_3_^&","choix":"0_1","A":"${:choix==0?'<tspan style=\"fill:#ff0000;\">'+:lettres[:l[0]]+'</tspan>'::lettres[:l[0]]}", "B":"${:choix==0?:lettres[:l[1]]:'<tspan style=\"fill:#ff0000;\">'+:lettres[:l[1]]+'</tspan>'}", "C":"${:lettres[:l[2]]}", "lettreA":"${:lettres[:l[0]]}", "lettreB":"${:lettres[:l[1]]}" , "idfig":"0_7"},
-            "question":"Quel côté est le côté opposé à  <span class='red'>${:choix==0?:lettreA::lettreB}</span> ?<br>${:figures[:idfig]}",
+            "question":"Quel côté est le côté opposé à  <span class='red'>${:choix==0?:lettreA::lettreB}</span>&nbsp;?<br>${:figures[:idfig]}",
             "shortQ":"Opposé à <span class='red'>${:choix==0?:lettreA::lettreB}</span> ?<br>${:figures[:idfig]}",
             "answer":["$$[${(:choix==1?:lettreA::lettreB)+:C}]$$","$$[${:C+(:choix==1?:lettreA::lettreB)}]$$"],
             "value":["$$[${(:choix==1?:lettreA::lettreB)+:C}]$$","$$[${:C+(:choix==1?:lettreA::lettreB)}]$$"]
