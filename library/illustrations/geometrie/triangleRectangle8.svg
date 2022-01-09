@@ -1,0 +1,11 @@
+<svg width="200" height="100" version="1.1" viewBox="0 0 52.9 26.5" xmlns="http://www.w3.org/2000/svg">
+ <g font-family="Arial" font-size="4.23px" letter-spacing="0px" stroke-width=".265" word-spacing="0px">
+  <text x="7.3484726" y="5.3338761" style="line-height:1.25" xml:space="preserve"><tspan x="7.3484726" y="5.3338761" font-size="4.23px" stroke-width=".265">A</tspan></text>
+  <text x="42.210541" y="6.504261" style="line-height:1.25" xml:space="preserve"><tspan x="42.210541" y="6.504261" font-size="4.23px" stroke-width=".265">B</tspan></text>
+  <text x="15.598712" y="22.563452" style="line-height:1.25" xml:space="preserve"><tspan x="15.598712" y="22.563452" font-size="4.23px" stroke-width=".265">C</tspan></text>
+ </g>
+ <g transform="rotate(-27.5 12.2 9.59)" fill="none" stroke="#000">
+  <path d="m12.7 5.79v14.1h27.2z" stroke-width=".265px"/>
+  <rect x="12.7" y="18.7" width="1.23" height="1.23" stroke-linecap="round" stroke-linejoin="round" stroke-width=".265"/>
+ </g>
+</svg>

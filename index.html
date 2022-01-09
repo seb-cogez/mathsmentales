@@ -35,7 +35,7 @@
     <script src="js/libs/kas.min.js" defer></script>
     <script src="js/MM1toMM2.min.js" defer></script>
     <script src="js/libs/vanilla-picker/vanilla-picker.min.js" defer></script>
-    <script src="js/lib.mathsmentales.js?v=30" type="text/javascript" id="mmscriptid" defer></script>
+    <script src="js/lib.mathsmentales.js?v=31" type="module" id="mmscriptid"></script>
 </head>
 <body>
     <div id="app-container">
@@ -45,31 +45,31 @@
     <label for="btnnav">
         <img src="img/iconfinder_menu-alt_134216.svg">
      </label>-->
-    <nav>
+    <nav id="nav-menu-niveaux">
         <!--<div class="icon-menu"></div>-->
         <ul class="menu color-inverse">
             <li><a numero="nothing">Ecole</a>
                 <ul>
-                    <li onclick="library.displayContent(11,true)">CP</li>
-                    <li onclick="library.displayContent(10,true)">CE1</li>
-                    <li onclick="library.displayContent(9,true)">CE2</li>
-                    <li onclick="library.displayContent(8,true)">CM1</li>
-                    <li onclick="library.displayContent(7,true)">CM2</li>
+                    <li data-niv="11">CP</li>
+                    <li data-niv="10">CE1</li>
+                    <li data-niv="9">CE2</li>
+                    <li data-niv="8">CM1</li>
+                    <li  data-niv="7">CM2</li>
                 </ul>
             </li>
             <li><a numero="nothing">Collège</a>
                 <ul>
-                    <li onclick="library.displayContent(6,true)">6e</li>
-                    <li onclick="library.displayContent(5,true)">5e</li>
-                    <li onclick="library.displayContent(4,true)">4e</li>
-                    <li onclick="library.displayContent(3,true)">3e</li>
+                    <li data-niv="6">6e</li>
+                    <li data-niv="5">5e</li>
+                    <li data-niv="4">4e</li>
+                    <li data-niv="3">3e</li>
                 </ul>    
             </li>
             <li><a numero="nothing">Lycée</a>
                 <ul>
-                    <li onclick="library.displayContent(2,true)">2nde</li>
-                    <li onclick="library.displayContent('G',true)">1ère Générale</li>
-                    <li onclick="library.displayContent('T',true)">Tale</li>
+                    <li data-niv="2">2nde</li>
+                    <li data-niv="G">1ère Générale</li>
+                    <li data-niv="T">Tale</li>
                 </ul>
             </li>
         </ul>
@@ -119,77 +119,77 @@
     </section>
     <section id="tab-parameters" class="grid-3 has-gutter tabs-content-item" style="display: none;">
         <div>
-            <button id="addToCart" onclick="MM.addToCart();" title="Ajouter au panier"><img src="img/addtocart.png"></button>
-            <button id="unlinkCart" onclick="MM.unlinkActivity();" class="hidden" title="Désolidariser l'édition du panier"><img src="img/iconfinder_pin.png"></button>
-            <button id="removeFromCart" onclick="MM.removeFromCart();" class="hidden" title="Supprimer du panier"><img src="img/removefromcart.png"></button>
+            <button id="addToCart" title="Ajouter au panier"><img src="img/addtocart.png"></button>
+            <button id="unlinkCart" class="hidden" title="Désolidariser l'édition du panier"><img src="img/iconfinder_pin.png"></button>
+            <button id="removeFromCart" class="hidden" title="Supprimer du panier"><img src="img/removefromcart.png"></button>
             <h1><i class="icon-arrow--right"></i>Activité <span id="param-title-act"></span></h1>
             <div id="activityTitle"></div>
             <div id="activityDescription"></div>
             <!-- Durée et nombre de questions de l'activité -->
             <b>Durée d'affichage :</b> <span id="tempo-value"></span><br>
-            <input type="range" id="tempo-slider" min="2" max="120" value="8" oninput="utils.changeTempoValue(this.value);" onchange="MM.carts[MM.selectedCart].display();"><br>
+            <input type="range" id="tempo-slider" min="2" max="120" value="8"><br>
             <b>Nombre de questions :</b> <span id="nbq-value"></span><br>
-            <input type="range" id="nbq-slider" min="1" max="20" value="10" oninput="utils.changeNbqValue(this.value);" onchange="MM.carts[MM.selectedCart].display();"><br>
+            <input type="range" id="nbq-slider" min="1" max="20" value="10"><br>
         </div>
         <div id="phantom" class=""></div>
         <div id="divcarts" class="hidden">
             <div class="tabs">
                 <nav class="tabs-menu" id="cartsMenu">
-                    <button onclick="MM.showCart(this.value);" class="tabs-menu-link is-active" value="1" id="button-cart1"><img src="img/cart1.png"></button>
-                    <button id="addcart" title="Ajouter un panier" onclick="MM.addCart();"><img src="img/cartadd.png"></button>
+                    <button class="tabs-menu-link is-active" value="1" id="button-cart1"><img src="img/cart1.png"></button>
+                    <button id="addcart" title="Ajouter un panier"><img src="img/cartadd.png"></button>
                 </nav>
             </div>
             <div id="cartscontainer">
                 <section id="cart0" class="cartcontent">
-                    <button class="cart-close" onclick="MM.emptyCart(1);" title="Vider le panier"><img src="img/recyclecart.png"></button>
-                    <h3 contenteditable="true" onblur="MM.carts[0].title = this.innerText;" title="Cliquer pour éditer">Groupe 1</h3>
+                    <button id="btncartclose1" class="cart-close" title="Vider le panier"><img src="img/recyclecart.png"></button>
+                    <h3 contenteditable="true" title="Cliquer pour éditer" id="titlecart1">Groupe 1</h3>
                     <div class="totaux">
                         <img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
                         <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
                         <img src="img/target.png" title="Zone d'énoncé"> <span>1</span>
-                        <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" onclick="MM.carts[0].changeOrder(this);">
-                        <img src="img/iconfinder_copy.png" class="pointer" title="Dupliquer le panier" onclick="MM.carts[0].duplicate();">
+                        <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" id="imgordercart1">
+                        <img src="img/iconfinder_copy.png" class="pointer" title="Dupliquer le panier" id="imgduplicatecart1">
                     </div>
                     <ul id="cart0-list" class="cart-list">
                     </ul>
                 </section>
                 <section id="cart1" class="hidden">
-                    <button class="cart-close" onclick="MM.removeCart(2);" title="Supprimer le panier"><img src="img/burnCart.png"></button>
-                    <button class="cart-close" onclick="MM.emptyCart(2);" title="Vider le panier"><img src="img/recyclecart.png"></button>
-                    <h3 contenteditable="true" onblur="MM.carts[1].title = this.innerText;" title="Cliquer pour éditer">Groupe 2</h3>
+                    <button class="cart-close" id="btncartdelete2" title="Supprimer le panier"><img src="img/burnCart.png"></button>
+                    <button class="cart-close" id="btncartclose2" title="Vider le panier"><img src="img/recyclecart.png"></button>
+                    <h3 contenteditable="true" title="Cliquer pour éditer" id="titlecart2">Groupe 2</h3>
                     <div class="totaux">
                         <img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
                         <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
                         <img src="img/target.png" title="Zone d'énoncé"> <span>2</span>
-                        <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" onclick="MM.carts[0].changeOrder(this);">
-                        <img src="img/iconfinder_copy.png" class="pointer" title="Dupliquer le panier" onclick="MM.carts[1].duplicate();">
+                        <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" id="imgordercart2">
+                        <img src="img/iconfinder_copy.png" class="pointer" title="Dupliquer le panier" id="imgduplicatecart2">
                     </div>
                     <ul id="cart1-list" class="cart-list">
                     </ul>
                 </section>
                 <section id="cart2" class="hidden">
-                    <button class="cart-close" onclick="MM.removeCart(3);" title="Supprimer le panier"><img src="img/burnCart.png"></button>
-                    <button class="cart-close" onclick="MM.emptyCart(3);" title="Vider le panier"><img src="img/recyclecart.png"></button>
-                    <h3 contenteditable="true" onblur="MM.carts[2].title = this.innerText;" title="Cliquer pour éditer">Groupe 3</h3>
+                    <button class="cart-close" id="btncartdelete3" title="Supprimer le panier"><img src="img/burnCart.png"></button>
+                    <button class="cart-close" id="btncartclose3" title="Vider le panier"><img src="img/recyclecart.png"></button>
+                    <h3 contenteditable="true" id="titlecart3" title="Cliquer pour éditer">Groupe 3</h3>
                     <div class="totaux">
                         <img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
                         <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
                         <img src="img/target.png" title="Zone d'énoncé"> <span>3</span>
-                        <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" onclick="MM.carts[0].changeOrder(this);">
-                        <img src="img/iconfinder_copy.png" class="pointer" title="Dupliquer le panier" onclick="MM.carts[2].duplicate();">
+                        <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" id="imgordercart3">
+                        <img src="img/iconfinder_copy.png" class="pointer" title="Dupliquer le panier" id="imgduplicatecart3">
                     </div>
                     <ul id="cart2-list" class="cart-list">
                     </ul>
                 </section>
                 <section id="cart3" class="hidden">
-                    <button class="cart-close" onclick="MM.removeCart(4);" title="Supprimer le panier"><img src="img/burnCart.png"></button>
-                    <button class="cart-close" onclick="MM.emptyCart(4);" title="Vider le panier"><img src="img/recyclecart.png"></button>
-                    <h3 contenteditable="true" onblur="MM.carts[3].title = this.innerText;" title="Cliquer pour éditer">Groupe 4</h3>
+                    <button class="cart-close" id="btncartdelete4" title="Supprimer le panier"><img src="img/burnCart.png"></button>
+                    <button class="cart-close" id="btncartclose4" title="Vider le panier"><img src="img/recyclecart.png"></button>
+                    <h3 contenteditable="true" id="titlecart4" title="Cliquer pour éditer">Groupe 4</h3>
                     <div class="totaux">
                         <img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
                         <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
                         <img src="img/target.png" title="Zone d'énoncé"> <span>4</span>
-                        <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" onclick="MM.carts[0].changeOrder(this);">
+                        <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer"  id="imgordercart4">
                     </div>
                     <ul id="cart3-list" class="cart-list">
                     </ul>
@@ -199,7 +199,7 @@
          <div class="row-5" id="colparameters">
             <h1><i class="icon-arrow--right"></i>Paramètres</h1>
             Type d'usage :
-            <select onchange="utils.showParameters(this.value);" id="chooseParamType">
+            <select id="chooseParamType">
                 <option value="paramsdiapo" selected="selected">Diaporama</option>
                 <option value="paramsexos">Feuille d'exercices</option>
                 <option value="paramsinterro">Feuille d'interro</option>
@@ -212,34 +212,34 @@
             <fieldset><legend>Clé de données</legend>
                 <input type="checkbox" id="aleaInURL" value="1" class="switch" title="Prendre en compte dans l'adresse"> inclure
                 <input type="text" placeholder="eHDtp" id="aleaKey" size="6">
-                <img src="img/iconfinder_die_32px.png" onclick="document.getElementById('aleaKey').value=utils.seedGenerator();" class="pointer">
+                <img src="img/iconfinder_die_32px.png" class="pointer" id="btn-params-aleakey">
             </fieldset>
             <div id="paramsdiapo">
             <fieldset>
                 <legend>Introduction au diaporama</legend>
-                <span title="Commencer sur un exemple que l'on pourra discuter"><input type="radio" class="radio" name="beforeSlider" value="example" onclick="MM.setIntroType(this.value);"> Exemple</span>
-                <span title="Commener par un décompte 3...2...1..."><input type="radio" class="radio" name="beforeSlider" value="321" checked="true" onclick="MM.setIntroType(this.value);"> Décompte</span>
-                <span title="Commencer directement"><input type="radio" class="radio" name="beforeSlider" value="nothing" onclick="MM.setIntroType(this.value);"> Rien</span>
+                <span title="Commencer sur un exemple que l'on pourra discuter"><input type="radio" class="radio" name="beforeSlider" id="radiobeforeslider1" value="example"> Exemple</span>
+                <span title="Commener par un décompte 3...2...1..."><input type="radio" class="radio" name="beforeSlider" id="radiobeforeslider2" value="321" checked="true"> Décompte</span>
+                <span title="Commencer directement"><input type="radio" class="radio" name="beforeSlider" id="radiobeforeslider3" value="nothing"> Rien</span>
             </fieldset>
             <fieldset class="lh2">
                 <legend>Son</legend>
-                <select title="Son entre chaque diapo - panier unique" oninput="sound.select(this.value)" id="playerlist">
+                <select title="Son entre chaque diapo - panier unique" id="playerlist">
                 <option value="null">Aucun</option>
                 </select>
                 <audio src="" autoplay id="soundplayer"></audio>
             </fieldset>
             <fieldset id="onlinechoice">
                 <legend>Répondre en ligne</legend>
-                <input type="radio" class="radio" name="online" value="no" checked="true" onclick="MM.setOnlineState(this.value)"> Non
-                <input type="radio" class="radio" name="online" value="yes" onclick="MM.setOnlineState(this.value)"> Oui
+                <input type="radio" class="radio" name="online" id="radioonline1" value="no" checked="true"> Non
+                <input type="radio" class="radio" name="online" id="radioonline2" value="yes"> Oui
             </fieldset>
             <br>
             <fieldset>
                 <legend>Enoncé</legend>
-                <input type="radio" class="radio" name="Enonces" value="1" checked="true" onclick="MM.setDispositionEnonce(1);"> Simple
-                <input type="radio" class="radio" name="Enonces" value="2" onclick="MM.setDispositionEnonce(2);"> Double
-                <input type="radio" class="radio" name="Enonces" value="3" onclick="MM.setDispositionEnonce(3);"> Triple
-                <input type="radio" class="radio" name="Enonces" value="4" onclick="MM.setDispositionEnonce(4);"> Quadruple<br />
+                <input type="radio" class="radio" name="Enonces" id="radionbenonces1" value="1" checked="true"> Simple
+                <input type="radio" class="radio" name="Enonces" id="radionbenonces2" value="2"> Double
+                <input type="radio" class="radio" name="Enonces" id="radionbenonces3" value="3"> Triple
+                <input type="radio" class="radio" name="Enonces" id="radionbenonces4" value="4"> Quadruple<br />
                 <div id="screen-division">
                     <div id="sddiv1" class="sddiv1"><span>1</span></div>
                     <div id="sddiv2" class="hidden"><span>2</span></div>
@@ -247,35 +247,35 @@
                     <div id="sddiv4" class="hidden"><span>4</span></div>
                 </div>
                 <div id="divisionsOption" class="hidden">
-                    <input type="radio" class="radio" name="direction" value="h" onclick="MM.setDispositionDoubleEnonce('h');"> Horizontale<br>
-                    <input type="radio" class="radio" name="direction" value="v" checked="true" onclick="MM.setDispositionDoubleEnonce('v');"> Verticale
+                    <input type="radio" class="radio" id="radiodir1" name="direction" value="h"> Horizontale<br>
+                    <input type="radio" class="radio" id="radiodir2" name="direction" value="v" checked="true"> Verticale
                 </div>
                 <div id="facetofaceOption" class="hidden">
-                    <input type="radio" class="radio" name="facetoface" value="n" checked="true" onclick="MM.setFacetoFace('n');"> Normal<br>
-                    <input type="radio" class="radio" name="facetoface" value="y" onclick="MM.setFacetoFace('y');"> <img src="img/facetoface.png" title="Face à face sur une tablette">
+                    <input type="radio" class="radio" name="facetoface" id="radioftf1" value="n" checked="true"> Normal<br>
+                    <input type="radio" class="radio" name="facetoface" id="radioftf2" value="y"> <img src="img/facetoface.png" title="Face à face sur une tablette">
                 </div>
                 </fieldset><br>
             <fieldset>
                 <legend>Fin de diaporama</legend>
-                <input type="radio" class="radio" name="endOfSlideRadio" value="correction" checked="true" onclick="MM.setEndType(this.value)"> Correction
-                <input type="radio" class="radio" name="endOfSlideRadio" value="nothing" onclick="MM.setEndType(this.value)"> Rien
-                <input type="radio" class="radio" name="endOfSlideRadio" value="list" onclick="MM.setEndType(this.value)"> Énoncés
+                <input type="radio" class="radio" name="endOfSlideRadio" value="correction" checked="true" id="radioendslider1"> Correction
+                <input type="radio" class="radio" name="endOfSlideRadio" value="nothing" id="radioendslider2"> Rien
+                <input type="radio" class="radio" name="endOfSlideRadio" value="list"id="radioendslider3"> Énoncés
             </fieldset><br>
             <section class="txtcenter" id="startbuttons">
-                <button class="button--primary tooltip" onclick="MM.start();">C'est parti !
+                <button class="button--primary tooltip" id="btnstart">C'est parti !
                     <span class="tooltiptext">Démarre le diaporama</span>
                 </button>
-                <button class="button--info tooltip" onclick="MM.showQuestions();">Énoncés
+                <button class="button--info tooltip" id="btnenonces">Énoncés
                     <span class="tooltiptext">Affiche directement<br>les énoncés</span>
                 </button>
-                <button class="button--warning tooltip" onclick="MM.showAnswers();">Réponses
+                <button class="button--warning tooltip" id="btnreponses">Réponses
                     <span class="tooltiptext">Affiche directement<br>les réponses</span>
                 </button> <br>
-                <button class="button--inverse tooltip" onclick="MM.copyURL();">Adresse/QRCode
+                <button class="button--inverse tooltip" id="btnadresse">Adresse/QRCode
                 <span class="tooltiptext">Copie l'adresse de<br>l'activité dans<br>le presse papier</span>
                 </button>
                 <input type="text" class="hidden" id="acturl" maxlength="1024">
-                <button class="button--success tooltip" onclick="MM.copyURLtoHistory()">→ Historique
+                <button class="button--success tooltip" id="btncopytohistoric">→ Historique
                 <span class="tooltiptext">Copie la sélection<br>dans l'historique</span>
                 </button>
                 <!--<button class="button--success tooltip" onclick="MM.generateCode();">Codes élève
@@ -293,8 +293,8 @@
                 <input type="text" placeholder="Exercice n°" id="exeachex">
             </fieldset>
             <fieldset>
-                <legend>Taille des caractères : <span id="exTxtSize" class="blue">12</span>pt</legend>
-                <input id="exTxtSizeValue" type="range" min="8" max="16" step="0.5" value="12" oninput="document.getElementById('exTxtSize').innerHTML=this.value;">
+                <legend>Taille des caractères : <span id="exTxtSize" class="blue">10</span>pt</legend>
+                <input id="exTxtSizeValue" type="range" min="8" max="16" step="0.5" value="10" oninput="document.getElementById('exTxtSize').innerHTML=this.value;">
             </fieldset>
             <fieldset>
                 <legend>Nombres d'exemplaires différents</legend>
@@ -302,10 +302,19 @@
             </fieldset>
             <fieldset>
                 <legend>Corrigé</legend>
-                <input type="radio" name="excorr" value="each"> Après chaque exercice <input type="radio" name="excorr" value="end" checked> En fin de fiche
+                <input type="radio" name="excorr" value="each"> Après chaque exercice<br>
+                <input type="radio" name="excorr" value="end" checked> En fin de fiche <br>
+                <input type="radio" name="excorr" value="sans"> Sans corrigé
             </fieldset>
             <section>
-                <button class="button--primary beaubutton" onclick="MM.createExercicesSheet();">Générer</button>
+                <button class="button--primary beaubutton" id="btngeneratesheet">Générer</button>
+                <button class="button--inverse tooltip beaubutton" id="btn-ex-adresse">Adresse/QRCode
+                    <span class="tooltiptext">Copie l'adresse de<br>l'activité dans<br>le presse papier</span>
+                </button>
+                <button class="button--success tooltip beaubutton" id="btn-ex-copytohistoric">→ Historique
+                    <span class="tooltiptext">Copie la sélection<br>dans l'historique</span>
+                </button>
+    
             </section>
         </div>
         <div id="paramsinterro" class="hidden">
@@ -326,7 +335,7 @@
                 <input id="intQtyValue" type="number" value="1">
             </fieldset>
             <section>
-                <button class="button--primary beaubutton" onclick="MM.createExamSheet();">Générer</button>
+                <button class="button--primary beaubutton" id="btngenerateexams">Générer</button>
             </section>
         </div>
         <div id="paramsceinture" class="hidden">
@@ -341,7 +350,7 @@
             </fieldset>
             <fieldset>
                 <legend>Nb de colonnes : <span id="ceintcols" class="blue">4</span></legend>
-                <input id="ceintcolsval" type="range" min="1" max="5" step="1" value="4" oninput="document.getElementById('ceintcols').innerHTML=this.value;utils.createCeintureTitres(this.value)">
+                <input id="ceintcolsval" type="range" min="1" max="5" step="1" value="4" oninput="">
             </fieldset>
             <fieldset>
                 <legend>Titres des colonnes</legend>
@@ -354,11 +363,11 @@
             </fieldset>
             <fieldset>
                 <legend>Nb de lignes : <span id="ceintrows" class="blue">5</span></legend>
-                <input id="ceintrowsval" type="range" min="1" max="10" step="1" value="5" oninput="document.getElementById('ceintrows').innerHTML=this.value;">
+                <input id="ceintrowsval" type="range" min="1" max="10" step="1" value="5" oninput=";">
             </fieldset>
             <fieldset>
                 <legend>Nb de sujets : <span id="ceintqty" class="blue">3</span></legend>
-                <input id="ceintqtyvalue" type="range" min="1" max="30" step="1" value="3" oninput="document.getElementById('ceintqty').innerHTML=this.value;">
+                <input id="ceintqtyvalue" type="range" min="1" max="30" step="1" value="3">
             </fieldset>
             <fieldset>
                 <legend>Position corrigé</legend>
@@ -373,7 +382,7 @@
                 <input type="radio" class="radio" name="ceintorientation" value="portrait" selected> portrait <input type="radio" class="radio" name="ceintorientation" value="landscape"> paysage
             </fieldset>
             <section>
-                <button class="button--primary beaubutton" onclick="MM.createCeintureSheet();">Générer</button>
+                <button class="button--primary beaubutton" id="btngenerateceinture">Générer</button>
             </section>
         </div>
         <div id="paramsflashcards" class="hidden">
@@ -382,7 +391,7 @@
                 <input type="text" placeholder="Je retiens les..." id="FCtitle">
             </fieldset>
             <section>
-                <button class="button--primary beaubutton" onclick="MM.createFlashCards();">Générer</button>
+                <button class="button--primary beaubutton" id="btngenerateFC">Générer</button>
             </section>
         </div>
         <div id="paramswhogots" class="hidden">
@@ -396,27 +405,27 @@
             </fieldset>
             <fieldset>
                 <legend>Nombre de cartes : <span id="cardsNb" class="blue">30</span> (si 1 seule activité)</legend>
-                <input id="cardsNbValue" type="range" min="2" max="100" step="1" value="30" oninput="document.getElementById('cardsNb').innerHTML=this.value;">
+                <input id="cardsNbValue" type="range" min="2" max="100" step="1" value="30">
             </fieldset>
             <section>
-                <button class="button--primary beaubutton" onclick="MM.createWhoGots();">Générer</button>
+                <button class="button--primary beaubutton" id="btngenerateWG">Générer</button>
             </section>
         </div>
         <div id="paramsdominos" class="hidden">
             <fieldset>
                 <legend>Nombre de dominos : <span id="dominosNb" class="blue">28</span> (si 1 seule activité)</legend>
-                <input id="dominosNbValue" type="range" min="2" max="100" step="1" value="28" oninput="document.getElementById('dominosNb').innerHTML=this.value;">
+                <input id="dominosNbValue" type="range" min="2" max="100" step="1" value="28">
             </fieldset>
             <section>
-                <button class="button--primary beaubutton" onclick="MM.createDominos();">Générer</button>
+                <button class="button--primary beaubutton" id="btngenerateDominos">Générer</button>
             </section>
         </div>
         </div>
        <div class="row-4 colsx2" id="divparams">
-        <button id="btn-annotation2" onclick="utils.annotate('divparams', this.id)">
+        <button id="btn-annotation2">
             <img src="img/iconfinder_pencil_1055013.png" title="Annoter l'énoncé">
         </button>
-        <button id="btn-shuffle" onclick="MM.editedActivity.display('sample')">
+        <button id="btn-shuffle">
             <img src="img/iconfinder_die_1055072.png" title="Changer les exemples">
         </button>
             <h1><i class="icon-arrow--right"></i>Questions types</h1>
@@ -425,7 +434,7 @@
     </section>
     <section id="tab-enonce" class="tabs-content-item" style="display: none;">
         <aside>
-            <button id="btn-annotation-enonce" onclick="utils.annotate('enonce-content', this.id)">
+            <button id="btn-annotation-enonce">
                 <img src="img/iconfinder_pencil_1055013.png" title="Annoter">
             </button>
         </aside>
@@ -435,13 +444,13 @@
     </section>
     <section id="tab-corrige" class="tabs-content-item" style="display: none;">
         <aside>
-            <button id="btn-annotation-corrige" onclick="utils.annotate('corrige-content', this.id)">
+            <button id="btn-annotation-corrige">
                 <img src="img/iconfinder_pencil_1055013.png" title="Annoter le corrigé">
             </button>
-            <button id="btn-restart-otherdata" onclick="utils.setSeed(utils.seedGenerator());MM.start();">
+            <button id="btn-restart-otherdata">
                 <img src="img/restart.png" title="Recommencer avec de nouvelles données">
             </button>
-            <button id="btn-restart-samedata" onclick="MM.start();">
+            <button id="btn-restart-samedata">
                 <img src="img/restartsame.png" title="Recommencer avec les mêmes données">
             </button>
         </aside>
@@ -450,9 +459,11 @@
         </div>
     </section>
     <section id="tab-historique" class="tabs-content-item" style="display: none;">
-        Ici, l'historique des activités pour pouvoir les relancer, les imprimer... <span class="pointer underline" onclick="MM.emptyHistory();">💥Vider l'historique</span> <span class="pointer underline" onclick="MM.createSelectHistory();">⚙ Sélectionner</span>
-        <span id="actionsSelectHist" class="hidden">Pour la sélection : <span class="underline pointer" onclick="MM.removeSelectionFromHistory();">Supprimer</span><!-- <span>Générer page</span>--></span>
+        <header>
+        Ici, l'historique des activités pour pouvoir les relancer, les imprimer... <span class="pointer underline" id="btnemptyhist" title="Supprime tous les éléments de l'historique">💥Vider l'historique</span> <span class="pointer underline" title="Sélectionner plusieurs éléments de l'historique" id="btnSelectHist">☑ Sélectionner</span>
+        <span id="actionsSelectHist" class="hidden">Pour la sélection : <span title="Supprimer les éléments sélectionnés" id="btnsupprselhist" class="underline pointer">Supprimer</span><!-- <span>Générer page</span>--></span>
         <!--<span class="pointer underline" onclick="MM.generatePage()">🧾 Générer une page de liens</span>-->
+        </header>
         <ol reversed></ol>
     </section>
     <section id="tab-telechargements" class="tabs-content-item" style="display: none;">
@@ -483,7 +494,7 @@
     <section id="tab-chercher" class="tabs-content-item" style="display: none;">
         <div class="flex-container">
             <div>
-                <input type="text" onkeyup="library.displayContent(this.value)" placeholder="Mot clé (au moins 3 caractères)" id="searchinput">
+                <input type="text" placeholder="Mot clé (au moins 3 caractères)" id="searchinput">
             </div>
             <div id="searchLevels" class="flex-container"></div>
         </div>
@@ -495,9 +506,9 @@
 </div>
 <div id="slideshow-container" class="hidden">
     <header>
-        <button title="Tout arrêter" id="stop-all" onclick="MM.stopAllSliders()"><img src="img/slider-stop.png"></button>
-        <button title="Tout mettre en pause" id="pause-all" onclick="MM.pauseAllSliders();"><img src="img/slider-pause.png"></button>
-        <button title="Passer à la suivante pour tous" id="next-all" onclick="MM.nextAllSliders()"><img src="img/slider-next.png"></button>
+        <button title="Tout arrêter" id="stop-all"><img src="img/slider-stop.png"></button>
+        <button title="Tout mettre en pause" id="pause-all"><img src="img/slider-pause.png"></button>
+        <button title="Passer à la suivante pour tous" id="next-all"><img src="img/slider-next.png"></button>
     </header>
     <section id="slideshow"></section>
 </div>
