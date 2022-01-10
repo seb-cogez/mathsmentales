@@ -68,6 +68,12 @@ const utils = {
      */
     checkURL(urlString=false,start=true,edit=false){
         const vars = utils.getUrlVars(urlString);
+        // cas d'une prévue pour exercice.html
+        if(vars.cor && vars.ex && location.href.indexOf("exercices.html")<0){
+            // on redirige vers exercice.html
+            let url = new URL(location.href);
+            location.href= url.origin+url.pathname.replace("index.html","")+"exercices.html"+url.search;
+        }
         if(vars.embed !== undefined){
             // cas d'une activité embeded, on vérifie que l'url est conforme
             let expression = 

@@ -39,7 +39,8 @@ window.onload = function(){
     MM.setDispositionEnonce(utils.getRadioChecked("Enonces"));
     // take history if present
     if(window.localStorage){
-        document.querySelector("#tab-historique ol").innerHTML = localStorage.getItem("history").replace(/onclick="utils\.checkurl\(this.dataset\['url'\]\,false\,true\)"/gi,"");
+        if(localStorage.getItem("history"))
+            document.querySelector("#tab-historique ol").innerHTML = localStorage.getItem("history").replace(/onclick="utils\.checkurl\(this.dataset\['url'\]\,false\,true\)"/gi,"");
     }
     MM.zoom = new Zoom("thezoom","#slideshow .slide");
     document.querySelector("#slideshow-container header").appendChild(MM.zoom.createCursor());

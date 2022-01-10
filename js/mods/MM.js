@@ -835,9 +835,11 @@ const MM = {
         return urlString;//carts;
     },
     setURL(string,type){
-        if(type==="exosheet")
+        if(type==="exosheet"){
+            if(utils.baseURL.indexOf("index.html"<0))
+            utils.baseURL+="index.html";
             return utils.baseURL.replace('index','exercices')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
-        else
+       } else
             return utils.baseURL+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
     },
     checkIntro:function(){
