@@ -836,8 +836,8 @@ const MM = {
     },
     setURL(string,type){
         if(type==="exosheet"){
-            if(utils.baseURL.indexOf("index.html"<0))
-            utils.baseURL+="index.html";
+            if(utils.baseURL.indexOf("index.html")<0)
+                utils.baseURL+="index.html";
             return utils.baseURL.replace('index','exercices')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
        } else
             return utils.baseURL+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
