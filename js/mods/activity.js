@@ -75,6 +75,9 @@ export default class activity {
         this.values = [];
         this.figures = [];
         this.examplesFigs = {};
+        this.intVarsHistoric = {};
+        this.getOptionHistory = [];
+        this.getPatternHistory = {global:[]};
     }
     get nombreQuestions(){
         if(document.getElementById("nbq-slider"))

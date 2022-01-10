@@ -488,7 +488,6 @@ const MM = {
         let withSeed = false;
         if(document.getElementById("aleaInURL").checked)withSeed = true;
         let params = this.paramsToURL(withSeed,"exosheet");
-        if(document.getElementById("aleaInURL").checked)params.a = MM.seed;
         let value = this.setURL(params,"exosheet");
         MM.window = window.open(value,"mywindow","location=no,menubar=no,titlebar=no,width=1123");
     },
@@ -607,6 +606,7 @@ const MM = {
             return "s="+document.getElementById("exTxtSizeValue").value+
                 ",n="+document.getElementById("exQtyValue").value+
                 ",cor="+utils.getRadioChecked("excorr")+
+                ",a="+(withAleaSeed?MM.seed:"")+
                 ",t="+(document.getElementById("extitle").value||document.getElementById("extitle").placeholder)+
                 ",ex="+(document.getElementById("exeachex").value||document.getElementById("exeachex").placeholder)+
                 this.export();
