@@ -23,7 +23,7 @@
         "name":"Nommer un objet",
         "vars":{"pts":"0_16_3_^&","A":"${:points[:pts[0]]}","B":"${:points[:pts[1]]}","qt":"0_4"},
         "question": "Quelle est la notation mathématique de cette figure ?<br>${:qt==0?:segment::qt==1?:droite::qt==2?:demidroite::qt==3?:demidroite2::point}",
-        "answer":"${:qt==0?:segment::qt==1?:droite::qt==2?:demidroite::qt==3?:demidroite2::point}<br>se note ${:qt==0?'['+:A+:B+']'::qt==1?'('+:A+:B+')'::qt==2?'['+:A+:B+')'::qt==3?'['+:B+:A+')'::A}",
+        "answer":"${:qt==0?:segment::qt==1?:droite::qt==2?:demidroite::qt==3?:demidroite2::point}<br>se note <span class='red'>${:qt==0?'['+:A+:B+']'::qt==1?'('+:A+:B+')'::qt==2?'['+:A+:B+')'::qt==3?'['+:B+:A+')'::A}</span>",
         "value":["${:qt==0?'['+:A+:B+']'::qt==1?'('+:A+:B+')'::qt==2?'['+:A+:B+')'::qt==3?'['+:B+:A+')'::A}","${:qt==0?'['+:B+:A+']'::qt==1?'('+:B+:A+')'::qt==2?'('+:B+:A+']'::qt==3?'('+:A+:B+']'::A}"]
     }
     ]

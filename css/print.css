@@ -291,7 +291,7 @@ input[type="color"]{
         padding: 10mm;
     }
     #creator-container::before{
-        content:"\ 2021 Maths et Matic Projector - Vapps Line std";
+        content:"\ 2022 Maths et Matic Projector - Vapps Line std";
         color:darkblue !important;
         font-size: 0.8rem;
         border-bottom: 1pt solid black;

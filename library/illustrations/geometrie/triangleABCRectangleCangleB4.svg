@@ -1,0 +1,12 @@
+<svg width="200" height="100" version="1.1" viewBox="0 0 52.9 26.5" xmlns="http://www.w3.org/2000/svg">
+ <path transform="matrix(-.00638 1 -1 -.00339 0 0)" d="m8.82-39.9a3.17 3.17 0 0 1-1.71 2.86l-1.45-2.82z" fill="#ff0003"/>
+ <g font-family="Arial" font-size="4.23px" letter-spacing="0px" stroke-width=".265" word-spacing="0px">
+  <text x="9.0560808" y="22.621012" style="line-height:1.25" xml:space="preserve"><tspan x="9.0560808" y="22.621012" font-size="4.23px" stroke-width=".265">A</tspan></text>
+  <text x="40.176758" y="5.6024914" style="line-height:1.25" xml:space="preserve"><tspan x="40.176758" y="5.6024914" font-size="4.23px" stroke-width=".265">B</tspan></text>
+  <text x="40.752357" y="22.333212" style="line-height:1.25" xml:space="preserve"><tspan x="40.752357" y="22.333212" font-size="4.23px" stroke-width=".265">C</tspan></text>
+ </g>
+ <g transform="matrix(-1 0 0 1 52.5 -3.78e-7)" fill="none" stroke="#000">
+  <path d="m12.7 5.79v14.1h27.2z" stroke-width=".265px"/>
+  <rect x="12.7" y="18.7" width="1.23" height="1.23" stroke-linecap="round" stroke-linejoin="round" stroke-width=".265"/>
+ </g>
+</svg>

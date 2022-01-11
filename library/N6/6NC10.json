@@ -1,0 +1,75 @@
+{
+    "title":"Encadrer un décimal (6e)",
+    "type":"text",
+    "description":"Donner les deux nombres encadrant, le plus petit d'abord, séparés par un point-virgule",
+    "keys":["_","_","_",";"],
+    "ID":"6NC10",
+    "dest":["6NC"],
+    "options":[
+    {
+        "name":"Encadrer au dixième près",
+        "vars":{
+            "a":[10,100,1000,10000],
+            "c":"2_3",
+            "b":"d0_${:a}_${:c}_^0"
+        },
+        "question": "Encadrer $$${:b}$$ par deux décimaux, au dixième près",
+        "answer":"$$\\color{red}{${math.valeurParDefaut(:b,1)}} \\leqslant ${:b} \\lt \\color{red}{${math.valeurParExces(:b,1)}}$$ au dixième",
+        "value":"${math.valeurParDefaut(:b,1)};${math.valeurParExces(:b,1)}"
+    },
+    {
+        "name":"Encadrer au centième près",
+        "vars":{
+            "a":[10,100,1000,10000],
+            "c":"3_4",
+            "b":"d0_${:a}_${:c}_^0"
+        },
+        "question": "Encadrer $$${:b}$$ par deux décimaux, au centième près",
+        "answer":"$$\\color{red}{${math.valeurParDefaut(:b,2)}} \\leqslant ${:b} \\lt \\color{red}{${math.valeurParExces(:b,2)}}$$ au centième",
+        "value":"${math.valeurParDefaut(:b,2)};${math.valeurParExces(:b,2)}"
+    },
+    {
+        "name":"Encadrer au millième près",
+        "vars":{
+            "a":[10,100,1000,10000],
+            "c":"4",
+            "b":"d0_${:a}_${:c}_^0"
+        },
+        "question": "Encadrer $$${:b}$$ par deux décimaux, au millième près",
+        "answer":"$$\\color{red}{${math.valeurParDefaut(:b,3)}} \\leqslant ${:b} \\lt \\color{red}{${math.valeurParExces(:b,3)}}$$ au millième",
+        "value":"${math.valeurParDefaut(:b,3)};${math.valeurParExces(:b,3)}"
+    },{
+        "name":"Entre deux entiers consécutifs",
+        "vars":{
+            "a":[10,100,1000,10000],
+            "c":"1_4",
+            "b":"d0_${:a}_${:c}_^0"
+        },
+        "question": "Encadrer $$${:b}$$ par deux entiers consécutifs",
+        "answer":"$$\\color{red}{${Math.floor(:b)}} \\leqslant ${:b} \\lt \\color{red}{${Math.ceil(:b)}}$$ à l'unité",
+        "value":"${Math.floor(:b)};${Math.ceil(:b)}"
+    },
+    {
+        "name":"Encadrer à la dizaine près",
+        "vars":{
+            "a":[100,1000,10000],
+            "c":"1_3",
+            "b":"d10_${:a}_${:c}_^0"
+        },
+        "question": "Encadrer $$${:b}$$ par deux dizaines consécutives",
+        "answer":"$$\\color{red}{${math.valeurParDefaut(:b,-1)}} \\leqslant ${:b} \\lt \\color{red}{${math.valeurParExces(:b,-1)}}$$ à la dizaine",
+        "value":"${math.valeurParDefaut(:b,-1)};${math.valeurParExces(:b,-1)}"
+    },
+    {
+        "name":"Encadrer à la centaine près",
+        "vars":{
+            "a":[1000,10000,100000],
+            "c":"1_3",
+            "b":"d100_${:a}_${:c}_^0"
+        },
+        "question": "Encadrer $$${:b}$$ par deux centaines consécutives",
+        "answer":"$$\\color{red}{${math.valeurParDefaut(:b,-2)}} \\leqslant ${:b} \\lt \\color{red}{${math.valeurParExces(:b,-2)}}$$ à la centaine",
+        "value":"${math.valeurParDefaut(:b,-2)};${math.valeurParExces(:b,-2)}"
+    }
+    ]
+}
