@@ -72,4 +72,8 @@
   transition: 0.5s;
 }
 
+.etat-cache {
+  display: none;
+}
+
 /*# sourceMappingURL=mem-projector.css.map */
