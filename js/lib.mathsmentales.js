@@ -117,7 +117,7 @@ window.onload = function(){
     document.getElementById("btnenonces").onclick = ()=>{MM.showQuestions();};
     document.getElementById("btnreponses").onclick = ()=>{MM.showAnswers();};
     document.getElementById("btnadresse").onclick = ()=>{MM.copyURL();};
-    document.getElementById("btncopytohistoric").onclick = ()=>{MM.copyURLtoHistory()};
+    document.getElementById("btncopytohistoric").onclick = ()=>{MM.copyURLtoHistory(); ShowPUHIST()};
     // boutons génération documents
     document.getElementById("chooseParamType").onchange = (evt)=>{utils.showParameters(evt.target.value)}
     // fiche d'exercices
