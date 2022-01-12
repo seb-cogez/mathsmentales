@@ -302,6 +302,18 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
                 <input type="radio" class="radio" name="endOfSlideRadio" value="list"id="radioendslider3"> Énoncés
             </fieldset><br>
             <section class="txtcenter" id="startbuttons">
+                <div class="pop-up" id="PU-HIST">
+                    <h2>
+                        <i class="bi bi-check-square-fill"></i> Activité ajoutée à l'historique
+                    </h2>
+                    <button onclick="HidePUHIST()">Fermer</button>
+                    <script>
+                        function HidePUHIST(){
+                          var element = document.getElementById("PU-HIST");
+                          element.style.display = "none";
+                        }
+                    </script>
+                </div>
                 <button class="button--primary tooltip" id="btnstart"><b>Démmarer</b>
                     <span class="tooltiptext">Démarre le diaporama</span>
                 </button>
