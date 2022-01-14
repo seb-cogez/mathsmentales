@@ -251,7 +251,7 @@ const MM = {
                 MM.start();
             else {
                 const tabaccueil = document.getElementById("tab-accueil");
-                let message = `Tu as suivi un lien d'activité préconfigurée MathsMentales.<br>Clique ci-dessous pour démarrer.<br><br><button class="button--primary" id="btn-message-start"> Démarrer le diaporama </button>`;
+                let message = `Ce lien mène à une activité Maths et Matic Projector<br>Clique ci-dessous pour démarrer.<br><br><button class="button--primary" id="btn-message-start"> Démarrer le diaporama </button>`;
                 if(MM.carts.length === 1 && sound.selected===null)
                     message += `<br><br><button class="button--info" id="btn-message-sound">Avec du son</button>`;
                 if(MM.carts.length===1 && MM.carts[0].target.length===1)
@@ -1018,7 +1018,7 @@ const MM = {
         let whatToDo = utils.getRadioChecked("endOfSlideRadio");
         if(MM.onlineState === "yes"){
             // on affiche un message de fin qui attend une validation
-            let alert = utils.create("div",{id:"messagefin",className:"message",innerHTML:`L'activité MathsMentales est terminée.<br>Pour consulter les résultats, cliquer sur le bouton ci-dessous.<br><br>
+            let alert = utils.create("div",{id:"messagefin",className:"message",innerHTML:`L'activité Maths et Matic Projector est terminée.<br>Pour consulter les résultats, cliquer sur le bouton ci-dessous.<br><br>
             <button id="btn-messagefin-close"> Voir le corrigé 
             </button>`});
             document.body.appendChild(alert);
