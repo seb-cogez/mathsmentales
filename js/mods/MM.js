@@ -978,11 +978,11 @@ const MM = {
             /*if(nb>1 && MM.faceToFace==="y" && i===0)div.className += " return";
             else if(nb>2 && MM.faceToFace==="y" && i===1)div.className +=" return";*/
             let innerH = `<div class="slider-head"><div class="slider-nav">
-            <button title="Arrêter le diaporama" id="btn-timer-end${i}"><h1><i class="bi bi-stop-btn-fill"></i></h1><!--<img alt="Stop" src="img/slider-stop.png">--></button>`;
+            <button title="Arrêter le diaporama" id="btn-timer-end${i}"><img alt="Stop" src="img/slider-stop.png"></button>`;
             if(MM.onlineState==="no"){
                 // on crée les boutons de pause et montrer réponse si on n'est pas en mode online
-                innerH += `<button title="Mettre le diapo en pause", id="btn-timer-pause${i}"><h1><i class="bi bi-pause-btn-fill"></i></h1><span style="display: none;"><img alt="Pause" src="img/slider-pause.png"></span></button>
-                <button title="Montrer la réponse" id="btn-show-answer${i}"><h1><i class="bi bi-skip-end-btn-fill"></i></h1><!--<img alt="Next" src="img/slider-next.png">--></button>`;
+                innerH += `<button title="Mettre le diapo en pause", id="btn-timer-pause${i}"><span style="display: none;"><img alt="Pause" src="img/slider-pause.png"></span></button>
+                <button title="Montrer la réponse" id="btn-show-answer${i}"><img alt="Next" src="img/slider-next.png"></button>`;
             }
             MM.zooms["zs"+i] = new Zoom("zs"+i,"#slider"+i+" .slide");
             let zoom = MM.zooms["zs"+i].createCursor();
