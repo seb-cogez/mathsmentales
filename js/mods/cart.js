@@ -171,12 +171,12 @@ export default class cart {
      */
     changeOrder(objImage){
         if(objImage.dataset["ordered"] === "true"){
-            objImage.src = "img/iconfinder_windy_1054934.png";
+            objImage.src = "bootstrap-icons/icons/shuffle.svg";
             objImage.title = "Affichage mélangé des questions";
             objImage.dataset["ordered"] = "false";
             this.ordered = false;
         } else {
-            objImage.src = "img/iconfinder_stack_1054970.png";
+            objImage.src = "bootstrap-icons/icons/layers-half.svg";
             objImage.title = "Affichage dans l'ordre des activités";
             objImage.dataset["ordered"] = "true";
             this.ordered = true;
