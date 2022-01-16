@@ -76,4 +76,25 @@
   display: none;
 }
 
+/*Taille diffrerentes pour le ratio 1:1 (Carré)*/
+.carre-32 {
+  width: 32px;
+  height: 32px;
+}
+
+.carre-40 {
+  width: 40px;
+  height: 40px;
+}
+
+.carre-64 {
+  width: 64px;
+  height: 64px;
+}
+
+.carre-100 {
+  width: 100px;
+  height: 100px;
+}
+
 /*# sourceMappingURL=mem-projector.css.map */
