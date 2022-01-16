@@ -7,6 +7,7 @@ import Figure from "./figure.js";
 import timer from "./timer.js";
 import keyBoard from "./keyboard.js";
 import ficheToPrint from "./fichetoprint.js";
+import activity from "./activity.js";
 export {MM as default}
 const MM = {
     version:7,// à mettre à jour à chaque upload pour régler les pb de cache
