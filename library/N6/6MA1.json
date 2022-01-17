@@ -20,31 +20,31 @@
         "name":"Périmètre du carré",
         "vars":{"a":"d0.1_10_1", "p":"${math.round(:a*4,1)}","u":"0_6","carre":"0_2","c":"${:a} ${:unites[:u]}"},
         "question": "Quel est le <b>périmètre</b> d'un carré de côté $$${:a}\\text{ ${:unites[:u]}}$$ ?<br>${:figures[0][:carre]}",
-        "answer":"$$4\\times${:a}${:unites[:u]}=\\color{red}{${:p}\\text{ ${:unites[:u]}}}$$",
+        "answer":"$$4\\times${:a}\\text{ ${:unites[:u]}}=\\color{red}{${:p}\\text{ ${:unites[:u]}}}$$",
         "value":"${:p}${:unites[:u]}"
     },{
         "name":"Périmètre du rectangle",
         "vars":{"a":"d0.1_8_1", "b":"d${math.round(:a+0.1,1)}_9_1", "p":"${math.round(:a*2+:b*2,1)}","u":"0_6", "rect":"0_2", "l":"${:a} ${:unites[:u]}","L":"${:b} ${:unites[:u]}"},
         "question": "Quel est le <b>périmètre</b> d'un rectangle de côtés $$${:a}\\text{ ${:unites[:u]}}$$ et  $$${:b}\\text{ ${:unites[:u]}}$$ ?<br>${:figures[1][:rect]}",
-        "answer":"$$2\\times${:a}${:unites[:u]}+2\\times${:b}${:unites[:u]}=\\color{red}{${:p}\\text{ ${:unites[:u]}}}$$",
+        "answer":"$$2\\times${:a}\\text{ ${:unites[:u]}}+2\\times${:b}\\text{ ${:unites[:u]}}=\\color{red}{${:p}\\text{ ${:unites[:u]}}}$$",
         "value":"${:p}${:unites[:u]}"
     },{
         "name":"Longueur du cercle",
         "vars":{"r":"1_5","p":"${math.round(2*3.14*:r,2)}","u":"0_6","xM":"${:r+5}","rayon":"${:r} ${:unites[:u]}"},
         "question": "Quelle est la <b>longueur</b> arrondie au centième d'un cercle de rayon $$${:r}\\text{ ${:unites[:u]}}$$ ?<br>${:figures[2][0]}",
-        "answer":"$$2\\times R \\times \\pi \\approx 2\\times${:r}${:unites[:u]}\\times 3.14=\\color{red}{${:p}\\text{ ${:unites[:u]}}}$$",
+        "answer":"$$2\\times R \\times \\pi \\approx 2\\times${:r}\\text{ ${:unites[:u]}}\\times 3.14=\\color{red}{${:p}\\text{ ${:unites[:u]}}}$$",
         "value":"${:p}${:unites[:u]}"
     },{
         "name":"Longueur du cercle 2",
         "vars":{"d":"1_10","p":"${math.round(3.14*:d,2)}","u":"0_6","xM":"${5+:d/2}","diam":"${:d} ${:unites[:u]}"},
         "question": "Quelle est la <b>longueur</b> arrondie au centième d'un cercle de diamètre $$${:d}\\text{ ${:unites[:u]}}$$ ?<br>${:figures[2][1]}",
-        "answer":"$$D \\times \\pi \\approx ${:d}${:unites[:u]}\\times 3.14=\\color{red}{${:p}\\text{ ${:unites[:u]}}}$$",
+        "answer":"$$D \\times \\pi \\approx ${:d}\\text{ ${:unites[:u]}}\\times 3.14=\\color{red}{${:p}\\text{ ${:unites[:u]}}}$$",
         "value":"${:p}${:unites[:u]}"
     },{
         "name":"Longueur exacte du cercle",
         "vars":{"r":"1_5","u":"0_6","xM":"${:r+5}","rayon":"${:r} ${:unites[:u]}"},
         "question": "Quelle est la <b>longueur</b> exacte d'un cercle de rayon $$${:r}\\text{ ${:unites[:u]}}$$ ?<br>${:figures[2][0]}",
-        "answer":"$$2\\times R \\times \\pi=2\\times ${:r}${:unites[:u]}\\times\\pi=\\color{red}{${:r*2}\\pi\\text{ ${:unites[:u]}}}$$",
+        "answer":"$$2\\times R \\times \\pi=2\\times ${:r}\\text{ ${:unites[:u]}}\\times\\pi=\\color{red}{${:r*2}\\pi\\text{ ${:unites[:u]}}}$$",
         "value":"${:r*2}\\pi\\text{ ${:unites[:u]}}"
     },{
         "name":"Longueur exacte du cercle 2",
