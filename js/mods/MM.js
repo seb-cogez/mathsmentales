@@ -489,7 +489,6 @@ const MM = {
         let withSeed = false;
         if(document.getElementById("aleaInURL").checked)withSeed = true;
         let params = this.paramsToURL(withSeed,"exosheet");
-        if(document.getElementById("aleaInURL").checked)params.a = MM.seed;
         let value = this.setURL(params,"exosheet");
         MM.window = window.open(value,"mywindow","location=no,menubar=no,titlebar=no,width=1123");
     },
@@ -608,6 +607,7 @@ const MM = {
             return "s="+document.getElementById("exTxtSizeValue").value+
                 ",n="+document.getElementById("exQtyValue").value+
                 ",cor="+utils.getRadioChecked("excorr")+
+                ",a="+(withAleaSeed?MM.seed:"")+
                 ",t="+(document.getElementById("extitle").value||document.getElementById("extitle").placeholder)+
                 ",ex="+(document.getElementById("exeachex").value||document.getElementById("exeachex").placeholder)+
                 this.export();
@@ -841,9 +841,11 @@ const MM = {
         return urlString;//carts;
     },
     setURL(string,type){
-        if(type==="exosheet")
+        if(type==="exosheet"){
+            if(utils.baseURL.indexOf("index.html")<0)
+                utils.baseURL+="index.html";
             return utils.baseURL.replace('index','exercices')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
-        else
+       } else
             return utils.baseURL+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
     },
     checkIntro:function(){

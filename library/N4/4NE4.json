@@ -8,14 +8,14 @@
     "keys":["x²","+","-","a","b","t","x","y"],
     "options":[{
         "name":"Simple distributivité coeffs positifs",
-        "vars":{"l":"0_4","x":"${:lettres[:l]}", "a":"1_10","b":"1_10","c":"1_10"},
+        "vars":{"l":"0_4","x":"${:lettres[:l]}", "a":"2_10","b":"1_10","c":"1_10"},
         "question": ["\\begin{array}{c} \\text{Développer}\\\\${:a}\\times(${math.signIfOne(:b)}${:x}${math.signedNumber(:c)})\\end{array}","\\begin{array}{c} \\text{Développer}\\\\${:a}\\times(${:c}${math.signedNumberButOne(:b)}${:x})\\end{array}"],
         "shortq": ["${:a}\\times(${math.signIfOne(:b)}${:x}${math.signedNumber(:c)})","${:a}\\times(${:c}${math.signedNumberButOne(:b)}${:x})"],
         "answer":["${:a}\\times(${math.signIfOne(:b)}${:x}${math.signedNumber(:c)})=\\color{red}{${math.signIfOne(:a*:b)}${:x}${math.signedNumber(:a*:c)}}","${:a}\\times(${:c}${math.signedNumberButOne(:b)}${:x})=\\color{red}{${:a*:c}${math.signedNumberButOne(:a*:b)}${:x}}"],
         "value":"${math.calc(:a+'*('+:b+:x+')+('+:a+')*('+:c+')')}"
     },{
         "name":"Simple distributivité",
-        "vars":{"l":"0_4","x":"${:lettres[:l]}", "a":"-10_10_^0","b":"-10_10_^0","c":"-10_10_^0"},
+        "vars":{"l":"0_4","x":"${:lettres[:l]}", "a":"-10_10_^0,1","b":"-10_10_^0","c":"-10_10_^0"},
         "question": ["\\begin{array}{c} \\text{Développer}\\\\${:a}\\times(${math.signIfOne(:b)}${:x}${math.signedNumber(:c)})\\end{array}","\\begin{array}{c} \\text{Développer}\\\\${:a}\\times(${:c}${math.signedNumberButOne(:b)}${:x})\\end{array}"],
         "shortq":["${:a}\\times(${math.signIfOne(:b)}${:x}${math.signedNumber(:c)})","${:a}\\times(${:c}${math.signedNumberButOne(:b)}${:x})"],
         "answer":["${:a}\\times(${math.signIfOne(:b)}${:x}${math.signedNumber(:c)})=\\color{red}{${math.signIfOne(:a*:b)}${:x}${math.signedNumber(:a*:c)}}","${:a}\\times(${:c}${math.signedNumberButOne(:b)}${:x})=\\color{red}{${:a*:c}${math.signedNumberButOne(:a*:b)}${:x}}"],
@@ -44,9 +44,9 @@
     },{
         "name":"Simple distributivité, variable en plus",
         "vars":{"l":"0_4","x":"${:lettres[:l]}", "a":"-10_10_^0","b":"-10_10_^0","c":"-10_10_^0"},
-        "question": ["\\begin{array}{c} \\text{Développer}\\\\${:a}${:x}(${math.signIfOne(:b)}${:x}${math.signedNumber(:c)})\\end{array}","\\begin{array}{c} \\text{Développer}\\\\${:a}${:x}(${:c}${math.signedNumberButOne(:b)}${:x})\\end{array}"],
-        "shortq":["${:a}${:x}(${math.signIfOne(:b)}${:x}${math.signedNumber(:c)})","${:a}(${:c}${math.signedNumberButOne(:b)}${:x})"],
-        "answer":["${:a}${:x}(${math.signIfOne(:b)}${:x}${math.signedNumber(:c)})=\\color{red}{${math.signIfOne(:a*:b)}${:x}^2${math.signedNumber(:a*:c)}${:x}}","${:a}${:x}(${:c}${math.signedNumberButOne(:b)}${:x})=\\color{red}{${:a*:c}${:x}${math.signedNumberButOne(:a*:b)}${:x}^2}"],
+        "question": ["\\begin{array}{c} \\text{Développer}\\\\${math.signIfOne(:a)}${:x}(${math.signIfOne(:b)}${:x}${math.signedNumber(:c)})\\end{array}","\\begin{array}{c} \\text{Développer}\\\\${math.signIfOne(:a)}${:x}(${:c}${math.signedNumberButOne(:b)}${:x})\\end{array}"],
+        "shortq":["${math.signIfOne(:a)}${:x}(${math.signIfOne(:b)}${:x}${math.signedNumber(:c)})","${math.signIfOne(:a)}(${:c}${math.signedNumberButOne(:b)}${:x})"],
+        "answer":["${math.signIfOne(:a)}${:x}(${math.signIfOne(:b)}${:x}${math.signedNumber(:c)})=\\color{red}{${math.signIfOne(:a*:b)}${:x}^2${math.signedNumber(:a*:c)}${:x}}","${math.signIfOne(:a)}${:x}(${:c}${math.signedNumberButOne(:b)}${:x})=\\color{red}{${:a*:c}${:x}${math.signedNumberButOne(:a*:b)}${:x}^2}"],
         "value":"${math.calc(:a+'*'+:x+'*('+:b+')*'+:x+'+('+:a+')*('+:c+')*'+:x)}"
     }
     ]
