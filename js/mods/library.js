@@ -66,6 +66,9 @@ const library = {
             utils.createSearchCheckboxes();
             // check if parameters from URL
             utils.checkURL();
+            if(MM.embededIn){
+                window.parent.postMessage({ready:"ok"}, MM.embededIn);
+            }        
         }
         reader.open("get", "library/content.json?v"+MM.version, true);
         reader.send();
