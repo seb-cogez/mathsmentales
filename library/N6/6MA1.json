@@ -5,53 +5,53 @@
     "description":"Pas encore compatible avec la saisie en ligne",
     "textSize":"small",
     "dest":["6MA", "5MA", "4MA", "3MA"],
-    "consts":{"unites":["mm","cm","dm","m", "dam", "hm", "km"]},
+    "consts":{"unites":["mm","cm","dm","m", "dam", "hm", "km"],
+    "figures":[[
+        "<svg width=\"15em\" height=\"9em\" viewBox=\"0 0 52.9 26.5\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"none\" stroke=\"#000\" stroke-width=\".265\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M7.547 2.946h19.702v19.702H7.547z\"/><path fill=\"none\" stroke=\"#000\" stroke-width=\".265\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M7.547 21.299h1.349v1.349H7.547zM25.9 2.946h1.349v1.349H25.9zM25.9 21.299h1.349v1.349H25.9zM7.547 2.946h1.349v1.349H7.547z\"/><text style=\"line-height:1.25;-inkscape-font-specification:Arial\" x=\"29.485\" y=\"13.951\" font-size=\"4.24\" font-family=\"Arial\" letter-spacing=\"0\" word-spacing=\"0\" stroke-width=\".265\"><tspan x=\"29.485\" y=\"13.951\">${:c}</tspan></text><path d=\"M17.558 1.917l-1.456 2.236M18.676 1.97L17.22 4.207M17.132 21.335l-1.456 2.236M18.25 21.388l-1.456 2.237M8.572 11.139l-2.334 1.294M8.75 12.204l-2.335 1.294M28.309 10.82l-2.334 1.293M28.487 11.884l-2.334 1.294\" fill=\"none\" stroke=\"#000\" stroke-width=\".265\"/></svg>",
+        "<svg width=\"15em\" height=\"9em\" viewBox=\"0 0 52.9 26.5\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"none\" stroke=\"#000\" stroke-width=\".265\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M6 6.124l19.096-4.846 4.847 19.097-19.097 4.846z\"/><path fill=\"none\" stroke=\"#000\" stroke-width=\".265\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M10.514 23.913l1.308-.331.332 1.307-1.308.332zM23.789 1.61l1.307-.332.332 1.308-1.307.331zM28.303 19.399l1.308-.332.332 1.308-1.308.331zM6 6.124l1.307-.332L7.64 7.1l-1.307.332z\"/><text style=\"line-height:1.25;-inkscape-font-specification:Arial\" x=\"30.231\" y=\"10.259\" font-size=\"4.24\" font-family=\"Arial\" letter-spacing=\"0\" word-spacing=\"0\" stroke-width=\".265\"><tspan x=\"30.231\" y=\"10.259\">${:c}</tspan></text><path d=\"M15.45 2.664l-.861 2.526M16.547 2.44l-.861 2.526M19.813 21.59l-.86 2.526M20.91 21.367l-.86 2.525M9.008 13.813L7.065 15.64M9.442 14.801L7.5 16.63M28.06 8.648l-1.943 1.828M28.495 9.637l-1.944 1.828\" fill=\"none\" stroke=\"#000\" stroke-width=\".265\"/></svg>",
+        "<svg width=\"15em\" height=\"9em\" viewBox=\"0 0 52.9 26.5\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"none\" stroke=\"#000\" stroke-width=\".265\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M11.661.829l18.73 6.11-6.11 18.73-18.73-6.11z\"/><path fill=\"none\" stroke=\"#000\" stroke-width=\".265\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M5.969 18.277l1.282.418-.418 1.282-1.283-.418zM29.109 6.52l1.282.42-.418 1.282-1.282-.419zM23.417 23.969l1.282.418-.418 1.283-1.283-.419zM11.661.829l1.283.418-.419 1.282-1.282-.418z\"/><text style=\"line-height:1.25;-inkscape-font-specification:Arial\" x=\"30.515\" y=\"18.282\" font-size=\"4.24\" font-family=\"Arial\" letter-spacing=\"0\" word-spacing=\"0\" stroke-width=\".265\"><tspan x=\"30.515\" y=\"18.282\">${:c}</tspan></text><path d=\"M21.498 2.955L19.42 4.63M22.544 3.352l-2.077 1.675M15.07 21.283l-2.077 1.675M16.117 21.68l-2.078 1.675M10.095 8.935l-2.62.506M9.933 10.002l-2.62.507M28.958 14.753l-2.62.506M28.796 15.82l-2.62.507\" fill=\"none\" stroke=\"#000\" stroke-width=\".265\"/></svg>"],
+        ["<svg width=\"15em\" height=\"9em\" viewBox=\"0 0 52.9 26.5\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"none\" stroke=\"#000\" stroke-width=\".265\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3.287 3.479h33.724v14.945H3.287z\"/><text style=\"line-height:1.25;-inkscape-font-specification:Arial\" x=\"39.247\" y=\"11.786\" font-size=\"4.24\" font-family=\"Arial\" letter-spacing=\"0\" word-spacing=\"0\" stroke-width=\".265\"><tspan x=\"39.247\" y=\"11.786\">${:l}</tspan></text><text style=\"line-height:1.25;-inkscape-font-specification:Arial\" x=\"15.428\" y=\"23.5\" font-size=\"4.24\" font-family=\"Arial\" letter-spacing=\"0\" word-spacing=\"0\" stroke-width=\".265\"><tspan x=\"15.428\" y=\"23.5\">${:L}</tspan></text><path fill=\"none\" stroke=\"#000\" stroke-width=\".265\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3.287 3.479h1.349v1.349H3.287zM3.287 17.075h1.349v1.349H3.287zM35.662 3.479h1.349v1.349h-1.349zM35.662 17.075h1.349v1.349h-1.349z\"/><path d=\"M20.14 2.476l-1.455 2.236M21.258 2.53l-1.455 2.236M20.105 17.173l-1.456 2.236M21.223 17.226l-1.456 2.236M2.364 10.117l1.846.994M36.23 10.508l1.846.994\" fill=\"none\" stroke=\"#000\" stroke-width=\".265\"/></svg>",
+        "<svg width=\"15em\" height=\"9em\" viewBox=\"0 0 52.9 26.5\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"none\" stroke=\"#000\" stroke-width=\".265\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M6.182 1.178l32.475 9.094-4.03 14.392-32.475-9.095z\"/><text style=\"line-height:1.25;-inkscape-font-specification:Arial\" x=\"39.425\" y=\"18.317\" font-size=\"4.24\" font-family=\"Arial\" letter-spacing=\"0\" word-spacing=\"0\" stroke-width=\".265\"><tspan x=\"39.425\" y=\"18.317\">${:l}</tspan></text><text style=\"line-height:1.25;-inkscape-font-specification:Arial\" x=\"7.192\" y=\"24.352\" font-size=\"4.24\" font-family=\"Arial\" letter-spacing=\"0\" word-spacing=\"0\" stroke-width=\".265\"><tspan x=\"7.192\" y=\"24.352\">${:L}</tspan></text><path fill=\"none\" stroke=\"#000\" stroke-width=\".265\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M6.182 1.178l1.3.364-.364 1.299-1.3-.364zM2.516 14.27l1.299.364-.364 1.299-1.299-.364zM37.358 9.909l1.299.363-.364 1.3-1.299-.364zM33.691 23l1.3.365-.364 1.299-1.3-.364z\"/><path d=\"M22.682 4.757l-2.005 1.761M23.744 5.11L21.74 6.87M18.684 18.9l-2.004 1.76M19.747 19.252l-2.005 1.762M3.504 7.321l1.51 1.455M36.01 16.83l1.51 1.455\" fill=\"none\" stroke=\"#000\" stroke-width=\".265\"/></svg>",
+        "<svg width=\"15em\" height=\"9em\" viewBox=\"0 0 52.9 26.5\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"none\" stroke=\"#000\" stroke-width=\".265\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M2.056 11.052L34.114.582l4.64 14.207-32.058 10.47z\"/><text style=\"line-height:1.25;-inkscape-font-specification:Arial\" x=\"39.07\" y=\"8.094\" font-size=\"4.24\" font-family=\"Arial\" letter-spacing=\"0\" word-spacing=\"0\" stroke-width=\".265\"><tspan x=\"39.07\" y=\"8.094\">${:l}</tspan></text><text style=\"line-height:1.25;-inkscape-font-specification:Arial\" x=\"24.728\" y=\"24.281\" font-size=\"4.24\" font-family=\"Arial\" letter-spacing=\"0\" word-spacing=\"0\" stroke-width=\".265\"><tspan x=\"24.728\" y=\"24.281\">${:L}</tspan></text><path fill=\"none\" stroke=\"#000\" stroke-width=\".265\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M2.056 11.052l1.283-.42.419 1.283-1.283.419zM6.277 23.977l1.283-.419.419 1.282-1.283.42zM32.832 1.001l1.282-.419.419 1.283-1.282.419zM37.053 13.926l1.282-.418.42 1.282-1.283.419z\"/><path d=\"M17.765 4.867l-.689 2.578M18.845 4.57l-.69 2.578M22.294 18.849l-.69 2.577M23.373 18.552l-.689 2.578M3.24 17.649l2.063.372M35.554 7.507l2.063.372\" fill=\"none\" stroke=\"#000\" stroke-width=\".265\"/></svg>"],[
+        "<svg width=\"15em\" height=\"9em\" viewBox=\"0 0 52.9 26.5\" xmlns=\"http://www.w3.org/2000/svg\"><text style=\"line-height:1.25;-inkscape-font-specification:Arial\" x=\"33.035\" y=\"13.028\" font-size=\"4.24\" font-family=\"Arial\" letter-spacing=\"0\" word-spacing=\"0\" stroke-width=\".265\"><tspan x=\"33.035\" y=\"13.028\">${:rayon}</tspan></text><circle cx=\"17.114\" cy=\"13.259\" r=\"11.235\" fill=\"none\" stroke=\"#000\" stroke-width=\".265\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M17.238 13.703l9.691-5.822M23.415 11.04l8.697 1.207M23.415 11.04l.745.994M24.48 10.508l-1.065.532M16.635 12.673l1.242 1.917M16.528 14.555l1.775-2.06\" fill=\"none\" stroke=\"#000\" stroke-width=\".265\"/></svg>",
+        "<svg width=\"15em\" height=\"9em\" viewBox=\"0 0 52.9 26.5\" xmlns=\"http://www.w3.org/2000/svg\"><text style=\"line-height:1.25;-inkscape-font-specification:Arial;text-align:center\" x=\"8.231\" y=\"18.179\" transform=\"rotate(-29.672)\" font-size=\"4.24\" font-family=\"Arial\" letter-spacing=\"0\" word-spacing=\"0\" text-anchor=\"middle\" stroke-width=\".265\"><tspan style=\"text-align:center\" x=\"8.231\" y=\"18.179\">${:diam}</tspan></text><circle cx=\"17.114\" cy=\"13.259\" r=\"11.235\" fill=\"none\" stroke=\"#000\" stroke-width=\".265\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M7.634 19.181L26.949 7.905M16.564 13.028l1.703 1.243\" fill=\"none\" stroke=\"#000\" stroke-width=\".265\"/></svg>"
+        ]]},
     "options":[{
         "name":"Périmètre du carré",
-        "vars":{"a":"d0.1_10_1", "p":"${math.round(:a*4,1)}","u":"0_6"},
-        "figure":{
-            "type":"graph",
-            "axis":false,
-            "boundingbox":[0,10,10,0],
-            "content":[
-                ["jessiescript", "A=point(2,2);B=point(8,2);C=point(8,8);D=point(2,8);AB=segment(A,B);BC=segment(B,C);CD=segment(C,D);DA=segment(D,A);"],
-                ["text", [5,1.5,"${:a} ${:unites[:u]}"], {"anchorX":"middle", "fontSize":20}]
-            ]
-        },
-        "question": "Quel est le <b>périmètre</b> d'un carré de côté $$${:a}\\text{ ${:unites[:u]}}$$ ?",
-        "answer":"$$4\\times${:a}=\\color{red}{${:p}\\text{ ${:unites[:u]}}}$$",
+        "vars":{"a":"d0.1_10_1", "p":"${math.round(:a*4,1)}","u":"0_6","carre":"0_2","c":"${:a} ${:unites[:u]}"},
+        "question": "Quel est le <b>périmètre</b> d'un carré de côté $$${:a}\\text{ ${:unites[:u]}}$$ ?<br>${:figures[0][:carre]}",
+        "answer":"$$4\\times${:a}${:unites[:u]}=\\color{red}{${:p}\\text{ ${:unites[:u]}}}$$",
         "value":"${:p}${:unites[:u]}"
     },{
         "name":"Périmètre du rectangle",
-        "vars":{"a":"d0.1_8_1", "b":"d${math.round(:a+0.1,1)}_9_1", "p":"${math.round(:a*2+:b*2,1)}","u":"0_6"},
-        "figure":{
-            "type":"graph",
-            "axis":false,
-            "boundingbox":[0,10,10,0],
-            "content":[
-                ["jessiescript", "A=point(0.5,0.5);B=point(${0.5+:b},0.5);C=point(${0.5+:b},${0.5+:a});D=point(0.5,${0.5+:a});AB=segment(A,B);BC=segment(B,C);CD=segment(C,D);DA=segment(D,A);"],
-                ["text", ["${.5+:b/2}",0.5,"${:b} ${:unites[:u]}"], {"anchorX":"middle", "fontSize":20}],
-                ["text", ["${:b}","${.5+:a/2}","${:a} ${:unites[:u]}"], {"anchorX":"left", "fontSize":20}]
-            ]
-        },
-        "question": "Quel est le <b>périmètre</b> d'un rectangle de côtés $$${:a}\\text{ ${:unites[:u]}}$$ et  $$${:b}\\text{ ${:unites[:u]}}$$?",
-        "answer":"$$2\\times${:a}+2\\times${:b}=\\color{red}{${:p}\\text{ ${:unites[:u]}}}$$",
+        "vars":{"a":"d0.1_8_1", "b":"d${math.round(:a+0.1,1)}_9_1", "p":"${math.round(:a*2+:b*2,1)}","u":"0_6", "rect":"0_2", "l":"${:a} ${:unites[:u]}","L":"${:b} ${:unites[:u]}"},
+        "question": "Quel est le <b>périmètre</b> d'un rectangle de côtés $$${:a}\\text{ ${:unites[:u]}}$$ et  $$${:b}\\text{ ${:unites[:u]}}$$ ?<br>${:figures[1][:rect]}",
+        "answer":"$$2\\times${:a}${:unites[:u]}+2\\times${:b}${:unites[:u]}=\\color{red}{${:p}\\text{ ${:unites[:u]}}}$$",
         "value":"${:p}${:unites[:u]}"
     },{
         "name":"Longueur du cercle",
-        "vars":{"r":"1_5","p":"${math.round(2*Math.PI*:r,1)}","u":"0_6","xM":"${:r+5}"},
-        "figure":{
-            "type":"graph",
-            "axis":false,
-            "boundingbox":[0,10,10,0],
-            "content":[
-                ["jessiescript", "O=point(5,5);c=circle(O,${:r});M=point(${:xM},5);OM=segment(O,M);"],
-                ["text", ["${5+:r/2}",4.5,"${:r} ${:unites[:u]}"], {"anchorX":"middle", "fontSize":20}]
-            ]
-        },
-        "question": "Quel est la <b>longueur</b> d'un cercle de rayon $$${:r}\\text{ ${:unites[:u]}}$$ ?",
-        "answer":"$$2\\times R \\times pi \\approx 2\\times${:r}\\times 3.14=\\color{red}{${:p}\\text{ ${:unites[:u]}}}$$",
+        "vars":{"r":"1_5","p":"${math.round(2*3.14*:r,2)}","u":"0_6","xM":"${:r+5}","rayon":"${:r} ${:unites[:u]}"},
+        "question": "Quelle est la <b>longueur</b> arrondie au centième d'un cercle de rayon $$${:r}\\text{ ${:unites[:u]}}$$ ?<br>${:figures[2][0]}",
+        "answer":"$$2\\times R \\times \\pi \\approx 2\\times${:r}${:unites[:u]}\\times 3.14=\\color{red}{${:p}\\text{ ${:unites[:u]}}}$$",
         "value":"${:p}${:unites[:u]}"
+    },{
+        "name":"Longueur du cercle 2",
+        "vars":{"d":"1_10","p":"${math.round(3.14*:d,2)}","u":"0_6","xM":"${5+:d/2}","diam":"${:d} ${:unites[:u]}"},
+        "question": "Quelle est la <b>longueur</b> arrondie au centième d'un cercle de diamètre $$${:d}\\text{ ${:unites[:u]}}$$ ?<br>${:figures[2][1]}",
+        "answer":"$$D \\times \\pi \\approx ${:d}${:unites[:u]}\\times 3.14=\\color{red}{${:p}\\text{ ${:unites[:u]}}}$$",
+        "value":"${:p}${:unites[:u]}"
+    },{
+        "name":"Longueur exacte du cercle",
+        "vars":{"r":"1_5","u":"0_6","xM":"${:r+5}","rayon":"${:r} ${:unites[:u]}"},
+        "question": "Quelle est la <b>longueur</b> exacte d'un cercle de rayon $$${:r}\\text{ ${:unites[:u]}}$$ ?<br>${:figures[2][0]}",
+        "answer":"$$2\\times R \\times \\pi=2\\times ${:r}${:unites[:u]}\\times\\pi=\\color{red}{${:r*2}\\pi\\text{ ${:unites[:u]}}}$$",
+        "value":"${:r*2}\\pi\\text{ ${:unites[:u]}}"
+    },{
+        "name":"Longueur exacte du cercle 2",
+        "vars":{"d":"1_10","u":"0_6","xM":"${5+:d/2}","diam":"${:d} ${:unites[:u]}"},
+        "question": "Quelle est la <b>longueur</b> exacte d'un cercle de diamètre $$${:d}\\text{ ${:unites[:u]}}$$ ?<br>${:figures[2][1]}",
+        "answer":"$$D \\times \\pi =\\color{red}{${math.signIfOne(:d)}\\pi\\text{ ${:unites[:u]}}}$$",
+        "value":"${:d}\\pi\\text{ ${:unites[:u]}}"
     }
     ]
 }
