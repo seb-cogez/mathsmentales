@@ -67,7 +67,7 @@ const library = {
             // check if parameters from URL
             utils.checkURL();
             if(MM.embededIn){
-                window.parent.postMessage({ready:"ok"}, MM.embededIn);
+                window.parent.postMessage({url: window.location.href, ready:"ok"}, MM.embededIn);
             }        
         }
         reader.open("get", "library/content.json?v"+MM.version, true);
