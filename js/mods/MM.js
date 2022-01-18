@@ -397,7 +397,7 @@ const MM = {
                     else
                         lic.innerHTML += answer;
                     if(activity.figures[j] !== undefined){
-                        lic.innerHTML += "<button data-id=\"c"+slideNumber+"-"+indiceSlide+"\">Figure</button>";
+                        lic.innerHTML += "&nbsp; <button data-id=\"c"+slideNumber+"-"+indiceSlide+"\">Figure</button>";
                         MM.figs[slideNumber+"-"+indiceSlide] = new Figure(utils.clone(activity.figures[j]), "c"+slideNumber+"-"+indiceSlide, div);
                         MM.memory['e'+slideNumber+"-"+indiceSlide] = new Figure(utils.clone(activity.figures[j]), "en"+slideNumber+"-"+indiceSlide, lie,[300,150]);
                         MM.memory['c'+slideNumber+"-"+indiceSlide] = new Figure(utils.clone(activity.figures[j]), "cor"+slideNumber+"-"+indiceSlide, lic,[450,225]);
