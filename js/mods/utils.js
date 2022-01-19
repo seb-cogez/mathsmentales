@@ -143,7 +143,6 @@ const utils = {
             if(vars.f)MM.faceToFace = vars.f;
             // nombre de diaporamas
             if(vars.s){
-                // gros bug du à une variable mal préparée
                 MM.slidersNumber = Number(vars.s);
             }
             // son
@@ -157,8 +156,8 @@ const utils = {
                 utils.setSeed(vars.a);
                 // on check la clé de donnée incluse
                 document.getElementById("aleaInURL").checked = true;
-            } else if(MM.onlineState=="yes" || !vars.a)
-                utils.setSeed(utils.seedGenerator());
+            } /*else if(MM.onlineState=="yes" || !vars.a)
+                utils.setSeed(utils.seedGenerator());*/
             // on supprime tous les paniers
             MM.resetCarts();
             // orientation dans le cas de 2 diapos
