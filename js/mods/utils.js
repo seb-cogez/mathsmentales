@@ -367,11 +367,16 @@ const utils = {
             document.getElementById("aleaKey").value = value;
         } else if(value === "sample"){
             MM.seed = utils.seedGenerator();
-        } else if(document.getElementById("aleaKey").value === ""){
+        } else if(document.getElementById("aleaInURL").checked === true){
+            if(document.getElementById("aleaKey").value === ""){
+                MM.seed = utils.seedGenerator();
+                document.getElementById("aleaKey").value = MM.seed;
+            } else {
+                MM.seed = document.getElementById("aleaKey").value;
+            }
+         } else {
             MM.seed = utils.seedGenerator();
             document.getElementById("aleaKey").value = MM.seed;
-        } else {
-            MM.seed = document.getElementById("aleaKey").value;
         }
         utils.initializeAlea(MM.seed);
     },
