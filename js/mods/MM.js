@@ -652,7 +652,7 @@ const MM = {
         close.onclick = ()=>{let m = document.getElementById("urlCopy");m.parentNode.removeChild(m)};
         modalMessage.appendChild(close);
         colparams.appendChild(modalMessage);
-        if(document.getElementById("aleaInURL").checked)params.a = MM.seed;
+        //if(document.getElementById("aleaInURL").checked)params.a = MM.seed;
         let input = document.getElementById("bigurl");
         input.value = this.setURL(params,type);
         // on affiche (furtivement) le input pour que son contenun puisse être sélectionné.
