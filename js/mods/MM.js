@@ -832,7 +832,7 @@ const MM = {
             MM.carts[0].addActivity(MM.editedActivity);
         }
         MM.checkIntro();
-        utils.setSeed();
+        //utils.setSeed();
         //let carts = {};
         for(let i=0;i<this.carts.length;i++){
             //carts[i] = this.carts[i].export();
