@@ -87,14 +87,29 @@
   height: 40px;
 }
 
+.carre-48 {
+  width: 48px;
+  height: 48px;
+}
+
 .carre-64 {
   width: 64px;
   height: 64px;
 }
 
+.carre-64-auto {
+  width: 64px;
+  height: auto;
+}
+
 .carre-100 {
   width: 100px;
   height: 100px;
+}
+
+.carre-100-auto {
+  width: 100px;
+  height: auto;
 }
 
 /*# sourceMappingURL=mem-projector.css.map */

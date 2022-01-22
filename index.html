@@ -97,7 +97,7 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
         <section class="grille">
         <article class="accueillogo">
           <!-- Action JavaScript MM.takeOff()-->
-            <div class="fr jaiuncode"><input type="text" id="inputCode" placeholder="Saisir une URL préconfigurée" style="width: 100%;"><button title="Saisir une URL ou un code" id="btnCode" onclick="URLPreconfig()"><!--<img src="img/iconfinder_takeoff.png" alt="Saisir une URL ou un code"> --><h1><i class="bi bi-check-circle-fill"></i></h1></button>
+            <div class="fr jaiuncode"><input type="text" id="inputCode" placeholder="Saisir une URL préconfigurée" style="width: 100%;"><button title="Saisir une URL ou un code" id="btnCode" onclick="URLPreconfig()"><img class="carre-32" src="bootstrap-icons/icons/check-circle-fill.svg" alt="Saisir une URL ou un code"></button>
               <script>
               function URLPreconfig() {
                 var URLCode = document.getElementById("inputCode").value;
@@ -134,20 +134,6 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
               </div>
             </div>
             <img alt="logo" src="https://image.jimcdn.com/app/cms/image/transf/dimension=320x10000:format=png/path/sef6091d0cde7bfc1/image/iacfaba7d247d2f62/version/1612443176/image.png" width="160" class="logoMM">
-            <div class="pop-up" id="PU-ABC">
-                <h4 style="color: #FFF;"><b> <i class="bi bi-info-circle-fill"></i> Tous les bugs recensés (à la suite d'un changement d'infrastructure du code) sont désormais corrigés !</b> Si vous remarquez d'autre bugs, n'hésitez pas à nous <a style="color: #FFF;" href=" https://maths-et-matic.jimdofree.com/accueil/contact">contacter</a>
-                <br>Utilisez Maths et Matic Projector sans modération 😀 !
-                <br></h4>
-                <button onclick="HidePUABC()">Fermer</button>
-                <script>
-                    var element = document.getElementById("PU-ABC");
-                        element.style.display = "block";
-                    function HidePUABC(){
-                      var element = document.getElementById("PU-ABC");
-                      element.style.display = "none";
-                    }
-                </script>
-            </div>
             <p>
                 <b>Maths et Matic Projector</b> votre plateforme de calcul mentales en classe
              </p>
@@ -171,7 +157,7 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
     <section id="tab-parameters" class="grid-3 has-gutter tabs-content-item" style="display: none;"> <!-- Section : Configuration -->
         <div>
             <button id="addToCart" title="Ajouter au panier"><img class="carre-40" src="bootstrap-icons/icons/bag-plus-fill.svg"></button>
-            <button id="unlinkCart" class="hidden" title="Annualer la sélection"><img class="carre-40" src="bootstrap-icons/icons/x-circle-fill.svg"></button>
+            <button id="unlinkCart" class="hidden" title="Annuler la sélection"><img class="carre-40" src="bootstrap-icons/icons/x-circle-fill.svg"></button>
             <button id="removeFromCart" class="hidden" title="Supprimer du panier"><img class="carre-40" src="bootstrap-icons/icons/bag-dash-fill.svg"></button>
             <h1><i class="icon-arrow--right"></i>Activité <span id="param-title-act"></span></h1>
             <div id="activityTitle"></div>
@@ -492,10 +478,10 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
         </div>
        <div class="row-4 colsx2" id="divparams">
         <button id="btn-annotation2">
-            <img src="img/iconfinder_pencil_1055013.png" title="Annoter l'énoncé">
+            <img class="carre-48" src="bootstrap-icons/icons/pencil.svg" title="Annoter l'énoncé">
         </button>
         <button id="btn-shuffle">
-            <!--<img src="img/iconfinder_die_1055072.png" title="Changer les exemples">--> <h1><i class="bi bi-dice-3"></i></h1>
+            <img class="carre-48" src="bootstrap-icons/icons/dice-3.svg" title="Changer les exemples">
         </button>
             <h1><i class="icon-arrow--right"></i>Questions types</h1>
             <div id="activityOptions"></div>
@@ -503,8 +489,8 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
     </section>
     <section id="tab-enonce" class="tabs-content-item" style="display: none;"> <!-- Section : Enoncé -->
         <aside>
-            <button id="btn-annotation-enonce">
-                <img src="img/iconfinder_pencil_1055013.png" title="Annoter">
+            <button class="carre-64-auto" id="btn-annotation-enonce">
+                <img class="carre-64-auto" src="bootstrap-icons/icons/pencil.svg" title="Annoter">
             </button>
         </aside>
         <div id="enonce-content" class="grid">
@@ -513,14 +499,14 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
     </section>
     <section id="tab-corrige" class="tabs-content-item" style="display: none;">
         <aside>
-            <button id="btn-annotation-corrige">
-                <img src="img/iconfinder_pencil_1055013.png" title="Annoter le corrigé">
+            <button class="carre-64-auto" id="btn-annotation-corrige">
+                <img class="carre-64-auto" src="bootstrap-icons/icons/pencil.svg" title="Annoter le corrigé">
             </button>
-            <button id="btn-restart-otherdata">
-                <img src="img/restart.png" title="Recommencer avec de nouvelles données">
+            <button class="carre-64-auto" id="btn-restart-otherdata">
+                <img class="carre-64-auto" src="bootstrap-icons/icons/arrow-repeat.svg" title="Recommencer avec de nouvelles données">
             </button>
-            <button id="btn-restart-samedata">
-                <img src="img/restartsame.png" title="Recommencer avec les mêmes données">
+            <button class="carre-64-auto" id="btn-restart-samedata">
+                <img class="carre-64-auto" src="bootstrap-icons/icons/arrow-counterclockwise.svg" title="Recommencer avec les mêmes données">
             </button>
         </aside>
         <div id="corrige-content" class="grid">
