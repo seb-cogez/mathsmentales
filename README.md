@@ -1,4 +1,6 @@
 ## Maths et Matic Projector
+<img src="https://user-images.githubusercontent.com/79417900/150685893-c394b834-e5b5-4470-bca5-cca2e172b13f.png" alt="logo" width="25%"/>
+
 Maths et Matic Projector, l'automatisme et le calcul mental pour la classe (projet forké depuis MathsMentales)
 
 Maths et Matic permet de créer des diaporamas en ligne en rapport avec le calcul mental pour ainsi faire de faire de la projection de calcul en classe, pas besoin de conaissances techniques particulières ! Les éléves pourront répondre soit en présentiel en classe, soit en ditanciel grâce à l'option "répondre en ligne", pour pouvoir accéder au site : http://mem-projector.ml
