@@ -711,12 +711,26 @@ export default class ficheToPrint {
                 elts[i].style.width = nb+"mm";
             }
         }
+        function melanger(){
+            let content = document.querySelector(".dominos-section");
+            // on récupère l'ensemble des dominos 
+            let tableau = document.querySelectorAll(".dominos-carte");
+            // on crée un tableau des clés de lignes
+            let cles = [...Array(tableau.length)].map((a,b)=>b);
+            // on mélange les clés
+            cles.sort(()=>Math.random()-0.5);
+            // on met les celulles dans l'ordre mélangé
+            for(let j=0,l=cles.length;j<l;j++){
+                content.removeChild(tableau[cles[j]]);
+                content.appendChild(tableau[cles[j]]);
+            }
+        }
         `});
         this.docsheet.head.appendChild(script);
         // set elements :
         let aleaCode = this.create("div",{className:"floatright",innerHTML:"Clé : "+MM.seed});
         this.content.appendChild(aleaCode);
-        let input = `<div class="noprint fright">Largeur : 
+        let input = `<div class="noprint fright"><button onclick="melanger()">Mélanger l'ordre</button> Largeur : 
         <input value="60" title="Largeur domino" type="number" size="3" min="60" max="180" oninput="changewidth(this.value)">
         Hauteur :
         <input value="25" title="Hauteur domino" type="number" size="3" min="25" max="180" oninput="changeheight(this.value)">
