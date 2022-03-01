@@ -742,12 +742,21 @@ h2.sg-title, h3.sg-title {
     width: 32px;
     height: 32px;
 }
+#cartscontainer .totaux .title{
+  font-size: 0.8em;
+  font-weight: bold;
+}
+#cartscontainer .totaux {
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
 .cartcontent {
     background-color: ivory;
     width:100%;
     height: 100%;
 }
-.cartcontent .cart-close{
+.cartcontent .cart-close, .cartcontent .cartduplicate{
     padding:0;
     float:right;
     background-color: rgba(0,0,0,0);
@@ -820,6 +829,10 @@ ul.cart-list{
 }
 #onlinechoice.hidden {
     display: none;
+}
+#cantime {
+  text-align: right;
+  vertical-align: baseline;
 }
 /*
 * Enonces et corriges

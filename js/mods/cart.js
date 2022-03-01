@@ -134,6 +134,15 @@ export default class cart {
         dom.innerHTML = "";
         this.time = 0;
         this.nbq = 0;
+        let spanOrder = document.querySelector("#cart"+this.id+" span[data-ordered]");
+        if(this.ordered){
+            spanOrder.innerHTML = "ordonné"
+            spanOrder.dataset["ordered"] = "true";
+        } else {
+            spanOrder.innerHTML = "mélangé";
+            spanOrder.dataset["ordered"] = "false";
+        }
+        /*
         let objImage = document.querySelector("#cart"+this.id+" img[data-ordered]");
         if(this.ordered){
             objImage.src = "bootstrap-icons/icons/layers-half.svg";
@@ -143,7 +152,7 @@ export default class cart {
             objImage.src = "bootstrap-icons/icons/shuffle.svg";
             objImage.title = "Affichage mélangé des questions";
             objImage.dataset["ordered"] = "false";
-        }
+        }*/
         for(let i=0,l=this.activities.length; i<l;i++){
             let li = document.createElement("li");
             let activity = this.activities[i];
@@ -171,12 +180,14 @@ export default class cart {
      */
     changeOrder(objImage){
         if(objImage.dataset["ordered"] === "true"){
-            objImage.src = "bootstrap-icons/icons/shuffle.svg";
+            objImage.innerHTML = "mélangé"
+            //objImage.src = "img/iconfinder_windy_1054934.png";
             objImage.title = "Affichage mélangé des questions";
             objImage.dataset["ordered"] = "false";
             this.ordered = false;
         } else {
-            objImage.src = "bootstrap-icons/icons/layers-half.svg";
+            objImage.innerHTML = "ordonné"
+            //objImage.src = "img/iconfinder_stack_1054970.png";
             objImage.title = "Affichage dans l'ordre des activités";
             objImage.dataset["ordered"] = "true";
             this.ordered = true;

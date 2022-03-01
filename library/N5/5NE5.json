@@ -1,0 +1,50 @@
+{
+    "title":"Calculer une expression produit (5e)",
+    "type":"latex",
+    "ID":"5NE5",
+    "textSize":"medium",
+    "dest":["5NE", "4NE", "3ND"],
+    "consts":{"lettres":["u","v","t","x", "y", "z"]},
+    "options":[{
+        "name":"Forme (x + a)×b, x positif",
+        "vars":{"l":"0_5","x":"${:lettres[:l]}","b":"1_10", "v":"0_5", "a":"${-:v}_${-:v+10}_^0","exp":"(${:x+'+'+:a})\\times${:b}", "ans":"${(:a+:v)*:b}"}
+    },{
+        "name":"Forme (x + a)×b, x négatif",
+        "vars":{"l":"0_5","x":"${:lettres[:l]}","b":"1_10", "v":"-5_-1", "a":"${-:v}_${-:v+10}_^0","exp":"(${:x+'+'+:a})\\times${:b}", "ans":"${(:a+:v)*:b}"}
+    },{
+        "name":"Forme (ax + b)×c, x positif",
+        "vars":{"l":"0_5","x":"${:lettres[:l]}", "a":"1_10","c":"1_10", "v":"0_4","b":"${Math.max(-10,-:a*:v)}_${Math.max(-10,-:a*:v)+10}_^0","exp":"(${math.calc(:a+'*'+:x+'+('+:b+')')})\\times${:c}", "ans":"${(:a*:v+:b)*:c}"}
+    },{
+        "name":"Forme (ax + b)×c, x négatif",
+        "vars":{"l":"0_5","x":"${:lettres[:l]}", "a":"1_10","c":"1_10", "v":"-4_-1","b":"${-:a*:v}_${-:a*:v+10}_^0","exp":"(${math.calc(:a+'*'+:x+'+('+:b+')')})\\times${:c}", "ans":"${(:a*:v+:b)*:c}"}
+    },{
+        "name":"Forme b×(x + a) x positif",
+        "vars":{"l":"0_5","x":"${:lettres[:l]}","b":"1_10", "v":"0_5", "a":"${-:v}_${-:v+10}_^0","exp":"${:b}\\times(${:x+'+'+:a})", "ans":"${(:a+:v)*:b}"}
+    },{
+        "name":"Forme b×(x + a), x négatif",
+        "vars":{"l":"0_5","x":"${:lettres[:l]}","b":"1_10", "v":"-5_-1", "a":"${-:v}_${-:v+10}_^0","exp":"${:b}\\times(${:x+'+'+:a})", "ans":"${(:a+:v)*:b}"}
+    },{
+        "name":"Forme c×(ax + b), x positif",
+        "vars":{"l":"0_5","x":"${:lettres[:l]}", "a":"1_10","c":"1_10", "v":"0_4","b":"${Math.max(-10,-:a*:v)}_${Math.max(-10,-:a*:v)+10}_^0","exp":"${:c}\\times(${math.calc(:a+'*'+:x+'+('+:b+')')})", "ans":"${(:a*:v+:b)*:c}"}
+    },{
+        "name":"Forme c×(ax + b), x négatif",
+        "vars":{"l":"0_5","x":"${:lettres[:l]}", "a":"1_10","c":"1_10", "v":"-4_-1","b":"${-:a*:v}_${-:a*:v+10}_^0","exp":"${:c}\\times(${math.calc(:a+'*'+:x+'+('+:b+')')})", "ans":"${(:a*:v+:b)*:c}"}
+    },{
+        "name":"Forme (x + a)×(x+b), x positif",
+        "vars":{"l":"0_5","x":"${:lettres[:l]}","v":"0_5", "a":"${-:v}_${-:v+10}_^0", "b":"${-:v}_${-:v+10}_^0","exp":"(${:x+'+'+:a})\\times(${:x+'+'+:b})", "ans":"${(:a+:v)*(:b+:v)}"}
+    },{
+        "name":"Forme (x + a)×(x+b), x négatif",
+        "vars":{"l":"0_5","x":"${:lettres[:l]}","v":"-5_-1", "a":"${-:v}_${-:v+10}_^0", "b":"${-:v}_${-:v+10}_^0","exp":"(${:x+'+'+:a})\\times(${:x+'+'+:b})", "ans":"${(:a+:v)*(:b+:v)}"}
+    },{
+        "name":"Forme (ax + b)×(cx+d), x positif",
+        "vars":{"l":"0_5","x":"${:lettres[:l]}", "a":"1_10","c":"1_10", "v":"0_4","b":"${Math.max(-10,-:a*:v)}_${Math.max(-10,-:a*:v)+10}_^0","d":"${Math.max(-10,-:c*:v)}_${Math.max(-10,-:c*:v)+10}_^0","exp":"(${math.calc(:a+'*'+:x+'+('+:b+')')})\\times(${math.calc(:c+'*'+:x+'+('+:d+')')})", "ans":"${(:a*:v+:b)*(:c*:v+:d)}"}
+    },{
+        "name":"Forme (ax + b)×(cx+d), x négatif",
+        "vars":{"l":"0_5","x":"${:lettres[:l]}", "a":"1_10","c":"1_10", "v":"-4_-1","b":"${-:a*:v}_${-:a*:v+10}_^0","d":"${-:c*:v}_${-:c*:v+10}_^0","exp":"(${math.calc(:a+'*'+:x+'+('+:b+')')})\\times(${math.calc(:c+'*'+:x+'+('+:d+')')})", "ans":"${(:a*:v+:b)*(:c*:v+:d)}"}
+    }
+    ],
+    "question":"\\begin{gathered} \\text{Calculer }${:exp} \\\\ \\text{ pour } ${:x}=${:v}\\end{gathered}",
+    "shortq":"\\begin{gathered} ${:exp} \\\\ \\text{ pour } ${:x}=${:v}\\end{gathered}",
+    "answer":"\\text{Pour }${:x}=${:v}\\quad ${:exp}=\\color{red}{${:ans}}",
+    "value":"${:ans}"
+}

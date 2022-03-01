@@ -9,55 +9,55 @@
         "vars":{"a":"1_9","p":"-3_3", "c":"${math.round(:a*Math.pow(10,:p),3)}"},
         "question": "${:c}\\div 10",
         "answer":":question=\\color{red}{${math.round(:c/10,5)}}",
-        "value":"${math.round(:c*10,3)}"
+        "value":"${math.round(:c/10,3)}"
     },{
         "name":"Décimal à 1 chiffre significatif par 100",
         "vars":{"a":"1_9","p":"-3_3", "c":"${math.round(:a*Math.pow(10,:p),3)}"},
         "question": "${:c}\\div 100",
         "answer":":question=\\color{red}{${math.round(:c/100,6)}}",
-        "value":"${math.round(:c*100,3)}"
+        "value":"${math.round(:c/100,3)}"
     },{
         "name":"Décimal à 1 chiffre significatif par 1000",
         "vars":{"a":"1_9","p":"-3_3", "c":"${math.round(:a*Math.pow(10,:p),3)}"},
         "question": "${:c}\\div 1000",
         "answer":":question=\\color{red}{${math.round(:c/1000,7)}}",
-        "value":"${math.round(:c*1000,3)}"
+        "value":"${math.round(:c/1000,3)}"
     },{
         "name":"Décimal à 2 chiffres significatifs par 10",
         "vars":{"a":"1_9_2","p":"-3_3", "c":"${math.round((:a[0]*10+:a[1])*Math.pow(10,:p),3)}"},
         "question": "${:c}\\div 10",
         "answer":":question=\\color{red}{${math.round(:c/10,5)}}",
-        "value":"${math.round(:c*10,3)}"
+        "value":"${math.round(:c/10,3)}"
     },{
         "name":"Décimal à 2 chiffres significatifs par 100",
         "vars":{"a":"1_9_2","p":"-3_3", "c":"${math.round((:a[0]*10+:a[1])*Math.pow(10,:p),3)}"},
         "question": "${:c}\\div 100",
         "answer":":question=\\color{red}{${math.round(:c/100,6)}}",
-        "value":"${math.round(:c*100,3)}"
+        "value":"${math.round(:c/100,3)}"
     },{
         "name":"Décimal à 2 chiffres significatifs par 1000",
         "vars":{"a":"1_9_2","p":"-3_3", "c":"${math.round((:a[0]*10+:a[1])*Math.pow(10,:p),3)}"},
         "question": "${:c}\\div 1000",
         "answer":":question=\\color{red}{${math.round(:c/1000,7)}}",
-        "value":"${math.round(:c*1000,3)}"
+        "value":"${math.round(:c/1000,3)}"
     },{
         "name":"Décimal à 3 chiffres significatifs par 10",
         "vars":{"a":"1_9_2","b":"0_9","p":"-4_4", "c":"${math.round((:a[0]*100+:b*10+:a[1])*Math.pow(10,:p),4)}"},
         "question": "${:c}\\div 10",
         "answer":":question=\\color{red}{${math.round(:c/10,5)}}",
-        "value":"${math.round(:c*10,3)}"
+        "value":"${math.round(:c/10,3)}"
     },{
         "name":"Décimal à 3 chiffres significatifs par 100",
         "vars":{"a":"1_9_2","b":"0_9","p":"-4_4", "c":"${math.round((:a[0]*100+:b*10+:a[1])*Math.pow(10,:p),4)}"},
         "question": "${:c}\\div 100",
         "answer":":question=\\color{red}{${math.round(:c/100,6)}}",
-        "value":"${math.round(:c*100,3)}"
+        "value":"${math.round(:c/100,3)}"
     },{
         "name":"Décimal à 3 chiffres significatifs par 1000",
         "vars":{"a":"1_9_2","b":"0_9","p":"-4_4", "c":"${math.round((:a[0]*100+:b*10+:a[1])*Math.pow(10,:p),4)}"},
         "question": "${:c}\\div 1000",
         "answer":":question=\\color{red}{${math.round(:c/1000,7)}}",
-        "value":"${math.round(:c*1000,3)}"
+        "value":"${math.round(:c/1000,3)}"
     }
     ]
 }

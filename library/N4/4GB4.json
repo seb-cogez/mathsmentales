@@ -32,24 +32,27 @@
         {
             "name":"Cosinus (4e)",
             "vars":{"l":"0_19_3_^&","choix":"0_1", "A":"${:lettres[:l[0]]}", "B":"${:lettres[:l[1]]}", "C":"${:lettres[:l[2]]}", "idfig":"0_7"},
-            "question":"À quel quotient est égal le <b>cosinus</b> de l'angle $$\\color{red}{\\widehat{${:choix==0?:A::B}}}$$&nbsp;?<br>${:figures[:choix][:idfig]}",
-            "shortQ":"cosinus ?<br>${:figures[:choix][:idfig]}",
+            "question":"À quel quotient est égal le <b>cosinus</b> de l'angle $$\\color{red}{\\widehat{${:choix==0?:A::B}}}$$&nbsp;?",
+            "shortq":"cosinus ?<br>${:figures[:choix][:idfig]}",
+            "figure":{"type":"svg","content":"${:figures[:choix][:idfig]}"},
             "answer":"$$cos(\\widehat{${:choix==0?:A::B}})=\\color{red}{\\dfrac{${(:choix==0?:A::B)+:C}}{${:A+:B}}}$$",
             "value":"$$\\dfrac{${(:choix==0?:A::B)+:C}}{${:A+:B}}$$"
         },
         {
             "name":"Sinus",
             "vars":{"l":"0_19_3_^&","choix":"0_1", "A":"${:lettres[:l[0]]}", "B":"${:lettres[:l[1]]}", "C":"${:lettres[:l[2]]}", "idfig":"0_7"},
-            "question":"À quel quotient est égal le <b>sinus</b> de l'angle $$\\color{red}{\\widehat{${:choix==0?:A::B}}}$$&nbsp;?<br>${:figures[:choix][:idfig]}",
-            "shortQ":"sinus ?<br>${:figures[:choix][:idfig]}",
+            "question":"À quel quotient est égal le <b>sinus</b> de l'angle $$\\color{red}{\\widehat{${:choix==0?:A::B}}}$$&nbsp;?",
+            "figure":{"type":"svg","content":"${:figures[:choix][:idfig]}"},
+            "shortq":"sinus ?<br>${:figures[:choix][:idfig]}",
             "answer":"$$sin(\\widehat{${:choix==0?:A::B}})=\\color{red}{\\dfrac{${(:choix==1?:A::B)+:C}}{${:A+:B}}}$$",
             "value":"$$\\dfrac{${(:choix==1?:A::B)+:C}}{${:A+:B}}$$"
         },
         {
             "name":"Tangente",
             "vars":{"l":"0_19_3_^&","choix":"0_1", "A":"${:lettres[:l[0]]}", "B":"${:lettres[:l[1]]}", "C":"${:lettres[:l[2]]}", "idfig":"0_7"},
-            "question":"À quel quotient est égale la <b>tangente</b> de l'angle $$\\color{red}{\\widehat{${:choix==0?:A::B}}}$$&nbsp;?<br>${:figures[:choix][:idfig]}",
-            "shortQ":"tangente ?<br>${:figures[:choix][:idfig]}",
+            "question":"À quel quotient est égale la <b>tangente</b> de l'angle $$\\color{red}{\\widehat{${:choix==0?:A::B}}}$$&nbsp;?",
+            "shortq":"tangente ?<br>${:figures[:choix][:idfig]}",
+            "figure":{"type":"svg","content":"${:figures[:choix][:idfig]}"},
             "answer":"$$tan(\\widehat{${:choix==0?:A::B}})=\\color{red}{\\dfrac{${(:choix==1?:A::B)+:C}}{${(:choix==0?:A::B)+:C}}}$$",
             "value":"$$\\dfrac{${(:choix==1?:A::B)+:C}}{${:A+:B}}$$"
         }

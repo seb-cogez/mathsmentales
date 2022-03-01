@@ -38,8 +38,8 @@ const common = {
             document.body.removeAttribute("layout");
         }
         document.head.appendChild(pagestyle);
+        evt.target.innerHTML = pageOrientations[pageFormat];
         pageFormat = (pageFormat+1)%2;
-        evt.target.innerHTML = pageOrientations[pageFormat];    
     },
     /**
      * Create a string of six alphabetic letters

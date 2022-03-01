@@ -18,14 +18,17 @@
         "name":"Carrés des entiers de -20 à 20 ×10 ou ×100",
         "vars":{"e":"1_2", "n":"-20_20", "a":"${:n+'e'+:e}"}
     },{
-        "name":"Carrés des entiers de -20 à 20 ×10 ou ×100",
-        "vars":{"e":"1_2", "n":"-20_20", "a":"${:n+'e'+:e}"}
+        "name":"Carrés des entiers de -12 à 12 ×10 ou ×100",
+        "vars":{"e":"1_2", "n":"-12_12", "a":"${:n+'e'+:e}"}
     },{
         "name":"Carrés des entiers de -15 à 15 ÷10 ou ÷100",
         "vars":{"e":"-2_-1", "n":"-15_15", "a":"${:n+'e'+:e}"}
     },{
         "name":"Carrés des entiers de -20 à 20 ÷10 ou ÷100",
         "vars":{"e":"-2_-1", "n":"-20_20", "a":"${:n+'e'+:e}"}
+    },{
+        "name":"Carrés des entiers de -12 à 12 ÷10 ou ÷100",
+        "vars":{"e":"-2_-1", "n":"-12_12", "a":"${:n+'e'+:e}"}
     }
     ],
     "question":["${(:a<0)?'('+:a+')^2'::a+'^2'}","${:a}^2"],

@@ -27,6 +27,7 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
     <script src="js/libs/katex/katex.min.js" type="text/javascript" defer></script>
     <script src="js/libs/asciimath2tex/asciimath2tex.min.js" defer></script>
     <script src="js/libs/mathlive/mathlive.min.js" defer></script>
+    <!--<script src="js/libs/mathjs/math.js"></script>-->
     <script src="js/libs/algebrite/algebrite.bundle-for-browser.min.js" type="text/javascript" defer></script>
     <script src="js/libs/bigjs/big.min.js" type="text/javascript" defer></script>
     <script src="js/libs/sortable/Sortable.min.js" defer></script>
@@ -39,7 +40,7 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
     <script src="js/libs/kas.min.js" defer></script>
     <script src="js/MM1toMM2.min.js" defer></script>
     <script src="js/libs/vanilla-picker/vanilla-picker.min.js" defer></script>
-    <script src="js/lib.mathsmentales.js?v=35" type="module" id="mmscriptid"></script>
+    <script src="js/lib.mathsmentales.js?v=37" type="module" id="mmscriptid"></script>
 </head>
 <body>
     <div id="app-container">
@@ -178,42 +179,69 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
             </div>
             <div id="cartscontainer">
                 <section id="cart0" class="cartcontent">
-                    <button id="btncartclose1" class="cart-close" title="Vider le panier"><h1 id="button-type" class="cart-bs-icon"><i class="bi bi-cart-dash"></i></h1></i><span class="etat-cache"><img src="img/recyclecart.png"></span></button>
+                    <button id="btncartclose1" class="cart-close" title="Vider le panier"><img src="img/recyclecart.png"></button>
+                    <img src="img/iconfinder_copy.png" class="pointer cartduplicate" title="Dupliquer le panier" id="imgduplicatecart1">
                     <h3 contenteditable="true" title="Cliquer pour éditer" id="titlecart1">Groupe 1</h3>
                     <div class="totaux">
-                        <img class="carre-32" src="bootstrap-icons/icons/hourglass-split.svg" title="Durée totale"> <span>0</span> s.
-                        <img class="carre-32" src="bootstrap-icons/icons/bar-chart-line-fill.svg" title="Nombre total de questions"> <span>0</span> quest.
-                        <img class="carre-32" src="bootstrap-icons/icons/aspect-ratio-fill.svg" title="Zone d'énoncé"> <span>1</span>
-                        <img class="carre-32" src="bootstrap-icons/icons/layers-half.svg" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" id="imgordercart1">
-                        <img class="carre-32" src="bootstrap-icons/icons/clipboard-plus.svg" class="pointer" title="Dupliquer le panier" id="imgduplicatecart1">
+                        <div class="title" title="Durée totale du panier">Durée</div>
+                        <div class="title" title="Nombre total de questions du panier">Questions</div>
+                        <div class="title" title="Zone d'affichage du panier">Cible</div>
+                        <div title="Ordre des questions du diaporama" class="title">Ordre</div>
+                        <div><span>0</span> s.</div>
+                        <div><span>0</span></div>
+                        <div><span>1</span></div>
+                        <div><span data-ordered="true" id="imgordercart1" class="pointer">ordonné</span></div>
+                        <!--<img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
+                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
+                        <img src="img/target.png" title="Zone d'énoncé"> <span>1</span>
+                        <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" id="imgordercart1">
+                        <img src="img/iconfinder_copy.png" class="pointer" title="Dupliquer le panier" id="imgduplicatecart1">-->
                     </div>
                     <ul id="cart0-list" class="cart-list">
                     </ul>
                 </section>
                 <section id="cart1" class="hidden">
-                    <button class="cart-close" id="btncartdelete2" title="Supprimer le panier"><h1 id="button-type" class="cart-bs-icon"><i class="bi bi-cart-x-fill"></i></h1><span class="etat-cache"><img src="img/burnCart.png"></span></button>
-                    <button class="cart-close" id="btncartclose2" title="Vider le panier"><h1 id="button-type" class="cart-bs-icon"><i class="bi bi-cart-dash"></i></h1><span class="etat-cache"><img src="img/recyclecart.png"></span></button>
+                    <button class="cart-close" id="btncartdelete2" title="Supprimer le panier"><img src="img/burnCart.png"></button>
+                    <button class="cart-close" id="btncartclose2" title="Vider le panier"><img src="img/recyclecart.png"></button>
+                    <img src="img/iconfinder_copy.png" class="pointer cartduplicate" title="Dupliquer le panier" id="imgduplicatecart2">
                     <h3 contenteditable="true" title="Cliquer pour éditer" id="titlecart2">Groupe 2</h3>
                     <div class="totaux">
-                        <img class="carre-32" src="bootstrap-icons/icons/hourglass-split.svg" title="Durée totale"> <span>0</span> s.
-                        <img class="carre-32" src="bootstrap-icons/icons/bar-chart-line-fill.svg" title="Nombre total de questions"> <span>0</span> quest.
-                        <img class="carre-32" src="bootstrap-icons/icons/aspect-ratio-fill.svg" title="Zone d'énoncé"> <span>2</span>
-                        <img class="carre-32" src="bootstrap-icons/icons/layers-half.svg" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" id="imgordercart2">
-                        <img class="carre-32" src="bootstrap-icons/icons/clipboard-plus.svg" class="pointer" title="Dupliquer le panier" id="imgduplicatecart2">
+                        <div class="title" title="Durée totale du panier">Durée</div>
+                        <div class="title" title="Nombre total de questions du panier">Questions</div>
+                        <div class="title" title="Zone d'affichage du panier">Cible</div>
+                        <div title="Ordre des questions du diaporama" class="title">Ordre</div>
+                        <div><span>0</span> s.</div>
+                        <div><span>0</span></div>
+                        <div><span>1</span></div>
+                        <div><span data-ordered="true" id="imgordercart2" class="pointer">ordonné</span></div>
+                        <!--<img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
+                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
+                        <img src="img/target.png" title="Zone d'énoncé"> <span>2</span>
+                        <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" id="imgordercart2">
+                        <img src="img/iconfinder_copy.png" class="pointer" title="Dupliquer le panier" id="imgduplicatecart2">-->
                     </div>
                     <ul id="cart1-list" class="cart-list">
                     </ul>
                 </section>
                 <section id="cart2" class="hidden">
-                    <button class="cart-close" id="btncartdelete3" title="Supprimer le panier"><h1 id="button-type" class="cart-bs-icon"><i class="bi bi-cart-x-fill"></i></h1><span class="etat-cache"><img src="img/burnCart.png"></span></button>
-                    <button class="cart-close" id="btncartclose3" title="Vider le panier"><h1 id="button-type" class="cart-bs-icon"><i class="bi bi-cart-dash"></i></h1><span class="etat-cache"><img src="img/recyclecart.png"></span></button>
+                    <button class="cart-close" id="btncartdelete3" title="Supprimer le panier"><img src="img/burnCart.png"></button>
+                    <button class="cart-close" id="btncartclose3" title="Vider le panier"><img src="img/recyclecart.png"></button>
+                    <img src="img/iconfinder_copy.png" class="pointer cartduplicate" title="Dupliquer le panier" id="imgduplicatecart3">
                     <h3 contenteditable="true" id="titlecart3" title="Cliquer pour éditer">Groupe 3</h3>
                     <div class="totaux">
-                        <img class="carre-32" src="bootstrap-icons/icons/hourglass-split.svg"" title="Durée totale"> <span>0</span> s.
-                        <img class="carre-32" src="bootstrap-icons/icons/bar-chart-line-fill.svg" title="Nombre total de questions"> <span>0</span> quest.
-                        <img class="carre-32" src="bootstrap-icons/icons/aspect-ratio-fill.svg" title="Zone d'énoncé"> <span>3</span>
-                        <img class="carre-32" src="bootstrap-icons/icons/layers-half.svg" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" id="imgordercart3">
-                        <img class="carre-32" src="bootstrap-icons/icons/clipboard-plus.svg" class="pointer" title="Dupliquer le panier" id="imgduplicatecart3">
+                        <div class="title" title="Durée totale du panier">Durée</div>
+                        <div class="title" title="Nombre total de questions du panier">Questions</div>
+                        <div class="title" title="Zone d'affichage du panier">Cible</div>
+                        <div title="Ordre des questions du diaporama" class="title">Ordre</div>
+                        <div><span>0</span> s.</div>
+                        <div><span>0</span></div>
+                        <div><span>1</span></div>
+                        <div><span data-ordered="true" id="imgordercart3" class="pointer">ordonné</span></div>
+                        <!--<img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
+                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
+                        <img src="img/target.png" title="Zone d'énoncé"> <span>3</span>
+                        <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" id="imgordercart3">
+                        <img src="img/iconfinder_copy.png" class="pointer" title="Dupliquer le panier" id="imgduplicatecart3">-->
                     </div>
                     <ul id="cart2-list" class="cart-list">
                     </ul>
@@ -223,10 +251,18 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
                     <button class="cart-close" id="btncartclose4" title="Vider le panier"><h1 class="cart-bs-icon"><i id="button-type" class="bi bi-cart-dash"></i></h1><span class="etat-cache"><img src="img/recyclecart.png"></span></button>
                     <h3 contenteditable="true" id="titlecart4" title="Cliquer pour éditer">Groupe 4</h3>
                     <div class="totaux">
-                        <img class="carre-32" src="bootstrap-icons/icons/hourglass-split.svg" title="Durée totale"> <span>0</span> s.
-                        <img class="carre-32" src="bootstrap-icons/icons/bar-chart-line-fill.svg" title="Nombre total de questions"> <span>0</span> quest.
-                        <img class="carre-32" src="bootstrap-icons/icons/aspect-ratio-fill.svg" title="Zone d'énoncé"> <span>4</span>
-                        <img class="carre-32" src="bootstrap-icons/icons/layers-half.svg" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer"  id="imgordercart4">
+                        <div class="title" title="Durée totale du panier">Durée</div>
+                        <div class="title" title="Nombre total de questions du panier">Questions</div>
+                        <div class="title" title="Zone d'affichage du panier">Cible</div>
+                        <div title="Ordre des questions du diaporama" class="title">Ordre</div>
+                        <div><span>0</span> s.</div>
+                        <div><span>0</span></div>
+                        <div><span>1</span></div>
+                        <div><span data-ordered="true" id="imgordercart4" class="pointer">ordonné</span></div>
+                        <!--<img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
+                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
+                        <img src="img/target.png" title="Zone d'énoncé"> <span>4</span>
+                        <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer"  id="imgordercart4">-->
                     </div>
                     <ul id="cart3-list" class="cart-list">
                     </ul>
@@ -241,6 +277,7 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
                 <option value="paramsexos">Feuille d'exercices</option>
                 <option value="paramsinterro">Feuille d'interro</option>
                 <option value="paramsceinture">Ceintures de CM</option>
+                <option value="paramscourse">Course aux nombres</option>
                 <option value="paramsflashcards">Cartes flash</option>
                 <option value="paramswhogots">J'ai/qui a ?</option>
                 <option value="paramsdominos">Dominos</option>
@@ -364,12 +401,11 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
             <section>
                 <button class="button--primary beaubutton" id="btngeneratesheet">Générer</button>
                 <button class="button--inverse tooltip beaubutton" id="btn-ex-adresse">Adresse/QRCode
-                    <span class="tooltiptext">Copie l'adresse de<br>l'activité dans<br>le presse papier</span>
+                    <span class="tooltiptext">Copie l'adresse de<br>la fiche dans<br>le presse papier</span>
                 </button>
                 <button class="button--success tooltip beaubutton" id="btn-ex-copytohistoric">→ Historique
-                    <span class="tooltiptext">Copie la sélection<br>dans l'historique</span>
-                </button>
-
+                    <span class="tooltiptext">Copie la fiche<br>dans l'historique</span>
+                </button>    
             </section>
         </div>
         <div id="paramsinterro" class="hidden">
@@ -426,7 +462,7 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
             </fieldset>
             <fieldset>
                 <legend>Position corrigé</legend>
-                <input type="radio" class="radio" name="ceintcorrpos" value="fin" selected> à part <input type="radio" class="radio" name="ceintcorrpos" value="apres"> après ceinture
+                <input type="radio" class="radio" name="ceintcorrpos" value="fin" checked> à part <input type="radio" class="radio" name="ceintcorrpos" value="apres"> après ceinture
             </fieldset>
             <fieldset>
                 <legend>Pied des colonnes</legend>
@@ -434,10 +470,45 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
             </fieldset>
             <fieldset>
                 <legend>Orientation page</legend>
-                <input type="radio" class="radio" name="ceintorientation" value="portrait" selected> portrait <input type="radio" class="radio" name="ceintorientation" value="landscape"> paysage
+                <input type="radio" class="radio" name="ceintorientation" value="portrait" checked> portrait <input type="radio" class="radio" name="ceintorientation" value="landscape"> paysage
             </fieldset>
             <section>
                 <button class="button--primary beaubutton" id="btngenerateceinture">Générer</button>
+            </section>
+        </div>
+        <div id="paramscourse" class="hidden">
+            <fieldset>
+                <legend>Titre de la course</legend>
+                <input type="text" placeholder="Course aux nombres" id="cantitle">
+            </fieldset>
+            <fieldset>
+                <legend>Titres des colonnes</legend>
+                <input type="text" placeholder="Énoncé" id="cancol1title"><br>
+                <input type="text" placeholder="Réponse" id="cancol2title"><br>
+                <input type="text" placeholder="Jury" id="cancol3title"><br>
+            </fieldset>
+            <fieldset>
+                <legend>Temps de la course</legend>
+                <input type="text" placeholder="7" id="cantime" size="3"> min
+            </fieldset>
+            <fieldset>
+                <legend>Nb de sujets : <span id="canqty" class="blue">3</span></legend>
+                <input id="canqtyvalue" type="range" min="1" max="30" step="1" value="3">
+            </fieldset>
+            <fieldset>
+                <legend>Position corrigé</legend>
+                <input type="radio" class="radio" name="cancorrpos" value="end" checked> à part<br>
+                <input type="radio" class="radio" name="cancorrpos" value="each"> après chaque fiche<br>
+                <input type="radio" class="radio" name="cancorrpos" value="none"> sans
+            </fieldset>
+            <section>
+                <button class="button--primary beaubutton" id="btngenerateCAN">Générer</button>
+                <button class="button--inverse tooltip beaubutton" id="btn-can-adresse">Adresse/QRCode
+                    <span class="tooltiptext">Copie l'adresse de<br>la course dans<br>le presse papier</span>
+                </button>
+                <button class="button--success tooltip beaubutton" id="btn-can-copytohistoric">→ Historique
+                    <span class="tooltiptext">Copie la course<br>dans l'historique</span>
+                </button>
             </section>
         </div>
         <div id="paramsflashcards" class="hidden">

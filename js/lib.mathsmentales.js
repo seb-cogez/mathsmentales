@@ -125,12 +125,15 @@ window.onload = function(){
     document.getElementById("btngeneratesheet").onclick = ()=>{MM.createExercicesSheet()}
     document.getElementById("btn-ex-adresse").onclick = ()=>{MM.copyURL('exosheet');};
     document.getElementById("btn-ex-copytohistoric").onclick = ()=>{MM.copyURLtoHistory('exosheet')};
-
     document.getElementById("btngenerateexams").onclick = ()=>{MM.createExamSheet()}
     document.getElementById("ceintcolsval").oninput = (evt)=>{document.getElementById('ceintcols').innerHTML=evt.target.value;utils.createCeintureTitres(evt.target.value)}
     document.getElementById("ceintrowsval").oninput = (evt)=>{document.getElementById('ceintrows').innerHTML=evt.target.value}
     document.getElementById("ceintqtyvalue").oninput = (evt)=>{document.getElementById('ceintqty').innerHTML=evt.target.value;}
     document.getElementById("btngenerateceinture").onclick = ()=>{MM.createCeintureSheet()}
+    document.getElementById("canqtyvalue").oninput = (evt)=>{document.getElementById('canqty').innerHTML=evt.target.value;}
+    document.getElementById("btn-can-adresse").onclick = ()=>{MM.copyURL('cansheet');};
+    document.getElementById("btn-can-copytohistoric").onclick = ()=>{MM.copyURLtoHistory('cansheet')};
+    document.getElementById("btngenerateCAN").onclick = ()=>{MM.createCourseAuxNombres()}
     document.getElementById("btngenerateFC").onclick = ()=>{MM.createFlashCards()}
     document.getElementById("cardsNbValue").oninput = (evt)=>{document.getElementById('cardsNb').innerHTML=evt.target.value;}
     document.getElementById("btngenerateWG").onclick = ()=>{MM.createWhoGots()}

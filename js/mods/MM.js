@@ -492,6 +492,16 @@ const MM = {
         let value = this.setURL(params,"exosheet");
         MM.window = window.open(value,"mywindow","location=no,menubar=no,titlebar=no,width=1123");
     },
+    createCourseAuxNombres:function(){
+        if(!MM.carts[0].activities.length){
+            MM.carts[0].addActivity(MM.editedActivity);
+        }
+        let withSeed = false;
+        if(document.getElementById("aleaInURL").checked)withSeed = true;
+        let params = this.paramsToURL(withSeed,"cansheet");
+        let value = this.setURL(params,"cansheet");
+        MM.window = window.open(value,"mywindow","location=no,menubar=no,titlebar=no,width=1123");
+    },
     /**
      * Create a sheet of exercices
      * called by parameters
@@ -611,6 +621,16 @@ const MM = {
                 ",t="+(document.getElementById("extitle").value||document.getElementById("extitle").placeholder)+
                 ",ex="+(document.getElementById("exeachex").value||document.getElementById("exeachex").placeholder)+
                 this.export();
+        } else if(type==="cansheet"){
+            return "n="+document.getElementById("canqtyvalue").value+
+            ",t="+(document.getElementById("cantitle").value||document.getElementById("cantitle").placeholder)+
+            ",a="+(withAleaSeed?MM.seed:"")+
+            ",cor="+(utils.getRadioChecked("cancorrpos")||"fin")+
+            ",tm="+(document.getElementById("cantime").value||document.getElementById("cantime").placeholder)+
+            ",t1="+(document.getElementById("cantitle").value||document.getElementById("cancol1title").placeholder)+
+            ",t2="+(document.getElementById("cantitle").value||document.getElementById("cancol2title").placeholder)+
+            ",t3="+(document.getElementById("cantitle").value||document.getElementById("cancol3title").placeholder)+
+            this.export()
         }
         return "i="+MM.introType+
             ",e="+MM.endType+
@@ -845,7 +865,11 @@ const MM = {
             if(utils.baseURL.indexOf("index.html")<0)
                 utils.baseURL+="index.html";
             return utils.baseURL.replace('index','exercices')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
-       } else
+        } else if(type==="cansheet"){
+        if(utils.baseURL.indexOf("index.html")<0)
+            utils.baseURL+="index.html";
+        return utils.baseURL.replace('index','courseauxnombres')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
+        } else
             return utils.baseURL+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
     },
     checkIntro:function(){

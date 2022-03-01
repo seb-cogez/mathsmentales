@@ -4,6 +4,7 @@ import common from './mods/common.js';
 import cart from './mods/cart.js';
 import Zoom from './mods/zoom.js';
 import Figure from './mods/figure.js';
+import math from './mods/math.js';
 
 const MM={};
 const content = document.getElementById("creator-content");
@@ -40,6 +41,14 @@ document.getElementById("creator-menu").onclick = (evt)=>{
             document.querySelectorAll("#divcorrection .titreCorrection").forEach(el=>{el.classList.add("noprint")});
             lesCorriges.forEach(el=>{el.classList.add("hidden")});
         }
+    } else if(evt.target.id === "btnedit"){
+        document.querySelector(".entete").contentEditable = true;
+    } else if(evt.target.id ==="btncopy"){
+        document.querySelector(".entete").contentEditable = false;
+        let content = document.querySelector(".entete").innerHTML;
+        document.querySelectorAll(".entete").forEach((el)=>{el.innerHTML = content});
+    } else if(evt.target.id === "btnshuffle"){
+        shuffleAll();
     }
 }
 document.getElementById("creator-menu").oninput = (evt)=>{
@@ -103,88 +112,120 @@ function makePage(){
         common.setSeed(parameters.alea);
     }
     content.innerHTML = "";
+    // set elements :
+    let aleaCode = utils.create("div",{className:"floatright",innerHTML:"Clé : "+common.seed});
+    content.appendChild(aleaCode);
     if(parameters.positionCorrection === "end" && !document.getElementById('btn-break')){
         document.getElementById('btpCorrigePlace').appendChild(utils.create("button",{id:"btn-break",innerText:"à part"}))
     }
     MM.memory = {};
+    let allCorrectionsContent = utils.create("div");
     for(let qty=0;qty<parameters.nb;qty++){
         common.generateQuestions(parameters);
-        // si plus d'une interro, on introduit un pagebreak
+        // si plus d'une fiche, on introduit un pagebreak
         if(qty>0)
-            content.appendChild(utils.create("footer"));
-        // set elements :
-        let aleaCode = utils.create("div",{className:"floatright",innerHTML:"Clé : "+common.seed+" p."+(qty+1)});
-        content.appendChild(aleaCode);
+            content.appendChild(utils.create("footer",{className:"break"}));
         // get the titlesheet
-        let sheetTitle = parameters.titreFiche||"Fiche d'exercices";
+        let sheetTitle = (parameters.titreFiche||"Course aux nombres")+" "+(qty+1);
         // set the titlesheet
         let header = utils.create("header",{innerHTML:sheetTitle});
         content.appendChild(header);
-        // get the exercice title
-        let exTitle = parameters.titreExercices||"Exercice n°";
-        // get the position of the correction
-        let correctionContent = utils.create("div",{className:"correction noprint", id:"divcorrection"});
-        if(parameters.positionCorrection === "end"){
-            let titleCorrection = utils.create("header", {className:"clearfix",innerHTML:"Correction des exercices"});
-            correctionContent.appendChild(titleCorrection);
-        }
-        // in case of figures
-        // create a shit because of the li float boxes
-        let divclear = utils.create("div", {className:"clearfix"});
+        let intro = utils.create("section",{className:"entete"});
+        intro.appendChild(utils.create("div",{className:"classe fright",innerHTML:"Classe : ________"}));
+        intro.appendChild(utils.create("div",{className:"nom",innerHTML:"NOM : ______________________"}));
+        intro.appendChild(utils.create("div",{className:"prenom",innerHTML:"Prénom : ___________________"}));
+        intro.appendChild(utils.create("div",{className:"duree",innerHTML:"Durée : <b>"+parameters.time+" min</b>"}));
+        intro.appendChild(utils.create("div",{className:"info",innerHTML:"<i>L'usage de la calculatrice ou de brouillon est interdit.<br>Seule la réponse doit être écrite.</i>"}));
+        // get the col's titles
+        let colTitle1 = parameters.titreColonne1||"Énoncé";
+        let colTitle2 = parameters.titreColonne2||"Réponse";
+        let colTitle3 = parameters.titreColonne3||"Jury";
+        // Creation of grids
+        let tableenonce = utils.create("table",{id:"tableE"+qty, className:"tablee"});
+        let tablecorrection = utils.create("table",{id:"tableC"+qty});
+        let theade = utils.create("thead");
+        let theadc = utils.create("thead");
+        let tre = utils.create("tr");
+        let trc = utils.create("tr");
+        tre.appendChild(utils.create("th", {innerHTML:"n°"}));
+        tre.appendChild(utils.create("th",{innerHTML:colTitle1}));
+        tre.appendChild(utils.create("th",{innerHTML:colTitle2}));
+        tre.appendChild(utils.create("th",{innerHTML:colTitle3}));
+        trc.appendChild(utils.create("th", {innerHTML:"n°"}));
+        trc.appendChild(utils.create("th",{innerHTML:colTitle1}));
+        trc.appendChild(utils.create("th",{innerHTML:colTitle2}));
+        theade.appendChild(tre);
+        theadc.appendChild(trc);
+        tableenonce.appendChild(theade);
+        tablecorrection.appendChild(theadc);
+        let tbodye = utils.create("tbody");
+        let tbodyc = utils.create("tbody");
+        let compteur = 1;
         for(let i=0;i<parameters.cart.activities.length;i++){
             const activity = parameters.cart.activities[i];
-            let sectionEnonce = utils.create("section",{id:"enonce"+qty+"-"+i,className:"enonce"});
-            //let sectionCorrection = utils.create("section",{id:"corrige"+qty+"-"+i});
-            let input = `<input id="nbcols${qty}-${i}" data-dest="exo${i}" class="noprint fright" value="2" title="Nb de colonnes" type="number" size="2" min="1" max="6">`;
-            sectionEnonce.innerHTML += input;
-            let h3 = utils.create("h3", {className:"exercice-title pointer",innerHTML:exTitle+(i+1)+" : "+activity.title,id:"titreExo"+qty+"-"+i});
-            sectionEnonce.appendChild(h3);
-            let ol = utils.create("ol",{id:"ol"+qty+"-"+i,className:"grid g2 exo"+i});
-            let olCorrection = utils.create("ol", {className:"hidden corrige", "id":"corrige"+qty+"-"+i});
             for(let j=0;j<activity.questions.length;j++){
-                let li = utils.create("li",{className:"c3"});
-                let liCorrection = utils.create("li");
+                let tre = utils.create("tr");
+                let trc = utils.create("tr");
+                // colonne numéro
+                tre.appendChild(utils.create("td",{width:"10",innerHTML:compteur+".",className:"right"}));
+                trc.appendChild(utils.create("td",{width:"10",innerHTML:compteur+".",className:"right"}));
+                compteur++;
+                let divenonce = utils.create("td",{width:"50%"})
+                let divanswer = utils.create("td",{width:"50%"}); // vide div réponse.
+                let divenoncec = utils.create("td",{width:"50%"})
+                let divanswerc = utils.create("td",{width:"50%"})
                 let answer = (Array.isArray(activity.answers[j]))?activity.answers[j][0]:activity.answers[j];
                 if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
                     let span = utils.create("span",{className:"math", innerHTML:activity.questions[j]});
+                    let spanc = utils.create("span",{className:"math", innerHTML:activity.questions[j]});
                     let spanCorrection = utils.create("span", {className:"math",innerHTML:answer});
-                    li.appendChild(span);
-                    liCorrection.appendChild(spanCorrection);
+                    divenonce.appendChild(span);
+                    divenoncec.appendChild(spanc);
+                    divanswerc.appendChild(spanCorrection);
                 } else {
-                    li.innerHTML = activity.questions[j];
-                    liCorrection.innerHTML = answer;
+                    divenonce.appendChild(utils.create("span",{innerHTML:activity.questions[j]}));
+                    divenoncec.appendChild(utils.create("span",{innerHTML:activity.questions[j]}));
+                    divanswerc.appendChild(utils.create("span",{innerHTML:answer}));
                 }
-                ol.appendChild(li);
+                tre.appendChild(divenonce);
+                tre.appendChild(divanswer);
+                // div jury
+                tre.appendChild(utils.create("td"),{width:"10"});
                 // figures
                 if(activity.figures[j] !== undefined){
                     //if(i===0 && j=== 0)MM.memory["dest"] = content;
-                    MM.memory[qty+"-"+"f"+i+"-"+j] = new Figure(utils.clone(activity.figures[j]), qty+"-"+"f"+i+"-"+j,li);
+                    MM.memory[qty+"-"+"f"+i+"-"+j] = new Figure(utils.clone(activity.figures[j]), qty+"-"+"f"+i+"-"+j,divenonce);
                 }
-                olCorrection.appendChild(liCorrection);
-            }
-            sectionEnonce.appendChild(ol);
-            let ds = divclear.cloneNode(true);
-            sectionEnonce.appendChild(ds);
-            // affichage de la correction
-            if(parameters.positionCorrection === "each" ){
-                let hr = utils.create("div",{className:"titreCorrection pointer noprint",innerHTML:"Correction",id:"idCorrige"+qty+"-"+i});
-                sectionEnonce.appendChild(hr);
-                sectionEnonce.appendChild(olCorrection);
-            } else if(parameters.positionCorrection === "end"){
-                let h3correction = h3.cloneNode(true);
-                h3correction.classList.add("titreCorrection","noprint");
-                correctionContent.appendChild(h3correction);
-                correctionContent.appendChild(olCorrection);
-                correctionContent.appendChild(utils.create("div",{className:"clearfix"}));
-                //correctionContent.appendChild(sectionCorrection);
-            }
-            content.appendChild(sectionEnonce);
+                trc.appendChild(divenoncec);
+                trc.appendChild(divanswerc);
+                tbodye.appendChild(tre);
+                tbodyc.appendChild(trc);
+                }
         }
-        if(correctionContent.hasChildNodes){
+        intro.appendChild(utils.create("div",{className:"info",innerHTML:"L'épreuve comporte <b>"+(compteur-1)+" questions</b>"}));
+        content.appendChild(intro);
+        tableenonce.appendChild(tbodye);
+        content.appendChild(tableenonce);
+
+        tablecorrection.appendChild(tbodyc);
+        let correctionContent = utils.create("div",{className:"correction noprint", id:"divcorrection"});
+        let titleCorrection = utils.create("header", {className:"clearfix",innerHTML:"Correction de la course n°"+(qty+1)});
+        correctionContent.appendChild(titleCorrection);
+        correctionContent.appendChild(tablecorrection);
+
+        if(parameters.positionCorrection=== "each"){
+            content.appendChild(utils.create("footer",{className:"break"}));
             content.appendChild(correctionContent);
-            let ds = divclear.cloneNode(true);
-            content.appendChild(ds);
+        } else if(parameters.positionCorrection=== "end"){
+            allCorrectionsContent.appendChild(utils.create("footer",{className:"break"}));
+            allCorrectionsContent.appendChild(correctionContent);
         }
+    }
+    if(allCorrectionsContent.hasChildNodes){
+        content.appendChild(allCorrectionsContent);
+    }
+    if(!parameters.cart.ordered){
+        shuffleAll();
     }
     if(!utils.isEmpty(MM.memory)){
         setTimeout(function(){
@@ -202,6 +243,25 @@ function refresh(){
         if(evt.target.nodeName.toLowerCase()==="input"){
             changecols(evt.target.dataset.dest,evt.target.value)
         }
+    }
+}
+function shuffleAll(){
+    document.querySelectorAll(".tablee").forEach((el,key)=>{
+        shuffleTable(document.getElementById("tableE"+key),document.getElementById("tableC"+key))
+    })
+}
+function shuffleTable(tablee, tablec){
+    if(!tablee || !tablec){
+        return false;
+    }
+    let tbodye = tablee.tBodies[0];
+    let rowse = tbodye.rows;
+    let tbodyc = tablec.tBodies[0];
+    let rowsc = tbodyc.rows
+    for(let i=rowse.length;i;i--){
+        let index = math.aleaInt(0,i);
+        tbodye.appendChild(rowse[index]);
+        tbodyc.appendChild(rowsc[index]);
     }
 }
 function checkURL(urlString){
@@ -224,21 +284,14 @@ function checkURL(urlString){
         // paramètres des activités des paniers
         let json = vars.c;
         // parametres globaux :
-        parameters.tailleTexte=Number(vars.s);
+        parameters.tailleTexte=10.5;
         parameters.nb=Number(vars.n);
-        parameters.positionCorrection=vars.cor;
+        parameters.positionCorrection=vars.cor||"end";
         parameters.titreFiche=decodeURI(vars.t);
-        parameters.titreExercices=decodeURI(vars.ex).trim()+" ";
-        parameters.enoncesSepares=vars.es||0;
-        parameters.corrigeSepare=vars.cs||0;
-        parameters.activitesColonnes=vars.cols||[];
-        if(!Array.isArray(parameters.activitesColonnes)){
-            parameters.activitesColonnes.split("~");
-        }
-        parameters.corrigesVisibles=vars.cv||[];
-        if(!Array.isArray(parameters.corrigesVisibles)){
-            parameters.corrigesVisibles.split("~");
-        }
+        parameters.titreColonne1=decodeURI(vars.t1).trim();
+        parameters.titreColonne2=decodeURI(vars.t2).trim();
+        parameters.titreColonne3=decodeURI(vars.t3).trim();
+        parameters.time=vars.tm||"7";
         // Affectation de la valeur au nombre de feuilles
         document.getElementById("nbFiches").value = parameters.nb;
         zoom = new Zoom("changeFontSize","#thehtml",true,"pt",parameters.tailleTexte);

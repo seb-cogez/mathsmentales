@@ -18,8 +18,9 @@
         ]
     },
     "vars":{"l":"0_19_3_^&","A":"${:lettres[:l[0]]}", "B":"${:lettres[:l[1]]}", "C":"${:lettres[:l[2]]}", "idfig":"0_6"},
-    "question":"Écrire l'égalité de Pythagore pour la figure suivante :<br>${:figures[:idfig]}",
-    "shortQ":"${:figures[:idfig]}",
+    "question":"Écrire l'égalité de Pythagore pour la figure suivante :",
+    "figure":{"type":"svg","content":"${:figures[:idfig]}"},
+    "shortq":"${:figures[:idfig]}",
     "answer":"$$${:A+:B}^2=${:A+:C}^2+${:B+:C}^2$$",
     "value":"$$${:A+:B}^2=${:A+:C}^2+${:B+:C}^2$$"
 }
