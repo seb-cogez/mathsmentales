@@ -1,5 +1,6 @@
 import utils from "./utils.js";
 import MM from "./MM.js";
+import Figure from "./figure.js";
 
 export default class ficheToPrint {
     constructor(type,cart,orientation='portrait'){
@@ -299,6 +300,15 @@ export default class ficheToPrint {
             }
         }
         /*
+        * change la taille des caractères de toutes les colonnes
+        */
+       function changeAllFontSize(value){
+            let elts = document.querySelectorAll(".quest");
+            for(let i=0;i<elts.length;i++){
+                elts[i].style.fontSize = value+"pt";
+            }
+       }
+        /*
         * change la disposition des lignes d'exercices d'une colonne
         * dest : id de la colonne où changer la place des réponses.
         * (String) how : column/columnv pour colonnes en ligne ou verticales
@@ -403,6 +413,31 @@ export default class ficheToPrint {
                 }
             }
        }
+       /**
+        * Affiche ou pas les figures dans la colonne
+        * */
+       function displayFigures(idcol){
+           let btn, elts;
+           if(idcol === 'all'){
+                btn = document.getElementById('btndisplayfig');
+                elts = document.querySelectorAll('.quest');
+                idcol = "Toutes";
+           } else {
+                btn = document.getElementById('btndisplayfig'+idcol);
+                elts = document.querySelectorAll('.question'+idcol);
+           }
+           if(btn.innerHTML === idcol+" on"){
+                elts.forEach(el=>{
+                    el.classList.add("nofig");
+                })
+                btn.innerHTML = idcol+" off";
+            } else {
+                elts.forEach(el=>{
+                    el.classList.remove("nofig");
+                })
+                btn.innerHTML = idcol+" on";
+            }
+       }
 
        `});
         this.docsheet.head.appendChild(script);
@@ -413,6 +448,7 @@ export default class ficheToPrint {
             let input = `<input id="fsize${i}" value="12" title="Taille énoncé colonne ${i}" type="number" size="3" min="8" max="16" step="0.5" oninput="changeFontSize('${i}',this.value)">`;
             headnoprint.innerHTML += input;
         }
+        headnoprint.innerHTML += "Tous "+`<input id="fsize" value="12" title="Taille énoncé toutes colonnes" type="number" size="3" min="8" max="16" step="0.5" oninput="changeAllFontSize(this.value)"> `;
         headnoprint.innerHTML += "<span>Largeur colonne</span>";
         for(let i=1;i<=nbcols;i++){
             let input = `<input id="asize${i}" value="1" title="Taille colonne ${i}" type="number" size="3" min="0.5" max="4" step="0.1" oninput="changeWidth(${i},this.value)">`;
@@ -438,6 +474,12 @@ export default class ficheToPrint {
             let bouton = `<button onclick="changeOrder(${i})">${i}</button> `;
             headnoprint.innerHTML += bouton;
         }
+        headnoprint.innerHTML += " Figure : ";
+        for(let i=1;i<=nbcols;i++){
+            let bouton = `<button onclick="displayFigures(${i})" id="btndisplayfig${i}">${i} on</button> `;
+            headnoprint.innerHTML += bouton;
+        }
+        headnoprint.innerHTML += `<button onclick="displayFigures('all')" id="btndisplayfig">Toutes on</button> `;
         this.content.appendChild(headnoprint);
         let correction;
         if(posCorrection === "fin"){
@@ -497,8 +539,7 @@ export default class ficheToPrint {
                         let divq = utils.create("div",{className:"question"+colsid+" quest"});
                         let span = utils.create("span",{className:"math", innerHTML:activity.shortQuestions[j]||activity.questions[j]});
                         divq.appendChild(span);
-                        ligne.appendChild(divq);
-                        
+                        ligne.appendChild(divq);                        
                     } else {
                         ligne.appendChild(utils.create("div",{innerHTML:activity.shortQuestions[j]||activity.questions[j],className:"question"+colsid+" quest"}));
                     }

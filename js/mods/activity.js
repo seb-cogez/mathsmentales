@@ -575,11 +575,11 @@ export default class activity {
                         this.cShortQ = this.shortQuestionPatterns[patternNumber]||false;
                         lenQ = this.questionPatterns.length;
                     }
-                } else if(this.options[optionNumber].question === undefined){ // question définie dans l'option
+                } else if(this.options[optionNumber].question === undefined){ // question définie globalement
                     this.cQuestion = this.questionPatterns;
                     this.cShortQ = this.shortQuestionPatterns||false;
                 } else {
-                    this.cQuestion = this.options[optionNumber].question; // question définie globalement
+                    this.cQuestion = this.options[optionNumber].question; // question définie dans l'option
                     this.cShortQ = this.options[optionNumber].shortq||false;
                 }
                 // traitement des réponses

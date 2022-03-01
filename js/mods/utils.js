@@ -691,7 +691,7 @@ const utils = {
         document.getElementById(tab).style.display = "";
     },
     showParameters:function(id){
-        let ids = ["paramsdiapo","paramsexos", "paramsinterro", "paramsceinture", "paramsflashcards", "paramswhogots", "paramsdominos"];//
+        let ids = ["paramsdiapo","paramsexos", "paramsinterro", "paramsceinture", "paramsflashcards", "paramswhogots", "paramsdominos", "paramscourse"];//
         if(ids.indexOf(id)<0) return false;
         // hide all
         for(let i=0,len=ids.length;i<len;i++){

@@ -34,6 +34,10 @@ export default class Figure {
             div.id=this.id;
             div.className = "jsxbox fig";
             destination.appendChild(div);
+        } else if(this.type === "svg"){
+            let div = document.createElement("div");
+            div.id=this.id;
+            destination.appendChild(div);
         }
     }
     /**
@@ -59,7 +63,7 @@ export default class Figure {
         let elt;
         if(this.type ==="chart")
             elt = document.getElementById(this.id).parentNode;
-        else if(this.type ==="graph")
+        else if(this.type ==="graph" || this.type === "svg")
             elt = document.getElementById(this.id);
         let cln = elt.className; // div contenant
         if(cln.indexOf("visible")<0){
@@ -78,7 +82,17 @@ export default class Figure {
         if(this.displayed) return;
         else this.displayed = true;
         // destination is the window destination object if defined
-        if(this.type === "chart"){ // Chart.js
+        if(this.type === "svg"){
+            let target;
+            if(destination === undefined){
+                target = document.getElementById(this.id);
+                //this.figure = new Chart(target, this.content);
+            } else {
+                target = destination.document.getElementById(this.id);
+                //this.figure = new destination.Chart(target, this.content);
+            }
+            target.innerHTML = this.content;
+        } else if(this.type === "chart"){ // Chart.js
             let target;
             if(destination === undefined){
                 target = document.getElementById(this.id);

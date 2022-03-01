@@ -26,23 +26,27 @@
                 "<svg width=\"15em\" height=\"9em\" viewBox=\"0 0 52.9 26.5\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M39.761 9.083a3.527 3.541-89.282 01-1.886-3.118l3.546.001z\" fill=\"#ff0003\"/><g font-family=\"Arial\" font-size=\"4.23\" letter-spacing=\"0\" stroke-width=\".265\" word-spacing=\"0\"><text x=\"7.348\" y=\"5.334\" style=\"line-height:1.25\"><tspan x=\"7.348\" y=\"5.334\">${:A}</tspan></text><text x=\"42.211\" y=\"6.504\" style=\"line-height:1.25\"><tspan x=\"42.211\" y=\"6.504\">${:B}</tspan></text><text x=\"32.234\" y=\"22.525\" style=\"line-height:1.25\"><tspan x=\"32.234\" y=\"22.525\">${:C}</tspan></text></g><g fill=\"none\" stroke=\"#000\" stroke-width=\".265\"><path d=\"M41.366 6.011l-6.5 12.507-24.127-12.54z\" stroke-width=\".2649046\"/><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M35.414 17.462l-1.09-.567-.568 1.091 1.091.567z\" stroke-width=\".2649046\"/></g></svg>",
                 "<svg width=\"15em\" height=\"9em\" viewBox=\"0 0 52.9 26.5\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M36.705 8.442A5.443 5.463-89.038 0136.13 5.9l5.462.111z\" fill=\"#ff0003\"/><g font-family=\"Arial\" font-size=\"4.23\" letter-spacing=\"0\" stroke-width=\".265\" word-spacing=\"0\"><text x=\"7.348\" y=\"5.334\" style=\"line-height:1.25\"><tspan x=\"7.348\" y=\"5.334\">${:A}</tspan></text><text x=\"42.211\" y=\"6.504\" style=\"line-height:1.25\"><tspan x=\"42.211\" y=\"6.504\">${:B}</tspan></text><text x=\"15.599\" y=\"22.563\" style=\"line-height:1.25\"><tspan x=\"15.599\" y=\"22.563\">${:C}</tspan></text></g><g fill=\"none\" stroke=\"#000\" stroke-width=\".265\"><path d=\"M10.889 5.988l6.51 12.507 24.127-12.56z\"/><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M16.85 17.44l1.091-.568.568 1.09-1.091.569z\"/></g></svg>"
             ]
-        ]
+        ],
+        "oA":["${:choixligne==0?:CA+' et '+:AB::choixligne==1?:BC+' et '+:AB::BC+' et '+:CA}","${:choixligne==0?:AB+' et '+:CA::choixligne==1?:AB+' et '+:BC::CA+' et '+:BC}"],
+        "oB":["${:choixligne==0?:BC+' et '+:AB::choixligne==1?:CA+' et '+:AB::CA+' et '+:BC}","${:choixligne==0?:AB+' et '+:BC::choixligne==1?:AB+' et '+:CA::BC+' et '+:CA}"]
     },
     "options":[
         {
             "name":"À partir de 2 côtés",
-            "vars":{"l":"0_19_3_^&","choixangle":"0_1","choixligne":"0_2", "A":"${:lettres[:l[0]]}", "B":"${:lettres[:l[1]]}", "C":"${:lettres[:l[2]]}", "idfig":"0_7", "AB":["${:A+:B}","${:B+:A}"],"BC":["${:B+:C}","${:C+:B}"],"CA":["${:C+:A}","${:A+:C}"], "oA":["${:choixligne==0?:CA+' et '+:AB::choixligne==1?:BC+' et '+:AB::BC+' et '+:CA}","${:choixligne==0?:AB+' et '+:CA::choixligne==1?:AB+' et '+:BC::CA+' et '+:BC}"], "oB":["${:choixligne==0?:BC+' et '+:AB::choixligne==1?:CA+' et '+:AB::BC+' et '+:CA}","${:choixligne==0?:AB+' et '+:BC::choixligne==1?:AB+' et '+:CA::CA+' et '+:BC}"]},
-            "question":"On connait <b>${:choixangle==0?:oA::oB}</b>. Sont-ils liés à $$\\color{red}{\\widehat{${:choixangle==0?:A::B}}}$$ par cosinus, sinus ou tangente&nbsp;?<br>${:figures[:choixangle][:idfig]}",
-            "shortQ":"sin, cos ou tan relie ${:choixangle==0?:oA::oB} et $$\\color{red}{\\widehat{${:choixangle==0?:A::B}}}$$ ?<br>${:figures[:choixangle][:idfig]}",
-            "answer":"$$\\color{red}{${:choixligne==0?'cosinus'::choixligne==1?'sinus':'tangente'}}$$ car $$\\color{green}{${:choixligne==0?'cos'::choixligne==1?'sin':'tan'}}(\\widehat{${:choixangle==0?:A::B}})=\\dfrac{${(:choixangle==0?:oA::oB).replace(' et ','}{')}}$$",
+            "vars":{"l":"0_19_3_^&","choixangle":"0_1","choixligne":"0_2", "A":"${:lettres[:l[0]]}", "B":"${:lettres[:l[1]]}", "C":"${:lettres[:l[2]]}", "idfig":"0_7", "AB":["${:A+:B}","${:B+:A}"],"BC":["${:B+:C}","${:C+:B}"],"CA":["${:C+:A}","${:A+:C}"],"cv":"0_1"},
+            "question":"On connait <b>${:choixangle==0?:oA[:cv]::oB[:cv]}</b>. Sont-ils liés à $$\\color{red}{\\widehat{${:choixangle==0?:A::B}}}$$ par cosinus, sinus ou tangente&nbsp;?",
+            "figure":{"type":"svg","content":"${:figures[:choixangle][:idfig]}"},
+            "shortQ":"sin, cos ou tan relie ${:choixangle==0?:oA[:cv]::oB[:cv]} et $$\\color{red}{\\widehat{${:choixangle==0?:A::B}}}$$ ?<br>${:figures[:choixangle][:idfig]}",
+            "answer":"$$\\color{red}{${:choixligne==0?'cosinus'::choixligne==1?'sinus':'tangente'}}$$ car $$\\color{green}{${:choixligne==0?'cos'::choixligne==1?'sin':'tan'}}(\\widehat{${:choixangle==0?:A::B}})=\\dfrac{${(:choixangle==0?:oA[0]::oB[0]).replace(' et ','}{')}}$$",
             "value":"${:choixligne==0?'cos'::choixligne==1?'sin':'tan'}"
         },
         {
             "name":"À partir de l'angle et d'un côté",
-            "vars":{"l":"0_19_3_^&","choixangle":"0_1","choixligne":"0_2", "A":"${:lettres[:l[0]]}", "B":"${:lettres[:l[1]]}", "C":"${:lettres[:l[2]]}", "idfig":"0_7", "AB":["${:A+:B}","${:B+:A}"],"BC":["${:B+:C}","${:C+:B}"],"CA":["${:C+:A}","${:A+:C}"], "oA":["${:choixligne==0?:CA+' et '+:AB::choixligne==1?:BC+' et '+:AB::BC+' et '+:CA}","${:choixligne==0?:AB+' et '+:CA::choixligne==1?:AB+' et '+:BC::CA+' et '+:BC}"], "oB":["${:choixligne==0?:BC+' et '+:AB::choixligne==1?:CA+' et '+:AB::BC+' et '+:CA}","${:choixligne==0?:AB+' et '+:BC::choixligne==1?:AB+' et '+:CA::CA+' et '+:BC}"]},
-            "question":"On connait $$\\widehat{${:choixangle==0?:A::B}}$$ et <b>${(:choixangle==0?:oA::oB).split(' et ')[0]}</b>. Utilise-t-on cosinus, sinus ou tangente pour déterminer <b>${(:choixangle==0?:oA::oB).split(' et ')[1]}</b>&nbsp;?<br>${:figures[:choixangle][:idfig]}",
+            "vars":{"l":"0_19_3_^&","choixangle":"0_1","choixligne":"0_2", "A":"${:lettres[:l[0]]}", "B":"${:lettres[:l[1]]}", "C":"${:lettres[:l[2]]}", "idfig":"0_7", "AB":["${:A+:B}","${:B+:A}"],"BC":["${:B+:C}","${:C+:B}"],"CA":["${:C+:A}","${:A+:C}"],"cv":"0_1"},
+            "question":"On connait $$\\widehat{${:choixangle==0?:A::B}}$$ et <b>${(:choixangle==0?:oA[:cv]::oB[:cv]).split(' et ')[0]}</b>. Utilise-t-on cosinus, sinus ou tangente pour déterminer <b>${(:choixangle==0?:oA[:cv]::oB[:cv]).split(' et ')[1]}</b>&nbsp;?",
+            "figure":{"type":"svg","content":"${:figures[:choixangle][:idfig]}"},
             "shortQ":"sin, cos ou tan avec ${:choixangle==0?:oA::oB} et ${(:choixangle==0?:oA::oB).split(' et ')[0]} pour trouver ${(:choixangle==0?:oA::oB).split(' et ')[1]} ?<br>${:figures[:choixangle][:idfig]}",
-            "answer":"$$\\color{red}{${:choixligne==0?'cosinus'::choixligne==1?'sinus':'tangente'}}$$ car $$\\color{green}{${:choixligne==0?'cos'::choixligne==1?'sin':'tan'}}(\\widehat{${:choixangle==0?:A::B}})=\\dfrac{${(:choixangle==0?:oA::oB).replace(' et ','}{')}}$$",
+            "answer":"$$\\color{red}{${:choixligne==0?'cosinus'::choixligne==1?'sinus':'tangente'}}$$ car $$\\color{green}{${:choixligne==0?'cos'::choixligne==1?'sin':'tan'}}(\\widehat{${:choixangle==0?:A::B}})=\\dfrac{${(:choixangle==0?:oA[0]::oB[0]).replace(' et ','}{')}}$$",
             "value":"${:choixligne==0?'cos'::choixligne==1?'sin':'tan'}"
         }
     ]

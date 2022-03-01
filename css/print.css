@@ -283,6 +283,9 @@ input[type="color"]{
     width:90%;
     height: 200px;
 }
+.nofig svg, .nofig br ~ svg {
+    display: none;
+}
 .red {
     color: red;
 }
