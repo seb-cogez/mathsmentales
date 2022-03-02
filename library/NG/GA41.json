@@ -5,7 +5,8 @@
     "ID":"GA41",
     "description":"Connaitre les valeurs réelles des angles, éviter pour le moment la saisie par le clavier virtuel de l'application",
     "dest":["GA4"],
-    "consts":{"points":["A","B","C","D","E","F","G","K","L","M","N","P"],"angles":[0,"\\dfrac{\\pi}{6}", "\\dfrac{2\\pi}{6}","\\dfrac{\\pi}{2}","\\dfrac{3\\pi}{3}","\\dfrac{5\\pi}{6}","\\pi","\\dfrac{7\\pi}{6}","\\dfrac{4\\pi}{3}","\\dfrac{3\\pi}{2}","\\dfrac{5\\pi}{3}"]},
+    "consts":{"points":["A","B","C","D","E","F","G","K","L","M","N","P"],
+        "angles":[0,"\\dfrac{\\pi}{6}", "\\dfrac{2\\pi}{6}","\\dfrac{\\pi}{2}","\\dfrac{3\\pi}{3}","\\dfrac{5\\pi}{6}","\\pi","\\dfrac{7\\pi}{6}","\\dfrac{4\\pi}{3}","\\dfrac{3\\pi}{2}","\\dfrac{5\\pi}{3}", "\\dfrac{11\\pi}{6}"]},
     "figure":{"type":"graph",
         "axis":true,
         "boundingbox":[-1.5,1.5,1.5,-1.5],
@@ -22,7 +23,7 @@
     },{
         "name":"Trouver l'angle'",
         "vars":{"n":"0_11"},
-        "question": "À quel réel de $$\\lbrack 0; 2\\pi \\rbrack$$ correspond <b>${:points[:n]}</b> ?",
+        "question": "À quel réel de $$\\lbrack 0; 2\\pi \\lbrack$$ correspond <b>${:points[:n]}</b> ?",
         "answer":"${:points[:n]} correspond à $$\\color{red}{${:angles[:n]}}$$",
         "value":"${:angles[:n]}"
     }

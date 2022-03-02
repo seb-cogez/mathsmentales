@@ -25,7 +25,7 @@
             "question":"Quel côté est l'hypoténuse ?",
             "figure":{"type":"svg","content":"${:figures[:idfig]}"},
             "shortq":"Hypoténuse ?<br>${:figures[:idfig]}",
-            "answer":["L'hypoténuse est $$[${:A+:B}]$$","L'hypoténuse est $$[${:B+:A}]$$"],
+            "answer":["L'hypoténuse est $$\\color{red}{[${:A+:B}]}$$","L'hypoténuse est $$\\color{red}{[${:B+:A}]}$$"],
             "value":["$$[${:A+:B}]$$","$$[${:B+:A}]$$"]
         },
         {
@@ -34,7 +34,7 @@
             "question":"Quel côté est le côté adjacent à $$\\color{red}{\\widehat{${:choix==0?:lettreA::lettreB}}}$$&nbsp;?",
             "figure":{"type":"svg","content":"${:figures[:idfig]}"},
             "shortq":"Adjacent à $$\\color{red}{\\widehat{${:choix==0?:lettreA::lettreB}}}$$ ?<br>${:figures[:idfig]}",
-            "answer":["Le côté adjacent à $$\\color{red}{\\widehat{${:choix==0?:lettreA::lettreB}}}$$ est $$[${(:choix==0?:lettreA::lettreB)+:C}]$$","Le côté adjacent à $$\\color{red}{\\widehat{${:choix==0?:lettreA::lettreB}}}$$ est $$[${:C+(:choix==0?:lettreA::lettreB)}]$$"],
+            "answer":["Le côté adjacent à $$\\widehat{${:choix==0?:lettreA::lettreB}}$$ est $$\\color{red}{[${(:choix==0?:lettreA::lettreB)+:C}]}$$","Le côté adjacent à $$\\widehat{${:choix==0?:lettreA::lettreB}}$$ est $$\\color{red}{[${:C+(:choix==0?:lettreA::lettreB)}]}$$"],
             "value":["$$[${(:choix==0?:lettreA::lettreB)+:C}]$$","$$[${:C+(:choix==0?:lettreA::lettreB)}]$$"]
         },
         {
@@ -43,7 +43,7 @@
             "question":"Quel côté est le côté opposé à $$\\color{red}{\\widehat{${:choix==0?:lettreA::lettreB}}}$$&nbsp;?",
             "figure":{"type":"svg","content":"${:figures[:idfig]}"},
             "shortq":"Opposé à $$\\color{red}{\\widehat{${:choix==0?:lettreA::lettreB}}}$$ ?<br>${:figures[:idfig]}",
-            "answer":["Le côté opposé à $$\\color{red}{\\widehat{${:choix==0?:lettreA::lettreB}}}$$ est $$[${(:choix==1?:lettreA::lettreB)+:C}]$$","Le côté opposé à $$\\color{red}{\\widehat{${:choix==0?:lettreA::lettreB}}}$$ est $$[${:C+(:choix==1?:lettreA::lettreB)}]$$"],
+            "answer":["Le côté opposé à $$\\widehat{${:choix==0?:lettreA::lettreB}}$$ est $$\\color{red}{[${(:choix==1?:lettreA::lettreB)+:C}]}$$","Le côté opposé à $$\\widehat{${:choix==0?:lettreA::lettreB}}$$ est $$\\color{red}{[${:C+(:choix==1?:lettreA::lettreB)}]}$$"],
             "value":["$$[${(:choix==1?:lettreA::lettreB)+:C}]$$","$$[${:C+(:choix==1?:lettreA::lettreB)}]$$"]
         }
     ]
