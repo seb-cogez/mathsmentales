@@ -28,19 +28,6 @@ document.getElementById("creator-menu").onclick = (evt)=>{
             document.getElementById(evt.target.id).innerText = "Regrouper";
             document.querySelectorAll("footer").forEach(elt=>{elt.className = "break"})
         }
-    } else if(evt.target.id==="toggleCorriges"){
-        let lesCorriges = document.querySelectorAll("ol.corrige");
-        if(evt.target.innerHTML === " ▼ "){
-            evt.target.innerHTML = " ▲ ";
-            lesCorriges.forEach(el=>{el.classList.remove("hidden")});
-            document.getElementById("divcorrection").classList.remove("noprint");
-            document.querySelectorAll("#divcorrection .titreCorrection").forEach(el=>{el.classList.remove("noprint")});
-        } else {
-            evt.target.innerHTML = " ▼ ";
-            document.getElementById("divcorrection").classList.add("noprint");
-            document.querySelectorAll("#divcorrection .titreCorrection").forEach(el=>{el.classList.add("noprint")});
-            lesCorriges.forEach(el=>{el.classList.add("hidden")});
-        }
     } else if(evt.target.id === "btnedit"){
         document.querySelector(".entete").contentEditable = true;
     } else if(evt.target.id ==="btncopy"){
@@ -49,38 +36,13 @@ document.getElementById("creator-menu").onclick = (evt)=>{
         document.querySelectorAll(".entete").forEach((el)=>{el.innerHTML = content});
     } else if(evt.target.id === "btnshuffle"){
         shuffleAll();
+    } else if(evt.target.id ==="btneditcontent"){
+        document.querySelectorAll("table").forEach(el=>{el.contentEditable = true;})
     }
 }
 document.getElementById("creator-menu").oninput = (evt)=>{
     if(evt.target.id === "nbFiches"){
         setNumberFiches(evt.target.value);
-    }
-}
-/**
- * gestion des click sur les éléments pour afficher les corrections
- */
-document.getElementById("creator-content").onclick = (evt)=>{
-    if(evt.target.id.indexOf("idCorrige")===0){
-        let target = document.getElementById(evt.target.id.replace("idCorrige","corrige"));
-        if(target.classList.toggle("hidden")){
-            document.getElementById(evt.target.id).classList.add("noprint");
-        } else {
-            document.getElementById(evt.target.id).classList.remove("noprint");
-        }
-    } else if(evt.target.id.indexOf("titreExo")===0){ // arrive sur le titre de l'exo ou le titre du corrigé.
-        let target = document.getElementById(evt.target.id.replace("titreExo","corrige"));
-        if(target.classList.toggle("hidden")){
-            // on cache
-            document.querySelector("#divcorrection #"+evt.target.id).classList.add("noprint");
-            // seulement si tous les éléments sont invisibles
-            let invisible = true;
-            document.querySelectorAll("#divcorrection .titreCorrection").forEach(el=>{if(!el.classList.contains("noprint")){invisible=false}});
-            if(invisible)
-                document.getElementById("divcorrection").classList.add("noprint");
-        } else {
-            document.querySelector("#divcorrection #"+evt.target.id).classList.remove("noprint");
-            document.getElementById("divcorrection").classList.remove("noprint");
-        }
     }
 }
 function setNumberFiches(nb){
@@ -115,9 +77,6 @@ function makePage(){
     // set elements :
     let aleaCode = utils.create("div",{className:"floatright",innerHTML:"Clé : "+common.seed});
     content.appendChild(aleaCode);
-    if(parameters.positionCorrection === "end" && !document.getElementById('btn-break')){
-        document.getElementById('btpCorrigePlace').appendChild(utils.create("button",{id:"btn-break",innerText:"à part"}))
-    }
     MM.memory = {};
     let allCorrectionsContent = utils.create("div");
     for(let qty=0;qty<parameters.nb;qty++){
@@ -208,7 +167,7 @@ function makePage(){
         content.appendChild(tableenonce);
 
         tablecorrection.appendChild(tbodyc);
-        let correctionContent = utils.create("div",{className:"correction noprint", id:"divcorrection"});
+        let correctionContent = utils.create("div",{className:"correction", id:"divcorrection"});
         let titleCorrection = utils.create("header", {className:"clearfix",innerHTML:"Correction de la course n°"+(qty+1)});
         correctionContent.appendChild(titleCorrection);
         correctionContent.appendChild(tablecorrection);
@@ -216,7 +175,7 @@ function makePage(){
         if(parameters.positionCorrection=== "each"){
             content.appendChild(utils.create("footer",{className:"break"}));
             content.appendChild(correctionContent);
-        } else if(parameters.positionCorrection=== "end"){
+        } else if(parameters.positionCorrection === "end"){
             allCorrectionsContent.appendChild(utils.create("footer",{className:"break"}));
             allCorrectionsContent.appendChild(correctionContent);
         }
@@ -224,7 +183,7 @@ function makePage(){
     if(allCorrectionsContent.hasChildNodes){
         content.appendChild(allCorrectionsContent);
     }
-    if(!parameters.cart.ordered){
+    if(!parameters.cart.ordered && utils.isEmpty(MM.memory)){
         shuffleAll();
     }
     if(!utils.isEmpty(MM.memory)){
@@ -232,6 +191,9 @@ function makePage(){
             for(const k in MM.memory){
                 if(k!=="dest")
                     MM.memory[k].display();
+            }
+            if(!parameters.cart.ordered){
+                shuffleAll();
             }
         }, 300);
     }

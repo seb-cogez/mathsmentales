@@ -31,7 +31,7 @@
     ],
     "question":"Écrire l'égalité des quotients :",
     "figure":{"type":"svg","content":"${:figures[:idlist][:idfig]}"},
-    "shortq":"${:figures[:idfig]}",
+    "shortq":"${:figures[:idlist][:idfig]}",
     "answer":"$$\\dfrac{${:A+:B}}{${:A+:M}}=\\dfrac{${:A+:C}}{${:A+:N}}=\\dfrac{${:B+:C}}{${:M+:N}}$$",
-    "value":"$$\\dfrac{${:A+:B}}{${:A+:M}}=\\dfrac{${:A+:C}}{${:A+:N}}=\\dfrac{${:B+:C}}{${:M+:N}}$$"
+    "value":"\\dfrac{${:A+:B}}{${:A+:M}}=\\dfrac{${:A+:C}}{${:A+:N}}=\\dfrac{${:B+:C}}{${:M+:N}}"
 }

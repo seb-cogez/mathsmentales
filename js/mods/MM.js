@@ -702,7 +702,13 @@ const MM = {
         let paramsSansSeed = this.paramsToURL(false);
         let urlSansSeed = this.setURL(paramsSansSeed,type);
         let li = utils.create("li");
-        let span = utils.create("span", {innerText:"Panier du "+utils.getDate()+": ",className:"bold"});
+        let typeName = "Panier"
+        if(type==="cansheet"){
+            typeName = "Course aux nombres"
+        } else if(type==="exosheet"){
+            typeName = "Fiche d'exercices"
+        }
+        let span = utils.create("span", {innerText:typeName+" du "+utils.getDate()+": ",className:"bold"});
         li.appendChild(span);
         const a = utils.create("a",{href:url,innerText:"🎯 lien (mêmes données)"});
         li.appendChild(a);

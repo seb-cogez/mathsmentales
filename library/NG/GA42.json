@@ -7,10 +7,11 @@
     "keys":["pi","/","√","-","_","_","_","_"],
     "description":"Valeurs exactes de certains angles en radians",
     "dest":["GA4"],
-    "consts":{"angles":[0,"\\pi\\over6","\\pi\\over4","\\pi\\over3","\\pi\\over2","2\\pi\\over3","\\pi\\over4","5\\pi\\over6","\\pi","7\\pi\\over6","5\\pi\\over4","4\\pi\\over3","3\\pi\\over2","5\\pi\\over3","7\\pi\\over4","11\\pi\\over6"],
-        "sin":[0,"1\\over2","\\sqrt2\\over2","\\sqrt3\\over2",1,"\\sqrt3\\over2","\\sqrt2\\over2","1\\over2",0,"-{1\\over2}","-{\\sqrt2\\over2}","-{\\sqrt3\\over2}",-1,"-{\\sqrt3\\over2}","-{\\sqrt2\\over2}","-{1\\over2}"],
-        "cos":[1,"\\sqrt3\\over2","\\sqrt2\\over2","1\\over2",0,"-{1\\over2}","-{\\sqrt2\\over2}","-{\\sqrt3\\over2}",-1,"-{\\sqrt3\\over2}","-{\\sqrt2\\over2}","-{1\\over2}",0,"1\\over2","\\sqrt2\\over2","\\sqrt3\\over2"],
-        "tan":[0,"1\\over\\sqrt3",1,"\\sqrt3","\\varnothing","-\\sqrt3",-1,"-{1\\over\\sqrt3}",0]},
+    "consts":{"angles":[0,"\\dfrac{\\pi}{6}","\\dfrac{\\pi}{4}","\\dfrac{\\pi}{3}","\\dfrac{\\pi}{2}","\\dfrac{2\\pi}{3}","\\dfrac{3\\pi}{4}","\\dfrac{5\\pi}{6}","\\pi","\\dfrac{7\\pi}{6}","\\dfrac{5\\pi}{4}","\\dfrac{4\\pi}{3}","\\dfrac{3\\pi}{2}","\\dfrac{5\\pi}{3}","\\dfrac{7\\pi}{4}","\\dfrac{11\\pi}{6}"],
+        "angles2":[0,"\\dfrac{\\pi}{6}","\\dfrac{\\pi}{4}","\\dfrac{\\pi}{3}","\\dfrac{\\pi}{2}","\\dfrac{2\\pi}{3}","\\dfrac{3\\pi}{4}","\\dfrac{5\\pi}{6}","\\pi","-\\dfrac{5\\pi}{6}","-\\dfrac{3\\pi}{4}","-\\dfrac{2\\pi}{3}","-\\dfrac{\\pi}{2}","-\\dfrac{\\pi}{3}","-\\dfrac{\\pi}{4}","-\\dfrac{\\pi}{6}"],
+        "sin":[0,"\\dfrac{1}{2}","\\dfrac{\\sqrt2}{2}","\\dfrac{\\sqrt3}{2}",1,"\\dfrac{\\sqrt3}{2}","\\dfrac{\\sqrt2}{2}","\\dfrac{1}{2}",0,"-\\dfrac{1}{2}","-\\dfrac{\\sqrt2}{2}","-\\dfrac{\\sqrt3}{2}",-1,"-\\dfrac{\\sqrt3}{2}","-\\dfrac{\\sqrt2}{2}","-\\dfrac{1}{2}"],
+        "cos":[1,"\\dfrac{\\sqrt3}{2}","\\dfrac{\\sqrt2}{2}","\\dfrac{1}{2}",0,"-\\dfrac{1}{2}","-\\dfrac{\\sqrt2}{2}","-\\dfrac{\\sqrt3}{2}",-1,"-\\dfrac{\\sqrt3}{2}","-\\dfrac{\\sqrt2}{2}","-\\dfrac{1}{2}",0,"\\dfrac{1}{2}","\\dfrac{\\sqrt2}{2}","\\dfrac{\\sqrt3}{2}"],
+        "tan":[0,"\\dfrac{1}{\\sqrt3}",1,"\\sqrt3","\\varnothing","-\\sqrt3",-1,"-\\dfrac{1}{\\sqrt3}",0,"\\dfrac{1}{\\sqrt3}",1,"\\sqrt3","\\varnothing","-\\sqrt3",-1,"-\\dfrac{1}{\\sqrt3}"]},
     "options":[{
         "name":"Valeur du cosinus sur [0,pi]",
         "vars":{"n":"0_8"},
@@ -36,23 +37,23 @@
         "answer":"\\arccos\\left(${:cos[:n]}\\right) = \\color{red}{${:angles[:n]}}",
         "value":"${:angles[:n]}"
     },{
-        "name":"Angle de [0,pi] connaissant le sinus",
-        "vars":{"n":"0_8"},
+        "name":"Angle de [-pi/2,pi/2] connaissant le sinus",
+        "vars":{"a":"0_8","n":"${(:a+12)%16}"},
         "question": "\\arcsin\\left(${:sin[:n]}\\right) = ?",
-        "answer":"\\arcsin\\left(${:sin[:n]}\\right) = \\color{red}{${:angles[:n]}}",
-        "value":"${:angles[:n]}"
+        "answer":"\\arcsin\\left(${:sin[:n]}\\right) = \\color{red}{${:angles2[:n]}}",
+        "value":"${:angles2[:n]}"
     },{
-        "name":"Angle de [0,pi] connaissant la tangente",
-        "vars":{"n":"0_8_^4"},
+        "name":"Angle de ]-pi/2,pi/2[ connaissant la tangente",
+        "vars":{"a":"0_6","n":"${(:a+13)%16}"},
         "question": "\\arctan\\left(${:tan[:n]}\\right) = ?",
-        "answer":"\\arctan\\left(${:tan[:n]}\\right) = \\color{red}{${:angles[:n]}}",
-        "value":"${:angles[:n]}"
+        "answer":"\\arctan\\left(${:tan[:n]}\\right) = \\color{red}{${:angles2[:n]}}",
+        "value":"${:angles2[:n]}"
     },{
-        "name":"Angle de [0,2pi[ connaissant cosinus et sinus",
-        "vars":{"n":"0_13"},
-        "question":"\\cos(\\alpha)={${:cos[:n]}} \\text{ et } \\sin(\\alpha)={${:sin[:n]}} \\text{ donc } \\alpha = ?",
-        "answer":"Si \\cos(\\alpha)={${:cos[:n]}} \\text{ et } \\sin(\\alpha)={${:sin[:n]}} alors \\alpha = \\color{red}{${:angles[:n]}}",
-        "value":"${:angles[:n]}"
+        "name":"Angle de [-pi,pi[ connaissant cosinus et sinus",
+        "vars":{"n":"0_15"},
+        "question":"\\text{Si }\\begin{cases}\\cos(\\alpha)={${:cos[:n]}}\\\\\\sin(\\alpha)={${:sin[:n]}}\\end{cases} \\text{ alors } \\alpha = ?",
+        "answer":"\\begin{cases}\\cos(\\alpha)={${:cos[:n]}}\\\\\\sin(\\alpha)={${:sin[:n]}}\\end{cases}\\\\\\text{ donc }\\alpha = \\color{red}{${:angles2[:n]}}",
+        "value":"${:angles2[:n]}"
     }
     ]
 }
