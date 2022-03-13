@@ -4,7 +4,7 @@ Démo : https://seb-cogez.github.io/mathsmentales/
 
 ### Auteurs
 L'auteur principal est Sébastien COGEZ. Des collègues ont suggéré des activités qu'il a développées.
-Fayçal TIB l'a rejoint le 31/08/21 pour créer des activités, notamment en lycée.
+Fayçal TIB a créé quelques activités pour le lycée (inachevé)
 
 ### Nouveautés apportées par cette version :
  * nouvelle interface : tous les réglages dans une page, affichage d'exemples de questions pour mieux comprendre
@@ -16,6 +16,7 @@ Fayçal TIB l'a rejoint le 31/08/21 pour créer des activités, notamment en lyc
  * possibilité de créer son propre diapo en ligne (développement non commencé)
  * d'autres possibilités d'affichage que le diaporama : mur d'activités, flash cards... (développement non commencé)
  * internationalisation (ou pas)
+ * modularisation des scripts javascript, ce qui empêche de trouver par exemples les réponses par la console :D
 
 ### bibliothèques externes
  * [KateX](https://katex.org/) pour afficher les maths (MIT licence)

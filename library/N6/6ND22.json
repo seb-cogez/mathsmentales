@@ -1,0 +1,21 @@
+{
+    "title":"Distribuer pour calculer",
+    "description":"Décomposer un nombre pour calculer un produit",
+    "ID":"6ND22",
+    "dest":["6ND", "5NC"],
+    "options":[{
+        "name":"Produit d'un nopmbre inférieur à 10 par des dizaines",
+        "vars":{"a":"3_9", "d":"1_9", "c":"1_9", "b":"${:d*10+:c}"},
+        "question": ["${:a}\\times${:b}", "${:b}\\times${:a}"],
+        "answer":":question=\\color{green}{${:a}\\times${:d*10}+${:a}\\times${:c}=${:a*:d*10}+${:a*:c}}=\\color{red}{${:a*:b}}",
+        "value":"${:a*:b}"
+        },{
+        "name":"Produit d'un nombre par des dizaines",
+        "vars":{"ad":"1_4","au":"3_9", "a":"${:ad*10+:au}","b":[11,12,21,22]},
+        "consts":{"bd":"${math.round(:b/10,0)}", "bu":"${:b-10*:bd}"},
+        "question": ["${:a}\\times${:b}", "${:b}\\times${:a}"],
+        "answer":":question=\\color{green}{${:a}\\times${:bd*10}+${:a}\\times${:bu}=${:a*:bd*10}+${:a*:bu}}=\\color{red}{${:a*:b}}",
+        "value":"${:a*:b}"
+        }
+    ]
+}
