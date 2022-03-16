@@ -627,9 +627,9 @@ const MM = {
             ",a="+(withAleaSeed?MM.seed:"")+
             ",cor="+(utils.getRadioChecked("cancorrpos")||"fin")+
             ",tm="+(document.getElementById("cantime").value||document.getElementById("cantime").placeholder)+
-            ",t1="+(document.getElementById("cantitle").value||document.getElementById("cancol1title").placeholder)+
-            ",t2="+(document.getElementById("cantitle").value||document.getElementById("cancol2title").placeholder)+
-            ",t3="+(document.getElementById("cantitle").value||document.getElementById("cancol3title").placeholder)+
+            ",t1="+(document.getElementById("cancol1title").value||document.getElementById("cancol1title").placeholder)+
+            ",t2="+(document.getElementById("cancol2title").value||document.getElementById("cancol2title").placeholder)+
+            ",t3="+(document.getElementById("cancol3title").value||document.getElementById("cancol3title").placeholder)+
             this.export()
         }
         return "i="+MM.introType+

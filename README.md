@@ -6,7 +6,7 @@ Maths et Matic Projector, l'automatisme et le calcul mental pour la classe (proj
 Maths et Matic permet de créer des diaporamas en ligne en rapport avec le calcul mental pour ainsi faire de faire de la projection de calcul en classe, pas besoin de conaissances techniques particulières ! Les éléves pourront répondre soit en présentiel en classe, soit en ditanciel grâce à l'option "répondre en ligne", pour pouvoir accéder au site : http://mem-projector.ml
 
 ### Principales fonctions
- * Interfaces claire et compréhensible
+ * Interface claire et compréhensible
  * Possibilité de créer jusqu'à 4 paniers d'activités
  * Possibilité d'afficher des exemples avant de commencer le diaporama
  * Possibilité d'affichage multiples des questions
@@ -26,7 +26,7 @@ Maths et Matic permet de créer des diaporamas en ligne en rapport avec le calcu
  * [Sortable.js](http://sortablejs.github.io/Sortable/) Javascript library for reorderable drag-and-drop lists (MIT licence)
  * [seedrandom.js](https://github.com/davidbau/seedrandom) pour créer des nombres aléatoires "controlés" (MIT licence)
  * [Chart.js](https://www.chartjs.org/) pour représenter des statistiques (MIT licence)
- * [JSXGraph](http://jsxgraph.uni-bayreuth.de/wp/index.html) pour les représentations graphiques et la géométrie, notamment 
+ * [JSXGraph](http://jsxgraph.uni-bayreuth.de/wp/index.html) pour les représentations graphiques et la géométrie, notamment
  * [JessieCode](https://github.com/jsxgraph/JessieCode) qui permet de réaliser des figures facilement (LGPL & MIT licences)
  * [asciimath2tex](https://github.com/christianp/asciimath2tex) pour taper plus rapidement les formules de maths (Licence Apache 2.0)
  * ~~[qrious](https://github.com/neocotic/qrious) pour générer les qrcodes (GPLv3 licence)~~
@@ -96,7 +96,7 @@ ainsi que des *données optionnelles* :
   * **type** : valeurs possible : "texte", "latex" qui indique le type de rendu des questions/réponses
   * **repeat** : Possibilité de répéter une question (le moteur évite normalement les répétitions de questions, mais parfois, c'est impossible car l'énoncé est visuel et les questions sont toujours les mêmes) valeurs possibles : true (on évite que la question se répète dans les 5 dernières questions) ou un nombre x (on évite que la réponse se répète plus de 2 fois dans les x dernières questions)
   * **keys** : tableau d'au plus huit éléments contenant les touches optionnelles pour le clavier virtuel.
-  * **textSize** : taille du texte de la question, permet de modifier la taille d'affichage par défaut. valeurs possibles : "medium" ou "small" 
+  * **textSize** : taille du texte de la question, permet de modifier la taille d'affichage par défaut. valeurs possibles : "medium" ou "small"
 
 * Pour l'activité ou une option :
   * **value** : chaine ou tableau de chaines contenant les réponses attendues dans le formulaire de réponse en ligne
@@ -104,9 +104,9 @@ ainsi que des *données optionnelles* :
   * **shortq** : question au format court (pas la consigne par exemple) pour un export plus lisible dans les ceintures, doit suivre la forme de "questions" : une chaine ou un tableau
   * **valueType** : chaine qui indique le type de réponse attendue, pour une correction en ligne plus précise
     * "liste" pour des listes de nombres séparées par des point-virgule
- 
+
  Le tableau de touches par défaut est ["÷","×","-","+","(","x","x²","√"];
- 
+
  Les touches disponibles pour le moment :
  * "_" touche vide
  * "/" fraction

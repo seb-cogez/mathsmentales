@@ -75,8 +75,8 @@ redoKey:`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http
             "A":["key colored","A",()=>{this.targetField.executeCommand(["insert","\\text{affine non linéaire}"]),this.focus();}],
             "L":["key colored","L",()=>{this.targetField.executeCommand(["insert","\\text{linéaire}"]),this.focus();}],
             "l":["key colored","L",()=>{this.targetField.executeCommand(["insert","\\text{ L}"]),this.focus();}],
-            "l":["key colored","m",()=>{this.targetField.executeCommand(["insert","\\text{ m}"]),this.focus();}],
-            "l":["key colored","g",()=>{this.targetField.executeCommand(["insert","\\text{ g}"]),this.focus();}],
+            "m":["key colored","m",()=>{this.targetField.executeCommand(["insert","\\text{ m}"]),this.focus();}],
+            "g":["key colored","g",()=>{this.targetField.executeCommand(["insert","\\text{ g}"]),this.focus();}],
             "%":["key colored","%",()=>{this.targetField.executeCommand(["insert","\\%"]),this.focus();}]
         }
         this.targetField = target;
