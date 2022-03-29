@@ -41,6 +41,14 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
     <script src="js/MM1toMM2.min.js" defer></script>
     <script src="js/libs/vanilla-picker/vanilla-picker.min.js" defer></script>
     <script src="js/lib.mathsmentales.js?v=37" type="module" id="mmscriptid"></script>
+    <!--Alertify JS-->
+    <!-- JavaScript -->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+    <!--Alertify JS-End-->
 </head>
 <body>
     <div id="app-container">
@@ -104,11 +112,7 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
                 var URLCode = document.getElementById("inputCode").value;
 
                 if (URLCode === "") {
-                    ShowPUURLNS()
-                    function ShowPUURLNS(){
-                        var element = document.getElementById("PU-URLNS");
-                        element.style.display = "block";
-                    }
+                    alertify.error('Veuillez saisir une URL')
                 }
                 else {
                   if (URLCode.includes("code=")) {
@@ -121,18 +125,6 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
                     }
              }
               </script>
-              <div class="pop-up" id="PU-URLNS">
-                  <h2>
-                    <i class="bi bi-exclamation-triangle-fill"></i> Veuillez saisir une URL
-                  </h2>
-                  <button onclick="HidePUURLNS()">Fermer</button>
-                  <script>
-                      function HidePUURLNS(){
-                        var element = document.getElementById("PU-URLNS");
-                        element.style.display = "none";
-                      }
-                  </script>
-              </div>
             </div>
             <img alt="logo" src="https://image.jimcdn.com/app/cms/image/transf/dimension=320x10000:format=png/path/sef6091d0cde7bfc1/image/iacfaba7d247d2f62/version/1612443176/image.png" width="160" class="logoMM">
             <p>
@@ -336,18 +328,6 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
                 <input type="radio" class="radio" name="endOfSlideRadio" value="list"id="radioendslider3"> Énoncés
             </fieldset><br>
             <section class="txtcenter" id="startbuttons">
-                <div class="pop-up" id="PU-HIST">
-                    <h2>
-                        <i class="bi bi-check-square-fill"></i> Activité ajoutée à l'historique
-                    </h2>
-                    <button onclick="HidePUHIST()">Fermer</button>
-                    <script>
-                        function HidePUHIST(){
-                          var element = document.getElementById("PU-HIST");
-                          element.style.display = "none";
-                        }
-                    </script>
-                </div>
                 <button class="button--primary tooltip" id="btnstart"><b>Démmarer</b>
                     <span class="tooltiptext">Démarre le diaporama</span>
                 </button>
@@ -363,12 +343,6 @@ Le projet est forké depuis MathsMentales (https://github.com/seb-cogez/mathsmen
                 <input type="text" class="hidden" id="acturl" maxlength="1024">
                 <button class="button--success tooltip" id="btncopytohistoric">Ajouter à l'historique
                 <span class="tooltiptext">Copie la sélection<br>dans l'historique</span>
-                    <script>
-                        function ShowPUHIST(){
-                            var element = document.getElementById("PU-HIST");
-                            element.style.display = "block";
-                        }
-                    </script>
                 </button>
                 <!--<button class="button--success tooltip" onclick="MM.generateCode();">Codes élève
                     <span class="tooltiptext">Génère plusieurs <b>codes</b><br>élèves pour répondre en ligne</span>

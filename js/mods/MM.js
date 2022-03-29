@@ -739,12 +739,24 @@ const MM = {
      * @param {DOM element} elem 
      */
     removeFromHistory(elem){
-        if(!confirm("Supprimer cet élément : \n"+elem.childNodes[0].innerText+" ?"))return false;
+      /*  if(!confirm("Supprimer cet élément : \n"+elem.childNodes[0].innerText+" ?"))return false;
         document.querySelector("#tab-historique ol").removeChild(elem);
         // sauvergarde du résultat
         if(window.localStorage){
             localStorage.setItem("history",document.querySelector("#tab-historique ol").innerHTML);
-        }
+        } */
+        alertify.confirm("Attention", "Supprimer cet élément : \n"+elem.childNodes[0].innerText+" ?",
+            function(){
+                document.querySelector("#tab-historique ol").removeChild(elem);
+                // sauvergarde du résultat
+                if(window.localStorage){
+                    localStorage.setItem("history",document.querySelector("#tab-historique ol").innerHTML);
+                }
+                alertify.success("Elément supprimé avec succès de l'historique");
+            },
+            function(){
+                alertify.message('Action annulée');
+            });
     },
     /**
      * Supprime les éléments d'un historique
@@ -793,11 +805,22 @@ const MM = {
      * Supprime tous les éléments de l'historique
      */
     emptyHistory(){
-        if(!confirm("Confirmez-vous la suppression de tout l'historique ?"))return false;
+        /* if(!confirm("Confirmez-vous la suppression de tout l'historique ?"))return false;
         document.querySelector("#tab-historique ol").innerHTML = "";
         if(window.localStorage){
             localStorage.setItem("history","");
-        }
+        } */
+        alertify.confirm("Attention", "Confirmez-vous la suppression de tout l'historique ?",
+        function(){
+            document.querySelector("#tab-historique ol").innerHTML = "";
+            if(window.localStorage){
+                localStorage.setItem("history","");
+            }
+            alertify.success('Historique suprimée avec succès');
+        },
+        function(){
+            alertify.message('Action annulé');
+        });
     },
     generatePage(){
         window.alert("Fonctionalité en cours de développement.");
