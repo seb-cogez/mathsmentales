@@ -172,9 +172,11 @@ const MM = {
         }
     },
     removeCart:function(index){
-        if(!window.confirm("Vous êtes sur le point de supprimer ce panier.\nConfirmez-vous ?")){
+        /*if(!window.confirm("Vous êtes sur le point de supprimer ce panier.\nConfirmez-vous ?")){
             return false;
-        }
+        }*/
+        alertify.confirm("Attention", "Vous êtes sur le point de supprimer ce panier.<br> Confirmez-vous ?",
+        function(){
         // remove last cart button
         let buttonCartToremove = document.getElementById('button-cart'+MM.carts.length);
         let cartsMenu = document.getElementById('cartsMenu');
@@ -195,6 +197,11 @@ const MM = {
         // show Cart1
         MM.showCart(1);
         // rewrite all contents
+        alertify.success('Panier supprimé avec succès')
+        },
+        function(){
+            alertify.message('Action annulé');
+        });
     },
     showCart(index){
         this.uneditActivity();
@@ -219,11 +226,21 @@ const MM = {
         }
     },
     emptyCart(index){
-        if(window.confirm("Vous êtes sur le point de vider ce panier.\nConfirmez-vous ?")){
+        alertify.confirm("Attention", "Vous êtes sur le point de vider ce panier.<br> Confirmez-vous ?",
+        function(){
             MM.carts[index-1].activities = [];
             MM.carts[index-1].editedActivityId = -1;
             MM.carts[index-1].display();
-        } else return false;
+            alertify.success('Panier vidé avec succès');
+        },
+        function(){
+            alertify.message('Action annulé');
+        });
+       /* if(window.confirm("Vous êtes sur le point de vider ce panier.\nConfirmez-vous ?")){
+            MM.carts[index-1].activities = [];
+            MM.carts[index-1].editedActivityId = -1;
+            MM.carts[index-1].display();
+        } else return false; */
     },
     addToCart(){
         MM.carts[MM.selectedCart].addActivity(MM.editedActivity);
@@ -656,7 +673,7 @@ const MM = {
                 <textarea readonly="true" id="bigurl" cols="38" onfocus="utils.copy(this);"></textarea><br>
                 <div id="RacID">
                 <button onclick="navigator.clipboard.writeText(document.getElementById('bigurl').value); window.open('https://s.42l.fr/', 'projection', 'width=1080,height=720')">Raccourcir cet url</button>
-                <button onclick="window.open('https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + document.getElementById('bigurl').value, 'generationQR', 'width=300,height=300')">Obtenir un QR Code</button>
+                <button onclick="window.open('https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + document.getElementById('bigurl').value, 'generationQR', 'width=300,height=300');">Obtenir un QR Code</button>
                 <p>En raccourcissant l'url, vous serez redirigé vers https://s.42l.fr/, le lien etant déja copié, il vous suffira de coller l'url sur le champ dédié<p>
                 </div>
                 <br>
