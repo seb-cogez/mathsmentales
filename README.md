@@ -33,6 +33,7 @@ Maths et Matic permet de créer des diaporamas en ligne en rapport avec le calcu
  * [mathlive](https://mathlive.io/) pour l'interface de saisie utilisateur pour répondre en ligne (MIT license)
  * [tinyweb](https://www.ritlabs.com/en/products/tinyweb/) pour le mini serveur web sous windows. (licence non libre, Cf. fichier de licence)
  * [Vanilla-picker](https://github.com/Sphinxxxx/vanilla-picker) sélectionneur de couleur en pur javascript (ISC Licence)
+ * [AlertifyJS](https://alertifyjs.com/) pour pouvoir faire de belles boîtes de dialogues (GPL-3.0 License)
 
 ### APIs et services externes utilisés
 * [GoQR](https://goqr.me/) générateur de QR code
