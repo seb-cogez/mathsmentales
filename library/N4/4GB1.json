@@ -4,7 +4,7 @@
     "textSize":"small",
     "ID":"4GB1",
     "description":"Observer la figure pour écrire l'égalité de Pythagore",
-    "dest":["4GB","3GB"],
+    "dest":["4GB","3GB","2G2"],
     "consts":{
         "lettres":"ABCDEFGHIJKLMNPRSTVW",
         "figures":[

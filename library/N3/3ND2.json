@@ -1,7 +1,7 @@
 {
     "title":"Développer une identité remarquable",
     "ID":"3ND2",
-    "dest":["3ND"],
+    "dest":["3ND","2N3"],
     "keys":["x²","-","+","u","v","t","x","y"],
     "vars":{"a":"1_10", "b":"2_10", "c":["u","v","t","x", "y"]},
     "options":[{

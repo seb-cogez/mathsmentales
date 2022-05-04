@@ -2,7 +2,7 @@
     "title":"Réduire une expression du second degré",
     "type":"latex",
     "ID":"4NE3",
-    "dest":["4NE","3ND"],
+    "dest":["4NE","3ND","2N3"],
     "keys":["+","-","x²","a","b","c","x","y"],
     "consts":{"lettres":["a","b","c","x","y"]},
     "options":[{

@@ -14,9 +14,41 @@ const common = {
             params.cart.activities[index].initialize();
         }
         // generate questions and answers
-        for(let index=0;index<params.cart.activities.length;index++){
-            const activity = params.cart.activities[index];
-            activity.generate();
+        if(params.doublons){ // doublons autorisés
+            params.errorDouble = false
+            for(let index=0;index<params.cart.activities.length;index++){
+                const activity = params.cart.activities[index];
+                activity.generate();
+            }
+        } else {
+            let answers = []
+            params.errorDouble = false
+            for(let index=0; index<params.cart.activities.length;index++){
+                const activity =  params.cart.activities[index];
+                let double = false
+                let securite = 100;
+                do {
+                    activity.generate()
+                    let actanswers = []
+                    double = false
+                    securite--;
+                    if(securite<0){params.errorDouble = true;console.log(answers);break;}
+                    // vérification qu'il n'y ait pas de doublon
+                    for(let n=0;n<activity.values.length;n++){
+                        if(answers.indexOf(activity.values[n])>-1 || actanswers.indexOf(activity.values[n])>-1){
+                            double = true;
+                            break;
+                        } else {
+                            actanswers.push(activity.values[n])
+                        }
+                    }
+                    if(!double){
+                        for(let n=0;n<activity.values.length;n++){
+                            answers.push(activity.values[n])
+                        }
+                    }
+                } while(double && !params.errorDouble)
+            }
         }
     },
     changeOrientation(evt){
@@ -112,10 +144,12 @@ const common = {
             });
         }
     },
-    mathRender: function() {
+    mathRender: function(all) {
         // search for $$ formulas $$ => span / span
-        const content = document.getElementById("creator-content");
-        content.innerHTML = content.innerHTML.replace(/\$\$([^$]*)\$\$/gi, '<span class="math">$1</span>');
+        if(all === undefined){
+            const content = document.getElementById("creator-content");
+            content.innerHTML = content.innerHTML.replace(/\$\$([^$]*)\$\$/gi, '<span class="math">$1</span>');
+        }
         document.querySelectorAll(".math").forEach(function(item) {
             // transform ascii to Latex
             //var texTxt = MM.ascii2tex.parse(item.innerHTML);

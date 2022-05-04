@@ -18,7 +18,7 @@
     <link href="js/libs/katex/katex.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/knacss.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/bulma-steps.min.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="css/mathsmentales.min.css?v=7" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/mathsmentales.min.css?v=9" type="text/css" media="screen" />
     <link rel="stylesheet" href="js/libs/JSXGprah1.2.2/jsxgraph.css" type="text/css" />
     <script src="js/libs/katex/katex.min.js" type="text/javascript" defer></script>
     <script src="js/libs/asciimath2tex/asciimath2tex.min.js" defer></script>
@@ -36,7 +36,7 @@
     <script src="js/libs/kas.min.js" defer></script>
     <script src="js/MM1toMM2.min.js" defer></script>
     <script src="js/libs/vanilla-picker/vanilla-picker.min.js" defer></script>
-    <script src="js/lib.mathsmentales.js?v=37" type="module" id="mmscriptid"></script>
+    <script src="js/lib.mathsmentales.js?v=40" type="module" id="mmscriptid"></script>
 </head>
 <body>
     <div id="app-container">
@@ -244,6 +244,7 @@
                 <option value="paramsflashcards">Cartes flash</option>
                 <option value="paramswhogots">J'ai/qui a ?</option>
                 <option value="paramsdominos">Dominos</option>
+                <option value="paramsduel">Duel</option>
             </select>
             <br>
             <fieldset><legend>Clé de données</legend>
@@ -339,9 +340,9 @@
             </fieldset>
             <fieldset>
                 <legend>Corrigé</legend>
-                <input type="radio" name="excorr" value="each"> Après chaque exercice<br>
-                <input type="radio" name="excorr" value="end" checked> En fin de fiche <br>
-                <input type="radio" name="excorr" value="sans"> Sans corrigé
+                <input type="radio" name="excorr" value="each" class="radio"> Après chaque exercice<br>
+                <input type="radio" name="excorr" value="end" class="radio" checked> En fin de fiche <br>
+                <input type="radio" name="excorr" value="sans" class="radio"> Sans corrigé
             </fieldset>
             <section>
                 <button class="button--primary beaubutton" id="btngeneratesheet">Générer</button>
@@ -487,9 +488,54 @@
                 <legend>Nombre de dominos : <span id="dominosNb" class="blue">28</span> (si 1 seule activité)</legend>
                 <input id="dominosNbValue" type="range" min="2" max="100" step="1" value="28">
             </fieldset>
+            <fieldset><legend>Doublons autorisés</legend>
+                <input type="checkbox" id="dominosDoublons" value="1" class="switch" title="Autorise la présence de réponses doubles dans les dominos" checked> <span id="dominosDoublonsText">Oui</span>
+            </fieldset>
             <section>
                 <button class="button--primary beaubutton" id="btngenerateDominos">Générer</button>
             </section>
+        </div>
+        <div id="paramsduel" class="hidden">
+            <fieldset class="lh2">
+                <legend>Thème</legend>
+                <select name="duelbackground" id="duelbackgroundselect">
+                    <option value="vs" selected>VS</option>
+                    <option value="space">Espace</option>
+                    <option value="foret">Forêt</option>
+                    <option value="marais">Marais</option>
+                    <option value="hangar">Hangar</option>
+                    <option value="saloon">Saloon</option>
+                    <option value="desert">Désert</option>
+                    <option value="nightdesert">Désert la nuit</option>
+                </select><br><br>
+                <div id="duelbg"></div>
+            </fieldset>
+            <fieldset class="lh3">
+                <legend>Type de duel</legend>
+                <input type="radio" class="radio" name="dueltype" value="tochoose" title="Au choix des joueurs" checked> Au choix
+                <input type="radio" class="radio" name="dueltype" value="normal" title="Meilleur score"> Normal 
+                <input type="radio" class="radio" name="dueltype" value="mortal" title="Le premier qui échoue perd"> À mort 
+                <input type="radio" class="radio" name="dueltype" value="roulette" title="Chacun son tour, le premier qui échoue"> Roulette <br>
+                <input type="radio" class="radio" name="dueltype" value="thefaster" title="Le plus rapide gagne le point"> Lucky Luke 
+                <input type="radio" class="radio" name="dueltype" value="coop" title="Réponses alternées, donner le plus de bonnes réponses"> Coopératif
+            </fieldset>
+            <fieldset class="lh3">
+                <legend>Durée</legend>
+                <input type="radio" class="radio" name="dueltemps" value="panier" checked> Durée définie par le panier<br>
+                <input type="radio" class="radio" name="dueltemps" value="limit"> Durée donnée<br>
+                <input type="time" id="dueltotaltime" value="03:00">
+            </fieldset>
+            <section>
+                <button class="button--primary tooltip beaubutton" id="btn-duel-start">C'est parti !
+                    <span class="tooltiptext">Démarre le diaporama</span>
+                </button>                <button class="button--inverse tooltip beaubutton" id="btn-duel-adresse">Adresse/QRCode
+                    <span class="tooltiptext">Copie l'adresse <br>du duel dans<br>le presse papier</span>
+                </button>
+                <button class="button--success tooltip beaubutton" id="btn-duel-copytohistoric">→ Historique
+                    <span class="tooltiptext">Copie le duel<br>dans l'historique</span>
+                </button>
+            </section>
+
         </div>
         </div>
        <div class="row-4 colsx2" id="divparams">

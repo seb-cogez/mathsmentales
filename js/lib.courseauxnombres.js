@@ -236,8 +236,7 @@ function checkURL(urlString){
         if(vars.embed.match(regex))
             MM.embededIn = vars.embed;
     }
-    if(vars.c!==undefined){ // présence de carts MM v2 à lancer ou éditer
-        // le seed d'aléatorisation est fourni et on n'est pas en mode online
+    if(vars.c!==undefined){
         if(vars.a){
             parameters.alea = vars.a;
         } else {

@@ -2,7 +2,7 @@
     "title":"Décomposer en facteurs premiers",
     "ID":"5ND1",
     "description":"Écrire le produit à l'aide du signe ×. Possibilité d'utiliser la notation avec des puissances.",
-    "dest":["5ND", "4ND", "3NC"],
+    "dest":["5ND", "4ND", "3NC", "2N2"],
     "keys":["_","_","^","×"],
     "consts":[2,3,5,7,11,13,17],
     "options":[{

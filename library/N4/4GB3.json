@@ -4,7 +4,7 @@
     "textSize":"small",
     "ID":"4GB3",
     "description":"Hypoténuse, côté opposé, côté adjacent",
-    "dest":["4GB","3GB"],
+    "dest":["4GB","3GB","2G2"],
     "consts":{
         "lettres":"ABCDEFGHIJKLMNPRSTVW",
         "figures":[

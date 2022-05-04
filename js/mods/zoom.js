@@ -16,18 +16,18 @@ export default class Zoom {
         if(value===10 && obj){
             obj.value = 1;
         }
-        let dest = undefined;
-        if(this.normaltarget)
+        let dest = document.querySelectorAll(this.target);// undefined;
+        /*if(this.normaltarget)
             dest = document.querySelectorAll(this.target);
         else 
-            dest = document.querySelectorAll(this.target+ " > span");
+            dest = document.querySelectorAll(this.target+ " > span");*/
         dest.forEach(elt=>elt.style.fontSize = value+this.unite);
     }
     minus(){
         if(this.unite === "em"){
             if(this.value<0.3)return;
             if(this.value<=1)
-                this.value-=0.2;
+                this.value-=0.1;
             else{
                 this.value-=0.5;
             }
@@ -42,7 +42,7 @@ export default class Zoom {
     plus(){
         if(this.unite === "em"){
             if(this.value>=6)return;
-            if(this.value<1)this.value+=0.2;
+            if(this.value<1)this.value+=0.1;
             else this.value +=0.5;
         } else if(this.unite === "pt"){
             if(this.value>28)return;
@@ -95,7 +95,6 @@ export default class Zoom {
         fill="currentColor"
       />
     </svg></button>`;
-        //let cursor = `<input id="zoom${this.id}" type="range" min="6" max="60" step="2" value="10" oninput="MM.zooms['${this.id}'].changeSize(this.value)" ondblclick="MM.zooms['${this.id}'].changeSize(10,this)">`;
         div.innerHTML += btn1;
         div.appendChild(span);
         div.innerHTML += btn2;

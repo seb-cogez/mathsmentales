@@ -209,16 +209,19 @@ const math ={
      * @param {integer} entier product
      * @param {integer} max factors's max value
      */
-    listeProduits:function(entier, max){
+    listeProduits:function(entier, max, values=false){
         let liste = [];
         if(max === undefined)max=10;
         for(let i=1,top=Math.floor(Math.sqrt(entier));i<=top;i++){
             let reste = entier%i, quotient = ~~(entier/i);
             if(reste == 0 && i<=max && quotient<=max){
                 liste.push(i+"\\times"+quotient);
+                if(values && i!== quotient)liste.push(quotient+"\\times"+i)
             }
         }
-        return liste.join("; ");
+        if(!values)
+            return liste.join("; ");
+        else return liste
     },
     /** 
     * donne la liste des diviseurs d'un nombre sous forme de chaine

@@ -5,7 +5,7 @@
     "textSize":"small",
     "type":"text",
     "ID":"5DA2",
-    "dest":["5DA","4DA","3DA"],
+    "dest":["5DA","4DA","3DA", "2D1"],
     "options":[{
         "name":"Moyenne (5e)",
         "vars":{"nbvals":"2_5", "b":"1_20_${:nbvals-1}","m":"1_3","mn":"${:nbvals*:m}","c":"${:mn+:nbvals-_.reduce(:b,(a,b)=>a+b)%:nbvals}","sum":"${_.reduce(:b,(a,b)=>a+b)+:c}"},

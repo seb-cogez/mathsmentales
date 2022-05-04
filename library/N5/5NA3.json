@@ -15,6 +15,9 @@
     },{
         "name":"Nombres ayant une partie proche",
         "vars":{"c":"1_100","p":"-3_0","dec":"1_3_2","d1":"${math.round(utils.alea(), :dec[0])*Number(10+'e'+:p)+:c}","d2":"${math.round(utils.alea(), :dec[1])*Number(10+'e'+:p)+:c}","a":"${math.round(:d1,6)}","b":"${math.round(:d2,6)}","cv":"0_1"}
+    },{
+        "name":"Nombres négatifs ayant une partie proche",
+        "vars":{"c":"1_100","p":"-3_0","dec":"1_3_2","d1":"${math.round(utils.alea(), :dec[0])*Number(10+'e'+:p)+:c}","d2":"${math.round(utils.alea(), :dec[1])*Number(10+'e'+:p)+:c}","a":"${-math.round(:d1,6)}","b":"${-math.round(:d2,6)}","cv":"0_1"}
     }],
     "question":"Lequel des deux nombres $$${:a}$$ et $$${:b}$$ est <b>le plus ${:voc[:cv]}</b> ?",
     "answer":"Entre $$${:a}$$ et $$${:b}$$, le plus ${:voc[:cv]} est $$\\color{red}{${:cv?Math.max(:a,:b):Math.min(:a,:b)}}$$",

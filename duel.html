@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr" id="thehtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+        <title>Dominos générés par MathsMentales</title>
+        <link rel="stylesheet" href="css/duel.css?v=1" type="text/css" />
+        <link href="js/libs/katex/katex.min.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="js/libs/JSXGraph1.4.0/jsxgraph.css" type="text/css" />
+        <script src="js/libs/JSXGraph1.4.0/jsxgraphcore.js" defer></script>
+        <script src="js/libs/chartjs/Chart.bundle.min.js" defer></script>
+        <script src="js/libs/seedrandom/seedrandom.min.js" defer></script>
+        <script src="js/libs/underscore-min.js" defer></script>
+        <script src="js/libs/kas.min.js" defer></script>
+        <script src="js/libs/katex/katex.min.js" defer></script>
+        <script src="js/libs/algebrite/algebrite.bundle-for-browser.min.js" type="text/javascript" defer></script>
+        <script src="js/libs/bigjs/big.min.js" type="text/javascript" defer></script>
+        <script src="js/libs/chartjs/Chart.bundle.min.js" defer></script>
+        <script src="js/libs/mathlive/mathlive.min.js"></script>
+        <script type="module" src="js/lib.duel.js"></script>
+    </head>  
+    <body>
+        <button id="pageOrientation" style="display: none;"></button>
+        <!--<div id="info-orientation" class="texte">Orienter l'appareil différemment</div>-->
+        <div id="intro">
+            <div>
+                <article>
+                    <h1>Préparez-vous pour le duel</h1>
+                    <h2 id="duel-type"></h2>
+                </article>
+                <section id="typeduelchoice" class="hidden">
+                    <fieldset>
+                        <legend id="duel-type">Mode de duel</legend>
+                        <button id="btn-choice-normal" class="selected">Top score</button>
+                        <button id="btn-choice-mortal">Le dernier</button>
+                        <button id="btn-choice-roulette">La roulette</button>
+                        <button id="btn-choice-thefaster">Le + rapide</button>
+                        <button id="btn-choice-coop">Coop</button>
+                        <article id="explanations">Chacun répond à son rythme, le score final décide du vainqueur</article>
+                    </fieldset>
+                </section>
+            </div>
+            <div style="width:100%">
+                <fieldset id="field-options">
+                    <legend>Options</legend>
+                    <article>
+                        <img id="introPersol" class="pointer" src="" alt="Perso gauche"><br>
+                        JOUEUR 1
+                    </article>
+                    <article class="vs">VS</article>
+                    <article>
+                        <img id="introPersor" class="pointer" src="" alt="Perso droite"><br>
+                        JOUEUR 2</article>
+                </fieldset>
+                <br>
+                <article>
+                    <button id="full-screen">Plein écran</button>
+                    <button id="btn-start">START !</button>
+                    <button id="btn-infoconfig">i</button>
+                </article>    
+            </div>
+        </div>
+        <div id="creator-menu" class="hidden"></div>
+        <div id="creator-container" class="hidden">
+            <section id="creator-content">
+                <section id="left">
+                    <article id="scorel">0</article>
+                    <article id="chronol">-:--</article>
+                    <article id="enoncesl"></article>
+                    <article id="jaugel">
+                        <div class="fondjauge"></div>
+                        <div class="avance"></div>
+                    </article>
+                </section>
+                <section id="right">
+                    <article id="scorer">0</article>
+                    <article id="chronor">-:--</article>
+                    <article id="enoncesr"></article>
+                    <article id="jauger">
+                        <div class="fondjauge"></div>
+                        <div class="avance"></div>
+                    </article>
+                </section>
+            </section>
+            </div>
+        <div id="countdown-container" class="hidden">
+            <div class="demo">
+                <div class="demo__colored-blocks">
+                  <div class="demo__colored-blocks-rotater">
+                    <div class="demo__colored-block"></div>
+                    <div class="demo__colored-block"></div>
+                    <div class="demo__colored-block"></div>
+                  </div>
+                  <div class="demo__colored-blocks-inner"></div>
+                  <div class="demo__text">Prêt</div>
+                </div>
+                <div class="demo__inner">
+                  <svg class="demo__numbers" viewBox="0 0 100 100">
+                    <defs>
+                      <path class="demo__num-path-1" d="M40,28 55,22 55,78"/>
+                      <path class="demo__num-join-1-2" d="M55,78 55,83 a17,17 0 1,0 34,0 a20,10 0 0,0 -20,-10"/>
+                      <path class="demo__num-path-2" d="M69,73 l-35,0 l30,-30 a16,16 0 0,0 -22.6,-22.6 l-7,7"/>
+                      <path class="demo__num-join-2-3" d="M28,69 Q25,44 34.4,27.4"/>
+                      <path class="demo__num-path-3" d="M30,20 60,20 40,50 a18,15 0 1,1 -12,19"/>
+                    </defs>
+                    <path class="demo__numbers-path" 
+                          d="M-10,20 60,20 40,50 a18,15 0 1,1 -12,19 
+                             Q25,44 34.4,27.4
+                             l7,-7 a16,16 0 0,1 22.6,22.6 l-30,30 l35,0 L69,73 
+                             a20,10 0 0,1 20,10 a17,17 0 0,1 -34,0 L55,83 
+                             l0,-61 L40,28" />
+                  </svg>
+                </div>
+              </div>
+        </div>
+        <div id="thewinner" class="hidden">
+            <article id="thewinnercontent"></article>
+            <button id="btn-restart">Recommencer</button>
+        </div>
+        <div id="infodebug" class="hidden">
+            <h1>Duel MathsMentales</h1>
+            <p>Ce duel est un dérivé du site <a href="https://mathsmentales.net">MathsMentales</a> sur lequel il a été configuré.
+            <p>Il a été pensé pour un usage sur smartphone ou tablette qui permet de travailler à plusieurs grace aux interfaces tactitles.</p>
+            </p>
+            <p>Les images utilisées ici sont issues de <a href="https://www.freepik.com">https://www.freepik.com</a>
+                 dont je possède les licences d'utilisation. Vous ne pouvez les réutiliser dans vos projets sans licence.</p>
+            <p>Amusez-vous bien !</p>
+        </div>
+    </body>
+</html>

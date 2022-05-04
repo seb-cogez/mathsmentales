@@ -2,7 +2,7 @@
     "title":"Ecriture scientifique et décimaux",
     "type":"text",
     "ID":"4NA1",
-    "dest":["4NA","3NA"],
+    "dest":["4NA","3NA", "2N1"],
     "keys":["_","-","×","10n"],
     "textSize":"small",
     "options":[{

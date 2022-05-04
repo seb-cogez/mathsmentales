@@ -2,7 +2,7 @@
     "title":"Vocabulaire image, antécédent",
     "type":"text",
     "ID":"3DD2",
-    "dest":["3DD"],
+    "dest":["3DD","2F1"],
     "textSize":"medium",
     "vars":{"a":"-30_30", "b":"-30_30_^${:a}"},
     "options":[{

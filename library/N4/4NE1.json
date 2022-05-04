@@ -2,7 +2,7 @@
     "title":"Réduire une somme de produits",
     "type":"latex",
     "ID":"4NE1",
-    "dest":["4NE","3ND"],
+    "dest":["4NE","3ND","2N3"],
     "consts":{"lettres":["a","b","c","x","y"]},
     "keys":["+","-","x²","a","b","c","x","y"],
     "options":[{

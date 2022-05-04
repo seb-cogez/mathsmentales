@@ -14,9 +14,10 @@
         "value":"${math.round(:e+:c/:dix[:b],3)}"
     },{
         "name":"Entier et fractions décimales -> décimal",
-        "vars":{"a":[10,100,1000,10000], "e":"1_${:a}", "b":"0_9_3"},
-        "question":["\\begin{array}{c} \\text{Forme décimale de}\\\\${:e}${:b[0]!=0?'+'+math.round(:b[0]/10,1):''}${:b[1]!=0?'+'+math.round(:b[1]/100,2):''}${:b[2]!=0?'+'+math.round(:b[2]/1000,3):''}\\end{array}",
-            "\\begin{array}{c} \\text{Forme décimale de}\\\\${:e}${:b[0]!=0?'+\\dfrac{'+:b[0]+'}{10}':''}${:b[1]!=0?'+\\dfrac{'+:b[1]+'}{100}':''}${:b[2]!=0?'+\\dfrac{'+:b[2]+'}{1000}':''}\\end{array}"],
+        "consts":{"dix":[10,100,1000]},
+        "vars":{"a":[10,100,1000,10000], "e":"1_${:a}", "b":"0_9_3", "c":"0_2_3_^&"},
+        "question":["\\begin{array}{c} \\text{Forme décimale de}\\\\${:e}${:b[:c[0]]!=0?'+'+math.round(:b[:c[0]]/:dix[:c[0]],3):''}${:b[:c[1]]!=0?'+'+math.round(:b[:c[1]]/:dix[:c[1]],3):''}${:b[:c[2]]!=0?'+'+math.round(:b[:c[2]]/:dix[:c[2]],3):''}\\end{array}",
+            "\\begin{array}{c} \\text{Forme décimale de}\\\\${:e}${:b[:c[0]]!=0?'+\\dfrac{'+:b[:c[0]]+'}{'+:dix[:c[0]]+'}':''}${:b[:c[1]]!=0?'+\\dfrac{'+:b[:c[1]]+'}{'+:dix[:c[1]]+'}':''}${:b[:c[2]]!=0?'+\\dfrac{'+:b[:c[2]]+'}{'+:dix[:c[2]]+'}':''}\\end{array}"],
         "answer": ":question=\\color{red}{${math.round(:e+:b[0]/10+:b[1]/100+:b[2]/1000,3)}}",
         "value":"${math.round(:e+:b[0]/10+:b[1]/100+:b[2]/1000,3)}"
     },

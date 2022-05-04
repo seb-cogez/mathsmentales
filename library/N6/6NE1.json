@@ -1,7 +1,7 @@
 {
     "title":"Calculer le carré d'un décimal simple",
     "ID":"6NE1",
-    "dest":["6NE", "5NC", "4NC", "3NB"],
+    "dest":["6NE", "5NC", "4NC", "3NB", "2N1"],
     "options":[{
         "name":"Nombre de 1 à 10 multiplié par 10 ou 100",
         "vars":{"a":[10,100], "b":"1_10", "c":"${:a*:b}"}

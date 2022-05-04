@@ -9,7 +9,7 @@ const moisFR = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet'
 const joursFR = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
 
 const utils = {
-    baseURL:window.location.href.split("?")[0],
+    baseURL:window.location.href.split("?")[0].split("#")[0],
     seed: "sample",
     security:300,// max number for boucles
     modeDebug : true, 
@@ -18,7 +18,7 @@ const utils = {
     },
     /**
      * objet contenant des fonctions utiles à MathsMentales
-     */   
+     */
     /**
      * @param {String} type of DOM element
      * @param {object} props properties of the element
@@ -61,6 +61,39 @@ const utils = {
         else
             return false;
     },
+    selectOption(id,value){
+        let domElt = document.getElementById(id);
+        for(let i=0;i<domElt.options.length;i++){
+            if(domElt.options[i].value === value){
+                domElt.selectedIndex = i;
+                break;
+            }
+        }
+    },
+    getTypeOfURL(url){
+        if(url.indexOf("exercices.html")>-1){
+            return "paramsexos"
+        } else if(url.indexOf("courseauxnombres.html")>-1){
+            return "paramscourse"
+        } else if(url.indexOf("dominos.html")>-1){
+            return "paramsdominos"
+        } else if(url.indexOf("duel.html")>-1){
+            return "paramsduel"
+        } else return "paramsdiapo"
+    },
+    /**
+     * 
+     * @param {Array} array tableau contenant des données
+     * @param {someThing} value value à rechercher
+     * @returns {Number} count nombre des valeurs dans le tableau
+     */
+    countValue(array, value){
+        let count = 0
+        for(let i=0,j=array.length;i<j;i++){
+            if(array[i]===value)count++
+        }
+        return count;
+    },
     /**
      * regarde les paramètres fournis dans l'url
      * et lance le diapo ou passe en mode édition
@@ -68,8 +101,8 @@ const utils = {
      */
     checkURL(urlString=false,start=true,edit=false){
         const vars = utils.getUrlVars(urlString);
-        // cas d'une prévue pour exercice.html
-        if(vars.cor && vars.ex && location.href.indexOf("exercices.html")<0){
+        // cas d'une page prévue pour exercice.html
+        if(vars.cor && vars.ex && location.href.indexOf("exercices.html")<0 && !edit){
             // on redirige vers exercice.html
             let url = new URL(location.href);
             location.href= url.origin+url.pathname.replace("index.html","")+"exercices.html"+url.search;
@@ -82,10 +115,10 @@ const utils = {
             if(vars.embed.match(regex))
                 MM.embededIn = vars.embed;
         }
-        if(vars.n!== undefined && vars.cd===undefined){ // un niveau à afficher
+        if(vars.n!== undefined && vars.cd===undefined && !edit){ // un niveau à afficher
             library.displayContent(vars.n,true);
             return;
-        } else if(vars.u!==undefined && vars.cd === undefined){ // ancien exo MM1
+        } else if(vars.u!==undefined && vars.cd === undefined && !edit){ // ancien exo MM1
             let regexp = /(\d+|T|G)/;// le fichier commence par un nombre ou un T pour la terminale
             // un paramétrage d'exercice à afficher
              if(_.isArray(vars.u)){
@@ -198,6 +231,10 @@ const utils = {
             // on affiche l'interface de paramétrage si on est en mode édition
                 if(edit) {
                     utils.showTab("tab-parameters");
+                    // on sélectionne le menu qu'il faut
+                    utils.selectOption("chooseParamType",utils.getTypeOfURL(urlString));
+                    let element = document.getElementById("chooseParamType");
+                    element.dispatchEvent(new Event('change', { 'bubbles': true }));
                 }
             }).catch(err=>{
                 // erreur à l'importation :(
@@ -344,6 +381,14 @@ const utils = {
        return ladateComplete;
     },
     /**
+     * Transform 10:05 string to seconds string, return number
+     * @param {string} timeValue 
+     */
+    timeToSeconds(timeValue){
+        let elems = timeValue.split(":");
+        return Number(elems[0])*60+Number(elems[1]);
+    },
+    /**
      * Create a string of six alphabetic letters
      * @returns (String) a aleatorycode
      */
@@ -361,7 +406,7 @@ const utils = {
      * @param {String} value 
      */
     setSeed(value){
-        if(value !== undefined && value !== "sample"){
+        if(value !== undefined && value !== "sample" && value !== "checkSwitched"){
             MM.seed = value;
             document.getElementById("aleaKey").value = value;
         } else if(value === "sample"){
@@ -373,7 +418,10 @@ const utils = {
             } else {
                 MM.seed = document.getElementById("aleaKey").value;
             }
-         } else {
+        } else if(value === "checkSwitched") {
+            // on ne fait rien
+            return false;
+        } else {
             MM.seed = utils.seedGenerator();
             document.getElementById("aleaKey").value = MM.seed;
         }
@@ -440,6 +488,19 @@ const utils = {
             }
         }
         return false;
+    },
+    /**
+     * 
+     * @param {string} value id select
+     * @returns string
+     */
+    getSelectValue:function(id){
+        try {
+            let select = document.getElementById(id);
+            return select[select.selectedIndex].value;
+        } catch(err){
+            console.log(err)
+        }
     },
     /**
      * renvoit un nombre si le nombre est sous forme de chaine
@@ -691,7 +752,7 @@ const utils = {
         document.getElementById(tab).style.display = "";
     },
     showParameters:function(id){
-        let ids = ["paramsdiapo","paramsexos", "paramsinterro", "paramsceinture", "paramsflashcards", "paramswhogots", "paramsdominos", "paramscourse"];//
+        let ids = ["paramsdiapo","paramsexos", "paramsinterro", "paramsceinture", "paramsflashcards", "paramswhogots", "paramsdominos", "paramscourse", "paramsduel"];//
         if(ids.indexOf(id)<0) return false;
         // hide all
         for(let i=0,len=ids.length;i<len;i++){

@@ -2,7 +2,7 @@
     "title":"Réduire une expression du premier degré",
     "type":"latex",
     "ID":"4NE2",
-    "dest":["4NE","3ND"],
+    "dest":["4NE","3ND","2N3"],
     "keys":["+","-","a","b","c","x","y","z"],
     "consts":{"lettres":["a","b","c","x","y","z"]},
     "options":[{

@@ -3,7 +3,7 @@
     "type":"text",
     "ID":"5ND4",
     "textSize":"medium",
-    "dest":["5ND", "4ND", "3NC"],
+    "dest":["5ND", "4ND", "3NC", "2N2"],
     "options":[{
         "name":"Nombres inférieurs à 36",
         "vars":{"a":"2_6","b":"2_5", "c":"2_6_^${:b}","n":"${:a*:b}", "d":"${:a*:c}"}

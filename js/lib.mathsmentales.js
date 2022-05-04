@@ -119,6 +119,8 @@ window.onload = function(){
     document.getElementById("btnreponses").onclick = ()=>{MM.showAnswers();};
     document.getElementById("btnadresse").onclick = ()=>{MM.copyURL();};
     document.getElementById("btncopytohistoric").onclick = ()=>{MM.copyURLtoHistory()};
+    // bouton d'inclusion de la variable aléatoire
+    document.getElementById("aleaInURL").onchange = ()=>{utils.setSeed("checkSwitched")}
     // boutons génération documents
     document.getElementById("chooseParamType").onchange = (evt)=>{utils.showParameters(evt.target.value)}
     // fiche d'exercices
@@ -126,19 +128,32 @@ window.onload = function(){
     document.getElementById("btn-ex-adresse").onclick = ()=>{MM.copyURL('exosheet');};
     document.getElementById("btn-ex-copytohistoric").onclick = ()=>{MM.copyURLtoHistory('exosheet')};
     document.getElementById("btngenerateexams").onclick = ()=>{MM.createExamSheet()}
+    // ceintures
     document.getElementById("ceintcolsval").oninput = (evt)=>{document.getElementById('ceintcols').innerHTML=evt.target.value;utils.createCeintureTitres(evt.target.value)}
     document.getElementById("ceintrowsval").oninput = (evt)=>{document.getElementById('ceintrows').innerHTML=evt.target.value}
     document.getElementById("ceintqtyvalue").oninput = (evt)=>{document.getElementById('ceintqty').innerHTML=evt.target.value;}
     document.getElementById("btngenerateceinture").onclick = ()=>{MM.createCeintureSheet()}
+    // course au nombres
     document.getElementById("canqtyvalue").oninput = (evt)=>{document.getElementById('canqty').innerHTML=evt.target.value;}
     document.getElementById("btn-can-adresse").onclick = ()=>{MM.copyURL('cansheet');};
     document.getElementById("btn-can-copytohistoric").onclick = ()=>{MM.copyURLtoHistory('cansheet')};
     document.getElementById("btngenerateCAN").onclick = ()=>{MM.createCourseAuxNombres()}
+    // flash cards
     document.getElementById("btngenerateFC").onclick = ()=>{MM.createFlashCards()}
     document.getElementById("cardsNbValue").oninput = (evt)=>{document.getElementById('cardsNb').innerHTML=evt.target.value;}
+    // j'ai / qui a ?
     document.getElementById("btngenerateWG").onclick = ()=>{MM.createWhoGots()}
+    // dominos
     document.getElementById("dominosNbValue").oninput = (evt)=>{document.getElementById('dominosNb').innerHTML=evt.target.value;}
+    document.getElementById("dominosDoublons").onclick = (evt)=>{let text = document.getElementById("dominosDoublonsText"); if(evt.target.checked)text.innerHTML="Oui"; else text.innerHTML = "Non"}
+    document.getElementById("dominosDoublons").checked = true;
     document.getElementById("btngenerateDominos").onclick = ()=>{MM.createDominos()}
+    // duels
+    document.getElementById("btn-duel-start").onclick = ()=>{MM.duelLaunch();};
+    document.getElementById("btn-duel-adresse").onclick = ()=>{MM.copyURL('duel');};
+    document.getElementById("btn-duel-copytohistoric").onclick = ()=>{MM.copyURLtoHistory('duel')};
+    document.getElementById("duelbackgroundselect").onchange = (evt)=>{document.getElementById("duelbg").style.backgroundImage = "url('./library/illustrations/backgrounds/bg"+evt.target.value+".jpg')"}
+    document.getElementById("duelbg").style.backgroundImage = "url('./library/illustrations/backgrounds/bg"+utils.getSelectValue("duelbackgroundselect")+".jpg')"
     // boutons d'exemples
     document.getElementById("btn-annotation2").addEventListener("click", (evt)=>{
         let target = utils.getTargetWithImageInside(evt);
@@ -247,9 +262,32 @@ window.onload = function(){
         }
     })
     // boutons commandes générales
-    document.getElementById("stop-all").onclick = ()=>{MM.stopAllSliders()};
-    document.getElementById("pause-all").onclick = ()=>{MM.pauseAllSliders()};
-    document.getElementById("next-all").onclick = ()=>{MM.nextAllSliders()};
+    document.querySelector("#slideshow-container header").onclick = (evt)=>{
+        switch (evt.target.parentNode.id) {
+            case "stop-all":
+                MM.stopAllSliders();
+                break;
+            case "pause-all":
+                MM.pauseAllSliders();
+                break;
+            case "next-all":
+                MM.nextAllSliders();
+                break;
+            default:
+                break;
+        }
+        switch (evt.target.dataset.what){
+            case "in":
+                MM.zooms[evt.target.dataset.zoom].plus();
+                break;
+            case "out":
+                MM.zooms[evt.target.dataset.zoom].minus();
+                break;
+            default:
+                break;
+        }
+
+    }
     // moteur de recherche d'activité
     document.getElementById("searchinput").onkeyup = (evt)=>{library.displayContent(evt.target.value)};
     // boutons aléatorisation

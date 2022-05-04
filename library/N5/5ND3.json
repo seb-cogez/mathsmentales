@@ -5,7 +5,7 @@
     "valueType":"liste",
     "textSize":"medium",
     "keys":["_","_","-",";","_","_","_","_"],
-    "dest":["5ND", "4ND", "3NC"],
+    "dest":["5ND", "4ND", "3NC", "2N2"],
     "options":[{
         "name":"Nombres inférieurs à 50",
         "vars":{"a":"2_30","b":"1_${~~(50/:a)}","c":"${:a*:b}"}

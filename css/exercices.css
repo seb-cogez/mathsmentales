@@ -10,7 +10,7 @@ body{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 body[size="A4"]{
-    width: 19cm;
+    width: 21cm;
   min-height: 29.7cm;
 }
 body[size="A4"][layout="landscape"]{
@@ -205,6 +205,9 @@ h3.exercice-title{
     }
     .pagebreak {
         border-top: 1px dashed  rgb(18, 150, 47);
+    }
+    #creator-menu {
+        font-size: 10.5pt;
     }
     #creator-container::before{
         content:"\ CC-BY-NC © 2022 MathsMentales.net";
