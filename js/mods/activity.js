@@ -677,7 +677,8 @@ export default class activity {
                                 }
                                 nbValues = nbValues - liste.length - primes.length + (liste.indexOf("prime")>-1?1:0)+(liste.indexOf("&")>-1?1:0);
                             }
-                            this.intVarsHistoric[name]=[nbValues];
+                            this.intVarsHistoric[name]=[];
+                            this.intVarsHistoric[name+"-length"]=nbValues;
                             //utils.debug(name,nbValues);
                         }
                         let entier;
@@ -687,19 +688,19 @@ export default class activity {
                             entier = math.aleaInt(Number(bornes[0]), Number(bornes[1]), bornes[2], bornes[3]);
                             protectionLoop++;
                             if(protectionLoop>100)break;
-                        } while (this.intVarsHistoric[name].indexOf(entier)>-1)
+                        } while (this.intVarsHistoric[name].indexOf(entier)>-1)// l'index 0 est réservé à la taille du tableau
                         // on stocke dans le tableau
                         this.intVarsHistoric[name].push(entier);
                         // si le tableau est plein, on le vide
-                        if(this.intVarsHistoric[name][0]+1 <= this.intVarsHistoric[name].length){
+                        if(this.intVarsHistoric[name].length >= this.intVarsHistoric[name+"-length"]){
                             //utils.debug("reinitialisation",utils.clone(this.intVarsHistoric[name]));
-                            this.intVarsHistoric[name].splice(1);
+                            this.intVarsHistoric[name].splice(0);
                         }
                         this.wVars[name] = entier;
                     }
                 }
             }
-            // généralement pas utilisé, mais cela arrive.
+            // il peut y avoir des variables utilisées dans les constantes. bizarre, mais pratique
             if(this.cConsts !== undefined){
                 this.cConsts = this.replaceVars(this.cConsts);
             }

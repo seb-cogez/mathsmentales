@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@cortex-js/compute-engine": "^0.4.2"
+  }
+}

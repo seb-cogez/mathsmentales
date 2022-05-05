@@ -3,7 +3,7 @@
     "description":"Connaissance des valeurs décimales puissances de 2",
     "type":"latex",
     "ID":"4NA7",
-    "dest":["4NA", "3NA"],
+    "dest":["4NA", "3NA", "2N1"],
     "options":[{
         "name":"Entre 0 et 10",
         "vars":{"p":"0_10"}

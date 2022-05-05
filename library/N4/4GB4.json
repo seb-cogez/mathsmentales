@@ -4,7 +4,7 @@
     "textSize":"small",
     "ID":"4GB4",
     "description":"Écrire le quotient égal au cosinus, au sinus ou à la tangente d'un angle dans un triangle rectangle",
-    "dest":["4GB","3GB"],
+    "dest":["4GB","3GB","2G2"],
     "consts":{
         "lettres":"ABCDEFGHIJKLMNPRSTVW",
         "figures":[

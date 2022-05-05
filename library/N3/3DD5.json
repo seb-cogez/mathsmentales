@@ -1,6 +1,6 @@
 {
     "ID":"3DD5",
-    "dest":["3DD"],
+    "dest":["3DD","2N1"],
     "title":"Lien entre coefficient de fonction linéaire et pourcentage",
     "type":"text",
     "textSize":"medium",

@@ -570,7 +570,21 @@ const MM = {
         if(!MM.carts[0].activities.length){
             MM.carts[0].addActivity(MM.editedActivity);
         }
-        MM.fiche = new ficheToPrint("dominos",MM.carts[0]);
+        let withSeed = false;
+        if(document.getElementById("aleaInURL").checked)withSeed = true;
+        let params = this.paramsToURL(withSeed,"dominossheet");
+        let value = this.setURL(params,"dominossheet");
+        MM.window = window.open(value,"mywindow","location=no,menubar=no,titlebar=no,width=1123");
+    },
+    duelLaunch:function(){
+        if(!MM.editedActivity) return;
+        if(!MM.carts[0].activities.length){
+            MM.carts[0].addActivity(MM.editedActivity);
+        }
+        let withSeed = false;
+        let params = this.paramsToURL(withSeed,"duel");
+        let value = this.setURL(params,"duel");
+        MM.window = window.open(value,"mywindow","location=no,menubar=no,titlebar=no,width=720");
     },
     /**
      * Start the slideshow
@@ -648,6 +662,16 @@ const MM = {
             ",t2="+(document.getElementById("cancol2title").value||document.getElementById("cancol2title").placeholder)+
             ",t3="+(document.getElementById("cancol3title").value||document.getElementById("cancol3title").placeholder)+
             this.export()
+        } else if(type==="dominossheet"){
+            return "n="+document.getElementById("dominosNbValue").value+
+            ",a="+(withAleaSeed?MM.seed:"")+
+            ",d="+(document.getElementById("dominosDoublons").checked)+
+            this.export();
+        } else if(type === "duel"){
+            return "ty="+utils.getRadioChecked("dueltype")+
+            ",bg="+document.getElementById("duelbackgroundselect").value+
+            (utils.getRadioChecked("dueltemps")==="limit"?",t="+utils.timeToSeconds(document.getElementById("dueltotaltime").value):"")+
+            this.export();
         }
         return "i="+MM.introType+
             ",e="+MM.endType+
@@ -714,9 +738,9 @@ const MM = {
         //let carts = this.export();
         const contener = document.querySelector("#tab-historique ol");
         let withSeed = true;
-        let params = this.paramsToURL(withSeed);
+        let params = this.paramsToURL(withSeed,type);
         let url = this.setURL(params,type);
-        let paramsSansSeed = this.paramsToURL(false);
+        let paramsSansSeed = this.paramsToURL(false,type);
         let urlSansSeed = this.setURL(paramsSansSeed,type);
         let li = utils.create("li");
         let typeName = "Panier"
@@ -724,6 +748,8 @@ const MM = {
             typeName = "Course aux nombres"
         } else if(type==="exosheet"){
             typeName = "Fiche d'exercices"
+        } else if(type==="duel"){
+            typeName = "Duel"
         }
         let span = utils.create("span", {innerText:typeName+" du "+utils.getDate()+": ",className:"bold"});
         li.appendChild(span);
@@ -738,10 +764,14 @@ const MM = {
         li.innerHTML += button;
         li.appendChild(this.getCartsContent());
         // on supprime les anciennes références à la même activité
-        let lis = document.querySelectorAll("#tab-historique span[data-url='"+url+"']");
-        for(let k=0;k<lis.length;k++){
-            let parent = lis[k].parentNode;
-            contener.removeChild(parent);
+        try{
+            let lis = document.querySelectorAll("#tab-historique span[data-url='"+url+"']");
+            for(let k=0;k<lis.length;k++){
+                let parent = lis[k].parentNode;
+                contener.removeChild(parent);
+            }
+        } catch(err){
+            console.log(err)
         }
         // insertion de l'élément
         contener.prepend(li);
@@ -915,6 +945,14 @@ const MM = {
         if(utils.baseURL.indexOf("index.html")<0)
             utils.baseURL+="index.html";
         return utils.baseURL.replace('index','courseauxnombres')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
+        } else if(type==="dominossheet"){
+            if(utils.baseURL.indexOf("index.html")<0)
+                utils.baseURL+="index.html";
+            return utils.baseURL.replace('index','dominos')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
+        } else if(type==="duel"){
+            if(utils.baseURL.indexOf("index.html")<0)
+                utils.baseURL+="index.html";
+            return utils.baseURL.replace('index','duel')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
         } else
             return utils.baseURL+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
     },
@@ -1042,11 +1080,12 @@ const MM = {
         if(MM.faceToFace==="y") utils.addClass(container,"return");
         else utils.removeClass(container,"return");
         for(let i=0;i<nb;i++){
+            let facteurZoom = 1;
             let div = document.createElement("div");
             div.id = "slider"+i;
-            if(nb === 1)div.className = "slider-1";
-            else if(nb===2)div.className = "slider-2";
-            else div.className = "slider-34";
+            if(nb === 1){div.className = "slider-1";facteurZoom=3;}
+            else if(nb===2){div.className = "slider-2";facteurZoom=2;}
+            else  {div.className = "slider-34";}
             // facetoface option
             /*if(nb>1 && MM.faceToFace==="y" && i===0)div.className += " return";
             else if(nb>2 && MM.faceToFace==="y" && i===1)div.className +=" return";*/
@@ -1057,7 +1096,7 @@ const MM = {
                 innerH += `<button title="Mettre le diapo en pause", id="btn-timer-pause${i}"><img alt="Pause" src="img/slider-pause.png"></button>
                 <button title="Montrer la réponse" id="btn-show-answer${i}"><img alt="Next" src="img/slider-solution.png"></button>`;
             }
-            MM.zooms["zs"+i] = new Zoom("zs"+i,"#slider"+i+" .slide");
+            MM.zooms["zs"+i] = new Zoom("zs"+i,"#slider"+i+" .slide",false,"em",facteurZoom);
             let zoom = MM.zooms["zs"+i].createCursor();
             innerH += `<button title="Passer la diapo" id="btn-next-slide${i}"><img src="img/slider-next.png" /></button>
             </div>

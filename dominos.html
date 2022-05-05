@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr" id="thehtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <style>
+            @page{
+                size:A4 portrait;
+                margin:0.8cm;
+            }
+        </style>
+        <title>Dominos générés par MathsMentales</title>
+        <link rel="stylesheet" href="css/dominos.css?v=1" type="text/css" />
+        <link href="js/libs/katex/katex.min.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="js/libs/JSXGraph1.4.0/jsxgraph.css" type="text/css" />
+        <script src="js/libs/JSXGraph1.4.0/jsxgraphcore.js" defer></script>
+        <script src="js/libs/chartjs/Chart.bundle.min.js" defer></script>
+        <script src="js/libs/seedrandom/seedrandom.min.js" defer></script>
+        <script src="js/libs/underscore-min.js" defer></script>
+        <script src="js/libs/katex/katex.min.js" defer></script>
+        <script src="js/libs/algebrite/algebrite.bundle-for-browser.min.js" type="text/javascript" defer></script>
+        <script src="js/libs/bigjs/big.min.js" type="text/javascript" defer></script>
+        <script src="js/libs/chartjs/Chart.bundle.min.js" defer></script>
+
+        <script type="module" src="js/lib.dominos.js"></script>
+    </head>  
+    <body size="A4">
+        <button onclick="document.getElementById('creator-menu').classList.toggle('hidden')" class="noprint" style="position: absolute;left:0;top:0;width:18pt;height:18pt;">🛠</button>
+        <div id="creator-container">
+            <section id="creator-menu" class="noprint hidden">
+                <button id="pageOrientation" title="Change l'orientation de la page">paysage</button>
+                <button onclick="window.print();" title="Cliquer pour imprimer ou enregistrer en pdf">Print</button>
+                | Dominos : 
+                <input type="number" id="nbDominos" value="28" title="Nombre de dominos à générer\nSi 1 seule activité" size="3" min="2" max="180">
+                <button id="btnnodoublon" title="Supprime les doublons">No doublon</button> <button id="btnshuffle">Mélanger</button> <button id="btneditcontent" title="Modifier le contenu des dominos">Éditer</button>
+                <span id="infoErrorDouble"></span>
+                <br>Mise en forme : <!--<button id="btnedit" title="Remplacer la barre par un titre">Éditer</button> -->
+                <input type="file" id="file" name="myImage" accept="image/x-png,image/gif,image/jpeg" />
+                <label for="file">
+                    <span class="glow-on-hover">Image</span>
+                </label>
+                <button id="deleteImg" title="Supprime l'image de fond">X</button>
+                Largeur :
+                <input id="inputwidth" value="60" title="Largeur domino" type="number" size="3" min="60" max="180">
+                  Hauteur :
+                <input id="inputheight" value="25" title="Hauteur domino" type="number" size="3" min="25" max="180">
+                | Police :
+            </section>
+            <section id="tab-accueil" class="noprint"></section>
+            <section id="creator-content">
+            
+            </section>
+            </div>
+    </body>
+</html>

@@ -2,7 +2,7 @@
     "title":"Réduire un produit",
     "type":"latex",
     "ID":"5NE2",
-    "dest":["5NE","4NE","3ND"],
+    "dest":["5NE","4NE","3ND","2N3"],
     "consts":{"lettres":["a","b","c","x","y","z"]},
     "keys":["-","x²","a","b","c","x","y","z"],
     "options":[{

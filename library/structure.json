@@ -326,7 +326,7 @@
             "2N":{
                 "nom":"Nombres et calculs",
                 "chapitres":{
-                    "2N1":"Manipulier les nombres rééls",
+                    "2N1":"Manipuler les nombres réels",
                     "2N2":"Utiliser les notions de multiple, diviseur et de nombre premier",
                     "2N3":"Utiliser le calcul littéral"
                 }

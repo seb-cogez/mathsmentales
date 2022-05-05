@@ -43,6 +43,7 @@ Maths et Matic permet de créer des diaporamas en ligne en rapport avec le calcu
 * "Circle Icons" de Nick Roach [iconfinder](https://www.iconfinder.com/iconsets/circle-icons-1) parfois retouchées, licence GPL
 * Utilisation d'[Emoji](https://emojipedia.org/) dans l'affichage des ressources
 * [Bootstrap-Icons](https://icons.getbootstrap.com/) librairies d'icones, licence MIT
+* Les images du mode duel viennent du site [freepik](https://www.freepik.com) dont j'ai acquis les licences, elles ne sont pas disponibles sur github ni en téléchargement en accord avec les termes de la licence. Si je trouve d'autres images de qualité, je changerai cela.
 
 ### Crédits audio
  * [sonothèque](https://lasonotheque.org), source des bruitages utilisés pour réveiller l'attention des élèves entre chaque diapo
@@ -132,6 +133,8 @@ Tables de multiplciation : avec du latex, type par défaut, donc non indiqué
 {
     "title":"Tables de Multiplications", // obligatoire
     "ID":"6ND6", // obligatoire
+    "dest":["6ND", "7ND"], // obligatoire, permet de placer l'activité dans les listes de chaque niveau correspondant.
+                           //Les références utilisées sont à consulter dans le fichier library/structure.json
     "vars":{
       "a":"1_10", // a : entier entre 1 et 10
       "b":"2_10" // b entier entre 2 et 10

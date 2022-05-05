@@ -15,11 +15,11 @@
         "vars":{"a":"-10_10_4_^0","r":"${:a[0]+:a[1]-:a[2]-:a[3]}", "b":"-9_9_^0","bs":"${:b<0?'('+:b+')'::b}"},
         "question": "\\dfrac{${:bs}^{${:a[0]}}\\times ${:bs}^{${:a[1]}}}{${:bs}^{${:a[2]}}\\times ${:bs}^{${:a[3]}}}"
     },{
-        "name":"Puissance de produit puissances",
+        "name":"Puissance de produit de puissances",
         "vars":{"a":"-6_6_2_^0","a2":"-5_5","r":"${(:a[0]+:a[1])*:a2}", "b":"-9_9_^0","bs":"${:b<0?'('+:b+')'::b}"},
         "question": "\\left(${:bs}^{${:a[0]}}\\times ${:bs}^{${:a[1]}}\\right)^{${:a2}}"
     },{
-        "name":"Puissance de quotient puissances",
+        "name":"Puissance de quotient de puissances",
         "vars":{"a":"-6_6_2_^0","a2":"-5_5","r":"${(:a[0]-:a[1])*:a2}", "b":"-9_9_^0","bs":"${:b<0?'('+:b+')'::b}"},
         "question": "\\left(\\dfrac{${:bs}^{${:a[0]}}}{${:bs}^{${:a[1]}}}\\right)^{${:a2}}"
     }

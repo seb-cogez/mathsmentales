@@ -4,7 +4,7 @@
     "ID":"4NC3",
     "textSize":"medium",
     "keys":["_","_","-","/","_","_","_","_"],
-    "dest":["4NC", "3NB"],
+    "dest":["4NC", "3NB", "2N2"],
     "options":[{
         "name":"Produit de fractions positives",
         "vars":{"num":"1_12_2","den":"2_12_2"}

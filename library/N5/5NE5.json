@@ -3,7 +3,7 @@
     "type":"latex",
     "ID":"5NE5",
     "textSize":"medium",
-    "dest":["5NE", "4NE", "3ND"],
+    "dest":["5NE", "4NE", "3ND","2N3"],
     "consts":{"lettres":["u","v","t","x", "y", "z"]},
     "options":[{
         "name":"Forme (x + a)×b, x positif",

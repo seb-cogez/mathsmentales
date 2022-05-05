@@ -369,6 +369,10 @@ ul.menu, .menu ul {
   line-height: 2rem;
   padding: 1rem;
 }
+#tab-parameters fieldset.lh3 {
+  line-height: 3rem;
+  padding: 1rem;
+}
 #tab-parameters div > fieldset {
     margin-top: 1em;
 }
@@ -380,6 +384,13 @@ ul.menu, .menu ul {
     display: block;
     font-weight: 700;
     width:initial;
+}
+#duelbg {
+  width:20em;
+  height: 10em;
+  background-size: cover;
+  background-position: center;
+  background-image: url(../library/illustrations/backgrounds/bgvs.jpg);
 }
 #tab-parameters .fig {
   width:90%;
@@ -432,6 +443,8 @@ ul.menu, .menu ul {
   height: 150px;
   width: 150px;
 }
+/** Fin tab-params **/
+
 /* tab corrige */
 #corrige-content .fig{
   height: 300px;
@@ -1007,12 +1020,12 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
   font-size : 2em;
 }
 /*taille des spans */
-.slide > span.medium {
-  font-size: .666em;
+.slide > span.medium, .slide > span.medium + div {
+  font-size: .8em;
 }
 /*taille des spans */
-.slide > span.small {
-  font-size: .4em;
+.slide > span.small,  .slide > span.small + div{
+  font-size: .666em;
 }
 .slide > span {
   min-height: initial;

@@ -4,7 +4,7 @@
     "ID":"5NC7",
     "keys":["/"],
     "textSize":"medium",
-    "dest":["6NB", "5NC", "4NC", "3NB"],
+    "dest":["6NB", "5NC", "4NC", "3NB", "2N2"],
     "options":[{
         "name":"Ajouter des fractions décimales (6e)",
         "vars":{"nums":"1_20_2", "den":[10,100,1000]},

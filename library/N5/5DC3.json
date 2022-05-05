@@ -3,7 +3,7 @@
     "type":"latex",
     "ID":"5DC3",
     "description":"Calcul de données dans un tableau de proportionnalité",
-    "dest":["5DC","4DC","3DC"],
+    "dest":["5DC","4DC","3DC", "2N1"],
     "consts":{"prime":[2,3,5,7,11]},
     "options":[{
         "name":"Par addition de colonnes",

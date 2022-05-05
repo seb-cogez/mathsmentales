@@ -4,7 +4,7 @@
     "textSize":"small",
     "ID":"4GB5",
     "description":"Déterminer s'il faut utiliser le sinus, le cosinus ou la tangente à partir des données connues",
-    "dest":["4GB","3GB"],
+    "dest":["4GB","3GB","2G2"],
     "consts":{
         "lettres":"ABCDEFGHIJKLMNPRSTVW",
         "figures":[

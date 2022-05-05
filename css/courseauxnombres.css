@@ -10,7 +10,7 @@ body{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 body[size="A4"]{
-    width: 19cm;
+    width: 21cm;
   min-height: 29.7cm;
 }
 body[size="A4"][layout="landscape"]{

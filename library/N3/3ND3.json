@@ -2,7 +2,7 @@
     "title":"Opposé d'une expression littérale (supprimer les parenthèses)",
     "type":"latex",
     "ID":"3ND3",
-    "dest":["3ND"],
+    "dest":["3ND","2N3"],
     "textSize":"medium",
     "keys":["-","+","a","b","c","x","y","z"],
     "consts":{"lettres":["a","b","c","x","y","z"]},

@@ -3,7 +3,7 @@
     "description":"Réduire une expression du premier degrés dont les coefficients sonts tous positifs",
     "type":"latex",
     "ID":"5NE6",
-    "dest":["5NE","4NE","3ND"],
+    "dest":["5NE","4NE","3ND","2N3"],
     "keys":["+","a","b","c","x","y","z"],
     "consts":{"lettres":["a","b","c","x","y","z"]},
     "options":[{

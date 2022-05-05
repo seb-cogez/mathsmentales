@@ -3,7 +3,7 @@
     "description":"Réduire une expression littérale du second degré dont les coefficients sont tous positifs.",
     "type":"latex",
     "ID":"5NE7",
-    "dest":["5NE","4NE","3ND"],
+    "dest":["5NE","4NE","3ND","2N3"],
     "keys":["+","x²","a","b","c","x","y"],
     "consts":{"lettres":["a","b","c","x","y"]},
     "options":[{

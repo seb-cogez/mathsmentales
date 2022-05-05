@@ -1,6 +1,6 @@
 {
     "ID":"3DD1",
-    "dest":["3DD"],
+    "dest":["3DD","2F2"],
     "title":"Lire l'ordonnée à l'origine",
     "type":"text",
     "textSize":"small",
