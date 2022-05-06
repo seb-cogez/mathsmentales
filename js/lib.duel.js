@@ -14,9 +14,9 @@ let calculsEnCours = false;
 let questionCount = 0;
 const PERSOS = [
     "dino1","dino2","dino3","dino4","dino5","dino6","dino7","dino8",
-    "dragon1","dragon2","dragon3","dragon4","dragon5","dragon6","dragon7",
+    "dragon1","dragon2","dragon3","dragon4","dragon5","dragon6","dragon7"/*,
     "fee1","fee2","fou1","genie1","girl1","goblin1","princess1","princess2","roi1","roi2", "sorcier1",
-    "pirate1","pirate2","pirate3","pirate4","pirate5","pirate6"
+    "pirate1","pirate2","pirate3","pirate4","pirate5","pirate6"*/
 ]
 MM.touched = 'ontouchstart' in window || navigator.msMaxTouchPoints;
 //document.getElementById("infodebug").innerHTML += "ontouchstart detected : "+MM.touched+"<br>";

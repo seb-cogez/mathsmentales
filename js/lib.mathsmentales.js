@@ -151,7 +151,7 @@ window.onload = function(){
     // duels
     document.getElementById("btn-duel-start").onclick = ()=>{MM.duelLaunch();};
     document.getElementById("btn-duel-adresse").onclick = ()=>{MM.copyURL('duel');};
-    document.getElementById("btn-duel-copytohistoric").onclick = ()=>{MM.copyURLtoHistory('duel')};
+    document.getElementById("btn-duel-copytohistoric").onclick = ()=>{MM.copyURLtoHistory('duel'); alertify.success("Activité ajoutée à l'historique")};
     document.getElementById("duelbackgroundselect").onchange = (evt)=>{document.getElementById("duelbg").style.backgroundImage = "url('./library/illustrations/backgrounds/bg"+evt.target.value+".jpg')"}
     document.getElementById("duelbg").style.backgroundImage = "url('./library/illustrations/backgrounds/bg"+utils.getSelectValue("duelbackgroundselect")+".jpg')"
     // boutons d'exemples

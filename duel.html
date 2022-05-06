@@ -3,7 +3,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
-        <title>Dominos générés par MathsMentales</title>
+        <title>Dominos générés par Maths et Matic projector</title>
+        <link rel="icon" type="image/png" sizes="32x32" href="https://u.jimcdn.com/cms/o/sef6091d0cde7bfc1/img/favicon.png?t=1607971695" />
         <link rel="stylesheet" href="css/duel.css?v=1" type="text/css" />
         <link href="js/libs/katex/katex.min.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="js/libs/JSXGraph1.4.0/jsxgraph.css" type="text/css" />
@@ -18,6 +19,14 @@
         <script src="js/libs/chartjs/Chart.bundle.min.js" defer></script>
         <script src="js/libs/mathlive/mathlive.min.js"></script>
         <script type="module" src="js/lib.duel.js"></script>
+        <!--Alertify JS-->
+        <!-- JavaScript -->
+        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+        <!-- CSS -->
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+        <!-- Default theme -->
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+        <!--Alertify JS-End-->
     </head>  
     <body>
         <button id="pageOrientation" style="display: none;"></button>
@@ -118,12 +127,13 @@
             <button id="btn-restart">Recommencer</button>
         </div>
         <div id="infodebug" class="hidden">
-            <h1>Duel MathsMentales</h1>
-            <p>Ce duel est un dérivé du site <a href="https://mathsmentales.net">MathsMentales</a> sur lequel il a été configuré.
+            <h1>Duel Maths et matic Projector</h1>
+            <p>Ce duel est un dérivé du site <a href="https://mem-projector.ml">Maths et matic Projector</a> sur lequel il a été configuré.
             <p>Il a été pensé pour un usage sur smartphone ou tablette qui permet de travailler à plusieurs grace aux interfaces tactitles.</p>
             </p>
             <p>Les images utilisées ici sont issues de <a href="https://www.freepik.com">https://www.freepik.com</a>
-                 dont je possède les licences d'utilisation. Vous ne pouvez les réutiliser dans vos projets sans licence.</p>
+                 dont l'auteur initial possède les licences d'utilisation. Vous ne pouvez les réutiliser dans vos projets sans licence.</p>
+            <button onclick="alertify.alert(`Licence d'utilisation`, `Actuellement une palliation est en cours par les équipes de Vapps Line std, dès lors elle ne contiendra que des images libres de droits (pour TOUT le monde), le comblage se terminera d'ici à deux semaines`)">Lisez ceci</button>
             <p>Amusez-vous bien !</p>
         </div>
     </body>

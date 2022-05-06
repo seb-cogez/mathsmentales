@@ -43,7 +43,7 @@ Maths et Matic permet de créer des diaporamas en ligne en rapport avec le calcu
 * "Circle Icons" de Nick Roach [iconfinder](https://www.iconfinder.com/iconsets/circle-icons-1) parfois retouchées, licence GPL
 * Utilisation d'[Emoji](https://emojipedia.org/) dans l'affichage des ressources
 * [Bootstrap-Icons](https://icons.getbootstrap.com/) librairies d'icones, licence MIT
-* Les images du mode duel viennent du site [freepik](https://www.freepik.com) dont j'ai acquis les licences, elles ne sont pas disponibles sur github ni en téléchargement en accord avec les termes de la licence. Si je trouve d'autres images de qualité, je changerai cela.
+* Les images du mode duel viennent du site [freepik](https://www.freepik.com) dont l'auteur initial a acquis les licences, elles ne sont pas disponibles sur github ni en téléchargement en accord avec les termes de la licence. Actuellement en cours de remplacement
 
 ### Crédits audio
  * [sonothèque](https://lasonotheque.org), source des bruitages utilisés pour réveiller l'attention des élèves entre chaque diapo
