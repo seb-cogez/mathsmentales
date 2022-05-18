@@ -211,6 +211,11 @@ export default class activity {
                 p.innerHTML += " "+this.options[i]["name"] + " :";
                 let ul = document.createElement("ul");
                 if(Array.isArray(this.questions[0])){
+                    if(this.figures[0]){
+                        let div = utils.create("div");
+                        this.examplesFigs[i] = new Figure(utils.clone(this.figures[0]), "fig-ex"+i, div);
+                        p.appendChild(div);
+                    }
                     for(let jj=0; jj<this.questions[0].length;jj++){
                         optionsLen++;
                         let li = utils.create("li",{className:"tooltip"});
