@@ -25,8 +25,8 @@
             "\\text{Résoudre } ${:x}+${math.fractionSimplifiee(:n[0],:d[0])}=${math.fractionSimplifiee(:n[1],:d[1])}",
             "\\text{Résoudre } ${:x}-${math.fractionSimplifiee(:n[0],:d[0])}=${math.fractionSimplifiee(:n[1],:d[1])}"],
         "answer":[
-            "${:x}+${math.fractionSimplifiee(:n[0],:d[0])}=${math.fractionSimplifiee(:n[1],:d[1])} \\text{ pour } \\color{red}{${:x}=${math.calc(:n[0]+'/'+:d[0]+'-'+:n[1]+'/'+:d[1])}}",
-            "${:x}-${math.fractionSimplifiee(:n[0],:d[0])}=${math.fractionSimplifiee(:n[1],:d[1])} \\text{ pour } \\color{red}{${:x}=${math.calc(:n[0]+'/'+:d[0]+'+'+:n[1]+'/'+:d[1])}}"],
-        "value":["${math.calc(:n[0]+'/'+:d[0]+'-'+:n[1]+'/'+:d[1])}","${math.calc(:n[0]+'/'+:d[0]+'+'+:n[1]+'/'+:d[1])}"]
+            "${:x}+${math.fractionSimplifiee(:n[0],:d[0])}=${math.fractionSimplifiee(:n[1],:d[1])} \\text{ pour } \\color{red}{${:x}=${math.calc(:n[1]+'/'+:d[1]+'-'+:n[0]+'/'+:d[0])}}",
+            "${:x}-${math.fractionSimplifiee(:n[0],:d[0])}=${math.fractionSimplifiee(:n[1],:d[1])} \\text{ pour } \\color{red}{${:x}=${math.calc(:n[1]+'/'+:d[1]+'+'+:n[0]+'/'+:d[0])}}"],
+        "value":["${math.calc(:n[1]+'/'+:d[1]+'-'+:n[0]+'/'+:d[0])}","${math.calc(:n[1]+'/'+:d[1]+'+'+:n[0]+'/'+:d[0])}"]
     }]
 }
