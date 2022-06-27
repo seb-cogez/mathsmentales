@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /* CSS (SCSS) Propore à Maths et Matic projector */
 .pop-up {
-  background-color: #025296;
+  background-color: #0178f5;
   border-radius: 10px;
   margin: 5px;
   display: none;
@@ -18,13 +18,13 @@
 }
 
 .action-btn-corrige button {
-  box-shadow: 1px 2px 3px #025296;
+  box-shadow: 1px 2px 3px #0178f5;
   padding: 3px;
   border-radius: 5px;
   transition: 0.5s;
 }
 .action-btn-corrige button:hover {
-  color: #025296;
+  color: #0178f5;
   box-shadow: 1px 2px 3px white;
   transition: 0.5s;
 }
@@ -39,14 +39,14 @@
 }
 
 #button-type {
-  box-shadow: 1px 2px 3px #025296;
+  box-shadow: 1px 2px 3px #0178f5;
   padding: 3px;
   border-radius: 5px;
   transition: 0.5s;
   margin: 5px;
 }
 #button-type:hover {
-  background-color: #025296;
+  background-color: #0178f5;
   color: white;
   box-shadow: 1px 2px 3px white;
   transition: 0.5s;
@@ -54,20 +54,20 @@
 
 /*Fin de marquage cart-bs-icon*/
 .h3-about {
-  color: #025296;
+  color: #0178f5;
   text-align: center;
   font-size: 20px;
 }
 
 .button-cle-data {
-  box-shadow: 1px 2px 3px #025296;
+  box-shadow: 1px 2px 3px #0178f5;
   padding: 3px;
   border-radius: 5px;
   transition: 0.5s;
   margin: 5px;
 }
 .button-cle-data:hover {
-  color: #025296;
+  color: #0178f5;
   box-shadow: 1px 2px 3px white;
   transition: 0.5s;
 }

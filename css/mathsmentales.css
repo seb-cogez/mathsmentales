@@ -267,7 +267,7 @@ mark {
 
 /* Menu */
 #app-container > header {
-  background-color: #025296;
+  background-color: rgb(1,120,245);
   line-height: 1em;
 }
 .logo {
@@ -700,7 +700,7 @@ h2.sg-title {
   margin-bottom: 0.5rem;
 }
 h2.sg-title, h3.sg-title {
-	color: #025296;
+	color: rgb(1,120,245);
 }
 .sg-title {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
