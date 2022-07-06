@@ -1021,11 +1021,11 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
   font-size : 2em;
 }
 /*taille des spans */
-.slide > span.medium, .slide > span.medium + div {
+.slide > span.medium, .slide > span.medium + div:not(.numkey-base) {
   font-size: .8em;
 }
 /*taille des spans */
-.slide > span.small,  .slide > span.small + div{
+.slide > span.small,  .slide > span.small + div:not(.numkey-base){
   font-size: .666em;
 }
 .slide > span {
