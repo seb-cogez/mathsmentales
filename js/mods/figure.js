@@ -8,6 +8,7 @@ export default class Figure {
         this.axis = obj.axis;
         this.grid = obj.grid;
         this.id = id;
+        this.keepAspect = (obj.keepAspect!==undefined)?obj.keepAspect:true;
         this.size = size;//[w,h]
         this.imgSrc = obj.imgSrc||false;
         this.figure = undefined;
@@ -107,9 +108,9 @@ export default class Figure {
             try{
                 //debug(this);
                 if(destination === undefined){
-                    this.figure = JXG.JSXGraph.initBoard(this.id, {boundingbox:this.boundingbox, keepaspectratio: true, showNavigation: false, showCopyright: false,registerEvents:false, axis:this.axis, grid:this.grid});
+                    this.figure = JXG.JSXGraph.initBoard(this.id, {boundingbox:this.boundingbox, keepaspectratio: this.keepAspect, showNavigation: false, showCopyright: false,registerEvents:false, axis:this.axis, grid:this.grid});
                 } else {
-                    this.figure = destination.JXG.JSXGraph.initBoard(this.id, {boundingbox:this.boundingbox, keepaspectratio: true, showNavigation: false, showCopyright: false,registerEvents:false, axis:this.axis, grid:this.grid});
+                    this.figure = destination.JXG.JSXGraph.initBoard(this.id, {boundingbox:this.boundingbox, keepaspectratio: this.keepAspect, showNavigation: false, showCopyright: false,registerEvents:false, axis:this.axis, grid:this.grid});
                 }
                 let content = utils.clone(this.content);
                 let elements = [];

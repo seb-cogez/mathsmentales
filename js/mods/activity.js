@@ -766,7 +766,8 @@ export default class activity {
                         "content":this.replaceVars(utils.clone(this.cFigure.content)),
                         "boundingbox":this.cFigure.boundingbox,
                         "axis":this.cFigure.axis,
-                        "grid":this.cFigure.grid?true:false
+                        "grid":this.cFigure.grid?true:false,
+                        "keepAspect":(this.cFigure.keepAspect!==undefined)?this.cFigure.keepAspect:true
                     };
                 }
             } else {
@@ -791,7 +792,8 @@ export default class activity {
                         "content":this.replaceVars(this.cFigure.content),
                         "boundingbox":this.cFigure.boundingbox,
                         "axis":this.cFigure.axis,
-                        "grid":this.cFigure.grid?true:false
+                        "grid":this.cFigure.grid?true:false,
+                        "keepAspect":(this.cFigure.keepAspect!==undefined)?this.cFigure.keepAspect:true
                     };
                 }
             }
