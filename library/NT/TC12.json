@@ -35,7 +35,7 @@
         "name":"Quotient de deux complexes",
         "vars":{"a":"-10_10_2","b":"-10_10_2_^${:a}"},
         "question":"\\dfrac{${math.calc(:a[0]+'+('+:b[0]+')i',true).replace('*','')}}{${math.calc(:a[1]+'+('+:b[1]+')i',true).replace('*','')}}",
-        "answer":":question=\\color{red}{${math.calc('('+:a[0]+'+('+:b[0]+')i)/('+:a[1]+'+('+:b[1]+')i)').replace('\\sqrt{-1}','i').replace(/frac/g,'dfrac')}}",
-        "value":"${math.calc('('+:a[0]+'+('+:b[0]+')i)*('+:a[1]+'+('+:b[1]+')i)').replace('\\sqrt{-1}','i').replace(/frac/g,'dfrac')}"
+        "answer":":question=\\color{red}{${math.calc('('+:a[0]+'+('+:b[0]+')i)/('+:a[1]+'+('+:b[1]+')i)').replace('\\sqrt{-1}','i')}}",
+        "value":"${math.calc('('+:a[0]+'+('+:b[0]+')i)*('+:a[1]+'+('+:b[1]+')i)').replace('\\sqrt{-1}','i')}"
     }]
 }
