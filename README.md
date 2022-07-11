@@ -3,8 +3,11 @@ Projet de réécriture du site MathsMentales.net qui permet de créer des diapor
 Démo : https://seb-cogez.github.io/mathsmentales/
 
 ### Auteurs
-L'auteur principal est Sébastien COGEZ. Des collègues ont suggéré des activités qu'il a développées.
-Fayçal TIB a créé quelques activités pour le lycée (inachevé)
+ * L'auteur principal est Sébastien COGEZ. Des collègues ont suggéré des activités qu'il a développées.
+ * Guillaume Valmont a écrit et corrigé quelques activités et a proposé une possibilité d'échange entre MathsMentales et des sites qui l'intégreraient par iframe.
+ * Sandrine Cartier-lange a créé quelques activités autour de Pythagore et pour le lycée
+ * Eric Elter a eu une relecture très attentive de plusieurs activités.
+ * Fayçal TIB a créé quelques activités pour le lycée (inachevé)
 
 ### Nouveautés apportées par cette version :
  * nouvelle interface : tous les réglages dans une page, affichage d'exemples de questions pour mieux comprendre

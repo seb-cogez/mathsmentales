@@ -1,0 +1,44 @@
+{
+    "ID":"3DD6",
+    "dest":["3DD","2F2"],
+    "title":"Lectures graphiques d'images et d'antécédents",
+    "description":"pas correction en ligne",
+    "type":"latex",
+    "repeat":2,
+    "keys":["L","A","_","_","_","_","_","_"],
+    "textSize":"small",
+    "options":[
+        {
+        "name":"Lecture d'image",
+        "consts":{"delt":"math.sqrt(${:a})"},
+        "vars":{"a0":"1_6", "a":"${:a0*0.03}", "x1":"1_5", "x2":"-5_5","x3":"-5_-1","c":"${:a*:x1*:x2+:a*:x1*:x3+:a*:x2*:x3}","b":"${-1*:a*(:x1+:x2+:x3)}","d":"${-1*:a*:x1*:x2*:x3}","image":"-4_4","antec":"-4_4"},
+        "figure":{  
+            "type":"graph", 
+            "boundingbox":[-5,10,5,-10],
+            "keepAspect": false,
+            "axis":true,
+            "grid":true,
+            "content" :[
+                ["functiongraph", "${:a}*x**3+${:b}*x**2+${:c}*x+${:d};"]]   
+            },
+        "question":"\\text{A 0,5 près, lire l'image de ${:image}}",
+        "answer":"\\text{L'image de ${:image} est } \\color{red}{${math.round(:a*:image**3+:b*:image**2+:c*:image+:d,1)}} \\text{ (accepté autour de } ${0.5*math.round(2*:a*:image**3+2*:b*:image**2+2*:c*:image+2*:d,0)})"
+        },
+        {
+        "name":"Lecture d'antécédents",
+        "vars":{"b":"1_5", "a":"${-1*:b*3}_${:b*3}_^0","c":"-4_4"},
+        "figure":{   
+            "type":"graph", 
+            "boundingbox":[-5,10,8,-8],
+            "keepAspect": false,
+            "axis":true,
+            "grid":true,
+            "content" : [
+                    ["functiongraph", "${:a}*x**2+${:b}*x+${:c};"]  
+                ]               
+            },
+        "question":"\\text{A 0,5 près, lire l'(es) antécédent(s) éventuel(s) de ${:c}}",       
+        "answer":"\\text{Les solutions sont } \\color{red}{${math.round(-:b/:a,1)}} \\text{(} ${0.5*math.round(-2*:b/:a,0)} \\text{ accepté) et 0.}"
+        }
+    ]
+}
