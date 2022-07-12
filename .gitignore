@@ -16,7 +16,6 @@ _private
 .DS_Store
 
 # fichiers du serveur
-tinyweb-1-94
 *_log
 library/illustrations/Persos/fee1.png
 library/illustrations/Persos/fee2.png

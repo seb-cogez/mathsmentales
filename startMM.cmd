@@ -1,6 +1,6 @@
-@echo lancement du serveur MathsMentales
+@echo Demarrage de Maths et Matic Projector
 @echo ***************************************
-@echo utilise tinyweb, https://www.ritlabs.com/en/products/tinyweb/
+@echo Alimente par TinyWeb, https://www.ritlabs.com/en/products/tinyweb/
 @echo ***************************************
 @echo off
 SET _location=%CD%
@@ -29,7 +29,7 @@ start chrome "http://127.0.0.1:8081/index.html"
 goto end
 
 :end
-@echo ne pas fermer la fenetre. Appuyer sur la barre espace pour arreter MathsMentales.
+@echo ne pas fermer la fenetre. Appuyer sur la barre espace pour arreter Maths et Matic Projector.
 pause
 @echo Arret de tiny
 taskkill /IM tiny.exe /F
