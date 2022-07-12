@@ -1,0 +1,37 @@
+{
+    "title":"Nature d'une suite",
+    "type":"text",
+    "textSize":"medium",
+    "ID":"GL11",
+    "dest":["GL1"],
+    "options":[
+        {
+        "name":"Reconnaître une suite arithmétique (raison positive)",
+        "vars":{"terme0":"1_9", "raison":"2_10" },
+        "question": "Soit $$(u_n)$$ la suite définie par les valeurs suivantes : ${:terme0}, ${:terme0+:raison}, ${:terme0+2*:raison}, ${:terme0+3*:raison}, ${:terme0+4*:raison}.<br>Quelle est la nature de cette suite ainsi que sa raison ? (Vous inscrirez 'nature;r/q=')",
+        "answer":"$$(u_n)$$ est une suite $$\\color{red}{\\text{arithmétique de raison } r=${:raison}}$$",
+        "value":"arithmétique;r=${:raison}"
+        },
+        {
+        "name":"Reconnaître une suite arithmétique (raison négative)",
+        "vars":{"terme0":"1_9","n":"1_5", "raison":"-10_-2"},
+        "question": "Soit $$(u_n)$$ la suite définie par les valeurs suivantes : ${:terme0},${:terme0+:raison},${:terme0+2*:raison}, ${:terme0+3*:raison}, ${:terme0+4*:raison}.<br>Quelle est la nature de cette suite ainsi que sa raison ? (Vous inscrirez 'nature;r/q=')",
+        "answer":"$$(u_n)$$ est une suite $$\\color{red}{\\text{arithmétique de raison }r=${:raison}}$$",
+        "value":"arithmétique;r=${:raison}"
+        },
+        {
+        "name":"Reconnaître une suite géométrique (raison supérieure à 1)",
+        "vars":{"terme0":"1_9", "raison":"2_10" },
+        "question": "Soit $$(u_n)$$ la suite définie par les valeurs suivantes : ${:terme0}, ${:terme0*:raison}, ${:terme0*:raison**2}, ${:terme0*:raison**3}, ${:terme0*:raison**4}.<br>Quelle est la nature de cette suite ainsi que sa raison ?(Vous inscrirez 'nature;r/q=')" ,
+        "answer":"$$(u_n)$$ est une suite $$\\color{red}{\\text{géométrique de raison } q=${:raison}}$$",
+        "value":"géométrique;q=${:raison}"
+        },
+        {
+        "name":"Reconnaître une suite géométrique (|raison| inférieure à 1)",
+        "vars":{"terme0":"1_9", "r":"2_10", "raison":"${math.round(:r*0.1,1)}" },
+        "question": "Soit $$(u_n)$$ la suite définie par les valeurs suivantes : ${:terme0}, ${math.round(:terme0*:raison,1)}, ${math.round(:terme0*:raison**2,2)}, ${math.round(:terme0*:raison**3,3)}, ${math.round(:terme0*:raison**4,4)}.<br>Quelle est la nature de cette suite ainsi que sa raison ? (Vous inscrirez 'nature;r/q=')",
+        "answer":"$$(u_n)$$ est une suite $$\\color{red}{\\text{géométrique de raison } q=${:raison}}$$",
+        "value":"géométrique;q=${:raison}"
+        }
+    ]   
+}

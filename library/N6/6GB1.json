@@ -24,17 +24,17 @@
     "options":[{
         "name":"Natures",
         "figure":{"type":"svg","content":"${:figures[:n-3]}"},
-        "question": ["Quelle est la nature de la base ?", "Quelle est la nature des faces lattérales ?"],
-        "answer":["La base est un <span class='red'>${:polygones[:n][1]}</span>", "Les faces lattérales sont des <span class='red'>rectangles</span>."],
-        "value":["${:polygones[:n][1]}","rectangle"]
+        "question": ["Quelle est la nature de la base ?", "Quelle est la nature des faces latérales ?"],
+        "answer":["La base est un <span class='red'>${:polygones[:n-3][1]}</span>", "Les faces latérales sont des <span class='red'>rectangles</span>."],
+        "value":["${:polygones[:n-3][1]}","rectangle"]
     },{
         "name":"Faces",
         "figure":{"type":"svg","content":"${:figures[:n-3]}"},
         "question": ["Combien ce solide comporte-t-il de faces ?",
-            "Combien ce solide comporte-t-il de faces latterales ?",
+            "Combien ce solide comporte-t-il de faces latérales ?",
             "Combien ce solide comporte-t-il de base(s) ?"],
         "answer":["Ce solide comporte <span class='red'>${:n+2} faces</span>.",
-            "Ce solide comporte <span class='red'>${:n} faces lattérales</span>.",
+            "Ce solide comporte <span class='red'>${:n} faces latérales</span>.",
             "Ce solide comporte <span class='red'>2 bases</span>."],
         "value":["${:n+2}","${:n}", 2]
     },{
@@ -47,8 +47,8 @@
         "name":"Arêtes",
         "figure":{"type":"svg","content":"${:figures[:n-3]}"},
         "question": ["Combien ce solide comporte-t-il d'arêtes ?",
-            "Combien ce solide comporte-t-il d'arêtes latterales ?"],
-        "answer":["Ce solide comporte <span class='red'>${:n*3} arêtes</span>.", "Ce solide comporte <span class='red'>${:n} arêtes lattérales</span>."],
+            "Combien ce solide comporte-t-il d'arêtes latérales ?"],
+        "answer":["Ce solide comporte <span class='red'>${:n*3} arêtes</span>.", "Ce solide comporte <span class='red'>${:n} arêtes latérales</span>."],
         "value":["${:n*3}","${:n}"]
     }
     ]

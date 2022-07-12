@@ -1,0 +1,44 @@
+{
+    "ID":"3DD7",
+    "dest":["3DD","2F2"],
+    "title":"Résolution graphiques d'équations",
+    "description":"pas correction en ligne",
+    "type":"latex",
+    "keys":["L","A","_","_","_","_","_","_"],
+    "textSize":"small",
+    "options":[
+        {
+        "name":"Equations $$f(x)=k$$",
+        "consts":{"max1":"${(-5)**2+:b*(-5)+:c}","max2":"${5**2+:b*5+:c,0}","Delta":"${math.round((:b)**2-4*(:c-(:d)),10)}","del":"${math.round(Math.sqrt(:Delta),2)}","x1":"${math.round((-:b-:del)*0.5,1)}","x2":"${math.round((-:b+:del)*0.5,1)}"},
+        "vars":{ "b":"d-5_5_1", "c":"d-5_5_1","d":"-5_5","e":"${:max1>0?'('+math.round((-5)**2+:b*(-5)+:c,0)+')':math.round(5**2+:b*5+:c,0)}"},
+        "figure":{  
+            "type":"graph", 
+            "boundingbox":[-5,10,5,-10],
+            "keepAspect": false,
+            "axis":true,
+            "grid":true,
+            "content" :[
+                ["functiongraph", "x**2+${:b}*x+${:c};"]]   
+            },
+        "question":"\\text{Résoudre à 0,5 près, } f(x)=${:d}",
+        "answer":"${(:Delta>0)? '\\text{Deux solutions : } '+:x1+'\\text{ (accepté autour de }'+0.5*math.round(-:b-:del,0)+'\\text{ ) et }'+:x2+'\\text{ (accepté autour de }'+0.5*math.round(-:b+:del,0)+'\\text{ ).}':'\\text{Aucune solution}'}"
+    },
+    {
+        "name":"Equations $$f(x)=g(x)$$",
+        "consts":{"Delta":"${math.round((:b-:d)**2-4*(:c-(:e)),10)}","del":"${math.round(Math.sqrt(:Delta),2)}","x1":"${math.round((-:b+:d-:del)*0.5,1)}","x2":"${math.round((-:b+:d+:del)*0.5,1)}"},
+        "vars":{"b":"0_5", "c":"-4_4","d":"-5_5","e":"-5_5"},
+        "figure":{   
+            "type":"graph", 
+            "boundingbox":[-10,25,15,-10],
+            "keepAspect": false,
+            "axis":true,
+            "grid":true,
+            "content" : [
+                    ["functiongraph", "x**2+${:b}*x+${:c};"] ,["functiongraph","${:d}*x+${:e}"] 
+                ]               
+            },
+        "question":"\\text{Résoudre à 0,5 près, } f(x)=g(x)",       
+        "answer":"${(:Delta>0)? '\\text{Deux solutions : } '+:x1+'\\text{ (accepté autour de }'+0.5*math.round(-:b+:d-:del,0)+'\\text{ ) et }'+:x2+'\\text{ (accepté autour de }'+0.5*math.round(-:b+:d+:del,0)+'\\text{ ).}':(:Delta==0)? '\\text{Une seule solution} :'+:x1:'\\text{Aucune solution}'}"
+    }
+    ]
+}

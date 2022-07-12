@@ -331,8 +331,13 @@ Fichier structure pour démarrer la création d'un exercice
 ```
 
 ### À propos
-Maths et Matic Projector est développé par Vapps Line std
+Maths et Matic Projector est développé et édité par Vapps Line std
 
-Le site est une fourche (un fork) de MathsMentales développé par Sébastien COGEZ et Fayçal TIB
+Le site est une fourche (un fork) de MathsMentales développé par :
+ * Sébastien COGEZ. Des collègues ont suggéré des activités qu'il a développées.
+ * Guillaume Valmont
+ * Sandrine Cartier-lange
+ * Eric Elter
+ * Fayçal TIB
 
-Maths et Matic est un projet Open-Source
+Maths et Matic est un projet Open-Source (sous licence Apache 2.0)
