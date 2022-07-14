@@ -1,5 +1,5 @@
 ## Maths et Matic Projector
-<img src="https://user-images.githubusercontent.com/79417900/150685893-c394b834-e5b5-4470-bca5-cca2e172b13f.png" alt="logo" width="25%"/>
+<img src="https://user-images.githubusercontent.com/79417900/179077383-8ad22933-406c-4361-b4a5-e1e8293bbc9b.png" alt="logo" width="25%"/>
 
 Maths et Matic Projector, l'automatisme et le calcul mental pour la classe (projet forké depuis MathsMentales)
 
