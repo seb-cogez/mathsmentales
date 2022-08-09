@@ -51,7 +51,7 @@
     },{
         "name":"Angle de ]-pi,pi] connaissant cosinus et sinus",
         "vars":{"n":"0_15"},
-        "question":"\\text{Si }\\begin{cases}\\cos(\\alpha)={${:cos[:n]}}\\\\\\sin(\\alpha)={${:sin[:n]}}\\end{cases} \\text{ alors } \\alpha = ? \\alpha\\app]-\\pi;\\pi]",
+        "question":"\\text{Si }\\begin{cases}\\cos(\\alpha)={${:cos[:n]}}\\\\\\sin(\\alpha)={${:sin[:n]}}\\end{cases} \\text{ alors } \\alpha = ? (\\alpha\\in]-\\pi;\\pi])",
         "answer":"\\begin{cases}\\cos(\\alpha)={${:cos[:n]}}\\\\\\sin(\\alpha)={${:sin[:n]}}\\end{cases}\\\\\\text{ donc }\\alpha = \\color{red}{${:angles2[:n]}}",
         "value":"${:angles2[:n]}"
     }
