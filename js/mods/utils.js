@@ -48,7 +48,7 @@ const utils = {
      * redirection vers le dosser comportant l'ancienne version : /old
      */
     goToOldVersion(){
-        window.location.href = utils.baseURL + 'old/'+(/(^.*\/)(.*)/.exec(window.location.href)[2]);
+        window.location.href = (utils.baseURL + 'old/').replace("index.htmlold","old") +(/(^.*\/)(.*)/.exec(window.location.href)[2]);
     },
     setHistory(pageName,params){
         let url = MM.setURL(params);
@@ -135,7 +135,8 @@ const utils = {
                 let level = regexp.exec(vars.u)[0];
                 library.load("N"+level+"/"+vars.u+".json"); 
             } else {
-                let alert = utils.create("div",{className:"message",innerHTML:"Cette activité n'a pas de correspondance dans cette nouvelle version de MathsMentales.<hr class='center w50'>Vous allez être redirigé vers l'ancienne version dans 10s. <a href='javascript:utils.goToOldVersion();'>Go !</a>"});
+                let alert = utils.create("div",{className:"message",innerHTML:"Cette activité n'a pas de correspondance dans cette nouvelle version de MathsMentales.<hr class='center w50'>Vous allez être redirigé vers l'ancienne version dans 10s. <a>Go !</a>"});
+                alert.onclick =  utils.goToOldVersion();
                 document.getElementById("tab-accueil").appendChild(alert);
                 setTimeout(utils.goToOldVersion,10000);
             }

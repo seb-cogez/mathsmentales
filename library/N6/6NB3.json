@@ -18,7 +18,7 @@
         },
         "question":"\\dfrac{${:num}}{${:den}}~...~\\dfrac{${:num2}}{${:den2}}",
         "answer":"\\dfrac{${:num}}{${:den}} \\color{red}{${:sym}} \\dfrac{${:num2}}{${:den2}}",
-        "value":"${:symv}"    
+        "value":"${:sym}"    
     },{
         "name":"Mêmes dénominateurs",
         "vars":{
@@ -29,7 +29,7 @@
         },
         "question":"\\dfrac{${:nums[0]}}{${:den}}~...~\\dfrac{${:nums[1]}}{${:den}}",
         "answer":"\\dfrac{${:nums[0]}}{${:den}} \\color{red}{${:sym}} \\dfrac{${:nums[1]}}{${:den}}",
-        "value":"${:symv}"
+        "value":"${:sym}"
     },{
         "name":"Dénominateurs multiples",
         "vars":{
@@ -43,7 +43,7 @@
         },
         "question":"\\dfrac{${:num1}}{${:den1}}~...~\\dfrac{${:num2}}{${:den2}}",
         "answer":"\\dfrac{${:num1}}{${:den1}} \\color{red}{${:sym}} \\dfrac{${:num2}}{${:den2}}",
-        "value":"${:symv}"
+        "value":"${:sym}"
     },{
         "name":"Dénominateurs multiples (2)",
         "vars":{
@@ -57,7 +57,7 @@
         },
         "question":"\\dfrac{${:num2}}{${:den2}}~...~\\dfrac{${:num1}}{${:den1}}",
         "answer":"\\dfrac{${:num2}}{${:den2}} \\color{red}{${:sym}} \\dfrac{${:num1}}{${:den1}}",
-        "value":"${:symv}"
+        "value":"${:sym}"
     },{
         "name":"Mêmes numérateur",
         "vars":{
@@ -68,7 +68,7 @@
         },
         "question":"\\dfrac{${:num}}{${:den[0]}}~...~\\dfrac{${:num}}{${:den[1]}}",
         "answer":"\\dfrac{${:num}}{${:den[0]}} \\color{red}{${:sym}} \\dfrac{${:num}}{${:den[1]}}",
-        "value":"${:symv}"
+        "value":"${:sym}"
     }
     ]
 

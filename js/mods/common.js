@@ -32,7 +32,7 @@ const common = {
                     let actanswers = []
                     double = false
                     securite--;
-                    if(securite<0){params.errorDouble = true;console.log(answers);break;}
+                    if(securite<0){params.errorDouble = true;}//console.log(answers,activity.title);break;}
                     // vérification qu'il n'y ait pas de doublon
                     for(let n=0;n<activity.values.length;n++){
                         if(answers.indexOf(activity.values[n])>-1 || actanswers.indexOf(activity.values[n])>-1){

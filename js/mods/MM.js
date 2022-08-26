@@ -376,13 +376,19 @@ const MM = {
                     // timers
                     MM.timers[slideNumber].addDuration(activity.tempo);
                     // enoncés et corrigés
-                    let lie = utils.create("li",{innerHTML:question});
+                    let lie = utils.create("li");
                     let lic = document.createElement("li");
+                    let tex = false; let spane,spanc;
                     if(activity.type === undefined || activity.type === "" || activity.type === "latex"){
-                        lie.className = "math";
-                        lic.className = "math";
+                        tex = true;
+                        spane = utils.create("span",{className:"math", innerHTML:question});
+                        lie.appendChild(spane);
+                        spanc = utils.create("span",{className:"math"});
+                        lic.appendChild(spanc);
                         span.className +=" math";
                         spanAns.className += " math";
+                    } else {
+                        lie.innerHTML=question;
                     }
                     div.appendChild(span);
                     if(MM.onlineState !=="yes"){
@@ -391,10 +397,17 @@ const MM = {
                     }
                     // insertion du div dans le slide
                     slider.appendChild(div);
-                    if(Array.isArray(answer))
-                        lic.innerHTML += answer[0];
-                    else
-                        lic.innerHTML += answer;
+                    if(Array.isArray(answer)){
+                            if(!tex)lic.innerHTML += answer[0];
+                            else spanc.innerHTML += answer[0];
+                        }
+                    else{
+                        if(tex)
+                            spanc.innerHTML += answer;
+                        else
+                            lic.innerHTML += answer;
+                    }
+                        
                     if(activity.figures[j] !== undefined){
                         lic.innerHTML += "&nbsp; <button data-id=\"c"+slideNumber+"-"+indiceSlide+"\">Figure</button>";
                         MM.figs[slideNumber+"-"+indiceSlide] = new Figure(utils.clone(activity.figures[j]), "c"+slideNumber+"-"+indiceSlide, div);

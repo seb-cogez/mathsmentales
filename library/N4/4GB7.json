@@ -29,7 +29,7 @@
         "question":"Dans le triangle $$${:A+:B+:C}$$ ci-dessous rectangle en $$${:C}$$, sachant que ${:long[0]}$$=${:lo[0]}$$ et que ${:long[1]}$$=${:lo[1]}$$, calculez la longueur exacte $$${:A+:B}$$. ",
         "figure":{"type":"svg","content":"${:figures[:idfig]}"},
         "shortq":"${:figures[:idfig]}",
-        "answer":"$$${:A+:B}^2=\\color{red}{\\sqrt{${:lo[0]*:lo[0]+:lo[1]*:lo[1]}}}=\\color{green}{\\sqrt{${:lo[0]}^2+${:lo[1]}^2}}$$",
+        "answer":"$$${:A+:B}=\\color{red}{\\sqrt{${:lo[0]*:lo[0]+:lo[1]*:lo[1]}}}=\\color{green}{\\sqrt{${:lo[0]}^2+${:lo[1]}^2}}$$",
         "value":"\\sqrt{${:lo[0]*:lo[0]+:lo[1]*:lo[1]}}"
         },
         {

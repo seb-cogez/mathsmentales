@@ -1,0 +1,31 @@
+{
+    "title":"Aires et périmètres des figures usuelles en fonction d'une inconnue",
+    "type":"latex",
+    "ID":"5MA1",
+    "description":"Pas encore compatible avec la saisie en ligne",
+    "textSize":"small",
+    "dest":[ "5MA", "4MA", "3MA","GA"],
+    "consts":{
+        "figures":[
+            "A1=point(2,2);A2=point(8,2);A3=point(8,8);A4=point(2,8);AB=segment(A1,A2);BC=segment(A2,A3);CD=segment(A3,A4);DA=segment(A4,A1);t1=text(1.5,5,'x cm');",
+            "A=point(2,2);B=point(9,2);C=point(9,5);D=point(2,5);AB=segment(A,B);BC=segment(B,C);CD=segment(C,D);DA=segment(D,A);t1=text(1.5,5,'x cm');t2=text(3.5,5,'${:a} cm');"
+        ]
+    },
+    "vars":{"a":"1_10","num_fig":"0_1"},
+    "options":[{
+        "name":"Périmètre en fonction de $$x$$",
+        "figure":{"type":"graph","axis":false,"boundingbox":[0,10,10,0], "content":[["jessiescript","${:figures[:num_fig]}"]]},
+        "shortq":"${:figures[:num_fig]}",
+        "question": "\\text{Exprime en fonction de } x \\text{ le périmètre de cette figure.}${:num_fig}",
+        "answer":"${(:num_fig)?8:'4x'}",
+        "value":"4x"
+    },{
+        "name":"Aire en fonction de $$x$$",
+        "figure":{"type":"graph","axis":false,"boundingbox":[0,10,10,0], "content":[["jessiescript","${:figures[:num_fig]}"]]},
+        "shortq":"${:figures[:num_fig]}",
+        "question": "\\text{Exprime en fonction de }x \\text{ l'aire de cette figure.}",
+        "answer":"${(:num_fig)?8:'x^2'}",
+        "value":"x^2"
+    }]
+    
+}

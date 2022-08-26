@@ -32,12 +32,12 @@ document.getElementById("creator-menu").onclick = (evt)=>{
         if(evt.target.innerHTML === " ▼ "){
             evt.target.innerHTML = " ▲ ";
             lesCorriges.forEach(el=>{el.classList.remove("hidden")});
-            document.getElementById("divcorrection").classList.remove("noprint");
-            document.querySelectorAll("#divcorrection .titreCorrection").forEach(el=>{el.classList.remove("noprint")});
+            document.querySelectorAll(".correction").forEach(el=>{el.classList.remove("noprint");})
+            document.querySelectorAll(".correction .titreCorrection").forEach(el=>{el.classList.remove("noprint")});
         } else {
             evt.target.innerHTML = " ▼ ";
-            document.getElementById("divcorrection").classList.add("noprint");
-            document.querySelectorAll("#divcorrection .titreCorrection").forEach(el=>{el.classList.add("noprint")});
+            document.querySelectorAll(".correction").forEach(el=>{el.classList.add("noprint");})
+            document.querySelectorAll(".correction .titreCorrection").forEach(el=>{el.classList.add("noprint")});
             lesCorriges.forEach(el=>{el.classList.add("hidden")});
         }
     }
@@ -62,15 +62,15 @@ document.getElementById("creator-content").onclick = (evt)=>{
         let target = document.getElementById(evt.target.id.replace("titreExo","corrige"));
         if(target.classList.toggle("hidden")){
             // on cache
-            document.querySelector("#divcorrection #"+evt.target.id).classList.add("noprint");
+            document.querySelector(".correction #"+evt.target.id).classList.add("noprint");
             // seulement si tous les éléments sont invisibles
             let invisible = true;
-            document.querySelectorAll("#divcorrection .titreCorrection").forEach(el=>{if(!el.classList.contains("noprint")){invisible=false}});
+            document.querySelectorAll(".correction .titreCorrection").forEach(el=>{if(!el.classList.contains("noprint")){invisible=false}});
             if(invisible)
-                document.getElementById("divcorrection").classList.add("noprint");
+                document.querySelectorAll(".correction").forEach(el=>{el.classList.add("noprint");})
         } else {
-            document.querySelector("#divcorrection #"+evt.target.id).classList.remove("noprint");
-            document.getElementById("divcorrection").classList.remove("noprint");
+            document.querySelector(".correction #"+evt.target.id).classList.remove("noprint");
+            document.querySelectorAll(".correction").forEach(el=>{el.classList.remove("noprint");})
         }
     }
 }
@@ -123,7 +123,7 @@ function makePage(){
         // get the exercice title
         let exTitle = parameters.titreExercices||"Exercice n°";
         // get the position of the correction
-        let correctionContent = utils.create("div",{className:"correction noprint", id:"divcorrection"});
+        let correctionContent = utils.create("div",{className:"correction noprint", id:"divcorrection"+qty});
         if(parameters.positionCorrection === "end"){
             let titleCorrection = utils.create("header", {className:"clearfix",innerHTML:"Correction des exercices"});
             correctionContent.appendChild(titleCorrection);
