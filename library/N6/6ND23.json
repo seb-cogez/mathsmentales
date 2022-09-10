@@ -1,0 +1,86 @@
+{
+    "title":"Écrire la phrase correspondant à l'opération",
+    "type":"text",
+    "ID":"6ND23",
+    "textSize":"medium",
+    "description":"",
+    "dest":["6ND","5NC","4NC","3NB"],
+    "options":[
+        {
+            "name":"Simple nom de l'opération",
+            "vars":{"x":"1_99","y":"1_99"},
+            "question":[
+              "Comment désigner $$${:x}+${:y}$$ ?",
+              "Comment désigner $$${:x}\\times ${:y}$$ ?",
+              "Comment désigner $$${:x}-${:y}$$ ?",
+              "Comment désigner $$${:x}\\div ${:y}$$ ?"
+            ],
+            "answer":[
+                "$$${:x}+${:y}$$ est <span class='red'>une somme</span>",
+                "$$${:x}\\times ${:y}$$ est <span class='red'>un produit</span>",
+                "$$${:x}-${:y}$$ est <span class='red'>une différence</span>",
+                "$$${:x}\\div ${:y}$$ est <span class='red'>un quotient</span>"
+            ],
+            "value":["somme","produit","différence","quotient"]
+        },
+        {
+        "name":"Opération unique",
+        "vars":{"x":"1_99","y":"1_99"},
+        "question":[
+          "Comment se lit : $$${:x}+${:y}$$ ?",
+          "Comment se lit : $$${:x}\\times ${:y}$$ ?",
+          "Comment se lit : $$${:x}-${:y}$$ ?",
+          "Comment se lit : $$${:x}\\div ${:y}$$ ?"
+        ],
+        "answer":[
+            "$$${:x}+${:y}$$ est <span class='red'>la somme de ${:x} et de ${:y}</span>",
+            "$$${:x}\\times ${:y}$$ est <span class='red'>le produit de ${:x} par ${:y}</span>",
+            "$$${:x}-${:y}$$ est <span class='red'>la différence entre ${:x} et ${:y}</span>",
+            "$$${:x}\\div ${:y}$$ est <span class='red'>le quotient de ${:x} par ${:y}</span>"
+        ],
+        "value":["la somme de ${:x} et de ${:y}","le produit de ${:x} par ${:y}","la différence entre ${:x} et ${:y}","le quotient de ${:x} par ${:y}"]
+    },{
+        "name":"Additions et soustractions",
+        "vars":{"o1":["+","-"],"o2":["+","-"],"x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
+        "answer": "$$${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}$$ set lit <span class='red'>${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}</span>",
+        "question":"Comment lire $$${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}$$ ?",
+        "value":"${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}"
+    },{
+        "name":"Additions ou soustractions, multiplication",
+        "vars":{"op1":["+","-"],"c":"0_1","o1":"${:c?:op1:'*'}","o2":"${:c?'*'::op1}","x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
+        "answer": "$$${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}$$ se lit <span class='red'>${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}</span>",
+        "question":"Comment lire $$${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}$$ ?",
+        "value":"${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}"
+    },{
+        "name":"Additions ou soustractions, division (en ligne)",
+        "vars":{"op1":["+","-"],"c":"0_1","o1":"${:c?:op1:'/'}","o2":"${:c?'/'::op1}","x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
+        "answer": "$$${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}$$ se lit <span class='red'>${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}</span>",
+        "question":"Comment lire : $$${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}$$ ?",
+        "value":"${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}"
+    },{
+        "name":"Additions ou soustractions ou division (en ligne)",
+        "vars":{"op1":["+","-","/"],"c":"0_1","o1":"${:c?:op1:'/'}","o2":"${:c?'/'::op1}","x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
+        "answer": "$$${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}$$ se lit <span class='red'>${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}</span>",
+        "question":"Comment lire $$${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}$$ ?",
+        "value":"${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}"
+    },{
+        "name":"Additions, soustractions, division (fractionnaire)",
+        "vars":{"op1":["+","-","q"],"c":"0_1","o1":"${:c?:op1:'q'}","o2":"${:c?'q'::op1}","x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
+        "answer": "$$${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}$$ se lit <span class='red'>${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}</span>",
+        "question":"Comment lire $$${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}$$ ?",
+        "value":"${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}"
+    },{
+        "name":"Additions ou soustractions, multiplication ou division",
+        "vars":{"op1":["+","-"],"op2":["*","/"],"c":"0_1","o1":"${:c?:op1::op2}","o2":"${:c?:op2::op1}","x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
+        "answer": "$$${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}$$ se lit <span class='red'>${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}</span>",
+        "question":"Comment lire $$${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}$$ ?",
+        "value":"${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}"
+    },{
+        "name":"Additions, soustractions, multiplication, division (fractionnaire)",
+        "vars":{"op1":["+","-","*","q"],"op2":["*","q"],"c":"0_1","o1":"${:c?:op1::op2}","o2":"${:c?:op2::op1}","x":"1_99","y":"1_99","z":"1_99","o":"0_1"},
+        "answer": "$$${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}$$ se lit <span class='red'>${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}</span>",
+        "question":"Comment lire $$${math.phrase([:x,:y,:z],[:o1,:o2],'a',:o)}$$ ?",
+        "value":"${math.phrase([:x,:y,:z],[:o1,:o2],'p',:o)}"
+    }
+    ]
+}

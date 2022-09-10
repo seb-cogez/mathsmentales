@@ -4,7 +4,7 @@
     "ID":"5MA1",
     "description":"Pas encore compatible avec la saisie en ligne",
     "textSize":"small",
-    "dest":[ "5MA", "4MA", "3MA","GA"],
+    "dest":[ "5MA", "4MA", "3MA"],
     "consts":{
         "figures":[
             "A1=point(2,2);A2=point(8,2);A3=point(8,8);A4=point(2,8);AB=segment(A1,A2);BC=segment(A2,A3);CD=segment(A3,A4);DA=segment(A4,A1);t1=text(1.5,5,'x cm');",

@@ -30,7 +30,9 @@
             "value":"${Math.floor(Number(:c)/Math.pow(10,3-:b))}"
         },{
             "name":"Chiffre des ... entier inférieur à $$1000000$$ (CM)",
-            "vars":{"a":"0_9_6_^&", "b":"0_5", "c":"${:a.join('')}", "d":"${:v[:b]}"}
+            "vars":{"a":"0_9_6_^&", "b":"0_5", "c":"${:a.join('')}", "d":"${:v[:b]}"},
+            "answer":"Dans $$${:c}$$, le chiffre des <u>${:d}</u> est $$\\color{red}{${((:c<1e5?'0':'')+String(:c)).charAt(Number(:b))}}$$",
+            "value":"${((:c<1e5?'0':'')+String(:c)).charAt(Number(:b))}"        
         },{
             "name":"Nombre de ... entier inférieur à $$1000000$$",
             "vars":{"a":"0_9_6_^&", "b":"0_5", "c":"${:a.join('')}", "d":"${:v[:b]}"},
@@ -39,8 +41,10 @@
             "value":"${Math.floor(Number(:c)/Math.pow(10,5-:b))}"
         },{
             "name":"Chiffre des ... entier inférieur à $$1000000000$$ (CM)",
-            "vars":{"a":"0_9_9_^&", "b":"0_8", "c":"${:a.join('')}", "d":"${:w[:b]}"}
-        },{
+            "vars":{"a":"0_9_9_^&", "b":"0_8", "c":"${:a.join('')}", "d":"${:w[:b]}"},
+            "answer":"Dans $$${:c}$$, le chiffre des <u>${:d}</u> est $$\\color{red}{${((:c<1e8?'0':'')+String(:c)).charAt(Number(:b))}}$$",
+            "value":"${((:c<1e8?'0':'')+String(:c)).charAt(Number(:b))}"
+                },{
             "name":"Nombre de ... entier inférieur à $$1000000000$$",
             "vars":{"a":"0_9_9_^&", "b":"0_8", "c":"${:a.join('')}", "d":"${:w[:b]}"},
             "question":"Dans $$${:c}$$, quel est le nombre ${:b==2||:b==5||:b==8?'d’':'de '}<b>${:d}</b> ?",
@@ -48,7 +52,7 @@
             "value":"${Math.floor(Number(:c)/Math.pow(10,8-:b))}"
         }
     ],
+    "question": "Dans $$${:c}$$, quel est le chiffre des <b>${:d}</b> ?",
     "answer":"Dans $$${:c}$$, le chiffre des <u>${:d}</u> est $$\\color{red}{${String(:c).charAt(Number(:b))}}$$",
-    "value":"${String(:c).charAt(Number(:b))}",
-    "question": "Dans $$${:c}$$, quel est le chiffre des <b>${:d}</b> ?"
+    "value":"${String(:c).charAt(Number(:b))}"
 }

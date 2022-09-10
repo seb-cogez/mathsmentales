@@ -16,11 +16,13 @@
     "options":[{
         "name":"Trouver le multiple",
         "question": "Parmi les nombres ci-dessous, lequel est un <b>multiple</b> de ${:a} ?<br>${utils.shuffle(:t.split(',')).join(' ; ')}",
+        "shortq":"Que est le <b>multiple</b> de ${:a} ?<br>${utils.shuffle(:t.split(',')).join(' ; ')}",
         "answer":"<span class='red'>${:m}</span> est un <b>multiple</b> de ${:a}.",
         "value":"${:m}"
     },{
         "name":"Trouver le diviseur",
         "question": "Parmi les nombres ci-dessous, lequel est un <b>diviseur</b> de ${:a} ?<br>${utils.shuffle(:t.split(',')).join(' ; ')}",
+        "shortq":"Quel est le <b>diviseur</b> de ${:a}?<br>${utils.shuffle(:t.split(',')).join(' ; ')}",
         "answer":"<span class='red'>${:d}</span> est un <b>diviseur</b> de ${:a}.",
         "value":"${:d}"
     }]

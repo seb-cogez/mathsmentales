@@ -7,13 +7,16 @@
     "dest":["6ND","5NC","4NC","3NB"],
     "options":[{
         "name":"Opération unique",
-        "vars":{"x":"1_99","y":"1_99"},
+        "vars":{"x":"2_99","z":"1_${:x}","y":"1_99"},
         "question": ["Écris l'opération :<br>la somme de ${:x} et de ${:y}",
             "Écris l'opération :<br>le produit de ${:x} par ${:y}",
-            "Écris l'opération :<br>la différence entre ${:x} et ${:y}",
+            "Écris l'opération :<br>la différence entre ${:x} et ${:z}",
             "Écris l'opération :<br>le quotient de ${:x} par ${:y}"],
-        "answer":[":question : $$\\color{red}{${:x}+${:y}}$$",":question : $$\\color{red}{${:x}\\times ${:y}}$$",":question :$$\\color{red}{${:x}-${:y}}$$",":question : $$\\color{red}{${:x}\\div ${:y}}$$"],
-        "value":["${:x}+${:y}","${:x}*${:y}","${:x}-${:y}","${:x}/${:y}"]
+        "answer":[":question : $$\\color{red}{${:x}+${:y}}$$",
+        ":question : $$\\color{red}{${:x}\\times ${:y}}$$",
+        ":question :$$\\color{red}{${:x}-${:z}}$$",
+        ":question : $$\\color{red}{${:x}\\div ${:y}}$$"],
+        "value":["${:x}+${:y}","${:x}*${:y}","${:x}-${:z}","${:x}/${:y}"]
     },{
         "name":"Additions et soustractions",
         "vars":{"o1":["+","-"],"o2":["+","-"],"x":"1_99","y":"1_99","z":"1_99","o":"0_1"},

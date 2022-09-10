@@ -4,7 +4,7 @@
     "textSize":"small",
     "ID":"6NA4",
     "description":"Lecture abscisse sur droite graduée",
-    "dest":["5NA","4NA","3NA","2N"],
+    "dest":["5NA","4NA","3NA","2N1"],
     "consts":{
         "b":"${math.round(:a+5*:pas,1)}","b2":"${math.round(:a+10*:pas,1)}","b5":"${math.fractionSimplifiee(:a1+5*:nbr[:choix],:b3)}",
         "nbr":[1,2,3,5,10],
