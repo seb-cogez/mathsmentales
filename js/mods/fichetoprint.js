@@ -438,17 +438,33 @@ export default class ficheToPrint {
                 btn.innerHTML = idcol+" on";
             }
        }
-
+       /*
+       * toggle l'affichage de l'espace d'évaluation de la ceinture
+       */
+       function displayEval(){
+        let btn=document.getElementById("btndisplayeval"), headers = document.querySelectorAll(".ceinture-header");
+        if (btn.innerHTML ==="Évaluation"){
+            btn.innerHTML = "no Éval";
+            headers.forEach(el=>{
+                el.classList.add("evaluation")
+            })
+        } else {
+            btn.innerHTML ="Évaluation";
+            headers.forEach(el=>{
+                el.classList.remove("evaluation")
+            })
+        }
+       }
        `});
         this.docsheet.head.appendChild(script);
         let headnoprint = utils.create("section",{className:"noprint",id:"headnoprint"});
         headnoprint.innerHTML += "<span>Lignes :</span>"+`<input id="inputheight" value="20" title="Hauteur en pt" type="number" size="3" min="10" max="200" oninput="changeHeight(this.value)">`;
         headnoprint.innerHTML += "<span>Texte</span>";
         for(let i=1;i<=nbcols;i++){
-            let input = `<input id="fsize${i}" value="12" title="Taille énoncé colonne ${i}" type="number" size="3" min="8" max="16" step="0.5" oninput="changeFontSize('${i}',this.value)">`;
+            let input = `<input id="fsize${i}" value="10" title="Taille énoncé colonne ${i}" type="number" size="3" min="8" max="16" step="0.5" oninput="changeFontSize('${i}',this.value)">`;
             headnoprint.innerHTML += input;
         }
-        headnoprint.innerHTML += "Tous "+`<input id="fsize" value="12" title="Taille énoncé toutes colonnes" type="number" size="3" min="8" max="16" step="0.5" oninput="changeAllFontSize(this.value)"> `;
+        headnoprint.innerHTML += "Tous "+`<input id="fsize" value="10" title="Taille énoncé toutes colonnes" type="number" size="3" min="8" max="16" step="0.5" oninput="changeAllFontSize(this.value)"> `;
         headnoprint.innerHTML += "<span>Largeur colonne</span>";
         for(let i=1;i<=nbcols;i++){
             let input = `<input id="asize${i}" value="1" title="Taille colonne ${i}" type="number" size="3" min="0.5" max="4" step="0.1" oninput="changeWidth(${i},this.value)">`;
@@ -480,6 +496,7 @@ export default class ficheToPrint {
             headnoprint.innerHTML += bouton;
         }
         headnoprint.innerHTML += `<button onclick="displayFigures('all')" id="btndisplayfig">Toutes on</button> `;
+        headnoprint.innerHTML += `<button onclick="displayEval()" id="btndisplayeval">sans Éval.</button>`
         this.content.appendChild(headnoprint);
         let correction;
         if(posCorrection === "fin"){
@@ -493,15 +510,17 @@ export default class ficheToPrint {
             // un conteneur pour le corrigé
             let corrige = utils.create("div",{className:"ceintCorrige corrige"});
             this.generateQuestions();
-            let header = utils.create("div",{className:"ceinture-header"});
+            let header = utils.create("div",{className:"ceinture-header evaluation"});
             // Entêtes
             let bloc1 = utils.create("div",{className:"border-black ceinture-titre", innerHTML:document.getElementById("ceinttitle").value||"Ceinture"});
             let bloc2 = utils.create("div",{className:"border-black", innerHTML:"NOM :<br>Classe :"});
             let cleseed = "";
             if(document.getElementById("ceintprintToEnonce").checked)cleseed = "Clé : "+MM.seed+"<br> ";
             let bloc3 = this.create("div",{className:"border-black", innerHTML:cleseed+"grille "+(qty+1)});
+            let blocevaluation = this.create("div",{className:"border-black evaluation",innerHTML:"□ Validée<br>□ non Validée"})
             header.appendChild(bloc1);
             header.appendChild(bloc2);
+            header.appendChild(blocevaluation);
             header.appendChild(bloc3);
             ceinture.appendChild(header);
             // entête du corrigé

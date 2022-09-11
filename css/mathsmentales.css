@@ -607,8 +607,15 @@ aside > button {
 #tab-chercher li{
     cursor: pointer;
 }
-#tab-chercher li[onclick]:hover{
+#tab-chercher li:hover{
   text-decoration: underline;
+}
+#tab-chercher li.new::after {
+  content: "new";
+  color: red;
+  transform: rotate(-15deg) translateY(-0.3em);
+  display: inline-block;
+  margin-left: 0.5em;
 }
 #tab-chercher {
   column-rule: 1px solid #0d0d0d;

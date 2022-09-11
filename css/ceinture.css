@@ -4,67 +4,29 @@
 html{
     padding:0;
     margin:0;
-    font-size: 100%;
-}
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-}
-footer {page-break-after: always;}
-.pagebreak{page-break-before: always;}
-.s8{
-    font-size: 8pt;
-}
-.s9{
-    font-size: 9pt;
-}
-.s10{
     font-size: 10pt;
 }
-.s11{
-    font-size: 11pt;
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.s12{
-    font-size: 12pt;
+body[size="A4"]{
+    width: 21cm;
+  min-height: 29.7cm;
 }
-.s13{
-    font-size: 13pt;
+body[size="A4"][layout="landscape"]{
+    width: 27.7cm;
+    min-height: 21cm;
 }
-.s14{
-    font-size: 14pt;
+
+footer.break {
+    page-break-after: always;
 }
-.s15{
-    font-size: 15pt;
+li {
+    page-break-inside: avoid;
 }
-.s16{
-    font-size: 16pt;
+.pagebreak{
+    page-break-before: always;
 }
-.s85{
-    font-size: 8.5pt;
-}
-.s95{
-    font-size: 9.5pt;
-}
-.s105{
-    font-size: 10.5pt;
-}
-.s115{
-    font-size: 11.5pt;
-}
-.s125{
-    font-size: 12.5pt;
-}
-.s135{
-    font-size: 13.5pt;
-}
-.s145{
-    font-size: 14.5pt;
-}
-.s155{
-    font-size: 15.5pt;
-}
-/*
-*/
 .floatright{
     float:right;
     padding : 1pt;
@@ -124,7 +86,15 @@ Taille carte de visite
     width: 100%;
 }
 #creator-content header{
+    display: block;
+    min-width: 5cm;
+    max-width: 10cm;
+    padding: 1pt 10pt;
+    font-family:'Century Gothic', 'Trebuchet MS', 'Segoe UI', Geneva, Verdana, sans-serif;
     font-size: 1.3rem;
+    border: 1pt solid black;
+    text-align: center;
+    margin: auto;
 }
 h3.exercice-title{
     font-weight: 400;
@@ -163,30 +133,52 @@ h3.exercice-title{
     color:grey;
 }
 .correction {
-    margin-top:2rem;
+    margin-top:1.5rem;
     color:grey;
+    margin-bottom: 1.5rem;
 }
 .clearfix {
     clear:both;
 }
-/* Interro spécifique
-*/
-.studenName {
-    padding:1pt 3pt 30pt;
-    width: 40%;
-    border: 1pt solid black;
-    margin-right:5px;
-    float: left;
+.hidden {
+    display: none;
 }
-.remarques {
-    padding:1pt 3pt 30pt;
-    width: calc(100% - 40% - 5px);
-    border: 1pt solid black;
-    float: left;
+.barrev {
+    display:block;
+    background: rgb(131, 129, 129);
+    width:5pt;
+    border:1pt solid black;
+    height: 80%;
 }
-#creator-content li.interro article {
-    height: 30pt;
-    border: 1pt solid black;
+.fig {
+    width:90%;
+    height: 200px;
+}
+.red {
+    color: red;
+}
+.zoom {
+    display: inline-block;
+  }
+.zoom-A1{
+    font-size: 1.2em;
+}
+.zoominbtn, .zoomoutbtn{
+    background-color: transparent;
+    padding: 4px;
+}
+.pointer {
+    cursor: pointer;
+}
+#changeFontSize:hover {
+    cursor: pointer;
+}
+#changeFontSize button{
+    border-style: none;
+}
+#changeFontSize svg {
+    width: 18px;
+    height: 18px;
 }
 /* ceinture spec */
 .ceinture, .ceintCorrige {
@@ -249,66 +241,60 @@ input[type="color"]{
     height: 20pt;
     vertical-align: middle;
 }
-.ceinture .grid .grid, .ceintCorrige .grid .grid {
+.ceintCorrige .grid .grid {
     align-content: center;
-    grid:none / max-content auto;
+    grid:none / 1fr auto;
     grid-column-gap:4pt;
+}
+
+.ceinture .grid .flex {
+    display: flex;
+    flex-direction: row;
+}
+.ceinture .grid .flex.column {
+    flex-direction: column;
+}
+.ceinture .ans {
+	flex-grow: 1;
+	min-width: 10%;
+	align-self: center;
+    margin: 2pt;
+}
+.ceinture .flex.column .ans {
+    width:100%;
 }
 .ceinture .quest {
     display: table-cell;
     align-self: center;
 }
-/*whogot specs*/
-.whogot-carte {
-    padding: 3pt;
-    width: 60mm;
-    float:left;
-    border:1pt solid black;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    page-break-inside:avoid;
-}
-.whogot-question{
-    padding-bottom:1rem;
-}
-.dominos-carte {
-    height: 25mm;
-    width: 60mm;
-    padding: 3pt;
-    float:left;
-    border:1pt solid black;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    page-break-inside:avoid;
-}
-.dominos-question,.dominos-reponse{
-    width: 48%;
-    text-align: center;
-}
-.barrev {
-    display:block;
-    background: rgb(131, 129, 129);
-    width:5pt;
-    border:1pt solid black;
-    height: 80%;
-}
-.fig {
-    width:90%;
-    height: 200px;
-}
-.nofig svg, .nofig br ~ svg {
-    display: none;
-}
-.red {
-    color: red;
-}
 @media screen {
+    html{
+        background: rgb(204,204,204); 
+    }
     body {
+        position: relative;
         padding: 10mm;
+        background: white;
+        display: block;
+        margin: 0.5em auto;
+        margin-bottom: 0.5cm;
+        box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+    }
+    footer.break::before, .pagebreak::before{
+        content:"--> saut de page <--";
+        color:rgb(18, 150, 47);
+        font-size: 0.8rem;
+        text-align: end;
+    }
+    footer.break {
+        border-bottom: 1px dashed rgb(18, 150, 47);
+        margin-bottom: 1em;
+    }
+    .pagebreak {
+        border-top: 1px dashed  rgb(18, 150, 47);
+    }
+    #creator-menu {
+        font-size: 10.5pt;
     }
     #creator-container::before{
         content:"\ CC-BY-NC © 2022 MathsMentales.net";
@@ -316,6 +302,12 @@ input[type="color"]{
         font-size: 0.8rem;
         border-bottom: 1pt solid black;
         text-align: end;
+    }
+    .noprint {
+        opacity: 0.6;
+    }
+    .titreCorrection::after {
+        content: " ▼";
     }
 }
 @media print {

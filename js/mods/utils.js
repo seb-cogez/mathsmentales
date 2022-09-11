@@ -79,6 +79,8 @@ const utils = {
             return "paramsdominos"
         } else if(url.indexOf("duel.html")>-1){
             return "paramsduel"
+        } else if(url.indexOf("ceinture.html")>-1){
+            return "paramsceinture"
         } else return "paramsdiapo"
     },
     /**
@@ -232,6 +234,27 @@ const utils = {
             // on affiche l'interface de paramétrage si on est en mode édition
                 if(edit) {
                     utils.showTab("tab-parameters");
+                    // remplissage des données ceinture
+                    if(utils.getTypeOfURL(urlString) === "paramsceinture"){
+                        console.log(vars)
+                        document.getElementById("ceinttitle").value = vars.t?decodeURIComponent(vars.t):"";
+                        document.getElementById("ceintcols").value = vars.nc;
+                        document.getElementById("ceintcolsval").value = vars.nc;
+                        let coltitles = document.getElementById("ceintcolumnTitle");
+                        coltitles.innerHTML = "";
+                        for(let i=0,tot=Number(vars.nc);i<tot;i++){
+                            if(i>0)coltitles.appendChild(utils.create("br"));
+                            coltitles.appendChild(utils.create("label",{"for":"ceinttitlecol"+(i+1),innerHTML:"Colonne "+(i+1)+" :"}))
+                            coltitles.appendChild(utils.create("input",{"type":"text",id:"ceinttitlecol"+(i+1),value:vars["t"+i]?decodeURIComponent(vars["t"+i]):""}))
+                        }
+                        document.getElementById("ceintrows").value=vars.nr;
+                        document.getElementById("ceintrowsval").value=vars.nr;
+                        document.getElementById("ceintqty").value=vars.n;
+                        document.getElementById("ceintqtyvalue").value=vars.n;
+                        utils.checkRadio("ceintcorrpos",vars.cor);
+                        document.getElementById("ceintpiedcol").value=vars.pie;
+                        utils.checkRadio("ceintorientation",vars.o?vars.o:"portrait");
+                    }
                     // on sélectionne le menu qu'il faut
                     utils.selectOption("chooseParamType",utils.getTypeOfURL(urlString));
                     let element = document.getElementById("chooseParamType");
@@ -265,7 +288,7 @@ const utils = {
      * @returns better encoded string
      */
     superEncodeURI:function(url){
-        var encodedStr = '', encodeChars = ["(", ")","{","}"];
+        var encodedStr = '', encodeChars = ["(", ")","{","}",",","-"];
         url = encodeURIComponent(url);
         for(var i = 0, len = url.length; i < len; i++) {
           if (encodeChars.indexOf(url[i]) >= 0) {

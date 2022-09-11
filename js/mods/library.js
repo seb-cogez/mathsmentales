@@ -80,6 +80,7 @@ const library = {
      * @returns 
      */
     displayContent:function(level,base=false){
+        let now = new Date().getTime(); // date du jour, pour afficher les mises à jour récentes
         if(MM.content === undefined) {console.log("Pas de bibliothèque"); return false;}
         let niveau={nom:"Recherche",themes:{}};
         // Cas d'un code correspondant à MMv1
@@ -186,20 +187,21 @@ const library = {
             let theme = false;
             let htmlt = "";//(first)?"<span>":"";
             htmlt += "<h2 class='pointer moins' id='rch2"+i+"'>"+niveau.themes[i].nom+"</h2>";
-            eltAffichage.addEventListener("click",(evt)=>{if(evt.target.id === "rch2"+i){utils.deploy(evt.target)}})
             for(let j in niveau["themes"][i]["chapitres"]){
                 let chapitre = false;
                 let htmlc="";//(first)?"":"<span>";
                 htmlc += "<h3 id='rch3"+i+"-"+j+"' class='pointer moins'>"+niveau["themes"][i]["chapitres"][j]["n"]+"</h3>";
-                eltAffichage.addEventListener("click",(evt)=>{if(evt.target.id === "rch3"+i+"-"+j){utils.deploy(evt.target)}})
                 htmlc += "<ul>";
                 let nbexos = niveau["themes"][i]["chapitres"][j]["e"].length;
                 if(nbexos){
                     itemsNumber += nbexos;
                     theme=true;chapitre=true;
                     for(let k=0,len=nbexos;k<len;k++){
-                        htmlc += "<li id='rcli"+i+"-"+j+"-"+k+"'>"+niveau["themes"][i]["chapitres"][j]["e"][k]["t"]+"</li>";
-                        eltAffichage.addEventListener("click",(evt)=>{if(evt.target.id === "rcli"+i+"-"+j+"-"+k){library.load(niveau["themes"][i]["chapitres"][j]["e"][k]["u"])}})
+                        if(niveau["themes"][i]["chapitres"][j]["e"][k]["new"]){
+                            htmlc += "<li id='rcli"+i+"-"+j+"-"+k+"' class='new'>"+niveau["themes"][i]["chapitres"][j]["e"][k]["t"]+"</li>";
+                        } else {
+                            htmlc += "<li id='rcli"+i+"-"+j+"-"+k+"'>"+niveau["themes"][i]["chapitres"][j]["e"][k]["t"]+"</li>";
+                        }
                     }
                 } else {
                     htmlc += "<li>Pas encore d'exercice</li>";
@@ -216,6 +218,17 @@ const library = {
             if(theme)html+=htmlt;
         }
         eltAffichage.innerHTML = html;
+        eltAffichage.addEventListener("click",(evt)=>{
+            if(evt.target.id.indexOf("rch2")===0){
+                utils.deploy(evt.target);
+            } else if(evt.target.id.indexOf("rch3")===0){
+                utils.deploy(evt.target);
+            } else if(evt.target.id.indexOf("rcli")===0){
+                // clic sur une activite
+                let data = evt.target.id.substring(4).split("-");
+                library.load(niveau["themes"][data[0]]["chapitres"][data[1]]["e"][data[2]]["u"])
+            }
+        })
         let target = document.getElementById("tab-chercher");
         target.className = "tabs-content-item";
         // Nombre de colonnes en fonction du contenu

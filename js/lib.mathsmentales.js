@@ -133,6 +133,8 @@ window.onload = function(){
     document.getElementById("ceintrowsval").oninput = (evt)=>{document.getElementById('ceintrows').innerHTML=evt.target.value}
     document.getElementById("ceintqtyvalue").oninput = (evt)=>{document.getElementById('ceintqty').innerHTML=evt.target.value;}
     document.getElementById("btngenerateceinture").onclick = ()=>{MM.createCeintureSheet()}
+    document.getElementById("btn-ceinture-adresse").onclick = ()=>{MM.copyURL('ceinture');};
+    document.getElementById("btn-ceinture-copytohistoric").onclick = ()=>{MM.copyURLtoHistory('ceinture')};
     // course au nombres
     document.getElementById("canqtyvalue").oninput = (evt)=>{document.getElementById('canqty').innerHTML=evt.target.value;}
     document.getElementById("btn-can-adresse").onclick = ()=>{MM.copyURL('cansheet');};
@@ -291,7 +293,7 @@ window.onload = function(){
     // moteur de recherche d'activité
     document.getElementById("searchinput").onkeyup = (evt)=>{library.displayContent(evt.target.value)};
     // boutons aléatorisation
-    document.getElementById("btn-params-aleakey").onclick = ()=>{document.getElementById('aleaKey').value=utils.seedGenerator();};
+    document.getElementById("btn-params-aleakey").onclick = ()=>{utils.setSeed(utils.seedGenerator())};
 
     /**
      * Comportements sur les éléments fixes

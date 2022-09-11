@@ -547,7 +547,12 @@ const MM = {
                 return;
             }
         }
-        MM.fiche = new ficheToPrint("ceinture",MM.carts[0],utils.getRadioChecked("ceintorientation"));
+        let withSeed = false;
+        if(document.getElementById("aleaInURL").checked)withSeed = true;
+        let params = this.paramsToURL(withSeed,"ceinture");
+        let value = this.setURL(params,"ceinture");
+        MM.window = window.open(value,"mywindow","location=no,menubar=no,titlebar=no,width=1123");
+        //MM.fiche = new ficheToPrint("ceinture",MM.carts[0],utils.getRadioChecked("ceintorientation"));
     },
     createFlashCards:function(){
         if(!MM.carts[0].activities.length){
@@ -667,6 +672,26 @@ const MM = {
             ",bg="+document.getElementById("duelbackgroundselect").value+
             (utils.getRadioChecked("dueltemps")==="limit"?",t="+utils.timeToSeconds(document.getElementById("dueltotaltime").value):"")+
             this.export();
+        } else if(type==="ceinture"){
+            let chaine = "",t=0;
+            // liste des titres :
+            let titles = document.querySelectorAll("#ceintcolumnTitle input")
+            titles.forEach(inp =>{
+                chaine += ",t"+t+"="+utils.superEncodeURI(inp.value);
+                t++;
+            })
+            return "t="+utils.superEncodeURI(document.getElementById("ceinttitle").value)+
+            ",ke="+document.getElementById("ceintprintToEnonce").checked+
+            ",kc="+document.getElementById("ceintprintToCorrige").checked+
+            ",nc="+document.getElementById("ceintcolsval").value+
+            chaine+
+            ",a="+(withAleaSeed?MM.seed:"")+
+            ",nr="+document.getElementById("ceintrowsval").value+
+            ",n="+document.getElementById("ceintqtyvalue").value+
+            ",cor="+(utils.getRadioChecked("ceintcorrpos")||"fin")+
+            ",pie="+document.getElementById("ceintpiedcol").value+
+            ",o="+(utils.getRadioChecked("ceintorientation")||"portrait")+
+            this.export();
         }
         return "i="+MM.introType+
             ",e="+MM.endType+
@@ -735,11 +760,13 @@ const MM = {
         let li = utils.create("li");
         let typeName = "Panier"
         if(type==="cansheet"){
-            typeName = "Course aux nombres"
+            typeName = "🏃‍♀️ Course aux nombres"
         } else if(type==="exosheet"){
-            typeName = "Fiche d'exercices"
+            typeName = "📖 Fiche d'exercices"
         } else if(type==="duel"){
-            typeName = "Duel"
+            typeName = "💫 Duel"
+        } else if(type==="ceinture"){
+            typeName = "🥋 Ceinture"
         }
         let span = utils.create("span", {innerText:typeName+" du "+utils.getDate()+": ",className:"bold"});
         li.appendChild(span);
@@ -920,6 +947,10 @@ const MM = {
             if(utils.baseURL.indexOf("index.html")<0)
                 utils.baseURL+="index.html";
             return utils.baseURL.replace('index','duel')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
+        } else if(type==="ceinture"){
+            if(utils.baseURL.indexOf("index.html")<0)
+                utils.baseURL+="index.html";
+            return utils.baseURL.replace('index','ceinture')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
         } else
             return utils.baseURL+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
     },

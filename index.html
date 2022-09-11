@@ -36,7 +36,7 @@
     <script src="js/libs/kas.min.js" defer></script>
     <script src="js/MM1toMM2.min.js" defer></script>
     <script src="js/libs/vanilla-picker/vanilla-picker.min.js" defer></script>
-    <script src="js/lib.mathsmentales.js?v=40" type="module" id="mmscriptid"></script>
+    <script src="js/lib.mathsmentales.js?v=43" type="module" id="mmscriptid"></script>
 </head>
 <body>
     <div id="app-container">
@@ -83,6 +83,7 @@
             <a numero="#tab-corrige" class="tabs-menu-link">Corrigé</a>
             <a numero="#tab-historique" class="tabs-menu-link">Historique</a>
             <a numero="#tab-telechargements" class="tabs-menu-link">Téléchargements</a>
+            <a href="./cgu.html" class="tabs-menu-link">CGU</a>
             <a href="https://blog.mathsmentales.net" class="tabs-menu-link">Blog<span class="red">*</span></a>
         </nav>
     </div>
@@ -387,7 +388,7 @@
             </fieldset>
             <fieldset>
                 <legend>Nb de colonnes : <span id="ceintcols" class="blue">4</span></legend>
-                <input id="ceintcolsval" type="range" min="1" max="5" step="1" value="4" oninput="">
+                <input id="ceintcolsval" type="range" min="1" max="5" step="1" value="4">
             </fieldset>
             <fieldset>
                 <legend>Titres des colonnes</legend>
@@ -400,7 +401,7 @@
             </fieldset>
             <fieldset>
                 <legend>Nb de lignes : <span id="ceintrows" class="blue">5</span></legend>
-                <input id="ceintrowsval" type="range" min="1" max="10" step="1" value="5" oninput=";">
+                <input id="ceintrowsval" type="range" min="1" max="10" step="1" value="5">
             </fieldset>
             <fieldset>
                 <legend>Nb de sujets : <span id="ceintqty" class="blue">3</span></legend>
@@ -418,8 +419,18 @@
                 <legend>Orientation page</legend>
                 <input type="radio" class="radio" name="ceintorientation" value="portrait" checked> portrait <input type="radio" class="radio" name="ceintorientation" value="landscape"> paysage
             </fieldset>
+            <fieldset>
+                <legend>Paramètres supplémentaires</legend>
+                <input type="text" id="ceintureplus" placeholder="laisser vide">
+            </fieldset>
             <section>
                 <button class="button--primary beaubutton" id="btngenerateceinture">Générer</button>
+                <button class="button--inverse tooltip beaubutton" id="btn-ceinture-adresse">Adresse/QRCode
+                    <span class="tooltiptext">Copie l'adresse de<br>l'activité dans<br>le presse papier</span>
+                </button>
+                <button class="button--success tooltip beaubutton" id="btn-ceinture-copytohistoric">→ Historique
+                    <span class="tooltiptext">Copie la course<br>dans l'historique</span>
+                </button>    
             </section>
         </div>
         <div id="paramscourse" class="hidden">

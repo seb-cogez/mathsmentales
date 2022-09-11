@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr" id="thehtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <style>
+            @page{
+                size:A4 portrait;
+                margin:0.8cm;
+            }
+        </style>
+        <title>Ceinture MathsMentales</title>
+        <link rel="stylesheet" href="css/ceinture.css?v=1" type="text/css" />
+        <link href="js/libs/katex/katex.min.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="js/libs/JSXGraph1.4.0/jsxgraph.css" type="text/css" />
+        <script src="js/libs/JSXGraph1.4.0/jsxgraphcore.js" defer></script>
+        <script src="js/libs/chartjs/Chart.bundle.min.js" defer></script>
+        <script src="js/libs/seedrandom/seedrandom.min.js" defer></script>
+        <script src="js/libs/underscore-min.js" defer></script>
+        <script src="js/libs/katex/katex.min.js" defer></script>
+        <script src="js/libs/algebrite/algebrite.bundle-for-browser.min.js" type="text/javascript" defer></script>
+        <script src="js/libs/bigjs/big.min.js" type="text/javascript" defer></script>
+        <script src="js/libs/chartjs/Chart.bundle.min.js" defer></script>
+
+        <script type="module" src="js/lib.ceinture.js"></script>
+    </head>  
+    <body size="A4">
+        <button onclick="document.getElementById('creator-menu').classList.toggle('hidden')" class="noprint" style="position: absolute;left:0;top:0;width:18pt;height:18pt;">🛠</button>
+        <button onclick="window.print();" class="noprint" style="position: absolute;left:26px;top:0;height:18pt;" title="Cliquer pour imprimer ou enregistrer en pdf">Print</button>
+        <div id="creator-container">
+            <section id="creator-menu" class="noprint hidden">
+                <button id="pageOrientation" title="Change l'orientation de la page">paysage</button>
+                | Ceintures : 
+                <input type="number" min="1" id="nbFiches" size="3">
+                | Corrigé :
+                <button id="toggleCorriges"> suivant </button>
+                <br>
+                <span>Lignes :</span><input id="inputheight" value="20" title="Hauteur en pt" type="number" size="3" min="10" max="200">
+                <span>Texte</span>
+                <span id="textSizes">
+                </span>
+                Tous <input id="fsize" value="10" title="Taille énoncé toutes colonnes" type="number" size="3" min="8" max="16" step="0.5">
+                <span>Largeur colonne</span>
+                <span id="columnsWidth">
+                </span>
+                <strong>Champ Réponse</strong>
+                <span id="answersPositions">
+                </span>
+                <span>Tous</span> 
+                <select id="setAnswerAllPos">
+                    <option value="row">à côté</option>
+                    <option value="column">dessous</option>
+                </select>
+                Coul <input type="color" id="colorpicker" value="#ECECEC"> Cadre avec <input type="checkbox" value="true"  id="btnChangeBorder"> <input type="color" value="#111111" id="colorpicker2" size="8">
+                <br>Tailles champs
+                <span id="answersSizes"></span>
+                Tous
+                <input type="number" id="ansWidths" value="20" min="0" max="100" size="3" step="5">
+                <br><b>Mélanger la colonne :</b> 
+                <span id="columnsShuffles">
+                </span>
+                Figure : 
+                <span id="figuresDisplay">
+                </span>
+                <button id="btndisplayfig">Toutes on</button>
+                <button id="btndisplayeval">sans Éval.</button>
+            </section>
+            <section id="tab-accueil" class="noprint"></section>
+            <section id="creator-content">
+            </section>
+            </div>
+    </body>
+</html>
