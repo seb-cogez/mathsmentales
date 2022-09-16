@@ -317,9 +317,10 @@ const math ={
      * @param {integer} nb 
      * return un diviseur de nb
      */
-    unDiviseur(nb,notOne=false){
+    unDiviseur(nb,notOne=false,notNb=true){
         let diviseurs = math.listeDiviseurs(nb,true);
         if(notOne) diviseurs = _.rest(diviseurs); // on enlève la première valeur qui est 1.
+        if(notNb) diviseurs = _.initial(diviseurs);
         return diviseurs[math.aleaInt(0,diviseurs.length-1)];
     },
     unpower:function(value){

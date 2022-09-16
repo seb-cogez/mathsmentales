@@ -3,7 +3,6 @@ import protos from './mods/protos.js';
 import utils from './mods/utils.js';
 import common from './mods/common.js';
 import cart from './mods/cart.js';
-import Zoom from './mods/zoom.js';
 import Figure from './mods/figure.js';
 const MM={}
 const content = document.getElementById("creator-content");
@@ -60,9 +59,20 @@ document.getElementById("setAnswerAllPos").oninput = (evt)=>{
 }
 document.getElementById("colorpicker").oninput = (evt)=>{
     changeColor(evt.target.value,'bg');
+    //evt.target.value="#ECECEC";
 }
 document.getElementById("colorpicker2").oninput = (evt)=>{
     changeColor(evt.target.value,'bd');
+    document.getElementById("btnChangeBorder").checked = true;
+    //evt.target.value="#707070";
+}
+document.getElementById("colorpickertitle").oninput = (evt)=>{
+    changeColor(evt.target.value,'bgt');
+    //evt.target.value="#CCCCCC"
+}
+document.getElementById("colorpickertitle").oncontextmenu = (evt)=>{
+    changeColor("",'bgt',true);
+    evt.target.value="#CCCCCC";
 }
 /*
 let exercicesColumn = Array(${nbcols}).fill("column");
@@ -76,6 +86,47 @@ function changeHeight(nb){
         elts[i].style.height = nb+"pt";
     }
 }
+/**
+ * function from https://codepen.io/andreaswik/pen/YjJqpK/
+ * @param {*} color 
+ * @returns 
+ */
+function lightOrDark(color) {
+    let r,g,b,hsp;
+    // Check the format of the color, HEX or RGB?
+    if (color.match(/^rgb/)) {
+  
+      // If HEX --> store the red, green, blue values in separate variables
+      color = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
+  
+      r = color[1];
+      g = color[2];
+      b = color[3];
+    } 
+    else {
+      // If RGB --> Convert it to HEX: http://gist.github.com/983661
+      color = +("0x" + color.slice(1).replace( 
+        color.length < 5 && /./g, '$&$&'
+      )
+               );
+      r = color >> 16;
+      g = color >> 8 & 255;
+      b = color & 255;
+    }
+    // HSP (Highly Sensitive Poo) equation from http://alienryderflex.com/hsp.html
+    hsp = Math.sqrt(
+      0.299 * (r * r) +
+      0.587 * (g * g) +
+      0.114 * (b * b)
+    );
+    // Using the HSP value, determine whether the color is light or dark
+    if (hsp>127.5) {
+      return 'light';
+    } 
+    else {
+      return 'dark';
+    }
+  }
 /*
 * change la taille des caractères d'une colonne
 */
@@ -94,6 +145,8 @@ function changeAllFontSize(value){
     for(let i=0;i<elts.length;i++){
         elts[i].style.fontSize = value+"pt";
     }
+    // synchros des autres champs
+    document.querySelectorAll("#textSizes input").forEach(el=>{el.value=value});
 }
 /*
 * change la disposition des lignes d'exercices d'une colonne
@@ -185,20 +238,37 @@ function changeAnswerWidth(dest,width,changevalues=true){
 * change la couleur du fond des réponses
 * what : bg (background) || bd (border)
 */
-function changeColor(hexa,what){
-    let elts = document.querySelectorAll(".ans");
+function changeColor(hexa,what,reset=false){
     let styleAttr = "background-color";
     let styleVal = hexa;
-    if(what==="bd"){
-        parameters.colorbd = hexa;
-        styleAttr="border";
-        if(hexa==="none")styleVal = "none";
-        else styleVal="1pt solid "+hexa;
-    } else {
-        parameters.colorbg = hexa;
-    }
-    for(let i=0;i<elts.length;i++){
-        elts[i].style[styleAttr] = styleVal;
+    if(what !=="bgt"){
+        let elts = document.querySelectorAll(".ans");
+        if(what==="bd"){
+            parameters.colorbd = hexa;
+            styleAttr="border";
+            if(hexa==="none")styleVal = "none";
+            else styleVal="1pt solid "+hexa;
+        } else if(what === "bg") {
+            parameters.colorbg = hexa;
+        }
+        for(let i=0;i<elts.length;i++){
+            elts[i].style[styleAttr] = styleVal;
+        }
+    } else if(what==="bgt"){
+        if(!reset){
+            parameters.colorbgt = hexa;
+        }else {
+            parameters.colorbgt = "";
+        }
+        let lumen = lightOrDark(parameters.colorbgt);
+        document.querySelectorAll(".ceinture-titre").forEach(el=>{
+            el.style[styleAttr] = parameters.colorbgt;
+            if(lumen === "dark"){
+                el.style["color"] = "white"
+            } else {
+                el.style["color"] = "";
+            }
+        })
     }
 }
 /** 
@@ -247,11 +317,11 @@ function displayFigures(idcol){
     let btn, elts;
     if(idcol === 'all'){
         btn = document.getElementById('btndisplayfig');
-        elts = document.querySelectorAll('.quest');
+        elts = document.querySelectorAll('div.flex');
         idcol = "Toutes";
     } else {
         btn = document.getElementById('btndisplayfig'+idcol);
-        elts = document.querySelectorAll('.question'+idcol);
+        elts = document.querySelectorAll('.col'+idcol);
     }
     if(btn.innerHTML === idcol+" on"){
         elts.forEach(el=>{
@@ -284,6 +354,7 @@ function displayEval(){
 }
 function makePage(){
     content.innerHTML = "";
+    MM.memory = {};
     if(parameters.alea){
         common.setSeed(parameters.alea);
     }
@@ -343,10 +414,11 @@ function makePage(){
         // un repère de colonne
         let colsid=0;
         // le css directement dans le DOM pour pouvoir le modifier ensuite
-        let stylecols = Array(parameters.nbcols).fill("auto").join(" ");
+        let stylecols = Array(parameters.nbcols).fill("1fr").join(" ");
+        let stylecolscorrection = Array(parameters.nbcols).fill("auto").join(" ");
         let stylerows = Array(parameters.nbrows).fill("auto").join(" ");
         const divColonnes = utils.create("div",{className:"ceinture-content grid",style:"grid-template-columns:"+stylecols+";grid-template-rows:"+(stylerows+1)});
-        let divColsCorrige = utils.create("div",{className:"ceinture-corrige grid",style:"grid-template-columns:"+stylecols+";grid-template-rows:"+stylerows});
+        let divColsCorrige = utils.create("div",{className:"ceinture-corrige grid",style:"grid-template-columns:"+stylecolscorrection+";grid-template-rows:"+stylerows});
         // conteners corrections et enoncés (objet de tableaux)
         let divCorr={},cols={};
         let nbq = 0;
@@ -359,22 +431,29 @@ function makePage(){
                     cols[colsid]=[];
                     // on donne  à la colonne une classe pour pouvoir modifier des choses dedans.
                     divCorr[colsid]=[]
-                    let titre = parameters.titres[colsid-1]||"";
-                    if(titre!==""){
+                    if(!_.isEmpty(parameters.titres)){
+                        let titre = parameters.titres[colsid-1]?parameters.titres[colsid-1]:"";
                         cols[colsid].push(utils.create("div",{innerHTML:titre,className:"ceinture-titre-colonne border-black col"+colsid,style:"grid-column:"+colsid}))
                     }
                 }
                 nbq++;
                 let ligne = utils.create("div",{className:"flex border-black col"+colsid,style:"grid-column:"+colsid});
+                let divQuestion = utils.create("div",{className:"valign"});
                 let ligneCorr = utils.create("div",{className:"grid border-black"});
                 if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
                     let divq = utils.create("div",{className:"question"+colsid+" quest"});
                     let span = utils.create("span",{className:"math", innerHTML:activity.shortQuestions[j]||activity.questions[j]});
                     divq.appendChild(span);
-                    ligne.appendChild(divq);                        
+                    divQuestion.appendChild(divq);
                 } else {
-                    ligne.appendChild(utils.create("div",{innerHTML:activity.shortQuestions[j]||activity.questions[j],className:"question"+colsid+" quest"}));
+                    divQuestion.appendChild(utils.create("div",{innerHTML:activity.shortQuestions[j]||activity.questions[j],className:"question"+colsid+" quest"}));
                 }
+                if(activity.figures[j] !== undefined){
+                    let divfig = utils.create("div",{className:"fig"});
+                    divQuestion.appendChild(divfig),
+                    MM.memory[qty+"-"+"f"+i+"-"+j] = new Figure(utils.clone(activity.figures[j]), qty+"-"+"f"+i+"-"+j,divfig);
+                }
+                ligne.appendChild(divQuestion);
                 let value = activity.values[j];
                 if(Array.isArray(value))value=value[0];
                 let spanc = utils.create("span", {className:"math", innerHTML:value});
@@ -469,9 +548,9 @@ function checkURL(urlString){
         parameters.ceintprintToCorrige=eval(vars.kc);
         parameters.titres = [];
         parameters.pied = decodeURI(vars.pie)||"";
-        parameters.orientation = vars.o;
+        parameters.orientation = vars.or;
         for(let i=0;i<5;i++){
-            if(vars["t"+i]!==undefined){
+            if(vars["t"+i]!==undefined && vars["t"+i]!==false){
                 parameters.titres[i]=decodeURIComponent(vars["t"+i]);
             }
         }

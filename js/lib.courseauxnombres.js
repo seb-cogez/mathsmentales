@@ -126,8 +126,8 @@ function makePage(){
                 let tre = utils.create("tr");
                 let trc = utils.create("tr");
                 // colonne numéro
-                tre.appendChild(utils.create("td",{width:"10",innerHTML:compteur+".",className:"right"}));
-                trc.appendChild(utils.create("td",{width:"10",innerHTML:compteur+".",className:"right"}));
+                tre.appendChild(utils.create("td",{width:"10",innerHTML:".",className:"right"}));
+                trc.appendChild(utils.create("td",{width:"10",innerHTML:".",className:"right"}));
                 compteur++;
                 let divenonce = utils.create("td",{width:"50%"})
                 let divanswer = utils.create("td",{width:"50%"}); // vide div réponse.

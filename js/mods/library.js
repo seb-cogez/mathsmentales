@@ -124,6 +124,7 @@ const library = {
             const selectedLevels = [];
             levels.forEach((elt)=>{selectedLevels.push(elt.value)});
             // construction du niveau par extraction des données.
+            let chaineATrouver = level.toLowerCase().split(" ");
             for(let niv in MM.content){
                 // on ne cherche que dans les niveaux sélectionnés. Si pas de niveau sélectionné, on prend tout.
                 if(selectedLevels.length > 0 && selectedLevels.indexOf(niv)<0) continue;
@@ -133,20 +134,30 @@ const library = {
                             let chapExo=[];
                             for(let exo=0,lene=MM.content[niv].themes[theme].chapitres[chap].e.length;exo<lene;exo++){
                                 let lexo = MM.content[niv].themes[theme].chapitres[chap].e[exo];
-                                let chaineATrouver = level.toLowerCase();
-                                if(lexo.t.toLowerCase().indexOf(chaineATrouver)>-1){
+                                let tt = lexo.t;
+                                // on prend les différents éléments
+                                if(chaineATrouver.every(txt=>{
+                                    return lexo.t.toLowerCase().indexOf(txt)>-1;
+                                })){
                                     // we find a candidate !!!
-                                    let reg = new RegExp(chaineATrouver,"gi");
+                                    chaineATrouver.forEach(txt =>{
+                                        let reg = new RegExp(txt,"gi");
+                                        tt = tt.replace(reg,function(x){return "<mark>"+x+"</mark>"})
+                                    })
                                     chapExo.push({"u":lexo.u,
-                                    "t":lexo.t.replace(reg,function(x){return "<mark>"+x+"</mark>"})})
+                                    "t":tt})
                                 } else
                                 // recherche dans le code de l'exo
-                                if(lexo.u.toLowerCase().indexOf(chaineATrouver+".")>-1){
+                                if(chaineATrouver.every(txt=>{
+                                    return lexo.u.toLowerCase().indexOf(txt+".")>-1
+                                })){
                                     chapExo.push({"u":lexo.u,"t":lexo.t});
                                 } else
                                 // recherche dans les descriptifs
                                 if(lexo.d !== undefined){
-                                    if(lexo.d.toLowerCase().indexOf(chaineATrouver)>-1){
+                                    if(chaineATrouver.every(txt=>{
+                                        return lexo.d.toLowerCase().indexOf(txt)>-1
+                                    })){
                                         chapExo.push({"u":lexo.u,"t":lexo.t});
                                     }
                                 }
@@ -198,9 +209,9 @@ const library = {
                     theme=true;chapitre=true;
                     for(let k=0,len=nbexos;k<len;k++){
                         if(niveau["themes"][i]["chapitres"][j]["e"][k]["new"]){
-                            htmlc += "<li id='rcli"+i+"-"+j+"-"+k+"' class='new'>"+niveau["themes"][i]["chapitres"][j]["e"][k]["t"]+"</li>";
+                            htmlc += "<li id='rcli"+i+"-"+j+"-"+k+"' class='new' data-url='"+niveau["themes"][i]["chapitres"][j]["e"][k]["u"]+"'>"+niveau["themes"][i]["chapitres"][j]["e"][k]["t"]+"</li>";
                         } else {
-                            htmlc += "<li id='rcli"+i+"-"+j+"-"+k+"'>"+niveau["themes"][i]["chapitres"][j]["e"][k]["t"]+"</li>";
+                            htmlc += "<li id='rcli"+i+"-"+j+"-"+k+"' data-url='"+niveau["themes"][i]["chapitres"][j]["e"][k]["u"]+"'>"+niveau["themes"][i]["chapitres"][j]["e"][k]["t"]+"</li>";
                         }
                     }
                 } else {
@@ -218,17 +229,6 @@ const library = {
             if(theme)html+=htmlt;
         }
         eltAffichage.innerHTML = html;
-        eltAffichage.addEventListener("click",(evt)=>{
-            if(evt.target.id.indexOf("rch2")===0){
-                utils.deploy(evt.target);
-            } else if(evt.target.id.indexOf("rch3")===0){
-                utils.deploy(evt.target);
-            } else if(evt.target.id.indexOf("rcli")===0){
-                // clic sur une activite
-                let data = evt.target.id.substring(4).split("-");
-                library.load(niveau["themes"][data[0]]["chapitres"][data[1]]["e"][data[2]]["u"])
-            }
-        })
         let target = document.getElementById("tab-chercher");
         target.className = "tabs-content-item";
         // Nombre de colonnes en fonction du contenu

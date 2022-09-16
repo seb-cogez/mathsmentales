@@ -106,6 +106,8 @@ export default class cart {
      * @param {integer} index of the activity
      */
     removeActivity(index){
+        if(this.editedActivityId === index){this.editedActivityId = -1;}
+        else if(this.editedActivityId > index){this.editedActivityId--};
         this.activities.splice(index,1);
         this.display();
     }
@@ -158,7 +160,7 @@ export default class cart {
             let activity = this.activities[i];
             this.time += Number(activity.tempo)*Number(activity.nbq);
             this.nbq += Number(activity.nbq);
-            li.innerHTML = "<img src='img/editcart.png' align='left' data-actid='"+i+"' title=\"Editer l'activité\">"+activity.title + " (<span>"+activity.tempo + "</span> s. / <span>"+activity.nbq+"</span> quest.)";
+            li.innerHTML = "<img src='img/editcart.png' align='left' data-actid='"+i+"' title=\"Editer l'activité\"><img src='img/removefromcart.png' data-actidtoremove='"+i+"' title='Enlever du panier' class='removefromcartbutton'>"+activity.title + " (<span>"+activity.tempo + "</span> s. / <span>"+activity.nbq+"</span> quest.)";
             if(MM.carts[this.id].editedActivityId === i){
                 li.className = "active";
             }
@@ -168,6 +170,8 @@ export default class cart {
         spans[0].innerHTML = math.sToMin(this.time);
         spans[1].innerHTML = this.nbq;
         spans[2].innerHTML = this.target;
+        // détruit le sortable si déjà effectif.
+        if(this.sortable)this.sortable.destroy();
         this.sortable = new Sortable(dom, {
             animation:150,
             ghostClass:'ghost-movement',

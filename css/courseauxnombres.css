@@ -57,6 +57,7 @@ Taille carte de visite
 /* tableaux */
 table{
     width: 100%;
+    counter-reset: rowNumber;
 }
 th {
     background-color: rgb(194, 194, 194);
@@ -64,6 +65,13 @@ th {
 table tr {
     break-inside: avoid;
     height: 30pt;
+}
+table tr > td:first-child {
+    counter-increment: rowNumber;
+}
+
+table tr td:first-child::before {
+    content: counter(rowNumber);
 }
 tr:first-child{
     width: 45pt;

@@ -1,6 +1,7 @@
 {
     "title":"Multiplication à trou, trouver une multiplication",
     "ID":"6ND7",
+    "description":"Trouver un produit, un facteur",
     "dest":["6ND", "5NC", "4NC", "3NB", "7ND", "8ND"],
     "options":[{
         "name":"Trouver le nombre manquant (inférieur à 10)",

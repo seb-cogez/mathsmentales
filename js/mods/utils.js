@@ -236,7 +236,6 @@ const utils = {
                     utils.showTab("tab-parameters");
                     // remplissage des données ceinture
                     if(utils.getTypeOfURL(urlString) === "paramsceinture"){
-                        console.log(vars)
                         document.getElementById("ceinttitle").value = vars.t?decodeURIComponent(vars.t):"";
                         document.getElementById("ceintcols").value = vars.nc;
                         document.getElementById("ceintcolsval").value = vars.nc;

@@ -60,6 +60,8 @@ window.onload = function(){
     for(const li of lis){
         li.onclick = (evt)=>{library.displayContent(evt.target.dataset.niv,true)};
     }
+    // ouvrons l'interface des paniers pour que tout le monde sache qu'il y en a !
+    MM.showCartInterface();
     // boutons de gestion d'activité dans le panier
     document.getElementById("addToCart").onclick = ()=>{MM.addToCart();};
     document.getElementById("unlinkCart").onclick = ()=>{MM.unlinkActivity();};
@@ -128,6 +130,7 @@ window.onload = function(){
     document.getElementById("btn-ex-adresse").onclick = ()=>{MM.copyURL('exosheet');};
     document.getElementById("btn-ex-copytohistoric").onclick = ()=>{MM.copyURLtoHistory('exosheet')};
     document.getElementById("btngenerateexams").onclick = ()=>{MM.createExamSheet()}
+    document.getElementById("extitle").oninput = (evt)=>{MM.carts[0].title = evt.target.value}
     // ceintures
     document.getElementById("ceintcolsval").oninput = (evt)=>{document.getElementById('ceintcols').innerHTML=evt.target.value;utils.createCeintureTitres(evt.target.value)}
     document.getElementById("ceintrowsval").oninput = (evt)=>{document.getElementById('ceintrows').innerHTML=evt.target.value}
@@ -135,11 +138,13 @@ window.onload = function(){
     document.getElementById("btngenerateceinture").onclick = ()=>{MM.createCeintureSheet()}
     document.getElementById("btn-ceinture-adresse").onclick = ()=>{MM.copyURL('ceinture');};
     document.getElementById("btn-ceinture-copytohistoric").onclick = ()=>{MM.copyURLtoHistory('ceinture')};
+    document.getElementById("ceinttitle").oninput = (evt)=>{MM.carts[0].title = evt.target.value}
     // course au nombres
     document.getElementById("canqtyvalue").oninput = (evt)=>{document.getElementById('canqty').innerHTML=evt.target.value;}
     document.getElementById("btn-can-adresse").onclick = ()=>{MM.copyURL('cansheet');};
     document.getElementById("btn-can-copytohistoric").onclick = ()=>{MM.copyURLtoHistory('cansheet')};
     document.getElementById("btngenerateCAN").onclick = ()=>{MM.createCourseAuxNombres()}
+    document.getElementById("cantitle").oninput = (evt)=>{MM.carts[0].title = evt.target.value}
     // flash cards
     document.getElementById("btngenerateFC").onclick = ()=>{MM.createFlashCards()}
     document.getElementById("cardsNbValue").oninput = (evt)=>{document.getElementById('cardsNb').innerHTML=evt.target.value;}
@@ -292,6 +297,16 @@ window.onload = function(){
     }
     // moteur de recherche d'activité
     document.getElementById("searchinput").onkeyup = (evt)=>{library.displayContent(evt.target.value)};
+    document.getElementById("resultat-chercher").addEventListener("click",(evt)=>{
+        if(evt.target.id.indexOf("rch2")===0){
+            utils.deploy(evt.target);
+        } else if(evt.target.id.indexOf("rch3")===0){
+            utils.deploy(evt.target);
+        } else if(evt.target.id.indexOf("rcli")===0){
+            // clic sur une activite
+            library.load(evt.target.dataset['url']);
+        }
+    })
     // boutons aléatorisation
     document.getElementById("btn-params-aleakey").onclick = ()=>{utils.setSeed(utils.seedGenerator())};
 
@@ -314,6 +329,8 @@ window.onload = function(){
     document.getElementById("cart0-list").addEventListener("click",(evt)=>{
         if(evt.target.dataset.actid !== undefined){
             MM.editActivity(evt.target.dataset.actid);
+        } else if(evt.target.dataset.actidtoremove !== undefined){
+            MM.removeFromCart(evt.target.dataset.actidtoremove)
         }
     })
     document.getElementById("cart1-list").addEventListener("click",(evt)=>{

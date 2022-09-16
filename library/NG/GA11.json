@@ -5,7 +5,7 @@
     "ID":"GA11",
     "description":"Trouver la dérivée des fonctions polynomes à partir de $$(x^n)'=nx^n-1$$",
     "dest":["GA1"],
-    "keys":["_","_","+","-","x","y","z","t"],
+    "keys":["^","_","+","-","x","y","z","t"],
     "consts":{"lettres":["x","y","z","t"]},
     "options":[{
         "name":"Monomes",

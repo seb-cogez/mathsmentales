@@ -737,6 +737,21 @@ h2.sg-title, h3.sg-title {
     width: 48px;
     height: 48px;
 }
+.cart-list li {
+  position: relative;
+}
+.removefromcartbutton {
+  position:absolute;
+  top:0;
+  right:0;
+  display:none;
+}
+.cart-list li:hover .removefromcartbutton {
+  display: block;
+}
+#addToCart, #unlinkCart, #removeFromCart, #btn-shuffle, #btn-annotation2 {
+  font-size: 0.8em;
+}
 .tabs-menu-link:hover{border-bottom-color:#AAA;outline:0}
 #addcart {
     font-size: 2rem;

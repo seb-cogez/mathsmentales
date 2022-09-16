@@ -229,12 +229,16 @@ const MM = {
         // on affiche les panier
         MM.showCartInterface();
     },
-    removeFromCart(){
+    removeFromCart(id=false){
         let cart = MM.carts[MM.selectedCart];
-        cart.removeActivity(cart.editedActivityId);
-        cart.editedActivityId = -1;
-        document.getElementById("addToCart").className = "";
-        document.getElementById("removeFromCart").className = "hidden";
+        let idact = id?id:cart.editedActivityId;
+        if(!id || Number(id) == Number(cart.editedActivityId)){
+            cart.editedActivityId = -1;
+            document.getElementById("addToCart").className = "";
+            document.getElementById("removeFromCart").className = "hidden";
+            document.getElementById("unlinkCart").className = "hidden";
+        }
+        cart.removeActivity(idact);
     },
     /**
      * regarde si tous les paniers sont chargés
@@ -677,7 +681,7 @@ const MM = {
             // liste des titres :
             let titles = document.querySelectorAll("#ceintcolumnTitle input")
             titles.forEach(inp =>{
-                chaine += ",t"+t+"="+utils.superEncodeURI(inp.value);
+                chaine += ",t"+t+"="+(inp.value?utils.superEncodeURI(inp.value):"");
                 t++;
             })
             return "t="+utils.superEncodeURI(document.getElementById("ceinttitle").value)+
@@ -690,7 +694,7 @@ const MM = {
             ",n="+document.getElementById("ceintqtyvalue").value+
             ",cor="+(utils.getRadioChecked("ceintcorrpos")||"fin")+
             ",pie="+document.getElementById("ceintpiedcol").value+
-            ",o="+(utils.getRadioChecked("ceintorientation")||"portrait")+
+            ",or="+(utils.getRadioChecked("ceintorientation")||"portrait")+
             this.export();
         }
         return "i="+MM.introType+

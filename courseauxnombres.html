@@ -25,10 +25,11 @@
     </head>  
     <body size="A4">
         <button onclick="document.getElementById('creator-menu').classList.toggle('hidden')" class="noprint" style="position: absolute;left:0;top:0;width:18pt;height:18pt;">🛠</button>
+        <button onclick="window.print();" class="noprint" style="position: absolute;left:26px;top:0;height:18pt;" title="Cliquer pour imprimer ou enregistrer en pdf">Print</button>
+
         <div id="creator-container">
             <section id="creator-menu" class="noprint hidden">
                 <button id="pageOrientation" title="Change l'orientation de la page">paysage</button>
-                <button onclick="window.print();" title="Cliquer pour imprimer ou enregistrer en pdf">Print</button>
                 | Énoncés : 
                 <input type="number" min="1" id="nbFiches" size="3">
                 | Entête : <button id="btnedit" title="Modifier l'entête des courses">éditer</button> <button id="btncopy" title="Copier les modifications dans toutes les courses">copier</button>

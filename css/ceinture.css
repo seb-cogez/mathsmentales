@@ -200,10 +200,10 @@ h3.exercice-title{
 }
 .ceinture-header {
     display: grid;
-    grid-template-columns: 4cm auto 4cm;
+    grid-template-columns: 4cm auto 3cm;
 }
 .ceinture-header.evaluation {
-    grid-template-columns: 4cm auto 3cm 4cm;
+    grid-template-columns: 4cm auto 3cm 3cm;
 }
 .ceinture-header > div {
     display: flex;
@@ -237,8 +237,8 @@ h3.exercice-title{
     background-color: #ECECEC;
 }
 input[type="color"]{
-    width: 20pt;
-    height: 20pt;
+    width: 24pt;
+    height: 24pt;
     vertical-align: middle;
 }
 .ceintCorrige .grid .grid {
@@ -265,7 +265,12 @@ input[type="color"]{
 }
 .ceinture .quest {
     display: table-cell;
+}
+.valign {
     align-self: center;
+}
+.nofig .fig{
+    display:none;
 }
 @media screen {
     html{

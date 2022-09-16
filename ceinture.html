@@ -29,19 +29,20 @@
         <div id="creator-container">
             <section id="creator-menu" class="noprint hidden">
                 <button id="pageOrientation" title="Change l'orientation de la page">paysage</button>
-                | Ceintures : 
+                Nb Ceintures : 
                 <input type="number" min="1" id="nbFiches" size="3">
-                | Corrigé :
+                Corrigé :
                 <button id="toggleCorriges"> suivant </button>
+                <label for="colorpickertitle">Fond titre :</label>
+                <input type="color" id="colorpickertitle" value="#ECECEC">
                 <br>
-                <span>Lignes :</span><input id="inputheight" value="20" title="Hauteur en pt" type="number" size="3" min="10" max="200">
                 <span>Texte</span>
                 <span id="textSizes">
                 </span>
                 Tous <input id="fsize" value="10" title="Taille énoncé toutes colonnes" type="number" size="3" min="8" max="16" step="0.5">
                 <span>Largeur colonne</span>
                 <span id="columnsWidth">
-                </span>
+                </span><br>
                 <strong>Champ Réponse</strong>
                 <span id="answersPositions">
                 </span>
@@ -50,11 +51,12 @@
                     <option value="row">à côté</option>
                     <option value="column">dessous</option>
                 </select>
-                Coul <input type="color" id="colorpicker" value="#ECECEC"> Cadre avec <input type="checkbox" value="true"  id="btnChangeBorder"> <input type="color" value="#111111" id="colorpicker2" size="8">
-                <br>Tailles champs
+                Coul <input type="color" id="colorpicker" value="#ECECEC"> Cadre <input type="checkbox" value="true"  id="btnChangeBorder"> <input type="color" value="#111111" id="colorpicker2" size="8">
+                <br>Largeurs :
                 <span id="answersSizes"></span>
                 Tous
                 <input type="number" id="ansWidths" value="20" min="0" max="100" size="3" step="5">
+                <span>Hauteur : </span><input id="inputheight" value="20" title="Hauteur en pt" type="number" size="3" min="10" max="200">
                 <br><b>Mélanger la colonne :</b> 
                 <span id="columnsShuffles">
                 </span>
