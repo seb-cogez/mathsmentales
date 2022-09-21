@@ -593,7 +593,7 @@ export default class activity {
                 } else this.cAnswer = this.options[optionNumber].answer; // on prend la réponse définie globalement
                 // traitement des valeurs attendues de réponse en ligne
                 if(this.options[optionNumber].value === undefined){
-                    this.cValue = this.valuePatterns;
+                    this.cValue = this.valuePatterns?this.valuePatterns:this.cAnswer;
                 } else this.cValue = this.options[optionNumber].value;
                 if(Array.isArray(this.cAnswer) && lenQ){ // on a un tableau de réponses différentes
                     // si autant de types de réponses que de types de questions, raccord 1<->
@@ -627,7 +627,7 @@ export default class activity {
                 } else{
                     this.cAnswer = this.answerPatterns;
                 }
-                this.cValue = this.valuePatterns;
+                this.cValue = this.valuePatterns?this.valuePatterns:this.cAnswer;
                 if(this.figure !== undefined){
                     this.cFigure = utils.clone(this.figure);
                 }

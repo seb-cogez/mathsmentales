@@ -1,0 +1,52 @@
+{
+    "title":"Leçon : nombres relatifs",
+    "type":"text",
+    "ID":"5LN2",
+    "description":"12 questions sur Notion, somme, différence, repérage",
+    "dest":["5LN", "4LN"],
+    "options":[{
+        "name":"Notion de nombre relatifs",
+        "question": [
+            "Qu’est-ce qu’un nombre relatif ?",
+        "Que signifie le – de –9 ?",
+        "Qu’appelle-t-on des nombres opposés ?"
+    ],
+        "answer":[
+            "C’est un nombre que l’on situe par rapport à zéro. Il peut être négatif ou positif.",
+            "C’est le signe du nombre négatif.",
+            "Ce sont des nombres relatifs dont la somme vaut zéro."
+    ]
+    },{
+        "name":"Repérage",
+        "question":[
+            "Comment appelle-t-on les nombres qui permettent de repérer un point dans le plan ?",
+            "Comment se notent les coordonnées d’un point ?",
+            "Quelle propriété géométrique ont deux points dont les abscisses sont opposées ?"
+        ],
+        "answer":[
+            "Ce sont les coordonnées. Le premier nombre est l’abscisse, le second est l’ordonnée.",
+            "On les notes entre parenthèses, séparées d’un point virgule. Exemple : A(3 ;-5)",
+            "Des points d’abscisses opposées sont symétriques par rapport à l’origine."
+        ]
+    },{
+        "name":"Somme, différence",
+        "vars":{"a":"-20_20_4_^&,0"},
+        "question":[
+            "Comment ajouter deux relatifs de même signe ?",
+            "Comment ajouter deux relatifs de signes différents ?",
+            "Quelle propriété permet de soustraire des nombres relatifs ?",
+            "Qu’est-ce qu’une somme algébrique ?",
+            "Transforme $$(${math.signedNumber(:a[0])})-(${math.signedNumber(:a[1])})$$ en addition",
+            "Enlève les parenthèses de l'écriture $$(${math.signedNumber(:a[0])})+(${math.signedNumber(:a[1])})-(${math.signedNumber(:a[2])})-(${math.signedNumber(:a[3])})$$"
+        ],
+        "answer":[
+            "On garde le signe et on ajoute les distances à zéro.",
+            "On prend le signe du nombre le plus éloigné de zéro et on soustrait les distances à zéro.",
+            "Soustraire un relatif revient à ajouter son opposé.",
+            "C’est une opération composée d’addition et de soustractions de nombres relatifs.",
+            "$$(${:a[0]})-(${:a[1]})=\\color{red}{${:a[0]}+(${math.signedNumber(-:a[1])})}$$",
+            "$$(${math.signedNumber(:a[0])})+(${math.signedNumber(:a[1])})-(${math.signedNumber(:a[2])})-(${math.signedNumber(:a[3])})=\\color{red}{${:a[0]}${math.signedNumber(:a[1])}${math.signedNumber(-:a[2])}${math.signedNumber(-:a[3])}}$$"
+        ]
+    }
+    ]
+}

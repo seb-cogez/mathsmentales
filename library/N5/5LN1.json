@@ -1,0 +1,51 @@
+{
+    "title":"Leçon : enchainement d'opérations",
+    "type":"text",
+    "ID":"5LN1",
+    "description":"16 questions sur priorités opératoires, notation quotient, distributivité",
+    "dest":["5LN","4LN"],
+    "options":[
+        {
+            "name":"Priorités",
+            "question":["Donne l’ordre de priorité des opérations dans un calcul sans parenthèses.",
+            "Dans quel ordre faire les opérations d’un calcul qui ne contient que des additions et des soustractions ?",
+            "Dans quel ordre faire les opérations d’un calcul qui ne contient que des multiplications et des divisions ?",
+            "Dans quel ordre faire les opérations d’un calcul qui ne contient que des additions ?",
+            "Dans quel ordre faire les opérations d’un calcul qui ne contient que des multiplications ?",
+            "Un calcul contient des parenthèses. Dans quel ordre faire les calculs ?"],
+            "answer":["On effectue d’abord les multiplications et divisions, puis les additions et soustractions.",
+            "On fait les opérations + ou - de gauche à droite (dans le sens de la lecture)",
+            "On fait les opérations × ou ÷ de gauche à droite (dans le sens de la lecture)",
+            "On peut faire les regroupements de nombres que l’on veut car l’addition est commutative (on peut déplacer les termes de l’addition)",
+            "On peut faire les regroupements de nombres que l’on veut car la multiplication est commutative (on peut déplacer les facteurs de la multiplication)",
+            "On effectue d’abord les calculs présents dans les parenthèses en suivant les règles de priorité.<br>S’il y a des parenthèses imbriquées, on fait d’abord les calculs des parenthèses les plus à l’intérieur."
+            ]
+        },{
+            "name":"Distributivité",
+            "question":["Quelle égalité exprime la distributivité de la multiplication par rapport à l’addition ?",
+            "Quelle égalité exprime la distributivité de la multiplication par rapport à la soustraction ?"],
+            "answer":["a×(b+c) = a×b + a×c<br>« a facteur de b plus c est égal à a fois b plus a fois c »",
+            "a×(b-c) = a×b – a×c<br>« a facteur de b moins c est égal à a fois b moins a fois c »"]
+        },{
+            "name":"Nom des opérations",
+            "question":["Comment appelle-t-on l’écriture d’une addition ?",
+            "Comment s’appellent les nombres que l’on ajoute dans une addition ?",
+            "Comment appelle-t-on l’écriture d’une soustraction ?",
+            "Comment s’appellent les nombres que l’on opère dans une soustraction ?",
+            "Comment appelle-t-on l’écriture d’une multiplication ?",
+            "Comment s’appellent les nombres que l’on opère dans une multiplication ?",
+            "Comment appelle-t-on l’écriture d’une division ?",
+            "Comment nommer un calcul comportant plusieurs opérations ?"],
+            "answer":[
+                "L’écriture d’une addition s’appelle une somme.",
+                "Les nombres d’une addition s’appellent les termes.",
+                "L’écriture d’une soustraction s’appelle une différence.",
+                "Les nombres d’une soustraction s’appellent les termes, comme pour l’addition.",
+                "L’écriture d’une multiplication s’appelle un produit.",
+                "Les nombres d’une multiplication sont les facteurs.",
+                "L’écriture d’une division s’appelle un quotient.",
+                "On donne le nom de l’opération qui s’effectue en dernier dans l’ordre de priorité. (somme, différence, produit, quotient)"
+            ]
+        }
+    ]
+}
