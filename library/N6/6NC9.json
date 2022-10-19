@@ -38,6 +38,6 @@
         }
     ],
     "answer":"Dans $$${:c}$$ le chiffre des <u>${:d}</u> est <span class='red'>${:n}</span>",
-    "value":"${:a[:b]}",
+    "value":"${:n}",
     "question": "Quel est le chiffre des <b>${:d}</b> de $$${:c}$$&nbsp;?"
 }

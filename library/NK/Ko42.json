@@ -1,0 +1,24 @@
+{
+    "title":"Dérivée de fonctions polynomiales",
+    "repeat":true,
+    "type":"latex",
+    "ID":"Ko42",
+    "description":"Trouver la dérivée des fonctions polynomes à partir de $$(x^n)'=nx^n-1$$",
+    "dest":["GA1","Ko4"],
+    "keys":["_","_","+","-","x","y","z","t"],
+    "consts":{"lettres":["x","y","z","t"]},
+    "options":[{
+        "name":"Polynomes de degré 2",
+        "vars":{"a":"-9_9_3","cx":"0_0","x":"${:lettres[:cx]}"},
+        "question":"\\text{Dériver la fonction } f(x)=${math.calc(:a[0]+'*'+:x+'^2+('+:a[1]+')*'+:x+'+('+:a[2]+')')}",
+        "answer":":question=\\color{red}{${math.calc('d('+:a[0]+'*'+:x+'^2+('+:a[1]+')*'+:x+'+('+:a[2]+'))')}}",
+        "value":"${math.calc('d('+:a[0]+'*'+:x+'^2+('+:a[1]+')*'+:x+'+('+:a[2]+'))')}"
+    },{
+        "name":"Polynomes de degré 3",
+        "vars":{"a":"-9_9_4","cx":"0_0","x":"${:lettres[:cx]}"},
+        "question":"\\text{Dériver la fonction } f(x)=${math.calc(:a[0]+'*'+:x+'^3+('+:a[1]+')*'+:x+'^2+('+:a[2]+')*'+:x+'+('+:a[3]+')')}",
+        "answer":":question=\\color{red}{${math.calc('d('+:a[0]+'*'+:x+'^3+('+:a[1]+')*'+:x+'^2+('+:a[2]+')*'+:x+'+('+:a[3]+'))')}}",
+        "value":"${math.calc('d('+:a[0]+'*'+:x+'^3+('+:a[1]+')*'+:x+'^2+('+:a[2]+')*'+:x+'+('+:a[3]+'))')}"
+    }
+    ]
+}

@@ -1,4 +1,4 @@
-import utils from "./utils.js";
+import utils from "./utils.min.js";
 export {sound as default};
 const sound = {
     list : [
@@ -46,6 +46,7 @@ const sound = {
         this.play();
     },
     setSound(id){
+        if(this.player === null)this.getPlayer()
         this.selected = eval(id);
         if(this.selected!==null)
             this.player.src = this.list[id][0];

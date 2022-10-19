@@ -1,0 +1,14 @@
+{
+    "title":"Signe d'une fonction affine",
+    "type":"latex",
+    "textSize":"small",
+    "ID":"Ko41",
+    "description":"Dresser le tableau de signe d'une fonction affine",
+    "dest":["2G3","Ko4"],
+    "name":"Dresser un tableau de signes",
+    "vars":{"a":"-9_9_^0","b":"0_10","choix":"1_3"},
+    "question": "\\text{Compléter le tableau de signe de } f(x)=${:a}x+${:b}\\\\\\begin{array}{|c|ccc|} \\hline x && ... & \\\\ \\hline ${:a}x+${:b}& ...&0&... \\\\ \\hline \\end{array}",
+    "answer":"\\begin{array}{|c|ccc|} \\hline x && \\color{red}{${math.calc('-'+:b+'/('+:a+')')}} & \\\\ \\hline ${:a}x+${:b}& \\color{red}{${math.sign(-:a)}}&0& \\color{red}{${math.sign(:a)}}\\\\ \\hline \\end{array}",
+    "value":"\\begin{array}{|c|c|c|} \\hline ${:choix==1?:a::a} & ${:choix==2?:a::choix==1?:a::a} & ${:choix==3?:a::a} \\\\ \\hline ${:choix==1?'?'::b} & ${:choix==2?'?'::choix==1?:b::b} & ${:choix==3?'?'::b} \\\\ \\hline \\end{array}"
+
+}

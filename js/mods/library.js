@@ -1,10 +1,12 @@
-import utils from "./utils.js";
-import MM from "./MM.js";
-import activity from "./activity.js";
+import content from "./content.js";
+//import theactivities from "./theactivities.js";
+import utils from "./utils.min.js";
+import MM from "./MM.min.js";
+import activity from "./activity.min.js";
 export {library as default};
 // lecture de la bibliotheque
 const library = {
-    ordre:{"grille-ecole":["11","10","9","8","7"],"grille-college":["6","5","4","3"],"grille-lycee":["2","G","T"]},
+    ordre:{"grille-ecole":["11","10","9","8","7"],"grille-college":["6","5","4","3"],"grille-lycee":["2","G","K","T"]},
     /**
      * Affiche une activité dans l'onglet de paramètres
      * @param {JSON} json description de l'objet
@@ -13,7 +15,7 @@ const library = {
         let obj = new activity(json);
         MM.editedActivity = obj;
         // show tab-content
-        var tab = document.querySelector("a[numero$='parameters'].tabs-menu-link");
+        let tab = document.querySelector("a[numero$='parameters'].tabs-menu-link");
         utils.resetAllTabs();
         utils.addClass(tab, "is-active");
         document.getElementById("tab-parameters").style.display = "";
@@ -25,17 +27,39 @@ const library = {
      * Ouvre un fichier de la library
      * @param {String} url adresse du fichier à ouvrir
      */
-    load:function(url){
-        let reader = new XMLHttpRequest();
-        reader.onload = ()=>{
-            let json = JSON.parse(reader.responseText);
-            let regexp = /\/(.*)\./;
-            url = regexp.exec(url)[1];
-            utils.setHistory("Exercice","u="+url);
-            this.open(json);
-        }
-        reader.open("get", "library/"+url+"?v"+MM.version);
-        reader.send();
+    load:function(url,id){
+        /*if(theactivities[id]!== undefined){
+            utils.setHistory("Exercice","u="+id);
+            this.open(theactivities[id]);
+        } else {*/
+            // pour le développement, on peut lire une activité qui n'a pas encore été intégrée dans la bibliothèque
+            // en fournissant ?u=id de l'activité.
+            let reader = new XMLHttpRequest();
+            reader.onload = ()=>{
+                let json = JSON.parse(reader.responseText);
+                let regexp = /\/(.*)\./;
+                url = regexp.exec(url)[1];
+                utils.setHistory("Exercice","u="+url);
+                this.open(json);
+            }
+            reader.open("get", "library/"+url+"?v"+MM.version);
+            reader.send();
+        //}
+    },
+    /**
+     * 
+     * @param {String} url url du json à récupérer
+     */
+    loadJSON:function(url){
+        return new Promise((resolve,reject)=>{
+            let reader  = new XMLHttpRequest();
+            reader.onload = ()=>{
+                resolve(JSON.parse(reader.responseText));
+            }
+            reader.onerror = err=>{reject(err)};
+            reader.open("get", "library/"+url+"?v"+MM.version);
+            reader.send();    
+        })
     },
     /**
      * Récupère les données d'une activité lors d'un import venant du chargement d'un panier préconfiguré.
@@ -57,7 +81,7 @@ const library = {
      * Ouvre le fichier de description de toutes les activités disponibles sur MathsMentales
      */
     openContents:function(){
-        let reader = new XMLHttpRequest();
+        /*let reader = new XMLHttpRequest();
         reader.onload = function(){
             MM.content = JSON.parse(reader.responseText);
             // remplissage de la grille d'accueil
@@ -71,7 +95,17 @@ const library = {
             }        
         }
         reader.open("get", "library/content.json?v"+MM.version, true);
-        reader.send();
+        reader.send();*/
+        MM.content = content;
+            // remplissage de la grille d'accueil
+        utils.createTuiles();
+        // création des tuiles des niveaux
+        utils.createSearchCheckboxes();
+        // check if parameters from URL
+        utils.checkURL();
+        if(MM.embededIn){
+            window.parent.postMessage({url: window.location.href, ready:"ok"}, MM.embededIn);
+        }        
     },
     /**
      * Affiche la liste des activités provenant d'une recherche ou d'un niveau à afficher (base=true)
@@ -144,21 +178,20 @@ const library = {
                                         let reg = new RegExp(txt,"gi");
                                         tt = tt.replace(reg,function(x){return "<mark>"+x+"</mark>"})
                                     })
-                                    chapExo.push({"u":lexo.u,
-                                    "t":tt})
+                                    chapExo.push({"u":lexo.u, "t":tt, id:lexo.id})
                                 } else
                                 // recherche dans le code de l'exo
                                 if(chaineATrouver.every(txt=>{
                                     return lexo.u.toLowerCase().indexOf(txt+".")>-1
                                 })){
-                                    chapExo.push({"u":lexo.u,"t":lexo.t});
+                                    chapExo.push({"u":lexo.u,"t":lexo.t, id:lexo.id});
                                 } else
                                 // recherche dans les descriptifs
                                 if(lexo.d !== undefined){
                                     if(chaineATrouver.every(txt=>{
                                         return lexo.d.toLowerCase().indexOf(txt)>-1
                                     })){
-                                        chapExo.push({"u":lexo.u,"t":lexo.t});
+                                        chapExo.push({"u":lexo.u,"t":lexo.t, id:lexo.id});
                                     }
                                 }
                             }
@@ -208,10 +241,13 @@ const library = {
                     itemsNumber += nbexos;
                     theme=true;chapitre=true;
                     for(let k=0,len=nbexos;k<len;k++){
+                        let id = niveau["themes"][i]["chapitres"][j]["e"][k].id;
+                        let title = niveau["themes"][i]["chapitres"][j]["e"][k]["t"];
+                        let url = niveau["themes"][i]["chapitres"][j]["e"][k]["u"];
                         if(niveau["themes"][i]["chapitres"][j]["e"][k]["new"]){
-                            htmlc += "<li id='rcli"+i+"-"+j+"-"+k+"' class='new' data-url='"+niveau["themes"][i]["chapitres"][j]["e"][k]["u"]+"'>"+niveau["themes"][i]["chapitres"][j]["e"][k]["t"]+"</li>";
+                            htmlc += "<li id='rcli"+i+"-"+j+"-"+k+"' class='new' data-id='"+id+"' data-url='"+url+"'>"+title+"<input type='checkbox' class='checkitem' value='"+id+"' data-url='"+url+"'></li>";
                         } else {
-                            htmlc += "<li id='rcli"+i+"-"+j+"-"+k+"' data-url='"+niveau["themes"][i]["chapitres"][j]["e"][k]["u"]+"'>"+niveau["themes"][i]["chapitres"][j]["e"][k]["t"]+"</li>";
+                            htmlc += "<li id='rcli"+i+"-"+j+"-"+k+"' data-id='"+id+"' data-url='"+url+"'>"+title+"<input type='checkbox' class='checkitem' value='"+id+"' data-url='"+url+"'></li>";
                         }
                     }
                 } else {

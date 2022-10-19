@@ -1,7 +1,7 @@
-import math from "./math.js";
-import activity from "./activity.js";
-import MM from "./MM.js";
-import utils from "./utils.js";
+import math from "./math.min.js";
+import activity from "./activity.min.js";
+import MM from "./MM.min.js";
+import utils from "./utils.min.js";
 
 export default class cart {
     constructor(id){
@@ -95,9 +95,12 @@ export default class cart {
         }
 
     }
-    addActivity(obj){
+    addActivity(obj,nbQuestions=false){
         this.editedActivityId = -1;
         let temp = new activity(obj);
+        if(nbQuestions){
+            temp.nbq = nbQuestions;
+        }
         this.activities.push(temp);
         this.display();
     }

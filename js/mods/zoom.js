@@ -1,4 +1,4 @@
-import utils from "./utils.js";
+import utils from "./utils.min.js";
 export default class Zoom {
     /**
      * @param {Integer} id id unique du zoom

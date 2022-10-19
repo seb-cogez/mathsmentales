@@ -171,6 +171,9 @@ h3.exercice-title{
 }
 /* Interro spécifique
 */
+.invisible {
+    display: none;
+}
 .studenName {
     padding:1pt 3pt 30pt;
     width: 40%;

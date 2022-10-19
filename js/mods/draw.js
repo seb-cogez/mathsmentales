@@ -1,5 +1,5 @@
-import utils from "./utils.js";
-import MM from "./MM.js";
+import utils from "./utils.min.js";
+import MM from "./MM.min.js";
 /**
  * offer the possibility to anotate the page
  * designed for interactive screens

@@ -21,12 +21,14 @@
         "question":[
             "Comment appelle-t-on les nombres qui permettent de repérer un point dans le plan ?",
             "Comment se notent les coordonnées d’un point ?",
-            "Quelle propriété géométrique ont deux points dont les abscisses sont opposées ?"
+            "Quelle propriété géométrique ont deux points d'une droite graduée dont les abscisses sont opposées ?",
+            "Quelle propriété géométrique ont deux points du plan dont les abscisses sont opposées  ?"
         ],
         "answer":[
             "Ce sont les coordonnées. Le premier nombre est l’abscisse, le second est l’ordonnée.",
             "On les notes entre parenthèses, séparées d’un point virgule. Exemple : A(3 ;-5)",
-            "Des points d’abscisses opposées sont symétriques par rapport à l’origine."
+            "Des points d’abscisses opposées sur une droite graduée sont symétriques par rapport à l’origine.",
+            "Des points du plan d'abscisses opposées sont symétriques par rapport à l'axe des ordonnées."
         ]
     },{
         "name":"Somme, différence",

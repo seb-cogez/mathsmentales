@@ -1,0 +1,18 @@
+{
+    "title":"Développer à l'aide de la distributivité",
+    "type":"latex",
+    "ID":"Ko21",
+    "textSize":"medium",
+    "dest":["4NE","3ND","2N3","Ko2"],
+    "consts":{"lettres":["a","b","t","x","y"]},
+    "keys":["x²","+","-","a","b","t","x","y"],
+    "options":[{
+        "name":"Double distributivité",
+        "vars":{"l":"0_4", "a":"-10_10_^0","b":"-10_10_^0","c":"-10_10_^0","d":"-10_10_^0,${-:b*:c/:a}","x":"${:lettres[:l]}"},
+        "question": "\\begin{array}{c} \\text{Développer et réduire}\\\\(${math.signIfOne(:a)+:x}${math.signedNumber(:b)})(${math.signIfOne(:c)+:x}${math.signedNumber(:d)})\\end{array}",
+        "shortq": "(${math.signIfOne(:a)+:x}${math.signedNumber(:b)})(${math.signIfOne(:c)+:x}${math.signedNumber(:d)})",
+        "answer":"(${math.signIfOne(:a)+:x}${math.signedNumber(:b)})(${math.signIfOne(:c)+:x}${math.signedNumber(:d)})=\\color{red}{${math.signIfOne(:a*:c)+:x}^2${(:a*:d+:b*:c!=0)?math.signedNumberButOne(:a*:d+:b*:c)+:x:''}${math.signedNumber(:b*:d)}}",
+        "value":"${math.signIfOne(:a*:c)+:x}^2${(:a*:d+:b*:c!=0)?math.signedNumberButOne(:a*:d+:b*:c)+:x:''}${math.signedNumber(:b*:d)}"
+    }
+    ]
+}

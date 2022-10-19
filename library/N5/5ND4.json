@@ -3,6 +3,7 @@
     "type":"text",
     "ID":"5ND4",
     "textSize":"medium",
+    "description":"PGCD de deux nombres",
     "dest":["5ND", "4ND", "3NC", "2N2"],
     "options":[{
         "name":"Nombres inférieurs à 36",
@@ -14,9 +15,9 @@
     ],
     "question": [
         "Quel est le PGCD de ${:n} et ${:d} ?",
-        "PGCD(${:n},${:d})",
+        "PGCD(${:n};${:d})",
         "Par quel nombre simplifier au maximum $$\\dfrac{${:d}}{${:n}}$$ ?"
     ],
-    "answer":"PGCD(${:d},${:n}) = $$\\color{red}{${math.pgcd(:d,:n)}}$$",
+    "answer":"PGCD(${:d};${:n}) = $$\\color{red}{${math.pgcd(:d,:n)}}$$",
     "value":"${math.pgcd(:d,:n)}"
 }

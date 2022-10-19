@@ -1,5 +1,5 @@
-import MM from "./MM.js";
-import utils from "./utils.js";
+import MM from "./MM.min.js";
+import utils from "./utils.min.js";
 /**
  * keyboard interactif
  * Permet d'entrer des données, traitées ensuite par MathLive
@@ -144,84 +144,108 @@ srqt:`<svg width="1em" height="1em" viewBox="0 0 8.467 8.467" xmlns="http://www.
         }
     }
     create(config=[]){
-        this.content = utils.create("div",{className:"numkey-base"});
-        /** Première ligne */
-        // touches 7 8 et 9
-        ["7","8","9"].forEach((val)=>{
-            this.addKey("key",val,()=>{this.targetField.executeCommand(["insert",val]);this.focus();});
-        });
-        if(config[0]!== undefined)
-            this.addKey(config[0])
-        // touche diviser
-        else
-            this.addKey("÷");
-        // touche Backspace
-        this.addKey("key backspace",keysSVG.backspaceKey, ()=>{this.targetField.executeCommand("deleteBackward");this.focus();});
-        // trou
-        this.content.appendChild(utils.create("div"));
-        // touche parenthèses
-        if(config[4]!==undefined)
-            this.addKey(config[4]);
-        else this.addKey("(");
-        // touche lettre x
-        if(config[5]!==undefined)
-            this.addKey(config[5])
-        else this.addKey("x");
-        /** Deuxième ligne */
-        // touches 7 8 et 9
-        ["4","5","6"].forEach((val)=>{
-            this.addKey("key",val,()=>{this.targetField.executeCommand(["insert",val]);this.focus();});
-        });
-        // touche multiplier
-        if(config[1]!==undefined)
-            this.addKey(config[1])
-        else this.addKey("×");
-        // touche Enter
-        this.addKey("key enter",keysSVG.enterKey,()=>{
-            this.targetField.executeCommand("complete");
-            this.targetField.dispatchEvent(new KeyboardEvent('keyup',{'key':'Enter'}));
-            //MM.nextSlide(this.sliderId);
-        });
-        // trou
-        this.content.appendChild(utils.create("div"));
-        // touche carré
-        if(config[6]!==undefined)
-            this.addKey(config[6]);
-        else this.addKey("x²");
-        // touche racine
-        if(config[7]!==undefined)
-            this.addKey(config[7]);
-        else this.addKey("√");
-        /** Troisième ligne */
-        // touches 7 8 et 9
-        ["1","2","3"].forEach((val)=>{
-            this.addKey("key",val,()=>{this.targetField.executeCommand(["insert",val]);this.focus();});
-        });
-        // touche moins
-        if(config[2]!==undefined)
-            this.addKey(config[2]);
-        else this.addKey("-");
-        // trou
-        this.content.appendChild(utils.create("div"));
-        // touche annuler
-        this.addKey("key action",keysSVG.undoKey,()=>{this.targetField.executeCommand("undo");this.focus();});
-        // touche refaire
-        this.addKey("key action",keysSVG.redoKey,()=>{this.targetField.executeCommand("redo");this.focus();});
-        /** Quatrième ligne */
-        // touches 0 
-        this.addKey("key zero","0",()=>{this.targetField.executeCommand(["insert","0"]);this.focus();});
-        // touches , 
-        this.addKey("key",",",()=>{this.targetField.executeCommand(["insert","."]);this.focus();});
-        // touche plus
-        if(config[3]!==undefined)
-            this.addKey(config[3]);
-        else this.addKey("+");
-        // trou
-        this.content.appendChild(utils.create("div"));
-        // touche flèche gauche
-        this.addKey("key action",keysSVG.leftArrowKey,()=>{this.targetField.executeCommand("moveToPreviousChar");this.focus();});
-        // touche refaire
-        this.addKey("key action",keysSVG.rightArrowKey,()=>{this.targetField.executeCommand("moveToNextChar");this.focus();});
+        if(config === "alphabetique"){
+            this.content = utils.create("div",{className:"alphakey-base"});
+            ["0","1","2","3","4","5","6","7","8","9"].forEach(val=>{
+                this.addKey("key colored",val,()=>{this.targetField.executeCommand(["insert",val]);this.focus();})
+            });
+            ["A","Z","E","R","T","Y","U","I","O","P"].forEach(val=>{
+                this.addKey("key",val,()=>{this.targetField.executeCommand(["insert",val]);this.focus();})
+            });
+            ["A","S","D","F","G","H","J","K","L","M"].forEach(val=>{
+                this.addKey("key",val,()=>{this.targetField.executeCommand(["insert",val]);this.focus();})
+            });
+            ["W","X","C","V","B","N",",","."].forEach(val=>{
+                this.addKey("key",val,()=>{this.targetField.executeCommand(["insert",val]);this.focus();})
+            });
+            // touche correction
+            this.addKey("key colored",keysSVG.backspaceKey, ()=>{this.targetField.executeCommand("deleteBackward");this.focus();});
+            // touche enter
+            this.addKey("key colored",keysSVG.enterKey,()=>{
+                this.targetField.executeCommand("complete");
+                this.targetField.dispatchEvent(new KeyboardEvent('keyup',{'key':'Enter'}));
+            });
+
+        } else {
+            this.content = utils.create("div",{className:"numkey-base"});
+            /** Première ligne */
+            // touches 7 8 et 9
+            ["7","8","9"].forEach((val)=>{
+                this.addKey("key",val,()=>{this.targetField.executeCommand(["insert",val]);this.focus();});
+            });
+            if(config[0]!== undefined)
+                this.addKey(config[0])
+            // touche diviser
+            else
+                this.addKey("÷");
+            // touche Backspace
+            this.addKey("key backspace",keysSVG.backspaceKey, ()=>{this.targetField.executeCommand("deleteBackward");this.focus();});
+            // trou
+            this.content.appendChild(utils.create("div"));
+            // touche parenthèses
+            if(config[4]!==undefined)
+                this.addKey(config[4]);
+            else this.addKey("(");
+            // touche lettre x
+            if(config[5]!==undefined)
+                this.addKey(config[5])
+            else this.addKey("x");
+            /** Deuxième ligne */
+            // touches 7 8 et 9
+            ["4","5","6"].forEach((val)=>{
+                this.addKey("key",val,()=>{this.targetField.executeCommand(["insert",val]);this.focus();});
+            });
+            // touche multiplier
+            if(config[1]!==undefined)
+                this.addKey(config[1])
+            else this.addKey("×");
+            // touche Enter
+            this.addKey("key enter",keysSVG.enterKey,()=>{
+                this.targetField.executeCommand("complete");
+                this.targetField.dispatchEvent(new KeyboardEvent('keyup',{'key':'Enter'}));
+                //MM.nextSlide(this.sliderId);
+            });
+            // trou
+            this.content.appendChild(utils.create("div"));
+            // touche carré
+            if(config[6]!==undefined)
+                this.addKey(config[6]);
+            else this.addKey("x²");
+            // touche racine
+            if(config[7]!==undefined)
+                this.addKey(config[7]);
+            else this.addKey("√");
+            /** Troisième ligne */
+            // touches 7 8 et 9
+            ["1","2","3"].forEach((val)=>{
+                this.addKey("key",val,()=>{this.targetField.executeCommand(["insert",val]);this.focus();});
+            });
+            // touche moins
+            if(config[2]!==undefined)
+                this.addKey(config[2]);
+            else this.addKey("-");
+            // trou
+            this.content.appendChild(utils.create("div"));
+            // touche annuler
+            this.addKey("key action",keysSVG.undoKey,()=>{this.targetField.executeCommand("undo");this.focus();});
+            // touche refaire
+            this.addKey("key action",keysSVG.redoKey,()=>{this.targetField.executeCommand("redo");this.focus();});
+            /** Quatrième ligne */
+            // touches 0 
+            this.addKey("key zero","0",()=>{this.targetField.executeCommand(["insert","0"]);this.focus();});
+            // touches , 
+            this.addKey("key",",",()=>{this.targetField.executeCommand(["insert","."]);this.focus();});
+            // touche plus
+            if(config[3]!==undefined)
+                this.addKey(config[3]);
+            else this.addKey("+");
+            // trou
+            this.content.appendChild(utils.create("div"));
+            // touche flèche gauche
+            this.addKey("key action",keysSVG.leftArrowKey,()=>{this.targetField.executeCommand("moveToPreviousChar");this.focus();});
+            // touche refaire
+            this.addKey("key action",keysSVG.rightArrowKey,()=>{this.targetField.executeCommand("moveToNextChar");this.focus();});
+        }
     }
     /**
      * crée un clavier par défaut

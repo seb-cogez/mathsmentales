@@ -1,0 +1,17 @@
+{
+    "title":"Résoudre une équation du premier degré",
+    "type":"latex",
+    "ID":"Ko22",
+    "dest":["4NE", "3ND", "2N3","Ko2"],
+    "keys":["_","_","/","-","_","_","_","_"],
+    "textSize":"medium",
+    "consts":{"lettres":["u","v","t","x", "y", "z"]},
+    "options":[{
+        "name":"ax + b = cx + d",
+        "vars":{"a":"-10_10_^0","b":"-10_10", "c":"-10_10_^0", "d":"-10_10", "l":"0_5","x":"${:lettres[:l]}"},
+        "question": "\\text{Résoudre } ${math.signIfOne(:a)}${:x}${math.signedNumber(:b)}=${math.signIfOne(:c)}${:x}${math.signedNumber(:d)}",
+        "shortq":"${math.signIfOne(:a)}${:x}${math.signedNumber(:b)}=${math.signIfOne(:c)}${:x}${math.signedNumber(:d)}",
+        "answer":"${math.signIfOne(:a)}${:x}${math.signedNumber(:b)}=${math.signIfOne(:c)}${:x}${math.signedNumber(:d)} \\text{ pour } \\color{red}{${:a-:c==0?'\\text{pas de solution}'::x+'='+math.calc('('+:d+'-('+:b+'))/(('+:a+')-('+:c+'))')}}",
+        "value":"${:a-:c==0?'pas de solution':math.calc('('+:d+'-('+:b+'))/(('+:a+')-('+:c+'))')}"
+    }]
+}

@@ -4,6 +4,8 @@
 // remplace le fichier scan.php
 const fs = require("fs");
 const path = require("path");
+const listOfActivities = {};
+const { off } = require("process");
 const getAllFiles = function(dirPath, arrayOfFiles) {
   let files = fs.readdirSync(dirPath)
   arrayOfFiles = arrayOfFiles || []
@@ -12,7 +14,10 @@ const getAllFiles = function(dirPath, arrayOfFiles) {
     if (fs.statSync(dirPath + "/" + file).isDirectory()) {
       arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles)
     } else {
-      arrayOfFiles.push([file,path.join(__dirname, dirPath, "/", file)])
+      arrayOfFiles.push([file,
+                      path.join(__dirname, dirPath, "/", file),
+                      fs.statSync(dirPath + "/" + file).mtime
+                    ])
     }
   })
   return arrayOfFiles
@@ -32,11 +37,17 @@ for (let niveau in structure){
   }
 }
 for (const niveau in structure){
+  let now = new Date().getTime()-30*24*3600*1000;
   if(niveau === "activitiesNumber")continue;
   let listOfFiles = getAllFiles("./N"+niveau);
   listOfFiles.forEach(function(fichierExo){
+    let nouveau = false;
+    let dt = new Date(fichierExo[2]).getTime();
+    if(dt > now){nouveau = true;console.log(fichierExo[0])}
+    //console.log(fichierExo);
     let json = JSON.parse(fs.readFileSync(fichierExo[1]));
-    let exo = {"u":"N"+niveau+"/"+fichierExo[0], "t":json.title};//url ; title
+    listOfActivities[json.ID]=json;
+    let exo = {"u":"N"+niveau+"/"+fichierExo[0], "t":json.title,"new":nouveau, id:json.ID};//url ; title
     // descriptif
     if(json.description !== undefined){
       exo.d = json.description;
@@ -44,8 +55,8 @@ for (const niveau in structure){
     structure.activitiesNumber++;
     for(let i in json.dest){
       let codechap = json.dest[i];
-      let destLevel = codechap.match(/(^\d+|T|G)/i)[0];
-      let themecode = codechap.match(/^(\d+|T|G)[A-Z]/i)[0];
+      let destLevel = codechap.match(/(^\d+|T|G|K)/i)[0];
+      let themecode = codechap.match(/^(\d+|T|G|K)[A-Z]/i)[0];
       if(structure[destLevel] !== undefined){
         structure[destLevel].activitiesNumber++;
         structure[destLevel].themes[themecode].chapitres[codechap].e.push(exo);
@@ -68,5 +79,8 @@ for(const niveau in structure){
     }
   }
 }
+let dataActivities = JSON.stringify(listOfActivities);
+fs.writeFileSync("../js/mods/theactivities.js","export {theactivities as default};"+
+"const theactivities="+dataActivities);
 let data = JSON.stringify(structure);
-fs.writeFileSync("content.json", data);
+fs.writeFileSync("../js/mods/content.js", "export {content as default};const content="+data);

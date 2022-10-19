@@ -1,0 +1,14 @@
+{
+    "title":"Produit de fractions",
+    "type":"latex",
+    "ID":"Ko12",
+    "textSize":"medium",
+    "keys":["_","_","-","/","_","_","_","_"],
+    "dest":["Ko1"],
+    "consts":{"coef1":[3,5],"coef2":[7,11]},
+    "name":"Produit de fractions à réduire",
+    "vars":{"imp":[3,5,7,9,11],"pair":[2,4,6,8,10],"coef":"0_1","num1":"${:coef1[:coef]*:imp}","num2":"${:coef2[:coef]*:pair}","den1":"${:coef2[:coef]*:pair}","den2":"${:coef1[:coef]*:imp}"},
+    "question":"\\dfrac{${:num1}}{${:den1}}\\times\\dfrac{${:num2}}{${:den2}}",
+    "answer":":question=\\color{red}{\\displaystyle${math.calc(:num[0]+'*('+:num[1]+')/('+:den[0]+')/('+:den[1]+')',false)}}",
+    "value":"${math.calc(:num[0]+'*('+:num[1]+')/('+:den[0]+')/('+:den[1]+')',true)}"
+}

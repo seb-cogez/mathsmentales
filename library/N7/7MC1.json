@@ -10,7 +10,7 @@
         "vars":{"a":"10_59", "b":"0_23", "c":"0_11", "d":"${:c*5}"},
         "question": ["Quelle heure sera-t-il <b>${:a} min après</b> ${:b} h ${:d>9?:d:'0'+:d} ?",
             "Le train de ${:b}&nbsp;h&nbsp;${:d>9?:d:'0'+:d} arrivera avec <b>${:a} min de retard</b>. À quelle heure va-t-il arriver ?",
-        "Le train qui part à ${:b}&nbsp;h&nbsp;${:d} roule <b>${:a} min</b>. Quelle est son heure d'arrivée ?"],
+        "Le train qui part à ${:b}&nbsp;h&nbsp;${:d>9?:d:'0'+:d} roule <b>${:a} min</b>. Quelle est son heure d'arrivée ?"],
         "answer":["Il sera <span class='red'>${math.getHM(:b,:a+Number(:d))}</span>.",
             "Le train arrivera à <span class='red'>${math.getHM(:b,:a+Number(:d))}</span>.",
         "Le train arrive à <span class='red'>${math.getHM(:b,:a+Number(:d))}</span>."],
@@ -23,7 +23,7 @@
         "Le train de ${:b}&nbsp;h&nbsp;${:d>9?:d:'0'+:d} roule pendant <b>${:e} h ${:a>9?:a:'0'+:a} min</b>. Quelle est son heure d'arrivée ?"],
         "answer":["Il sera <span class='red'>${math.getHM(:b+:e,:a+Number(:d))}</span>.",
             "Le train arrivera à <span class='red'>${math.getHM(:b+:e,:a+Number(:d))}</span>.",
-            "Le trainde arrive à <span class='red'>${math.getHM(:b+:e,:a+Number(:d))}</span>."],
+            "Le train arrive à <span class='red'>${math.getHM(:b+:e,:a+Number(:d))}</span>."],
         "value":"${math.getHM(:b+:e,:a+Number(:d))}"
     },{
         "name":"Avant, en avance en min",
@@ -32,18 +32,18 @@
             "Le train de ${:b}&nbsp;h&nbsp;${:d>9?:d:'0'+:d} est arrivé avec <b>${:a} min d'avance</b>. À quelle heure est-il arrivé ?",
         "Le train arrivé à ${:b}&nbsp;h&nbsp;${:d>9?:d:'0'+:d} était parti il y a <b>${:a} min</b>. À quelle heure était-il parti ?"],
         "answer":["Il était <span class='red'>${math.getHM(:b,Number(:d)-:a)}</span>.",
-            "Le train est arrivé à <span class='red'>${math.getHM(:b,Number(:d)-:a)}</span>",
-        "Le train était parti à <span class='red'>${math.getHM(:b,Number(:d)-:a)}</span>"],
+            "Le train est arrivé à <span class='red'>${math.getHM(:b,Number(:d)-:a)}</span>.",
+        "Le train était parti à <span class='red'>${math.getHM(:b,Number(:d)-:a)}</span>."],
             "value":"${math.getHM(:b,Number(:d)-:a)}"
     },{
         "name":"Avant, en avance en h min",
         "vars":{"a":"0_50", "b":"0_23","e":"1_5", "c":"0_11", "d":"${:c*5}"},
         "question":["Il est ${:b} h ${:d>9?:d:'0'+:d}. Quelle heure était-il <b>${:e} h ${:a>9?:a:'0'+:a} min avant</b> ?",
             "Le train de ${:b}&nbsp;h&nbsp;${:d>9?:d:'0'+:d} est arrivé avec <b>${:e} h ${:a>9?:a:'0'+:a} min d'avance</b>. À quelle heure est-il arrivé ?",
-        "Le train arrivé à ${:b}:${:d>9?:d:'0'+:d} était parti il y a <b>${:e} h ${:a>9?:a:'0'+:a} min</b>. À quelle heure était-il parti ?"],
+        "Le train arrivé à ${:b} h ${:d>9?:d:'0'+:d} était parti il y a <b>${:e} h ${:a>9?:a:'0'+:a} min</b>. À quelle heure était-il parti ?"],
         "answer":["Il était <span class='red'>${math.getHM(:b-:e,Number(:d)-:a)}</span>.",
-            "Le train est arrivé à <span class='red'>${math.getHM(:b-:e,Number(:d)-:a)}</span>",
-        "Il était parti à <span class='red'>${math.getHM(:b-:e,Number(:d)-:a)}</span>"],
+            "Le train est arrivé à <span class='red'>${math.getHM(:b-:e,Number(:d)-:a)}</span>.",
+        "Il était parti à <span class='red'>${math.getHM(:b-:e,Number(:d)-:a)}</span>."],
             "value":"${math.getHM(:b-:e,Number(:d)-:a)}"
         }
     ]

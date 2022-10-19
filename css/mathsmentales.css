@@ -97,6 +97,17 @@ mark {
 .moins::after {
   content:"[-]";
 }
+
+#resultat-chercher .checkitem {
+  display: none;
+  margin-left: 0.5em;
+}
+#resultat-chercher .checkitem:checked {
+  display: inline-block;
+}
+#resultat-chercher li:hover .checkitem {
+  display: inline-block;
+}
 .grille {
   display:flex;
   justify-content: space-around;
@@ -517,6 +528,24 @@ aside > button {
   grid-auto-columns: 2em;
   grid-auto-rows: 1em;
 }
+.alphakey-base {
+  padding: 10px;
+  position: absolute;
+  left: 50%;
+  bottom: 0px;
+  transform: translate(-50%);
+  background-color: rgb(197, 197, 197);
+  border-radius: 6px;
+  display: grid;
+  grid-template-columns: repeat(10, 3em);
+  grid-template-rows: repeat(8, 1em);
+  grid-gap: 5px;
+  justify-content: center;
+  font-size: 2rem;
+  cursor: pointer;
+  grid-auto-columns: 2em;
+  grid-auto-rows: 1em;
+}
 @media screen and (max-width: 800px) {
   .numkey-base {
     padding: 6px;
@@ -527,14 +556,23 @@ aside > button {
     font-size: 1.5rem;
     font-weight: 550;
   }
+  .alphakey-base {
+    padding: 6px;
+    border-radius: 3px;
+    grid-template-columns: repeat(10, 2.2em);
+    grid-template-rows: repeat(8, 1em);
+    grid-gap: 5px;
+    font-size: 1.5rem;
+    font-weight: 550;
+  }
 }
-.slider-34 .numkey-base {
+.slider-34 .numkey-base, .slider-34 .alphakey-base {
   font-size: 1.5rem;
 }
 .vertical.return .numkey-base {
   font-size : 1.5rem;
 }
-.numkey-base .key {
+.numkey-base .key, .alphakey-base .key {
   background-color: rgb(243, 243, 243);
   border: 2px solid rgb(44, 44, 44);
   border-radius: 3px;
@@ -553,7 +591,7 @@ aside > button {
 .numkey-base .action {
   background-color: rgb(206, 205, 205);
 }
-.numkey-base .colored {
+.numkey-base .colored, .alphakey-base .colored {
   background-color: #b8c3ff;
 }
 .numkey-base .times {

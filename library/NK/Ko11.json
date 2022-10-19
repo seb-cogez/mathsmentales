@@ -1,0 +1,45 @@
+{
+    "ID":"Ko11",
+    "dest":["3DD","2N1","Ko1"],
+    "title":"Lien entre coefficient multiplicateur et pourcentage",
+    "type":"text",
+    "textSize":"medium",
+    "keys":["+","-","%","_"],
+    "options":[{
+            "name":"Trouver l'augmentation en pourcentage",
+            "vars":{"d":"1_2","a":"d0.01_1_${:d}_^1","p":"${math.round(:a*100)}"},
+            "question":"À quel pourcentage d'augmentation correspond le CM $$${math.round(1+:a,2)}$$ ?",
+            "shortq":"$$\\times${math.round(1+:a,2)}$$",
+            "answer":"$$${math.round(1+:a,2)}$$ correspond à $$\\color{red}{+${:p}\\%}$$",
+            "value":["${:p}\\%","+${:p}\\%"]
+        },{
+            "name":"Trouver la diminution en pourcentage",
+            "vars":{"d":"1_2","a":"d0.01_1_${:d}_^1","p":"${math.round(:a*100)}"},
+            "question":"À quel pourcentage de réduction correspond le CM $$${math.round(1-:a,2)}$$ ?",
+            "shortq":"$$\\times${math.round(1-:a,2)}$$",
+            "answer":"$$${math.round(1-:a,2)}$$ correspond à $$\\color{red}{-${:p}\\%}$$",
+            "value":"-${:p}\\%"
+        },{
+            "name":"Trouver l'évolution en pourcentage",
+            "vars":{"d":"1_2","a":"d0.01_1_${:d}_^1","p":"${math.round(:a*100)}"},
+            "question":"À quel pourcentage d'évolution correspond le CM $$${math.round(1+:a,2)}$$ ?",
+            "shortq":"$$\\times${math.round(1+:a,2)}$$",
+            "answer":"$$${math.round(1+:a,2)}$$ correspond à $$\\color{red}{+${:p}\\%}$$",
+            "value":["${:p}\\%","+${:p}\\%"]
+        },{
+            "name":"Trouver le coefficient correspondant à l'augmentation",
+            "vars":{"d":"1_2","a":"d0.01_1_${:d}_^1","p":"${math.round(:a*100)}"},
+            "question":"À quel coefficient multiplicateur CM correspond $$+${:p}\\%$$ ?",
+            "shortq":"$$+${:p}\\%$$",
+            "answer":"$$+${:p}\\%$$ revient à multiplier par $$\\color{red}{${math.round(1+:a,2)}}$$",
+            "value":"${math.round(1+:a,2)}"
+        },{
+            "name":"Trouver le coefficient correspondant à la réduction",
+            "vars":{"d":"1_2","a":"d0.01_1_${:d}_^1","p":"${math.round(:a*100)}"},
+            "question":"À quel coefficient multiplicateur CM correspond $$-${:p}\\%$$ ?",
+            "shortq":"$$-${:p}\\%$$",
+            "answer":"$$-${:p}\\%$$ revient à multiplier par $$\\color{red}{${math.round(1-:a,2)}}$$",
+            "value":"${math.round(1-:a,2)}"
+        }
+    ]
+}

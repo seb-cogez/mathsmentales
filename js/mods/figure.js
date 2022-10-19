@@ -1,4 +1,4 @@
-import utils from "./utils.js";
+import utils from "./utils.min.js";
 // Figures
 export default class Figure {
     constructor(obj, id, target, size){

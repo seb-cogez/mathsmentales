@@ -1,0 +1,15 @@
+{
+    "title":"Augmenter ou réduire en pourcentage",
+    "type":"text",
+    "textSize":"medium",
+    "ID":"Ko13",
+    "dest":["5DC", "4DC","3DC", "2N1","Ko1"],
+    "options":[{
+        "name":"Augmentation/réduction en pourcentage",
+        "vars":{"nb":"2_200","qte":"${:nb*10}","pourcent":[10,20,30,40,50]}
+    }
+    ],
+    "question": ["Après une augmentation de ${:pourcent} %, le chiffre  ${:qte} devient ? ", "Après une réduction de ${:pourcent} %, le chiffre  ${:qte} devient ?"],
+    "answer":["${:qte} + ${:pourcent}% de ${:qte} = <span class='red'>$$${math.round(:qte*(1+:pourcent/100),2)}$$</span>","${:qte} - ${:pourcent}% de ${:qte} = <span class='red'>$$${math.round(:qte*(1-:pourcent/100),2)}$$</span>"],
+    "value":["${math.round(:qte*(1+:pourcent/100),2)}","${math.round(:qte*(1-:pourcent/100),2)}"]
+}

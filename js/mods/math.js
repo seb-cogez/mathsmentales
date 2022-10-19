@@ -1,4 +1,4 @@
-import utils from "./utils.js";
+import utils from "./utils.min.js";
 //import * as ce from "../node_modules/@cortex-js/compute-engine/dist/compute-engine.min.esm.js"
 export {math as default};
 const math ={
@@ -154,7 +154,16 @@ const math ={
             return 1;
         } else return value;
     },
-    
+    /**
+     * 
+     * @param {Number} nb 
+     * @returns 
+     */
+    sign:function(nb){
+        nb = Number(nb);
+        if(nb<0) return "-"
+        else return "+"
+    },
     /**
      * tranform a number to a signed number
      * 

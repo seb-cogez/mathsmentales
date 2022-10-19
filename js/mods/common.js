@@ -1,4 +1,4 @@
-import utils from "./utils.js";
+import utils from "./utils.min.js";
 export {common as default}
 const pageOrientations = ["portrait","paysage"]
 const pageWidthes = ["794", "1123"]

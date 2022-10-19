@@ -1,7 +1,7 @@
-import utils from "./utils.js";
-import math from "./math.js";
-import Figure from "./figure.js";
-import library from "./library.js";
+import utils from "./utils.min.js";
+import math from "./math.min.js";
+import Figure from "./figure.min.js";
+import library from "./library.min.js";
 // lecture des fichiers exercice
 /**
 * Structure d'un fichier exercice
@@ -65,6 +65,7 @@ export default class activity {
         this.getOptionHistory = [];
         this.getPatternHistory = {global:[]};
         this.keys = obj.keys||[];
+        this.keyBoards = [];
         this.textSize = obj.textSize||false;
         this.valueType = obj.valueType||false;
     }
@@ -78,6 +79,7 @@ export default class activity {
         this.intVarsHistoric = {};
         this.getOptionHistory = [];
         this.getPatternHistory = {global:[]};
+        this.keyBoards = [];
     }
     get nombreQuestions(){
         if(document.getElementById("nbq-slider"))
@@ -123,7 +125,7 @@ export default class activity {
      */
     static import(obj,id){
         /* load */
-        let regexp = /^(\d{1,2}|T|G)/;// le fichier commence par un nombre ou un T pour la terminale
+        let regexp = /^(\d{1,2}|T|G|K)/;// le fichier commence par un nombre ou un T pour la terminale
         let level = regexp.exec(obj.i)[0];
         let url = "N"+level+"/"+obj.i+".json";
         return library.import(url).then((json)=>{
@@ -556,6 +558,7 @@ export default class activity {
         this.intVarsHistoric = {};
         for(let i=0;i<n;i++){
             this.cFigure = undefined;
+            this.ckeyBoard = undefined;
             optionNumber = opt!==undefined?opt:this.getOption();
             patternNumber = patt!==undefined?patt:this.getPattern(optionNumber);
             // cas d'une option qui a été choisie
@@ -612,6 +615,12 @@ export default class activity {
                 } else if(this.figure !== undefined){
                     this.cFigure = utils.clone(this.figure);
                 }
+                // traitement du clavier (optionnel)
+                if(this.options[optionNumber].keys !== undefined){
+                    this.ckeyBoard = this.options[optionNumber].keys;
+                } else if(this.keys !== undefined){
+                    this.ckeyBoard = this.keys;
+                }
             } else {
                 this.cVars = this.vars;
                 this.cConsts = utils.clone(this.consts);
@@ -630,6 +639,9 @@ export default class activity {
                 this.cValue = this.valuePatterns?this.valuePatterns:this.cAnswer;
                 if(this.figure !== undefined){
                     this.cFigure = utils.clone(this.figure);
+                }
+                if(this.keys !== undefined){
+                    this.ckeyBoard = this.keys;
                 }
             }
             // values generation
@@ -769,6 +781,9 @@ export default class activity {
                         "grid":this.cFigure.grid?true:false,
                         "keepAspect":(this.cFigure.keepAspect!==undefined)?this.cFigure.keepAspect:true
                     };
+                }
+                if(this.ckeyBoard !== undefined){
+                    this.keyBoards[i] = utils.clone(this.ckeyBoard);
                 }
             } else {
                 i--;

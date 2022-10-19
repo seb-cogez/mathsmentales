@@ -1,12 +1,12 @@
-import protos from './mods/protos.js';
-import utils from './mods/utils.js';
-import common from './mods/common.js';
-import cart from './mods/cart.js';
-import Zoom from './mods/zoom.js';
-import Figure from './mods/figure.js';
-import keyBoard from './mods/keyboard.js';
-import MM from './mods/MM.js';
-import math from './mods/math.js';
+import protos from './mods/protos.min.js';
+import utils from './mods/utils.min.js';
+import common from './mods/common.min.js';
+import cart from './mods/cart.min.js';
+import Zoom from './mods/zoom.min.js';
+import Figure from './mods/figure.min.js';
+import keyBoard from './mods/keyboard.min.js';
+import MM from './mods/MM.min.js';
+import math from './mods/math.min.js';
 
 MM.touched = false;
 MM.slidersNumber = 2;

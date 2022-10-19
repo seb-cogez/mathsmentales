@@ -1,6 +1,6 @@
-import utils from "./utils.js";
-import MM from "./MM.js";
-import Figure from "./figure.js";
+import utils from "./utils.min.js";
+import MM from "./MM.min.js";
+import Figure from "./figure.min.js";
 
 export default class ficheToPrint {
     constructor(type,cart,orientation='portrait'){
@@ -180,6 +180,11 @@ export default class ficheToPrint {
         MM.memory = {};
         let script = this.create("script",{text:`
         function changecols(dest,nb){document.getElementById(dest).className="grid g"+nb};
+        function cacheEspaceReponse(){
+            document.querySelectorAll(".interro article").forEach(el=>{
+                el.classList.toggle("invisible");
+            })
+        }
         function changeheight(dest,nb){
             let elts = document.querySelectorAll("#"+dest+" .interro article");
             for(let i=0;i<elts.length;i++){
@@ -188,6 +193,7 @@ export default class ficheToPrint {
         }
         `});
         this.docsheet.head.appendChild(script);
+        this.docsheet.getElementById("creator-menu").innerHTML += `<button onclick="cacheEspaceReponse()">Espcace Reponse</button>`
         for(let qty=0;qty<document.getElementById("intQtyValue").value;qty++){
             this.generateQuestions();
             // si plus d'une interro, on introduit un pagebreak

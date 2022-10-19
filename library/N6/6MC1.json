@@ -54,7 +54,7 @@
     },
     {
         "name":"Aire du disque",
-        "vars":{"r":"1_5","aire":"${math.round(Math.PI*:r*:r,1)}","u":"0_6","xM":"${:r+5}"},
+        "vars":{"r":"1_5","aire":"${math.round(Math.PI*:r*:r,1)}","r2":"${:r*:r}","u":"0_6","xM":"${:r+5}"},
         "figure":{
             "type":"graph",
             "axis":false,
@@ -65,8 +65,24 @@
             ]
         },
         "question": "Quelle est l'<b>aire</b> d'un disque de rayon $$${:r}\\text{ ${:unites[:u]}}$$ ?",
-        "answer":"$$pi \\times R \\times R \\approx 3.14\\times${:r}\\times ${:r}=\\color{red}{${:aire}\\text{ ${:unites[:u]}}^2}$$",
-        "value":"${:aire}${:unites[:u]}^2"
+        "answer":"$$pi \\times R \\times R = \\pi\\times${:r}\\times ${:r} =\\color{red}{${math.signIfOne(:r2)}\\pi\\text{ ${:unites[:u]}}^2 \\approx ${:aire}\\text{ ${:unites[:u]}}^2}$$",
+        "value":["${:aire}${:unites[:u]}^2","${math.signIfOne(:r2)}\\pi${:unites[:u]}^2"]
+    },
+    {
+        "name":"Aire du disque à partir du diamètre",
+        "vars":{"r":"1_5", "d":"${:r*2}","aire":"${math.round(Math.PI*:r*:r,1)}","r2":"${:r*:r}","u":"0_6","xM":"${:r+5}","xN":"${5-:r}"},
+        "figure":{
+            "type":"graph",
+            "axis":false,
+            "boundingbox":[0,10,10,0],
+            "content":[
+                ["jessiescript", "O=point(5,5);c=circle(O,${:r});M=point(${:xM},5);N=point(${:xN},5);NM=segment(N,M);"],
+                ["text", [5,4.5,"${:d} ${:unites[:u]}"], {"anchorX":"middle", "fontSize":20}]
+            ]
+        },
+        "question": "Quelle est l'<b>aire</b> d'un disque de diamètre $$${:d}\\text{ ${:unites[:u]}}$$ ?",
+        "answer":"$$pi \\times R \\times R = \\pi\\times${:r}\\times ${:r} =\\color{red}{${math.signIfOne(:r2)}\\pi\\text{ ${:unites[:u]}}^2 \\approx ${:aire}\\text{ ${:unites[:u]}}^2}$$",
+        "value":["${:aire}${:unites[:u]}^2","${math.signIfOne(:r2)}\\pi${:unites[:u]}^2"]
     }
     ]
 }

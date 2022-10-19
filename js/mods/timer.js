@@ -1,5 +1,5 @@
-import MM from "./MM.js";
-import utils from "./utils.js";
+import MM from "./MM.min.js";
+import utils from "./utils.min.js";
 // Timer
 export default class timer {
     constructor(slideid){

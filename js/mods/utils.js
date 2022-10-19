@@ -1,8 +1,8 @@
-import MM from "./MM.js";
-import cart from "./cart.js";
-import library from "./library.js";
-import draw from "./draw.js";
-import sound from "./sound.js";
+import MM from "./MM.min.js";
+import cart from "./cart.min.js";
+import library from "./library.min.js";
+import draw from "./draw.min.js";
+import sound from "./sound.min.js";
 export {utils as default}
 // Some traductions
 const moisFR = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
@@ -135,7 +135,7 @@ const utils = {
              } else if(vars.u !== undefined) {
                  // s'il n'y a qu'une activité, on l'affiche.
                 let level = regexp.exec(vars.u)[0];
-                library.load("N"+level+"/"+vars.u+".json"); 
+                library.load("N"+level+"/"+vars.u+".json", vars.u);
             } else {
                 let alert = utils.create("div",{className:"message",innerHTML:"Cette activité n'a pas de correspondance dans cette nouvelle version de MathsMentales.<hr class='center w50'>Vous allez être redirigé vers l'ancienne version dans 10s. <a>Go !</a>"});
                 alert.onclick =  utils.goToOldVersion();

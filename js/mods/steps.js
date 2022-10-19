@@ -1,4 +1,4 @@
-import utils from "./utils.js";
+import utils from "./utils.min.js";
 export default class steps {
     constructor(obj){
         this.step = 0;

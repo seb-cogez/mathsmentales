@@ -2,6 +2,7 @@
     "title":"Valeurs du cercle trigonométrique",
     "repeat":true,
     "type":"text",
+    "textSize":"small",
     "ID":"GA41",
     "description":"Connaitre les valeurs réelles des angles, éviter pour le moment la saisie par le clavier virtuel de l'application",
     "dest":["GA4"],
@@ -17,12 +18,14 @@
     "options":[{
         "name":"Trouver le point",
         "vars":{"n":"0_11"},
+        "keys":"alphabetique",
         "question": "À quel point correspond le réel $$${:angles[:n]}$$ ?",
         "answer":"$$${:angles[:n]}$$ correspond à <span class='red'>${:points[:n]}</span>",
         "value":"${:points[:n]}"
     },{
         "name":"Trouver l'angle'",
         "vars":{"n":"0_11"},
+        "keys":["pi","/","√","-","_","_","_","_"],
         "question": "À quel réel de $$\\lbrack 0; 2\\pi \\lbrack$$ correspond <b>${:points[:n]}</b> ?",
         "answer":"${:points[:n]} correspond à $$\\color{red}{${:angles[:n]}}$$",
         "value":"${:angles[:n]}"

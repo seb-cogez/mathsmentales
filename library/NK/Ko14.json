@@ -1,0 +1,16 @@
+{
+    "title":"Ajouter des fractions",
+    "type":"latex",
+    "ID":"Ko14",
+    "keys":["/"],
+    "textSize":"medium",
+    "dest":["6NB", "5NC", "4NC", "3NB", "2N2","Ko1"],
+    "options":[{
+        "name":"Ajouter des fractions et simplifier (4e)",
+        "vars":{"nums":"1_10_2", "dens":"2_10_2_^&,${:nums}"},
+        "question":"\\dfrac{${:nums[0]}}{${:dens[0]}}+\\dfrac{${:nums[1]}}{${:dens[1]}}",
+        "answer":":question = \\color{red}{\\displaystyle${math.calc(:nums[0]+'/'+:dens[0]+'+'+:nums[1]+'/'+:dens[1], false)}}",
+        "value":"${math.calc(:nums[0]+'/'+:dens[0]+'+'+:nums[1]+'/'+:dens[1], true)}"
+    }
+    ]
+}

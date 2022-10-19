@@ -1,12 +1,13 @@
 "use strict"
 
-import protos from './mods/protos.js';
-import utils from './mods/utils.js';
+import protos from './mods/protos.min.js';
+import utils from './mods/utils.min.js';
 // MathsMentales core
-import MM from "./mods/MM.js";
-import library from './mods/library.js';
-import sound from './mods/sound.js';
-import Zoom from './mods/zoom.js';
+import MM from "./mods/MM.min.js";
+import library from './mods/library.min.js';
+import sound from './mods/sound.min.js';
+import Zoom from './mods/zoom.min.js';
+//import theactivities from './mods/theactivities.js';
 window.onload = function(){
     let scripturl = document.getElementById("mmscriptid").attributes.src.value;
     /*get value from query parameters*/
@@ -304,9 +305,34 @@ window.onload = function(){
             utils.deploy(evt.target);
         } else if(evt.target.id.indexOf("rcli")===0){
             // clic sur une activite
-            library.load(evt.target.dataset['url']);
+            library.load(evt.target.dataset['url'],evt.target.dataset['id']);
         }
     })
+    // bouton d'ajout au panier
+    document.getElementById("btn-addToCart").onclick = ()=>{
+        let selection = document.querySelectorAll("#resultat-chercher .checkitem:checked");
+        if(selection.length > 0){
+            let allActivities = [];
+            let nbq = Number(document.getElementById("addToCartNbq").value);
+            selection.forEach(el=>{
+                //MM.carts[0].addActivity(theactivities[el.value],nbq);
+                allActivities.push(library.loadJSON(el.dataset["url"]))
+            })
+            Promise.all(allActivities).then(data=>{
+                data.forEach(val=>{
+                    MM.carts[0].addActivity(val,nbq);
+                })
+                let tab = document.querySelector("a[numero$='parameters'].tabs-menu-link");
+                utils.resetAllTabs();
+                utils.addClass(tab, "is-active");
+                document.getElementById("tab-parameters").style.display = "";
+                }).catch(err=>{
+                console.log(err)
+            })
+        } else {
+            console.log("Pas d'activité à ajouter au panier")
+        }
+    }
     // boutons aléatorisation
     document.getElementById("btn-params-aleakey").onclick = ()=>{utils.setSeed(utils.seedGenerator())};
 

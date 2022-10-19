@@ -1,0 +1,70 @@
+{
+    "title":"Leçon : solides",
+    "type":"text",
+    "ID":"5LG2",
+    "description":"12 questions sur Notion, somme, différence, repérage",
+    "dest":["5LG", "4LG"],
+    "consts":{"prismes":[
+        "<svg width=\"12.5em\" height=\"10em\" viewBox=\"0 0 66.1 52.9\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#04a\"><path d=\"M34.677 48.995l-21.094.048-6.572-20.06 17.04-12.43L41.142 28.93z\" fill=\"none\" opacity=\".992\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\".70755\"/><g fill=\"#04a\" fill-opacity=\".996\" stroke-opacity=\".996\"><g stroke-width=\".865\"><path d=\"M41.1 28.9l16.3-13.7M24 16.6L40.3 2.9M6.97 29l16.3-13.7\"/></g><path d=\"M34.6 49l16.3-13.7\" stroke-width=\".765\"/><path d=\"M13.5 49l16.3-13.7\" stroke-dasharray=\"2.295 .765\" stroke-width=\".765\"/></g><path d=\"M50.9 35.3l6.46-20.1-17.1-12.3-17 12.4\" fill=\"none\" stroke-opacity=\".996\" stroke-width=\".765\"/><path d=\"M23.2 15.3l6.56 20 21.1-.048\" fill=\"none\" stroke-dasharray=\"2.295 2.295\" stroke-opacity=\".996\" stroke-width=\".765\"/></g></svg>"
+    ],"pavesDroits":[
+        "<svg width=\"12.5em\" height=\"10em\" viewBox=\"0 0 66.146 52.917\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke-width=\".765\"><path opacity=\".992\" fill=\"none\" stroke=\"#04a\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-opacity=\".996\" d=\"M2.678 29.31h41.323v18.237H2.678z\"/><path d=\"M2.678 29.31L22.94 14.69M44 29.31L64.265 14.69M44 47.547l20.264-14.619\" fill=\"#0044a9\" stroke=\"#0044a9\" stroke-opacity=\".992\" fill-opacity=\".992\"/><path d=\"M2.678 47.547L22.94 32.928\" fill=\"#0044a9\" stroke=\"#0044a9\" stroke-opacity=\".992\" stroke-dasharray=\"2.295 2.295\" fill-opacity=\".992\"/><path d=\"M22.941 14.691h41.323v18.237\" stroke=\"#0044a9\" stroke-opacity=\".992\" fill=\"none\"/><path d=\"M22.941 14.691v18.237h41.323v0\" fill=\"none\" stroke=\"#0044a9\" stroke-opacity=\".992\" stroke-dasharray=\"2.295 2.295\"/></g></svg>",
+        "<svg width=\"12.5em\" height=\"10em\" viewBox=\"0 0 66.146 52.917\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke-width=\".765\"><path opacity=\".992\" fill=\"none\" stroke=\"#04a\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-opacity=\".996\" d=\"M2.678 21.204h41.323v26.343H2.678z\"/><path d=\"M2.678 21.204L22.94 6.586M44 21.204L64.265 6.586M44 47.547l20.264-14.619\" fill=\"#0044a9\" fill-opacity=\".992\" stroke=\"#0044a9\" stroke-opacity=\".992\"/><path d=\"M2.678 47.547L22.94 32.928\" fill=\"#0044a9\" stroke=\"#0044a9\" stroke-opacity=\".992\" stroke-dasharray=\"2.295 2.295\" fill-opacity=\".992\"/><path d=\"M22.941 6.586h41.323v26.342\" stroke=\"#0044a9\" stroke-opacity=\".992\" fill=\"none\"/><path d=\"M22.941 6.586v26.342h41.323v0\" fill=\"none\" stroke=\"#0044a9\" stroke-dasharray=\"2.295 2.295\" stroke-opacity=\".992\"/></g></svg>",
+        "<svg width=\"12.5em\" height=\"10em\" viewBox=\"0 0 66.1 52.9\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke-width=\".765\"><path fill=\"none\" opacity=\".992\" stroke=\"#04a\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-opacity=\".996\" d=\"M8.97 21.3h29.3v26.3H8.97z\"/><g fill=\"#0044a9\" fill-opacity=\".992\" stroke=\"#0044a9\" stroke-opacity=\".992\"><path d=\"M8.97 21.3l20.3-14.6M38.3 21.3L58.6 6.7M38.3 47.7l20.3-14.6\"/><path d=\"M8.97 47.7l20.3-14.6\" stroke-dasharray=\"2.295 2.295\"/></g><path d=\"M29.2 6.73h29.3v26.3\" stroke=\"#0044a9\" stroke-opacity=\".992\" fill=\"none\"/><path d=\"M29.2 6.73v26.3h29.3\" fill=\"none\" stroke=\"#0044a9\" stroke-dasharray=\"2.295 2.295\" stroke-opacity=\".992\"/></g></svg>"
+    ], "pyramides":[
+        "<svg width=\"12.5em\" height=\"10em\" viewBox=\"0 0 66.1 52.9\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M4.347 46.356h36.671l20.483-16.18\" fill=\"none\" stroke=\"#0044a9\" stroke-width=\".70755\" stroke-opacity=\".988\"/><path d=\"M61.5 30.177H24.83L4.347 46.356\" fill=\"none\" stroke=\"#0044a9\" stroke-width=\".70755\" stroke-dasharray=\".82 .82\" stroke-opacity=\".988\"/><path d=\"M30.528 6.787L4.347 46.356\" fill=\"none\" stroke=\"#0044a9\" stroke-width=\".70755\" stroke-opacity=\".988\"/><path d=\"M41.018 46.356l-10.49-39.57L61.5 30.177\" fill=\"none\" stroke=\"#0044a9\" stroke-width=\".70755\" stroke-linejoin=\"bevel\" stroke-opacity=\".988\"/><path d=\"M24.829 30.177l5.699-23.39v0\" fill=\"none\" stroke=\"#0044a9\" stroke-width=\".70755\"stroke-dasharray=\".82 .82\" stroke-opacity=\".988\"/></svg>",
+        "<svg width=\"12.5em\" height=\"10em\" viewBox=\"0 0 66.1 52.9\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M4.347 46.356h52.426M30.528 6.787L4.347 46.356\" fill=\"none\" stroke=\"#0044a9\" stroke-width=\".70755\" stroke-opacity=\".988\"/><path d=\"M56.773 46.356L30.528 6.786\" fill=\"none\" stroke=\"#0044a9\" stroke-width=\".70755\" stroke-linejoin=\"bevel\" stroke-opacity=\".988\"/><path d=\"M30.354 31.752l.174-24.965v0\" fill=\"none\" stroke=\"#0044a9\" stroke-width=\".70755\" stroke-dasharray=\".82 .82\" stroke-opacity=\".988\"/><path d=\"M4.347 46.356l26.007-14.604 26.42 14.604\" fill=\"none\" stroke=\"#0044a9\" stroke-width=\".265\" stroke-opacity=\".988\" stroke-dasharray=\".793 .793\"/></svg>"
+    ], "cones":[
+        "<svg width=\"12.5em\" height=\"10em\" viewBox=\"0 0 66.1 52.9\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M8.713 37.085v0L32.952 1.818l23.692 34.721v0\" fill=\"none\" stroke=\"#0044a9\" stroke-width=\"1.111\" stroke-opacity=\".984\"/><path d=\"M8.653 38.842c2.662-16.477 46.167-16.113 48.229.096\" fill=\"none\" stroke=\"#04a\" stroke-width=\"1.323\" stroke-linecap=\"round\" stroke-dasharray=\"2.645 2.645\" stroke-opacity=\".984\"/><path d=\"M8.653 39.034c2.662 16.477 46.167 16.113 48.229-.096\" fill=\"none\" stroke=\"#04a\" stroke-width=\"1.323\" stroke-linecap=\"round\" stroke-opacity=\".984\"/></svg>"
+    ]},
+    "options":[{
+        "name":"Vocabulaire",
+        "question": [
+            "Qu'est qu'un solide ?",
+            "Qu'est-ce qu'un pavé droit ?",
+            "Qu'est-ce qu'un prisme droit ?",
+            "Qu'est-ce qu'un cylindre ?",
+            "Comment s'appelle la figure plane qui permet de réaliser un solide ?"
+    ],
+        "answer":[
+            "Un solide est une figure de l'espace délimitée par des faces ou des surfaces",
+            "Un pavé droit est un solide délimité par 6 faces rectangulaires.<br>Il comporte 8 sommets et 12 arêtes.<br>On l'appelle aussi le parallélépipède rectangle.",
+            "Un prisme droit est un solide délimité par 2 bases polygonales parallèles et identiques et des faces lattérales rectangulaires.",
+            "Un cylindre est une solide délimité par deux disques identiques de même axe et une surface.",
+            "C'est un patron."
+    ]
+    },{
+        "name":"Reconnaitre",
+        "vars":{"n2":"0_2","n3":"0_1"},
+        "question":[
+            "Quel est ce solide ?<br>${:prismes[0]}",
+            "Quel est ce solide ?<br>${:pavesDroits[:n2]}",
+            "Quel est ce solide ?<br>${:pyramides[:n3]}",
+            "Quel est ce solide ?<br>${:cones[0]}"
+        ],
+        "answer":[
+            "Ce solide est un prisme droit",
+            "Ce solide est un pavé droit",
+            "Ce solide est une pyramide",
+            "Ce solide est un cône de révolution"
+        ]
+    },{
+        "name":"Formules de Volumes",
+        "question":[
+            "Volume du cube ?",
+            "Volume du pavé droit ?",
+            "Volume prisme droit ?",
+            "Volume de la pyramide ?",
+            "Volume du cylindre ?",
+            "Volume du cône ?"
+        ],
+        "answer":[
+            "V<sub>cube</sub> = côté × côté × côté = c<sup>3</sup>",
+            "V<sub>pavé droit</sub> = longueur × largeur × hauteur = l × L × h",
+            "V<sub>prisme droit</sub> = aire de la base × hauteur",
+            "V<sub>pyramide</sub> = V<sub>prisme droit</sub> ÷ 3 = $$\\dfrac{\\text{aire base}\\times \\text{hauteur}}3$$",
+            "V<sub>cylindre</sub> = aire de la base × hauteur = $$\\pi × R^2 \\times h$$",
+            "V<sub>cône</sub> = V<sub>cylindre</sub> ÷ 3 =  $$\\dfrac{\\pi × R^2 \\times h}3$$"
+        ]
+    }
+    ]
+}

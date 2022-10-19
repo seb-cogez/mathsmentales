@@ -1,12 +1,12 @@
-import utils from "./utils.js";
-import sound from "./sound.js";
-import cart from "./cart.js";
-import steps from "./steps.js";
-import Zoom from "./zoom.js";
-import Figure from "./figure.js";
-import timer from "./timer.js";
-import keyBoard from "./keyboard.js";
-import ficheToPrint from "./fichetoprint.js";
+import utils from "./utils.min.js";
+import sound from "./sound.min.js";
+import cart from "./cart.min.js";
+import steps from "./steps.min.js";
+import Zoom from "./zoom.min.js";
+import Figure from "./figure.min.js";
+import timer from "./timer.min.js";
+import keyBoard from "./keyboard.min.js";
+import ficheToPrint from "./fichetoprint.min.js";
 export {MM as default}
 const MM = {
     version:7,// à mettre à jour à chaque upload pour régler les pb de cache
@@ -460,7 +460,7 @@ const MM = {
                     fontsDirectory:'../katex/fonts',
                });
                //if(MM.touched){
-                    let keys = MM.carts[0].activities[MM.carts[0].actsArrays[slider][slide][0]].keys || undefined;
+                    let keys = MM.carts[0].activities[MM.carts[0].actsArrays[slider][slide][0]].keyBoards[slide] || undefined;
                     MM.keyboards[ID]= new keyBoard(MM.mf[ID],keys,element,slider);
                     // si on affiche une figure, on diminue la taille du champ de réponse.
                     if(MM.figs[slider+"-"+slide]!== undefined){
@@ -653,18 +653,18 @@ const MM = {
                 ",n="+document.getElementById("exQtyValue").value+
                 ",cor="+utils.getRadioChecked("excorr")+
                 ",a="+(withAleaSeed?MM.seed:"")+
-                ",t="+(document.getElementById("extitle").value||document.getElementById("extitle").placeholder)+
-                ",ex="+(document.getElementById("exeachex").value||document.getElementById("exeachex").placeholder)+
+                ",t="+encodeURI(document.getElementById("extitle").value||document.getElementById("extitle").placeholder)+
+                ",ex="+encodeURI(document.getElementById("exeachex").value||document.getElementById("exeachex").placeholder)+
                 this.export();
         } else if(type==="cansheet"){
             return "n="+document.getElementById("canqtyvalue").value+
-            ",t="+(document.getElementById("cantitle").value||document.getElementById("cantitle").placeholder)+
+            ",t="+encodeURI(document.getElementById("cantitle").value||document.getElementById("cantitle").placeholder)+
             ",a="+(withAleaSeed?MM.seed:"")+
             ",cor="+(utils.getRadioChecked("cancorrpos")||"fin")+
             ",tm="+(document.getElementById("cantime").value||document.getElementById("cantime").placeholder)+
-            ",t1="+(document.getElementById("cancol1title").value||document.getElementById("cancol1title").placeholder)+
-            ",t2="+(document.getElementById("cancol2title").value||document.getElementById("cancol2title").placeholder)+
-            ",t3="+(document.getElementById("cancol3title").value||document.getElementById("cancol3title").placeholder)+
+            ",t1="+encodeURI(document.getElementById("cancol1title").value||document.getElementById("cancol1title").placeholder)+
+            ",t2="+encodeURI(document.getElementById("cancol2title").value||document.getElementById("cancol2title").placeholder)+
+            ",t3="+encodeURI(document.getElementById("cancol3title").value||document.getElementById("cancol3title").placeholder)+
             this.export()
         } else if(type==="dominossheet"){
             return "n="+document.getElementById("dominosNbValue").value+
@@ -940,9 +940,9 @@ const MM = {
                 utils.baseURL+="index.html";
             return utils.baseURL.replace('index','exercices')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
         } else if(type==="cansheet"){
-        if(utils.baseURL.indexOf("index.html")<0)
-            utils.baseURL+="index.html";
-        return utils.baseURL.replace('index','courseauxnombres')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
+            if(utils.baseURL.indexOf("index.html")<0)
+                utils.baseURL+="index.html";
+            return utils.baseURL.replace('index','courseauxnombres')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
         } else if(type==="dominossheet"){
             if(utils.baseURL.indexOf("index.html")<0)
                 utils.baseURL+="index.html";

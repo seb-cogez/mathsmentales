@@ -230,6 +230,15 @@
                 "chapitres":{
                     "5AA":"Ecrire, mettre au point, exécuter un programme"
                 }
+            },
+            "5L":{
+                "nom":"Leçons",
+                "chapitres":{
+                    "5LN":"Nombres et calculs",
+                    "5LM":"Grandeurs et mesures",
+                    "5LG":"Espace et Géométrie",
+                    "5LD":"Organisation et gestion de données"
+                }
             }
         }
     },
@@ -274,6 +283,15 @@
                 "chapitres":{
                     "4AA":"Ecrire, mettre au point, exécuter un programme"
                 }
+            },
+            "4L":{
+                "nom":"Leçons",
+                "chapitres":{
+                    "4LN":"Nombres et calculs",
+                    "4LM":"Grandeurs et mesures",
+                    "4LG":"Espace et Géométrie",
+                    "4LD":"Organisation et gestion de données"
+                }
             }
         }
     },
@@ -316,6 +334,15 @@
                 "nom":"Algorithmique et programmation",
                 "chapitres":{
                     "3AA":"Ecrire, mettre au point, exécuter un programme"
+                }
+            },
+            "3L":{
+                "nom":"Leçons",
+                "chapitres":{
+                    "3LN":"Nombres et calculs",
+                    "3LM":"Grandeurs et mesures",
+                    "3LG":"Espace et Géométrie",
+                    "3LD":"Organisation et gestion de données"
                 }
             }
         }
@@ -412,6 +439,42 @@
             }
         }
     },
+    "K": {
+        "nom":"1re Tech",
+        "themes": {
+            "KL":{
+            "nom":"Algèbre",
+            "chapitres":{
+                "KL1":"Suites, modèles discrets",
+                "KL2":"Équations, fonctions polynomes du second degré"
+                }
+            },
+            "KA":{
+            "nom":"Analyse",
+            "chapitres":{
+                "KA1":"Dérivation",
+                "KA2":"Variations et courbes",
+                "KA5":"Second degré"
+                }
+            }, 
+            "Ko":{
+            "nom":"Automatismes",
+            "chapitres":{
+                "Ko1":"Calculs numériques", 
+                "Ko2":"Calcul littéral",
+                "Ko3":"Calcul de probabilité",
+                "Ko4":"Fonctions"
+            }
+        },
+        "KS":{
+            "nom":"Probabilités et statistiques",
+            "chapitres":{
+                "KS1":"Tableaux de probabilités et probabilités conditionnelles",
+                "KS2":"Variables aléatoires réelles",
+                "KS3":"Arbres de probabilités"
+            }
+        }
+    }},
     "T":{
         "nom":"Tale",
         "themes":{
