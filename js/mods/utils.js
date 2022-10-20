@@ -121,7 +121,7 @@ const utils = {
             library.displayContent(vars.n,true);
             return;
         } else if(vars.u!==undefined && vars.cd === undefined && !edit){ // ancien exo MM1
-            let regexp = /(\d+|T|G)/;// le fichier commence par un nombre ou un T pour la terminale
+            let regexp = /(\d+|T|G|K)/;// le fichier commence par un nombre ou un T pour la terminale
             // un paramétrage d'exercice à afficher
              if(_.isArray(vars.u)){
                  let listeURLs = [];

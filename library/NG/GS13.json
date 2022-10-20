@@ -4,7 +4,7 @@
     "textSize":"small",
     "ID":"GS13",
     "description":"Calculer la probabilité d'une intersection (arbre)",
-    "dest":["2G2","GS1"],
+    "dest":["2G2","GS1", "Ko3"],
     "options":[
         {
         "name":"Arbre à 2 niveaux",

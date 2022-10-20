@@ -104,7 +104,7 @@ function makePage(){
     }
     content.innerHTML = "";
     if(parameters.positionCorrection === "end" && !document.getElementById('btn-break')){
-        document.getElementById('btpCorrigePlace').appendChild(utils.create("button",{id:"btn-break",innerText:"à part"}))
+        document.getElementById('btpCorrigePlace').appendChild(utils.create("button",{id:"btn-break",innerText:"à part",title:"Ne pas mettre sur la même feuille que le sujet"}))
     }
     MM.memory = {};
     for(let qty=0;qty<parameters.nb;qty++){
