@@ -7,7 +7,8 @@ Démo : https://seb-cogez.github.io/mathsmentales/
  * Guillaume Valmont a écrit et corrigé quelques activités et a proposé une possibilité d'échange entre MathsMentales et des sites qui l'intégreraient par iframe.
  * Sandrine Cartier-lange a créé quelques activités autour de Pythagore et pour le lycée
  * Eric Elter a eu une relecture très attentive de plusieurs activités.
- * Fayçal TIB a créé quelques activités pour le lycée (inachevé)
+ * Fayçal TIB a voulu créer quelques activités pour le lycée (inachevées)
+Pour ceux qui veulent participer, voir [cette documentation](https://github.com/seb-cogez/mathsmentales/blob/master/participer.md)
 
 ### Nouveautés apportées par cette version :
  * nouvelle interface : tous les réglages dans une page, affichage d'exemples de questions pour mieux comprendre

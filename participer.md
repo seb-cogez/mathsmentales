@@ -37,7 +37,7 @@ Les activités se trouvent dans le dossier /library, dans des dossiers rangés p
 - NK : les exercices de 1ère et Tale techno
 - NT : les exercices de Tale spé
 
-Le nom des activités commence toujours par le nom du niveau où elle se trouve. Des activités prévues pour différents niveaux n'ont pas besoin d'être clonées, il faut juste indiquer dans leur code les niveaux\chapitres visés (Cf exemples dans README.md)
+Le nom des activités commence toujours par le nom du niveau où elle se trouve. Des activités prévues pour différents niveaux n'ont pas besoin d'être clonées, il faut juste indiquer dans leur code les niveaux\chapitres visés (Cf exemples dans [README.md](https://github.com/seb-cogez/mathsmentales/blob/master/README.md))
 Exemple, dans le dossier NK, on trouvera des activités commençant pas le code du chapitre déterminé dans le fichier /library/structure.json, exemple : Ko1 pour un exercice destiné à être classé dans "Automatismes\Calculs numériques", suit ensuite le numéro de l'activité, qui prend le premier numéro non utilisé dans ce chapitre.
 
 On peut prendre le fichier /library/modele.json pour commencer et enregistrer sous le nom voulu dans le dossier visé, une fois l'ID décidé, qui reprend le nom du fichier.
@@ -46,7 +46,9 @@ On peut prendre le fichier /library/modele.json pour commencer et enregistrer so
 
 Avant chaque travail sur des activités, récupérer la dernière version du code de MathsMentales en sélectionnat la **branche master** et en faisant un **pull**. Créer ensuite une **branche** localement, en lui donnant un nom parlant, correspondant aux activités qui vont être créées. Le mieux, c'est une activité par branche, plus facile à corriger ensuite.
 Une fois le développement de l'activité terminé, on procèdera à un **push** / **Validation et envoi** de la branche, il restera à indiquer un petit message dans le pull-request proposé par VSC.
+
 ![Validation et envoi](https://blog.mathsmentales.net/wp-content/uploads/2022/10/50jcLnkz3z.png)
+
 Une fois validé par Sébastien COGEZ, l'exercice sera référencé dans la bibliothèque et mis en ligne sur MathsMentales par la suite.
 
 ### Tester une activité
@@ -57,4 +59,3 @@ Depuis VSC, ouvrir index.html, faire un clic droit et choisir **Open With Live S
 
 ## Plus tard
 Un éditeur d'activité permettra d'écrire une activité en visualisant les résultats en direct sur la page pour ne pas avoir à jouer avec VSCode.
-Espérons que cela arrive vite !
