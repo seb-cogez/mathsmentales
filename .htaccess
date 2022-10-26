@@ -20,7 +20,7 @@ Header always set X-Content-Type-Options "nosniff"
 # Mise en cache des données
 <IfModule mod_expires.c>
 ExpiresActive On
-ExpiresDefault "access plus 1 month"
+ExpiresDefault "access plus 1 day"
 ExpiresByType image/x-icon "access plus 1 year"
 ExpiresByType image/gif "access plus 1 month"
 ExpiresByType image/png "access plus 1 month"

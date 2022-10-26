@@ -31,7 +31,7 @@
     {
         "name":"Décimal -> Entier et partie décimale",
         "vars":{"a":[10,100,1000,10000], "e":"1_${:a}", "b":"0_9_3", "c":"${:b[0]*100+:b[1]*10+:b[2]}"},
-        "question": "\\begin{array}{c} \\text{Parties entière et décimale de}\\\\${math.round(:e+:c/1000,3)}\\end{array}",
+        "question": "\\begin{array}{c} \\text{Partie entière + partie décimale de}\\\\${math.round(:e+:c/1000,3)}\\end{array}",
         "answer":":question=\\color{red}{${:e}+${math.round(:c/1000,3)}}",
         "value":"${:e}+${math.round(:c/1000,3)}"
     },
