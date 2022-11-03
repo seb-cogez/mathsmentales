@@ -1,0 +1,91 @@
+{
+    "title":"Leçon : triangle",
+    "type":"text",
+    "ID":"5LG3",
+    "description":"Questions sur les triangles",
+    "dest":["5LG", "4LG"],
+    "consts":{"lettres":["A","B","C","D","E","F","J","K","L","M","N","P","R","S","T"]},
+    "options":[{
+        "name":"Définitions",
+        "question": [
+            "Qu'est-ce qu'un triangle ?",
+            "Combien de côtés comporte un triangle ?",
+            "Combien de sommets comporte un triangle ?",
+            "Qu'est-ce qu'un triangle isocèle ?",
+            "Qu'est-ce qu'un triangle équilatéral ?",
+            "Qu'est-ce qu'un triangle rectangle ?",
+            "Qu'est-ce qu'un triangle isocèle rectangle ?",
+            "Qu'est-ce qu'un triangle scalène ?",
+            "Qu'est-ce qu'un triangle obtusangle ?",
+            "Qu'est-ce qu'un triangle acutangle ?",
+            "Comment nomme-t-on un triangle ?",
+            "Comment appelle-t-on des triangles qui ont les mêmes mesures d'angles ?",
+            "Comment appelle-t-on des triangles dont les mêmes longueurs de côtés ?"
+    ],
+        "answer":[
+            "Un triangle est un polygone à trois côtés.",
+            "Un triangle comporte trois côtés.",
+            "Un triangle comporte trois sommets.",
+            "Un triangle isocèle est un triangle comportant deux côtés de même longueur.",
+            "Un triangle équilatéral est un triangle dont tous les côtés ont la même longueur.",
+            "Un triangle rectangle est un triangle dont l'un des angles est droit.",
+            "Un triangle isocèle rectangle est un triangle deux côtés sont perpendiculaires et de même longueur.",
+            "Un triangle scalène est un triangle n'ayant pas de particularité.",
+            "Un triangle obtusangle est un triangle comportant un angle obtus.",
+            "Un triangle acutangle est un triangle ne comportant que des angles aigus.",
+            "Un triangle est nommé par l'écriture juxtaposée de ses trois sommets en lettres majuscules.",
+            "Des triangles qui ont les mêmes mesures d'angles sont dits semblables.",
+            "Des triangles qui ont les mêmes longueurs de côtés sont dits égaux (ou isométriques)."
+    ]},{
+        "name":"Propriétés",
+        "vars":{"l":"0_14_3_^&","A":"${:lettres[:l[0]]","B":"${:lettres[:l[1]]","C":"${:lettres[:l[2]]"},
+        "question":[
+            "Quelle propriété ont les longueurs des côtés d'un triangle ?",
+            "Quand est-ce que trois longueurs ne peuvent être les longueurs des côtés d'un triangle ?",
+            "Si ${:A+:B}+${:B+:C}=${:A+:C}, que peut-on dire des points ${:A}, ${:C} et ${:C} ?",
+            "Si ${:B} appartient au segment [${:A}${:C}], que peut-on écrire comme égalité ?",
+            "Que peut-on dire des angles d'un triangle ?",
+            "Comment obtient-on le périmètre d'un triangle ?"
+        ],
+        "answer":[
+            "La longueur d'un côté d'un triangle est inférieure ou égale à la somme des longueurs des deux autres côtés.",
+            "Si une longueur est supérieure à la somme de deux autres longueurs, alors on ne peut pas former de triangle avec ces trois longueurs pour côtés.",
+            "Si ${:A+:B}+${:B+:C}=${:A+:C}, alors ${:B} appartient au segment [${:A}${:C}]",
+            "${:B} appartient au segment [${:A}${:C}], alors ${:A+:B}+${:B+:C}=${:A+:C}",
+            "La somme des angles d'un triangle est un angle plat. Sa mesure est 180°.",
+            "Le périmètre d'un triangle s'obtient en ajoutant les longueurs de ses côtés."
+        ]
+    },
+    {
+        "name":"Droites remarquables",
+        "question":[
+            "Qu'est-ce qu'une hauteur d'un triangle ?",
+            "Qu'est-ce qu'une médiatrice d'un triangle ?",
+            "Qu'est-ce qu'une médiane d'un triangle ?",
+            "Qu'est-ce qu'une bissectrice d'un triangle ?",
+            "Comment s'appelle le point d'intersection des hauteurs ?",
+            "Comment s'appelle le point d'intersection des médiatrices ?",
+            "Comment s'appelle le point d'intersection des médianes d'un triangle ?",
+            "Comment s'appelle le point d'intersection des bissectrices d'un triangle ?",
+            "Dans un triangle, comment appelle-t-on une droite qui passe par un sommet et est perpendiculaire au côté opposé à ce sommet ?",
+            "Dans un triangle, comment appelle-t-on une droite qui est perpendiculaire à un côté en son milieu ?",
+            "Dans un triangle, comment appelle-t-on une droite qui passe par un sommet et le milieu du côté opposé ?",
+            "Dans un triangle, comment appelle-t-on une droite qui partage un angle en deux angles de même égaux ?"
+        ],
+        "answer":[
+            "Une hauteur d'un triangle est une droite passant par un sommet et perpendiculaire au côté opposé à ce sommet.",
+            "Une médiatrice d'un triangle est une médiatrice de l'un de ses trois côtés. C'est la droite perpendiculaire à ce côté en son milieu.",
+            "Une médiane d'un triangle est une droite ou un segment joignant un sommet et le milieu du côté opposé à ce sommet.",
+            "Une bissectrice d'un triangle est la bissectrice de l'un de ses trois angles. C'est la droite qui partage cet angle en deux angles égaux.",
+            "Le point d'intersection des hauteurs d'un triangle s'appelle l'orthocentre du triangle",
+            "Le point d'intersection des médiatrice d'un triangle est le centre du cercle circonscrit au triangle. C'est l'unique cercle qui passe par les sommets du triangle.",
+            "Le point d'intersection des médianes d'un triangle s'appelle le centre de gravité du triangle.",
+            "Le point d'intersection des bissectrices d'un triangle est le centre du cercle inscrit dans le triangle. C'est l'unique cercle qui est tangent aux trois côtés du triangle.",
+            "C'est une hauteur du triangle.",
+            "C'est une médiatrice du triangle",
+            "C'est une médiane du triangle",
+            "C'est une bissectrice du triangle"
+        ]
+    }
+    ]
+}

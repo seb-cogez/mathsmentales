@@ -25,13 +25,13 @@ window.onload = function(){
     // interface
     let tabsButtons = document.querySelectorAll("#header-menu .tabs-menu-link");
     tabsButtons.forEach(element => {
-        element.onclick = function(){utils.showTab(element)};
+        element.onclick = function(){MM.showTab(element)};
     });
     document.getElementById("btnaccueil").onclick = function(element){
-        utils.showTab(element.target);
+        MM.showTab(element.target);
     }
-    utils.checkValues();
-    utils.initializeAlea(Date());
+    MM.checkValues();
+    MM.initializeAlea(Date());
     library.openContents();
     sound.getPlayer();
     // put the good default selected
@@ -67,9 +67,9 @@ window.onload = function(){
     document.getElementById("addToCart").onclick = ()=>{MM.addToCart();};
     document.getElementById("unlinkCart").onclick = ()=>{MM.unlinkActivity();};
     document.getElementById("removeFromCart").onclick = ()=>{MM.removeFromCart()};
-    document.getElementById("tempo-slider").oninput = (evt)=>{utils.changeTempoValue(evt.target.value);};
+    document.getElementById("tempo-slider").oninput = (evt)=>{MM.changeTempoValue(evt.target.value);};
     document.getElementById("tempo-slider").onchange=()=>{MM.carts[MM.selectedCart].display();};
-    document.getElementById("nbq-slider").oninput = (evt)=>{utils.changeNbqValue(evt.target.value);};
+    document.getElementById("nbq-slider").oninput = (evt)=>{MM.changeNbqValue(evt.target.value);};
     document.getElementById("nbq-slider").onchange = ()=>{MM.carts[MM.selectedCart].display();};
     // radio orientation séparation
     document.getElementById("radiodir1").onclick = ()=>{MM.setDispositionDoubleEnonce('h');};
@@ -123,9 +123,9 @@ window.onload = function(){
     document.getElementById("btnadresse").onclick = ()=>{MM.copyURL();};
     document.getElementById("btncopytohistoric").onclick = ()=>{MM.copyURLtoHistory()};
     // bouton d'inclusion de la variable aléatoire
-    document.getElementById("aleaInURL").onchange = ()=>{utils.setSeed("checkSwitched")}
+    document.getElementById("aleaInURL").onchange = ()=>{MM.setSeed("checkSwitched")}
     // boutons génération documents
-    document.getElementById("chooseParamType").onchange = (evt)=>{utils.showParameters(evt.target.value)}
+    document.getElementById("chooseParamType").onchange = (evt)=>{MM.showParameters(evt.target.value)}
     // fiche d'exercices
     document.getElementById("btngeneratesheet").onclick = ()=>{MM.createExercicesSheet()}
     document.getElementById("btn-ex-adresse").onclick = ()=>{MM.copyURL('exosheet');};
@@ -165,13 +165,13 @@ window.onload = function(){
     // boutons d'exemples
     document.getElementById("btn-annotation2").addEventListener("click", (evt)=>{
         let target = utils.getTargetWithImageInside(evt);
-        utils.annotate('divparams', target.id)
+        MM.annotateThisThing('divparams', target.id)
     });
     document.getElementById("btn-shuffle").onclick = ()=>{MM.editedActivity.display('sample')}
     // boutons section énoncés
     document.getElementById("btn-annotation-enonce").onclick = (evt)=>{
         let target = utils.getTargetWithImageInside(evt);
-        utils.annotate('enonce-content', target.id);
+        MM.annotateThisThing('enonce-content', target.id);
     }
     // zooms
     document.getElementById("enonce-content").onclick = (evt)=>{
@@ -206,7 +206,7 @@ window.onload = function(){
                     MM.newSample(i,true);
                     break;
                 case "btn-sample-annotate"+i:
-                    utils.annotate('sampleSlide'+i,targetId);
+                    MM.annotateThisThing('sampleSlide'+i,targetId);
                     break;
                 case "btn-sample-showanswer"+i:
                     MM.showSampleAnswer(i);
@@ -240,7 +240,7 @@ window.onload = function(){
         let target = utils.getTargetWithImageInside(evt);
         switch (target.id){
             case "btn-annotation-corrige":
-                utils.annotate('corrige-content', target.id)
+                MM.annotateThisThing('corrige-content', target.id)
                 break
             case "btn-restart-otherdata":
                 utils.setSeed(utils.seedGenerator());
@@ -323,7 +323,7 @@ window.onload = function(){
                     MM.carts[0].addActivity(val,nbq);
                 })
                 let tab = document.querySelector("a[numero$='parameters'].tabs-menu-link");
-                utils.resetAllTabs();
+                MM.resetAllTabs();
                 utils.addClass(tab, "is-active");
                 document.getElementById("tab-parameters").style.display = "";
                 }).catch(err=>{
@@ -342,7 +342,7 @@ window.onload = function(){
     // Suppression comportement avant modularisation  
     document.querySelector("#tab-historique ol").addEventListener("click",(evt)=>{
         if(evt.target.innerHTML.indexOf("🛠 éditer")>-1){
-            utils.checkURL(evt.target.dataset['url'],false,true)
+            MM.checkURL(evt.target.dataset['url'],false,true)
         } else if(evt.target.innerHTML.indexOf("❌ Supprimer")>-1){
             MM.removeFromHistory(evt.target.parentNode);
         }
@@ -352,28 +352,16 @@ window.onload = function(){
             MM.memory[evt.target.dataset.id].toggle();
         }
     })
-    document.getElementById("cart0-list").addEventListener("click",(evt)=>{
-        if(evt.target.dataset.actid !== undefined){
-            MM.editActivity(evt.target.dataset.actid);
-        } else if(evt.target.dataset.actidtoremove !== undefined){
-            MM.removeFromCart(evt.target.dataset.actidtoremove)
-        }
-    })
-    document.getElementById("cart1-list").addEventListener("click",(evt)=>{
-        if(evt.target.dataset.actid !== undefined){
-            MM.editActivity(evt.target.dataset.actid);
-        }
-    })
-    document.getElementById("cart2-list").addEventListener("click",(evt)=>{
-        if(evt.target.dataset.actid !== undefined){
-            MM.editActivity(evt.target.dataset.actid);
-        }
-    })
-    document.getElementById("cart3-list").addEventListener("click",(evt)=>{
-        if(evt.target.dataset.actid !== undefined){
-            MM.editActivity(evt.target.dataset.actid);
-        }
-    })
+    // évènements sur les activités dans les paniers
+    for(let i=0;i<4;i++){
+        document.getElementById("cart"+i+"-list").addEventListener("click",(evt)=>{
+            if(evt.target.dataset.actid !== undefined){
+                MM.editActivity(evt.target.dataset.actid);
+            } else if(evt.target.dataset.actidtoremove !== undefined){
+                MM.removeFromCart(evt.target.dataset.actidtoremove)
+            }
+        })    
+    }
     /**
      * boutons paniers, images contenues dans des button
      */

@@ -1,0 +1,43 @@
+{
+    "title":"Conversions de durées",
+    "type":"text",
+    "ID":"7MC2",
+    "description":"Conversions par interprétation de reste.",
+    "dest":["7MC","6MB"],
+    "options":[{
+        "name":"Conversions siècle <=> années",
+        "vars":{"a":"0_99","s":"0_21","an":"${:a+100*:s}"},
+        "question": ["Combien de siècles et d'années dans ${:an} années ?",
+    "Combien d'années dans ${:s} siècles et ${:a} années ?"],
+        "answer":["${:an} années = <span class='red'>${:s}</span> siècles et <span class='red'>${:a}</span> années.",
+    "${:s} siècles et ${:a} années = <span class='red'>${:an}</span> années"],
+        "value":["${:s} s. ${:a} an.","${:an} an."]
+    },{
+        "name":"Conversions semaines/jours",
+        "vars":{"j":"0_6","s":"0_10","jrs":"${:j+7*:s}"},
+        "question": ["Combien de semaines et jours dans ${:jrs} jours ?",
+    "Combien de jours dans ${:s} semaines et ${:j} jours ?"],
+        "answer":["${:jrs} jours = <span class='red'>${:s}</span> semaines et <span class='red'>${:j}</span> jours.",
+    "${:s} semaines et ${:j} jours = <span class='red'>${:jrs}</span> jours"],
+        "value":["${:s} sem ${:j} j","${:jrs} j"]
+    },{
+        "name":"Conversions heures/minutes",
+        "vars":{"m":"0_59","h":"0_23","min":"${:m+60*:h}"},
+        "question": ["Combien d'heures et minutes dans ${:min} minutes ?",
+    "Combien de minutes dans ${:h} heures et ${:m} minutes ?"],
+        "answer":["${:min} minutes = <span class='red'>${:h}</span> heures et <span class='red'>${:m}</span> minutes.",
+    "${:h} heures et ${:m} minutes = <span class='red'>${:min}</span> minutes"],
+        "value":["${:h} h ${:m} min","${:min} min"]
+
+    },{
+        "name":"Conversions minutes/secondes",
+        "vars":{"m":"0_59","h":"0_23","min":"${:m+60*:h}"},
+        "question": ["Combien de minutes et secondes dans ${:min} secondes ?",
+    "Combien de secondes dans ${:h} minutes et ${:m} secondes ?"],
+        "answer":["${:min} secondes = <span class='red'>${:h}</span> minutes et <span class='red'>${:m}</span> secondes.",
+    "${:h} minutes et ${:m} secondes = <span class='red'>${:min}</span> secondes"],
+        "value":["${:h} min ${:m} s","${:min} s"]
+
+    }
+    ]
+}

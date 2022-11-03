@@ -1,0 +1,20 @@
+{
+    "title":"Suites additives, multiplicatives",
+    "type":"text",
+    "ID":"6ND24",
+    "description":"Trouver le terme ou le facteur suivant",
+    "dest":["6ND", "5NC", "4NC", "3NB"],
+    "options":[{
+        "name":"Suite additive",
+        "vars":{"r":"2_12","u0":"0_50"},
+        "question": "Quel nombre continue la suite : $$${:u0} ; ${:u0+:r} ; ${:u0+:r*2}$$ ?",
+        "answer":"$$${:u0} ; ${:u0+:r} ; ${:u0+:r*2} ; \\color{red}{${:u0+:r*3} }$$",
+        "value":"${:u0+:r*3} "
+    },{
+        "name":"Suite multiplicative",
+        "vars":{"r":[2,3,5,10],"u0":[1,2,3,4,5,6,7,8,9,10,20,50,100]},
+        "question": "Quel nombre continue la suite : $$${:u0} ; ${:u0*:r} ; ${:u0*:r*:r}$$ ?",
+        "answer":"$$${:u0} ; ${:u0*:r} ; ${:u0*:r*:r} ; \\color{red}{${:u0*:r*:r*:r} }$$",
+        "value":"${:u0*:r*:r*:r} "
+    }]
+}

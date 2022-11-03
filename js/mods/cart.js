@@ -1,7 +1,7 @@
-import math from "./math.min.js";
 import activity from "./activity.min.js";
 import MM from "./MM.min.js";
 import utils from "./utils.min.js";
+import math from "./math.min.js";
 
 export default class cart {
     constructor(id){

@@ -1,8 +1,9 @@
+import utils from "./utils.min.js";
 import content from "./content.js";
 //import theactivities from "./theactivities.js";
-import utils from "./utils.min.js";
 import MM from "./MM.min.js";
 import activity from "./activity.min.js";
+
 export {library as default};
 // lecture de la bibliotheque
 const library = {
@@ -16,7 +17,7 @@ const library = {
         MM.editedActivity = obj;
         // show tab-content
         let tab = document.querySelector("a[numero$='parameters'].tabs-menu-link");
-        utils.resetAllTabs();
+        MM.resetAllTabs();
         utils.addClass(tab, "is-active");
         document.getElementById("tab-parameters").style.display = "";
         document.getElementById("addToCart").className = "";
@@ -29,7 +30,7 @@ const library = {
      */
     load:function(url,id){
         /*if(theactivities[id]!== undefined){
-            utils.setHistory("Exercice","u="+id);
+            MM.setHistory("Exercice","u="+id);
             this.open(theactivities[id]);
         } else {*/
             // pour le développement, on peut lire une activité qui n'a pas encore été intégrée dans la bibliothèque
@@ -39,7 +40,7 @@ const library = {
                 let json = JSON.parse(reader.responseText);
                 let regexp = /\/(.*)\./;
                 url = regexp.exec(url)[1];
-                utils.setHistory("Exercice","u="+url);
+                MM.setHistory("Exercice","u="+url);
                 this.open(json);
             }
             reader.open("get", "library/"+url+"?v"+MM.version);
@@ -85,11 +86,11 @@ const library = {
         reader.onload = function(){
             MM.content = JSON.parse(reader.responseText);
             // remplissage de la grille d'accueil
-            utils.createTuiles();
+            MM.createTuiles();
             // création des tuiles des niveaux
-            utils.createSearchCheckboxes();
+            MM.createSearchCheckboxes();
             // check if parameters from URL
-            utils.checkURL();
+            MM.checkURL();
             if(MM.embededIn){
                 window.parent.postMessage({url: window.location.href, ready:"ok"}, MM.embededIn);
             }        
@@ -98,11 +99,11 @@ const library = {
         reader.send();*/
         MM.content = content;
             // remplissage de la grille d'accueil
-        utils.createTuiles();
+        MM.createTuiles();
         // création des tuiles des niveaux
-        utils.createSearchCheckboxes();
+        MM.createSearchCheckboxes();
         // check if parameters from URL
-        utils.checkURL();
+        MM.checkURL();
         if(MM.embededIn){
             window.parent.postMessage({url: window.location.href, ready:"ok"}, MM.embededIn);
         }        
@@ -223,7 +224,7 @@ const library = {
         }else 
             html = "<h2>Cette activité MathsMentales v1 a été répartie en plusieurs activités</h2>";
         if(base && !_.isObject(level)) // on change l'url level est un niveau de la bibliothèque
-            utils.setHistory(niveau["nom"],"n="+level);
+            MM.setHistory(niveau["nom"],"n="+level);
         // Affichage et mise en forme des données.
         let itemsNumber = 0;
         for(let i in niveau["themes"]){

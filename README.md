@@ -8,6 +8,7 @@ Démo : https://seb-cogez.github.io/mathsmentales/
  * Sandrine Cartier-lange a créé quelques activités autour de Pythagore et pour le lycée
  * Eric Elter a eu une relecture très attentive de plusieurs activités.
  * Fayçal TIB a voulu créer quelques activités pour le lycée (inachevées)
+ 
 Pour ceux qui veulent participer, voir [cette documentation](https://github.com/seb-cogez/mathsmentales/blob/master/participer.md)
 
 ### Nouveautés apportées par cette version :

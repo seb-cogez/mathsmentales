@@ -7,6 +7,8 @@ import Figure from "./figure.min.js";
 import timer from "./timer.min.js";
 import keyBoard from "./keyboard.min.js";
 import ficheToPrint from "./fichetoprint.min.js";
+import library from "./library.js";
+import draw from "./draw.js";
 export {MM as default}
 const MM = {
     version:7,// à mettre à jour à chaque upload pour régler les pb de cache
@@ -35,6 +37,92 @@ const MM = {
     keyboards:{},// claviers virtuels pour réponses en ligne
     ended:true,
     embededIn:false, // variable qui contient l'url du site dans lequel MM est affiché (vérifier url)
+    /**
+     * Crée un grain pour la génération aléatoire des données
+     * @param {String} value 
+     */
+     setSeed(value){
+        if(value !== undefined && value !== "sample" && value !== "checkSwitched"){
+            MM.seed = value;
+            document.getElementById("aleaKey").value = value;
+        } else if(value === "sample"){
+            MM.seed = utils.seedGenerator();
+        } else if(document.getElementById("aleaInURL").checked === true){
+            if(document.getElementById("aleaKey").value === ""){
+                MM.seed = utils.seedGenerator();
+                document.getElementById("aleaKey").value = MM.seed;
+            } else {
+                MM.seed = document.getElementById("aleaKey").value;
+            }
+        } else if(value === "checkSwitched") {
+            // on ne fait rien
+            return false;
+        } else {
+            MM.seed = utils.seedGenerator();
+            document.getElementById("aleaKey").value = MM.seed;
+        }
+        MM.initializeAlea(MM.seed);
+    },
+    /**
+    * 
+    * @params {string} seed valeur d'initialisation des données aléatoires
+    * return nothing
+    */
+        initializeAlea:function(seed){
+        if(seed){
+            if(utils.alea)delete utils.alea;
+            utils.alea = new Math.seedrandom(seed);
+        } else {
+            if(utils.alea)delete utils.alea;
+            utils.alea = new Math.seedrandom(MM.seed);
+        }
+    },
+        /**
+     * 
+     * @param {DOM obj or string} element 
+     * Show the selected Tab
+     */
+         showTab:function(element){
+            MM.resetAllTabs();let tab, el;
+            if(element === "none")return;
+            if(typeof element === "string"){
+                tab = element;
+                el = document.querySelector("#header-menu a[numero='#"+element+"']");
+            } else {
+                el = element;
+                tab = element.getAttribute('numero').substr(1);
+            }
+            utils.addClass(el, "is-active");
+            document.getElementById(tab).style.display = "";
+        },
+        showParameters:function(id){
+            let ids = ["paramsdiapo","paramsexos", "paramsinterro", "paramsceinture", "paramsflashcards", "paramswhogots", "paramsdominos", "paramscourse", "paramsduel"];//
+            if(ids.indexOf(id)<0) return false;
+            // hide all
+            for(let i=0,len=ids.length;i<len;i++){
+                document.getElementById(ids[i]).className = "hidden";
+            }
+            document.getElementById(id).className = "";
+        },
+        resetAllTabs : function(){
+            // fermeture des espaces d'annotation.
+            MM.annotateThisThing(false);
+            let tabsButtons = document.querySelectorAll("#header-menu .tabs-menu-link");
+            let contents = document.querySelectorAll(".tabs-content-item");
+            document.getElementById("tab-accueil").display = "none";
+            contents.forEach(element => {
+                element.style.display = "none";
+            });
+            utils.removeClass(document.getElementById("btnaccueil"), "is-active");
+            tabsButtons.forEach(element => {
+                utils.removeClass(element, "is-active");
+            });
+        },
+    closeMessage(id){
+        let div=document.getElementById(id);
+        div.parentNode.removeChild(div);
+        document.body.removeEventListener("click",(evt)=>{if(evt.target.id==="btn-messagefin-close"){MM.closeMessage('messagefin');MM.showTab('tab-corrige');}});
+    },
     setEndType(value){
         this.endType = value;
     },
@@ -80,6 +168,24 @@ const MM = {
     setNbq:function(value){
         document.getElementById("nbq-slider").value = value;
         document.getElementById('nbq-value').innerHTML = value;
+    },
+    changeTempoValue:function(value){
+        document.getElementById('tempo-value').innerHTML = value+" s.";
+        if(MM.editedActivity)MM.editedActivity.Tempo = value;
+        if(MM.carts[MM.selectedCart].editedActivityId > -1){
+            document.querySelectorAll("#cart"+(MM.selectedCart)+"-list li.active span")[0].innerHTML = value;
+        }
+    },
+    changeNbqValue:function(value){
+        document.getElementById('nbq-value').innerHTML = value;
+        if(MM.editedActivity)MM.editedActivity.nombreQuestions = value;
+        if(MM.carts[MM.selectedCart].editedActivityId > -1){
+            document.querySelectorAll("#cart"+(MM.selectedCart)+"-list li.active span")[1].innerHTML = value;
+        }
+    },
+    checkValues:function(){
+        MM.changeTempoValue(document.getElementById('tempo-slider').value);
+        MM.changeNbqValue(document.getElementById('nbq-slider').value);
     },
     resetCarts:function(){
         let Cart = new cart(0);
@@ -265,13 +371,13 @@ const MM = {
                 tabaccueil.addEventListener("click",(evt)=>{
                     switch (evt.target.id){
                         case "btn-message-start":
-                            utils.closeMessage('messageinfo');MM.start()
+                            MM.closeMessage('messageinfo');MM.start()
                             break;
                         case "btn-message-sound":
                             sound.next();
                             break;
                         case "btn-message-interact":
-                            utils.closeMessage('messageinfo');MM.setOnlineState('yes');MM.start()
+                            MM.closeMessage('messageinfo');MM.setOnlineState('yes');MM.start()
                             break;
                         default:
                             break;
@@ -302,7 +408,7 @@ const MM = {
         }
         enonces.innerHTML="";
         corriges.innerHTML="";
-        utils.setSeed();
+        MM.setSeed();
         MM.copyURLtoHistory();
         // parcours des paniers
         for(let i=0;i<length;i++){
@@ -613,7 +719,7 @@ const MM = {
             // montrer le menu de commandes général
             document.querySelector("#slideshow-container > header").className="";
         }
-        utils.showTab("none");
+        MM.showTab("none");
         // check if an option has been chosen
         MM.checkIntro();
         MM.createSlideShows();
@@ -707,6 +813,195 @@ const MM = {
             ",colors="+colors+
             ",snd="+sound.selected+
             this.export();
+    },
+    setHistory(pageName,params){
+        let url = MM.setURL(params);
+        history.pushState({'id':'Homepage'},pageName,url);
+    },
+    /**
+     * regarde les paramètres fournis dans l'url
+     * et lance le diapo ou passe en mode édition
+     * edit est true si appelé par l'historique pour édition
+     */
+     checkURL(urlString=false,start=true,edit=false){
+        const vars = utils.getUrlVars(urlString);
+        // cas d'une page prévue pour exercice.html
+        if(vars.cor && vars.ex && location.href.indexOf("exercices.html")<0 && !edit){
+            // on redirige vers exercice.html
+            let url = new URL(location.href);
+            location.href= url.origin+url.pathname.replace("index.html","")+"exercices.html"+url.search;
+        }
+        if(vars.embed !== undefined){
+            // cas d'une activité embeded, on vérifie que l'url est conforme
+            let expression = 
+/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+            let regex = new RegExp(expression);
+            if(vars.embed.match(regex))
+                MM.embededIn = vars.embed;
+        }
+        if(vars.n!== undefined && vars.cd===undefined && !edit){ // un niveau à afficher
+            library.displayContent(vars.n,true);
+            return;
+        } else if(vars.u!==undefined && vars.cd === undefined && !edit){ // ancien exo MM1
+            let regexp = /(\d+|T|G|K)/;// le fichier commence par un nombre ou un T pour la terminale
+            // un paramétrage d'exercice à afficher
+             if(_.isArray(vars.u)){
+                 let listeURLs = [];
+                 // il peut y avoir plusieurs exercices correspondant à une activité MM1
+                 for(let i=0;i<vars.u.length;i++){
+                    let url = vars.u[i];
+                    let level = regexp.exec(url)[0];
+                    listeURLs.push({u:"N"+level+"/"+url+".json",t:""});
+                }
+                library.displayContent(listeURLs);
+             } else if(vars.u !== undefined) {
+                 // s'il n'y a qu'une activité, on l'affiche.
+                let level = regexp.exec(vars.u)[0];
+                library.load("N"+level+"/"+vars.u+".json", vars.u);
+            } else {
+                let alert = utils.create("div",{className:"message",innerHTML:"Cette activité n'a pas de correspondance dans cette nouvelle version de MathsMentales.<hr class='center w50'>Vous allez être redirigé vers l'ancienne version dans 10s. <a>Go !</a>"});
+                alert.onclick =  utils.goToOldVersion();
+                document.getElementById("tab-accueil").appendChild(alert);
+                setTimeout(utils.goToOldVersion,10000);
+            }
+        } else if(vars.c!==undefined){ // présence de carts MM v2 à lancer ou éditer
+            let alert = utils.create("div",{id:'messageinfo',className:"message",innerHTML:"Chargement de l'activité MathsMentales.<br>Merci pour la visite."});
+            document.getElementById("tab-accueil").appendChild(alert);
+            if(vars.o === "yes" && !edit){
+                // cas d'un truc online : message à valider !
+                start = false;
+                alert.innerHTML += "<br><br>";
+                let button = utils.create("button",{innerHTML:"Commencer !"});
+                button.onclick = ()=>{MM.closeMessage('messageinfo');MM.checkLoadedCarts(true)};
+                alert.appendChild(button);
+                //<button onclick="MM.closeMessage('messageinfo');MM.checkLoadedCarts(true)"> Commencer !
+                //</button>`;
+            } else {
+                setTimeout(()=>{
+                    MM.closeMessage('messageinfo');
+                },3000);
+            }
+            // indique quoi faire avant le slide
+            MM.introType = vars.i;
+            // indique quoi faire après le slide
+            MM.endType = vars.e;
+            // couleurs des diaporamas
+            if(typeof vars.colors === "string"){
+                let couleurs = vars.colors.split("~");
+                for(let i=0;i<couleurs.length;i++){
+                    MM.colors[i]=couleurs[i].replace(/_/g,",");
+                    document.getElementById("sddiv"+(i+1)).style.background = MM.colors[i];
+                }
+            }
+            // Mode online
+            if(vars.o){
+                MM.onlineState = vars.o;
+            }
+            // Mode face to face
+            if(vars.f)MM.faceToFace = vars.f;
+            // nombre de diaporamas
+            if(vars.s){
+                MM.slidersNumber = Number(vars.s);
+            }
+            // son
+            if(vars.snd !== undefined){
+                if(vars.snd !== "null"){
+                    sound.setSound(Number(vars.snd));
+                }
+            }
+            // le seed d'aléatorisation est fourni et on n'est pas en mode online
+            if((vars.a && MM.onlineState === "no") || edit){
+                MM.setSeed(vars.a);
+                // on check la clé de donnée incluse
+                document.getElementById("aleaInURL").checked = true;
+            } /*else if(MM.onlineState=="yes" || !vars.a)
+                MM.setSeed(utils.seedGenerator());*/
+            // on supprime tous les paniers
+            MM.resetCarts();
+            // orientation dans le cas de 2 diapos
+            if(vars.so){
+                MM.slidersOrientation = vars.so;
+            }
+            // paramètres des activités des paniers
+            let json = vars.c;
+            // version avant le 15/08/21
+            if(typeof vars.c === "string")
+                json = JSON.parse(decodeURIComponent(vars.c));
+            // la version à partir du 15/08/21 fonctionne avec un objet vars.c déjà construit.
+            // alcarts contient des promises qu'il faut charger
+            let allcarts = [];
+            for(const i in json){
+                MM.carts[i] = new cart(i);
+                allcarts.push(MM.carts[i].import(json[i],start));
+            }
+            // on attend le résultat de toutes les promesses pour mettre à jour les affichages.
+            Promise.all(allcarts).then(data=>{
+                // on prépare l'affichage des paniers
+                MM.resetInterface();
+                MM.restoreCartsInterface();
+                // on affiche l'interface des paniers si on a au moins une activité dans le panier 1 ou plusieurs paniers.
+                if(MM.carts[0].activities.length>1 || MM.carts.length>1){
+                    MM.showCartInterface();
+                }
+                // si panier avec plusieurs activités, on prépare l'affichage du panier
+                if(MM.carts[0].activities.length>1 || MM.carts.length>1){
+                    MM.showCart(1);
+                    MM.editActivity(0);
+                } else {
+                    // sinon
+                    // on affecte l'activité 0 du panier comme activité en cours d'édition.
+                    MM.editedActivity = MM.carts[0].activities[0];
+                    MM.editedActivity.display();
+                }
+            // on affiche l'interface de paramétrage si on est en mode édition
+                if(edit) {
+                    MM.showTab("tab-parameters");
+                    // remplissage des données ceinture
+                    if(utils.getTypeOfURL(urlString) === "paramsceinture"){
+                        document.getElementById("ceinttitle").value = vars.t?decodeURIComponent(vars.t):"";
+                        document.getElementById("ceintcols").value = vars.nc;
+                        document.getElementById("ceintcolsval").value = vars.nc;
+                        let coltitles = document.getElementById("ceintcolumnTitle");
+                        coltitles.innerHTML = "";
+                        for(let i=0,tot=Number(vars.nc);i<tot;i++){
+                            if(i>0)coltitles.appendChild(utils.create("br"));
+                            coltitles.appendChild(utils.create("label",{"for":"ceinttitlecol"+(i+1),innerHTML:"Colonne "+(i+1)+" :"}))
+                            coltitles.appendChild(utils.create("input",{"type":"text",id:"ceinttitlecol"+(i+1),value:vars["t"+i]?decodeURIComponent(vars["t"+i]):""}))
+                        }
+                        document.getElementById("ceintrows").value=vars.nr;
+                        document.getElementById("ceintrowsval").value=vars.nr;
+                        document.getElementById("ceintqty").value=vars.n;
+                        document.getElementById("ceintqtyvalue").value=vars.n;
+                        utils.checkRadio("ceintcorrpos",vars.cor);
+                        document.getElementById("ceintpiedcol").value=vars.pie;
+                        utils.checkRadio("ceintorientation",vars.o?vars.o:"portrait");
+                    }
+                    // on sélectionne le menu qu'il faut
+                    utils.selectOption("chooseParamType",utils.getTypeOfURL(urlString));
+                    let element = document.getElementById("chooseParamType");
+                    element.dispatchEvent(new Event('change', { 'bubbles': true }));
+                }
+            }).catch(err=>{
+                // erreur à l'importation :(
+                let alert=utils.create("div",
+                {
+                    id:"messageerreur",
+                    className:"message",
+                    innerHTML:"Impossible de charger les paniers :(<br>"+err
+                });
+                document.getElementById("tab-accueil").appendChild(alert);
+                // on fermet le message d'alerte après 3 secondes
+                setTimeout(()=>{
+                    let div=document.getElementById('messageerreur');
+                    div.parentNode.removeChild(div);
+                },3000);
+            });
+        } else if(vars.cd !== undefined || vars.panier !== undefined){ // activité unique importée de MM v1
+            // affichage d'un message de redirection
+            let alert = utils.create("div",{className:"message",innerHTML:"Ceci est le nouveau MathsMentales, les anciennes adresses ne sont malheureusement plus compatibles.<hr class='center w50'>Vous allez être redirigé vers l'ancienne version de MathsMentales dans 6 s. <a href='javascript:utils.goToOldVersion();'>Go !</a>"});
+            document.getElementById("tab-accueil").appendChild(alert);
+            setTimeout(utils.goToOldVersion,6000);
+        }
     },
     // open an modal and
     // get the URL of direct access to the activity with actual parameters
@@ -915,6 +1210,62 @@ const MM = {
         shorter.open("get","getshort.php?url="+encodeURIComponent(url));
         shorter.send();
     },
+    // Met en mode annotation
+    annotateThisThing:function(target,btnId){
+        if(target === false && MM.annotate !== undefined){
+            MM.annotate.destroy();
+            MM.annotate = undefined;
+        } else if(MM.annotate === undefined && _.isString(target)){
+            MM.annotate = new draw(target,btnId);
+        } else if(MM.annotate !== undefined) {
+            MM.annotate.destroy();
+            MM.annotate = undefined;
+        }
+    },
+    /**
+     * Création et complétion des infos de tuiles de la page d'accueil
+     */
+    createTuiles(){
+        let grille;
+        const ordre = library.ordre;
+        function setContent(id,obj){
+            const elt = utils.create("article",{"className":"tuile","title":"Cliquer pour afficher toutes les activités du niveau"});
+            const titre = utils.create("h3",{"innerHTML":obj.nom});
+            elt.appendChild(titre);
+            const nba = utils.create("div",{"innerHTML":obj.activitiesNumber+" activités"});
+            elt.onclick = ()=>{library.displayContent(id,true)};
+            elt.appendChild(nba);
+            grille.appendChild(elt);
+        }
+        for(const o in ordre){
+            grille = document.getElementById(o);
+            for(let i=0;i<ordre[o].length;i++){
+                if(MM.content[ordre[o][i]].activitiesNumber === undefined || MM.content[ordre[o][i]].activitiesNumber ===0 || i==="activitiesNumber")continue;
+                setContent(ordre[o][i],MM.content[ordre[o][i]]);
+            }
+        }    
+    },
+    /**
+     * Création des checkbox pour sélectionner les niveaux dans lesquels chercher.
+     */
+        createSearchCheckboxes(){
+        let dest = document.getElementById("searchLevels");
+        const ordre = library.ordre;
+        for(const o in ordre){
+            for(let i=0;i<ordre[o].length;i++){
+                if(MM.content[ordre[o][i]].activitiesNumber === undefined || MM.content[ordre[o][i]].activitiesNumber ===0 || i==="activitiesNumber")
+                    continue;
+                const div = utils.create("div");
+                const input = utils.create("input",{type:"checkbox",name:"searchlevel",value:ordre[o][i],className:"checkbox",id:"ccbs"+ordre[o][i]});
+                input.onclick = ()=>{library.displayContent(document.getElementById("searchinput").value)};
+                const label = utils.create("label",{for:"ccbs"+ordre[o][i], innerText:MM.content[ordre[o][i]].nom});
+                label.onclick = (evt)=>{document.getElementById(evt.target.for).click()};
+                div.appendChild(input);
+                div.appendChild(label);
+                dest.appendChild(div);
+            }
+        }
+    },
     /**
      * Export all carts as string
      * @returns String 
@@ -926,7 +1277,7 @@ const MM = {
             MM.carts[0].addActivity(MM.editedActivity);
         }
         MM.checkIntro();
-        //utils.setSeed();
+        //MM.setSeed();
         //let carts = {};
         for(let i=0;i<this.carts.length;i++){
             //carts[i] = this.carts[i].export();
@@ -972,7 +1323,7 @@ const MM = {
     },
     showSampleQuestion:function(){
         let nb = MM.slidersNumber;
-        utils.setSeed("sample");
+        MM.setSeed("sample");
         let container = document.getElementById("slideshow");
         let assocSliderActivity=[];
         // génération des données aléatoires pour les exemples
@@ -1035,7 +1386,7 @@ const MM = {
             MM.carts[0].addActivity(MM.editedActivity);
         MM.createSlideShows();
         MM.populateQuestionsAndAnswers();
-        utils.showTab(document.querySelector("[numero='#tab-enonce'].tabs-menu-link"));
+        MM.showTab(document.querySelector("[numero='#tab-enonce'].tabs-menu-link"));
         if(MM.carts.length === 1 && MM.carts[0].activities.length === 1){
             MM.resetCarts();
             MM.editedActivity.display();
@@ -1046,7 +1397,7 @@ const MM = {
             MM.carts[0].addActivity(MM.editedActivity);
         MM.createSlideShows();
         MM.populateQuestionsAndAnswers();
-        utils.showTab(document.querySelector("[numero='#tab-corrige'].tabs-menu-link"));
+        MM.showTab(document.querySelector("[numero='#tab-corrige'].tabs-menu-link"));
         if(MM.carts.length === 1 && MM.carts[0].activities.length === 1){
             MM.resetCarts();
             MM.editedActivity.display();
@@ -1136,11 +1487,11 @@ const MM = {
             <button id="btn-messagefin-close"> Voir le corrigé 
             </button>`});
             document.body.appendChild(alert);
-            document.body.addEventListener("click",(evt)=>{if(evt.target.id==="btn-messagefin-close"){utils.closeMessage('messagefin');utils.showTab('tab-corrige');}});
+            document.body.addEventListener("click",(evt)=>{if(evt.target.id==="btn-messagefin-close"){MM.closeMessage('messagefin');MM.showTab('tab-corrige');}});
         } else if(whatToDo === "correction"){
-            utils.showTab("tab-corrige");
+            MM.showTab("tab-corrige");
         } else if(whatToDo === "list"){
-            utils.showTab("tab-enonce");
+            MM.showTab("tab-enonce");
         }
         this.ended=true;
     },

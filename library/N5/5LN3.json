@@ -1,0 +1,69 @@
+{
+    "title":"Leçon : Proportionnalité",
+    "type":"text",
+    "ID":"5LN3",
+    "description":"18 questions sur la proportionnalité entre grandeurs",
+    "dest":["5LN", "4LN"],
+    "options":[{
+        "name":"Notion de grandeur",
+        "question": [
+            "Qu’est-ce qu’une grandeur ?",
+            "Qu'est-ce qu'une unité de grandeur ?"
+    ],
+        "answer":[
+            "Une grandeur est quelque chose que l'on peut mesurer, calculer ou compter. Elle est souvent accompagnée d'une unité.",
+            "Une unité de grandeur est une quantité de base qui permet de quantifier la grandeur."
+    ]
+    },{
+        "name":"Notion de proportionnalité",
+        "question":[
+            "Qu'appelle-t-on grandeurs proportionnelles ?",
+            "Qu'est-ce qu'un tableau de proportionnalité ?",
+            "Comment déterminer si un tableau est un tableau de proportionnalité ?",
+            "Qu'appelle-t-on quatrième proportionnelle ?",
+            "Qu'est-ce qu'on appelle produits en croix ?",
+            "À quoi reconnait-on graphiquement qu'on a une situation de proportionnalité ?"
+        ],
+        "answer":[
+            "Deux grandeurs sont proportionnelles lorsqu'on peut passer de l'une à l'autre en multipliant par un nombre unique appellé coefficient de proportionnalité.",
+            "Un tableau de proportionnalité est un tableau contenant les données de deux grandeurs où l'on passe de l'une à l'autre par une multiplication par un nombre unique appelé coefficient de proportionnalité.",
+            "On peut calculer tous les quotients de chaque colonne et regarder s'ils sont exactement égaux. Si oui, c'est un tableau de proportionnalité, sinon non.",
+            "Dans un tableau de proportionnalité comportant 4 valeurs, si on en connait déjà 3, celle qui manque est appelée quatrième proportionnelle.",
+            "En ayant de quotients, on appelle produits en croix les produits du numérateur de l'un par le dénominateur de l'autre.",
+            "Les points dont les coordonnées sont les données proportionnelles sont alignés avec l'origine du repère."
+        ]
+    },{
+        "name":"Méthodes",
+        "question":[
+            "Qu'est-ce que le passage à l'unité ?",
+            "Comment trouver le coefficient de proportionnalité ?",
+            "À quelle fraction correspond le coefficient de proportionnalité ?",
+            "Quelles sont les propriétés de linéarité en proportionnalité ?",
+            "Comment déterminer compléter un tableau de proportionnalité ?"
+        ],
+        "answer":[
+            "C'est chercher à quoi est associté une unité d'une des grandeurs dans l'autre grandeur.",
+            "On obtient le coefficient de proportionnalité en divisant une valeur de la 2e grandeur par la valeur correspondante de la 1ère",
+            "Le coefficient de proportionnalité s'écrit $$\\dfrac{\\text{valeur de départ}}{\\text{valeur d'arrivée}}$$",
+            "On peut multiplier ou diviser (pas par zéro) un couple de valeurs proporionnelles pour en avoir un nouveau. On peut ajouter ou soustraire deux couples de valeurs pour en avoir un nouveau.",
+            "On peut utiliser : le passage à l'unité, le coefficient de proportionnalité, les propriétés de linéarité ou l'application des produits en croix égaux."
+        ]
+    },{
+        "name":"Applications de la proportionnalité",
+        "question":[
+            "Qu'appelle-t-on échelle d'une carte ou d'une photo ?",
+            "Que signifie que deux nombres sont dans le ratio a:b ?",
+            "Que signifie que trois nombres sont dans le ratio ratio a:b:c ?",
+            "À quelle opération correspond calculer t% d'une quantité ?",
+            "Que signifie déterminer un pourcentage ?"
+        ],
+        "answer":[
+            "L'échelle d'une carte ou une photo est le coefficient de proportionnalité entre une longueur représentée et sa valeur réelle, mesurées dans la même unité. On l'exprime souvent par une fraction comportant le nombre 1 au numérateur ou au dénominateur.",
+            "Cela signifie que les deux nombres sont dans les mêmes proportions que a et b. $$\\dfrac{nb1}{a}=\\dfrac{nb2}{b}$$.",
+            "Cela signifie que les trois nombres sont dans les mêmes proportions que a, b et c. $$\\dfrac{nb1}{a}=\\dfrac{nb2}{b}=\\dfrac{nb3}{c}$$.",
+            "Calculer t% d'une quantité revient à multiplier cette quantité par $$\\dfrac{t}{100}$$.",
+            "Déterminer un pourcentage, c'est déterminer une proportion par rapport à 100."
+        ]
+    }
+    ]
+}

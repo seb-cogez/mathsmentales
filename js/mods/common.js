@@ -1,4 +1,5 @@
 import utils from "./utils.min.js";
+import MM from "./MM.min.js";
 export {common as default}
 const pageOrientations = ["portrait","paysage"]
 const pageWidthes = ["794", "1123"]
@@ -96,7 +97,7 @@ const common = {
         } else {
             this.seed = this.seedGenerator();
         }
-        utils.initializeAlea(this.seed);
+        MM.initializeAlea(this.seed);
         return this.seed;
     },
     checkURL(){

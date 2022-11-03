@@ -23,14 +23,14 @@
     },
     "options":[{
         "name":"Nombres entiers",
-        "vars":{"a":"1_15","choix":"0_4","pas":"${:nbr[:choix]}","num_fig":"0_3"},
+        "vars":{"a":"1_15","choix":"0_4","pas":"${:nbr[:choix]}","num_fig":"0_3","a1":1,"b3":1},
         "question":"Trouve ?",
         "figure":{"type":"svg","content":"${:figures[:num_fig]}"},
         "answer":"Le pas est $$(${:b}-${:a})\\div{5}=${:pas}.$$ Donc ? $$=\\color{red}{ ${:a+(:num_fig+1)*:pas}}$$",
         "value":"${:a+(:num_fig+1)*:pas}"
         },{
         "name":"Nombres décimaux",
-        "vars":{"a1":"1_15","a":"${math.round(:a1*0.1,1)}","choix":"0_4","pas":"${math.round(:nbr[:choix]*0.1,1)}","num_fig":"4_5"},
+        "vars":{"a1":"1_15","a":"${math.round(:a1*0.1,1)}","choix":"0_4","pas":"${math.round(:nbr[:choix]*0.1,1)}","num_fig":"4_5","b3":1},
         "question":"Trouve ?",
         "figure":{"type":"svg","content":"${:figures[:num_fig]}"},
         "answer":"Le pas est $$(${:b2}-${:a})\\div{10}=${:pas}.$$ Donc ? $$=\\color{red}{ ${math.round(:a+(:num_fig-1)*:pas,1)}}$$",

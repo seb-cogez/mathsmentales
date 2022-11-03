@@ -2,6 +2,7 @@ import utils from "./utils.min.js";
 import math from "./math.min.js";
 import Figure from "./figure.min.js";
 import library from "./library.min.js";
+import MM from "./MM.min.js";
 // lecture des fichiers exercice
 /**
 * Structure d'un fichier exercice
@@ -191,7 +192,7 @@ export default class activity {
         // affichage d'exemple(s)
         let examples = document.getElementById('activityOptions');
         examples.innerHTML = "";
-        utils.setSeed(cle);
+        MM.setSeed(cle);
         if(this.options !== undefined && this.options.length > 0){
             let colors = ['',' red',' orange',' blue', ' green', ' grey',];
             // Ajout de la possibilité de tout cocher ou pas

@@ -34,7 +34,7 @@ export default class ficheToPrint {
         this.wsheet.document.getElementsByTagName('html')[0].className = "s"+document.getElementById('exTxtSizeValue').value.replace(".","");
         this.content = this.wsheet.document.getElementById("creator-content");
         this.docsheet = this.wsheet.document;
-        utils.setSeed();
+        MM.setSeed();
         if(this.type === "exo"){
             this.createExoSheet();
         } else if(this.type === "exam"){

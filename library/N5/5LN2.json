@@ -2,19 +2,21 @@
     "title":"Leçon : nombres relatifs",
     "type":"text",
     "ID":"5LN2",
-    "description":"12 questions sur Notion, somme, différence, repérage",
+    "description":"16 questions sur Notion, somme, différence, repérage",
     "dest":["5LN", "4LN"],
     "options":[{
         "name":"Notion de nombre relatifs",
         "question": [
             "Qu’est-ce qu’un nombre relatif ?",
         "Que signifie le – de –9 ?",
-        "Qu’appelle-t-on des nombres opposés ?"
+        "Qu’appelle-t-on des nombres opposés ?",
+        "Comment s'appelle la partie d'un nombre relatif après le signe ?"
     ],
         "answer":[
             "C’est un nombre que l’on situe par rapport à zéro. Il peut être négatif ou positif.",
             "C’est le signe du nombre négatif.",
-            "Ce sont des nombres relatifs dont la somme vaut zéro."
+            "Ce sont des nombres relatifs dont la somme vaut zéro.",
+            "C'est la distance à zéro. Elle indique de combien est éloigné le nombre par rapport à zéro."
     ]
     },{
         "name":"Repérage",
@@ -22,13 +24,17 @@
             "Comment appelle-t-on les nombres qui permettent de repérer un point dans le plan ?",
             "Comment se notent les coordonnées d’un point ?",
             "Quelle propriété géométrique ont deux points d'une droite graduée dont les abscisses sont opposées ?",
-            "Quelle propriété géométrique ont deux points du plan dont les abscisses sont opposées  ?"
+            "Quelle propriété géométrique ont deux points du plan dont les abscisses sont opposées  ?",
+            "Comment s'appelle le nombre qui permet de repérer un point sur un axe gradué ?",
+            "Quelle propriété géométrique ont deux points du plan dont les abscisses et les ordonnées sont opposées ?"
         ],
         "answer":[
             "Ce sont les coordonnées. Le premier nombre est l’abscisse, le second est l’ordonnée.",
             "On les notes entre parenthèses, séparées d’un point virgule. Exemple : A(3 ;-5)",
             "Des points d’abscisses opposées sur une droite graduée sont symétriques par rapport à l’origine.",
-            "Des points du plan d'abscisses opposées sont symétriques par rapport à l'axe des ordonnées."
+            "Des points du plan d'abscisses opposées sont symétriques par rapport à l'axe des ordonnées.",
+            "Le nombre qui permet de répérer un point sur un axe gradué est appelé abscisse du point.",
+            "Des points d'abscisses et ordonnées opposées sont symétriques par rapport à l'origine du repère."
         ]
     },{
         "name":"Somme, différence",
