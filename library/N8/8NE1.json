@@ -1,5 +1,5 @@
 {
-    "title":"Ajouter un nombre décimal et ...",
+    "title":"📣 Ajouter un nombre décimal et ...",
     "ID":"8NE1",
     "description":"",
     "dest":["8NE", "7NE", "6NE"],
@@ -19,6 +19,7 @@
         }
     ],
     "question": "${:t1}+${:t2}",
+    "audio":"${String(:t1).replace('.',',')} plusse ${String(:t2).replace('.',',')}",
     "answer":":question=\\color{red}{${math.round(:t1+:t2,3)}}",
     "value":"${math.round(:t1+:t2,3)}"
 }

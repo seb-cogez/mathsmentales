@@ -1,5 +1,5 @@
 {
-    "title":"Multiplier un décimal par 10, 100, 1000",
+    "title":"📣 Multiplier un décimal par 10, 100, 1000",
     "ID":"8NE2",
     "description":"Multiplication de nombres tirés au hasard par 10, 100, 1000 ou à 3 chiffres significatifs",
     "dest":["8NE", "7NE", "6NE", "5NC", "4NC", "3NB"],
@@ -8,16 +8,19 @@
     "options":[{
         "name":"Multiplier un décimal par 10",
         "question": ["${:c}\\times 10", "10\\times ${:c}"],
+        "audio": ["${String(:c).replace('.',',')} × 10", "10 × ${String(:c).replace('.',',')}"],
         "answer":":question=\\color{red}{${math.round(:c*10,3)}}",
         "value":"${math.round(:c*10,3)}"
     },{
         "name":"Multiplier un décimal par 100",
         "question": ["${:c}\\times 100", "100\\times ${:c}"],
+        "audio": ["${String(:c).replace('.',',')} × 100", "100 × ${String(:c).replace('.',',')}"],
         "answer":":question=\\color{red}{${math.round(:c*100,3)}}",
         "value":"${math.round(:c*100,3)}"
     },{
         "name":"Multiplier un décimal par 1000",
         "question": ["${:c}\\times 1000", "1000\\times ${:c}"],
+        "audio": ["${String(:c).replace('.',',')} × 1000", "1000 × ${String(:c).replace('.',',')}"],
         "answer":":question=\\color{red}{${math.round(:c*1000,3)}}",
         "value":"${math.round(:c*1000,3)}"
     },{
@@ -29,6 +32,7 @@
             "c":"${math.round(:decs*Math.pow(10,:p),3)}"
         },
         "question": ["${:c}\\times 10", "10\\times ${:c}"],
+        "audio": ["${String(:c).replace('.',',')} × 10", "10 × ${String(:c).replace('.',',')}"],
         "answer":":question=\\color{red}{${math.round(:c*10,3)}}",
         "value":"${math.round(:c*10,3)}"
     },{
@@ -40,6 +44,7 @@
             "c":"${math.round(:decs*Math.pow(10,:p),3)}"
         },
         "question": ["${:c}\\times 100", "100\\times ${:c}"],
+        "audio": ["${String(:c).replace('.',',')} × 100", "100 × ${String(:c).replace('.',',')}"],
         "answer":":question=\\color{red}{${math.round(:c*100,3)}}",
         "value":"${math.round(:c*100,3)}"
     },{
@@ -51,6 +56,7 @@
             "c":"${math.round(:decs*Math.pow(10,:p),3)}"
         },
         "question": ["${:c}\\times 1000", "1000\\times ${:c}"],
+        "audio": ["${String(:c).replace('.',',')} × 1000", "1000 × ${String(:c).replace('.',',')}"],
         "answer":":question=\\color{red}{${math.round(:c*1000,3)}}",
         "value":"${math.round(:c*1000,3)}"
     }

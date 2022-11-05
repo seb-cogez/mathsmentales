@@ -1,5 +1,5 @@
 {
-    "title":"Fraction de quantité",
+    "title":"📣 Fraction de quantité",
     "ID":"7NB1",
     "description":"Éviter le mode online pour la première activité, elle ne sera pas correctement corrigée",
     "type":"text",
@@ -7,22 +7,28 @@
     "dest":["7NB", "6NB", "5NC", "4NC", "3NB"],
     "options":[{
         "name":"Fraction de quantité en CM2",
-        "consts":{"unites":["u","cm", "cm²", "oranges", "pommes", "bonbons"]},
+        "consts":{"unites":["u","cm", "cm²", "oranges", "pommes", "bonbons"],
+        "uv":["unités","centimètres", "centimères carrés", "oranges", "pommes", "bonbons"]
+    },
         "vars":{"den":"2_5", "num":"1_${:den}", "unite":"1_5", "qte":"${:den*:unite}", "u":"0_5"},
         "question": ["Partage $$${:qte}$$ ${:unites[:u]} en $$\\dfrac{${:num}}{${:den}}$$",
-            "Trouve $$\\dfrac{${:num}}{${:den}}$$ de $$${:qte}$$ ${:unites[:u]}"],
+            "Trouve les $$\\dfrac{${:num}}{${:den}}$$ de $$${:qte}$$ ${:unites[:u]}"],
+        "audio": ["Partage ${:qte} ${:uv[:u]} en ${:num}${math.NumberToFraction(:den)}",
+            "Trouve les ${:num} ${math.NumberToFraction(:den)} de ${:qte} ${:uv[:u]}"],
         "answer":"$$\\dfrac{${:num}}{${:den}}$$ de $$${:qte}$$ ${:unites[:u]} vaut $$\\color{red}{${:qte*:num/:den}}$$ ${:unites[:u]}",
         "value":"${:qte*:num/:den}${:unites[:u]}"
     },{
         "name":"Petites quantités (tables < 5)",
         "vars":{"den":"2_5","num":"1_${:den}","unite":"1_5","qte":"${:den*:unite}"},
         "question":["$$\\dfrac{${:num}}{${:den}}\\times${:qte}$$","$$${:qte}\\times\\dfrac{${:num}}{${:den}}$$"],
+        "audio":["${:num} ${math.NumberToFraction(:den)} × ${:qte}","${:qte} × ${:num} ${math.NumberToFraction(:den)}"],
         "answer":["$$\\dfrac{${:num}}{${:den}}\\times${:qte}=\\color{red}{${:qte*:num/:den}}$$","$$${:qte}\\times\\dfrac{${:num}}{${:den}}=\\color{red}{${:qte*:num/:den}}$$"],
         "value":"${:qte*:num/:den}"
     },{
         "name":"Tables > 5",
         "vars":{"den":"6_10","num":"1_${:den}","unite":"6_10","qte":"${:den*:unite}"},
         "question":["$$\\dfrac{${:num}}{${:den}}\\times${:qte}$$","$$${:qte}\\times\\dfrac{${:num}}{${:den}}$$"],
+        "audio":["${:num} ${math.NumberToFraction(:den)} × ${:qte}","${:qte} × ${:num} ${math.NumberToFraction(:den)}"],
         "answer":["$$\\dfrac{${:num}}{${:den}}\\times${:qte}=\\color{red}{${:qte*:num/:den}}$$","$$${:qte}\\times\\dfrac{${:num}}{${:den}}=\\color{red}{${:qte*:num/:den}}$$"],
         "value":"${:qte*:num/:den}"
     }

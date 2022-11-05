@@ -1,5 +1,5 @@
 {
-    "title":"Somme astucieuse avec des décimaux",
+    "title":"📣 Somme astucieuse avec des décimaux",
     "type":"latex",
     "ID":"7NE1",
     "description":"Ajouter deux décimaux qui se marient bien et un nombre entier",
@@ -31,6 +31,9 @@
     }
     ],
     "question": ["${:a}+${:b}+${:c}", "${:b}+${:c}+${:a}","${:c}+${:a}+${:b}"],
+    "audio": ["${String(:a).replace('.',',')} plusse ${String(:b).replace('.',',')} plusse ${String(:c).replace('.',',')}",
+    "${String(:b).replace('.',',')} plusse ${String(:c).replace('.',',')} plusse ${String(:a).replace('.',',')}",
+    "${String(:c).replace('.',',')} plusse ${String(:a).replace('.',',')} plusse ${String(:b).replace('.',',')}"],
     "answer":":question=\\color{red}{${:a+:b+:c}}",
     "value":"${:a+:b+:c}"
 }

@@ -1,36 +1,42 @@
 {
-    "title":"Diviser un entier par 10, 100, 1000",
+    "title":"📣 Diviser un entier par 10, 100, 1000",
     "ID":"7NE2",
     "dest":["7NE", "6NE"],
     "vars":{"a":[9,99,999], "b":"1_${:a}", "zerosRestants":"0_3"},
         "options":[{
         "name":"Diviser un entier par 10",
         "question": "${:b}\\div 10",
+        "audio":"${:b} divisé par 10",
         "answer":":question=\\color{red}{${math.round(:b/10,1)}}",
         "value":"${math.round(:b/10,1)}"
     },{
         "name":"Diviser un entier par 100",
         "question": "${:b}\\div 100",
+        "audio":"${:b} divisé par 100",
         "answer":":question=\\color{red}{${math.round(:b/100,2)}}",
         "value":"${math.round(:b/100,2)}"
     },{
         "name":"Diviser un entier par 1000",
         "question": "${:b}\\div 1000",
+        "audio":"${:b} divisé par 1000",
         "answer":":question=\\color{red}{${math.round(:b/1000,3)}}",
         "value":"${math.round(:b/10000,3)}"
     },{
         "name":"Diviser un entier par 10 (résultat entier)",
         "question": "${:b * 10 * 10 ** :zerosRestants}\\div 10",
+        "audio":"${:b * 10 * 10 ** :zerosRestants} divisé par 10",
         "answer":":question=\\color{red}{${math.round(:b * 10 ** :zerosRestants,1)}}",
         "value":"${:b * 10 ** :zerosRestants}"
     },{
         "name":"Diviser un entier par 100 (résultat entier)",
         "question": "${:b * 100 * 10 ** :zerosRestants}\\div 100",
+        "audio":"${:b * 100 * 10 ** :zerosRestants} divisé par 100",
         "answer":":question=\\color{red}{${math.round(:b * 10 ** :zerosRestants,2)}}",
         "value":"${:b * 10 ** :zerosRestants}"
     },{
         "name":"Diviser un entier par 1000 (résultat entier)",
         "question": "${:b * 1000 * 10 ** :zerosRestants}\\div 1000",
+        "audio":"${:b * 1000 * 10 ** :zerosRestants} divisé par 1000",
         "answer":":question=\\color{red}{${math.round(:b * 10 ** :zerosRestants,3)}}",
         "value":"${:b * 10 ** :zerosRestants}"
     }

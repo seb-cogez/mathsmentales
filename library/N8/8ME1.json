@@ -1,7 +1,7 @@
 {
     "ID":"8ME1",
     "dest":["8ME","7ME","6ME"],
-    "title":"Reconnaître un angle",
+    "title":"📣 Reconnaître un angle",
     "textSize":"small",
     "keys":["obtus","aigu","droit","_"],
     "repeat":true,
@@ -23,6 +23,7 @@
             ]    
         },
     "question":"Quelle est la nature de l'angle $$\\widehat{${:B+:A+:C}}$$ ?",
+    "audio":"Quelle est la nature de l'angle ${:B} ${:A} ${:C} ?",
     "answer":"L'angle $$\\widehat{${:B+:A+:C}}$$ est un angle $$\\color{red}{${:vocab[:cx]}}$$",
     "value":"${:vocab[:cx]}"
 }

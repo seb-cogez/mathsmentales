@@ -1,5 +1,5 @@
 {
-    "title":"Ajouter, soustraire 9, 11, 19...",
+    "title":"📣 Ajouter, soustraire 9, 11, 19...",
     "type":"latex",
     "ID":"8ND1",
     "keys":["_","_","_","_","_","_","_","_"],
@@ -7,27 +7,33 @@
     "options":[{
         "name":"Ajouter 9 ou 99",
         "vars":{"a":[9,99],"b":"11_1000"},
-        "question": ["${:a}${math.signedNumber(:b)}", "${:b}${math.signedNumber(:a)}"]
+        "question": ["${:a}+${:b}", "${:b}+${:a}"],
+        "audio":["${:a} plusse ${:b}","${:b} plusse ${:a}"]
     },{
         "name":"Ajouter 9, 19, 29, 39",
         "vars":{"a":[9,19,29,39],"b":"11_1000"},
-        "question": ["${:a}${math.signedNumber(:b)}", "${:b}${math.signedNumber(:a)}"]
+        "question": ["${:a}+${:b}", "${:b}+${:a}"],
+        "audio":["${:a} plusse ${:b}","${:b} plusse ${:a}"]
     },{
         "name":"Ajouter 49, 59, …, 99",
         "vars":{"a":[49,59,69,79,89,99],"b":"11_1000"},
-        "question": ["${:a}${math.signedNumber(:b)}", "${:b}${math.signedNumber(:a)}"]
+        "question": ["${:a}+${:b}", "${:b}+${:a}"],
+        "audio":["${:a} plusse ${:b}","${:b} plusse ${:a}"]
     },{
         "name":"Ajouter 11 ou 111",
         "vars":{"a":[11,111],"b":"11_1000"},
-        "question": ["${:a}${math.signedNumber(:b)}", "${:b}${math.signedNumber(:a)}"]
+        "question": ["${:a}+${:b}", "${:b}+${:a}"],
+        "audio":["${:a} plusse ${:b}","${:b} plusse ${:a}"]
     },{
         "name":"Ajouter 11, 21, 31, 41",
         "vars":{"a":[11,21,31,41],"b":"11_1000"},
-        "question": ["${:a}${math.signedNumber(:b)}", "${:b}${math.signedNumber(:a)}"]
+        "question": ["${:a}+${:b}", "${:b}+${:a}"],
+        "audio":["${:a} plusse ${:b}","${:b} plusse ${:a}"]
     },{
         "name":"Ajouter 51, 61, …, 101",
         "vars":{"a":[51,61,71,81,91,101],"b":"11_1000"},
-        "question": ["${:a}${math.signedNumber(:b)}", "${:b}${math.signedNumber(:a)}"]
+        "question": ["${:a}+${:b}", "${:b}+${:a}"],
+        "audio":["${:a} plusse ${:b}","${:b} plusse ${:a}"]
     },{
         "name":"Soustraire 9 ou 99",
         "vars":{"a":[-9,-99],"b":"100_1000"}
@@ -49,6 +55,7 @@
     }
     ],
     "question": "${:b}${math.signedNumber(:a)}",
+    "audio":"${:b} moins ${-:a}",
     "answer":":question=\\color{red}{${:a+:b}}",
     "value":"${:a+:b}"
 }

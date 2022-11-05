@@ -288,6 +288,11 @@ export default class activity {
         } else {
             // no option
             this.generate(1);
+            if(this.audios.length>0){
+                for(let audio of this.audios){
+                    MM.audioSamples.push(audio)
+                }
+            }
             let p = document.createElement("span");
             let ul = document.createElement("ul");
             if(Array.isArray(this.questions[0])){
