@@ -359,6 +359,12 @@ ul.menu, .menu ul {
     font-size: 1.6rem;
     line-height: 2.5rem;
 }
+#radioaudioon:checked {
+  background-color: rgb(103, 228, 103);
+}
+#radioaudiooff:checked {
+  background-color: rgb(237, 135, 135);
+}
 #activityTitle h1, #activityDescription h1, #activityOptions h1{
   font-size: 2.2rem;
   margin-bottom: 0;
