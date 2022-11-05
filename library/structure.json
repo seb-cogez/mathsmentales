@@ -35,6 +35,7 @@
             "10N":{
                 "nom":"Nombres et calculs",
                 "chapitres":{
+                    "10NB":"Nommer, lire, écrire, représenter des entiers",
                     "10NE":"Calculer avec des entiers : calcul mental"
                 }
             }

@@ -387,6 +387,15 @@ ul.menu, .menu ul {
 #tab-parameters div > fieldset {
     margin-top: 1em;
 }
+#tab-parameters fieldset.hidden{
+  display: none;
+}
+#tab-parameters fieldset select{
+  line-height: normal;
+}
+#voix select {
+  max-width: 300px;
+}
 #onlinechoice {
     margin-top: 2rem;
     margin-left: 1rem;

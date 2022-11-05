@@ -1,11 +1,12 @@
 {
-    "title":"Périmètre des figures usuelles",
+    "title":"📣 Périmètre des figures usuelles",
     "type":"text",
     "ID":"6MA1",
     "description":"Pas encore compatible avec la saisie en ligne",
     "textSize":"small",
     "dest":["6MA", "5MA", "4MA", "3MA"],
     "consts":{"unites":["mm","cm","dm","m", "dam", "hm", "km"],
+    "uv":{"mm":"millimètres","cm":"centimètres","dm":"décimètres","m":"mètres","dam":"décamètres","hm":"hectomètres","km":"kilomètres"},
     "figures":[[
         "<svg width=\"15em\" height=\"9em\" viewBox=\"0 0 52.9 26.5\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"none\" stroke=\"#000\" stroke-width=\".265\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M7.547 2.946h19.702v19.702H7.547z\"/><path fill=\"none\" stroke=\"#000\" stroke-width=\".265\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M7.547 21.299h1.349v1.349H7.547zM25.9 2.946h1.349v1.349H25.9zM25.9 21.299h1.349v1.349H25.9zM7.547 2.946h1.349v1.349H7.547z\"/><text style=\"line-height:1.25;\" x=\"29.485\" y=\"13.951\" font-size=\"4.24\" font-family=\"Arial\" letter-spacing=\"0\" word-spacing=\"0\" stroke-width=\".265\"><tspan x=\"29.485\" y=\"13.951\">${:l}</tspan></text><path d=\"M17.558 1.917l-1.456 2.236M18.676 1.97L17.22 4.207M17.132 21.335l-1.456 2.236M18.25 21.388l-1.456 2.237M8.572 11.139l-2.334 1.294M8.75 12.204l-2.335 1.294M28.309 10.82l-2.334 1.293M28.487 11.884l-2.334 1.294\" fill=\"none\" stroke=\"#000\" stroke-width=\".265\"/></svg>",
         "<svg width=\"15em\" height=\"9em\" viewBox=\"0 0 52.9 26.5\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"none\" stroke=\"#000\" stroke-width=\".265\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M6 6.124l19.096-4.846 4.847 19.097-19.097 4.846z\"/><path fill=\"none\" stroke=\"#000\" stroke-width=\".265\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M10.514 23.913l1.308-.331.332 1.307-1.308.332zM23.789 1.61l1.307-.332.332 1.308-1.307.331zM28.303 19.399l1.308-.332.332 1.308-1.308.331zM6 6.124l1.307-.332L7.64 7.1l-1.307.332z\"/><text style=\"line-height:1.25;\" x=\"30.231\" y=\"10.259\" font-size=\"4.24\" font-family=\"Arial\" letter-spacing=\"0\" word-spacing=\"0\" stroke-width=\".265\"><tspan x=\"30.231\" y=\"10.259\">${:l}</tspan></text><path d=\"M15.45 2.664l-.861 2.526M16.547 2.44l-.861 2.526M19.813 21.59l-.86 2.526M20.91 21.367l-.86 2.525M9.008 13.813L7.065 15.64M9.442 14.801L7.5 16.63M28.06 8.648l-1.943 1.828M28.495 9.637l-1.944 1.828\" fill=\"none\" stroke=\"#000\" stroke-width=\".265\"/></svg>",
@@ -20,36 +21,42 @@
         "name":"Périmètre du carré",
         "vars":{"a":"d0.1_10_1", "p":"${math.round(:a*4,1)}","u":"0_6","carre":"0_2","l":"${:a} ${:unites[:u]}","L":""},
         "question": "Quel est le <b>périmètre</b> d'un carré de côté $$${:a}\\text{ ${:unites[:u]}}$$ ?<br>${:figures[0][:carre]}",
+        "audio":"Quel est le périmètre d'un carré de côté ${String(:a).replace('.',',')} ${:uv[:unites[:u]]} ?",
         "answer":"$$4\\times${:a}\\text{ ${:unites[:u]}}=\\color{red}{${:p}\\text{ ${:unites[:u]}}}$$",
         "value":"${:p}${:unites[:u]}"
     },{
         "name":"Périmètre du rectangle",
         "vars":{"a":"d0.1_8_1", "b":"d${math.round(:a+0.1,1)}_9_1", "p":"${math.round(:a*2+:b*2,1)}","u":"0_6", "rect":"0_2", "l":"${:a} ${:unites[:u]}","L":"${:b} ${:unites[:u]}"},
         "question": "Quel est le <b>périmètre</b> d'un rectangle de côtés $$${:a}\\text{ ${:unites[:u]}}$$ et  $$${:b}\\text{ ${:unites[:u]}}$$ ?<br>${:figures[1][:rect]}",
+        "audio":"Quel est le périmètre d'un rectangle de côtés ${String(:a).replace('.',',')} ${:uv[:unites[:u]]} et ${String(:b).replace('.',',')} ${:uv[:unites[:u]]} ?",
         "answer":"$$2\\times${:a}\\text{ ${:unites[:u]}}+2\\times${:b}\\text{ ${:unites[:u]}}=\\color{red}{${:p}\\text{ ${:unites[:u]}}}$$",
         "value":"${:p}${:unites[:u]}"
     },{
         "name":"Longueur du cercle",
         "vars":{"r":"1_5","p":"${math.round(2*3.14*:r,2)}","u":"0_6","l":"${:r} ${:unites[:u]}","L":""},
         "question": "Quelle est la <b>longueur</b> arrondie au centième d'un cercle de rayon $$${:r}\\text{ ${:unites[:u]}}$$ ?<br>${:figures[2][0]}",
+        "audio":"Quelle est la longueur arrondie au centième d'un cercle de rayon ${:r}${:uv[:unites[:u]]} ?",
         "answer":"$$2\\times R \\times \\pi \\approx 2\\times${:r}\\text{ ${:unites[:u]}}\\times 3.14=\\color{red}{${:p}\\text{ ${:unites[:u]}}}$$",
         "value":"${:p}${:unites[:u]}"
     },{
         "name":"Longueur du cercle 2",
         "vars":{"d":"1_10","p":"${math.round(3.14*:d,2)}","u":"0_6","l":"${:d} ${:unites[:u]}","L":""},
         "question": "Quelle est la <b>longueur</b> arrondie au centième d'un cercle de diamètre $$${:d}\\text{ ${:unites[:u]}}$$ ?<br>${:figures[2][1]}",
+        "audio":"Quelle est la longueur arrondie au centième d'un cercle de diamètre ${:d}${:uv[:unites[:u]]} ?",
         "answer":"$$D \\times \\pi \\approx ${:d}\\text{ ${:unites[:u]}}\\times 3.14=\\color{red}{${:p}\\text{ ${:unites[:u]}}}$$",
         "value":"${:p}${:unites[:u]}"
     },{
         "name":"Longueur exacte du cercle",
         "vars":{"r":"1_5","u":"0_6","l":"${:r} ${:unites[:u]}","L":""},
         "question": "Quelle est la <b>longueur</b> exacte d'un cercle de rayon $$${:r}\\text{ ${:unites[:u]}}$$ ?<br>${:figures[2][0]}",
+        "audio": "Quelle est la longueur exacte d'un cercle de rayon ${:r} ${:uv[:unites[:u]]} ?",
         "answer":"$$2\\times R \\times \\pi=2\\times ${:r}\\text{ ${:unites[:u]}}\\times\\pi=\\color{red}{${:r*2}\\pi\\text{ ${:unites[:u]}}}$$",
         "value":"${:r*2}\\pi\\text{${:unites[:u]}}"
     },{
         "name":"Longueur exacte du cercle 2",
         "vars":{"d":"1_10","u":"0_6","l":"${:d} ${:unites[:u]}","L":""},
         "question": "Quelle est la <b>longueur</b> exacte d'un cercle de diamètre $$${:d}\\text{ ${:unites[:u]}}$$ ?<br>${:figures[2][1]}",
+        "audio": "Quelle est la longueur exacte d'un cercle de diamètre ${:d} ${:uv[:unites[:u]]} ?",
         "answer":"$$D \\times \\pi =\\color{red}{${math.signIfOne(:d)}\\pi\\text{ ${:unites[:u]}}}$$",
         "value":"${:d}\\pi\\text{${:unites[:u]}}"
     }

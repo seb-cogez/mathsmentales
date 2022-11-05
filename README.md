@@ -22,6 +22,7 @@ Pour ceux qui veulent participer, voir [cette documentation](https://github.com/
  * d'autres possibilités d'affichage que le diaporama : mur d'activités, flash cards... (développement non commencé)
  * internationalisation (ou pas)
  * modularisation des scripts javascript, ce qui empêche de trouver par exemples les réponses par la console :D
+ * possibilité de faire lire automatiquement certains énoncés, pour certains exercices de dictées, mais aussi pour les déficients visuels
 
 ### bibliothèques externes
  * [KateX](https://katex.org/) pour afficher les maths (MIT licence)
@@ -95,13 +96,14 @@ ainsi que des *données optionnelles* :
     * une variable non définie prend la valeur de l'objet parent.
   * **type** : valeurs possible : "texte", "latex" qui indique le type de rendu des questions/réponses
   * **repeat** : Possibilité de répéter une question (le moteur évite normalement les répétitions de questions, mais parfois, c'est impossible car l'énoncé est visuel et les questions sont toujours les mêmes) valeurs possibles : true (on évite que la question se répète dans les 5 dernières questions) ou un nombre x (on évite que la réponse se répète plus de 2 fois dans les x dernières questions)
-  * **keys** : tableau d'au plus huit éléments contenant les touches optionnelles pour le clavier virtuel.
   * **textSize** : taille du texte de la question, permet de modifier la taille d'affichage par défaut. valeurs possibles : "medium" ou "small" 
 
 * Pour l'activité ou une option :
   * **value** : chaine ou tableau de chaines contenant les réponses attendues dans le formulaire de réponse en ligne
   * **figure** : chaine contenant une figure illustrant l'activité
   * **shortq** : question au format court (pas la consigne par exemple) pour un export plus lisible dans les ceintures, doit suivre la forme de "questions" : une chaine ou un tableau
+  * **keys** : tableau d'au plus huit éléments contenant les touches optionnelles pour le clavier virtuel.
+  * **audio** : texte à faire lire par le moteur text to speech de l'appareil utilisé, souvent la question dépouillée de mise en forme. Il faut parfois bidouiller, car les maths ne sont pas toujours lues correctement.
   * **valueType** : chaine qui indique le type de réponse attendue, pour une correction en ligne plus précise
     * "liste" pour des listes de nombres séparées par des point-virgule
  

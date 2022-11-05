@@ -1,5 +1,5 @@
 {
-    "title":"Tables de Multiplications",
+    "title":"📣 Tables de Multiplications",
     "ID":"mult",
     "keys":["_","_","_","_","_","_","_","_"],
     "options":[
@@ -7,6 +7,7 @@
         {"name": "Moyennes", "vars":{"a":"5_7", "b":"5_7"}}
     ],
     "question":["\\bold{${:a}}\\times${:b}", "${:b}\\times\\bold{${:a}}"],
+    "audio":["${:a} × ${:b}","${:b} × ${:a}"],
     "answer":":question=\\color{red}{${:a*:b}}",
     "value":"${:a*:b}"
 }

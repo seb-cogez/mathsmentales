@@ -1,5 +1,5 @@
 {
-    "title":"Reconnaître un objet géométrique",
+    "title":"📣 Reconnaître un objet géométrique",
     "type":"text",
     "textSize":"small",
     "ID":"6GC1",
@@ -17,12 +17,14 @@
         "name":"Type d'objet",
         "vars":{"pts":"0_16_3_^&","A":"${:points[:pts[0]]}","B":"${:points[:pts[1]]}","qt":"0_4"},
         "question": "Quel type d'objet est dessiné ?<br>${:qt==0?:segment::qt==1?:droite::qt==2?:demidroite::qt==3?:demidroite2::point}",
+        "audio":"Quel type d'objet est dessiné ?",
         "answer":"${:qt==0?:segment::qt==1?:droite::qt==2?:demidroite::qt==3?:demidroite2::point} <br> est <span class='red'>${:qt==0?'un segment'::qt==1?'une droite'::qt<4?'une demi-droite':'un point'}</span>",
         "value":"${:qt==0?'un segment'::qt==1?'une droite'::qt<4?'une demi-droite':'un point'}"
     },{
         "name":"Nommer un objet",
         "vars":{"pts":"0_16_3_^&","A":"${:points[:pts[0]]}","B":"${:points[:pts[1]]}","qt":"0_4"},
         "question": "Donne une notation mathématique de cette figure.<br>${:qt==0?:segment::qt==1?:droite::qt==2?:demidroite::qt==3?:demidroite2::point}",
+        "audio":"Donne une notation mathématique de cette figure.",
         "answer":"${:qt==0?:segment::qt==1?:droite::qt==2?:demidroite::qt==3?:demidroite2::point}<br>se note <span class='red'>${:qt==0?'['+:A+:B+']'::qt==1?'('+:A+:B+')'::qt==2?'['+:A+:B+')'::qt==3?'['+:B+:A+')'::A}</span>",
         "value":["${:qt==0?'['+:A+:B+']'::qt==1?'('+:A+:B+')'::qt==2?'['+:A+:B+')'::qt==3?'['+:B+:A+')'::A}","${:qt==0?'['+:B+:A+']'::qt==1?'('+:B+:A+')'::qt==2?'('+:B+:A+']'::qt==3?'('+:A+:B+']'::A}"]
     }

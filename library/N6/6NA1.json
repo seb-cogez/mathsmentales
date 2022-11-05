@@ -1,5 +1,5 @@
 {
-    "title":"Place du chiffre 9",
+    "title":"📣 Place du chiffre 9",
     "type":"text",
     "ID":"6NA1",
     "dest":["7NA", "6NA", "5NA"],
@@ -24,5 +24,6 @@
         "value":"${:w[:b]}"
         }
     ],
-    "question": "Dans $$${:c}$$, quelle est la valeur du chiffre $$9$$ ?"
+    "question": "Dans $$${:c}$$, quelle est la valeur du chiffre $$9$$ ?",
+    "audio":"Dans ${:c}, quelle est la valeur du chiffre 9 ?"
 }

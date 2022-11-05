@@ -1,5 +1,5 @@
 {
-    "title":"Comparaison de fractions",
+    "title":"📣 Comparaison de fractions",
     "ID":"6NB3",
     "description":"Comparer des fractions, avec 1 ou entre elles. Utiliser <, > ou =",
     "keys":["<",">","="],
@@ -17,6 +17,7 @@
             "symv":"${(:num>=:den)?'>':'<'}"
         },
         "question":"\\dfrac{${:num}}{${:den}}~...~\\dfrac{${:num2}}{${:den2}}",
+        "audio":"Comparer ${:num} ${math.NumberToFraction(:den)} et ${:num2} ${math.NumberToFraction(:den2)}",
         "answer":"\\dfrac{${:num}}{${:den}} \\color{red}{${:sym}} \\dfrac{${:num2}}{${:den2}}",
         "value":"${:sym}"    
     },{
@@ -28,6 +29,7 @@
             "symv":"${(:nums[0]<:nums[1])?'<':((:nums[0]>:nums[1])?'>':'=')}"
         },
         "question":"\\dfrac{${:nums[0]}}{${:den}}~...~\\dfrac{${:nums[1]}}{${:den}}",
+        "audio":"Comparer ${:nums[0]} ${math.NumberToFraction(:den)} et ${:nums[1]} ${math.NumberToFraction(:den)}",
         "answer":"\\dfrac{${:nums[0]}}{${:den}} \\color{red}{${:sym}} \\dfrac{${:nums[1]}}{${:den}}",
         "value":"${:sym}"
     },{
@@ -42,6 +44,7 @@
             "symv":"${(:num1*:coeff<:num2)?'<':((:num1*:coeff>:num2)?'>':'=')}"
         },
         "question":"\\dfrac{${:num1}}{${:den1}}~...~\\dfrac{${:num2}}{${:den2}}",
+        "audio":"Comparer ${:num1} ${math.NumberToFraction(:den1)} et ${:num2} ${math.NumberToFraction(:den2)}",
         "answer":"\\dfrac{${:num1}}{${:den1}} \\color{red}{${:sym}} \\dfrac{${:num2}}{${:den2}}",
         "value":"${:sym}"
     },{
@@ -56,6 +59,7 @@
             "symv":"${(:num1*:coeff<:num2)?'<':((:num1*:coeff>:num2)?'>':'=')}"
         },
         "question":"\\dfrac{${:num2}}{${:den2}}~...~\\dfrac{${:num1}}{${:den1}}",
+        "audio":"Comparer ${:num2} ${math.NumberToFraction(:den2)} et ${:num1} ${math.NumberToFraction(:den1)}",
         "answer":"\\dfrac{${:num2}}{${:den2}} \\color{red}{${:sym}} \\dfrac{${:num1}}{${:den1}}",
         "value":"${:sym}"
     },{
@@ -67,6 +71,7 @@
             "symv":"${(:den[0]<:den[1])?'>':((:den[0]>:den[1])?'<':'=')}"
         },
         "question":"\\dfrac{${:num}}{${:den[0]}}~...~\\dfrac{${:num}}{${:den[1]}}",
+        "audio":"Comparer ${:num} ${math.NumberToFraction(:den[0])} et ${:num} ${math.NumberToFraction(:den[1])}",
         "answer":"\\dfrac{${:num}}{${:den[0]}} \\color{red}{${:sym}} \\dfrac{${:num}}{${:den[1]}}",
         "value":"${:sym}"
     }

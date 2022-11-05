@@ -1,11 +1,12 @@
 {
-    "title":"Aires des figures usuelles",
+    "title":"📣 Aires des figures usuelles",
     "type":"text",
     "ID":"6MC1",
     "description":"Pas encore compatible avec la saisie en ligne",
     "textSize":"small",
     "dest":["6MC", "5MA", "4MA", "3MA"],
-    "consts":{"unites":["mm","cm","dm","m", "dam", "hm", "km"]},
+    "consts":{"unites":["mm","cm","dm","m", "dam", "hm", "km"],
+    "uv":{"mm":"millimètres","cm":"centimètres","dm":"décimètres","m":"mètres","dam":"décamètres","hm":"hectomètres","km":"kilomètres"}},
     "options":[{
         "name":"Aire du carré",
         "vars":{"a":"1_10", "aire":"${:a*:a}","u":"0_6"},
@@ -19,6 +20,7 @@
             ]
         },
         "question": "Quelle est l'<b>aire</b> d'un carré de côté $$${:a}\\text{ ${:unites[:u]}}$$ ?",
+        "audio": "Quelle est l'aire d'un carré de côté ${:a} ${:uv[:unites[:u]]} ?",
         "answer":"$$${:a}\\times${:a}=\\color{red}{${:aire}\\text{ ${:unites[:u]}}^2}$$",
         "value":"${:aire}${:unites[:u]}^2"
     },{
@@ -35,6 +37,7 @@
             ]
         },
         "question": "Quelle est l'<b>aire</b> d'un rectangle de côtés $$${:a}\\text{ ${:unites[:u]}}$$ et  $$${:b}\\text{ ${:unites[:u]}}$$?",
+        "audio": "Quelle est l'aire d'un rectangle de côtés ${:a} ${:uv[:unites[:u]]} et ${:b} ${:uv[:unites[:u]]} ?",
         "answer":"$$${:a}\\times${:b}=\\color{red}{${:aire}\\text{ ${:unites[:u]}}^2}$$",
         "value":"${:aire}${:unites[:u]}^2"
     },{
@@ -49,6 +52,7 @@
             ]
         },
         "question":"Quelle est l'<b>aire</b> d'un triangle de côté $$${:a}\\text{ ${:unites[:u]}}$$ et de hauteur $$${:h}\\text{ ${:unites[:u]}}$$ ?",
+        "audio":"Quelle est l'aire d'un triangle de côté ${:a} ${:uv[:unites[:u]]} et de hauteur ${:h} ${:uv[:unites[:u]]} ?",
         "answer":"$$\\dfrac{b\\times h}{2}=\\dfrac{${:a}\\times${:h}}{2}=\\color{red}{${:aire}\\text{ ${:unites[:u]}}^2}$$",
         "value":"${:aire}${:unites[:u]}^2"
     },
@@ -65,6 +69,7 @@
             ]
         },
         "question": "Quelle est l'<b>aire</b> d'un disque de rayon $$${:r}\\text{ ${:unites[:u]}}$$ ?",
+        "audio": "Quelle est l'aire d'un disque de rayon ${:r} ${:uv[:unites[:u]]} ?",
         "answer":"$$pi \\times R \\times R = \\pi\\times${:r}\\times ${:r} =\\color{red}{${math.signIfOne(:r2)}\\pi\\text{ ${:unites[:u]}}^2 \\approx ${:aire}\\text{ ${:unites[:u]}}^2}$$",
         "value":["${:aire}${:unites[:u]}^2","${math.signIfOne(:r2)}\\pi${:unites[:u]}^2"]
     },
@@ -81,6 +86,7 @@
             ]
         },
         "question": "Quelle est l'<b>aire</b> d'un disque de diamètre $$${:d}\\text{ ${:unites[:u]}}$$ ?",
+        "audio": "Quelle est l'aire d'un disque de diamètre ${:d} ${:uv[:unites[:u]]} ?",
         "answer":"$$pi \\times R \\times R = \\pi\\times${:r}\\times ${:r} =\\color{red}{${math.signIfOne(:r2)}\\pi\\text{ ${:unites[:u]}}^2 \\approx ${:aire}\\text{ ${:unites[:u]}}^2}$$",
         "value":["${:aire}${:unites[:u]}^2","${math.signIfOne(:r2)}\\pi${:unites[:u]}^2"]
     }

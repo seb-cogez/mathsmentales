@@ -1,5 +1,5 @@
 {
-    "title":"Trouver la fraction égale",
+    "title":"📣 Trouver la fraction égale",
     "ID":"6NB6",
     "description":"Compléter une fraction en donnant le nombre manquant",
     "dest":["6NB","5NA","4NA","3NA"],
@@ -7,24 +7,28 @@
         "name":"Trouver le numérateur, tables jusqu'à 10",
         "vars":{"num":"2_10", "coeff":"2_9", "den":"2_10_^${:num}"},
         "question":"\\dfrac{${:num}}{${:den}}~=~ \\dfrac{...}{${:den*:coeff}}",
+        "audio":"Trouver le numérateur de la fraction sur ${:den*:coeff}",
         "answer":"\\dfrac{${:num}}{${:den}} = \\dfrac{\\color{red}{${:num*:coeff}}}{${:den*:coeff}}",
         "value":"${:num*:coeff}"
     },{
         "name":"Trouver le dénominateur, tables jusqu'à 10",
         "vars":{"num":"2_10", "coeff":"2_9", "den":"2_10_^${:num}"},
         "question":"\\dfrac{${:num}}{${:den}}~=~ \\dfrac{${:num*:coeff}}{...}",
+        "audio":"Trouver le dénomitateur de la fraction de numérateur ${:num*:coeff}",
         "answer":"\\dfrac{${:num}}{${:den}} = \\dfrac{${:num*:coeff}}{\\color{red}{${:den*:coeff}}}",
         "value":"${:den*:coeff}"
     },{
         "name":"Trouver le numérateur, nombres plus grands que 10",
         "vars":{"num":"10_30", "coeff":"2_9", "den":"10_30_^${:num}"},
         "question":"\\dfrac{${:num}}{${:den}}~=~ \\dfrac{...}{${:den*:coeff}}",
+        "audio":"Trouver le numérateur de la fraction sur ${:den*:coeff}",
         "answer":"\\dfrac{${:num}}{${:den}} = \\dfrac{\\color{red}{${:num*:coeff}}}{${:den*:coeff}}",
         "value":"${:num*:coeff}"
     },{
         "name":"Trouver le dénominateur, nombres plus grands que 10",
         "vars":{"num":"10_30", "coeff":"2_9", "den":"10_30_^${:num}"},
         "question":"\\dfrac{${:num}}{${:den}}~=~ \\dfrac{${:num*:coeff}}{...}",
+        "audio":"Trouver le dénomitateur de la fraction de numérateur ${:num*:coeff}",
         "answer":"\\dfrac{${:num}}{${:den}} = \\dfrac{${:num*:coeff}}{\\color{red}{${:den*:coeff}}}",
         "value":"${:den*:coeff}"
     }

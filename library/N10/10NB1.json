@@ -1,0 +1,29 @@
+{
+    "title":"📣 Écrire en chiffres jusqu'à 1000",
+    "type":"text",
+    "ID":"10NB1",
+    "description":"Écriture en chiffres des nombres inférieurs à 1000",
+    "dest":["10NB","9NB","8NA","7NA","6NA"],
+    "options":[{
+        "name":"Écriture en chiffres des nombres de 1 à 9",
+        "vars":{"n":"0_10"}
+    },{
+        "name":"Écriture en chiffres des nombres de 10 à 19",
+        "vars":{"n":"10_19"}
+    },{
+        "name":"Écriture en chiffres des dizaines",
+        "vars":{"n0":"1_9","n":"${:n0*10}"}
+    },{
+        "name":"Écriture en chiffres des nombres de 21 à 99",
+        "vars":{"n":"21_99"}
+    },{
+        "name":"Écriture en chiffres des nombres de 100 à 1 000",
+        "vars":{"n":"100_1000"}
+    }
+    ],
+    "question": "Écris en chiffres le nombre <b>${math.NumberToLetter(:n)}</b>.",
+    "shortq":"<b>${math.NumberToLetter(:n)}</b> en chiffres ?",
+    "audio":"Écris en chiffres le nombre ${math.NumberToLetter(:n)}",
+    "answer":"${math.NumberToLetter(:n)} s'écrit $$\\color{red}{${:n}}$$",
+    "value":"${:n}"
+}

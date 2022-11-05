@@ -1,5 +1,5 @@
 {
-    "title":"Caractéristiques du prisme droit",
+    "title":"📣 Caractéristiques du prisme droit",
     "ID":"6GB1",
     "type":"text",
     "description":"Vocabulaire et comptage ",
@@ -25,12 +25,16 @@
         "name":"Natures",
         "figure":{"type":"svg","content":"${:figures[:n-3]}"},
         "question": ["Quelle est la nature de la base ?", "Quelle est la nature des faces latérales ?"],
+        "audio": ["Quelle est la nature de la base ?", "Quelle est la nature des faces latérales ?"],
         "answer":["La base est un <span class='red'>${:polygones[:n-3][1]}</span>", "Les faces latérales sont des <span class='red'>rectangles</span>."],
         "value":["${:polygones[:n-3][1]}","rectangle"]
     },{
         "name":"Faces",
         "figure":{"type":"svg","content":"${:figures[:n-3]}"},
         "question": ["Combien ce solide comporte-t-il de faces ?",
+            "Combien ce solide comporte-t-il de faces latérales ?",
+            "Combien ce solide comporte-t-il de base(s) ?"],
+        "audio": ["Combien ce solide comporte-t-il de faces ?",
             "Combien ce solide comporte-t-il de faces latérales ?",
             "Combien ce solide comporte-t-il de base(s) ?"],
         "answer":["Ce solide comporte <span class='red'>${:n+2} faces</span>.",
@@ -41,12 +45,15 @@
         "name":"Sommets",
         "figure":{"type":"svg","content":"${:figures[:n-3]}"},
         "question": "Combien ce solide comporte-t-il de sommets ?",
+        "audio": "Combien ce solide comporte-t-il de sommets ?",
         "answer":"Ce solide comporte <span class='red'>${:n*2} sommets</span>.",
         "value":"${:n*2}"
     },{
         "name":"Arêtes",
         "figure":{"type":"svg","content":"${:figures[:n-3]}"},
         "question": ["Combien ce solide comporte-t-il d'arêtes ?",
+            "Combien ce solide comporte-t-il d'arêtes latérales ?"],
+        "audio":["Combien ce solide comporte-t-il d'arêtes ?",
             "Combien ce solide comporte-t-il d'arêtes latérales ?"],
         "answer":["Ce solide comporte <span class='red'>${:n*3} arêtes</span>.", "Ce solide comporte <span class='red'>${:n} arêtes latérales</span>."],
         "value":["${:n*3}","${:n}"]

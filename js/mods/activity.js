@@ -52,6 +52,10 @@ export default class activity {
         this.answerPatterns = utils.clone(obj.answerPatterns) || obj.answer;
         this.valuePatterns = utils.clone(obj.valuePatterns) || obj.value;
         this.questions = utils.clone(obj.questions)||[];
+        this.audios = utils.clone(obj.audios)||[];
+        this.audioQuestionPatterns = utils.clone(obj.audioQuestionPatterns)||obj.audio||false;
+        this.audioRead = obj.audioRead||false;// lecture audio si true
+        this.audioRepeat = obj.audioRepeat||1;
         this.shortQuestions = utils.clone(obj.shortQuestions)||[];
         this.answers = utils.clone(obj.answers)||[];
         this.samples = utils.clone(obj.samples)||[];// samples of answers, for online answer
@@ -76,6 +80,7 @@ export default class activity {
         this.answers = [];
         this.values = [];
         this.figures = [];
+        this.audios = [];
         this.examplesFigs = {};
         this.intVarsHistoric = {};
         this.getOptionHistory = [];
@@ -115,7 +120,8 @@ export default class activity {
         "~q="+utils.objToText(this.chosenQuestions)+
         "~p="+this.chosenQuestionTypes+
         "~t="+this.tempo+
-        "~n="+this.nbq;
+        "~n="+this.nbq+
+        (this.audioRead==true?"~au="+this.audioRead+"~ar="+this.audioRepeat:"");
     }
     /**
      * import datas et crée l'objet activité à partir d'un json
@@ -136,6 +142,8 @@ export default class activity {
             act.chosenQuestions = obj.q;
             act.tempo = obj.t;
             act.nbq = obj.n;
+            act.audioRead = (obj.au)?true:false;
+            act.audioRepeat = obj.ar?obj.ar:2;
             return [id,act];
         },err=>{utils.debug(err)});
     }
@@ -185,6 +193,19 @@ export default class activity {
         document.getElementById("param-title-act").innerHTML = this.id;
         // affichages
         document.getElementById('activityTitle').innerHTML = this.title;
+        if(this.title.indexOf("📣")>-1){
+            document.getElementById("voix").classList.remove("hidden")
+            MM.audioSamples = [];
+            if(this.audioRead){
+                MM.setAudio(1);
+            } else{
+                MM.setAudio(0);
+            }
+        } else {
+            document.getElementById("voix").classList.add("hidden")
+            this.audioRead = false;
+            MM.setAudio(0);
+        }
         if(this.description)
             document.getElementById('activityDescription').innerHTML = this.description;
         else
@@ -208,6 +229,11 @@ export default class activity {
             // affichage des options
             for(let i=0;i<this.options.length;i++){
                 this.generate(1,i,false);// génère un cas par option (si plusieurs)
+                if(this.audios.length>0){
+                    for(let audio of this.audios){
+                        MM.audioSamples.push(audio)
+                    }
+                }
                 let p = utils.create("span");
                 let input = utils.create("input",{id:"o"+i,type:"checkbox",value:i,defaultChecked:(this.chosenOptions.indexOf(i)>-1)?true:false,className:"checkbox"+colors[i%colors.length]});
                 p.appendChild(input);
@@ -579,17 +605,23 @@ export default class activity {
                         lenQ = this.options[optionNumber].question.length;
                         if(this.options[optionNumber].shortq !== undefined)
                             this.cShortQ = this.options[optionNumber].shortq[patternNumber]||false;
+                        if(this.options[optionNumber].audio !== undefined){
+                            this.cAudio = this.options[optionNumber].audio[patternNumber]||false;
+                        }
                     } else { // elle est définie globalement
                         this.cQuestion = this.questionPatterns[patternNumber];
                         this.cShortQ = this.shortQuestionPatterns[patternNumber]||false;
+                        this.cAudio = this.audioQuestionPatterns[patternNumber]||false;
                         lenQ = this.questionPatterns.length;
                     }
                 } else if(this.options[optionNumber].question === undefined){ // question définie globalement
                     this.cQuestion = this.questionPatterns;
                     this.cShortQ = this.shortQuestionPatterns||false;
+                    this.cAudio = this.audioQuestionPatterns||false;
                 } else {
                     this.cQuestion = this.options[optionNumber].question; // question définie dans l'option
                     this.cShortQ = this.options[optionNumber].shortq||false;
+                    this.cAudio = this.options[optionNumber].audio||false;
                 }
                 // traitement des réponses
                 if(this.options[optionNumber].answer === undefined){ //des réponses sont définies pour l'option
@@ -628,9 +660,11 @@ export default class activity {
                 if(patternNumber!==false){
                     this.cQuestion = this.questionPatterns[patternNumber];
                     this.cShortQ = this.shortQuestionPatterns[patternNumber]||false;
+                    this.cAudio = this.audioQuestionPatterns[patternNumber]||false;
                 } else {
                     this.cQuestion = this.questionPatterns;
                     this.cShortQ = this.shortQuestionPatterns||false;
+                    this.cAudio = this.audioQuestionPatterns||false;
                 }
                 if(Array.isArray(this.answerPatterns) && this.answerPatterns.length===this.questionPatterns.length){
                     this.cAnswer = this.answerPatterns[patternNumber];
@@ -725,6 +759,7 @@ export default class activity {
             if(!sample){
             // question text generation
             let thequestion = this.replaceVars(utils.clone(this.cQuestion));
+            let theaudio = this.replaceVars(utils.clone(this.cAudio));
             let thevalue = this.replaceVars(utils.clone(this.cValue));
             let theshort = false;
             if(this.cShortQ){
@@ -771,6 +806,7 @@ export default class activity {
                 }
                 this.questions[i] = thequestion;
                 this.shortQuestions[i] = theshort;
+                this.audios[i] = theaudio;
                 this.answers[i] = this.replaceVars(utils.clone(this.cAnswer), thequestion);
                 this.values[i] = thevalue;
                 if(this.cFigure!== undefined){
@@ -801,7 +837,7 @@ export default class activity {
                 };
                 if(this.cShortQ)this.sample.shortQuestion = this.replaceVars(this.cShortQ);
                 this.sample.answer=this.replaceVars(this.cAnswer, this.sample.question);
-                
+                this.sample.audio=this.replaceVars(this.cAudio,this.sample.question);
                 if(this.cFigure !== undefined){
                     this.sample.figure = {
                         "type":this.cFigure.type,

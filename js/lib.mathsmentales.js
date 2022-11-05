@@ -7,6 +7,8 @@ import MM from "./mods/MM.min.js";
 import library from './mods/library.min.js';
 import sound from './mods/sound.min.js';
 import Zoom from './mods/zoom.min.js';
+import speech from './mods/speech.min.js';
+import math from './mods/math.js';
 //import theactivities from './mods/theactivities.js';
 window.onload = function(){
     let scripturl = document.getElementById("mmscriptid").attributes.src.value;
@@ -116,6 +118,35 @@ window.onload = function(){
     document.getElementById("radioendslider1").onclick = (evt)=>{MM.setEndType(evt.target.value)};
     document.getElementById("radioendslider2").onclick = (evt)=>{MM.setEndType(evt.target.value)};
     document.getElementById("radioendslider3").onclick = (evt)=>{MM.setEndType(evt.target.value)};
+    // radio audio
+    MM.speech = new speech()
+    if(MM.speech.exists){
+        document.getElementById("radioaudioon").onclick = (evt)=>{MM.setAudio(evt.target.value)};
+        document.getElementById("radioaudiooff").onclick = (evt)=>{MM.setAudio(evt.target.value)};
+        document.getElementById("audiorepeat").oninput = (evt)=>{MM.setAudioRepetitions(evt.target.value)}
+        let select = document.getElementById("selectVoice");
+        MM.speech.voices.forEach((val,i)=>{
+            let name = val.name.toLowerCase()
+            if(name.indexOf("french")>-1 || name.indexOf("fran")>-1 || name.indexOf("fr")>-1){
+                let option = utils.create("option",{innerHTML:val.name,value:i})
+                select.appendChild(option)
+            }
+        })
+        select.onchange = (ev)=>{
+            MM.speech.setVoice(ev.target.value);
+            MM.audioSamples.forEach(val=>{
+                MM.speech.speak(val,false)
+            })
+        }
+        document.getElementById("btntestreader").onclick = ()=>{
+            MM.audioSamples.forEach(val=>{
+                MM.speech.speak(val,false)
+            })
+        }
+        document.getElementById("btnstopreader").onclick = ()=>{
+            MM.speech.stop();
+        }
+    }
     // boutons démarrage
     document.getElementById("btnstart").onclick = ()=>{MM.start();};
     document.getElementById("btnenonces").onclick = ()=>{MM.showQuestions();};

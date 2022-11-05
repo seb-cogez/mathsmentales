@@ -1,20 +1,23 @@
 {
-    "title":"Ajouter des fractions",
+    "title":"📣 Ajouter des fractions",
     "type":"latex",
     "ID":"5NC7",
     "keys":["/"],
     "textSize":"medium",
-    "dest":["6NB", "5NC", "4NC", "3NB", "2N2"],
+    "dest":["6NB", "5NC", "4NC", "3NB", "2N2","Ko1"],
     "options":[{
         "name":"Ajouter des fractions décimales (6e)",
-        "vars":{"nums":"1_20_2", "den":[10,100,1000]},
+        "consts":{"den0":[10,100,1000], "au":["dixièmes","centièmes","millièmes"]},
+        "vars":{"nums":"1_20_2", "choix":"0_2", "den":"${:den0[:choix]}", "aud":"${:au[:choix]}"},
         "question":"\\dfrac{${:nums[0]}}{${:den}}+\\dfrac{${:nums[1]}}{${:den}}",
+        "audio":"(${:nums[0]} ${:aud}) + (${:nums[1]} ${:aud})",
         "answer":":question = \\color{red}{\\dfrac{${:nums[0]+:nums[1]}}{${:den}}}",
         "value":"${:nums[0]+:nums[1]}/${:den}"
     },{
         "name":"Ajouter des fractions de même dénominateur (6e)",
         "vars":{"nums":"1_30_2", "den":"2_30_^${:nums}"},
         "question":"\\dfrac{${:nums[0]}}{${:den}}+\\dfrac{${:nums[1]}}{${:den}}",
+        "audio":"(${:nums[0]} ${math.NumberToFraction(:den,true)}) + (${:nums[1]} ${math.NumberToFraction(:den,true)})",
         "answer":":question = \\color{red}{\\dfrac{${:nums[0]+:nums[1]}}{${:den}}}",
         "value":"${:nums[0]+:nums[1]}/${:den}"
     },{
@@ -23,12 +26,16 @@
         "question":["\\dfrac{${:nums[0]}}{${:den1}}+\\dfrac{${:nums[1]}}{${:den2}}",
             "\\dfrac{${:nums[1]}}{${:den2}}+\\dfrac{${:nums[0]}}{${:den1}}"
         ],
+        "audio":["(${:nums[0]} ${math.NumberToFraction(:den1,true)}) + (${:nums[1]} ${math.NumberToFraction(:den2,true)})",
+        "(${:nums[1]} ${math.NumberToFraction(:den2,true)}) + (${:nums[0]} ${math.NumberToFraction(:den1,true)})"
+        ],
         "answer":":question = \\color{red}{\\dfrac{${:nums[0]*:coeff+:nums[1]}}{${:den2}}}",
         "value":"${:nums[0]*:coeff+:nums[1]}/${:den2}"
     },{
         "name":"Ajouter des fractions et simplifier (4e)",
         "vars":{"nums":"1_10_2", "dens":"2_10_2_^&,${:nums}"},
         "question":"\\dfrac{${:nums[0]}}{${:dens[0]}}+\\dfrac{${:nums[1]}}{${:dens[1]}}",
+        "audio":"(${:nums[0]} ${math.NumberToFraction(:dens[0],true)}) + (${:nums[1]} ${math.NumberToFraction(:dens[1],true)})",
         "answer":":question = \\color{red}{\\displaystyle${math.calc(:nums[0]+'/'+:dens[0]+'+'+:nums[1]+'/'+:dens[1], false)}}",
         "value":"${math.calc(:nums[0]+'/'+:dens[0]+'+'+:nums[1]+'/'+:dens[1], true)}"
     },{
@@ -36,6 +43,9 @@
         "vars":{"num1":"-10_10_^0", "num2":"-10_10_^0", "den1":"2_10_^${:num1},${:num2}", "coeff":"2_5","den2":"${:den1*:coeff}"},
         "question":["\\dfrac{${:num1}}{${:den1}}+\\dfrac{${:num2}}{${:den2}}",
             "\\dfrac{${:num2}}{${:den2}}+\\dfrac{${:num1}}{${:den1}}"],
+        "audio":["(${:num1} ${math.NumberToFraction(:den1,true)}) + (${:num2} ${math.NumberToFraction(:den2,true)})",
+            "(${:num2} ${math.NumberToFraction(:den2,true)}) + (${:num1} ${math.NumberToFraction(:den1,true)})"
+            ],
         "answer":":question = \\color{red}{ \\dfrac{${:num1 * :coeff + :num2}}{${:den2}}}",
         "value":"${:num1 * :coeff + :num2} / ${:den2}"
     },{
@@ -43,18 +53,23 @@
         "vars":{"num1":"-10_10_^0", "num2":"-10_10_^0", "den1":"-10_10_^0,1,-1,${:num1},${:num2}", "coeff":"2_5","den2":"${:den1*:coeff}"},
         "question":["\\dfrac{${:num1}}{${:den1}}+\\dfrac{${:num2}}{${:den2}}",
             "\\dfrac{${:num2}}{${:den2}}+\\dfrac{${:num1}}{${:den1}}"],
+        "audio":["(${:num1} ${math.NumberToFraction(:den1,true)}) + (${:num2} ${math.NumberToFraction(:den2,true)})",
+            "(${:num2} ${math.NumberToFraction(:den2,true)}) + (${:num1} ${math.NumberToFraction(:den1,true)})"
+            ],
         "answer":":question = \\color{red}{ \\dfrac{${:num1 * :coeff + :num2}}{${:den2}}}",
         "value":"${:num1 * :coeff + :num2} / ${:den2}"
     },{
         "name":"Ajouter des fractions avec numérateurs relatifs et simplifier (4e)",
         "vars":{"nums":"-10_10_2_^0", "dens":"2_10_2_^&,${:nums}"},
         "question":"\\dfrac{${:nums[0]}}{${:dens[0]}}+\\dfrac{${:nums[1]}}{${:dens[1]}}",
+        "audio":"(${:nums[0]} ${math.NumberToFraction(:dens[0],true)}) + (${:nums[1]} ${math.NumberToFraction(:dens[1],true)})",
         "answer":":question = \\color{red}{\\displaystyle${math.calc('(' + :nums[0]+')/('+:dens[0]+')+('+:nums[1]+')/('+:dens[1]+')', false)}}",
         "value":"${math.calc('(' + :nums[0]+')/('+:dens[0]+')+('+:nums[1]+')/('+:dens[1]+')', true)}"
     },{
         "name":"Ajouter des fractions avec relatifs et simplifier (4e)",
         "vars":{"nums":"-10_10_2_^0", "dens":"-10_10_2_^&,${:nums},0,1,-1"},
         "question":"\\dfrac{${:nums[0]}}{${:dens[0]}}+\\dfrac{${:nums[1]}}{${:dens[1]}}",
+        "audio":"(${:nums[0]} ${math.NumberToFraction(:dens[0],true)}) + (${:nums[1]} ${math.NumberToFraction(:dens[1],true)})",
         "answer":":question = \\color{red}{\\displaystyle${math.calc('(' + :nums[0]+')/('+:dens[0]+')+('+:nums[1]+')/('+:dens[1]+')', false)}}",
         "value":"${math.calc('(' + :nums[0]+')/('+:dens[0]+')+('+:nums[1]+')/('+:dens[1]+')', true)}"
     }

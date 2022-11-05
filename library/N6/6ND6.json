@@ -1,5 +1,5 @@
 {
-    "title":"Tables de multiplications classiques",
+    "title":"📣 Tables de multiplications classiques",
     "ID":"6ND6",
     "dest":["6ND", "7ND", "8NE", "9NE"],
     "options":[{
@@ -39,5 +39,6 @@
     ],
     "question":["${:a}\\times${:b}", "${:b}\\times${:a}"],
     "answer":"${:a}\\times${:b}=\\color{red}{${:a*:b}}",
+    "audio":["${:a}×${:b}","${:b}×${:a}"],
     "value":"${:a*:b}"
 }

@@ -1,5 +1,5 @@
 {
-    "title":"Nombre de, chiffre des ... ?",
+    "title":"📣 Nombre de, chiffre des ... ?",
     "description":"Indiquer le chiffre de, ou le nombre (entier) d'unités, dizaines, ...",
     "type":"text",
     "ID":"9NA1",
@@ -53,6 +53,7 @@
         }
     ],
     "question": "Dans $$${:c}$$, quel est le chiffre des <b>${:d}</b> ?",
+    "audio":"Dans ${:c}, quel est le chiffre des ${:d} ?",
     "answer":"Dans $$${:c}$$, le chiffre des <u>${:d}</u> est $$\\color{red}{${String(:c).charAt(Number(:b))}}$$",
     "value":"${String(:c).charAt(Number(:b))}"
 }

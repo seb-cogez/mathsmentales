@@ -1,0 +1,28 @@
+{
+    "title":"Écrire en lettres jusqu'à 1000",
+    "type":"text",
+    "ID":"10NB1",
+    "description":"Écriture en lettres des nombres inférieurs à 1000",
+    "dest":["10NB","9NB","8NA","7NA","6NA"],
+    "options":[{
+        "name":"Écriture en lettres des nombres de 1 à 9",
+        "vars":{"n":"0_10"}
+    },{
+        "name":"Écriture en lettres des nombres de 10 à 19",
+        "vars":{"n":"10_19"}
+    },{
+        "name":"Écriture en lettres des dizaines",
+        "vars":{"n0":"1_9","n":"${:n0*10}"}
+    },{
+        "name":"Écriture en lettres des nombres de 21 à 99",
+        "vars":{"n":"21_99"}
+    },{
+        "name":"Écriture en lettres des nombres de 100 à 1 000",
+        "vars":{"n":"100_1000"}
+    }
+    ],
+    "question": "Écris en lettres le nombre <b>${:n}</b>.",
+    "shortq":"<b>${:n}</b> en lettres ?",
+    "answer":"${:n} s'écrit <span class='red'>${math.NumberToLetter(:n)}</span>",
+    "value":"${math.NumberToLetter(:n)}"
+}

@@ -7,8 +7,9 @@ import Figure from "./figure.min.js";
 import timer from "./timer.min.js";
 import keyBoard from "./keyboard.min.js";
 import ficheToPrint from "./fichetoprint.min.js";
-import library from "./library.js";
-import draw from "./draw.js";
+import library from "./library.min.js";
+import draw from "./draw.min.js";
+import activity from "./activity.min.js";
 export {MM as default}
 const MM = {
     version:7,// à mettre à jour à chaque upload pour régler les pb de cache
@@ -33,7 +34,8 @@ const MM = {
     memory:[],// memoire des figures
     goodAnswers:[],// stockage des réponses attendues dans le online,
     zooms:{},// zooms créés pour chaque élément d'affichage,
-    mf:{},// MathFields pour réponses en ligne,
+    mf:{},// MathFields pour réponses en ligne
+    text2speach:[],
     keyboards:{},// claviers virtuels pour réponses en ligne
     ended:true,
     embededIn:false, // variable qui contient l'url du site dans lequel MM est affiché (vérifier url)
@@ -68,7 +70,7 @@ const MM = {
     * @params {string} seed valeur d'initialisation des données aléatoires
     * return nothing
     */
-        initializeAlea:function(seed){
+    initializeAlea:function(seed){
         if(seed){
             if(utils.alea)delete utils.alea;
             utils.alea = new Math.seedrandom(seed);
@@ -77,47 +79,47 @@ const MM = {
             utils.alea = new Math.seedrandom(MM.seed);
         }
     },
-        /**
+    /**
      * 
      * @param {DOM obj or string} element 
      * Show the selected Tab
      */
-         showTab:function(element){
-            MM.resetAllTabs();let tab, el;
-            if(element === "none")return;
-            if(typeof element === "string"){
-                tab = element;
-                el = document.querySelector("#header-menu a[numero='#"+element+"']");
-            } else {
-                el = element;
-                tab = element.getAttribute('numero').substr(1);
-            }
-            utils.addClass(el, "is-active");
-            document.getElementById(tab).style.display = "";
-        },
-        showParameters:function(id){
-            let ids = ["paramsdiapo","paramsexos", "paramsinterro", "paramsceinture", "paramsflashcards", "paramswhogots", "paramsdominos", "paramscourse", "paramsduel"];//
-            if(ids.indexOf(id)<0) return false;
-            // hide all
-            for(let i=0,len=ids.length;i<len;i++){
-                document.getElementById(ids[i]).className = "hidden";
-            }
-            document.getElementById(id).className = "";
-        },
-        resetAllTabs : function(){
-            // fermeture des espaces d'annotation.
-            MM.annotateThisThing(false);
-            let tabsButtons = document.querySelectorAll("#header-menu .tabs-menu-link");
-            let contents = document.querySelectorAll(".tabs-content-item");
-            document.getElementById("tab-accueil").display = "none";
-            contents.forEach(element => {
-                element.style.display = "none";
-            });
-            utils.removeClass(document.getElementById("btnaccueil"), "is-active");
-            tabsButtons.forEach(element => {
-                utils.removeClass(element, "is-active");
-            });
-        },
+    showTab:function(element){
+        MM.resetAllTabs();let tab, el;
+        if(element === "none")return;
+        if(typeof element === "string"){
+            tab = element;
+            el = document.querySelector("#header-menu a[numero='#"+element+"']");
+        } else {
+            el = element;
+            tab = element.getAttribute('numero').substr(1);
+        }
+        utils.addClass(el, "is-active");
+        document.getElementById(tab).style.display = "";
+    },
+    showParameters:function(id){
+        let ids = ["paramsdiapo","paramsexos", "paramsinterro", "paramsceinture", "paramsflashcards", "paramswhogots", "paramsdominos", "paramscourse", "paramsduel"];//
+        if(ids.indexOf(id)<0) return false;
+        // hide all
+        for(let i=0,len=ids.length;i<len;i++){
+            document.getElementById(ids[i]).className = "hidden";
+        }
+        document.getElementById(id).className = "";
+    },
+    resetAllTabs : function(){
+        // fermeture des espaces d'annotation.
+        MM.annotateThisThing(false);
+        let tabsButtons = document.querySelectorAll("#header-menu .tabs-menu-link");
+        let contents = document.querySelectorAll(".tabs-content-item");
+        document.getElementById("tab-accueil").display = "none";
+        contents.forEach(element => {
+            element.style.display = "none";
+        });
+        utils.removeClass(document.getElementById("btnaccueil"), "is-active");
+        tabsButtons.forEach(element => {
+            utils.removeClass(element, "is-active");
+        });
+    },
     closeMessage(id){
         let div=document.getElementById(id);
         div.parentNode.removeChild(div);
@@ -125,6 +127,19 @@ const MM = {
     },
     setEndType(value){
         this.endType = value;
+    },
+    setAudio(value){
+        if(this.slidersNumber>1){
+            utils.checkRadio("audioRadio","0");
+        } else {
+            this.editedActivity.audioRead = value==1?true:false;
+            utils.checkRadio("audioRadio",value);
+        }
+    },
+    setAudioRepetitions(value){
+        value = Number(value);
+        this.editedActivity.audioRepeat = value;
+        document.getElementById("audiorepeat").value = value;
     },
     setIntroType(value){
         this.introType = value;
@@ -142,6 +157,8 @@ const MM = {
         MM.editedActivity = MM.carts[MM.selectedCart].activities[index];
         MM.setTempo(MM.editedActivity.tempo);
         MM.setNbq(MM.editedActivity.nbq);
+        MM.setAudio(MM.editedActivity.audioRead);
+        MM.setAudioRepetitions(MM.editedActivity.audioRepeat);
         MM.carts[MM.selectedCart].editedActivityId = index;
         MM.carts[MM.selectedCart].display();
         MM.editedActivity.display();
@@ -397,7 +414,7 @@ const MM = {
      */
     populateQuestionsAndAnswers(withAnswer){
         if(withAnswer=== undefined)withAnswer = true;
-        MM.figs = {};MM.steps=[];MM.timers=[];MM.memory={};MM.goodAnswers=[];
+        MM.figs = {};MM.steps=[];MM.timers=[];MM.memory={};MM.goodAnswers=[];MM.text2speach=[];
         // length = nombre de paniers
         let length=MM.carts.length;
         let enonces = document.getElementById('enonce-content');
@@ -497,7 +514,7 @@ const MM = {
                         lic.appendChild(spanc);
                         span.className +=" math";
                         spanAns.className += " math";
-                    } else {
+                        } else {
                         lie.innerHTML=question;
                     }
                     div.appendChild(span);
@@ -505,8 +522,12 @@ const MM = {
                         // include answer if not online state
                         div.appendChild(spanAns);
                     }
+                    if(activity.audioRead && activity.audios[j]!==undefined && activity.audios[j]!==false){
+                        MM.text2speach[indiceSlide] = [activity.audios[j],activity.audioRepeat];
+                    }
                     // insertion du div dans le slide
                     slider.appendChild(div);
+
                     if(Array.isArray(answer)){
                             if(!tex)lic.innerHTML += answer[0];
                             else spanc.innerHTML += answer[0];
@@ -517,7 +538,6 @@ const MM = {
                         else
                             lic.innerHTML += answer;
                     }
-                        
                     if(activity.figures[j] !== undefined){
                         lic.innerHTML += "&nbsp; <button data-id=\"c"+slideNumber+"-"+indiceSlide+"\">Figure</button>";
                         MM.figs[slideNumber+"-"+indiceSlide] = new Figure(utils.clone(activity.figures[j]), "c"+slideNumber+"-"+indiceSlide, div);
@@ -939,20 +959,9 @@ const MM = {
                 // on prépare l'affichage des paniers
                 MM.resetInterface();
                 MM.restoreCartsInterface();
-                // on affiche l'interface des paniers si on a au moins une activité dans le panier 1 ou plusieurs paniers.
-                if(MM.carts[0].activities.length>1 || MM.carts.length>1){
-                    MM.showCartInterface();
-                }
-                // si panier avec plusieurs activités, on prépare l'affichage du panier
-                if(MM.carts[0].activities.length>1 || MM.carts.length>1){
-                    MM.showCart(1);
-                    MM.editActivity(0);
-                } else {
-                    // sinon
-                    // on affecte l'activité 0 du panier comme activité en cours d'édition.
-                    MM.editedActivity = MM.carts[0].activities[0];
-                    MM.editedActivity.display();
-                }
+                MM.showCartInterface();
+                MM.showCart(1);
+                MM.editActivity(0);
             // on affiche l'interface de paramétrage si on est en mode édition
                 if(edit) {
                     MM.showTab("tab-parameters");
@@ -1248,7 +1257,7 @@ const MM = {
     /**
      * Création des checkbox pour sélectionner les niveaux dans lesquels chercher.
      */
-        createSearchCheckboxes(){
+    createSearchCheckboxes(){
         let dest = document.getElementById("searchLevels");
         const ordre = library.ordre;
         for(const o in ordre){
@@ -1314,6 +1323,9 @@ const MM = {
         MM.endType = utils.getRadioChecked("endOfSlideRadio");
     },
     startTimers:function(){
+        if(MM.text2speach[0]!==undefined){
+            MM.speech.speak(MM.text2speach[0]);
+        }
         if(MM.onlineState === "yes" && !MM.touched){
             document.getElementById("ansInput0-0").focus();
         }
@@ -1599,7 +1611,7 @@ const MM = {
         let slide = document.querySelector('#slide'+id+"-"+step);
         utils.addClass(slidetoHide, "hidden");
         if(slide){
-            utils.removeClass(slide, "hidden");
+                utils.removeClass(slide, "hidden");
             if(MM.figs[id+"-"+step] !== undefined)
                 MM.figs[id+"-"+step].display();
             if(MM.onlineState === "yes" && !MM.touched){
@@ -1610,8 +1622,11 @@ const MM = {
                 // on affiche le clavier quand on a un appareil touchable
                 MM.mf["ansInput"+id+"-"+step].focus();
             }
+            if(MM.text2speach[step]!==undefined){
+                MM.speech.speak(MM.text2speach[step]);
+            }
         } else {
-            // fin du slide mais n'arrive jamais
+            // fin du slide mais n'arrive jamais normalement
         }
     },
     messageEndSlide:function(id,nth){
@@ -1621,6 +1636,8 @@ const MM = {
         //utils.removeClass(sliderMessage,"hidden");
     },
     endSliders:function(){
+        if(MM.text2speach.length)
+            MM.speech.stop();
         let ended = true;
         // check if all timers have ended
         for(let i=0, l=MM.timers.length;i<l;i++){
@@ -1755,8 +1772,8 @@ const MM = {
             // if only one activity in one cart, we empty it
             // TODO : why do that ?
             if(MM.carts.length === 1 && MM.carts[0].activities.length === 1){
-                MM.resetCarts();
-                MM.editedActivity.display();
+                MM.showCart(1);
+                MM.editActivity(0);
             }
         }
     },
@@ -1771,6 +1788,9 @@ const MM = {
     stopAllSliders:function(){
         for(let i=0,l=MM.timers.length; i<l;i++){
             MM.timers[i].end();
+        }
+        if(MM.text2speach.length){
+            MM.speech.stop();
         }
     },
     nextAllSliders:function(){
@@ -1802,6 +1822,10 @@ const MM = {
         value = Number(value);
         MM.slidersNumber = value;
         document.getElementById("facetofaceOption").className = "";
+        if(value>1){
+            // si plusieurs diapos, on rend l'audio indisponible
+            MM.setAudio(0);
+        }
         if(value === 1){
             document.getElementById("sddiv1").className = "sddiv1";
             document.getElementById("sddiv2").className = "hidden";

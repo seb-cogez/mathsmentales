@@ -18,7 +18,7 @@
     <link href="js/libs/katex/katex.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/knacss.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/bulma-steps.min.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="css/mathsmentales.min.css?v=11" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/mathsmentales.min.css?v=12" type="text/css" media="screen" />
     <link rel="stylesheet" href="js/libs/JSXGprah1.2.2/jsxgraph.css" type="text/css" />
     <script src="js/libs/katex/katex.min.js" type="text/javascript" defer></script>
     <script src="js/libs/asciimath2tex/asciimath2tex.min.js" defer></script>
@@ -37,7 +37,7 @@
     <script src="js/MM1toMM2.min.js" defer></script>
     <script src="js/libs/vanilla-picker/vanilla-picker.min.js" defer></script>
 <!--<script src="dist/mathsmentales.bundle.js" id="mmscriptid"></script>-->
-    <script src="js/lib.mathsmentales.js?v=46" type="module" id="mmscriptid"></script>
+    <script src="js/lib.mathsmentales.js?v=47" type="module" id="mmscriptid"></script>
 
 </head>
 <body>
@@ -134,6 +134,11 @@
             <input type="range" id="tempo-slider" min="2" max="120" value="8"><br>
             <b>Nombre de questions :</b> <span id="nbq-value"></span><br>
             <input type="range" id="nbq-slider" min="1" max="20" value="10"><br>
+            <div id="voix" class="hidden">
+                Lecture audio : <input type="radio" class="radio" name="audioRadio" value="0" checked="true" id="radioaudioon"> off 
+                <input type="radio" class="radio" name="audioRadio" value="1" id="radioaudiooff"> on <input type="number" id="audiorepeat" min="1" max="5" value="1" size="1" title="Nombre de répétitions"> rép.<br>
+                Voix <select id="selectVoice"></select> <button class="pointer button" id="btntestreader">▶</button> <button id="btnstopreader" class="pointer button">⏹</button>
+            </div>
         </div>
         <div id="phantom" class=""></div>
         <div id="divcarts" class="hidden">

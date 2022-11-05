@@ -1,5 +1,5 @@
 {
-    "title":"Calculer astucieusement en mariant 2 nombres",
+    "title":"📣 Calculer astucieusement en mariant 2 nombres",
     "type":"latex",
     "ID":"9NE3",
     "keys":["_","_","_","_","_","_","_","_"],
@@ -22,6 +22,7 @@
     }
     ],
     "question": "${:d}",
+    "audio": "${:d}",
     "answer":"${:d}=\\color{red}{${:nb1+:nb2+:c}}\\quad(\\color{green}{${:nb1}+${:nb2}=${:nb1+:nb2}})",
     "value":"${:nb1+:nb2+:c}"
 }

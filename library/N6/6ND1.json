@@ -1,5 +1,5 @@
 {
-    "title":"Additions de petit entiers",
+    "title":"📣 Additions de petit entiers",
     "type":"text",
     "textSize":"medium",
     "ID":"6ND1",
@@ -8,23 +8,27 @@
     "options":[{
         "name":"Somme",
         "question": "Quelle est la somme de ${:a[0]} et de ${:a[1]} ?",
+        "audio": "Quelle est la somme de ${:a[0]} et de ${:a[1]} ?",
         "answer":"La somme de ${:a[0]} et ${:a[1]} vaut <span class='red'>${:c}</span>",
         "value":"${:c}"
     },{
         "name":"Ajouter",
         "question":"Quel nombre ajouter à ${:a[0]} pour obtenir ${:c} ?",
+        "audio":"Quel nombre ajouter à ${:a[0]} pour obtenir ${:c} ?",
         "answer":"Il faut ajouter <span class='red'>${:a[1]}</span> à ${:a[0]} pour obtenir ${:c}",
         "value":"${:a[1]}"
     },
     {
         "name":"Opération",
         "question":"$$ ${:a[0]}+${:a[1]} $$",
+        "audio":"Combien fait ${:a[0]} plusse ${:a[1]} ?",
         "answer":"$$ ${:a[0]}+${:a[1]} = \\color{red}{${:c}} $$",
         "value":"${:c}"
     },
     {
         "name": "Opération à trou",
         "question":["$$ ${:a[0]}+?=${:c}$$", "$$ ? + ${:a[0]}=${:c} $$"],
+        "audio":["${:a[0]} plusse combien pour faire ${:c} ?", "Combien plusse ${:a[0]} pour faire ${:c} ?"],
         "answer":"$$ ${:a[0]} + \\color{red}{${:a[1]}}=${:c} $$",
         "value":"${:a[1]}"
     }]

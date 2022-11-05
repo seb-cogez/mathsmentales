@@ -1,5 +1,5 @@
 {
-    "title":"Quel est le chiffre des ... ? (entiers)",
+    "title":"📣 Quel est le chiffre des ... ? (entiers)",
     "type":"text",
     "ID":"6NA2",
     "textSize":"medium",
@@ -26,6 +26,7 @@
         }
     ],
     "answer":"Dans $$${:c}$$, le chiffre des <u>${:d}</u> est $$\\color{red}{${:a[:b]}}$$",
+    "audio":"Dans ${math.NumberToLetter(:c).replace('-',' ')}, quel est le chiffre des ${:d} ?",
     "value":"${:a[:b]}",
     "question": "Dans $$${:c}$$, quel est le chiffre des <b>${:d}</b> ?"
 }

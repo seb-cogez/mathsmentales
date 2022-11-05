@@ -607,9 +607,8 @@ const math = {
             if(Math.ceil(nb) != nb){
                 nb = nombre.toString().split('.');
                 //return NumberToLetter(nb[0]) + " virgule " + NumberToLetter(nb[1]);
-                return NumberToLetter(nb[0]) + (U ? " " + U + " et " : " virgule ") + NumberToLetter(nb[1]) + (D ? " " + D : "");
+                return this.NumberToLetter(nb[0]) + (U ? " " + U + " et " : " virgule ") + this.NumberToLetter(nb[1]) + (D ? " " + D : "");
             }
-            
             n = nb.toString().length;
             switch (n) {
                 case 1:
@@ -630,9 +629,9 @@ const math = {
                     quotient = Math.floor(nb / 100);
                     reste = nb % 100;
                     if (quotient == 1 && reste == 0) numberToLetter = "cent";
-                    if (quotient == 1 && reste != 0) numberToLetter = "cent" + " " + NumberToLetter(reste);
+                    if (quotient == 1 && reste != 0) numberToLetter = "cent" + " " + this.NumberToLetter(reste);
                     if (quotient > 1 && reste == 0) numberToLetter = letter[quotient] + " cents";
-                    if (quotient > 1 && reste != 0) numberToLetter = letter[quotient] + " cent " + NumberToLetter(reste);
+                    if (quotient > 1 && reste != 0) numberToLetter = letter[quotient] + " cent " + this.NumberToLetter(reste);
                     break;
                 case 4 :
                 case 5 :
@@ -640,9 +639,9 @@ const math = {
                     quotient = Math.floor(nb / 1000);
                     reste = nb - quotient * 1000;
                     if (quotient == 1 && reste == 0) numberToLetter = "mille";
-                    if (quotient == 1 && reste != 0) numberToLetter = "mille" + " " + NumberToLetter(reste);
-                    if (quotient > 1 && reste == 0) numberToLetter = NumberToLetter(quotient) + " mille";
-                    if (quotient > 1 && reste != 0) numberToLetter = NumberToLetter(quotient) + " mille " + NumberToLetter(reste);
+                    if (quotient == 1 && reste != 0) numberToLetter = "mille" + " " + this.NumberToLetter(reste);
+                    if (quotient > 1 && reste == 0) numberToLetter = this.NumberToLetter(quotient) + " mille";
+                    if (quotient > 1 && reste != 0) numberToLetter = this.NumberToLetter(quotient) + " mille " + this.NumberToLetter(reste);
                     break;
                 case 7:
                 case 8:
@@ -650,9 +649,9 @@ const math = {
                     quotient = Math.floor(nb / 1000000);
                     reste = nb % 1000000;
                     if (quotient == 1 && reste == 0) numberToLetter = "un million";
-                    if (quotient == 1 && reste != 0) numberToLetter = "un million" + " " + NumberToLetter(reste);
-                    if (quotient > 1 && reste == 0) numberToLetter = NumberToLetter(quotient) + " millions";
-                    if (quotient > 1 && reste != 0) numberToLetter = NumberToLetter(quotient) + " millions " + NumberToLetter(reste);
+                    if (quotient == 1 && reste != 0) numberToLetter = "un million" + " " + this.NumberToLetter(reste);
+                    if (quotient > 1 && reste == 0) numberToLetter = this.NumberToLetter(quotient) + " millions";
+                    if (quotient > 1 && reste != 0) numberToLetter = this.NumberToLetter(quotient) + " millions " + this.NumberToLetter(reste);
                     break;
                 case 10:
                 case 11:
@@ -660,9 +659,9 @@ const math = {
                     quotient = Math.floor(nb / 1000000000);
                     reste = nb - quotient * 1000000000;
                     if (quotient == 1 && reste == 0) numberToLetter = "un milliard";
-                    if (quotient == 1 && reste != 0) numberToLetter = "un milliard" + " " + NumberToLetter(reste);
-                    if (quotient > 1 && reste == 0) numberToLetter = NumberToLetter(quotient) + " milliards";
-                    if (quotient > 1 && reste != 0) numberToLetter = NumberToLetter(quotient) + " milliards " + NumberToLetter(reste);
+                    if (quotient == 1 && reste != 0) numberToLetter = "un milliard" + " " + this.NumberToLetter(reste);
+                    if (quotient > 1 && reste == 0) numberToLetter = this.NumberToLetter(quotient) + " milliards";
+                    if (quotient > 1 && reste != 0) numberToLetter = this.NumberToLetter(quotient) + " milliards " + this.NumberToLetter(reste);
                     break;
                 case 13:
                 case 14:
@@ -670,13 +669,174 @@ const math = {
                     quotient = Math.floor(nb / 1000000000000);
                     reste = nb - quotient * 1000000000000;
                     if (quotient == 1 && reste == 0) numberToLetter = "un billion";
-                    if (quotient == 1 && reste != 0) numberToLetter = "un billion" + " " + NumberToLetter(reste);
-                    if (quotient > 1 && reste == 0) numberToLetter = NumberToLetter(quotient) + " billions";
-                    if (quotient > 1 && reste != 0) numberToLetter = NumberToLetter(quotient) + " billions " + NumberToLetter(reste);
+                    if (quotient == 1 && reste != 0) numberToLetter = "un billion" + " " + this.NumberToLetter(reste);
+                    if (quotient > 1 && reste == 0) numberToLetter = this.NumberToLetter(quotient) + " billions";
+                    if (quotient > 1 && reste != 0) numberToLetter = this.NumberToLetter(quotient) + " billions " + this.NumberToLetter(reste);
                     break;
             }//fin switch
             /*respect de l'accord de quatre-vingt*/
             if (numberToLetter.substr(numberToLetter.length - "quatre-vingt".length, "quatre-vingt".length) == "quatre-vingt") numberToLetter = numberToLetter + "s";
+            return numberToLetter;
+        },
+        NumberToFraction:function(nombre,speech=false, U=null, D=null,last=0) {
+            const letter = {
+                0: "zéro",
+                1: "un",
+                2: "deux",
+                3: "trois",
+                4: "quatre",
+                5: "cinq",
+                6: "six",
+                7: "sept",
+                8: "huit",
+                9: "neuf",
+                10: "dix",
+                11: "onze",
+                12: "douze",
+                13: "treize",
+                14: "quatorze",
+                15: "quinze",
+                16: "seize",
+                17: "dix-sept",
+                18: "dix-huit",
+                19: "dix-neuf",
+                20: "vingt",
+                30: "trente",
+                40: "quarante",
+                50: "cinquante",
+                60: "soixante",
+                70: "soixante-dix",
+                80: "quatre-vingt",
+                90: "quatre-vingt-dix",
+            };
+            const ends = {
+                1:"unièmes",
+                2:"deuxièmes",
+                3:"troisièmes",
+                4:"quatrièmes",
+                5:"cinquièmes",
+                6:"sixièmes",
+                7:"septièmes",
+                8:"huitièmes",
+                9:"neuvièmes",
+                10:"dixièmes",
+                11: "onzièmes",
+                12: "douzièmes",
+                13: "treizièmes",
+                14: "quatorzièmes",
+                15: "quinzièmes",
+                16: "seizièmes",
+                17: "dix-septièmes",
+                18: "dix-huitièmes",
+                19: "dix-neuvièmes",
+                20: "vingtièmes",
+                30: "trentièmes",
+                40: "quarantièmes",
+                50: "cinquantièmes",
+                60: "soixantièmes",
+                70: "soixante-dixièmes",
+                80: "quatre-vingtièmes",
+                90: "quatre-vingt-dixièmes",
+            }
+            const units = {
+                2:"demis",
+                3:"tiers",
+                4:"quarts"
+            }
+            
+            let i, j, n, quotient, reste, nb;
+            let ch
+            let numberToLetter = '';
+            if(nombre<0){
+                return numberToLetter = 'sur moins '+this.NumberToFraction(-nombre);
+            }
+            //__________________________________
+    
+            if (nombre.toString().replace(/ /gi, "").length > 15) return "dépassement de capacité";
+            if (isNaN(nombre.toString().replace(/ /gi, ""))) return "Nombre non valide";
+    
+            nb = parseFloat(nombre.toString().replace(/ /gi, ""));
+            //if (Math.ceil(nb) != nb) return "Nombre avec virgule non géré.";
+            if(Math.ceil(nb) != nb){
+                nb = nombre.toString().split('.');
+                //return NumberToLetter(nb[0]) + " virgule " + NumberToLetter(nb[1]);
+                return this.NumberToFraction(nb[0]) + (U ? " " + U + " et " : " virgule ") + this.NumberToFraction(nb[1]) + (D ? " " + D : "");
+            }
+            n = nb.toString().length;
+            switch (n) {
+                case 1:
+                    if(nb<5 && nb > 1 && last==0){
+                        numberToLetter = units[nb];
+                    } else if(last < 2) {
+                        numberToLetter = ends[nb];
+                    } else {
+                        numberToLetter = letter[nb];
+                    }
+                    break;
+                case 2:
+                    if (nb > 19) {
+                        quotient = Math.floor(nb / 10);
+                        reste = nb % 10;
+                        if (nb < 71 || (nb > 79 && nb < 91)) {
+                            if (reste == 0) numberToLetter = ends[quotient * 10];
+                            if (reste == 1) numberToLetter = letter[quotient * 10] + "-et-" + ends[reste];
+                            if (reste > 1) numberToLetter = letter[quotient * 10] + "-" + ends[reste];
+                        } else numberToLetter = letter[(quotient - 1) * 10] + "-" + ends[10 + reste];
+                    } else numberToLetter = ends[nb];
+                    break;
+                case 3:
+                    quotient = Math.floor(nb / 100);
+                    reste = nb % 100;
+                    if (quotient == 1 && reste == 0) numberToLetter = "centièmes";
+                    if (quotient == 1 && reste != 0) numberToLetter = "cent" + " " + this.NumberToFraction(reste,speech,U,D,1);
+                    if (quotient > 1 && reste == 0) numberToLetter = letter[quotient] + " centièmes";
+                    if (quotient > 1 && reste != 0) numberToLetter = letter[quotient] + " cent " + this.NumberToFraction(reste,speech,U,D,1);
+                    break;
+                case 4 :
+                case 5 :
+                case 6 :
+                    quotient = Math.floor(nb / 1000);
+                    reste = nb - quotient * 1000;
+                    if (quotient == 1 && reste == 0) numberToLetter = "millièmes";
+                    if (quotient == 1 && reste != 0) numberToLetter = "mille" + " " + this.NumberToFraction(reste,speech,U,D,false);
+                    if (quotient > 1 && reste == 0) numberToLetter = this.NumberToFraction(quotient,speech,U,D,2) + " millièmes";
+                    if (quotient > 1 && reste != 0) numberToLetter = this.NumberToFraction(quotient,speech,U,D,2) + " mille " + this.NumberToFraction(reste,speech,U,D,1);
+                    break;
+                case 7:
+                case 8:
+                case 9:
+                    quotient = Math.floor(nb / 1000000);
+                    reste = nb % 1000000;
+                    if (quotient == 1 && reste == 0) numberToLetter = "millionièmes";
+                    if (quotient == 1 && reste != 0) numberToLetter = "un million" + " " + this.NumberToFraction(reste,speech,U,D,1);
+                    if (quotient > 1 && reste == 0) numberToLetter = this.NumberToFraction(quotient,speech,U,D,2) + " millionièmes";
+                    if (quotient > 1 && reste != 0) numberToLetter = this.NumberToFraction(quotient,speech,U,D,2) + " millions " + this.NumberToFraction(reste,speech,U,D,1);
+                    break;
+                case 10:
+                case 11:
+                case 12:
+                    quotient = Math.floor(nb / 1000000000);
+                    reste = nb - quotient * 1000000000;
+                    if (quotient == 1 && reste == 0) numberToLetter = "milliardièmes";
+                    if (quotient == 1 && reste != 0) numberToLetter = "un milliard" + " " + this.NumberToFraction(reste,speech,U,D,1);
+                    if (quotient > 1 && reste == 0) numberToLetter = this.NumberToFraction(quotient,speech,U,D,2) + " milliardièmes";
+                    if (quotient > 1 && reste != 0) numberToLetter = this.NumberToFraction(quotient,speech,U,D,2) + " milliards " + this.NumberToFraction(reste,speech,U,D,1);
+                    break;
+                case 13:
+                case 14:
+                case 15:
+                    quotient = Math.floor(nb / 1000000000000);
+                    reste = nb - quotient * 1000000000000;
+                    if (quotient == 1 && reste == 0) numberToLetter = "billionièmes";
+                    if (quotient == 1 && reste != 0) numberToLetter = "un billion" + " " + this.NumberToFraction(reste,speech,U,D,2);
+                    if (quotient > 1 && reste == 0) numberToLetter = this.NumberToFraction(quotient,speech,U,D,2) + " billionièmes";
+                    if (quotient > 1 && reste != 0) numberToLetter = this.NumberToFraction(quotient,speech,U,D,2) + " billions " + this.NumberToFraction(reste,speech,U,D,1);
+                    break;
+            }//fin switch
+            /*respect de l'accord de quatre-vingt*/
+            if (numberToLetter.substr(numberToLetter.length - "quatre-vingt".length, "quatre-vingt".length) == "quatre-vingt") numberToLetter = numberToLetter + "s";
+            if(last<2 && speech)
+                numberToLetter = numberToLetter.replace('-'," ").replace("vingtièmes","vin tièmes").replace("soixantièmes","soissantièmes");
             return numberToLetter;
         }
 }
