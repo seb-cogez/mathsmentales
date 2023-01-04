@@ -2,12 +2,6 @@
 <html lang="fr" id="thehtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <style>
-            @page{
-                size:A4 portrait;
-                margin:0.8cm;
-            }
-        </style>
         <title>Ceinture MathsMentales</title>
         <link rel="stylesheet" href="css/ceinture.css?v=1" type="text/css" />
         <link href="js/libs/katex/katex.min.css" rel="stylesheet" type="text/css" />
@@ -25,6 +19,7 @@
     </head>  
     <body size="A4">
         <button onclick="document.getElementById('creator-menu').classList.toggle('hidden')" class="noprint" style="position: absolute;left:0;top:0;width:18pt;height:18pt;">🛠</button>
+        <span class="noprint" style="position: absolute;left:72px;top:0;">Copies par version<input type="number" max="12" min="1" size="3" id="copiesByPage" value="1"> <button id="btnPrintMode" title="Permet d'imprimer plusieurs grilles identiques sur une même page, pratique avec un massicot">Répéter chaque version</button> <input type="checkbox" id="par4" title="Pour placer les corrections au verso des énoncés, par 4, en position retournée pour un usage efficace">Corrigés par 4</span>
         <button onclick="window.print();" class="noprint" style="position: absolute;left:26px;top:0;height:18pt;" title="Cliquer pour imprimer ou enregistrer en pdf">Print</button>
         <div id="creator-container">
             <section id="creator-menu" class="noprint hidden">

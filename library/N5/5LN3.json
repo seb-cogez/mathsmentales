@@ -29,7 +29,7 @@
             "Un tableau de proportionnalité est un tableau contenant les données de deux grandeurs où l'on passe de l'une à l'autre par une multiplication par un nombre unique appelé coefficient de proportionnalité.",
             "On peut calculer tous les quotients de chaque colonne et regarder s'ils sont exactement égaux. Si oui, c'est un tableau de proportionnalité, sinon non.",
             "Dans un tableau de proportionnalité comportant 4 valeurs, si on en connait déjà 3, celle qui manque est appelée quatrième proportionnelle.",
-            "En ayant de quotients, on appelle produits en croix les produits du numérateur de l'un par le dénominateur de l'autre.",
+            "Connaissant deux rapports, on appelle produits en croix les produits du numérateur de l'un par le dénominateur de l'autre.",
             "Les points dont les coordonnées sont les données proportionnelles sont alignés avec l'origine du repère."
         ]
     },{
@@ -39,7 +39,7 @@
             "Comment trouver le coefficient de proportionnalité ?",
             "À quelle fraction correspond le coefficient de proportionnalité ?",
             "Quelles sont les propriétés de linéarité en proportionnalité ?",
-            "Comment déterminer compléter un tableau de proportionnalité ?"
+            "Comment compléter un tableau de proportionnalité ?"
         ],
         "answer":[
             "C'est chercher à quoi est associté une unité d'une des grandeurs dans l'autre grandeur.",

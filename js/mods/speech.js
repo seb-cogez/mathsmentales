@@ -1,3 +1,5 @@
+import utils from './utils.min.js'
+
 export default class speech {
     constructor(lang='fr-FR'){
         this.exists = this.test();
@@ -5,6 +7,7 @@ export default class speech {
         this.text = "";
         this.times = 1;
         this.timeout = false;
+        this.voices = false;
         this.initialize()
     }
     // teste l'existence du moteur speech
@@ -17,6 +20,17 @@ export default class speech {
         if(!this.exists)return;
         this.voices = speechSynthesis.getVoices()
         //this.voice = this.voices[0]
+    }
+    generateSelectOptions(selectDOMObj){
+        this.initialize()
+        this.voices.forEach((val,i)=>{
+            let name = val.name.toLowerCase()
+            if(name.indexOf("french")>-1 || val.lang.indexOf("fr")>-1){
+                let option = utils.create("option",{innerHTML:val.name,value:i})
+                selectDOMObj.appendChild(option)
+            }
+        })
+        return this.voices.length;
     }
     speak(text=this.text,stop=true){
         if(!this.exists)return;

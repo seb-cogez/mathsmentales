@@ -19,8 +19,8 @@
             "Qu'est-ce qu'un triangle obtusangle ?",
             "Qu'est-ce qu'un triangle acutangle ?",
             "Comment nomme-t-on un triangle ?",
-            "Comment appelle-t-on des triangles qui ont les mêmes mesures d'angles ?",
-            "Comment appelle-t-on des triangles dont les mêmes longueurs de côtés ?"
+            "Comment appelle-t-on des triangles dont les mesures d'angles sont égales 2 à 2 ?",
+            "Comment appelle-t-on des triangles dont les côtés sont égaux 2 à 2 ?"
     ],
         "answer":[
             "Un triangle est un polygone à trois côtés.",
@@ -38,17 +38,17 @@
             "Des triangles qui ont les mêmes longueurs de côtés sont dits égaux (ou isométriques)."
     ]},{
         "name":"Propriétés",
-        "vars":{"l":"0_14_3_^&","A":"${:lettres[:l[0]]","B":"${:lettres[:l[1]]","C":"${:lettres[:l[2]]"},
+        "vars":{"l":"0_14_3_^&","A":"${:lettres[:l[0]]}","B":"${:lettres[:l[1]]}","C":"${:lettres[:l[2]]}"},
         "question":[
-            "Quelle propriété ont les longueurs des côtés d'un triangle ?",
+            "Qu'appelle-t-on l'inégalité triangulaire ?",
             "Quand est-ce que trois longueurs ne peuvent être les longueurs des côtés d'un triangle ?",
-            "Si ${:A+:B}+${:B+:C}=${:A+:C}, que peut-on dire des points ${:A}, ${:C} et ${:C} ?",
+            "Si ${:A+:B}+${:B+:C}=${:A+:C}, que peut-on dire des points ${:A}, ${:B} et ${:C} ?",
             "Si ${:B} appartient au segment [${:A}${:C}], que peut-on écrire comme égalité ?",
             "Que peut-on dire des angles d'un triangle ?",
             "Comment obtient-on le périmètre d'un triangle ?"
         ],
         "answer":[
-            "La longueur d'un côté d'un triangle est inférieure ou égale à la somme des longueurs des deux autres côtés.",
+            "La longueur de n'importe quel côté d'un triangle est inférieure à la somme des longueurs des deux autres côtés.<br>ou<br>Pour tous points ${:A}, ${:B}, ${:C}, ${:A+:B} < ${:A+:C} + ${:C+:B}",
             "Si une longueur est supérieure à la somme de deux autres longueurs, alors on ne peut pas former de triangle avec ces trois longueurs pour côtés.",
             "Si ${:A+:B}+${:B+:C}=${:A+:C}, alors ${:B} appartient au segment [${:A}${:C}]",
             "${:B} appartient au segment [${:A}${:C}], alors ${:A+:B}+${:B+:C}=${:A+:C}",

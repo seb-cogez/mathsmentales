@@ -37,7 +37,7 @@
     <script src="js/MM1toMM2.min.js" defer></script>
     <script src="js/libs/vanilla-picker/vanilla-picker.min.js" defer></script>
 <!--<script src="dist/mathsmentales.bundle.js" id="mmscriptid"></script>-->
-    <script src="js/lib.mathsmentales.js?v=47" type="module" id="mmscriptid"></script>
+    <script src="js/lib.mathsmentales.js?v=48" type="module" id="mmscriptid"></script>
 
 </head>
 <body>
@@ -105,7 +105,8 @@
              <p>
                  Dans Téléchargements : des fichers de <b>ceintures de calcul mental</b> à imprimer pour le collège.
              </p>
-             <p><b>Contact</b> : <a href="mailto:contact@mathsmentales.net">contact@mathsmentales.net</a> pour signaler les problèmes, faire des suggestions...</p>
+             <p><b>Contact</b> : <a href="mailto:contact@mathsmentales.net">contact@mathsmentales.net</a> pour signaler les problèmes, faire des suggestions...<br>
+            <span class="green">Un bon CTRL + F5 peut aider lors d'un blocage</span>, mais pas toujours !</p>
             <p>
                 <a href="https://coopmaths.fr/"><img src="img/logo-coopmaths-final.png" class="logoCM"></a>Je collabore avec <a href="https://coopmaths.fr/">CoopMaths</a> qui propose de nombreuses <b>fiches d'exercices</b> à données aléatoires ainsi que tout un tas d'outils pour l'individualisation des apprentissages.
             </p>
@@ -135,9 +136,9 @@
             <b>Nombre de questions :</b> <span id="nbq-value"></span><br>
             <input type="range" id="nbq-slider" min="1" max="20" value="10"><br>
             <div id="voix" class="hidden">
-                Lecture audio : <input type="radio" class="radio" name="audioRadio" value="0" checked="true" id="radioaudioon"> off 
-                <input type="radio" class="radio" name="audioRadio" value="1" id="radioaudiooff"> on <input type="number" id="audiorepeat" min="1" max="5" value="1" size="1" title="Nombre de répétitions"> rép.<br>
-                Voix <select id="selectVoice"></select> <button class="pointer button" id="btntestreader">▶</button> <button id="btnstopreader" class="pointer button">⏹</button>
+                Lecture audio : <input type="radio" class="radio" name="audioRadio" value="0" checked="true" id="radioaudiooff"> off 
+                <input type="radio" class="radio" name="audioRadio" value="1" id="radioaudioon"> on <input type="number" id="audiorepeat" min="1" max="5" value="1" size="1" title="Nombre de répétitions"> rép.<br>
+                Voix <select id="selectVoice"></select> <button class="pointer btn" id="btntestreader" title="Lire les exemples proposés ci-dessous">▶</button> <button id="btnstopreader" class="pointer btn" title="Stopper la lecture en cours">⏹</button>
             </div>
         </div>
         <div id="phantom" class=""></div>

@@ -228,7 +228,7 @@ function checkURL(urlString){
         parameters.nb=Number(vars.n);
         parameters.positionCorrection=vars.cor;
         parameters.titreFiche=decodeURI(vars.t);
-        parameters.titreExercices=decodeURI(vars.ex).trim()+" ";
+        parameters.titreExercices=decodeURI(vars.ex).trim()+" ".replace("📣","");
         parameters.enoncesSepares=vars.es||0;
         parameters.corrigeSepare=vars.cs||0;
         parameters.activitesColonnes=vars.cols||[];

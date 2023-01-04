@@ -1,5 +1,5 @@
 {
-    "title":"Décompositions décimales",
+    "title":"📣 Décompositions décimales",
     "ID":"6NC1",
     "description":"Passer d'une écriture décimale à une décomposition parfois à l'aide de fractions décimales.",
     "dest":["6NC", "7NC"],
@@ -10,6 +10,8 @@
         "vars":{"a":[10,100,1000,10000], "e":"1_${:a}", "b":"0_2","d":"0_${:b}","c":"1_${:dix[:d]-1}"},
         "question": ["\\begin{array}{c} \\text{Forme décimale de}\\\\${:e}+${math.round(:c/:dix[:b],3)}\\end{array}",
             "\\begin{array}{c} \\text{Forme décimale de}\\\\${:e}+\\dfrac{${:c}}{${:dix[:b]}}\\end{array}"],
+        "audio":["Donne l'écriture décimale de ${:e} plusse ${String(math.round(:c/:dix[:b],3)).replace('.',',')}",
+        "Donne l'écriture décimale de ${:e} plusse ${:c}${math.NumberToFraction(:dix[:b])}"],
         "answer":":question=\\color{red}{${math.round(:e+:c/:dix[:b],3)}}",
         "value":"${math.round(:e+:c/:dix[:b],3)}"
     },{
@@ -18,6 +20,8 @@
         "vars":{"a":[10,100,1000,10000], "e":"1_${:a}", "b":"0_9_3", "c":"0_2_3_^&"},
         "question":["\\begin{array}{c} \\text{Forme décimale de}\\\\${:e}${:b[:c[0]]!=0?'+'+math.round(:b[:c[0]]/:dix[:c[0]],3):''}${:b[:c[1]]!=0?'+'+math.round(:b[:c[1]]/:dix[:c[1]],3):''}${:b[:c[2]]!=0?'+'+math.round(:b[:c[2]]/:dix[:c[2]],3):''}\\end{array}",
             "\\begin{array}{c} \\text{Forme décimale de}\\\\${:e}${:b[:c[0]]!=0?'+\\dfrac{'+:b[:c[0]]+'}{'+:dix[:c[0]]+'}':''}${:b[:c[1]]!=0?'+\\dfrac{'+:b[:c[1]]+'}{'+:dix[:c[1]]+'}':''}${:b[:c[2]]!=0?'+\\dfrac{'+:b[:c[2]]+'}{'+:dix[:c[2]]+'}':''}\\end{array}"],
+        "audio":["Donne l'écriture décimale de ${:e}${:b[:c[0]]!=0?'+'+(String(math.round(:b[:c[0]]/:dix[:c[0]],3)).replace('.',',')):''}${:b[:c[1]]!=0?'+'+(String(math.round(:b[:c[1]]/:dix[:c[1]],3)).replace('.',',')):''}${:b[:c[2]]!=0?'+'+(String(math.round(:b[:c[2]]/:dix[:c[2]],3)).replace('.',',')):''}",
+        "Donne l'écriture décimale de ${:e}${:b[:c[0]]!=0?'plusse '+:b[:c[0]]+' '+math.NumberToFraction(:dix[:c[0]]):''}${:b[:c[1]]!=0?' plusse '+:b[:c[1]]+' '+math.NumberToFraction(:dix[:c[1]]):''}${:b[:c[2]]!=0?' plusse '+:b[:c[2]]+' '+math.NumberToFraction(:dix[:c[2]]):''}"],
         "answer": ":question=\\color{red}{${math.round(:e+:b[0]/10+:b[1]/100+:b[2]/1000,3)}}",
         "value":"${math.round(:e+:b[0]/10+:b[1]/100+:b[2]/1000,3)}"
     },
@@ -25,6 +29,7 @@
         "name":"Décimal -> Entier et fraction décimale",
         "vars":{"a":[10,100,1000,10000], "e":"1_${:a}", "b":"0_9_3", "c":"${:b[0]*100+:b[1]*10+:b[2]}"},
         "question": "\\begin{array}{c} \\text{Entier + fraction décimale pour}\\\\${math.round(:e+:c/1000,3)}\\end{array}",
+        "audio":"Écris sous la forme d'une somme d'un entier plusse une fraction décimale le nombre ${String(math.round(:e+:c/1000,3)).replace('.',',')}",
         "answer":":question=\\color{red}{${:e}+${math.simplifyFracDec(:c,1000)}}",
         "value":"${:e}+${math.simplifyFracDec(:c,1000)}"
     },
@@ -32,6 +37,7 @@
         "name":"Décimal -> Entier et partie décimale",
         "vars":{"a":[10,100,1000,10000], "e":"1_${:a}", "b":"0_9_3", "c":"${:b[0]*100+:b[1]*10+:b[2]}"},
         "question": "\\begin{array}{c} \\text{Partie entière + partie décimale de}\\\\${math.round(:e+:c/1000,3)}\\end{array}",
+        "audio":"Écris sous la forme d'une somme de la partie entière plusse la partie décimale le nombre ${String(math.round(:e+:c/1000,3)).replace('.',',')}",
         "answer":":question=\\color{red}{${:e}+${math.round(:c/1000,3)}}",
         "value":"${:e}+${math.round(:c/1000,3)}"
     },
@@ -39,6 +45,7 @@
         "name":"Décimal -> Entier et fractions décimales",
         "vars":{"a":[10,100,1000,10000], "e":"1_${:a}", "b":"0_9_2", "c":"1_9"},
         "question": "\\begin{array}{c} \\text{Entier + décomposition en fractions}\\\\${math.round(:e+:b[0]/10+:b[1]/100+:c/1000,3)}\\end{array}",
+        "audio":"Écris sous la forme d'une somme d'un entier plus des fractions décimales de numérateur inférieur à 10 ( ) le nombre ${String(math.round(:e+:b[0]/10+:b[1]/100+:c/1000,3)).replace('.',',')}",
         "answer":":question=\\color{red}{${:e}${:b[0]?'+\\dfrac{'+:b[0]+'}{10}':''}${:b[1]?'+\\dfrac{'+:b[1]+'}{100}':''}+\\dfrac{${:c}}{1000}}",
         "value":"${:e}+${:b[0]}/10+${:b[1]}/100+${:c}/1000"
     },
@@ -46,6 +53,7 @@
         "name":"Décimal -> Entier et parties décimales",
         "vars":{"a":[10,100,1000,10000], "e":"1_${:a}", "b":"0_9_2", "c":"1_9"},
         "question": "\\begin{array}{c} \\text{Entier + décimaux à 1 chiffre sign.}\\\\${math.round(:e+:b[0]/10+:b[1]/100+:c/1000,3)}\\end{array}",
+        "audio":"Écris sous la forme d'une somme d'un entier plusse des décimaux à un seul chiffre significatif ( ) le nombre ${String(math.round(:e+:b[0]/10+:b[1]/100+:c/1000,3)).replace('.',',')}",
         "answer":":question=\\color{red}{${:e}${:b[0]?'+'+math.round(:b[0]/10,1):''}${:b[1]?'+'+math.round(:b[1]/100,2):''}+${math.round(:c/1000,3)}}",
         "value":"${:e}+${math.round(:b[0]/10,1)}+${math.round(:b[1]/100,2)}+${math.round(:c/1000,3)}"
     }

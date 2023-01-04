@@ -1,8 +1,9 @@
 {
-    "title":"Quel est le chiffre des / le nombre de (entier) ... ? (décimaux)",
+    "title":"📣 Quel est le chiffre des / le nombre de (entier) ... ? (décimaux)",
     "type":"text",
     "ID":"6NC9",
     "textSize":"medium",
+    "description":"Donner le chiffre d'un rang. Donner le nombre entier d'un rang.",
     "dest":["7NC", "6NC", "5NA"],
     "consts":{"u":["centaines", "dizaines", "unités","dixièmes","centièmes","millièmes"],
         "v":["centaines de mille", "dizaines de mille", "unités de mille","centaines", "dizaines", "unités", "dixièmes","centièmes","millièmes"],
@@ -21,23 +22,27 @@
             "name":"Nombre entier de $$(10^2 \\text{ à } 10^{-3})$$",
             "vars":{"c":"d0_1000_3_^0,1000", "b":"0_5", "d":"${:u[:b]}", "de":"${:b==2?'d’':'de '}", "nb":"${Math.floor(Number(:c)*Math.pow(10,:b-2))}"},
             "question":"Quel est le nombre ${:de}<b>${:d}</b> de $$${:c}$$&nbsp;?",
+            "audio":"Quel est le nombre ${:de}${:d} de ${math.NumberToLetter(:c)} ?",
             "answer":"Dans $$${:c}$$ le nombre ${:de}<b>${:d}</b> est $$\\color{red}{${:nb}}$$",
             "value":":nb"
         },{
             "name":"Nombre entier de $$(10^5 \\text{ à } 10^{-3})$$",
             "vars":{"c":"d0_1000000_3_^0,1000000", "b":"0_8", "d":"${:v[:b]}", "de":"${:b==2||:b==5?'d’':'de '}", "nb":"${Math.floor(Number(:c)*Math.pow(10,:b-5))}"},
             "question":"Quel est le nombre ${:de}<b>${:d}</b> de $$${:c}$$&nbsp;?",
+            "audio":"Quel est le nombre ${:de}${:d} de ${math.NumberToLetter(:c)} ?",
             "answer":"Dans $$${:c}$$ le nombre ${:de}<b>${:d}</b> est $$\\color{red}{${:nb}}$$",
             "value":":nb"
         },{
             "name":"Nombre entier de $$(10^8 \\text{ à } 10^{-6})$$",
             "vars":{"c":"d0_1000000000_6_^0,1000000000", "b":"0_14", "d":"${:w[:b]}", "de":"${:b==2||:b==5||:d==8?'d’':'de '}", "nb":"${Math.floor(Number(:c)*Math.pow(10,:b-8))}"},
             "question":"Quel est le nombre ${:de}<b>${:d}</b> de $$${:c}$$&nbsp;?",
+            "audio":"Quel est le nombre ${:de}${:d} de ${math.NumberToLetter(:c)} ?",
             "answer":"Dans $$${:c}$$ le nombre ${:de}<b>${:d}</b> est $$\\color{red}{${:nb}}$$",
             "value":":nb"
         }
     ],
     "answer":"Dans $$${:c}$$ le chiffre des <u>${:d}</u> est <span class='red'>${:n}</span>",
     "value":"${:n}",
-    "question": "Quel est le chiffre des <b>${:d}</b> de $$${:c}$$&nbsp;?"
+    "question": "Quel est le chiffre des <b>${:d}</b> de $$${:c}$$&nbsp;?",
+    "audio":"Quel est le chiffre des ${:d} de ${math.NumberToLetter(:c)} ?"
 }

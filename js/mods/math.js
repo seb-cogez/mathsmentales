@@ -412,6 +412,7 @@ const math = {
         if(notex === undefined || notex===false) {
             // on calcule l'affichage latex en réalisant quelques petites simplifications d'écriture (1*x=>x, 2x+0 => 2x)...
             //let parser= new AsciiMathParser()
+            //ret = ret.replace(/([0-9])(\*)([a-z])/g,'$1$3').replace(/frac/g,'dfrac');
             //ret = parser.parse(ret);
             ret = Algebrite.run('printlatex('+expr+')').replace(/frac/g,'dfrac');
             //let expression = parse(expr);
@@ -562,7 +563,7 @@ const math = {
         *_________________________________________________________________________  *
         *****************************************************************************
         */
-        NumberToLetter:function(nombre, U=null, D=null) {
+        NumberToLetter:function(nombre, U=null, D=null,decimalPart=false) {
             const letter = {
                 0: "zéro",
                 1: "un",
@@ -593,22 +594,34 @@ const math = {
                 80: "quatre-vingt",
                 90: "quatre-vingt-dix",
             };
+            const decUnit = {
+                1:"dixièmes",
+                2:"centièmes",
+                3:"millièmes",
+                4:"dix-millièmes",
+                5:"cent-millièmes",
+                6:"millionièmes",
+                7:"dix-millionièmes",
+                8:"cent-millionièmes",
+                9:"milliardièmes",
+                10:"dix-milliardièmes",
+                11:"cent-milliardièmes"
+            }
             
             let i, j, n, quotient, reste, nb;
             let ch
             let numberToLetter = '';
             //__________________________________
     
-            if (nombre.toString().replace(/ /gi, "").length > 15) return "dépassement de capacité";
             if (isNaN(nombre.toString().replace(/ /gi, ""))) return "Nombre non valide";
-    
             nb = parseFloat(nombre.toString().replace(/ /gi, ""));
-            //if (Math.ceil(nb) != nb) return "Nombre avec virgule non géré.";
+            // nombres décimaux
             if(Math.ceil(nb) != nb){
                 nb = nombre.toString().split('.');
-                //return NumberToLetter(nb[0]) + " virgule " + NumberToLetter(nb[1]);
-                return this.NumberToLetter(nb[0]) + (U ? " " + U + " et " : " virgule ") + this.NumberToLetter(nb[1]) + (D ? " " + D : "");
+                return this.NumberToLetter(nb[0]) + (U ? " " + U + " et " : " virgule ") + this.NumberToLetter(nb[1],D,D,true) + (D ? " " + D : "") + (nb[1].indexOf("0")===0? " " + decUnit[nb[1].length]:"");
             }
+
+            if (nombre.toString().replace(/ /gi, "").length > 15) return "dépassement de capacité";
             n = nb.toString().length;
             switch (n) {
                 case 1:

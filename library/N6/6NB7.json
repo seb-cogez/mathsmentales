@@ -1,5 +1,5 @@
 {
-    "title":"Moitié, double ...",
+    "title":"📣 Moitié, double ...",
     "type":"text",
     "ID":"6NB7",
     "description":"Calculer le double, la moitié, le tiers, le triple, le quart ou le quadruple d'un nombre entier.",
@@ -31,11 +31,13 @@
             "name":"Confusion double/carré",
             "vars":{"a":[1,6],"text":"Quel est le ","e":"1_12_^2","ans":"${:a==1?:e*2::e*:e}"},
             "question":"${:text}<b>${:vocab[:a]}</b> de $$${:e}$$ ?",
+            "audio":"${:text} ${:vocab[:a]} de ${:e} ?",
             "answer":"$$${:a==1?'2\\times'+:e::e+'^2'}=\\color{red}{${:ans}}$$",
             "value":"${:ans}"
         }
     ],
     "question":"${:text}<b>${:vocab[:a]}</b> de $$${:qte}$$ ?",
+    "audio":"${:text} ${:vocab[:a]} de ${:qte} ?",
     "answer":"$$${:qte+:tx[:a]}=\\color{red}{${eval(math.calc(:qte+'*'+:coef[:a]))}}$$",
     "value":"${eval(math.calc(:qte+'*'+:coef[:a]))}"
 }

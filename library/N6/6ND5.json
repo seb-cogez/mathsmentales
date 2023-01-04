@@ -1,28 +1,23 @@
 {
-    "title":"Somme de nombres qui se marient bien",
+    "title":"📣 Somme de nombres qui se marient bien",
     "ID":"6ND5",
     "dest":["6ND", "7ND", "8ND"],
     "options":[{
         "name":"La somme est une dizaine",
-        "question": "${:c}+${:d}",
-        "answer":"${:c}+${:d}=\\color{red}{${:b}}",
         "vars":{"a":"1_9", "b":"${:a*10}", "c":"2_${:b-2}", "d":"${:b-:c}"}
     },{
         "name":"La somme est un multiple de 10 entre 100 et 1000",
-        "question": "${:c}+${:d}",
-        "answer":"${:c}+${:d}=\\color{red}{${:b}}",
         "vars":{"a":"11_99", "b":"${:a*10}", "c":"11_${:b-2}", "d":"${:b-:c}"}
     },{
         "name":"La somme est un multiple de 100",
-        "question": "${:c}+${:d}",
-        "answer":"${:c}+${:d}=\\color{red}{${:b}}",
         "vars":{"a":"11_99", "b":"${:a*100}", "c":"101_${:b-2}", "d":"${:b-:c}"}
     },{
         "name":"La somme est une centaine",
-        "question": "${:c}+${:d}",
-        "answer":"${:c}+${:d}=\\color{red}{${:b}}",
         "vars":{"a":"2_9", "b":"${:a*100}", "c":"101_${:b-2}", "d":"${:b-:c}"}
     }
     ],
+    "question": "${:c}+${:d}",
+    "audio": "Calcule ${:c} plusse ${:d}.",
+    "answer":"${:c}+${:d}=\\color{red}{${:b}}",
     "value":"${:b}"
 }

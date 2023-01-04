@@ -1,5 +1,5 @@
 {
-    "title":"Donner l'écriture décimale d'un nombre de dizaines, centaines, etc.",
+    "title":"📣 Donner l'écriture décimale d'un nombre de dizaines, centaines, etc.",
     "type":"text",
     "ID":"6NC5",
     "dest":["6NC"],
@@ -25,6 +25,7 @@
     }
     ],
     "question": "Écriture décimale de <br>$$${:c}$$ ${:u[:a]} ?",
+    "audio": "Qu'elle est l'écriture décimale de ${String(:c).replace('.',',')} ${:u[:a]} ?",
     "answer":"$$${:c}$$ ${:u[:a]} $$ = \\color{red}{${math.round(:c*:p[:a],6)}}$$",
     "value":"${math.round(:c*:p[:a],8)}"
 }

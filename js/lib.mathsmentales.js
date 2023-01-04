@@ -125,13 +125,15 @@ window.onload = function(){
         document.getElementById("radioaudiooff").onclick = (evt)=>{MM.setAudio(evt.target.value)};
         document.getElementById("audiorepeat").oninput = (evt)=>{MM.setAudioRepetitions(evt.target.value)}
         let select = document.getElementById("selectVoice");
-        MM.speech.voices.forEach((val,i)=>{
-            let name = val.name.toLowerCase()
-            if(name.indexOf("french")>-1 || name.indexOf("fran")>-1 || name.indexOf("fr")>-1){
-                let option = utils.create("option",{innerHTML:val.name,value:i})
-                select.appendChild(option)
+        if(!MM.speech.generateSelectOptions(select)){
+            // création d'un bouton de génération car obligation d'interagir avec le navigateur pour générer
+            let button = utils.create("button",{innerHTML:'🎶', title:'Cliquer pour détecter les langues disponibles'})
+            button.onclick = (evt)=>{
+                MM.speech.generateSelectOptions(select)
+                evt.target.parentNode.removeChild(evt.target)
             }
-        })
+            document.getElementById("voix").appendChild(button)
+        }
         select.onchange = (ev)=>{
             MM.speech.setVoice(ev.target.value);
             MM.audioSamples.forEach(val=>{
@@ -139,6 +141,10 @@ window.onload = function(){
             })
         }
         document.getElementById("btntestreader").onclick = ()=>{
+            if(!select.hasChildNodes()){
+                MM.speech.initialize();
+                MM.speech
+            }
             MM.audioSamples.forEach(val=>{
                 MM.speech.speak(val,false)
             })
