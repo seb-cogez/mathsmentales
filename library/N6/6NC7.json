@@ -1,5 +1,5 @@
 {
-    "title":"Comparer des nombres décimaux",
+    "title":"📣 Comparer des nombres décimaux",
     "type":"text",
     "ID":"6NC7",
     "keys":["<",">","=","_"],
@@ -19,6 +19,7 @@
     }
     ],
     "question": "Compare $$${:a}$$ et $$${:b}$$",
+    "audio": "Compare ${String(:a).replace('.',',')} ( ) et ( ) ${String(:b).replace('.',',')}",
     "answer":"$$${:a}\\color{red}{${:s}}${:b}$$",
     "value":["${:a}${:s}${:b}","${:s}"]
 }

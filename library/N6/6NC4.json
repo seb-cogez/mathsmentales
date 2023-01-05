@@ -1,5 +1,5 @@
 {
-    "title":"Ordre de grandeur d'une opération",
+    "title":"📣 Ordre de grandeur d'une opération",
     "description":"Trouver un ordre de grandeur d'une somme (addition), une différence (soustraction), un produit (multiplication)",
     "ID":"6NC4",
     "dest":["6NC"],
@@ -12,6 +12,7 @@
         "rep":"${:n1+:n2}"
         },
         "question": "${:p1}+${:p2}",
+        "audio": "Donner un ordre de grandeur de ${:p1} ( ) plusse ( ) ${:p2}",
         "answer":":question \\approx \\color{red}{${:rep}} \\color{blue}{=${:n1}+${:n2}}",
         "value":"${:rep}"
     },
@@ -24,6 +25,7 @@
         "rep":"${:n2-:n1}"
         },
         "question": "${:p2}-${:p1}",
+        "audio": "Donner un ordre de grandeur de ${:p2} ( ) moins ( ) ${:p1}",
         "answer":":question \\approx \\color{red}{${:rep}} \\color{blue}{=${:n2}-${:n1}}",
         "value":"${:rep}"
     },
@@ -36,6 +38,7 @@
         "rep":"${:n2*:n1}"
         },
         "question": "${:p1}\\times${:p2}",
+        "audio": "Donner un ordre de grandeur de ${:p1} ( ) × ( ) ${:p2}",
         "answer":":question \\approx \\color{red}{${:rep}} \\color{blue}{=${:n1}\\times ${:n2}}",
         "value":"${:rep}"
     }

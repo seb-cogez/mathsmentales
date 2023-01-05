@@ -1,29 +1,33 @@
 {
-    "title":"Multiplication à trou, trouver une multiplication",
+    "title":"📣 Multiplication à trou, trouver une multiplication",
     "ID":"6ND7",
     "description":"Trouver un produit, un facteur",
     "dest":["6ND", "5NC", "4NC", "3NB", "7ND", "8ND"],
     "options":[{
         "name":"Trouver le nombre manquant (inférieur à 10)",
         "question": ["${:a}\\times?=${:p}", "?\\times${:a}=${:p}"],
+        "audio": ["${:a} multiplié par combien pour faire ${:p} ?", "Combien multiplié par ${:a} donne ${:p} ?"],
         "answer":"${:a}\\times\\color{red}{${:b}}=${:p}",
         "vars":{"a":"1_10", "b":"1_10", "p":"${:a*:b}"},
         "value":"${:b}"
     }, {
         "name":"Trouver le nombre manquant (inférieur à 12)",
         "question": ["${:a}\\times?=${:p}", "?\\times${:a}=${:p}"],
+        "audio": ["${:a} multiplié par combien pour faire ${:p} ?", "Combien multiplié par ${:a} donne ${:p} ?"],
         "answer":"${:a}\\times\\color{red}{${:b}}=${:p}",
         "vars":{"a":"3_12", "b":"4_12", "p":"${:a*:b}"},
         "value":"${:b}"
     }, {
         "name":"Trouver le produit (inférieur à 10)",
         "question": "${:p}=?\\times?",
+        "audio": "Donne un produit non trivial qui vaut ${:p}.",
         "answer":"${:p}=\\color{red}{${math.listeProduits(:p)}}",
         "vars":{"a":"1_10", "b":"1_10", "p":"${:a*:b}"},
         "value":"${math.listeProduits(:p,10,true)}"
     }, {
         "name":"Trouver le produit (inférieur à 12)",
         "question": "${:p}=?\\times?",
+        "audio": "Donne un produit non trivial qui vaut ${:p}.",
         "answer":"${:p}=\\color{red}{${math.listeProduits(:p,12)}}",
         "vars":{"a":"3_12", "b":"4_12", "p":"${:a*:b}"},
         "value":"${math.listeProduits(:p,12,true)}"

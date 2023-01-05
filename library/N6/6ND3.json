@@ -1,5 +1,5 @@
 {
-    "title":"Complément à 10, 100, 1000",
+    "title":"📣 Complément à 10, 100, 1000",
     "type":"text",
     "ID":"6ND3",
     "textSize":"medium",
@@ -10,6 +10,10 @@
             "$$${:a}+?=10$$",
             "$$10-${:a}$$"
         ],
+        "audio": ["Combien manquetil à ${:a} pour faire 10 ?",
+            "${:a} plusse combien pour faire 10 ?",
+            "Calcule 10 moins ${:a}."
+        ],
         "answer":"$$${:a}+\\color{red}{${:b}}=10$$",
         "vars":{"a":"1_9", "b":"${10-:a}"}
     },{
@@ -17,6 +21,9 @@
         "question": ["Combien manque-t-il à ${:a} pour faire 100 ?",
             "$$${:a}+?=100$$",
             "$$100-${:a}$$"],
+        "audio": ["Combien manquetil à ${:a} pour faire 100 ?",
+            "${:a} plusse combien pour faire 100 ?",
+            "Calcule 100 moins ${:a}"],
         "answer":"$$${:a}+\\color{red}{${:b}}=100$$",
         "vars":{"a":"10_99", "b":"${100-:a}"}
     },
@@ -25,6 +32,9 @@
         "question": ["Combien manque-t-il à ${:a} pour faire 1000 ?",
             "$$${:a}+?=1000$$",
             "$$1000-${:a}$$"],
+        "audio": ["Combien manquetil à ${:a} pour faire 1000 ?",
+            "${:a} plusse combien pour faire 1000 ?",
+            "Calcule 1000 moins ${:a}"],
         "answer":"$$${:a}+\\color{red}{${:b}}=1000$$",
         "vars":{"a":"10_999", "b":"${1000-:a}"}
     }

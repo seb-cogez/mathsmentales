@@ -1,6 +1,10 @@
 *{
     box-sizing: border-box;
 }
+@page{
+    size:A4 portrait;
+    margin:0;
+}
 html{
     padding:0;
     margin:0;
@@ -10,12 +14,12 @@ body{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 body[size="A4"]{
-    width: 21cm;
-  min-height: 29.7cm;
+    width: 210mm;
+    min-height: 297mm;
 }
 body[size="A4"][layout="landscape"]{
-    width: 27.7cm;
-    min-height: 21cm;
+    width: 277mm;
+    min-height: 210mm;
 }
 
 footer.break {
@@ -254,15 +258,25 @@ input[type="color"]{
 .ceinture .grid .flex.column {
     flex-direction: column;
 }
-.ceinture .ans {
+.ceinture div.ans {
 	flex-grow: 1;
 	min-width: 10%;
 	align-self: center;
     margin: 2pt;
 }
-.ceinture .flex.column .ans {
+.ceinture .flex.column div.ans {
     width:100%;
 }
+.ceinture span.ans {
+    display: inline-block;
+	width: 20pt;
+    margin: 2pt;
+    vertical-align: middle;
+}
+.ceinture .flex.column span.ans {
+    width:100%;
+}
+
 .ceinture .quest {
     display: table-cell;
 }
@@ -272,6 +286,38 @@ input[type="color"]{
 .nofig .fig{
     display:none;
 }
+.parquatre {
+    display: block;
+    width:19cm;
+    height: 27.7cm;
+    margin-bottom: 1cm;
+    margin-top:1cm;
+    transform: rotate(180deg);
+    position: relative;
+    page-break-before: always;
+    page-break-inside: avoid;
+}
+.parquatre .corrige:nth-child(1){
+    position: absolute;
+    top:0;
+    left: 0;
+}
+.parquatre .corrige:nth-child(2){
+    position: absolute;
+    top:0;
+    right: 0;
+}
+.parquatre .corrige:nth-child(3){
+    position: absolute;
+    bottom:0;
+    left: 0;
+}
+.parquatre .corrige:nth-child(4){
+    position: absolute;
+    bottom:0;
+    right: 0;
+}
+
 @media screen {
     html{
         background: rgb(204,204,204); 
@@ -282,7 +328,7 @@ input[type="color"]{
         background: white;
         display: block;
         margin: 0.5em auto;
-        margin-bottom: 0.5cm;
+        /*margin-bottom: 0.5cm;*/
         box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
     }
     footer.break::before, .pagebreak::before{
@@ -321,5 +367,14 @@ input[type="color"]{
     }
     .noprint {
         display:none;
+    }
+    html, body {
+        width: 210mm;
+    }
+    body{
+        padding: 10mm 10mm 0 10mm;
+    }
+    #creator-container::before {
+        display: none;
     }
 }

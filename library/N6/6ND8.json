@@ -1,5 +1,5 @@
 {
-    "title":"Soustractions d'entiers",
+    "title":"📣 Soustractions d'entiers",
     "ID":"6ND8",
     "dest":["6ND", "7ND", "8ND", "9ND"],
     "options":[{
@@ -11,6 +11,7 @@
     }
     ],
     "question":"${:b}-${:a}",
+    "audio":"Calcule ${:b} moins ${:a}",
     "answer":"${:b}-${:a}=\\color{red}{${:d}}",
     "value":"${:d}"
 }

@@ -1,5 +1,5 @@
 {
-    "title":"Place du chiffre 9 dans un décimal",
+    "title":"📣 Place du chiffre 9 dans un décimal",
     "type":"text",
     "description":"Ne pas utiliser en mode online pour le moment",
     "textSize":"medium",
@@ -34,8 +34,12 @@
             "consts":{"u":["centaines de milliards", "dizaines de milliards", "unités de milliards","centaines de million", "dizaines de millions", "unités de millions","centaines de mille", "dizaines de mille", "unités de mille","centaines", "dizaines", "unités"]},
             "vars":{"a0":"1_8","a1":"0_8_11", "b":"0_11", "c":"${Number([:a0,...:a1].slice(0,:b).concat([9]).concat([:a0,...:a1].slice(:b+1)).join(''))}"},
             "answer":"Dans $$${:c}$$, 9 est le chiffre des <span class='red'>${:u[:b]}</span>",
-            "value":"${:u[:b]}"
-            }
+            "value":"${:u[:b]}",
+            "question": "Dans $$${:c}$$, quelle est la valeur du chiffre 9 ?",
+            "audio":"Dans ${math.NumberToLetter(:c)}, quel est le rang du chiffre 9 ?"
+        }
     ],
-    "question": "Dans $$${:c}$$, quelle est la valeur du chiffre 9 ?"
+    "question": "Dans $$${:c}$$, quelle est la valeur du chiffre 9 ?",
+    "shortq":"$$${:c}$$",
+    "audio":"Dans ${String(:c).replace('.',',')}, quel est le rang du chiffre 9 ?"
 }

@@ -194,8 +194,8 @@ export default class activity {
         // affichages
         document.getElementById('activityTitle').innerHTML = this.title;
         if(this.title.indexOf("📣")>-1){
-            document.getElementById("voix").classList.remove("hidden")
             MM.audioSamples = [];
+            document.getElementById("voix").classList.remove("hidden")
             if(this.audioRead){
                 MM.setAudio(1);
             } else{
@@ -231,7 +231,8 @@ export default class activity {
                 this.generate(1,i,false);// génère un cas par option (si plusieurs)
                 if(this.audios.length>0){
                     for(let audio of this.audios){
-                        MM.audioSamples.push(audio)
+                        if(audio)
+                            MM.audioSamples.push(audio)
                     }
                 }
                 let p = utils.create("span");
@@ -290,7 +291,8 @@ export default class activity {
             this.generate(1);
             if(this.audios.length>0){
                 for(let audio of this.audios){
-                    MM.audioSamples.push(audio)
+                    if(audio)
+                        MM.audioSamples.push(audio)
                 }
             }
             let p = document.createElement("span");
@@ -764,11 +766,14 @@ export default class activity {
             if(!sample){
             // question text generation
             let thequestion = this.replaceVars(utils.clone(this.cQuestion));
-            let theaudio = this.replaceVars(utils.clone(this.cAudio));
+            let theaudio = false;
             let thevalue = this.replaceVars(utils.clone(this.cValue));
             let theshort = false;
             if(this.cShortQ){
                 theshort = this.replaceVars(utils.clone(this.cShortQ));
+            }
+            if(this.cAudio){
+                theaudio = this.replaceVars(utils.clone(this.cAudio));
             }
             loopProtect++;
             // on évite les répétitions

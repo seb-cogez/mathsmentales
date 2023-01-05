@@ -1,5 +1,5 @@
 {
-    "title":"Intercaler un nombre entre deux autres",
+    "title":"📣 Intercaler un nombre entre deux autres",
     "type":"text",
     "valueType":"inInterval",
     "ID":"6NC6",
@@ -9,30 +9,35 @@
         "name":"Entre deux dizaines consécutives",
         "vars":{"a":"1_9","b":"${:a+1}","c":"1_9"},
         "question": "Donne un nombre entre $$${:a*10}$$ et $$${:b*10}$$",
+        "audio": "Donne un nombre entre ${:a*10} et ${:b*10}.",
         "answer":"$$${:a*10}\\lt\\color{red}{${math.round(:a*10+:c)}}\\lt${:b*10}$$",
         "value":"${:a*10}-${:b*10}"
     },{
         "name":"Entre deux entiers consécutifs",
         "vars":{"a":"1_99","b":"${:a+1}","c":"d0.1_0.9_1"},
         "question": "Donne un nombre entre $$${:a}$$ et $$${:b}$$",
+        "audio": "Donne un nombre entre ${:a} et ${:b}.",
         "answer":"$$${:a}\\lt\\color{red}{${:a+:c}}\\lt${:b}$$",
         "value":"${:a}-${:b}"
     },{
         "name":"Entre deux dixièmes consécutifs",
         "vars":{"a":"10_99","b":"${:a+1}","n1":"${math.round(:a/10,1)}","n2":"${math.round(:b/10,1)}","c":"d0.01_0.09_2","ni":"${math.round(:a/10+:c,2)}"},
         "question": "Donne un nombre entre $$${:n1}$$ et $$${:n2}$$",
+        "audio": "Donne un nombre entre ${String(:n1).replace('.',',')} ( ) et ( ) ${String(:n2).replace('.',',')}.",
         "answer":"$$${:n1}\\lt\\color{red}{${:ni}}\\lt${:n2}$$",
         "value":"${:n1}-${:n2}"
     },{
         "name":"Entre deux centièmes consécutifs",
         "vars":{"a":"10_999","b":"${:a+1}","n1":"${math.round(:a/100,2)}","n2":"${math.round(:b/100,2)}","c":"d0.001_0.009_3","ni":"${math.round(:a/100+:c,3)}"},
         "question": "Donne un nombre entre $$${:n1}$$ et $$${:n2}$$",
+        "audio": "Donne un nombre entre ${String(:n1).replace('.',',')} ( ) et ( ) ${String(:n2).replace('.',',')}.",
         "answer":"$$${:n1}\\lt\\color{red}{${:ni}}\\lt${:n2}$$",
         "value":"${:n1}-${:n2}"
     },{
         "name":"Entre deux millèmes consécutifs",
         "vars":{"a":"10_9999","b":"${:a+1}","n1":"${math.round(:a/1000,3)}","n2":"${math.round(:b/1000,3)}","c":"d0.0001_0.0009_4","ni":"${math.round(:a/1000+:c,4)}"},
         "question": "Donne un nombre entre $$${:n1}$$ et $$${:n2}$$",
+        "audio": "Donne un nombre entre ${String(:n1).replace('.',',')} ( ) et ( ) ${String(:n2).replace('.',',')}.",
         "answer":"$$${:n1}\\lt\\color{red}{${:ni}}\\lt${:n2}$$",
         "value":"${:n1}-${:n2}"
     }

@@ -17,6 +17,7 @@
             "name":"Nombre de ... entier inférieur à $$1000$$",
             "vars":{"a0":"1_9","a":"0_9_2_^&,${:a0}", "b":"0_2", "c":"${:a0+''+:a.join('')}", "d":"${:u[:b]}"},
             "question":"Dans $$${:c}$$, quel est le nombre ${:b==2?'d’':'de '}<b>${:d}</b> ?",
+            "audio":"Dans ${:c}, quel est le nombre ${:b==2?'d’':'de '} ${:d} ?",
             "answer":"Dans $$${:c}$$, le nombre ${:b==2?'d’':'de '}<b>${:d}</b> est $$\\color{red}{${Math.floor(Number(:c)/Math.pow(10,2-:b))}}$$",
             "value":"${Math.floor(Number(:c)/Math.pow(10,2-:b))}"
         },{
@@ -26,6 +27,7 @@
             "name":"Nombre de ... entier inférieur à $$10000$$",
             "vars":{"a0":"1_9","a":"0_9_3_^&,${:a0}", "b":"0_3", "c":"${:a0+''+:a.join('')}", "d":"${:dm[:b]}"},
             "question":"Dans $$${:c}$$, quel est le nombre ${:b==0||:b==3?'d’':'de '}<b>${:d}</b> ?",
+            "audio":"Dans ${:c}, quel est le nombre ${:b==0||:b==3?'d’':'de '} ${:d} ?",
             "answer":"Dans $$${:c}$$, le nombre ${:b==0||:b==3?'d’':'de '}<b>${:d}</b> est $$\\color{red}{${Math.floor(Number(:c)/Math.pow(10,3-:b))}}$$",
             "value":"${Math.floor(Number(:c)/Math.pow(10,3-:b))}"
         },{
@@ -37,6 +39,7 @@
             "name":"Nombre de ... entier inférieur à $$1000000$$",
             "vars":{"a":"0_9_6_^&", "b":"0_5", "c":"${:a.join('')}", "d":"${:v[:b]}"},
             "question":"Dans $$${:c}$$, quel est le nombre ${:b==2||:b==5?'d’':'de '}<b>${:d}</b> ?",
+            "audio":"Dans ${:c}, quel est le nombre ${:b==2||:b==5?'d’':'de '} ${:d} ?",
             "answer":"Dans $$${:c}$$, le nombre ${:b==2||:b==5?'d’':'de '}<b>${:d}</b> est $$\\color{red}{${Math.floor(Number(:c)/Math.pow(10,5-:b))}}$$",
             "value":"${Math.floor(Number(:c)/Math.pow(10,5-:b))}"
         },{
@@ -48,6 +51,7 @@
             "name":"Nombre de ... entier inférieur à $$1000000000$$",
             "vars":{"a":"0_9_9_^&", "b":"0_8", "c":"${:a.join('')}", "d":"${:w[:b]}"},
             "question":"Dans $$${:c}$$, quel est le nombre ${:b==2||:b==5||:b==8?'d’':'de '}<b>${:d}</b> ?",
+            "audio":"Dans ${:c}, quel est le nombre ${:b==2||:b==5||:b==8?'d’':'de '} ${:d} ?",
             "answer":"Dans $$${:c}$$, le nombre ${:b==2||:b==5||:b==8?'d’':'de '}<b>${:d}</b> est $$\\color{red}{${Math.floor(Number(:c)/Math.pow(10,8-:b))}}$$",
             "value":"${Math.floor(Number(:c)/Math.pow(10,8-:b))}"
         }

@@ -4,10 +4,12 @@ import utils from './mods/utils.min.js';
 import common from './mods/common.min.js';
 import cart from './mods/cart.min.js';
 import Figure from './mods/figure.min.js';
+//import { format } from '@cortex-js/compute-engine/dist/types/compute-engine/public.js';
 const MM={}
 const content = document.getElementById("creator-content");
 const parameters = {};
 let separationFiches = false;
+let printMode = "normal";
 document.getElementById("creator-menu").onclick = (evt)=>{
     if(evt.target.id === "toggleCorriges"){
         if(parameters.posCorrection==="fin"){
@@ -74,6 +76,23 @@ document.getElementById("colorpickertitle").oncontextmenu = (evt)=>{
     changeColor("",'bgt',true);
     evt.target.value="#CCCCCC";
 }
+document.getElementById("btnPrintMode").onclick = (evt)=>{
+    if(evt.target.innerHTML === "Répéter chaque version"){
+        evt.target.innerHTML = "Supprimer les copies"
+    } else {
+        evt.target.innerHTML = "Répéter chaque version"
+    }
+    togglePrintMode();
+}
+document.getElementById("copiesByPage").oninput = (evt)=>{
+    let btn = document.getElementById("btnPrintMode")
+    if(evt.target.value === 0){
+        btn.innerHTML = "Répéter chaque version"
+    }
+    else btn.innerHTML = "Supprimer les copies"
+    togglePrintMode("multi");
+}
+document.getElementById("par4").onclick = ()=>{refresh()}
 /*
 let exercicesColumn = Array(${nbcols}).fill("column");
 let nbcols = ${nbcols};
@@ -226,8 +245,11 @@ function changeAnswerWidth(dest,width,changevalues=true){
         if(changevalues)
             document.querySelectorAll(".answidth").forEach(el=>{el.value=width});
     } else {
-        document.querySelectorAll(".ceinture .col"+dest+".flex:not(.column) .ans").forEach(el=>{
+        document.querySelectorAll(".ceinture .col"+dest+".flex:not(.column) div.ans").forEach(el=>{
             el.style["width"] = width+"%";
+        })
+        document.querySelectorAll(".ceinture .col"+dest+".flex:not(.column) span.ans").forEach(el=>{
+            el.style["width"] = width+"pt";
         })
         document.querySelectorAll(".ceinture .col"+dest+".flex.column .ans").forEach(el=>{
             el.style["width"] = "";
@@ -352,6 +374,37 @@ function displayEval(){
         })
     }
 }
+/**
+ * toggle plusieurs mêmes ceintures par page
+ */
+function togglePrintMode(mode=undefined){
+    // on supprime les 
+    document.querySelectorAll("div.ceinture:not(.original)").forEach(el=>{
+        el.parentNode.removeChild(el);
+    })
+    let nb = document.getElementById("copiesByPage").value||3
+
+    if(mode === "multi"){
+        printMode = "multi"
+    } else if(printMode === "normal"){
+        printMode = "multi"
+    } else {
+        printMode = "normal"
+    }
+    if(printMode === "multi") {
+        document.querySelectorAll("div.ceinture.original").forEach(
+            el => {
+                for(let i=0;i<nb;i++){
+                    let copyEl = el.cloneNode(true);
+                    copyEl.classList.remove("original");
+                    document.getElementById("creator-content").insertBefore(copyEl, el.nextSibling);
+                }
+            })
+    }
+}
+/**
+ * Crée la page
+ */
 function makePage(){
     content.innerHTML = "";
     MM.memory = {};
@@ -363,6 +416,9 @@ function makePage(){
         correction = utils.create("div",{id:"correction",className:"pagebreak"});
         correction.appendChild(utils.create("div",{innerHTML:"Correction"}));
     }
+    let par4 = false;
+    if(document.getElementById("par4").checked)par4= true;
+    let divsPar4=[];
     // recréation des boutons individuels de dimensions
     let textSizes = document.getElementById("textSizes");
     let colSizes = document.getElementById("columnsWidth");
@@ -390,9 +446,12 @@ function makePage(){
     // on crée autant de ceintures que demandées      
     for(let qty=0;qty<parameters.nb;qty++){
         // un conteneur pour la ceinture
-        let ceinture = utils.create("div",{className:"ceinture"});
+        let ceinture = utils.create("div",{className:"ceinture original"});
         // un conteneur pour le corrigé
         let corrige = utils.create("div",{className:"ceintCorrige corrige"});
+        if(qty%4===0 && par4){
+            divsPar4.push(utils.create("div",{className:"parquatre"}))
+        }
         common.generateQuestions(parameters);
         let header = utils.create("div",{className:"ceinture-header evaluation"});
         // Entêtes
@@ -440,13 +499,20 @@ function makePage(){
                 let ligne = utils.create("div",{className:"flex border-black col"+colsid,style:"grid-column:"+colsid});
                 let divQuestion = utils.create("div",{className:"valign"});
                 let ligneCorr = utils.create("div",{className:"grid border-black"});
+                let divans=`<div class="bg-grey ans answer ${colsid}" style="height:20pt;"></div>`;
+                let content = activity.shortQuestions[j]||activity.questions[j];
+                let ansInside = false;
+                if(content.indexOf("_")>-1){
+                    ansInside = true;
+                    divans = `<span class="bg-grey ans answer ${colsid}" style="height:20pt;"></span>`
+                }
                 if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
                     let divq = utils.create("div",{className:"question"+colsid+" quest"});
-                    let span = utils.create("span",{className:"math", innerHTML:activity.shortQuestions[j]||activity.questions[j]});
+                    let span = utils.create("span",{className:"math", innerHTML:content});
                     divq.appendChild(span);
                     divQuestion.appendChild(divq);
                 } else {
-                    divQuestion.appendChild(utils.create("div",{innerHTML:activity.shortQuestions[j]||activity.questions[j],className:"question"+colsid+" quest"}));
+                    divQuestion.appendChild(utils.create("div",{innerHTML:content,className:"question"+colsid+" quest"}));
                 }
                 if(activity.figures[j] !== undefined){
                     let divfig = utils.create("div",{className:"fig"});
@@ -455,12 +521,18 @@ function makePage(){
                 }
                 ligne.appendChild(divQuestion);
                 let value = activity.values[j];
-                if(Array.isArray(value))value=value[0];
-                let spanc = utils.create("span", {className:"math", innerHTML:value});
+                if(Array.isArray(value))value=value[0];                
+                let spanc = utils.create("span", {innerHTML:value});
+                if(activity.type === undefined || activity.type === "latex"){
+                    spanc.classList.add("math");
+                }
                 ligneCorr.appendChild(spanc);
                 divCorr[colsid].push(ligneCorr);
-                let divans = utils.create("div",{className:"bg-grey ans answer"+colsid,style:"height:20pt;"});
-                ligne.appendChild(divans);
+                if(ansInside){
+                    ligne.innerHTML = ligne.innerHTML.replaceAll("_",divans);
+                } else {
+                    ligne.innerHTML += divans;
+                }
                 cols[colsid].push(ligne);
                 if(nbq%parameters.nbrows === 0 && parameters.nbrows>0){
                     if(parameters.pied !== ""){
@@ -484,7 +556,11 @@ function makePage(){
             }
         }
         corrige.appendChild(divColsCorrige);
-        if(parameters.posCorrection === "fin")
+        if(par4){
+            divsPar4[divsPar4.length-1].appendChild(corrige);
+            if(qty%4===3)
+                content.appendChild(divsPar4[divsPar4.length-1]);
+        } else if(parameters.posCorrection === "fin")
             correction.appendChild(corrige);
         else {
             content.appendChild(corrige);
@@ -492,7 +568,7 @@ function makePage(){
     }
     //content.appendChild(utils.create("div",{className:"footer"}));
     // on ajoute la correction à la fin.
-    if(parameters.posCorrection ==="fin")
+    if(parameters.posCorrection ==="fin" && !par4)
         content.appendChild(correction);
     if(parameters.colorbd !== undefined){
         changeColor(parameters.colorbd,'bd');

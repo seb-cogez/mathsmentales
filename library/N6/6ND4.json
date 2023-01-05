@@ -1,24 +1,23 @@
 {
-    "title":"Complément à une dizaine, une centaine",
+    "title":"📣 Complément à une dizaine, une centaine",
     "type":"text",
     "ID":"6ND4",
     "textSize":"medium",
     "dest":["6ND", "7ND", "8ND"],
     "options":[{
         "name":"Trouver le complément à une dizaine",
-        "question": ["Combien manque-t-il à ${:c} pour faire ${:b} ?",
-            "$$${:c}+?=${:b}$$",
-            "$$${:b}-${:c}$$"],
-        "answer":"$$${:c}+\\color{red}{${:b-:c}}=${:b}$$",
         "vars":{"a":"2_9", "b":"${10*:a}", "c":"2_${:b-1}"}
     },{
         "name":"Trouver le complément à une centaine",
-        "question": ["Combien manque-t-il à ${:c} pour faire ${:b} ?",
-            "$$${:c}+?=${:b}$$",
-            "$$${:b}-${:c}$$"],
-        "answer":"$$${:c}+\\color{red}{${:b-:c}}=${:b}$$",
         "vars":{"a":"2_9", "b":"${100*:a}", "c":"2_${:b-1}"}
     }
     ],
+    "question": ["Combien manque-t-il à ${:c} pour faire ${:b} ?",
+    "$$${:c}+?=${:b}$$",
+    "$$${:b}-${:c}$$"],
+    "audio": ["Combien manquetil à ${:c} pour faire ${:b} ?",
+        "${:c} plusse combien pour faire ${:b} ?",
+        "Calcule ${:b} moins ${:c}."],
+    "answer":"$$${:c}+\\color{red}{${:b-:c}}=${:b}$$",
     "value":"${:b-:c}"
 }

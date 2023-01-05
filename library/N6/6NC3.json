@@ -1,5 +1,5 @@
 {
-    "title":"Encadrer un décimal",
+    "title":"📣 Encadrer un décimal",
     "type":"text",
     "description":"Donner les deux nombres encadrant, le plus petit d'abord, séparés par un point-virgule",
     "keys":["_","_","_",";"],
@@ -14,6 +14,7 @@
             "b":"d0_${:a}_${:c}_^0"
         },
         "question": "Encadrer $$${:b}$$ par deux décimaux, au dixième près",
+        "audio": "Encadrer ${String(:b).replace('.',',')} par deux décimaux, au dixième près",
         "answer":"$$\\color{red}{${math.valeurParDefaut(:b,1)}} \\leqslant ${:b} \\lt \\color{red}{${math.valeurParExces(:b,1)}}$$ au dixième",
         "value":"${math.valeurParDefaut(:b,1)};${math.valeurParExces(:b,1)}"
     },
@@ -25,6 +26,7 @@
             "b":"d0_${:a}_${:c}_^0"
         },
         "question": "Encadrer $$${:b}$$ par deux décimaux, au centième près",
+        "audio": "Encadrer ${String(:b).replace('.',',')} par deux décimaux, au centième près",
         "answer":"$$\\color{red}{${math.valeurParDefaut(:b,2)}} \\leqslant ${:b} \\lt \\color{red}{${math.valeurParExces(:b,2)}}$$ au centième",
         "value":"${math.valeurParDefaut(:b,2)};${math.valeurParExces(:b,2)}"
     },
@@ -36,6 +38,7 @@
             "b":"d0_${:a}_${:c}_^0"
         },
         "question": "Encadrer $$${:b}$$ par deux décimaux, au millième près",
+        "audio": "Encadrer ${String(:b).replace('.',',')} par deux décimaux, au millième près",
         "answer":"$$\\color{red}{${math.valeurParDefaut(:b,3)}} \\leqslant ${:b} \\lt \\color{red}{${math.valeurParExces(:b,3)}}$$ au millième",
         "value":"${math.valeurParDefaut(:b,3)};${math.valeurParExces(:b,3)}"
     },{
@@ -46,6 +49,7 @@
             "b":"d0_${:a}_${:c}_^0"
         },
         "question": "Encadrer $$${:b}$$ par deux entiers consécutifs",
+        "audio": "Encadrer ${String(:b).replace('.',',')} par deux entiers consécutifs",
         "answer":"$$\\color{red}{${Math.floor(:b)}} \\leqslant ${:b} \\lt \\color{red}{${Math.ceil(:b)}}$$ à l'unité",
         "value":"${Math.floor(:b)};${Math.ceil(:b)}"
     },
@@ -57,6 +61,7 @@
             "b":"d10_${:a}_${:c}_^0"
         },
         "question": "Encadrer $$${:b}$$ par deux dizaines consécutives",
+        "audio": "Encadrer ${String(:b).replace('.',',')} par deux dizaines consécutives",
         "answer":"$$\\color{red}{${math.valeurParDefaut(:b,-1)}} \\leqslant ${:b} \\lt \\color{red}{${math.valeurParExces(:b,-1)}}$$ à la dizaine",
         "value":"${math.valeurParDefaut(:b,-1)};${math.valeurParExces(:b,-1)}"
     },
@@ -68,6 +73,7 @@
             "b":"d100_${:a}_${:c}_^0"
         },
         "question": "Encadrer $$${:b}$$ par deux centaines consécutives",
+        "audio": "Encadrer ${String(:b).replace('.',',')} par deux centaines consécutives",
         "answer":"$$\\color{red}{${math.valeurParDefaut(:b,-2)}} \\leqslant ${:b} \\lt \\color{red}{${math.valeurParExces(:b,-2)}}$$ à la centaine",
         "value":"${math.valeurParDefaut(:b,-2)};${math.valeurParExces(:b,-2)}"
     }

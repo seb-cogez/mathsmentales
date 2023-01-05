@@ -1,5 +1,5 @@
 {
-    "title":"Somme d'entiers de 2 à 4 chiffres",
+    "title":"📣 Somme d'entiers de 2 à 4 chiffres",
     "ID":"6ND2",
     "dest":["8ND", "7ND", "6ND"],
     "options":[{
@@ -14,6 +14,7 @@
     }
     ],
     "question":"${:a}+${:b}",
+    "audio":"Calcule ${:a} pluss ${:b}",
     "answer":":question = \\color{red}{${:a+:b}}",
     "value":"${:a+:b}"
 }
