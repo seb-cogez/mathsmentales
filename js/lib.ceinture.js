@@ -502,8 +502,8 @@ function makePage(){
                 let divans=`<div class="bg-grey ans answer ${colsid}" style="height:20pt;"></div>`;
                 let content = activity.shortQuestions[j]||activity.questions[j];
                 let ansInside = false;
-                if(content.indexOf("_")>-1){
-                    ansInside = true;
+                if(String(content).indexOf("_")>-1){
+                    ansInside = true; 
                     divans = `<span class="bg-grey ans answer ${colsid}" style="height:20pt;"></span>`
                 }
                 if(activity.type === "latex" || activity.type === "" || activity.type === undefined){

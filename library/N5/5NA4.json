@@ -20,7 +20,7 @@
         "vars":{"c":"1_100","p":"-3_0","dec":"1_3_2","d1":"${math.round(utils.alea(), :dec[0])*Number(10+'e'+:p)+:c}","d2":"${math.round(utils.alea(), :dec[1])*Number(10+'e'+:p)+:c}","a":"${-math.round(:d1,6)}","b":"${-math.round(:d2,6)}"}
     }],
     "question":"Comparer $$${:a}$$ et $$${:b}$$.",
-    "shortq":"$$${:a}$$ ? $$${:b}$$",
+    "shortq":"$$${:a}$$ _ $$${:b}$$",
     "answer":"$$${:a} \\color{red}{${:a>:b?'\\gt '::a<:b?'\\lt ':'='}} ${:b}$$",
     "value":["${:a>:b?'>'::a<:b?'<':'='}","${:a>:b?'\\gt'::a<:b?'\\lt':'='}"]
 }

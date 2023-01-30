@@ -101,7 +101,7 @@ ainsi que des *données optionnelles* :
 * Pour l'activité ou une option :
   * **value** : chaine ou tableau de chaines contenant les réponses attendues dans le formulaire de réponse en ligne
   * **figure** : chaine contenant une figure illustrant l'activité
-  * **shortq** : question au format court (pas la consigne par exemple) pour un export plus lisible dans les ceintures, doit suivre la forme de "questions" : une chaine ou un tableau
+  * **shortq** : question au format court (pas la consigne par exemple) pour un export plus lisible dans les ceintures, doit suivre la forme de "questions" : une chaine ou un tableau. Si l'on met un caractère "_", il fera office d'emplacement pour la réponse.
   * **keys** : tableau d'au plus huit éléments contenant les touches optionnelles pour le clavier virtuel.
   * **audio** : texte à faire lire par le moteur text to speech de l'appareil utilisé, souvent la question dépouillée de mise en forme. Il faut parfois bidouiller, car les maths ne sont pas toujours lues correctement.
   * **valueType** : chaine qui indique le type de réponse attendue, pour une correction en ligne plus précise
@@ -123,7 +123,7 @@ ainsi que des *données optionnelles* :
  * les caractères a, b, c, e, t, :, u, v, x, y, z, A, L
 ---
 ### à faire à l'insertion d'un nouvel exercice
-à l'aide de Node.js (à installer) lancer library/scan.js pour recréer le fichier qui référence tous les exercices dans une arborescence chargée au lancement de MathsMentales
+à l'aide de Node.js (à installer) lancer library/scan.js pour recréer le fichier qui référence tous les exercices dans une arborescence chargée au lancement de MathsMentales. Pour cela, dans Le terminal de VSC, taper cd library puis node scan
 
 ### Fichiers exemple :
 

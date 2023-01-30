@@ -10,12 +10,12 @@
         "question": ["${:h} h ${:min} min = ? h", "${:h} : ${utils.toDigits(:min,2)} = ? h"],
         "audio":["Quelle est l'écriture décimale en heures de ${:h} heures ${:min} minutes ?",
         "Quelle est l'écriture décimale en heures de ${:h} heures ${:min} ?"],
-        "answer":"${:h} h ${:min} = <span class='red'>$$${:h+:dec}$$ h</span>",
+        "answer":"${:h} h ${:min} min = <span class='red'>$$${:h+:dec}$$ h</span>",
         "value":["${:h+:dec}h","${:h+:dec}"]
         },{
         "name":"CM : valeurs par quarts h => h min",
         "vars":{"h":"0_23","m":"0_3","min":"${:m*15}", "dec":"${math.round(:min/60,2)}"},
-        "question": "$$${:h+:dec}$$ h = ? h min",
+        "question": "$$${:h+:dec}$$ h = ? h ? min",
         "audio":"Convertir en heures et minutes ${String(:h+:dec).replace('.',',')} heures.",
         "answer":"$$${:h+:dec}$$ h = <span class='red'>${:h} h ${:min}</span>",
         "value":["${:h}h${utils.toDigits(:min,2)}min","${:h}:${utils.toDigits(:min,2)}","${:h}h${:min}min","${:h}h${:min}"]
@@ -25,12 +25,12 @@
         "question": ["${:h} h ${:min} min = ? h", "${:h} : ${utils.toDigits(:min,2)} = ? h"],
         "audio":["Quelle est l'écriture décimale en heures de ${:h} heures ${:min} minutes ?",
         "Quelle est l'écriture décimale en heures de ${:h} heures ${:min} ?"],
-        "answer":"${:h} h ${:min} = <span class='red'>$$${:h+:dec}$$ h</span>",
+        "answer":"${:h} h ${:min} min = <span class='red'>$$${:h+:dec}$$ h</span>",
         "value":["${:h+:dec}h","${:h+:dec}"]
         },{
             "name":"Collège : valeurs par dixièmes h => h min",
             "vars":{"h":"0_23","m":"0_9","min":"${:m*6}", "dec":"${math.round(:min/60,2)}"},
-            "question": "$$${:h+:dec}$$ h = ? h min",
+            "question": "$$${:h+:dec}$$ h = ? h ? min",
             "audio":"Convertir en heures et minutes ${String(:h+:dec).replace('.',',')} heures.",
             "answer":"$$${:h+:dec}$$ h = <span class='red'>${:h} h ${utils.toDigits(:min,2)}</span>",
             "value":["${:h}h${utils.toDigits(:min,2)}min","${:h}:${utils.toDigits(:min,2)}","${:h}h${:min}min","${:h}h${:min}"]
@@ -45,7 +45,7 @@
         },{
             "name":"Collège : valeurs par 5 centièmes h => h min",
             "vars":{"h":"0_23","m":"0_19","min":"${:m*3}", "dec":"${math.round(:min/60,2)}"},
-            "question": "$$${:h+:dec}$$ h = ? h min",
+            "question": "$$${:h+:dec}$$ h = ? h ? min",
             "audio":"Convertir en heures et minutes ${String(:h+:dec).replace('.',',')} heures.",
             "answer":"$$${:h+:dec}$$ h = <span class='red'>${:h} h ${utils.toDigits(:min,2)}</span>",
             "value":["${:h}h${utils.toDigits(:min,2)}min","${:h}:${utils.toDigits(:min,2)}","${:h}h${:min}min","${:h}h${:min}"]
