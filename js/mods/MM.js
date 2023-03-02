@@ -425,7 +425,6 @@ const MM = {
         }
         enonces.innerHTML="";
         corriges.innerHTML="";
-        MM.setSeed();
         MM.copyURLtoHistory();
         // parcours des paniers
         for(let i=0;i<length;i++){
@@ -719,7 +718,7 @@ const MM = {
     /**
      * Start the slideshow
      */
-    start:function(){
+    start:function(samedata=false){
         if(!MM.carts[0].activities.length){
             MM.carts[0].addActivity(MM.editedActivity);
         }
@@ -743,6 +742,12 @@ const MM = {
         // check if an option has been chosen
         MM.checkIntro();
         MM.createSlideShows();
+        // if restart true, we restart with same values
+        if(!samedata){
+            MM.setSeed()
+        }else {
+            MM.setSeed(document.getElementById("aleaKey").value);
+        }
         MM.populateQuestionsAndAnswers();
         if(MM.introType === "321"){
             document.getElementById("countdown-container").className = "";
@@ -1397,6 +1402,7 @@ const MM = {
         if(!MM.carts[0].activities.length)
             MM.carts[0].addActivity(MM.editedActivity);
         MM.createSlideShows();
+        MM.setSeed();
         MM.populateQuestionsAndAnswers();
         MM.showTab(document.querySelector("[numero='#tab-enonce'].tabs-menu-link"));
         if(MM.carts.length === 1 && MM.carts[0].activities.length === 1){
@@ -1408,6 +1414,7 @@ const MM = {
         if(!MM.carts[0].activities.length)
             MM.carts[0].addActivity(MM.editedActivity);
         MM.createSlideShows();
+        MM.setSeed();
         MM.populateQuestionsAndAnswers();
         MM.showTab(document.querySelector("[numero='#tab-corrige'].tabs-menu-link"));
         if(MM.carts.length === 1 && MM.carts[0].activities.length === 1){

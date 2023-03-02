@@ -121,7 +121,7 @@ export default class activity {
         "~p="+this.chosenQuestionTypes+
         "~t="+this.tempo+
         "~n="+this.nbq+
-        (this.audioRead==true?"~au="+this.audioRead+"~ar="+this.audioRepeat:"");
+        (this.audioRead===true?"~au="+this.audioRead+"~ar="+this.audioRepeat:"");
     }
     /**
      * import datas et crée l'objet activité à partir d'un json
@@ -543,22 +543,24 @@ export default class activity {
                 let regex = /:question/g;
                 chaine = chaine.replace(regex, questiontext);
             }
-        //debug("Chaine à parser", chaine);
-        let result = "";
-        // doublage des \ caractères d'échapement.
-        try { result = eval("`"+chaine.replace(/\\/g,"\\\\")+"`");}
-        catch(error){
-            utils.debug(error, "Erreur avec "+chaine);
-        }
-        // return number if this is one
-        if(!isNaN(result)){
-            return parseFloat(result);
-        } else return result;
+            //debug("Chaine à parser", chaine);
+            let result = "";
+            // doublage des \ caractères d'échapement.
+            try { result = eval("`"+chaine.replace(/\\/g,"\\\\")+"`");}
+            catch(error){
+                utils.debug(error, "Error replacing vars with "+chaine);
+            }
+            // return number if this is one
+            if(!isNaN(result)){
+                return parseFloat(result);
+            } else return result;
         } else if(typeof chaine === "object"){
+            // case 1 : it's an array
             if(_.isArray(chaine)){
                 for(let i=0;i<chaine.length;++i){
                     chaine[i] = this.replaceVars(chaine[i],questiontext);
                 }
+                // case 2 : it's an object
             } else for(const i in chaine){
                 chaine[i] = this.replaceVars(chaine[i],questiontext);
             }
@@ -762,6 +764,8 @@ export default class activity {
             // il peut y avoir des variables utilisées dans les constantes. bizarre, mais pratique
             if(this.cConsts !== undefined){
                 this.cConsts = this.replaceVars(this.cConsts);
+                // il faut retraiter les wVars au cas où elles contiennent des constantes
+                this.wVars = this.replaceVars(this.wVars);
             }
             if(!sample){
             // question text generation

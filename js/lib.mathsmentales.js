@@ -280,11 +280,11 @@ window.onload = function(){
                 MM.annotateThisThing('corrige-content', target.id)
                 break
             case "btn-restart-otherdata":
-                utils.setSeed(utils.seedGenerator());
                 MM.start()
                 break
             case "btn-restart-samedata":
-                MM.start()
+                // the true value force to restart with same datas
+                MM.start(true)
                 break
             default:
                 break

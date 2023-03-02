@@ -105,7 +105,8 @@ ainsi que des *données optionnelles* :
   * **keys** : tableau d'au plus huit éléments contenant les touches optionnelles pour le clavier virtuel.
   * **audio** : texte à faire lire par le moteur text to speech de l'appareil utilisé, souvent la question dépouillée de mise en forme. Il faut parfois bidouiller, car les maths ne sont pas toujours lues correctement.
   * **valueType** : chaine qui indique le type de réponse attendue, pour une correction en ligne plus précise
-    * "liste" pour des listes de nombres séparées par des point-virgule
+    * "liste" pour des listes de nombres séparées par des point-virgule de type "3;2;54;5.4"
+    * "inInterval" pour des nombres situés dans des intervalles de type "1.6-6.45"
  
  Le tableau de touches par défaut est ["÷","×","-","+","(","x","x²","√"];
  

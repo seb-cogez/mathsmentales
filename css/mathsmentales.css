@@ -186,7 +186,7 @@ mark {
 .bold {
   font-weight: bold;
 }
-#tab-enonce li, #tab-corrige li {
+#tab-enonce ol > li, #tab-corrige ol > li {
   padding: 4px 10px 4px;
 }
 /* Range input, from http://danielstern.ca/range.css/ */
@@ -891,9 +891,17 @@ ul.cart-list{
     list-style-type:none;
     padding-left: 2em;
 }
+#activityOptions ul ul {
+  list-style-type:circle;
+  padding-left: 2em;
+}
 #activityOptions li {
   padding-top: 9px;
 }
+#activityOptions ul ul li{
+  padding-top: 3px;
+}
+
 #startbuttons {
     font-size:1.1em;
     margin:1em;
@@ -960,11 +968,11 @@ ul.cart-list{
   counter-reset: pas;
   padding-left: 2rem;
 }
-#tab-enonce ol li, #tab-corrige ol li{
+#tab-enonce ol > li, #tab-corrige ol > li{
   counter-increment: pas;
   list-style: none;
 }
-#tab-enonce ol li::before, #tab-corrige ol li::before{
+#tab-enonce ol > li::before, #tab-corrige ol > li::before{
   content: counter(pas) ")";
   margin-right: 0.8em;
   text-align: right;
@@ -973,10 +981,10 @@ ul.cart-list{
   display: inline-block;
   width: 1em;
 }
-.alpha #tab-enonce ol li::before, .alpha #tab-corrige ol li::before{
+.alpha #tab-enonce ol > li::before, .alpha #tab-corrige ol > li::before{
   content: counter(pas, lower-greek) ")";
 }
-.MAJUSCULE #tab-enonce ol li::before, .MAJUSCULE #tab-corrige ol li::before{
+.MAJUSCULE #tab-enonce ol > li::before, .MAJUSCULE #tab-corrige ol > li::before{
   content: counter(pas, upper-alpha) ")";
 }
 

@@ -17,7 +17,7 @@
         "vars":{"h":"0_23","m":"0_3","min":"${:m*15}", "dec":"${math.round(:min/60,2)}"},
         "question": "$$${:h+:dec}$$ h = ? h ? min",
         "audio":"Convertir en heures et minutes ${String(:h+:dec).replace('.',',')} heures.",
-        "answer":"$$${:h+:dec}$$ h = <span class='red'>${:h} h ${:min}</span>",
+        "answer":"$$${:h+:dec}$$ h = <span class='red'>${:h} h ${:min} min</span>",
         "value":["${:h}h${utils.toDigits(:min,2)}min","${:h}:${utils.toDigits(:min,2)}","${:h}h${:min}min","${:h}h${:min}"]
         },{
         "name":"Collège : valeurs par dixièmes h min => h",
@@ -32,7 +32,7 @@
             "vars":{"h":"0_23","m":"0_9","min":"${:m*6}", "dec":"${math.round(:min/60,2)}"},
             "question": "$$${:h+:dec}$$ h = ? h ? min",
             "audio":"Convertir en heures et minutes ${String(:h+:dec).replace('.',',')} heures.",
-            "answer":"$$${:h+:dec}$$ h = <span class='red'>${:h} h ${utils.toDigits(:min,2)}</span>",
+            "answer":"$$${:h+:dec}$$ h = <span class='red'>${:h} h ${utils.toDigits(:min,2)} min</span>",
             "value":["${:h}h${utils.toDigits(:min,2)}min","${:h}:${utils.toDigits(:min,2)}","${:h}h${:min}min","${:h}h${:min}"]
             },{
         "name":"Collège : valeurs par 5 centièmes h min => h",
@@ -47,7 +47,7 @@
             "vars":{"h":"0_23","m":"0_19","min":"${:m*3}", "dec":"${math.round(:min/60,2)}"},
             "question": "$$${:h+:dec}$$ h = ? h ? min",
             "audio":"Convertir en heures et minutes ${String(:h+:dec).replace('.',',')} heures.",
-            "answer":"$$${:h+:dec}$$ h = <span class='red'>${:h} h ${utils.toDigits(:min,2)}</span>",
+            "answer":"$$${:h+:dec}$$ h = <span class='red'>${:h} h ${utils.toDigits(:min,2)} min</span>",
             "value":["${:h}h${utils.toDigits(:min,2)}min","${:h}:${utils.toDigits(:min,2)}","${:h}h${:min}min","${:h}h${:min}"]
             }
     ]
