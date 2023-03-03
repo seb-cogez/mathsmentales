@@ -9,25 +9,25 @@
     "options":[{
         "name":"ax+b, avec entiers positifs",
         "vars":{"coeff":"2_10", "a":"1_10","b":"1_10","div":"${math.pgcd(:a*:coeff,:b*:coeff)}","l":"0_3","x":"${:lettres[:l]}"},
-        "question": "\\text{Factoriser au maximum }${:coeff*:a}${:x}+${:coeff*:b}",
+        "question": "\\text{Factoriser au maximum }\\\\${:coeff*:a}${:x}+${:coeff*:b}",
         "answer":"${:coeff*:a}${:x}+${:coeff*:b}=\\color{red}{${:div}(${math.signIfOne(:a*:coeff/:div)}${:x}+${:b*:coeff/:div})}",
         "value":"${:div}(${math.signIfOne(:a*:coeff/:div)}${:x}+${:b*:coeff/:div})"
     },{
         "name":"ax+b, avec entiers relatifs",
         "vars":{"coeff":"-10_10_^0,1,-1", "a":"-10_10_^0","b":"-10_10_^0","div":"${math.pgcd(:a*:coeff,:b*:coeff)}","l":"0_3","x":"${:lettres[:l]}"},
-        "question": "\\text{Factoriser au maximum }${:coeff*:a}${:x}${math.signedNumber(:coeff*:b)}",
+        "question": "\\text{Factoriser au maximum }\\\\${:coeff*:a}${:x}${math.signedNumber(:coeff*:b)}",
         "answer":"${:coeff*:a}${:x}${math.signedNumber(:coeff*:b)}=\\color{red}{${:div}(${math.signIfOne(:a*:coeff/:div)}${:x}${math.signedNumber(:b*:coeff/:div)})}",
         "value":"${:div}(${math.signIfOne(:a*:coeff/:div)}${:x}${math.signedNumber(:b*:coeff/:div)})"
     },{
         "name":"ax²+b, avec entiers relatifs",
         "vars":{"coeff":"-10_10_^0,1,-1", "a":"-10_10_^0","b":"-10_10_^0","div":"${math.pgcd(:a*:coeff,:b*:coeff)}","l":"0_3","x":"${:lettres[:l]}"},
-        "question": "\\text{Factoriser au maximum }${:coeff*:a}${:x}^2${math.signedNumber(:coeff*:b)}",
+        "question": "\\text{Factoriser au maximum }\\\\${:coeff*:a}${:x}^2${math.signedNumber(:coeff*:b)}",
         "answer":"${:coeff*:a}${:x}^2${math.signedNumber(:coeff*:b)}=\\color{red}{${:div}(${math.signIfOne(:a*:coeff/:div)}${:x}^2${math.signedNumber(:b*:coeff/:div)})}",
         "value":"${:div}(${math.signIfOne(:a*:coeff/:div)}${:x}^2${math.signedNumber(:b*:coeff/:div)})"
     },{
         "name":"ax²+bx, avec entiers relatifs",
         "vars":{"coeff":"-10_10_^0,1,-1", "a":"-10_10_^0","b":"-10_10_^0","div":"${math.pgcd(:a*:coeff,:b*:coeff)}","l":"0_3","x":"${:lettres[:l]}"},
-        "question": "\\text{Factoriser au maximum }${:coeff*:a}${:x}^2${math.signedNumber(:coeff*:b)}${:x}",
+        "question": "\\text{Factoriser au maximum }\\\\${:coeff*:a}${:x}^2${math.signedNumber(:coeff*:b)}${:x}",
         "answer":"${:coeff*:a}${:x}^2${math.signedNumber(:coeff*:b)}${:x}=\\color{red}{${:div}${:x}(${math.signIfOne(:a*:coeff/:div)}${:x}${math.signedNumber(:b*:coeff/:div)})}",
         "value":"${:div}${:x}(${math.signIfOne(:a*:coeff/:div)}${:x}${math.signedNumber(:b*:coeff/:div)})"
     }
