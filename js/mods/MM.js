@@ -142,7 +142,21 @@ const MM = {
         document.getElementById("audiorepeat").value = value;
     },
     setIntroType(value){
-        this.introType = value;
+        if(value === "nothing"){
+            this.introType = value;
+            document.getElementById("radiobeforeslider1").checked = false;
+            document.getElementById("radiobeforeslider2").checked = false;
+        } else {
+            this.introType = [];
+            document.getElementById("radiobeforeslider3").checked = false;
+            if(document.getElementById("radiobeforeslider1").checked){
+                this.introType.push("example")
+            }
+            if(document.getElementById("radiobeforeslider1").checked){
+                this.introType.push("-321");
+            }
+            this.introType = this.introType.join("-");
+        }
     },
     setOnlineState(value){
         this.onlineState = value;
@@ -220,6 +234,7 @@ const MM = {
         // on check tous les boutons radio en fonction des valeurs en méméoire
         utils.checkRadio("direction",this.slidersOrientation);
         utils.checkRadio("beforeSlider",this.introType);
+        utils.checkCheckbox("beforeSlider", this.introType.split("-"));
         utils.checkRadio("endOfSlideRadio",this.endType);
         utils.checkRadio("online",this.onlineState);
         utils.checkRadio("facetoface",this.faceToFace);
@@ -763,7 +778,7 @@ const MM = {
                 MM.showSlideShows();
                 MM.startTimers();
             },3600);
-        } else if(MM.introType ==="example"){
+        } else if(MM.introType.indexOf("example")>-1){
             // on affiche un exemple
             MM.showSampleQuestion();
             MM.showSlideShows();
@@ -1594,7 +1609,23 @@ const MM = {
         if(MM.onlineState === "yes" && !MM.touched){
             document.getElementById("ansInput0-0").focus();
         }
-        MM.startTimers();
+        if(MM.introType === ("example-321")){ // case with 
+            document.getElementById("countdown-container").className = "";
+            if(sound.selected){
+                setTimeout(()=>{sound.beeps();},800);
+                setTimeout(()=>{sound.setSound(sound.selected)},3500);
+            }
+            setTimeout(function(){
+                document.getElementById("countdown-container").className = "hidden";
+                if(MM.onlineState === "yes") { // create inputs for user
+                    MM.createUserInputs();
+                }
+                MM.showSlideShows();
+                MM.startTimers();
+            },3600);
+        } else {
+            MM.startTimers();
+        }
     },
     /**
      * 

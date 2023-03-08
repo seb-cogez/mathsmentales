@@ -45,12 +45,41 @@ const utils = {
     goToOldVersion(){
         window.location.href = (utils.baseURL + 'old/').replace("index.htmlold","old") +(/(^.*\/)(.*)/.exec(window.location.href)[2]);
     },
+    /**
+     * Performs check on radio button with name and value
+     * @param {String} name 
+     * @param {String} value 
+     * @returns 
+     */
     checkRadio(name,value){
         let domElt =  document.querySelector("input[type=radio][name='"+name+"'][value='"+value+"']");
         if(domElt)
-            domElt.click();
+            domElt.checked = true;
         else
             return false;
+    },
+    /**
+     * performs check on checkbox inputs from name and values
+     * @param {String} name 
+     * @param {String, Array} values 
+     * @returns 
+     */
+    checkCheckbox(name,value){
+        // remise à zéro de tous les éléments
+        document.querySelectorAll("input[type='checkbox'][name='"+name+"']").forEach(el=>{
+            el.checked = false;
+        })
+        if(_.isArray(value)){
+            value.forEach(el =>{
+                let domElt = document.querySelector("input[type=checkbox][name='"+name+"'][value='"+el+"']");
+                if(domElt)
+                    domElt.checked = true;
+                    })
+        } else {
+            let domElt = document.querySelector("input[type=checkbox][name='"+name+"'][value='"+value+"']");
+            if(domElt)
+                domElt.checked = true;
+        }
     },
     selectOption(id,value){
         let domElt = document.getElementById(id);
@@ -286,12 +315,15 @@ const utils = {
      */
     getRadioChecked:function(name){
         let radio = document.getElementsByName(name);
+        let returnValues = []
         for(let i=0,length=radio.length;i<length;i++){
             if(radio[i].checked){
-                return radio[i].value;
+                returnValues.push(radio[i].value);
             }
         }
-        return false;
+        if(returnValues.length > 1) return returnValues.join("-");
+        else if(returnValues.length === 1) return returnValues[0];
+        else return false;
     },
     /**
      * 

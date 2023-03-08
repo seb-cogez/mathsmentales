@@ -6,6 +6,7 @@
     "textSize":"medium",
     "dest":["5NA", "4NA", "3NA"],
     "consts":{"voc":["petit","grand"]},
+    "keys":["_","_","<",">","_","_","_","_"],
     "options":[{
         "name":"Nombres de signes contraires",
         "vars":{"nd":"1_3_2","sign":"-1_1_^0","d0":"d0.1_10_${:nd[0]}", "d1":"d-10_-0.1_${:nd[1]}","a":"${math.round(:sign*:d0,6)}","b":"${math.round(:sign*:d1,6)}"}
