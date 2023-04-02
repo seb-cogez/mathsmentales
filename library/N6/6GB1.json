@@ -1,6 +1,7 @@
 {
-    "title":"📣 Caractéristiques du prisme droit",
+    "title":"Caractéristiques du prisme droit",
     "ID":"6GB1",
+    "speech":1,
     "type":"text",
     "description":"Vocabulaire et comptage ",
     "dest":["6GB","5GA","4GA","3GA"],

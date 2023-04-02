@@ -1,7 +1,8 @@
 {
-    "title":"📣 Ordre de grandeur d'une opération",
+    "title":"Ordre de grandeur d'une opération",
     "description":"Trouver un ordre de grandeur d'une somme (addition), une différence (soustraction), un produit (multiplication)",
     "ID":"6NC4",
+    "speech":1,
     "dest":["6NC"],
     "options":[{
         "name":"Ordre de grandeur d'une somme",

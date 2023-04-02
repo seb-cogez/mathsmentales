@@ -1,7 +1,8 @@
 {
-    "title":"📣 Quel est le chiffre des ... ? (entiers)",
+    "title":"Quel est le chiffre des ... ? (entiers)",
     "type":"text",
     "ID":"6NA2",
+    "speech":1,
     "textSize":"medium",
     "dest":["7NA", "6NA", "5NA"],
     "consts":{"u":["centaines", "dizaines", "unités"],

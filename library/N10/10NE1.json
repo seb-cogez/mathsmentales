@@ -1,7 +1,8 @@
 {
-    "title":"📣 Tables de Multiplications de 1 à 5",
+    "title":"Tables de Multiplications de 1 à 5",
     "ID":"10NE1",
     "dest":["10NE"],
+    "speech":1,
     "keys":["_","_","_","_","_","_","_","_"],
     "options":[{
         "name":"Table de 1",

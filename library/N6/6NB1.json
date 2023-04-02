@@ -1,7 +1,8 @@
 {
-    "title":"📣 Valeur décimale de fraction simple",
+    "title":"Valeur décimale de fraction simple",
     "ID":"6NB1",
     "description":"Donner l'écriture décimale d'une fraction, donner une fraction égale à une écriture décimale",
+    "speech":1,
     "keys":["/"],
     "textSize":"medium",
     "dest":["6NB","5NA","4NA","3NA"],

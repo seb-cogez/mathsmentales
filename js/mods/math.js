@@ -856,7 +856,7 @@ const math = {
             let ch
             let numberToLetter = '';
             if(nombre<0){
-                return numberToLetter = 'sur moins '+this.NumberToFraction(-nombre);
+                return numberToLetter = 'sur moins '+this.NumberToLetter(-nombre);
             }
             //__________________________________
     

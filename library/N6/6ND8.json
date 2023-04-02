@@ -1,6 +1,7 @@
 {
-    "title":"📣 Soustractions d'entiers",
+    "title":"Soustractions d'entiers",
     "ID":"6ND8",
+    "speech":1,
     "dest":["6ND", "7ND", "8ND", "9ND"],
     "options":[{
         "name":"Entiers inférieurs à 10",

@@ -1,7 +1,8 @@
 {
-    "title":"📣 Lien entre aire d'un carré et côté",
+    "title":"Lien entre aire d'un carré et côté",
     "description":"Pas encore compatible avec la saisie en ligne",
     "type":"text",
+    "speech":1,
     "textSize":"medium",
     "ID":"6GD1",
     "dest":["6GD", "5MA", "4MA", "3MA"],
@@ -28,8 +29,8 @@
         },
         {
             "name":"Côté du carré",
-            "question": "Quelle est le côté d'un carré d'aire ${:b} ${:c}² ?",
-            "audio": "Quelle est le côté d'un carré d'aire ${:b} ${:uv[:c]} carré ?",
+            "question": "Quel est le côté d'un carré d'aire ${:b} ${:c}² ?",
+            "audio": "Quel est le côté d'un carré d'aire ${:b} ${:uv[:c]} carré ?",
             "answer":"$$\\color{red}{${:a}\\text{ }${:c}}\\times ${:a}\\text{ }${:c}=${:b}\\text{ }${:c}^2$$",
             "figure":{
                 "type":"graph",

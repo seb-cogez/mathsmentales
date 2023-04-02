@@ -1,6 +1,7 @@
 {
-    "title":"📣 Somme d'entiers de 2 à 4 chiffres",
+    "title":"Somme d'entiers de 2 à 4 chiffres",
     "ID":"6ND2",
+    "speech":1,
     "dest":["8ND", "7ND", "6ND"],
     "options":[{
         "name":"Nombres à 2 chiffres",

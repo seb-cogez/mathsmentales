@@ -1,6 +1,7 @@
 {
-    "title":"📣 Complément à 10, 100, 1000",
+    "title":"Complément à 10, 100, 1000",
     "type":"text",
+    "speech":1,
     "ID":"6ND3",
     "textSize":"medium",
     "dest":["8ND", "7ND", "6ND"],

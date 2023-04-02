@@ -1,6 +1,7 @@
 {
-    "title":"📣 Fraction de quantité",
+    "title":"Fraction de quantité",
     "ID":"7NB1",
+    "speech":1,
     "description":"Éviter le mode online pour la première activité, elle ne sera pas correctement corrigée",
     "type":"text",
     "textSize":"small",

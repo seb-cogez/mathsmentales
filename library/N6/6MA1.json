@@ -1,7 +1,8 @@
 {
-    "title":"📣 Périmètre des figures usuelles",
+    "title":"Périmètre des figures usuelles",
     "type":"text",
     "ID":"6MA1",
+    "speech":1,
     "description":"Pas encore compatible avec la saisie en ligne",
     "textSize":"small",
     "dest":["6MA", "5MA", "4MA", "3MA"],

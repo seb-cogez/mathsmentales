@@ -1,6 +1,7 @@
 {
-    "title":"📣 Multiplier un décimal par 10, 100, 1000",
+    "title":"Multiplier un décimal par 10, 100, 1000",
     "ID":"8NE2",
+    "speech":1,
     "description":"Multiplication de nombres tirés au hasard par 10, 100, 1000 ou à 3 chiffres significatifs",
     "dest":["8NE", "7NE", "6NE", "5NC", "4NC", "3NB"],
     "keys":["_","_","_","_","_","_","_","_"],

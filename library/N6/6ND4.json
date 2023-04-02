@@ -1,7 +1,8 @@
 {
-    "title":"📣 Complément à une dizaine, une centaine",
+    "title":"Complément à une dizaine, une centaine",
     "type":"text",
     "ID":"6ND4",
+    "speech":1,
     "textSize":"medium",
     "dest":["6ND", "7ND", "8ND"],
     "options":[{

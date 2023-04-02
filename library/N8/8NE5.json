@@ -1,6 +1,7 @@
 {
-    "title":"📣 Diviser un décimal (simple) par 10, 100, 1000",
+    "title":"Diviser un décimal (simple) par 10, 100, 1000",
     "ID":"8NE5",
+    "speech":1,
     "keys":["_","_","_","_","_","_","_","_"],
     "description":"Division de nombres à 1, 2 ou 3 chiffres significatifs par 10, 100, 1000",
     "dest":["8NE", "7NE", "6NE", "5NC", "4NC", "3NB"],

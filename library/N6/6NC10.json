@@ -1,7 +1,8 @@
 {
-    "title":"📣 Encadrer un décimal (6e)",
+    "title":"Encadrer un décimal (6e)",
     "type":"text",
     "description":"Donner les deux nombres encadrant, le plus petit d'abord, séparés par un point-virgule",
+    "speech":1,
     "keys":["_","_","_",";"],
     "ID":"6NC10",
     "dest":["6NC"],

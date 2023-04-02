@@ -152,10 +152,15 @@ const MM = {
             if(document.getElementById("radiobeforeslider1").checked){
                 this.introType.push("example")
             }
-            if(document.getElementById("radiobeforeslider1").checked){
-                this.introType.push("-321");
+            if(document.getElementById("radiobeforeslider2").checked){
+                this.introType.push("321");
             }
             this.introType = this.introType.join("-");
+            // cas où on a décheck
+            if(this.introType === ""){
+                document.getElementById("radiobeforeslider3").checked = true;
+                this.introType = "nothing";
+            }
         }
     },
     setOnlineState(value){
@@ -1560,6 +1565,8 @@ const MM = {
      * @param {boolean} next passe à l'activité suivante du panier.
      */
     newSample(id,next=false){
+        // suppression de l'annotation si en cours.
+        this.annotateThisThing(false);
         for(let i=0,len=MM.carts.length;i<len;i++){
             if(MM.carts[i].target.indexOf(id+1)>-1){
                 let nbActivities = MM.carts[i].activities.length;

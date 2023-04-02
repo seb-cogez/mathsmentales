@@ -1,6 +1,7 @@
 {
-    "title":"📣 Diviser un entier par 10, 100, 1000",
+    "title":"Diviser un entier par 10, 100, 1000",
     "ID":"7NE2",
+    "speech":1,
     "dest":["7NE", "6NE"],
     "vars":{"a":[9,99,999], "b":"1_${:a}", "zerosRestants":"0_3"},
         "options":[{

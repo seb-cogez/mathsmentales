@@ -1,5 +1,6 @@
 {
-    "title":"📣 Conversions heures minutes <=> heures décimales",
+    "title":"Conversions heures minutes <=> heures décimales",
+    "speech":1,
     "type":"text",
     "ID":"8MC1",
     "dest":["8MC", "7MC", "6MB"],

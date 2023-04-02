@@ -1,6 +1,7 @@
 {
-    "title":"📣 Décompositions décimales",
+    "title":"Décompositions décimales",
     "ID":"6NC1",
+    "speech":1,
     "description":"Passer d'une écriture décimale à une décomposition parfois à l'aide de fractions décimales.",
     "dest":["6NC", "7NC"],
     "keys":["+","/","_","_"],

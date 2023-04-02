@@ -1,7 +1,8 @@
 {
-    "title":"📣 Comparaison de fractions",
+    "title":"Comparaison de fractions",
     "ID":"6NB3",
     "description":"Comparer des fractions, avec 1 ou entre elles. Utiliser <, > ou =",
+    "speech":1,
     "keys":["<",">","="],
     "dest":["6NB","5NA","4NA","3NA"],
     "options":[{

@@ -1,6 +1,7 @@
 {
-    "title":"📣 Ajouter retirer des durées, calculer un horaire, une durée",
+    "title":"Ajouter retirer des durées, calculer un horaire, une durée",
     "type":"text",
+    "speech":1,
     "ID":"7MC1",
     "keys":["h","_","_","_"],
     "description":"Donner la réponse en indiquant l'heure au format 9h05",
@@ -34,7 +35,7 @@
     },{
         "name":"Avant, en avance en min",
         "vars":{"a":"0_50", "b":"0_23", "c":"0_11", "d":"${:c*5}"},
-        "question":["Il est ${:b} h ${:d}. Quelle heure était-il <b>${:a} min avant</b> ?",
+        "question":["Il est ${:b} h ${:d>9?:d:'0'+:d}. Quelle heure était-il <b>${:a} min avant</b> ?",
             "Le train de ${:b}&nbsp;h&nbsp;${:d>9?:d:'0'+:d} est arrivé avec <b>${:a} min d'avance</b>. À quelle heure est-il arrivé ?",
         "Le train arrivé à ${:b}&nbsp;h&nbsp;${:d>9?:d:'0'+:d} était parti il y a <b>${:a} min</b>. À quelle heure était-il parti ?"],
         "audio":["Il est ${:b} heures ${:d}. Quelle heure était-il ${:a} minutes avant ?",

@@ -1,6 +1,7 @@
 {
-    "title":"📣 Trouver la fraction égale",
+    "title":"Trouver la fraction égale",
     "ID":"6NB6",
+    "speech":1,
     "description":"Compléter une fraction en donnant le nombre manquant",
     "dest":["6NB","5NA","4NA","3NA"],
     "options":[{

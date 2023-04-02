@@ -43,6 +43,7 @@ export default class activity {
         this.figure = obj.figure; // for graphics description
         this.title = obj.title;  // title of de activity
         this.description = obj.description; // long description
+        this.speech = obj.speech||false;
         this.vars = obj.vars;
         this.consts = obj.consts;
         this.repeat = obj.repeat||false; // question & answers peuvent être répétées ou pas
@@ -193,7 +194,7 @@ export default class activity {
         document.getElementById("param-title-act").innerHTML = this.id;
         // affichages
         document.getElementById('activityTitle').innerHTML = this.title;
-        if(this.title.indexOf("📣")>-1){
+        if(this.speech){
             MM.audioSamples = [];
             document.getElementById("voix").classList.remove("hidden")
             if(this.audioRead){
