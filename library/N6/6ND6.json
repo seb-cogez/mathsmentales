@@ -39,7 +39,7 @@
     }
     ],
     "question":["${:a}\\times${:b}", "${:b}\\times${:a}"],
-    "answer":"${:a}\\times${:b}=\\color{red}{${:a*:b}}",
+    "answer":["${:a}\\times${:b}=\\color{red}{${:a*:b}}", "${:b}\\times${:a}=\\color{red}{${:b*:a}}"],
     "audio":["${:a}×${:b}","${:b}×${:a}"],
     "value":"${:a*:b}"
 }
