@@ -371,7 +371,7 @@ window.onload = function(){
         }
     }
     // boutons aléatorisation
-    document.getElementById("btn-params-aleakey").onclick = ()=>{utils.setSeed(utils.seedGenerator())};
+    document.getElementById("btn-params-aleakey").onclick = ()=>{MM.setSeed(utils.seedGenerator())};
 
     /**
      * Comportements sur les éléments fixes
