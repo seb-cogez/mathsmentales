@@ -206,7 +206,10 @@ const MM = {
         document.getElementById('nbq-value').innerHTML = value;
     },
     changeTempoValue:function(value){
-        document.getElementById('tempo-value').innerHTML = value+" s.";
+        if(Number(value)<2)
+            document.getElementById('tempo-value').innerHTML = "manuel";
+        else
+            document.getElementById('tempo-value').innerHTML = value+" s.";
         if(MM.editedActivity)MM.editedActivity.Tempo = value;
         if(MM.carts[MM.selectedCart].editedActivityId > -1){
             document.querySelectorAll("#cart"+(MM.selectedCart)+"-list li.active span")[0].innerHTML = value;
@@ -927,7 +930,7 @@ const MM = {
                 },3000);
             }
             // indique quoi faire avant le slide
-            MM.introType = vars.i;
+            MM.introType = vars.i||"nothing";
             // indique quoi faire après le slide
             MM.endType = vars.e;
             // couleurs des diaporamas

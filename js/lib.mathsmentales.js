@@ -69,7 +69,7 @@ window.onload = function(){
     document.getElementById("addToCart").onclick = ()=>{MM.addToCart();};
     document.getElementById("unlinkCart").onclick = ()=>{MM.unlinkActivity();};
     document.getElementById("removeFromCart").onclick = ()=>{MM.removeFromCart()};
-    document.getElementById("tempo-slider").oninput = (evt)=>{MM.changeTempoValue(evt.target.value);};
+    document.getElementById("tempo-slider").oninput = (evt)=>{if(evt.target.value<2)evt.target.value=0;MM.changeTempoValue(evt.target.value);};
     document.getElementById("tempo-slider").onchange=()=>{MM.carts[MM.selectedCart].display();};
     document.getElementById("nbq-slider").oninput = (evt)=>{MM.changeNbqValue(evt.target.value);};
     document.getElementById("nbq-slider").onchange = ()=>{MM.carts[MM.selectedCart].display();};

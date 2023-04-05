@@ -30,8 +30,8 @@ export default class timer {
         this.stop(); // just in case;
         if(this.ended) return false;
         this.break = false;
+        let btnPause = document.querySelectorAll("#slider"+this.id+" .slider-nav img")[1];
         if(MM.onlineState==="no"){
-            let btnPause = document.querySelectorAll("#slider"+this.id+" .slider-nav img")[1];
             btnPause.src="img/slider-pause.png";
             utils.removeClass(btnPause,"blink_me");
         }
@@ -45,7 +45,13 @@ export default class timer {
             clearInterval(this.timer);
             this.timer = false;
         }
-        this.timer = setInterval(this.getTimeLeft.bind(this),50);
+        // si pas de durée, avancement manuel.
+        if(this.durations[id]==0){
+            document.querySelector("#btn-timer-pause"+this.id).classList.add("hidden");
+            return;
+        } else {
+            this.timer = setInterval(this.getTimeLeft.bind(this),50);
+        }
     }
     pause(){
         if(this.ended) return false;

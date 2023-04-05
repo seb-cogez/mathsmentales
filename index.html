@@ -37,7 +37,7 @@
     <script src="js/MM1toMM2.min.js" defer></script>
     <script src="js/libs/vanilla-picker/vanilla-picker.min.js" defer></script>
 <!--<script src="dist/mathsmentales.bundle.js" id="mmscriptid"></script>-->
-    <script src="js/lib.mathsmentales.js?v=51" type="module" id="mmscriptid"></script>
+    <script src="js/lib.mathsmentales.js?v=52" type="module" id="mmscriptid"></script>
 
 </head>
 <body>
@@ -132,7 +132,7 @@
             <div id="activityDescription"></div>
             <!-- Durée et nombre de questions de l'activité -->
             <b>Durée d'affichage :</b> <span id="tempo-value"></span><br>
-            <input type="range" id="tempo-slider" min="2" max="120" value="8"><br>
+            <input type="range" id="tempo-slider" min="0" max="120" value="8"><br>
             <b>Nombre de questions :</b> <span id="nbq-value"></span><br>
             <input type="range" id="nbq-slider" min="1" max="20" value="10"><br>
             <div id="voix" class="hidden">
@@ -163,11 +163,6 @@
                         <div><span>0</span></div>
                         <div><span>1</span></div>
                         <div><span data-ordered="true" id="imgordercart1" class="pointer">ordonné</span></div>
-                        <!--<img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
-                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
-                        <img src="img/target.png" title="Zone d'énoncé"> <span>1</span>
-                        <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" id="imgordercart1">
-                        <img src="img/iconfinder_copy.png" class="pointer" title="Dupliquer le panier" id="imgduplicatecart1">-->
                     </div>
                     <ul id="cart0-list" class="cart-list">
                     </ul>
@@ -187,11 +182,6 @@
                         <div><span>0</span></div>
                         <div><span>1</span></div>
                         <div><span data-ordered="true" id="imgordercart2" class="pointer">ordonné</span></div>
-                        <!--<img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
-                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
-                        <img src="img/target.png" title="Zone d'énoncé"> <span>2</span>
-                        <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" id="imgordercart2">
-                        <img src="img/iconfinder_copy.png" class="pointer" title="Dupliquer le panier" id="imgduplicatecart2">-->
                     </div>
                     <ul id="cart1-list" class="cart-list">
                     </ul>
@@ -210,11 +200,6 @@
                         <div><span>0</span></div>
                         <div><span>1</span></div>
                         <div><span data-ordered="true" id="imgordercart3" class="pointer">ordonné</span></div>
-                        <!--<img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
-                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
-                        <img src="img/target.png" title="Zone d'énoncé"> <span>3</span>
-                        <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer" id="imgordercart3">
-                        <img src="img/iconfinder_copy.png" class="pointer" title="Dupliquer le panier" id="imgduplicatecart3">-->
                     </div>
                     <ul id="cart2-list" class="cart-list">
                     </ul>
@@ -232,10 +217,6 @@
                         <div><span>0</span></div>
                         <div><span>1</span></div>
                         <div><span data-ordered="true" id="imgordercart4" class="pointer">ordonné</span></div>
-                        <!--<img src="img/clock.png" title="Durée totale"> <span>0</span> s. 
-                        <img src="img/docs.png" title="Nombre total de questions"> <span>0</span> quest. 
-                        <img src="img/target.png" title="Zone d'énoncé"> <span>4</span>
-                        <img src="img/iconfinder_stack_1054970.png" data-ordered="true" title="Affichage dans l'ordre des activités" class="pointer"  id="imgordercart4">-->
                     </div>
                     <ul id="cart3-list" class="cart-list">
                     </ul>
@@ -326,9 +307,6 @@
                 <button class="button--success tooltip" id="btncopytohistoric">→ Historique
                 <span class="tooltiptext">Copie la sélection<br>dans l'historique</span>
                 </button>
-                <!--<button class="button--success tooltip" onclick="MM.generateCode();">Codes élève
-                    <span class="tooltiptext">Génère plusieurs <b>codes</b><br>élèves pour répondre en ligne</span>
-                </button>-->
             </section>
         </div>
         <div id="paramsexos" class="hidden">
