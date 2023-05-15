@@ -587,6 +587,22 @@ const MM = {
             }
         }
         utils.mathRender();
+        //MM.zoomCorrection();
+    },
+    /**
+     * todo : à revoir, le offsetHeight semble ne pas se mettre à jour. Peut-être un pb de timing. Utiliser les promises ?
+     */
+    zoomCorrection(){
+        if(MM.zooms["zc0-0"]!==undefined){
+            let maxH = window.innerHeight;
+            let bodyH = document.body.offsetHeight;
+            let count = 0
+            while(bodyH<maxH && count<2){
+                count++
+                MM.zooms["zc0-0"].plus();
+                bodyH = document.body.offsetHeight;
+            }
+        }
     },
     /**
      * Create the user inputs to answer the questions

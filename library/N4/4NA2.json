@@ -20,9 +20,9 @@
         "vars":{"n":"0_17", "s":"-1_1_^0"},
         "question": ["Quel est l'inverse de $$${:s*:d[:n]}$$ ?",
             "$$${(:s>0)?:d[:n]:'('+(:s*:d[:n])+')'}^{-1}$$"],
-        "answer":["L'inverse de $$${:s*:d[:n]}$$ est <span class='red'>$$${math.round(1/:d[:n],4)}$$</span>",
-            "$$${(:s>0)?:d[:n]:'('+(:s*:d[:n])+')'}^{-1}=\\color{red}{${math.round(1/:d[:n],4)}}$$"],
-        "value":"${math.round(1/:d[:n],4)}"
+        "answer":["L'inverse de $$${:s*:d[:n]}$$ est <span class='red'>$$${:s*math.round(1/:d[:n],4)}$$</span>",
+            "$$${(:s>0)?:d[:n]:'('+(:s*:d[:n])+')'}^{-1}=\\color{red}{${math.round(:s*1/:d[:n],4)}}$$"],
+        "value":"${math.round(:s*1/:d[:n],4)}"
     },{
         "name":"Inverse d'entier",
         "vars":{"n":"1_50"},

@@ -422,7 +422,7 @@ ul.menu, .menu ul {
   width:90%;
   height:150px;
 }
-#divparams .tooltip, #colparameters .tooltip {
+#divparams .tooltip, #colparameters .tooltip, #resultat-chercher .tooltip {
   position: relative;
 }
 #divparams .tooltip .tooltiptext {
@@ -438,7 +438,7 @@ ul.menu, .menu ul {
   left:50%;
   margin-left:calc(-100% / 2 + 50px);
 }
-#colparameters .tooltip .tooltiptext {
+#colparameters .tooltip .tooltiptext, #resultat-chercher .tooltip .tooltiptext {
   visibility: hidden;
   background-color: rgba(90, 90, 90, 0.9);
   color: rgb(192, 192, 192);
@@ -451,7 +451,10 @@ ul.menu, .menu ul {
   left:-50%;
   margin-left:calc(-100% / 2 + 50px);
 }
-#divparams .tooltiptext::after, #colparameters .tooltiptext::after {
+#resultat-chercher .tooltip .tooltiptext {
+  left:40%;
+}
+#divparams .tooltiptext::after, #colparameters .tooltiptext::after, #resultat-chercher .tooltip .tooltiptext::after {
 	content: "";
 	position: absolute;
 	top: 100%;
@@ -462,7 +465,7 @@ ul.menu, .menu ul {
 	border-color: #555 transparent transparent transparent;
 }
 /* Show the tooltip text when you mouse over the tooltip container */
-#divparams .tooltip:hover .tooltiptext, #colparameters .tooltip:hover .tooltiptext {
+#divparams .tooltip:hover .tooltiptext, #colparameters .tooltip:hover .tooltiptext, #resultat-chercher .tooltip:hover .tooltiptext {
   visibility: visible;
 }
 #enonce-content .fig{
