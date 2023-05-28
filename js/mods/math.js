@@ -13,7 +13,7 @@ const math = {
         if(precision === undefined){
             return Math.round(nb);
         } else{
-            if(precision < 5)
+            if(precision < 5 && !String(nb).includes('e'))
                 return Number(Math.round(Number(nb+'e'+precision))+'e'+(-precision));
             else{
                 let z=new Big(nb);

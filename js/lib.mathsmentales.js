@@ -83,25 +83,29 @@ window.onload = function(){
     document.getElementById("playerlist").oninput = (evt)=>{sound.select(evt.target.value)};
     // panier 1
     document.getElementById("btncartclose1").onclick=()=>{MM.emptyCart(1)};
-    document.getElementById("titlecart1").onblur = (evt)=>{MM.carts[0].title = evt.target.innerText;};
-    document.getElementById("imgordercart1").onclick = (evt)=>{MM.carts[0].changeOrder(evt.target);};
+    document.getElementById("titlecart1").onblur = (evt)=>{MM.carts[0].title = evt.target.innerText}
+    document.getElementById("imgordercart1").onclick = (evt)=>{MM.carts[0].changeOrder(evt.target)}
+    document.getElementById("progress-cart1").onclick = (evt)=>{MM.carts[0].changeProgress(evt.target)}
     document.getElementById("imgduplicatecart1").onclick = ()=>{MM.carts[0].duplicate();};
     // panier 2
-    document.getElementById("btncartdelete2").onclick=()=>{MM.removeCart(2)};
-    document.getElementById("btncartclose2").onclick=()=>{MM.emptyCart(2)};
-    document.getElementById("titlecart2").onblur = (evt)=>{MM.carts[1].title = evt.target.innerText;};
-    document.getElementById("imgordercart2").onclick = (evt)=>{MM.carts[1].changeOrder(evt.target);};
-    document.getElementById("imgduplicatecart2").onclick = ()=>{MM.carts[1].duplicate();};
+    document.getElementById("btncartdelete2").onclick=()=>{MM.removeCart(2)}
+    document.getElementById("btncartclose2").onclick=()=>{MM.emptyCart(2)}
+    document.getElementById("titlecart2").onblur = (evt)=>{MM.carts[1].title = evt.target.innerText}
+    document.getElementById("imgordercart2").onclick = (evt)=>{MM.carts[1].changeOrder(evt.target)}
+    document.getElementById("progress-cart2").onclick = (evt)=>{MM.carts[1].changeProgress(evt.target)}
+    document.getElementById("imgduplicatecart2").onclick = ()=>{MM.carts[1].duplicate()}
     // panier 3
     document.getElementById("btncartdelete3").onclick=()=>{MM.removeCart(3)};
     document.getElementById("btncartclose3").onclick=()=>{MM.emptyCart(3)};
-    document.getElementById("titlecart3").onblur = (evt)=>{MM.carts[2].title = evt.target.innerText;};
-    document.getElementById("imgordercart3").onclick = (evt)=>{MM.carts[2].changeOrder(evt.target);};
+    document.getElementById("titlecart3").onblur = (evt)=>{MM.carts[2].title = evt.target.innerText}
+    document.getElementById("imgordercart3").onclick = (evt)=>{MM.carts[2].changeOrder(evt.target)}
+    document.getElementById("progress-cart3").onclick = (evt)=>{MM.carts[2].changeProgress(evt.target)}
     document.getElementById("imgduplicatecart3").onclick = ()=>{MM.carts[2].duplicate();};
     // panier 4
     document.getElementById("btncartdelete4").onclick=()=>{MM.removeCart(4)};
     document.getElementById("btncartclose4").onclick=()=>{MM.emptyCart(4)};
     document.getElementById("titlecart4").onblur = (evt)=>{MM.carts[3].title = evt.target.innerText;};
+    document.getElementById("progress-cart4").onclick = (evt)=>{MM.carts[3].changeProgress(evt.target);};
     document.getElementById("imgordercart4").onclick = (evt)=>{MM.carts[3].changeOrder(evt.target);};
     // radio online
     document.getElementById("radioonline1").onclick = (evt)=>{MM.setOnlineState(evt.target.value)};

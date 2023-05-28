@@ -215,7 +215,7 @@ const MM = {
             document.querySelectorAll("#cart"+(MM.selectedCart)+"-list li.active span")[0].innerHTML = value;
         }
     },
-    changeNbqValue:function(value){
+    changeNbqValue:function(value){ 
         document.getElementById('nbq-value').innerHTML = value;
         if(MM.editedActivity)MM.editedActivity.nombreQuestions = value;
         if(MM.carts[MM.selectedCart].editedActivityId > -1){
@@ -304,7 +304,7 @@ const MM = {
             let btnnb = i+1;
             let button = utils.create("button",{
                 value:btnnb,
-                className:"tab-menu-link",
+                className:"tabs-menu-link",
                 innerHTML:'<img src="img/cart'+btnnb+'.png">',
                 id:"button-cart"+btnnb
             });
@@ -484,7 +484,7 @@ const MM = {
                     olc.style["background"] = MM.colors[slideNumber];
                 }
                 MM.steps[slideNumber] = new steps({size:0, container:sliderSteps});
-                MM.timers[slideNumber] = new timer(slideNumber);
+                MM.timers[slideNumber] = new timer(slideNumber, i);
                 let actsArray=[];
                 // on fait la liste des références activités / questions pour pouvoir créer les affichages
                 for(let z=0,alen=MM.carts[i].activities.length;z<alen;z++){
@@ -516,7 +516,9 @@ const MM = {
                     let div = utils.create("div",{className:"slide w3-animate-top"+(indiceSlide>0?" hidden":"")+color,id:"slide"+slideNumber+"-"+indiceSlide});
                     let span = utils.create("span",{innerHTML:question});
                     if(fontSize)span.className=fontSize;
-                    let spanAns = utils.create("span",{className:"answerInSlide hidden"})
+                    let answerHiddenState = ' hidden';
+                    if (MM.carts[i].progress === 'withanswer'){ answerHiddenState = '';}
+                    let spanAns = utils.create("span",{className:"answerInSlide" + answerHiddenState})
                     if(Array.isArray(answer))
                         spanAns.innerHTML =answer[0];
                     else
@@ -1503,7 +1505,7 @@ const MM = {
             let innerH = `<div class="slider-head"><div class="slider-nav">
             <button title="Arrêter le diaporama" id="btn-timer-end${i}"><img src="img/slider-stop.png" /></button>`;
             if(MM.onlineState==="no"){
-                // on crée les boutons de pause et montrer réponse si on n'est pas en mode online
+                // créer les boutons de pause et montrer réponse si on n'est pas en mode online
                 innerH += `<button title="Mettre le diapo en pause", id="btn-timer-pause${i}"><img src="img/slider-pause.png" /></button>
                 <button title="Montrer la réponse" id="btn-show-answer${i}"><img src="img/slider-solution.png" /></button>`;
             }
@@ -1558,16 +1560,16 @@ const MM = {
      * @param {Integer} id id du slide où afficher la réponse
      * @returns nothing
      */
-    showTheAnswer(id){
+    showTheAnswer(id, pause=true){
         let answerToShow = document.querySelector("#slide"+id+"-"+MM.steps[id].step+" .answerInSlide");
         
         if(!answerToShow)return;
         if(answerToShow.className.indexOf("hidden")>-1){
-            MM.timers[id].pause();
+            if(pause) MM.timers[id].pause();
             utils.removeClass(answerToShow, "hidden");
-        }else{
+        } else {
             utils.addClass(answerToShow, "hidden");
-            MM.timers[id].start();
+            if(pause) MM.timers[id].start();
         }
     },
     showSampleAnswer(id){

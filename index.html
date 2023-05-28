@@ -18,7 +18,7 @@
     <link href="js/libs/katex/katex.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/knacss.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/bulma-steps.min.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="css/mathsmentales.min.css?v=13" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/mathsmentales.min.css?v=14" type="text/css" media="screen" />
     <link rel="stylesheet" href="js/libs/JSXGprah1.2.2/jsxgraph.css" type="text/css" />
     <script src="js/libs/katex/katex.min.js" type="text/javascript" defer></script>
     <script src="js/libs/asciimath2tex/asciimath2tex.min.js" defer></script>
@@ -37,7 +37,7 @@
     <script src="js/MM1toMM2.min.js" defer></script>
     <script src="js/libs/vanilla-picker/vanilla-picker.min.js" defer></script>
 <!--<script src="dist/mathsmentales.bundle.js" id="mmscriptid"></script>-->
-    <script src="js/lib.mathsmentales.js?v=56" type="module" id="mmscriptid"></script>
+    <script src="js/lib.mathsmentales.js?v=58" type="module" id="mmscriptid"></script>
 
 </head>
 <body>
@@ -157,13 +157,15 @@
                     <h3 contenteditable="true" title="Cliquer pour éditer" id="titlecart1">Groupe 1</h3>
                     <div class="totaux">
                         <div class="title" title="Durée totale du panier">Durée</div>
-                        <div class="title" title="Nombre total de questions du panier">Questions</div>
+                        <div class="title" title="Nombre total de questions du panier">Quest.</div>
                         <div class="title" title="Zone d'affichage du panier">Cible</div>
                         <div title="Ordre des questions du diaporama" class="title">Ordre</div>
+                        <div title="Affichage du corrigé" class="title">Corrigé</div>
                         <div><span>0</span> s.</div>
                         <div><span>0</span></div>
                         <div><span>1</span></div>
                         <div><span data-ordered="true" id="imgordercart1" class="pointer">ordonné</span></div>
+                        <div><span data-progress="normal" id="progress-cart1" class="pointer">sans</span></div>
                     </div>
                     <ul id="cart0-list" class="cart-list">
                     </ul>
@@ -176,13 +178,15 @@
                     <h3 contenteditable="true" title="Cliquer pour éditer" id="titlecart2">Groupe 2</h3>
                     <div class="totaux">
                         <div class="title" title="Durée totale du panier">Durée</div>
-                        <div class="title" title="Nombre total de questions du panier">Questions</div>
+                        <div class="title" title="Nombre total de questions du panier">Quest.</div>
                         <div class="title" title="Zone d'affichage du panier">Cible</div>
                         <div title="Ordre des questions du diaporama" class="title">Ordre</div>
+                        <div title="Affichage du corrigé" class="title">Corrigé</div>
                         <div><span>0</span> s.</div>
                         <div><span>0</span></div>
                         <div><span>1</span></div>
                         <div><span data-ordered="true" id="imgordercart2" class="pointer">ordonné</span></div>
+                        <div><span data-progress="normal" id="progress-cart2" class="pointer">sans</span></div>
                     </div>
                     <ul id="cart1-list" class="cart-list">
                     </ul>
@@ -194,13 +198,15 @@
                     <h3 contenteditable="true" id="titlecart3" title="Cliquer pour éditer">Groupe 3</h3>
                     <div class="totaux">
                         <div class="title" title="Durée totale du panier">Durée</div>
-                        <div class="title" title="Nombre total de questions du panier">Questions</div>
+                        <div class="title" title="Nombre total de questions du panier">Quest.</div>
                         <div class="title" title="Zone d'affichage du panier">Cible</div>
                         <div title="Ordre des questions du diaporama" class="title">Ordre</div>
+                        <div title="Affichage du corrigé" class="title">Corrigé</div>
                         <div><span>0</span> s.</div>
                         <div><span>0</span></div>
                         <div><span>1</span></div>
                         <div><span data-ordered="true" id="imgordercart3" class="pointer">ordonné</span></div>
+                        <div><span data-progress="normal" id="progress-cart3" class="pointer">sans</span></div>
                     </div>
                     <ul id="cart2-list" class="cart-list">
                     </ul>
@@ -211,13 +217,15 @@
                     <h3 contenteditable="true" id="titlecart4" title="Cliquer pour éditer">Groupe 4</h3>
                     <div class="totaux">
                         <div class="title" title="Durée totale du panier">Durée</div>
-                        <div class="title" title="Nombre total de questions du panier">Questions</div>
+                        <div class="title" title="Nombre total de questions du panier">Quest.</div>
                         <div class="title" title="Zone d'affichage du panier">Cible</div>
                         <div title="Ordre des questions du diaporama" class="title">Ordre</div>
+                        <div title="Affichage du corrigé" class="title">Corrigé</div>
                         <div><span>0</span> s.</div>
                         <div><span>0</span></div>
                         <div><span>1</span></div>
                         <div><span data-ordered="true" id="imgordercart4" class="pointer">ordonné</span></div>
+                        <div><span data-progress="normal" id="progress-cart4" class="pointer">sans</span></div>
                     </div>
                     <ul id="cart3-list" class="cart-list">
                     </ul>
@@ -240,16 +248,16 @@
             </select>
             <br>
             <fieldset><legend>Clé de données</legend>
-                <input type="checkbox" id="aleaInURL" value="1" class="switch" title="Prendre en compte dans l'adresse"> Utiliser
+                <input type="checkbox" id="aleaInURL" value="1" class="switch" title="Prendre en compte dans l'adresse">Utiliser
                 <input type="text" placeholder="eHDtp" id="aleaKey" size="6">
                 <img src="img/iconfinder_die_32px.png" class="pointer" id="btn-params-aleakey">
             </fieldset>
             <div id="paramsdiapo">
             <fieldset>
                 <legend>Introduction au diaporama</legend>
-                <span title="Commencer sur un exemple que l'on pourra discuter"><input type="checkbox" class="checkbox" name="beforeSlider" id="radiobeforeslider1" value="example"> Exemple</span>
-                <span title="Commencer par un décompte 3...2...1..."><input type="checkbox" class="checkbox" name="beforeSlider" id="radiobeforeslider2" value="321" checked="true"> Décompte</span>
-                <span title="Commencer directement"><input type="radio" class="radio" name="beforeSlider" id="radiobeforeslider3" value="nothing"> Rien</span>
+                <span title="Commencer sur un exemple que l'on pourra discuter"><input type="checkbox" class="checkbox" name="beforeSlider" id="radiobeforeslider1" value="example"><label for="radiobeforeslider1">Exemple</label></span>
+                <span title="Commencer par un décompte 3...2...1..."><input type="checkbox" class="checkbox" name="beforeSlider" id="radiobeforeslider2" value="321" checked="true"><label for="radiobeforeslider2">Décompte</label></span>
+                <span title="Commencer directement"><input type="radio" class="radio" name="beforeSlider" id="radiobeforeslider3" value="nothing"><label for="radiobeforeslider3">Rien</label></span>
             </fieldset>
             <fieldset class="lh2">
                 <legend>Son</legend>
@@ -260,16 +268,16 @@
             </fieldset>
             <fieldset id="onlinechoice">
                 <legend>Répondre en ligne</legend>
-                <input type="radio" class="radio" name="online" id="radioonline1" value="no" checked="true"> Non
-                <input type="radio" class="radio" name="online" id="radioonline2" value="yes"> Oui
+                <input type="radio" class="radio" name="online" id="radioonline1" value="no" checked="true"><label for="radioonline1">Non</label>
+                <input type="radio" class="radio" name="online" id="radioonline2" value="yes"><label for="radioonline2">Oui</label>
             </fieldset>
             <br>
             <fieldset>
                 <legend>Enoncé</legend>
-                <input type="radio" class="radio" name="Enonces" id="radionbenonces1" value="1" checked="true"> Simple
-                <input type="radio" class="radio" name="Enonces" id="radionbenonces2" value="2"> Double
-                <input type="radio" class="radio" name="Enonces" id="radionbenonces3" value="3"> Triple
-                <input type="radio" class="radio" name="Enonces" id="radionbenonces4" value="4"> Quadruple<br />
+                <input type="radio" class="radio" name="Enonces" id="radionbenonces1" value="1" checked="true"><label for="radionbenonces1">Simple</label> 
+                <input type="radio" class="radio" name="Enonces" id="radionbenonces2" value="2"><label for="radionbenonces2">Double</label> 
+                <input type="radio" class="radio" name="Enonces" id="radionbenonces3" value="3"><label for="radionbenonces3">Triple</label> 
+                <input type="radio" class="radio" name="Enonces" id="radionbenonces4" value="4"><label for="radionbenonces4">Quadruple</label><br />
                 <div id="screen-division">
                     <div id="sddiv1" class="sddiv1"><span>1</span></div>
                     <div id="sddiv2" class="hidden"><span>2</span></div>
@@ -277,19 +285,20 @@
                     <div id="sddiv4" class="hidden"><span>4</span></div>
                 </div>
                 <div id="divisionsOption" class="hidden">
-                    <input type="radio" class="radio" id="radiodir1" name="direction" value="h"> Horizontale<br>
-                    <input type="radio" class="radio" id="radiodir2" name="direction" value="v" checked="true"> Verticale
+                    <input type="radio" class="radio" id="radiodir1" name="direction" value="h"><label for="radior1">Horizontale</label><br>
+                    <input type="radio" class="radio" id="radiodir2" name="direction" value="v" checked="true"> <label for="radiodir2">Verticale</label>
                 </div>
                 <div id="facetofaceOption" class="hidden">
-                    <input type="radio" class="radio" name="facetoface" id="radioftf1" value="n" checked="true"> Normal<br>
-                    <input type="radio" class="radio" name="facetoface" id="radioftf2" value="y"> <img src="img/facetoface.png" title="Face à face sur une tablette">
+                    <input type="radio" class="radio" name="facetoface" id="radioftf1" value="n" checked="true"><label for="radioftf1">Normal</label><br>
+                    <input type="radio" class="radio" name="facetoface" id="radioftf2" value="y"><label for="radioftf2"> <img src="img/facetoface.png" title="Face à face sur une tablette"></label>
                 </div>
-                </fieldset><br>
+            </fieldset>
+            <br>
             <fieldset>
                 <legend>Fin de diaporama</legend>
-                <input type="radio" class="radio" name="endOfSlideRadio" value="correction" checked="true" id="radioendslider1"> Correction
-                <input type="radio" class="radio" name="endOfSlideRadio" value="nothing" id="radioendslider2"> Rien
-                <input type="radio" class="radio" name="endOfSlideRadio" value="list"id="radioendslider3"> Énoncés
+                <input type="radio" class="radio" name="endOfSlideRadio" value="correction" checked="true" id="radioendslider1"><label for="radioendslider1">Correction</label>
+                <input type="radio" class="radio" name="endOfSlideRadio" value="nothing" id="radioendslider2"><label for="radioendslider2">Rien</label>
+                <input type="radio" class="radio" name="endOfSlideRadio" value="list"id="radioendslider3"><label for="radioendslider3">Énoncés</label>
             </fieldset><br>
             <section class="txtcenter" id="startbuttons">
                 <button class="button--primary tooltip" id="btnstart">C'est parti !

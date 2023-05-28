@@ -202,7 +202,7 @@ const utils = {
                         datas[dataparts[0]]=decodeURI(dataparts[1]);
                     }
                     let id = datas.p;
-                    vars.c[id]={i:datas.p,t:datas.t,c:datas.c,o:datas.o,a:{}};
+                    vars.c[id]={i:datas.p,t:datas.t,c:datas.c,o:datas.o,a:{},d:datas.d,at:datas.at};
                     // parts[>0] : parameters cart's activities
                     for(let j=1;j<parts.length;j++){
                         let datasActivity = parts[j].split("~");

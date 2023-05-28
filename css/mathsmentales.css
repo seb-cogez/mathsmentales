@@ -411,6 +411,10 @@ ul.menu, .menu ul {
     font-weight: 700;
     width:initial;
 }
+#tab-parameters fieldset input + label {
+  padding-left: 0.5rem;
+  line-height: 2rem;
+}
 #duelbg {
   width:20em;
   height: 10em;
@@ -841,7 +845,7 @@ h2.sg-title, h3.sg-title {
 #cartscontainer .totaux {
   text-align: center;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 .cartcontent {
     background-color: ivory;
@@ -872,6 +876,33 @@ ul.cart-list{
 }
 .ghost-movement{
     background-color: lightblue;
+}
+/* Remove controls from Firefox */
+.totaux input[type=number] {
+  appearance: textfield;
+  padding: 0 0 0 0.5rem;
+  margin-left: 0.5rem;
+  width: 75%;
+  border: 0;
+}
+.numberInputContainer {
+  position: relative;
+}
+.numberInputContainer button {
+  position: absolute;
+  top:-6px;
+  right:-5px;
+  padding: 0.2rem;
+  color: white;
+  font-weight: bold;
+  background-color: red;
+  border-radius: 1rem;
+  line-height: 1rem;
+}
+/* Re-applies the controls on :hover and :focus */
+.totaux input[type="number"]:hover,
+.totaux input[type="number"]:focus {
+  appearance: initial;
 }
 /* Colors */
 .color-inverse * {
