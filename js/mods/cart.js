@@ -215,6 +215,7 @@ export default class cart {
             input.min = 2
             input.max = 120
             input.value = String(this.showAnswerTime)
+            input.title = 'Durée d\'affichage\nde la correction\naprès la question'
             input.oninput = (evt)=>{this.showAnswerTime = evt.target.value}
             input.onclick = (e)=>{e.stopPropagation()}
             container.appendChild(input)
@@ -230,10 +231,12 @@ export default class cart {
         } else if ((objHTML.dataset['progress'] === 'thenanswer' && type === undefined) || type === 'withanswer') {
             objHTML.dataset['progress'] = 'withanswer'
             objHTML.innerText = 'avec'
+            objHTML.title = 'Le corrigé est affiché\navec la question'
             this.progress = 'withanswer'
         } else {
             objHTML.dataset['progress'] = 'normal'
             objHTML.innerText = 'sans'
+            objHTML.title = 'Le corrigé n\'est pas affiché'
             this.progress = 'normal'
         }
     }
