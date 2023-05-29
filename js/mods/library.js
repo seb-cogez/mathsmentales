@@ -29,54 +29,35 @@ const library = {
      * @param {String} url adresse du fichier à ouvrir
      */
     load:function(url,id){
-        /*if(theactivities[id]!== undefined){
-            MM.setHistory("Exercice","u="+id);
-            this.open(theactivities[id]);
-        } else {*/
-            // pour le développement, on peut lire une activité qui n'a pas encore été intégrée dans la bibliothèque
-            // en fournissant ?u=id de l'activité.
-            let reader = new XMLHttpRequest();
-            reader.onload = ()=>{
-                let json = JSON.parse(reader.responseText);
+        // pour le développement, on peut lire une activité qui n'a pas encore été intégrée dans la bibliothèque
+        // en fournissant ?u=id de l'activité.
+        fetch("library/"+url+"?v"+MM.version)
+            .then(r => r.json())
+            .then(body => {
                 let regexp = /\/(.*)\./;
                 url = regexp.exec(url)[1];
                 MM.setHistory("Exercice","u="+url);
-                this.open(json);
-            }
-            reader.open("get", "library/"+url+"?v"+MM.version);
-            reader.send();
-        //}
+                this.open(body)
+        })  .catch(e => console.log)
     },
     /**
      * 
      * @param {String} url url du json à récupérer
      */
-    loadJSON:function(url){
-        return new Promise((resolve,reject)=>{
-            let reader  = new XMLHttpRequest();
-            reader.onload = ()=>{
-                resolve(JSON.parse(reader.responseText));
-            }
-            reader.onerror = err=>{reject(err)};
-            reader.open("get", "library/"+url+"?v"+MM.version);
-            reader.send();    
-        })
+    loadJSON:async function(url){
+        const r = await fetch("library/"+url+"?v"+MM.version)
+        if (r.ok === true) return r.json()
+        throw new Error('Erreur de chargement de l\'activité')
     },
     /**
      * Récupère les données d'une activité lors d'un import venant du chargement d'un panier préconfiguré.
      * @param {String} url adresse
      * @returns Promesse de chargement du fichier à charger
      */
-    import:function(url){
-        return new Promise((resolve,reject)=>{
-        let reader = new XMLHttpRequest();
-        reader.onload = function(){
-            resolve(JSON.parse(reader.responseText));
-        }
-        reader.onerror = err=>{reject(err)};
-        reader.open("get", "library/"+url+"?v"+MM.version);
-        reader.send();
-        })
+    import:async function(url){
+        const r = await fetch("library/"+url+"?v"+MM.version)
+        if(r.ok === true) return r.json()
+        throw new Error('Problème de chargement de l\'activité')
     },
     /**
      * Ouvre le fichier de description de toutes les activités disponibles sur MathsMentales
