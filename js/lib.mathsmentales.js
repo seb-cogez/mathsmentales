@@ -235,8 +235,14 @@ window.onload = function(){
         //zooms
         if(evt.target.dataset.what === "in"){
             MM.zooms[evt.target.dataset.zoom].plus();
+            if(evt.target.dataset.assoc !== ''){
+                MM.zooms[evt.target.dataset.assoc].plus();
+            }
         } else if(evt.target.dataset.what === "out"){
             MM.zooms[evt.target.dataset.zoom].minus();
+            if(evt.target.dataset.assoc !== ''){
+                MM.zooms[evt.target.dataset.assoc].minus();
+            }
         }
         if(evt.target.nodeName.toLowerCase() === "img"){
             targetId = evt.target.parentNode.id;

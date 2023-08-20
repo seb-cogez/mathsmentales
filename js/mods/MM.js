@@ -1393,16 +1393,20 @@ const MM = {
         }
         let divSample = utils.create("div",{id:"sampleLayer",className:"sample"});
         // creation des emplacements d'affichage
+        let facteurZoom = 1;
         for(let i=0;i<nb;i++){
             let div = utils.create("div",{id:"sample"+i});
-            if(nb === 1)div.className = "slider-1";
-            else if(nb===2)div.className = "slider-2";
+            if(nb === 1){div.className = "slider-1";facteurZoom=3;}
+            else if(nb===2){div.className = "slider-2";facteurZoom=2;}
             else div.className = "slider-34";
             let nextActivity = "";
             if(MM.carts[assocSliderActivity[i]].activities.length>1) {
                 nextActivity = `<button title="Activité suivante du panier" data-actid="0" id="ButtonNextAct${i}"><img src="img/slider-next.png"></button>`;
             }
-            div.innerHTML = `Exemple <div class="slider-nav">
+            div.innerHTML = `Exemple `
+            MM.zooms['zsample'+i] = new Zoom('zsample'+i, "#sampleSlide"+i, true, "em", facteurZoom, 'zs'+i)
+            div.appendChild(MM.zooms['zsample'+i].createCursor())
+            div.innerHTML += `<div class="slider-nav">
             <button title="Annoter l'exemple" id="btn-sample-annotate${i}"><img src="img/iconfinder_pencil_1055013.png"></button>
             <button title="Montrer la réponse" id="btn-sample-showanswer${i}"><img src="img/slider-solution.png"></button>
             <button title="Autre exemple" id="btn-newsample${i}"><img src="img/newsample.png"></button>
@@ -1492,8 +1496,8 @@ const MM = {
         else utils.removeClass(container,"vertical");
         if(MM.faceToFace==="y") utils.addClass(container,"return");
         else utils.removeClass(container,"return");
+        let facteurZoom = 1;
         for(let i=0;i<nb;i++){
-            let facteurZoom = 1;
             let div = document.createElement("div");
             div.id = "slider"+i;
             if(nb === 1){div.className = "slider-1";facteurZoom=3;}
