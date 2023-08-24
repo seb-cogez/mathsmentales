@@ -1130,6 +1130,8 @@ const MM = {
             typeName = "💫 Duel"
         } else if(type==="ceinture"){
             typeName = "🥋 Ceinture"
+        } else if(type === 'cartesflash'){
+            typeName = '⚡ Cartes flash'
         }
         let span = utils.create("span", {innerText:typeName+" du "+utils.getDate()+": ",className:"bold"});
         li.appendChild(span);

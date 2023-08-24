@@ -187,6 +187,13 @@ h3.exercice-title{
         border-top: 1pt dotted green;
         margin-top: 2pt;
     }
+    .flash-section:not(:last-child)::after {
+        content: 'Saut de page';
+        color: green;
+    }
+    .flash-section:not(:last-child) {
+        border-bottom: 2pt dotted greenyellow;
+    }
 }
 @media print {
     #creator-menu {

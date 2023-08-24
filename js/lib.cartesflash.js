@@ -75,16 +75,6 @@ function refresh(){
     common.mathRender()
 }
 
-function createSeparator(target,nbOfCreatedCards){
-    if(nbOfCreatedCards%2===0 && parameters.disposition === 'separated'){
-        target.appendChild(utils.create("article", {className:'card'}))
-    }
-    const pageSeparator1 = utils.create("article", {className:'pageSeparator', innerText:'Page suivante'})
-    target.appendChild(pageSeparator1)
-    const pageSeparator2 = utils.create("article", {className:'pageSeparator'})
-    target.appendChild(pageSeparator2)
-}
-
 function insertAnswers(answers,target){
     for(let i=1; i<answers.length; i=i+2){
         target.appendChild(answers[i])
@@ -109,11 +99,11 @@ function makePage(){
     let header = utils.create("header",{innerHTML:parameters.titreFiche});
     content.appendChild(header);
     const arrayOfFlashCardsSection = [utils.create("section",{className:"flash-section grid g2"})]
+    if(parameters.disposition === 'separated'){arrayOfFlashCardsSection.push(utils.create("section",{className:"flash-section grid g2"}))}
     let currentSection = 0
     let globalPrintHeight = 0
-    let arrayOfAnswers = []
     let nbOfCards = 0
-    for (const activity of parameters.cart.activities) {
+    for (const [index,activity] of parameters.cart.activities.entries()) {
         for(let j=0;j<activity.questions.length;j++){
             if(parameters.disposition === 'separated'){
                 nbOfCards++
@@ -140,48 +130,51 @@ function makePage(){
                 divr.innerHTML = activity.answers[j];
             }
             artQuestion.appendChild(divq);
-            artCorrection.appendChild(divr)
-            if(globalPrintHeight > pageHeight){
-                createSeparator(arrayOfFlashCardsSection[currentSection],nbOfCards)
-                arrayOfFlashCardsSection.push(utils.create("section",{className:"flash-section grid g2"}))
-                currentSection++;
-                globalPrintHeight = parameters.cardHeight
-                if(parameters.disposition === 'separated'){
-                    insertAnswers(arrayOfAnswers,arrayOfFlashCardsSection[currentSection])
-                    arrayOfAnswers = []
-                    createSeparator(arrayOfFlashCardsSection[currentSection],nbOfCards)
-                    arrayOfFlashCardsSection.push(utils.create("section",{className:"flash-section grid g2"}))
-                    currentSection++;
-                }
-            }
-            arrayOfFlashCardsSection[currentSection].appendChild(artQuestion);
             // figures
             if(activity.figures[j] !== undefined){
-                if(i===0 && j=== 0)MM.memory["dest"] = content;
-                MM.memory["f"+i+"-"+j] = new Figure(utils.clone(activity.figures[j]), "f"+i+"-"+j, divq);
+                MM.memory["f"+index+"-"+j] = new Figure(utils.clone(activity.figures[j]), "f"+index+"-"+j, divq);
+            }
+            artCorrection.appendChild(divr)
+            let indexWhereInsertQ = currentSection
+            let indexWhereInsertA = currentSection
+
+            if(globalPrintHeight > pageHeight){
+                arrayOfFlashCardsSection.push(utils.create("section",{className:"flash-section grid g2"}))
+                currentSection++;
+                if(parameters.disposition === 'separated'){
+                    arrayOfFlashCardsSection.push(utils.create("section",{className:"flash-section grid g2"}))
+                }
+                globalPrintHeight = parameters.cardHeight
             }
             if(parameters.disposition === 'separated'){
-                arrayOfAnswers.push(artCorrection)
-            } else {
-                arrayOfFlashCardsSection[currentSection].appendChild(artCorrection)
+                indexWhereInsertQ = 2*currentSection
+                indexWhereInsertA = 2*currentSection+1
             }
-        }
-        if(arrayOfAnswers.length > 0){
-            createSeparator(arrayOfFlashCardsSection[currentSection],nbOfCards+1)
-            arrayOfFlashCardsSection.push(utils.create("section",{className:"flash-section grid g2"}))
-            currentSection++;
-            insertAnswers(arrayOfAnswers,arrayOfFlashCardsSection[currentSection])
+            arrayOfFlashCardsSection[indexWhereInsertQ].appendChild(artQuestion)
+            arrayOfFlashCardsSection[indexWhereInsertA].appendChild(artCorrection)
         }
     }
     for(const section of arrayOfFlashCardsSection){
         content.appendChild(section)
+        if(parameters.disposition === 'separated'){
+            const answersSections = document.querySelectorAll('.flash-section:nth-child(even)')
+            for(const section of answersSections){
+                if(section.childNodes.length%2 === 1){
+                    section.appendChild(utils.create('article', {className:'card'}))
+                }
+                for(let i=1; i<section.childNodes.length; i=i+2){
+                    const elem = section.childNodes[i]
+                    elem.parentNode.insertBefore(elem, elem.previousSibling)
+                }
+            }
+        }
     }
 
     if(!utils.isEmpty(MM.memory)){
         setTimeout(function(){
             for(const k in MM.memory){
                 if(k!=="dest")
-                    MM.memory[k].display(MM.memory["dest"]);
+                    MM.memory[k].display();
             }
         }, 300);
     }

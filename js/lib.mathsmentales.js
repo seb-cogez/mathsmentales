@@ -190,6 +190,8 @@ window.onload = function(){
     // flash cards
     document.getElementById("btngenerateFC").onclick = ()=>{MM.createFlashCards()}
     document.getElementById("cardsNbValue").oninput = (evt)=>{document.getElementById('cardsNb').innerHTML=evt.target.value;}
+    document.getElementById("btn-flash-adresse").onclick = ()=>{MM.copyURL('cartesflash');};
+    document.getElementById("btn-flash-copytohistoric").onclick = ()=>{MM.copyURLtoHistory('cartesflash')};
     // j'ai / qui a ?
     document.getElementById("btngenerateWG").onclick = ()=>{MM.createWhoGots()}
     // dominos
