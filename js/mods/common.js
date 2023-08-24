@@ -4,8 +4,11 @@ export {common as default}
 const pageOrientations = ["portrait","paysage"]
 const pageWidthes = ["794", "1123"]
 let pageFormat = 0;
-document.getElementById("pageOrientation").onclick = (evt)=>{
-    common.changeOrientation(evt)
+const btnOrientation = document.getElementById("pageOrientation")
+if (btnOrientation !== null){
+    btnOrientation.onclick = (evt)=>{
+        common.changeOrientation(evt)
+    }
 }
 const common = {
     seed:"0000",

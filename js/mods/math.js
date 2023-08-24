@@ -327,6 +327,7 @@ const math = {
      * return un diviseur de nb
      */
     unDiviseur(nb,notOne=false,notNb=true){
+        if(Number(nb)===0)return 1
         let diviseurs = math.listeDiviseurs(nb,true);
         if(notOne) diviseurs = _.rest(diviseurs); // on enlève la première valeur qui est 1.
         if(notNb) diviseurs = _.initial(diviseurs);
@@ -864,10 +865,8 @@ const math = {
             if (isNaN(nombre.toString().replace(/ /gi, ""))) return "Nombre non valide";
     
             nb = parseFloat(nombre.toString().replace(/ /gi, ""));
-            //if (Math.ceil(nb) != nb) return "Nombre avec virgule non géré.";
             if(Math.ceil(nb) != nb){
                 nb = nombre.toString().split('.');
-                //return NumberToLetter(nb[0]) + " virgule " + NumberToLetter(nb[1]);
                 return this.NumberToFraction(nb[0]) + (U ? " " + U + " et " : " virgule ") + this.NumberToFraction(nb[1]) + (D ? " " + D : "");
             }
             n = nb.toString().length;

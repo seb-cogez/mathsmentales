@@ -728,7 +728,11 @@ const MM = {
         if(!MM.carts[0].activities.length){
             MM.carts[0].addActivity(MM.editedActivity);
         }
-        MM.fiche = new ficheToPrint("flashcard",MM.carts[0]);
+        let withSeed = false;
+        if(document.getElementById("aleaInURL").checked)withSeed = true;
+        let params = this.paramsToURL(withSeed,"cartesflash");
+        let value = this.setURL(params,"cartesflash");
+        MM.window = window.open(value,"mywindow","location=no,menubar=no,titlebar=no,width=1123");
     },
     createWhoGots:function(){
         if(!MM.carts[0].activities.length){
@@ -838,6 +842,11 @@ const MM = {
             ",t2="+encodeURI(document.getElementById("cancol2title").value||document.getElementById("cancol2title").placeholder)+
             ",t3="+encodeURI(document.getElementById("cancol3title").value||document.getElementById("cancol3title").placeholder)+
             this.export()
+        } else if(type==="cartesflash"){
+            return "disp="+(utils.getRadioChecked("flashcarddispo"))+
+            ",t="+(document.getElementById("FCtitle").value||"Cartes Flash")+
+            ",a="+(withAleaSeed?MM.seed:"")+
+            this.export()
         } else if(type==="dominossheet"){
             return "n="+document.getElementById("dominosNbValue").value+
             ",a="+(withAleaSeed?MM.seed:"")+
@@ -889,7 +898,7 @@ const MM = {
      * et lance le diapo ou passe en mode édition
      * edit est true si appelé par l'historique pour édition
      */
-     checkURL(urlString=false,start=true,edit=false){
+    checkURL(urlString=false,start=true,edit=false){
         const vars = utils.getUrlVars(urlString);
         // cas d'une page prévue pour exercice.html
         if(vars.cor && vars.ex && location.href.indexOf("exercices.html")<0 && !edit){
@@ -1349,6 +1358,10 @@ const MM = {
             if(utils.baseURL.indexOf("index.html")<0)
                 utils.baseURL+="index.html";
             return utils.baseURL.replace('index','courseauxnombres')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
+        } else if(type==="cartesflash"){
+            if(utils.baseURL.indexOf("index.html")<0)
+                utils.baseURL+="index.html";
+            return utils.baseURL.replace('index','cartesflash')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
         } else if(type==="dominossheet"){
             if(utils.baseURL.indexOf("index.html")<0)
                 utils.baseURL+="index.html";

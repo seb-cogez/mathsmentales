@@ -521,11 +521,13 @@ function makePage(){
                 }
                 ligne.appendChild(divQuestion);
                 let value = activity.values[j];
-                if(Array.isArray(value))value=value[0];                
-                let spanc = utils.create("span", {innerHTML:value});
-                if(activity.type === undefined || activity.type === "latex"){
-                    spanc.classList.add("math");
+                if(Array.isArray(value)) {
+                    value=value[0];
                 }
+                let spanc = utils.create("span", {innerHTML:value, classList:'math'});
+                /*if(activity.type === undefined || activity.type === "" || activity.type === "latex"){
+                    spanc.classList.add("math"); 
+                }*/
                 ligneCorr.appendChild(spanc);
                 divCorr[colsid].push(ligneCorr);
                 if(ansInside){
