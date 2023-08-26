@@ -1,0 +1,62 @@
+{
+    "ID":"3DD8",
+    "dest":["3DD","2F2","Ko4"],
+    "title":"Calcul d'image par une fonction affine",
+    "type":"text",
+    "textSize":"medium",
+    "vars":{
+        "choixdeca":"0_1",
+        "a0":"-10_10_^0",
+        "a":"${:choixdeca?:a0:math.round(:a0/10,1)}",
+        "choixdec":"0_1",
+        "x0":"-10_10",
+        "x":"${:choixdec?:x0:math.round(:x0/10,1)}"
+    },
+    "options":[
+        {
+            "name":"Image par une fonction linéaire (entiers relatifs)",
+            "question":[
+                "Quelle est l'image de $$${:x0}$$ par la fonction $$f(x)=${:a0}x$$ ?",
+                "Quelle est l'image de $$${:x0}$$ par la fonction $$f : x\\mapsto${:a0}x$$ ?",
+                "Soit la fonction $$f: x\\mapsto${:a0}x$$,<br>calculer $$f(${:x0})$$"
+            ],
+            "answer":"$$f(${:x0})=\\color{red}{${:a0*:x0}}$$",
+            "value":"${:a0*:x0}"
+        },{
+            "name":"Image par une fonction affine (entiers relatifs)",
+            "vars":{
+                "b":"-10_10_^0"
+            },
+            "question":[
+                "Quelle est l'image de $$${:x0}$$ par la fonction $$f(x)=${:a0}x+${:b}$$ ?",
+                "Quelle est l'image de $$${:x0}$$ par la fonction $$f : x\\mapsto${:a0}x+${:b}$$ ?",
+                "Soit la fonction $$f: x\\mapsto${:a0}x+${:b}$$,<br>calculer $$f(${:x0})$$"
+            ],
+            "answer":"$$f(${:x0})=\\color{red}{${:a0*:x0+:b}}$$",
+            "value":"${:a0*:x0+:b}"
+        },{
+            "name":"Image par une fonction linéaire (décimal simple)",
+            "question":[
+                "Quelle est l'image de $$${:x}$$ par la fonction $$f(x)=${:a}x$$ ?",
+                "Quelle est l'image de $$${:x}$$ par la fonction $$f : x\\mapsto${:a}x$$ ?",
+                "Soit la fonction $$f: x\\mapsto${:a}x$$,<br>calculer $$f(${:x})$$"
+            ],
+            "answer":"$$f(${:x})=\\color{red}{${math.round(:a*:x,2)}}$$",
+            "value":"${math.round(:a*:x,2)}"
+        },{
+            "name":"Image par une fonction affine (décimal simple)",
+            "vars":{
+                "choixdecb":"0_1",
+                "b0":"-10_10_^0",
+                "b":"${:choixdecb?:b0:math.round(:b0/10,1)}"
+            },
+            "question":[
+                "Quelle est l'image de $$${:x}$$ par la fonction $$f(x)=${:a}x+${:b}$$ ?",
+                "Quelle est l'image de $$${:x}$$ par la fonction $$f : x\\mapsto${:a}x+${:b}$$ ?",
+                "Soit la fonction $$f: x\\mapsto${:a}x+${:b}$$,<br>calculer $$f(${:x})$$"
+            ],
+            "answer":"$$f(${:x})=\\color{red}{${math.round(:a*:x+:b,2)}}$$",
+            "value":"${math.round(:a*:x+:b,2)}"
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "title":"Pourcentage et fractions simples",
+    "ID":"5NA5",
+    "description":"Donner le pourcentage correspondant à une fraction.",
+    "speech":1,
+    "keys":["/"],
+    "textSize":"medium",
+    "dest":["5NA","4NA","3NA"],
+    "options":[{
+        "name":"Fractions unités",
+        "vars":{"den":[2,3,4,5,10,20,25,50,100], "num":"1"},
+        "value":["${math.round(:num/:den,2)*100}%","${math.round(:num/:den,2)*100}"]
+    },{
+        "name":"Multiples de fractions unité",
+        "vars":{"den":[2,3,4,5,10,20,25,50,100,200,300,400,500],"m":"2_10", "num":"${:den>100?(:den*:m/100):'2_'+:den}"},
+        "value":["${math.round(:num/:den,2)*100}%","${math.round(:num/:den,2)*100}"]
+    },{
+        "name":"Multiples de fractions unité supérieures à 1",
+        "vars":{"den":[2,3,4,5,10,20,25,50,100], "num":"${:den+1}_${:den*2}"},
+        "value":["${math.round(:num/:den,2)*100}%","${math.round(:num/:den,2)*100}"]
+    }],
+    "question":"\\text{À quel pourcentage correspond } \\dfrac{${:num}}{${:den}} ?",
+    "audio":"À quel pourcentage correspond la fraction ${:num} ${math.NumberToFraction(:den)} ?",
+    "answer":"\\dfrac{${:num}}{${:den}}${math.round(:num/:den,2)!=math.round(:num/:den,3)?'\\approx':'='}\\color{red}{${math.round(:num/:den*100)}\\%}"
+}

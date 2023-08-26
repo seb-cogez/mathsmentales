@@ -72,7 +72,7 @@
         },
         {
             "name":"Triangle isocèle cas 1 (multiple de 5)",
-            "vars":{"pts":"0_16_3_^&", "c":"1_17", "a":"${5*:c}", "b":"${180-2*:b}", "T":["${:A+:B+:C}", "${:B+:A+:C}", "${:C+:B+:A}", "${:B+:C+:A}"],"numill":"0_3", "illustration":"${:a>45?:numill:(:numill+4)}"},
+            "vars":{"pts":"0_16_3_^&", "c":"1_17", "a":"${5*:c}", "b":"${180-2*:a}", "T":["${:A+:B+:C}", "${:B+:A+:C}", "${:C+:B+:A}", "${:B+:C+:A}"],"numill":"0_3", "illustration":"${:a>45?:numill:(:numill+4)}"},
             "figure":{"type":"svg","content":"${:trianglesisocelesAngleB[:illustration]}"},
             "question":"Le triangle ${:T} est isocèle en ${:A}. Quelle est la mesure de l'angle $$\\widehat{${:B+:A+:C}}$$ sachant que $$\\widehat{${:A+:B+:C}}=${:a}°$$ ?",
             "shortq":"${:T} isocèle en ${:A}. $$\\widehat{${:A+:B+:C}}=${:a}°$$, $$\\widehat{${:C+:A+:B}}=?$$",
