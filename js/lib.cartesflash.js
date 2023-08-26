@@ -20,8 +20,17 @@ function changeHeight(nb){
     refresh()
 }
 
+function changeWidth(nb){
+    parameters.cardWidth = Number(nb)
+    refresh()
+}
+
 document.getElementById("inputheight").oninput = (evt)=>{
     changeHeight(evt.target.value);
+}
+
+document.getElementById("inputwidth").oninput = (evt)=>{
+    changeWidth(evt.target.value);
 }
 
 document.getElementById('btnRectoVerso').onclick = (evt)=>{
@@ -34,6 +43,14 @@ document.getElementById('btnRectoVerso').onclick = (evt)=>{
         btn.innerText = 'Impression Recto'
     }
     refresh()
+}
+
+document.getElementById('identifiant').onchange = (evt)=>{
+    const content = evt.target.value
+    const cardIds = document.querySelectorAll('.identifiant')
+    for (const id of cardIds){
+        id.innerText = content
+    }
 }
 
 function changeOrientation(evt){
@@ -75,17 +92,6 @@ function refresh(){
     common.mathRender()
 }
 
-function insertAnswers(answers,target){
-    for(let i=1; i<answers.length; i=i+2){
-        target.appendChild(answers[i])
-        target.appendChild(answers[i-1])
-    }
-    if(answers.length%2===1){
-        target.appendChild(utils.create('article',{className:'card'}))
-        target.appendChild(answers[answers.length-1])
-    }
-}
-
 function makePage(){
     if(parameters.alea){
         common.setSeed(parameters.alea);
@@ -116,9 +122,13 @@ function makePage(){
             }
             const artQuestion = utils.create("article",{className:"flash-question card recto"});
             artQuestion.style.height = parameters.cardHeight+"mm";
+            artQuestion.style.width = parameters.cardWidth+"mm";
+            artQuestion.appendChild(utils.create('div', {className:'logoq', innerText:'Q'}))
+            artQuestion.appendChild(utils.create('div', {className:'identifiant', innerText:document.getElementById('identifiant').value}))
             const divq = utils.create("div");
             const artCorrection = utils.create("article",{className:"flash-reponse card verso"});
             artCorrection.style.height = parameters.cardHeight+"mm";
+            artCorrection.style.width = parameters.cardWidth+"mm";
             const divr = utils.create("div");
             if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
                 const span = utils.create("span",{className:"math", innerHTML:activity.questions[j]});
@@ -135,9 +145,6 @@ function makePage(){
                 MM.memory["f"+index+"-"+j] = new Figure(utils.clone(activity.figures[j]), "f"+index+"-"+j, divq);
             }
             artCorrection.appendChild(divr)
-            let indexWhereInsertQ = currentSection
-            let indexWhereInsertA = currentSection
-
             if(globalPrintHeight > pageHeight){
                 arrayOfFlashCardsSection.push(utils.create("section",{className:"flash-section grid g2"}))
                 currentSection++;
@@ -146,6 +153,8 @@ function makePage(){
                 }
                 globalPrintHeight = parameters.cardHeight
             }
+            let indexWhereInsertQ = currentSection
+            let indexWhereInsertA = currentSection
             if(parameters.disposition === 'separated'){
                 indexWhereInsertQ = 2*currentSection
                 indexWhereInsertA = 2*currentSection+1
@@ -216,7 +225,9 @@ function checkURL(urlString){
         parameters.cart = new cart(0);
         parameters.cart.import(json[0],false).then(()=>{
             document.getElementById('inputheight').value = vars.ch||55
-            changeHeight(document.getElementById('inputheight').value)    
+            parameters.cardHeight = Number(document.getElementById('inputheight').value)
+            document.getElementById('inputwidth').value = vars.cw||85
+            changeWidth(document.getElementById('inputwidth').value)
         }).catch(err=>{
             // erreur à l'importation :(
             let alert=utils.create("div",

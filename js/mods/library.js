@@ -158,7 +158,7 @@ const library = {
                                     // we find a candidate !!!
                                     chaineATrouver.forEach(txt =>{
                                         let reg = new RegExp(txt,"gi");
-                                        tt = tt.replace(reg,function(x){return "<mark>"+x+"</mark>"})
+                                        tt = tt.replace(reg,function(x){return '<mark data-url="'+lexo.u+'" data-id="'+lexo.id+'" id="rcli'+theme+'-'+chap+'-mark">'+x+'</mark>'})
                                     })
                                     chapExo.push({"u":lexo.u, "t":tt, id:lexo.id})
                                 } else

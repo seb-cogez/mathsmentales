@@ -22,6 +22,7 @@ const MM = {
     editedActivity:undefined, // object activity 
     slidersOrientation: "", // if vertical => vertical presentation for 2 sliders
     onlineState:"no", // true if user answers on computer (Cf start and online functions)
+    sliderContent:"questions", // qanda for for question/answers alternance | qthena for slider of questions then slider of answers
     carts:[], // max 4 carts
     steps:[],
     timers:[],
@@ -127,6 +128,9 @@ const MM = {
     },
     setEndType(value){
         this.endType = value;
+    },
+    setSliderContent(value){
+        this.sliderContent = value
     },
     setAudio(value){
         if(this.slidersNumber>1){
@@ -887,6 +891,7 @@ const MM = {
             ",a="+(withAleaSeed?MM.seed:"")+
             ",colors="+colors+
             ",snd="+sound.selected+
+            ",sc="+MM.sliderContent+
             this.export();
     },
     setHistory(pageName,params){
@@ -996,6 +1001,10 @@ const MM = {
             // orientation dans le cas de 2 diapos
             if(vars.so){
                 MM.slidersOrientation = vars.so;
+            }
+            // dérouler du diaporama
+            if(vars.sc){
+                MM.sliderContent = vars.sc;
             }
             // paramètres des activités des paniers
             let json = vars.c;

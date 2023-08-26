@@ -171,6 +171,7 @@ const math = {
      * @returns a number with his sign
      */
     signedNumber:function(nb){
+        nb = Number(nb)
         if(nb===0) return "";
         else if(nb>0) return "+"+nb;
         else return nb;
@@ -182,10 +183,11 @@ const math = {
      * @returns nothing if nb=1, - if nb=-1 the number in other cases
      */
     signIfOne:function(nb){
+        nb = Number(nb)
         if(nb === 1)
-            return "";
+            return ""
         else if(nb === -1)
-            return "-";
+            return "-"
         else return nb;
     },
     /**

@@ -552,7 +552,7 @@ export default class activity {
                 utils.debug(error, "Error replacing vars with "+chaine);
             }
             // return number if this is one
-            if(!isNaN(result)){
+            if(!isNaN(result) && result !== '' && result.indexOf('+')<0){
                 return parseFloat(result);
             } else return result;
         } else if(typeof chaine === "object"){
@@ -606,13 +606,15 @@ export default class activity {
                     this.cVars = this.vars;
                 } else if(this.vars !== undefined) {
                     // des variables des deux côtés, on merge
-                    this.cVars = Object.assign(this.vars, this.options[optionNumber].vars);
+                    this.cVars = Object.assign({}, this.vars, this.options[optionNumber].vars);
                 } else {
                     // pas de variables globales définies.
                     this.cVars = this.options[optionNumber].vars;
                 }
                 if(this.options[optionNumber].consts === undefined) {
                     this.cConsts = utils.clone(this.consts);
+                } else if(this.consts !== undefined){
+                    this.cConsts = Object.assign({},utils.clone(this.options[optionNumber].consts),utils.clone(this.options[optionNumber].consts));
                 } else this.cConsts = utils.clone(this.options[optionNumber].consts);
                 if(patternNumber !== false){
                     // la question est définie dans l'option, avec un pattern défini
