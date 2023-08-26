@@ -604,8 +604,14 @@ export default class activity {
                 if(this.options[optionNumber].vars === undefined){
                     // pas de variable définie dans l'option, on prend les variables globales
                     this.cVars = this.vars;
-                } else this.cVars = this.options[optionNumber].vars;
-                if(this.options[optionNumber].consts === undefined){
+                } else if(this.vars !== undefined) {
+                    // des variables des deux côtés, on merge
+                    this.cVars = Object.assign(this.vars, this.options[optionNumber].vars);
+                } else {
+                    // pas de variables globales définies.
+                    this.cVars = this.options[optionNumber].vars;
+                }
+                if(this.options[optionNumber].consts === undefined) {
                     this.cConsts = utils.clone(this.consts);
                 } else this.cConsts = utils.clone(this.options[optionNumber].consts);
                 if(patternNumber !== false){
