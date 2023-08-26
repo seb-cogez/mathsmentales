@@ -10,7 +10,7 @@
                 margin:1cm;
             }
         </style>
-        <link rel="stylesheet" href="css/cartesflash.css?v=" type="text/css" />
+        <link rel="stylesheet" href="css/cartesflash.css?v=2" type="text/css" />
         <link href="js/libs/katex/katex.min.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="css/jsxgraph.css" type="text/css" />
         <script src="js/libs/JSXGprah1.2.2/jsxgraphcore.js"></script>
@@ -21,7 +21,7 @@
         <script src="js/libs/algebrite/algebrite.bundle-for-browser.min.js" type="text/javascript" defer></script>
         <script src="js/libs/bigjs/big.min.js" type="text/javascript" defer></script>
         <script src="js/libs/chartjs/Chart.bundle.min.js" defer></script>
-        <script type="module" src="js/lib.cartesflash.js"></script>
+        <script type="module" src="js/lib.cartesflash.min.js?v=4"></script>
     </head>  
     <body>
         <div id="creator-container">
@@ -29,7 +29,9 @@
                 <button onclick="window.print();">Print</button> pour imprimer ou faire un pdf.
                 <button id="btnPageOrientation" title="Change l'orientation de la page">paysage</button>
                 <button id="btnRectoVerso" title="Change le type d'impression">Impression Recto</button>
-                <div class="noprint fright"><input id="inputheight" value="55" title="Taille cartes" type="number" size="3" min="30" max="180"> mm</div>
+                Texte décoratif <input type="text" id="identifiant" size="15" placeholder="Multiplications...">
+                L<input id="inputwidth" value="55" title="Taille cartes" type="number" size="4" min="30" max="100">
+                H<input id="inputheight" value="55" title="Taille cartes" type="number" size="3" min="30" max="180"> mm
             </section>
             <section id="creator-content">
             
