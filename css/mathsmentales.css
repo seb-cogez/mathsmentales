@@ -101,12 +101,15 @@ mark {
 #resultat-chercher .checkitem {
   display: none;
   margin-left: 0.5em;
+  position: absolute;
+  left:-2.6rem;
+  top:0.6rem;
 }
 #resultat-chercher .checkitem:checked {
-  display: inline-block;
+  display: block;
 }
 #resultat-chercher li:hover .checkitem {
-  display: inline-block;
+  display: block;
 }
 .grille {
   display:flex;

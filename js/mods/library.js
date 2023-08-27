@@ -227,9 +227,9 @@ const library = {
                         let title = niveau["themes"][i]["chapitres"][j]["e"][k]["t"];
                         let url = niveau["themes"][i]["chapitres"][j]["e"][k]["u"];
                         if(niveau["themes"][i]["chapitres"][j]["e"][k]["new"]){
-                            htmlc += "<li id='rcli"+i+"-"+j+"-"+k+"' class='new tooltip' data-id='"+id+"' data-url='"+url+"'>"+title+"<input type='checkbox' class='checkitem' value='"+id+"' data-url='"+url+"'><div class='tooltiptext'>"+id+"</div></li>";
+                            htmlc += "<li id='rcli"+i+"-"+j+"-"+k+"' class='new tooltip' data-id='"+id+"' data-url='"+url+"'><input type='checkbox' class='checkitem' value='"+id+"' data-url='"+url+"'>"+title+"<div class='tooltiptext'>"+id+"</div></li>";
                         } else {
-                            htmlc += "<li id='rcli"+i+"-"+j+"-"+k+"' class='tooltip' data-id='"+id+"' data-url='"+url+"'>"+title+"<input type='checkbox' class='checkitem' value='"+id+"' data-url='"+url+"'><div class='tooltiptext'>"+id+"</div></li>";
+                            htmlc += "<li id='rcli"+i+"-"+j+"-"+k+"' class='tooltip' data-id='"+id+"' data-url='"+url+"'><input type='checkbox' class='checkitem' value='"+id+"' data-url='"+url+"'>"+title+"<div class='tooltiptext'>"+id+"</div></li>";
                         }
                     }
                 } else {
