@@ -1,9 +1,0 @@
-<svg width="200" height="60" version="1.1" viewBox="0 0 52.917 15.875" xmlns="http://www.w3.org/2000/svg">
- <text x="13.297175" y="4.1944108" fill="#000000" font-family="sans-serif" font-size="4.2333px" letter-spacing="0px" stroke-width=".26458" word-spacing="0px" style="line-height:1.25" xml:space="preserve"><tspan x="13.297175" y="4.1944108" font-size="4.2333px" stroke-width=".26458">A</tspan></text>
- <text x="41.835815" y="10.021122" fill="#000000" font-family="sans-serif" font-size="4.2333px" letter-spacing="0px" stroke-width=".26458" word-spacing="0px" style="line-height:1.25" xml:space="preserve"><tspan x="41.835815" y="10.021122" font-size="4.2333px" stroke-width=".26458">B</tspan></text>
- <g fill="none" stroke="#000" stroke-width=".26458px">
-  <path d="m11.876 5.6097 30.432 6.6932"/>
-  <path d="m12.316 4.4621-0.80318 2.1418"/>
-  <path d="m42.833 11.182-0.80318 2.1418"/>
- </g>
-</svg>
