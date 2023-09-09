@@ -502,9 +502,9 @@ function makePage(){
                 let divans=`<div class="bg-grey ans answer ${colsid}" style="height:20pt;"></div>`;
                 let content = activity.shortQuestions[j]||activity.questions[j];
                 let ansInside = false;
-                if(String(content).indexOf("_")>-1){
+                if(String(content).indexOf("colorbox")>-1){
                     ansInside = true; 
-                    divans = `<span class="bg-grey ans answer ${colsid}" style="height:20pt;"></span>`
+                    // divans = `<span class="bg-grey ans answer ${colsid}" style="height:20pt;"></span>`
                 }
                 if(activity.type === "latex" || activity.type === "" || activity.type === undefined){
                     let divq = utils.create("div",{className:"question"+colsid+" quest"});
@@ -530,11 +530,11 @@ function makePage(){
                 }*/
                 ligneCorr.appendChild(spanc);
                 divCorr[colsid].push(ligneCorr);
-                if(ansInside){
-                    ligne.innerHTML = ligne.innerHTML.replaceAll("_",divans);
-                } else {
-                    ligne.innerHTML += divans;
-                }
+                if(!ansInside){
+                    ligne.innerHTML += divans//ligne.innerHTML.replaceAll("_",divans);
+                }// else {
+                //    ligne.innerHTML += divans;
+                //}
                 cols[colsid].push(ligne);
                 if(nbq%parameters.nbrows === 0 && parameters.nbrows>0){
                     if(parameters.pied !== ""){

@@ -22,7 +22,6 @@ const MM = {
     editedActivity:undefined, // object activity 
     slidersOrientation: "", // if vertical => vertical presentation for 2 sliders
     onlineState:"no", // true if user answers on computer (Cf start and online functions)
-    sliderContent:"questions", // qanda for for question/answers alternance | qthena for slider of questions then slider of answers
     carts:[], // max 4 carts
     steps:[],
     timers:[],
@@ -123,14 +122,11 @@ const MM = {
     },
     closeMessage(id){
         let div=document.getElementById(id);
-        div.parentNode.removeChild(div);
+        if(div !== null) div.parentNode.removeChild(div);
         document.body.removeEventListener("click",(evt)=>{if(evt.target.id==="btn-messagefin-close"){MM.closeMessage('messagefin');MM.showTab('tab-corrige');}});
     },
     setEndType(value){
         this.endType = value;
-    },
-    setSliderContent(value){
-        this.sliderContent = value
     },
     setAudio(value){
         if(this.slidersNumber>1){
@@ -891,7 +887,6 @@ const MM = {
             ",a="+(withAleaSeed?MM.seed:"")+
             ",colors="+colors+
             ",snd="+sound.selected+
-            ",sc="+MM.sliderContent+
             this.export();
     },
     setHistory(pageName,params){
@@ -1001,10 +996,6 @@ const MM = {
             // orientation dans le cas de 2 diapos
             if(vars.so){
                 MM.slidersOrientation = vars.so;
-            }
-            // dérouler du diaporama
-            if(vars.sc){
-                MM.sliderContent = vars.sc;
             }
             // paramètres des activités des paniers
             let json = vars.c;
@@ -1757,6 +1748,7 @@ const MM = {
                     let ia = 0;
                     // pour un target, on a l'ordre des activités et des réponses.
                     for(let slide=0,len2=MM.carts[0].actsArrays[slider].length;slide<len2;slide++){
+                        if(MM.userAnswers[slider][ia] === undefined)break;
                         let refs = MM.carts[0].actsArrays[slider][slide];
                         let li = document.createElement("li");
                         let span = document.createElement("span");
@@ -1775,15 +1767,16 @@ const MM = {
                         // prendre en compte les cas où plusieurs réponses sont possibles
                         // attention, si c'est du texte, il faut supprimer des choses car mathlive transforme 
                         if(Array.isArray(expectedAnswer)){
-                            for(let i=0;i<expectedAnswer.length;i++){
-                                if(String(userAnswer).toLowerCase()==String(expectedAnswer[i]).toLowerCase()){
+                            for(const oneExpected of expectedAnswer){
+                                if(String(userAnswer).toLowerCase()==String(oneExpected).toLowerCase()){
                                     li.className = "good";
                                     score++;
                                     break;
                                 } else {
-                                    const expr1 = KAS.parse(expectedAnswer[i]).expr;
+                                    const expr1 = KAS.parse(oneExpected).expr;
                                     const expr2 = KAS.parse(String(userAnswer).replace('²', '^2')).expr;
-                                    try{if(KAS.compare(expr1,expr2,{form:true,simplify:false}).equal){
+                                    try{
+                                        if(KAS.compare(expr1,expr2,{form:true,simplify:false}).equal){
                                         // use KAS.compare for algebraics expressions.
                                         li.className = "good";
                                         score++;
@@ -1823,16 +1816,42 @@ const MM = {
                             if(String(userAnswer).toLowerCase()==String(expectedAnswer).toLowerCase()){
                                 li.className = "good";
                                 score++;
+                            } else if(expectedAnswer !== '') {
+                                if(expectedAnswer.indexOf(',')>0){
+                                    const expetedAnswersArray = expectedAnswer.split(',')
+                                    for(const oneExpected of expetedAnswersArray){
+                                        if(String(userAnswer).toLowerCase()==String(oneExpected).toLowerCase()){
+                                            li.className = "good";
+                                            score++;
+                                            break;
+                                        } else {
+                                            const expr1 = KAS.parse(oneExpected).expr;
+                                            const expr2 = KAS.parse(String(userAnswer).replace('²', '^2')).expr;
+                                            try{
+                                                if(KAS.compare(expr1,expr2,{form:true,simplify:false}).equal){
+                                                // use KAS.compare for algebraics expressions.
+                                                li.className = "good";
+                                                score++;
+                                                break;
+                                            } else {
+                                                li.className = "wrong";
+                                            }
+                                            } catch(error){
+                                                li.className = "wrong";
+                                            }
+                                        }
+                                }}
                             } else {
                                 const expr1 = KAS.parse(expectedAnswer).expr;
                                 const expr2 = KAS.parse(String(userAnswer).replace('²', '^2')).expr;
-                                try{if(KAS.compare(expr1,expr2,{form:true,simplify:false}).equal){
-                                    // use KAS.compare for algebraics expressions.
-                                    li.className = "good";
-                                    score++;
-                                } else {
-                                    li.className = "wrong";
-                                }
+                                try{
+                                    if(KAS.compare(expr1,expr2,{form:true,simplify:false}).equal){
+                                        // use KAS.compare for algebraics expressions.
+                                        li.className = "good";
+                                        score++;
+                                    } else {
+                                        li.className = "wrong";
+                                    }
                                 } catch(error){
                                     li.className = "wrong";
                                 }

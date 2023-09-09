@@ -1,0 +1,125 @@
+{
+    "title":"Calcul de longueurs dans les agrandissement et réductions",
+    "type":"text",
+    "ID":"4MB1",
+    "repeat":2,
+    "description":"Calculer une longueur connaissant la longueur correspondante et le coefficient.",
+    "dest":["4MB","3MB"],
+    "consts":{
+        "reductions":[
+            "<svg width='15em' height='9em' viewBox='0 0 79.375 47.625' xmlns='http://www.w3.org/2000/svg'><path fill='none' stroke='#000392' stroke-width='.529' stroke-linecap='round' stroke-linejoin='round' d='M56.623 18.998h15.331v15.331H56.623zM5.043 3.668h24.844v24.844H5.043z'/><text style='line-height:1.25;text-align:center' x='18.061' y='32.724' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='18.061' y='32.724'>${:a}</tspan></text><text style='line-height:1.25;text-align:center' x='64.626' y='38.513' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='64.626' y='38.513'>${:a1}</tspan></text><text style='line-height:1.25;' x='38.025' y='19.657' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' stroke-width='.265'><tspan x='38.025' y='19.657'>${:coef}</tspan></text><path d='M48.427 25.13l1.662-.716-15.359-4.67' fill='none' stroke='#000' stroke-width='.265' stroke-linecap='round' stroke-linejoin='round'/><path d='M50.09 24.414l-.91-1.497' fill='none' stroke='#000' stroke-width='.265' stroke-linecap='round'/></svg>",
+            "<svg width='15em' height='9em' viewBox='0 0 79.375 47.625' xmlns='http://www.w3.org/2000/svg'><path fill='none' stroke='#000392' stroke-width='.529' stroke-linecap='round' stroke-linejoin='round' d='M2.321 4.929h29.544V21.95H2.321z'/><text style='line-height:1.25;text-align:center' x='16.381' y='26.512' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='16.381' y='26.512'>${:a}</tspan></text><text style='line-height:1.25;text-align:center' x='62.04' y='29.891' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='62.04' y='29.891'>${:a1}</tspan></text><text style='line-height:1.25;text-align:center' x='43.427' y='22.005' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='43.427' y='22.005'>${:coef}</tspan></text><path d='M48.657 19.772l1.662-.716-12.924-1.576' fill='none' stroke='#000' stroke-width='.265' stroke-linecap='round' stroke-linejoin='round'/><path d='M50.319 19.056l-1.512-1.068' fill='none' stroke='#000' stroke-width='.265' stroke-linecap='round'/><path fill='none' stroke='#000392' stroke-width='.529' stroke-linecap='round' stroke-linejoin='round' d='M53.9 17.394h14.764v8.396H53.9z'/><text style='line-height:1.25;text-align:start' x='33.005' y='12.948' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' stroke-width='.265'><tspan style='text-align:start' x='33.005' y='12.948'>${:b}</tspan></text><text style='line-height:1.25;text-align:start' x='69.229' y='22.781' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' stroke-width='.265'><tspan style='text-align:start' x='69.229' y='22.781'>${:b1}</tspan></text></svg>",
+            "<svg width='15em' height='9em' viewBox='0 0 79.375 47.625' xmlns='http://www.w3.org/2000/svg'><text style='line-height:1.25;text-align:center' x='19.208' y='37.051' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='19.208' y='37.051'>${:a}</tspan></text><text style='line-height:1.25;text-align:center' x='63.767' y='21.835' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='63.767' y='21.835'>${:a1}</tspan></text><text style='line-height:1.25' x='38.57' y='28.77' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' stroke-width='.265'><tspan x='38.57' y='28.77'>${:coef}</tspan></text><path d='M45.906 21.807l2.435.028-12.723 4.872' fill='none' stroke='#000' stroke-width='.265' stroke-linecap='round' stroke-linejoin='round'/><path d='M48.341 21.835l-1.483 1.598' fill='none' stroke='#000' stroke-width='.265' stroke-linecap='round'/><text style='line-height:1.25;text-align:start' x='22.695' y='20.403' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' stroke-width='.265'><tspan style='text-align:start' x='26.916' y='20.403'>${:b}</tspan></text><text style='line-height:1.25;text-align:center' x='66.994' y='9.829' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:start' x='66.994' y='9.829' text-anchor='start'>${:b1}</tspan></text><text style='line-height:1.25;text-align:end' x='9.039' y='24.386' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='end' stroke-width='.265'><tspan style='text-align:end' x='9.039' y='24.386'>${:c}</tspan></text><path d='M15.518 15.044L2.808 36.302l29.371-7.978z' fill='none' stroke='#02117f' stroke-width='.529' stroke-linejoin='round'/><text style='line-height:1.25;text-align:end' x='56.581' y='11.806' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='end' stroke-width='.265'><tspan style='text-align:end' x='56.581' y='11.806'>${:c1}</tspan></text><path d='M61.266 6.218l-8.282 13.804 19.14-5.18z' fill='none' stroke='#02117f' stroke-width='.529' stroke-linejoin='round'/></svg>",
+            "<svg width='15em' height='9em' viewBox='0 0 79.375 47.625' xmlns='http://www.w3.org/2000/svg'><text style='line-height:1.25;text-align:center' x='17.889' y='35.103' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='17.889' y='35.103'>${:p}</tspan></text><text style='line-height:1.25;text-align:center' x='45.357' y='21.864' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='45.357' y='21.864'>${:coef}</tspan></text><path d='M50.748 25.475l1.748 2.091-17.135-6.103' fill='none' stroke='#000' stroke-width='.265' stroke-linecap='round' stroke-linejoin='round'/><path d='M52.496 27.566l-2.686.308' fill='none' stroke='#000' stroke-width='.265' stroke-linecap='round'/><text style='line-height:1.25;text-align:center' x='67.922' y='31.206' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='67.922' y='31.206'>${:r1}</tspan></text><text style='line-height:1.25;text-align:center' x='24.222' y='15.904' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='24.222' y='15.904'>${:r}</tspan></text><text style='line-height:1.25;text-align:center' x='64.368' y='44.53' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='64.368' y='44.53'>${:p1}</tspan></text><circle cx='18.311' cy='17.48' r='13.755' fill='none' stroke='#02117f' stroke-width='.529' stroke-linecap='round' stroke-linejoin='round'/><path d='M32.094 16.878L17.852 18.11' fill='none' stroke='#000' stroke-width='.265'/><circle cx='64.961' cy='32.552' r='8.198' fill='none' stroke='#02117f' stroke-width='.529' stroke-linecap='round' stroke-linejoin='round'/><path d='M73.177 32.194l-8.489.734' fill='none' stroke='#000' stroke-width='.265'/></svg>"
+        ],
+        "agrandissements":[
+            "<svg width='15em' height='9em' viewBox='0 0 79.375 47.625' xmlns='http://www.w3.org/2000/svg'><path fill='none' stroke='#000392' stroke-width='.529' stroke-linecap='round' stroke-linejoin='round' d='M6.39 8.482h12.207v12.207H6.39zm36.879 3.209h24.844v24.844H43.269z'/><text style='line-height:1.25;text-align:center' x='19.355' y='25.236' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' stroke-width='.265' text-anchor='middle'><tspan style='text-align:center' x='15.134' y='25.236'>${:a}</tspan></text><text style='line-height:1.25;text-align:center' x='58.156' y='40.641' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='58.156' y='40.641'>${:a1}</tspan></text><text style='line-height:1.25' x='28.012' y='18.411' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' stroke-width='.265'><tspan x='28.012' y='18.411'>${:coef}</tspan></text><path d='M21.979 15.932l16.734 8.94-.43-1.518' fill='none' stroke='#000' stroke-width='.265' stroke-linecap='round' stroke-linejoin='round'/><path d='M38.713 24.873l-1.54.28' fill='none' stroke='#000' stroke-width='.265' stroke-linecap='round'/></svg>",
+            "<svg width='15em' height='9em' viewBox='0 0 79.375 47.625' xmlns='http://www.w3.org/2000/svg'><path fill='none' stroke='#000392' stroke-width='.529' stroke-linecap='round' stroke-linejoin='round' d='M36.02 22.508h31.779v18.326H36.02z'/><text style='line-height:1.25;text-align:center' x='11.963' y='19.146' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='11.963' y='19.146'>${:a}</tspan></text><text style='line-height:1.25;text-align:center' x='52.632' y='44.798' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='52.632' y='44.798'>${:a1}</tspan></text><text style='line-height:1.25' x='27.079' y='19.944' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' stroke-width='.265'><tspan x='27.079' y='19.944'>${:coef}</tspan></text><path d='M31.75 26.65l2.063.286L22.924 16.39' fill='none' stroke='#000' stroke-width='.265' stroke-linecap='round' stroke-linejoin='round'/><path d='M33.813 26.936l-.795-1.956' fill='none' stroke='#000' stroke-width='.265' stroke-linecap='round'/><path fill='none' stroke='#000392' stroke-width='.529' stroke-linecap='round' stroke-linejoin='round' d='M4.384 6.82h14.764v8.396H4.384z'/><text style='line-height:1.25;text-align:start' x='19.973' y='12.207' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' stroke-width='.265'><tspan style='text-align:start' x='19.973' y='12.207'>${:b}</tspan></text><text style='line-height:1.25;text-align:start' x='63.151' y='32.507' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' stroke-width='.265'><tspan style='text-align:start' x='68.549' y='32.507'>${:b1}</tspan></text></svg>",
+            "<svg width='15em' height='9em' viewBox='0 0 79.375 47.625' xmlns='http://www.w3.org/2000/svg'><text style='line-height:1.25;text-align:center' x='12.101' y='20.087' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='12.101' y='20.087'>${:a}</tspan></text><text style='line-height:1.25;text-align:center' x='56.488' y='45.39' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='56.488' y='45.39'>${:a1}</tspan></text><text style='line-height:1.25' x='30.117' y='17.68' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' stroke-width='.265'><tspan x='30.117' y='17.68'>${:coef}</tspan></text><path d='M36.908 22.093l2.15-.344-14.214-4.785' fill='none' stroke='#000' stroke-width='.265' stroke-linecap='round' stroke-linejoin='round'/><path d='M39.057 21.75l-1.397-1.641' fill='none' stroke='#000' stroke-width='.265' stroke-linecap='round'/><text style='line-height:1.25;text-align:start' x='17.91' y='9.542' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' stroke-width='.265'><tspan style='text-align:start' x='22.13' y='9.542'>${:b}</tspan></text><text style='line-height:1.25;text-align:start' x='65.847' y='30.948' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' stroke-width='.265'><tspan style='text-align:start' x='71.246' y='30.948'>${:b1}</tspan></text><path d='M12.38 2.407L5.071 14.614l16.82 3.152z' fill='none' stroke='#02117f' stroke-width='.529' stroke-linejoin='round'/><text style='line-height:1.25;text-align:end' x='8.495' y='7.45' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='end' stroke-width='.265'><tspan style='text-align:end' x='8.495' y='7.45'>${:c}</tspan></text><path d='M56.724 17.48l-12.71 21.258 29.257 5.49z' fill='none' stroke='#02117f' stroke-width='.529' stroke-linejoin='round'/><text style='line-height:1.25;text-align:end' x='49.36' y='27.853' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='end' stroke-width='.265'><tspan style='text-align:end' x='44.08' y='27.853'>${:c1}</tspan></text></svg>",
+            "<svg width='15em' height='9em' viewBox='0 0 79.375 47.625' xmlns='http://www.w3.org/2000/svg'><text style='line-height:1.25;text-align:center' x='13.161' y='39.516' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='13.161' y='39.516'>${:p}</tspan></text><text style='line-height:1.25;text-align:center' x='31.86' y='23.927' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='31.86' y='23.927'>${:coef}</tspan></text><path d='M39.372 25.188l2.092-1.49-16.649 2.436' fill='none' stroke='#000' stroke-width='.265' stroke-linecap='round' stroke-linejoin='round'/><path d='M41.464 23.698l-2.4-.924' fill='none' stroke='#000' stroke-width='.265' stroke-linecap='round'/><text style='line-height:1.25;text-align:center' x='54.024' y='13.869' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='54.024' y='13.869'>${:r1}</tspan></text><text style='line-height:1.25;text-align:center' x='11.729' y='25.331' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='11.729' y='25.331'>${:r}</tspan></text><text style='line-height:1.25;text-align:center' x='59.927' y='37.166' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='59.927' y='37.166'>${:p1}</tspan></text><circle cx='59.76' cy='17.666' r='15.66' fill='none' stroke='#02117f' stroke-width='.529' stroke-linecap='round' stroke-linejoin='round'/><path d='M13.726 27.939l-7.938-2.407' fill='none' stroke='#000' stroke-width='.265'/><circle cx='13.669' cy='27.624' r='8.198' fill='none' stroke='#02117f' stroke-width='.529' stroke-linecap='round' stroke-linejoin='round'/><path d='M60.292 17.814l-15.476-4.777' fill='none' stroke='#000' stroke-width='.265'/></svg>"
+        ]
+    },
+    "vars":{
+        "AorR":"0_1",
+        "vcoef":"${:AorR==0?'2_9':'d0.1_0.9_1'}",
+        "coef":"×${:vcoef}"
+    },
+    "options":[{
+        "name":"Dans un carré (tables)",
+        "vars":{
+            "la":"1_10",
+            "la1":"${math.round(:la*:vcoef,1)}",
+            "choixa":["a","a1"],
+            "a":"${:choixa=='a'?:la:'?'}",
+            "a1":"${:choixa=='a1'?:la1:'?'}",
+            "b":"","b1":"",
+            "c":"","c1":"","p":"","p1":"","r":"","r1":""
+        },
+        "figure":{"type":"svg","content":"${:AorR==0?:agrandissements[0]::reductions[0]}"},
+        "question":"Combien mesure la longueur manquante ?",
+        "answer":"La mesure manquante est $$${:choixa=='a'?:la+'\\times'+:vcoef::la1+'\\div'+:vcoef}=\\color{red}{${:choixa=='a'?:la1::la}}$$",
+        "value":"${:choixa=='a'?:la1::la}"
+    },{
+        "name":"Dans un rectangle, avec coefficient (tables)",
+        "vars":{
+            "la":"2_10",
+            "lb":"1_${:la}_^${:la}",
+            "la1":"${math.round(:la*:vcoef,1)}",
+            "lb1":"${math.round(:lb*:vcoef,1)}",
+            "choixAorB":["a","b"],
+            "choixIorA":["im","ant"],
+            "a":"${:choixAorB=='a'&&:choixIorA=='ant'?'?'::la}",
+            "a1":"${:choixAorB=='a'&&:choixIorA=='im'?'?'::la1}",
+            "b":"${:choixAorB=='b'&&:choixIorA=='ant'?'?'::lb}",
+            "b1":"${:choixAorB=='b'&&:choixIorA=='im'?'?'::lb1}",
+            "c":"","c1":"","p":"","p1":"","r":"","r1":""
+        },
+        "figure":{"type":"svg","content":"${:AorR==0?:agrandissements[1]::reductions[1]}"},
+        "question":"Combien mesure la longueur manquante ?",
+        "answer":"La mesure manquante est $$${:choixIorA=='im'?(:choixAorB=='a'?:la::lb)+'\\times'+:vcoef:(:choixAorB=='a'?:la1::lb1)+'\\div'+:vcoef}=\\color{red}{${:choixAorB=='a'?(:choixIorA=='im'?:la1::la)::choixIorA=='im'?:lb1::lb}}$$",
+        "value":"${:choixAorB=='a'?(:choixIorA=='im'?:la1::la)::choixIorA=='im'?:lb1::lb}"
+    },{
+        "name":"Dans un rectangle, sans coefficient (tables)",
+        "vars":{
+            "la":"2_10",
+            "lb":"1_${:la}_^${:la}",
+            "la1":"${math.round(:la*:vcoef,1)}",
+            "lb1":"${math.round(:lb*:vcoef,1)}",
+            "choixAorB":["a","b"],
+            "choixIorA":["im","ant"],
+            "a":"${:choixAorB=='a'&&:choixIorA=='ant'?'?'::la}",
+            "a1":"${:choixAorB=='a'&&:choixIorA=='im'?'?'::la1}",
+            "b":"${:choixAorB=='b'&&:choixIorA=='ant'?'?'::lb}",
+            "b1":"${:choixAorB=='b'&&:choixIorA=='im'?'?'::lb1}",
+            "coef":"","c":"","c1":"","p":"","p1":"","r":"","r1":""
+        },
+        "figure":{"type":"svg","content":"${:AorR==0?:agrandissements[1]::reductions[1]}"},
+        "question":"Combien mesure la longueur manquante ?",
+        "answer":"Le coefficient est $$${:choixAorB=='a'?:lb1+'\\div'+:lb::la1+'\\div'+:la}=${:vcoef}$$,<br> la mesure vaut donc $$${:choixIorA=='im'?(:choixAorB=='a'?:la::lb)+'\\times'+:vcoef:(:choixAorB=='a'?:la1::lb1)+'\\div'+:vcoef}=\\color{red}{${:choixAorB=='a'?(:choixIorA=='im'?:la1::la)::choixIorA=='im'?:lb1::lb}}$$",
+        "value":"${:choixAorB=='a'?(:choixIorA=='im'?:la1::la)::choixIorA=='im'?:lb1::lb}"
+    },{
+        "name":"Dans un triangle, sans coefficient (tables)",
+        "vars":{
+            "la":"2_10",
+            "lb":"1_${:la}_^${:la}",
+            "lc":"1_${:la}",
+            "la1":"${math.round(:la*:vcoef,1)}",
+            "lb1":"${math.round(:lb*:vcoef,1)}",
+            "lc1":"${math.round(:lc*:vcoef,1)}",
+            "choixAorB":["a","b","c"],
+            "choixIorA":["im","ant"],
+            "a":"${:choixAorB=='a'&&:choixIorA=='ant'?'?'::la}",
+            "a1":"${:choixAorB=='a'&&:choixIorA=='im'?'?'::la1}",
+            "b":"${:choixAorB=='b'&&:choixIorA=='ant'?'?'::lb}",
+            "b1":"${:choixAorB=='b'&&:choixIorA=='im'?'?'::lb1}",
+            "c":"${:choixAorB=='c'&&:choixIorA=='ant'?'?'::lc}",
+            "c1":"${:choixAorB=='c'&&:choixIorA=='im'?'?'::lc1}",
+            "coef":"","p":"","p1":"","r":"","r1":""
+        },
+        "figure":{"type":"svg","content":"${:AorR==0?:agrandissements[2]::reductions[2]}"},
+        "question":"Combien mesure la longueur manquante ?",
+        "answer":"Le coefficient est $$${:choixAorB=='a'||:choixAorB=='c'?:lb1+'\\div'+:lb::la1+'\\div'+:la}=${:vcoef}$$,<br> la mesure vaut donc $$${:choixIorA=='im'?(:choixAorB=='a'?:la::choixAorB=='b'?:lb::lc)+'\\times'+:vcoef:(:choixAorB=='a'?:la1::choixAorB=='b'?:lb1::lc1)+'\\div'+:vcoef}=\\color{red}{${:choixAorB=='a'?(:choixIorA=='im'?:la1::la)::choixAorB=='b'?:choixIorA=='im'?:lb1::lb::choixIorA=='im'?:lc1::lc}}$$",
+        "value":"${:choixAorB=='a'?(:choixIorA=='im'?:la1::la)::choixAorB=='b'?:choixIorA=='im'?:lb1::lb::choixIorA=='im'?:lc1::lc}"
+    }, {
+        "name":"Dans un cercle, sans coefficient (tables)",
+        "vars":{
+            "lr":"1_10",
+            "lp":"${:lr*2}π",
+            "lr1":"${math.round(:lr*:vcoef,1)}",
+            "lp1":"${math.round(:lr*2*:vcoef,1)}π",
+            "choixRorP":["r","p"],
+            "choixIorA":["im","ant"],
+            "r":"${:choixRorP=='r'&&:choixIorA=='ant'?'?'::lr}",
+            "r1":"${:choixRorP=='r'&&:choixIorA=='im'?'?'::lr1}",
+            "p":"${:choixRorP=='p'&&:choixIorA=='ant'?'?'::lp}",
+            "p1":"${:choixRorP=='p'&&:choixIorA=='im'?'?'::lp1}",
+            "a":"","b":"","c":"","a1":"","b1":"","c1":"",
+            "coef":""
+        },
+        "figure":{"type":"svg","content":"${:AorR==0?:agrandissements[3]::reductions[3]}"},
+        "question":"Combien mesure la longueur manquante ?",
+        "answer":"Le coefficient est $$${:choixRorP=='a'?:lp1+'\\div'+:lr::lr1+'\\div'+:lr}=${:vcoef}$$,<br> la mesure vaut donc $$${:choixIorA=='im'?(:choixRorP=='r'?:lr::lp)+'\\times'+:vcoef:(:choixRorP=='r'?:lr1::lp1)+'\\div'+:vcoef}=\\color{red}{${:choixRorP=='r'?(:choixIorA=='im'?:lr1::lr)::choixIorA=='im'?:lp1::lp}}$$",
+        "value":"${:choixRorP=='r'?(:choixIorA=='im'?:lr1::lr)::choixIorA=='im'?:lp1::lp}"
+    }
+    ]
+}

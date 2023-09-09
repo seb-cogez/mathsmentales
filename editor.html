@@ -3,53 +3,83 @@
 <head>
     <!-- when using the mode "code", it's important to specify charset utf-8 -->
     <meta charset="utf-8">
-
-    <link href="js/libs/jsoneditor-9.5.3/dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
-    <script src="js/libs/jsoneditor-9.5.3/dist/jsoneditor.min.js"></script>
+    <link rel="stylesheet" href="css/editor.css">
+    <script src="js/libs/sortable/Sortable.min.js" defer></script>
+    <script src="js/lib.editor.js" defer></script>
 </head>
 <body>
     <head>
-        <article>Renseigner obligatoirement title, ID, dest.<br>
-            Un exercice est déterminé par question (question posée), answer (corrigé) et value (valeur pour évaluation).<br>
-            Pour aléatoiriser les exercices, on utilise vars (des variables) et consts (des constantes)
-            Si on veut faire des variations d'un exercice, on crée des "options" qui supplantent les valeurs par défaut.
-        </article>
+        <h1>Éditeur d'activité pour MathsMentales.</h1>
     </head>
-    <div id="jsoneditor" style="width: 50%; height: 640px;"></div>
-    <script>
-        // create the editor
-        const container = document.getElementById("jsoneditor")
-        const options = {mode:'code',modes:['code','text', 'tree']};
-        const jsonEditor = new JSONEditor(container, options)
-
-        // set json
-        const initialJson = {
-    "title":"",
-    "type":"latex",
-    "ID":"",
-    "description":"",
-    "dest":[""],
-    "consts":{},
-    "vars":{"a":"", "b":"", "c":["u","v","t","x", "y", "z"]},
-    "options":[{
-        "name":"",
-        "vars":{},
-        "consts":{},
-        "question": ["", ""],
-        "answer":"",
-        "value":""
-    }
-    ],
-    "question":"",
-    "answer":"",
-    "value":""
-};
-        jsonEditor.set(initialJson)
-
-        // get json
-        function getJson(){
-            return jsonEditor.get();
-        }
-    </script>
+    <section id="affichage">
+        <div id="editor">
+            <label for="title">Titre de l'activité</label> <input type="text" name="title" id="title" placeholder="Titre"><br>
+            <label for="description">Description complémentaire au titre</label>
+            <br>
+            <textarea name="description" id="description" cols="50" rows="5" placeholder="Mettre des mots non présents dans le titre assurera une meilleure recherche dans le moteur"></textarea>
+            <br>
+            Type d'affichage :
+            <select name="type" id="type" title="Latex préféré pour les questions et réponses courtes">
+                <option value="latex">LaTeX</option>
+                <option value="text">texte/html</option>
+            </select>
+            Taille texte : 
+            <select id="textSize" title="Pour les longues lignes de calculs, on préfèrera une petite écriture pour éviter les retours à la ligne malvenus">
+                <option value="small">Petite</option>
+                <option value="medium">Moyenne</option>
+                <option value="big">Grande</option>
+            </select><br>
+            <label for="dest">Chapitres associés</label><input type="text" name="dest" id="dest">
+            Données globales : ne servent que si des données optionnelles ne sont pas définies.
+            <section id="parametrage">
+                <article id="global">
+                </article>
+                <hr>
+                <article>Sections de questions : (non obligatoire) - <button id="btnAddSection">Ajouter</button></article>
+                <article id="options">
+                </article>
+            </section>
+            <!--<fieldset id="globalVars">
+                <legend>Variables</legend>
+                <div></div>
+                <button id="addGlobalVar">+</button>
+            </fieldset>
+            <fieldset>
+                <legend>Question</legend>
+                <div type="text" name="globalQuestion" id="globalQuestion" contenteditable="true"></div>
+            </fieldset>
+            <fieldset>
+                <legend>Question Courte (ceinture ...)</legend>
+                <div type="text" name="globalShortQuestion" id="globalShortQuestion" contenteditable="true"></div>
+            </fieldset>
+            <fieldset>
+                <legend>Réponse</legend>
+                <div type="text" name="globalAnswer" id="globalAnswer" contenteditable="true"></div>
+            </fieldset>
+            <fieldset>
+                <legend>Valeur attendue</legend>
+                <div type="text" name="globalValue" id="globalValue" contenteditable="true"></div>
+            </fieldset>
+            <fieldset>
+                <legend>Figure globale</legend>
+                <select id="globalFigType">
+                    <option value="svg">Dessin SVG</option>
+                    <option value="chart">Chart de Chart.js</option>
+                    <option value="graph">JSWGraph</option>
+                </select>
+                <div type="text" name="globalFig" id="globalFig" contenteditable="true"></div>
+            </fieldset>
+            <blockquote>
+                Thèmes <button>+</button>
+            </blockquote>-->
+        </div>
+        <div id="displays">
+            <article id="displayQuestion">Exemple de question</article>
+            <article id="displayShortQuestion">Exemple de question courte</article>
+            <article id="displayAnswer">Exemple de correction</article>
+            <article id="displayValue">Exemple de réponse attendue</article>
+        </div>
+    </section>
+    
 </body>
 </html>

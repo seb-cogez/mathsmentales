@@ -1,0 +1,145 @@
+{
+    "title":"Calculer avec des grandeurs composées",
+    "type":"text",
+    "ID":"4MA1",
+    "description":"Trouver une donnée à partir des deux autres.",
+    "dest":["4MA","3MA"],
+    "consts":{
+        "unitetemps":["h","min","s"],
+        "prefixes":["k","h","da","","d","c","m"],
+        "unites":["m","g","L"],
+        "mv":[
+            ["ébène", 1150],
+            ["air",1],
+            ["eau",1000],
+            ["essence",750],
+            ["aliminium",2700],
+            ["argent",10500],
+            ["or",19300],
+            ["huile",920],
+            ["balsa",140],
+            ["frêne",740],
+            ["chêne",700],
+            ["pin",500],
+            ["platane",650],
+            ["sapin",450],
+            ["propane",2],
+            ["lait",1030],
+            ["verre",2530],
+            ["coton",45],
+            ["diamant",3500],
+            ["béton",2200],
+            ["cuivre",9000],
+            ["zinc",7000],
+            ["fer",7860]
+        ]
+    },
+    "options":[{
+        "name":"Vitesse m/s",
+        "vars":{
+            "v":"1_10",
+            "t":"1_10",
+            "d":"${:v*:t}",
+            "ud":"m",
+            "ut":"s",
+            "uv":"${:ud}/${:ut}"
+        },
+        "question": [
+            "Vitesse = $$${:v}$$ ${:uv}, durée = $$${:t}$$ ${:ut},<br>donc distance = ... ${:ud} ?",
+            "Distance = $$${:d}$$ ${:ud}, durée = $$${:t}$$ ${:ut},<br>donc vitesse = ... ${:uv}",
+            "Vitesse = $$${:v}$$ ${:uv}, distance = $$${:d}$$ ${:ud}, <br>donc durée = ... ${:ut}"
+        ],
+        "answer":[
+            "$$d=v\\times t=${:v}$$ ${:uv}$$\\times${:t}$$ ${:ut}=$$\\color{red}{${:d}}$$ ${:ud}",
+            "$$v=\\dfrac{d}{t}=\\dfrac{${:d}\\text{ ${:ud}}}{${:t}\\text{ ${:ut}}}=\\color{red}{${:v}}\\text{ ${:uv}}$$",
+            "$$t=\\dfrac{d}{v}=\\dfrac{${:d}\\text{ ${:ud}}}{${:v}\\text{ ${:uv}}}=\\color{red}{${:t}}\\text{ ${:ut}}$$"
+        ],
+        "value":["${:d}","${:v}","${:t}"]
+    },{
+        "name":"Vitesse km/h",
+        "vars":{
+            "v":[30,50,60,70,80,90,100,110,120,130],
+            "t":[1,1.5,2,2.5,3,3.5,4,4.5,5,6,7,8,9],
+            "d":"${:v*:t}",
+            "ud":"km",
+            "ut":"h",
+            "uv":"${:ud}/${:ut}"
+        },
+        "question": [
+            "Vitesse = $$${:v}$$ ${:uv}, durée = $$${:t}$$ ${:ut},<br>donc distance = ... ${:ud} ?",
+            "Distance = $$${:d}$$ ${:ud}, durée = $$${:t}$$ ${:ut},<br>donc vitesse = ... ${:uv}",
+            "Vitesse = $$${:v}$$ ${:uv}, distance = $$${:d}$$ ${:ud}, <br>donc durée = ... ${:ut}"
+        ],
+        "answer":[
+            "$$d=v\\times t=${:v}$$ ${:uv}$$\\times${:t}$$ ${:ut}=$$\\color{red}{${:d}}$$ ${:ud}",
+            "$$v=\\dfrac{d}{t}=\\dfrac{${:d}\\text{ ${:ud}}}{${:t}\\text{ ${:ut}}}=\\color{red}{${:v}}\\text{ ${:uv}}$$",
+            "$$t=\\dfrac{d}{v}=\\dfrac{${:d}\\text{ ${:ud}}}{${:v}\\text{ ${:uv}}}=\\color{red}{${:t}}\\text{ ${:ut}}$$"
+        ],
+        "value":["${:d}","${:v}","${:t}"]
+    },{
+        "name":"Masse volumique $$kg/m^3$$ (difficile)",
+        "vars":{
+            "choixMv":"0_22",
+            "de":"${:choixMv>7?'du ':'de l′'}${:mv[:choixMv][0]}",
+            "v":"${:mv[:choixMv][1]}",
+            "t":[1,0.1,0.01,0.001,2,0.2,0.02,0.002,3,0.3,5,0.5,0.05],
+            "d":"${:v*:t}",
+            "ud":"kg",
+            "ut":"m^3",
+            "uv":"${:ud}/${:ut}"
+        },
+        "question": [
+            "Masse volumique ${:de} = $$${:v}~${:uv}$$, volume = $$${:t}~${:ut}$$,<br>donc masse = ... $$${:ud}$$ ?",
+            "Masse ${:de} = $$${:d}~${:ud}$$, volume = $$${:t}~${:ut}$$,<br>donc masse volumique = ... $$${:uv}$$",
+            "Masse volumique ${:de} = $$${:v}~${:uv}$$, masse = $$${:d}~${:ud}$$, <br>donc volume = ... $$${:ut}$$"
+        ],
+        "answer":[
+            "$$d=v\\times t=${:v}~${:uv}\\times${:t}~${:ut}$$=$$\\color{red}{${:d}}~${:ud}$$",
+            "$$v=\\dfrac{d}{t}=\\dfrac{${:d}~${:ud}}{${:t}~${:ut}}=\\color{red}{${:v}}~${:uv}$$",
+            "$$t=\\dfrac{d}{v}=\\dfrac{${:d}~${:ud}}{${:v}~${:uv}}=\\color{red}{${:t}}~${:ut}$$"
+        ],
+        "value":["${:d}","${:v}","${:t}"]
+    },{
+        "name":"Débit (nombre inférieur à 200) et durée (1 à 10)",
+        "vars":{
+            "v":"1_200",
+            "t":"1_10",
+            "d":"${:v*:t}",
+            "ud":"L",
+            "ut":["h","min", "s"],
+            "uv":"${:ud}/${:ut}"
+        },
+        "question": [
+            "Débit = $$${:v}~${:uv}$$, durée = $$${:t}~${:ut}$$,<br>donc volume = ... $$${:ud}$$ ?",
+            "Volume = $$${:d}~${:ud}$$, durée = $$${:t}~${:ut}$$,<br>donc débit = ... $$${:uv}$$",
+            "Débit = $$${:v}~${:uv}$$, volume = $$${:d}~${:ud}$$, <br>donc durée = ... $$${:ut}$$"
+        ],
+        "answer":[
+            "$$d=v\\times t=${:v}~${:uv}\\times${:t}~${:ut}$$=$$\\color{red}{${:d}}~${:ud}$$",
+            "$$v=\\dfrac{d}{t}=\\dfrac{${:d}~${:ud}}{${:t}~${:ut}}=\\color{red}{${:v}}~${:uv}$$",
+            "$$t=\\dfrac{d}{v}=\\dfrac{${:d}~${:ud}}{${:v}~${:uv}}=\\color{red}{${:t}}~${:ut}$$"
+        ],
+        "value":["${:d}","${:v}","${:t}"]
+    },{
+        "name":"Concentration d'une solution",
+        "vars":{
+            "v":"1_10",
+            "t":"1_10",
+            "d":"${:v*:t}",
+            "ud":["mg","g"],
+            "ut":"L",
+            "uv":"${:ud}/${:ut}"
+        },
+        "question": [
+            "Concentration = $$${:v}~${:uv}$$, volume = $$${:t}~${:ut}$$,<br>donc masse = ... $$${:ud}$$ ?",
+            "Masse = $$${:d}~${:ud}$$, volume = $$${:t}~${:ut}$$,<br>donc concentration = ... $$${:uv}$$",
+            "Concentration = $$${:v}~${:uv}$$, masse = $$${:d}~${:ud}$$, <br>donc volume = ... $$${:ut}$$"
+        ],
+        "answer":[
+            "$$d=v\\times t=${:v}~${:uv}\\times${:t}~${:ut}$$=$$\\color{red}{${:d}}~${:ud}$$",
+            "$$v=\\dfrac{d}{t}=\\dfrac{${:d}~${:ud}}{${:t}~${:ut}}=\\color{red}{${:v}}~${:uv}$$",
+            "$$t=\\dfrac{d}{v}=\\dfrac{${:d}~${:ud}}{${:v}~${:uv}}=\\color{red}{${:t}}~${:ut}$$"
+        ],
+        "value":["${:d}","${:v}","${:t}"]
+    }]
+}

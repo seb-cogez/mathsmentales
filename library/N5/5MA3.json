@@ -69,5 +69,26 @@
         "question": "Quel est le volume de la pyramide à base triangulaire ?",
         "answer":"Volume de la pyramide à base triangulaire <br>$$V=\\dfrac{\\dfrac{c\\times h}2 \\times H}3=\\color{red}{${:v}~cm^3}$$",
         "value":["${:v}", "${:v}cm^3"]
+    },{
+        "name":"Volume d'un cône",
+        "consts":{
+            "figures":[
+                "<svg width='15em' height='9em' viewBox='0 0 79.375 47.625' xmlns='http://www.w3.org/2000/svg'><defs><marker id='prefix__a' refX='0' refY='0' orient='auto' overflow='visible'><path d='M-4 0l-2 2 7-2-7-2 2 2z' fill-rule='evenodd' fill='context-stroke' stroke='context-stroke' stroke-width='.4pt'/></marker></defs><path d='M35.821 37.384l13.631 3.91' fill='none' stroke='#000' stroke-width='.529' stroke-linecap='round' stroke-dasharray='2.117 2.117'/><text style='line-height:1.25;;text-align:center' x='52.526' y='24.213' transform='rotate(16.207)' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='52.526' y='24.213'>${:r} cm</tspan></text><path d='M54.78 37.367a18.839 5.666 0 01-9.42 4.906 18.839 5.666 0 01-18.839 0 18.839 5.666 0 01-9.42-4.906' fill='none' stroke='#000' stroke-width='.539' stroke-linecap='round' stroke-linejoin='round'/><path d='M17.102 37.32a18.839 5.666 0 0118.915-5.62 18.839 5.666 0 0118.762 5.666' fill='none' stroke='#000' stroke-width='.539' stroke-linecap='round' stroke-linejoin='round' stroke-dasharray='2.156 2.156'/><path d='M35.821 37.335V6.134' fill='none' stroke='#000' stroke-width='.529' stroke-linecap='round' stroke-dasharray='4.233 2.117'/><text style='line-height:1.25;' x='48.255' y='19.113' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' stroke-width='.265'><tspan x='48.255' y='19.113'>${:h} cm</tspan></text><path d='M35.821 6.134l-18.518 30.47M35.821 6.134l18.853 30.602' fill='none' stroke='#000' stroke-width='.529' stroke-linecap='round'/><path d='M54.33 19.686c-8.797.115-16.964 3.381-16.964 3.381' fill='none' stroke='#000' stroke-width='.265' marker-end='url(#prefix__a)'/></svg>",
+                "<svg width='15em' height='9em' viewBox='0 0 79.375 47.625' xmlns='http://www.w3.org/2000/svg'><defs><marker id='prefix__a' refX='0' refY='0' orient='auto' overflow='visible'><path d='M-5.231-2.42L1.324-.01-5.23 2.401c1.047-1.423 1.041-3.37 0-4.821z' stroke='context-stroke' fill-rule='evenodd' fill='context-stroke' stroke-width='.375' stroke-linejoin='round'/></marker></defs><path d='M22.87 33.324l26.582 7.97' fill='none' stroke='#000' stroke-width='.529' stroke-linecap='round' stroke-dasharray='2.117 2.117'/><text style='line-height:1.25;text-align:center' x='40.899' y='31.977' transform='rotate(13.103)' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' text-anchor='middle' stroke-width='.265'><tspan style='text-align:center' x='40.899' y='31.977'>${:d} cm</tspan></text><path d='M54.78 37.367a18.839 5.666 0 01-9.42 4.906 18.839 5.666 0 01-18.839 0 18.839 5.666 0 01-9.42-4.906' fill='none' stroke='#000' stroke-width='.539' stroke-linecap='round' stroke-linejoin='round'/><path d='M17.102 37.32a18.839 5.666 0 0118.915-5.62 18.839 5.666 0 0118.762 5.666' fill='none' stroke='#000' stroke-width='.539' stroke-linecap='round' stroke-linejoin='round' stroke-dasharray='2.156 2.156'/><path d='M35.957 36.955V5.95' fill='none' stroke='#000' stroke-width='.529' stroke-linecap='round'/><text style='line-height:1.25;' x='54.33' y='19.256' font-size='4.233' font-family='Arial' letter-spacing='0' word-spacing='0' stroke-width='.265'><tspan x='54.33' y='19.256'>${:h} cm</tspan></text><path d='M35.957 5.95L17.28 36.535M35.957 5.95l18.679 30.585' fill='none' stroke='#000' stroke-width='.529' stroke-linecap='round'/><path d='M64.76 19.858c-21.261-.43-26.735 2.837-26.735 2.837' fill='none' stroke='#000' stroke-width='.265' marker-end='url(#prefix__a)'/></svg>"
+            ]
+        },
+        "vars":{
+            "triple":["r","h"],
+            "choixRorD":"0_1",
+            "r0":"1_3",
+            "r":"${:triple=='r'?:r0*3:'1_5'}",
+            "d":"${2*:r}",
+            "h0":"1_5",
+            "h":"${:triple=='h'?:h0*3:'1_10'}",
+            "v":"${:r*:r*:h/3}\\pi"
+        },
+        "figure":{"type":"svg","content":"${:figures[:choixRorD]}"},
+        "question":"Quel est le volume de la pyramide à base circulaire ?",
+        "answer":"Volume de la base circulaire ${:choixRorD==0?'de rayon':'de diamètre'} $$${:choixRorD==0?:r::d}$$<br>$$\\dfrac{\\pi\\times r^2\\times h}3= \\color{red}{${:v}}~cm^3$$"
     }]
 }

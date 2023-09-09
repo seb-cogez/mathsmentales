@@ -34,6 +34,8 @@ export default class timer {
                     this.stop()
                     MM.nextSlide(this.id)
                 }
+                this.percent = 100 - Math.max(Math.round(-this.timeLeft/this.answerShowTime*100), 0);
+                this.display()
             }
         }
     }
@@ -63,7 +65,8 @@ export default class timer {
         }
         // si pas de durée, avancement manuel.
         if(this.durations[id]==0){
-            document.querySelector("#btn-timer-pause"+this.id).classList.add("hidden");
+            const btnPauseTimer = document.querySelector("#btn-timer-pause"+this.id)
+            if(btnPauseTimer !== null) btnPauseTimer.classList.add("hidden");
             return;
         } else {
             this.timer = setInterval(this.getTimeLeft.bind(this),50);

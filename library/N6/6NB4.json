@@ -6,6 +6,7 @@
     "description":"Écrire une fraction en utilisant la décomposition qui correspond aux notations anglo saxones.",
     "dest":["7NB","6NB","5NA","4NA","3NA"],
     "question":"\\dfrac{${:num}}{${:den}}~=~ ... + \\dfrac{...}{...}",
+    "shortq":"\\dfrac{${:num}}{${:den}}~=~ \\colorbox{#ECECEC}{\\quad} + \\dfrac{\\colorbox{#ECECEC}{\\quad}}{\\colorbox{#ECECEC}{\\quad}}",
     "audio":"Décomposer ${:num} ${math.NumberToFraction(:den)} en un entier plusse une fraction plus petite que 1.",
     "options":[{
         "name":"Dénominateur entre 2 et 11",

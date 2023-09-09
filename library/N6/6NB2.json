@@ -7,6 +7,7 @@
     "dest":["6NB","5NA","4NA","3NA"],
     "vars":{"den":"1_100", "num":"0_100", "sym":"${(:num>:den)?'\\gt':((:num<:den)?'\\lt':'=')}"},
     "question":"\\dfrac{${:num}}{${:den}}~...~1",
+    "shortq":"\\dfrac{${:num}}{${:den}}~\\colorbox{#ECECEC}{\\quad}~1",
     "audio":"${:num} ( ) ${math.NumberToFraction(:den)} ( ) est-il plus grand, plus petit ou égal à 1 ?",
     "answer":"\\dfrac{${:num}}{${:den}} \\color{red}{${:sym}} 1",
     "value":"${:sym}"

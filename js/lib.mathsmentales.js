@@ -118,10 +118,6 @@ window.onload = function(){
     // radio face to face
     document.getElementById("radioftf1").onclick = ()=>{MM.setFacetoFace('n');};
     document.getElementById("radioftf2").onclick = ()=>{MM.setFacetoFace('y');};
-    // radio déroulé du diaporama
-    document.getElementById("radioslidercontent1").onclick = (evt)=>{MM.setSliderContent(evt.target.value)};
-    document.getElementById("radioslidercontent2").onclick = (evt)=>{MM.setSliderContent(evt.target.value)};
-    document.getElementById("radioslidercontent3").onclick = (evt)=>{MM.setSliderContent(evt.target.value)};
     // radio fin de diaporama
     document.getElementById("radioendslider1").onclick = (evt)=>{MM.setEndType(evt.target.value)};
     document.getElementById("radioendslider2").onclick = (evt)=>{MM.setEndType(evt.target.value)};

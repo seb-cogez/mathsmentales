@@ -1,0 +1,72 @@
+{
+    "title":"Convertir des grandeurs composées",
+    "type":"latex",
+    "ID":"4MA1",
+    "description":"Passer d'une unité à une autre",
+    "dest":["4MA","3MA"],
+    "consts":{
+        "duree":[["h","s",3600], ["min","s",60], ["h","min",60]],
+        "prefixes":["k","h","da","","d","c","m"],
+        "unites":["m","g","L"]
+    },
+    "options":[{
+        "name":"Vitesse",
+        "vars":{
+            "choixduree":"0_2",
+            "choixprefixe1":"0_6",
+            "choixprefixe2":"${Math.max(0,:choixprefixe1-2)}_${Math.min(6,:choixprefixe1+2)}",
+            "coeff3600":[1,0.1,2,0.2,0.01,0.02],"c60":"1_10","m60":[1,0.1],"coeff60":"${math.round(:c60*:m60,6)}",
+            "valeurinitiale":"${math.round(Number(:duree[:choixduree][2])*:coeff3600,3)}",
+            "valeurfinale":"${math.round(:valeurinitiale/:duree[:choixduree][2]*Math.pow(10,:choixprefixe2-:choixprefixe1),6)}"
+        },
+        "question": "${:valeurinitiale}\\text{ ${:prefixes[:choixprefixe1]}m/${:duree[:choixduree][0]}}=...\\text{ ${:prefixes[:choixprefixe2]}m/${:duree[:choixduree][1]}}",
+        "shortq": "${:valeurinitiale}\\text{ ${:prefixes[:choixprefixe1]}m/${:duree[:choixduree][0]}}=\\colorbox{#ECECEC}{\\quad\\quad}\\text{ ${:prefixes[:choixprefixe2]}m/${:duree[:choixduree][1]}}",
+        "answer":"${:valeurinitiale}\\text{ ${:prefixes[:choixprefixe1]}m/${:duree[:choixduree][0]}}=\\color{red}{${:valeurfinale}}\\text{ ${:prefixes[:choixprefixe2]}m/${:duree[:choixduree][1]}}",
+        "value":"${:valeurfinale}"
+    },{
+        "name":"Débit",
+        "vars":{
+            "choixduree":"0_2",
+            "choixprefixe1":"1_6",
+            "choixprefixe2":"${Math.max(1,:choixprefixe1-2)}_${Math.min(6,:choixprefixe1+2)}",
+            "coeff3600":[1,0.1,2,0.2,0.01,0.02],"c60":"1_10","m60":[1,0.1],"coeff60":"${math.round(:c60*:m60,6)}",
+            "valeurinitiale":"${math.round(Number(:duree[:choixduree][2])*:coeff3600,3)}",
+            "valeurfinale":"${math.round(:valeurinitiale/:duree[:choixduree][2]*Math.pow(10,:choixprefixe2-:choixprefixe1),6)}"
+        },
+        "question": "${:valeurinitiale}\\text{ ${:prefixes[:choixprefixe1]}L/${:duree[:choixduree][0]}}=...\\text{ ${:prefixes[:choixprefixe2]}L/${:duree[:choixduree][1]}}",
+        "shortq": "${:valeurinitiale}\\text{ ${:prefixes[:choixprefixe1]}L/${:duree[:choixduree][0]}}=\\colorbox{#ECECEC}{\\quad\\quad}\\text{ ${:prefixes[:choixprefixe2]}L/${:duree[:choixduree][1]}}",
+        "answer":"${:valeurinitiale}\\text{ ${:prefixes[:choixprefixe1]}L/${:duree[:choixduree][0]}}=\\color{red}{${:valeurfinale}}\\text{ ${:prefixes[:choixprefixe2]}L/${:duree[:choixduree][1]}}",
+        "value":"${:valeurfinale}"
+    },{
+        "name":"Concentration",
+        "vars":{
+            "choixprefixeL1":"1_6",
+            "choixprefixeL2":"${Math.max(1,:choixprefixeL1-2)}_${Math.min(6,:choixprefixeL1+2)}",
+            "choixprefixeg1":"0_6",
+            "choixprefixeg2":"${Math.max(1,:choixprefixeg1-2)}_${Math.min(6,:choixprefixeg1+2)}",
+            "decimales":"0_3","max":[1,10,100,1000],
+            "valeurinitiale":"d0_${:max}_${:decimales}_^0",
+            "valeurfinale":"${math.round(:valeurinitiale*Math.pow(10,:choixprefixeL1-:choixprefixeL2)*Math.pow(10,:choixprefixeg2-:choixprefixeg1),6)}"
+        },
+        "question":"${:valeurinitiale}\\text{ ${:prefixes[:choixprefixeg1]}g/${:prefixes[:choixprefixeL1]}L}=...\\text{ ${:prefixes[:choixprefixeg2]}g/${:prefixes[:choixprefixeL2]}L}",
+        "shortq":"${:valeurinitiale}\\text{ ${:prefixes[:choixprefixeg1]}g/${:prefixes[:choixprefixeL1]}L}=\\colorbox{#ECECEC}{\\quad\\quad}\\text{ ${:prefixes[:choixprefixeg2]}g/${:prefixes[:choixprefixeL2]}L}",
+        "answer":"${:valeurinitiale}\\text{ ${:prefixes[:choixprefixeg1]}g/${:prefixes[:choixprefixeL1]}L}=\\color{red}{${:valeurfinale}}\\text{ ${:prefixes[:choixprefixeg2]}g/${:prefixes[:choixprefixeL2]}L}",
+        "value":"${:valeurfinale}"
+    },{
+        "name":"Masse volumique",
+        "vars":{
+            "choixprefixeL1":"0_6",
+            "choixprefixeL2":"${Math.max(1,:choixprefixeL1-2)}_${Math.min(6,:choixprefixeL1+2)}",
+            "choixprefixeg1":"0_6",
+            "choixprefixeg2":"${Math.max(1,:choixprefixeg1-2)}_${Math.min(6,:choixprefixeg1+2)}",
+            "decimales":"0_3","max":[1,10,100,1000],
+            "valeurinitiale":"d0_${:max}_${:decimales}_^0",
+            "valeurfinale":"${math.round(:valeurinitiale*Math.pow(10,(:choixprefixeL1-:choixprefixeL2)*3)*Math.pow(10,:choixprefixeg2-:choixprefixeg1),6)}"
+        },
+        "question":"${:valeurinitiale}\\text{ ${:prefixes[:choixprefixeg1]}g/${:prefixes[:choixprefixeL1]}m}^3=...\\text{ ${:prefixes[:choixprefixeg2]}g/${:prefixes[:choixprefixeL2]}m}^3",
+        "shortq":"${:valeurinitiale}\\text{ ${:prefixes[:choixprefixeg1]}g/${:prefixes[:choixprefixeL1]}m}^3=\\colorbox{#ECECEC}{\\quad\\quad\\quad}\\text{ ${:prefixes[:choixprefixeg2]}g/${:prefixes[:choixprefixeL2]}m}^3",
+        "answer":"${:valeurinitiale}\\text{ ${:prefixes[:choixprefixeg1]}g/${:prefixes[:choixprefixeL1]}m}^3=\\color{red}{${:valeurfinale}}\\text{ ${:prefixes[:choixprefixeg2]}g/${:prefixes[:choixprefixeL2]}m}^3",
+        "value":"${:valeurfinale}"
+    }
+    ]
+}

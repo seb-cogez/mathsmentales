@@ -83,7 +83,7 @@
             }
         }
     ],
-    "question":"Calculer la longueur ${:segments[:lc][:vc]} sachant que $$(${:segments[2][0]})//${:segments[2][1]}$$.",
+    "question":"Calculer la longueur ${:segments[:lc][:vc]} sachant que $$(${:segments[2][0]})//(${:segments[2][1]})$$.",
     "shortq":"",
     "answer":"$$${:reponses[:lc][1-:vc]}${:vc==0?'\\div':'\\times'}${:coeff}=\\color{red}{${:reponses[:lc][:vc]}}$$",
     "value":"${:reponses[:lc][:vc]}"

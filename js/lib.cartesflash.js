@@ -12,6 +12,7 @@ const pageOrientations = ["portrait","paysage"]
 const parameters = {};
 let pageHeight = 275; // cm
 let pageFormat = 0;// portrait
+let answersBorderColor = "#d0d0d0"
 
 //let zoom;
 
@@ -34,15 +35,23 @@ document.getElementById("inputwidth").oninput = (evt)=>{
 }
 
 document.getElementById('btnRectoVerso').onclick = (evt)=>{
-    let btn = evt.target
+    const btn = evt.target
     if(parameters.disposition === 'both'){
         parameters.disposition = 'separated'
-        btn.innerText = 'Impression Recto/Verso'
+        btn.innerText = 'Recto/Verso'
     } else {
         parameters.disposition = 'both'
-        btn.innerText = 'Impression Recto'
+        btn.innerText = 'Recto'
     }
     refresh()
+}
+document.getElementById('inputcolorborder').value = answersBorderColor
+document.getElementById('inputcolorborder').onchange = (evt)=>{
+    const color = evt.target.value    
+    const answersCards = document.querySelectorAll('.flash-reponse')
+    for (const card of answersCards){
+        card.style.border = "1pt solid "+color
+    }
 }
 
 document.getElementById('identifiant').onchange = (evt)=>{
@@ -99,10 +108,10 @@ function makePage(){
     content.innerHTML = "";
     MM.memory = {};
     common.generateQuestions(parameters);
-    let aleaCode = utils.create("div",{className:"floatright",innerHTML:"Clé : "+parameters.alea});
+    let aleaCode = utils.create("div",{className:"floatright noprint",innerHTML:"Clé : "+parameters.alea});
     content.appendChild(aleaCode);
     // set the titlesheet
-    let header = utils.create("header",{innerHTML:parameters.titreFiche});
+    let header = utils.create("header",{innerHTML:parameters.titreFiche, className:"noprint"});
     content.appendChild(header);
     const arrayOfFlashCardsSection = [utils.create("section",{className:"flash-section grid g2"})]
     if(parameters.disposition === 'separated'){arrayOfFlashCardsSection.push(utils.create("section",{className:"flash-section grid g2"}))}
@@ -210,7 +219,7 @@ function checkURL(urlString){
         // parametres globaux :
         parameters.tailleTexte=10.5;
         parameters.disposition=vars.disp||'both';//'both' or 'separated'
-        document.getElementById('btnRectoVerso').innerText = parameters.disposition==='both'?'Impression Recto':'Impression Recto/Verso'
+        document.getElementById('btnRectoVerso').innerText = parameters.disposition==='both'?'Recto':'Recto/Verso'
         //parameters.nb=Number(vars.n);
         //document.getElementById("nbDominos").value = parameters.nb
         parameters.titreFiche=decodeURI(vars.t);

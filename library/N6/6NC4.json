@@ -12,7 +12,7 @@
         "n1":"${:a*:c}","n2":"${:a*:d}","p1":"${math.round(:n1+:a*:e,0)}","p2":"${math.round(:n2+:a*:f,0)}",
         "rep":"${:n1+:n2}"
         },
-        "question": "${:p1}+${:p2}",
+        "question": "${:p1}+${:p2}\\approx ?",
         "audio": "Donner un ordre de grandeur de ${:p1} ( ) plusse ( ) ${:p2}",
         "answer":":question \\approx \\color{red}{${:rep}} \\color{blue}{=${:n1}+${:n2}}",
         "value":"${:rep}"
@@ -25,7 +25,7 @@
         "n1":"${:a*:c}","n2":"${:a*:d}","p1":"${math.round(:n1+:a*:e,0)}","p2":"${math.round(:n2+:a*:f,0)}",
         "rep":"${:n2-:n1}"
         },
-        "question": "${:p2}-${:p1}",
+        "question": "${:p2}-${:p1}\\approx ?",
         "audio": "Donner un ordre de grandeur de ${:p2} ( ) moins ( ) ${:p1}",
         "answer":":question \\approx \\color{red}{${:rep}} \\color{blue}{=${:n2}-${:n1}}",
         "value":"${:rep}"
@@ -38,7 +38,7 @@
         "n1":"${:a*:c}","n2":"${:b*:d}","p1":"${math.round(:n1+:a*:e,0)}","p2":"${math.round(:n2+:b*:f,0)}",
         "rep":"${:n2*:n1}"
         },
-        "question": "${:p1}\\times${:p2}",
+        "question": "${:p1}\\times${:p2}\\approx ?",
         "audio": "Donner un ordre de grandeur de ${:p1} ( ) × ( ) ${:p2}",
         "answer":":question \\approx \\color{red}{${:rep}} \\color{blue}{=${:n1}\\times ${:n2}}",
         "value":"${:rep}"

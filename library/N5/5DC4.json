@@ -6,7 +6,7 @@
     "dest":["5DC","4DC","3DC", "2N1"],
     "consts":{"prime":[2,3,5,7,11]},
     "options":[{
-        "name":"Par addition de colonnes",
+        "name":"Par addition de colonnes sachant que deux colonnes correspondent à de la proportionnalité",
         "vars":{
             "a1":"2_40","a2":"2_40_^${:a1}","a3":"${:a1+:a2}",
             "coeff":"d0.1_2.9_1_^1,2","choix":"1_3",
@@ -16,7 +16,7 @@
         },
         "answer":"${:prop==0?'\\color{red}{\\text{Oui}}\\text{, car }'+:a1+'+'+:a2+'='+:a3+'\\\\ \\text{ et }'+:b1+'+'+:b2+'='+:b3:'\\color{red}{\\text{Non}}\\text{, car }'+:a1+'+'+:a2+'='+:a3+'\\\\ \\text{ mais }'+:b1+'+'+:b2+'\\not ='+:b3}"
     },{
-        "name":"Par soustraction de colonnes",
+        "name":"Par soustraction de colonnes sachant que deux colonnes correspondent à de la proportionnalité",
         "vars":{
             "a1":"2_40","a2":"2_40_^${:a1}","a3":"${Math.abs(:a1-:a2)}",
             "coeff":"d0.1_2.9_1_^1,2","choix":"1_3",

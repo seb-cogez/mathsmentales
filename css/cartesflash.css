@@ -138,6 +138,12 @@ Taille carte de visite
     transform-origin: top right;
     transform: rotate(90deg);
 }
+#inputcolorborder {
+width: 2.6em;
+border: 0;
+position: relative;
+top: 5px;
+}
 /* Commons
 */
 #creator-container {

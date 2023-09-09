@@ -2,7 +2,7 @@
     "title":"Pourcentage d'une quantité",
     "type":"text",
     "ID":"5NC9",
-    "dest":["5NC", "4NC", "3NC", "2N1"],
+    "dest":["5NC", "4NC", "3NB", "2N1"],
     "options":[{
         "name":"10%",
         "vars":{"p":10,"b":"2_50","qte":"${:b*12}"}

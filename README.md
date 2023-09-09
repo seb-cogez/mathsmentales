@@ -81,7 +81,7 @@ Ces fichiers json comportent des *données obligatoires* :
      * des entiers min_max ou min_max_quantité ou min_max_^liste de valeurs à éviter ou min_max_quantité_^&,val1,val2... & signifie pas de double
      * des décimaux dmin_max_précision (pouvant être négative pour les puissances de 10 positives)
      * une valeur dans un tableau
-   * une variable a pourra être reprise dans une autre variable par un appel de type ${:a} pour utiliser la variable a
+   * une variable a pourra être reprise dans une autre variable par un appel de type ${:a} pour utiliser la variable a. Attention, les déclarations sont chronologiques : a ne peut être appelée avant sa déclaration.
    * des calculs utilisant la bibliothèque math peuvent être effectués dans les paires d'accolades, exemple : ${math.multiply(:a,:b)}
    * d'autres traitements peuvent être effectués à l'aide de fonctions javascript ${:a.toUpperCase()}
 * **consts** : objet contenant des données constantes, telles que des tableaux
@@ -93,16 +93,17 @@ ainsi que des *données optionnelles* :
 
 * Pour l'activité :
   * **description** : texte décrivant de manière plus précise l'activité
-  * **options** : tableau d'objets json pouvant contenir *title*, *vars*, *question*, *answer* et/ou *value*
+  * **options** : tableau d'objets json pouvant contenir *title*, *vars*, *question*, *answer*, *figure*, et/ou *value*
     * une variable non définie prend la valeur de l'objet parent.
+    * une variable de même nom remplace la valeur de l'objet parent
   * **type** : valeurs possible : "texte", "latex" qui indique le type de rendu des questions/réponses
   * **repeat** : Possibilité de répéter une question (le moteur évite normalement les répétitions de questions, mais parfois, c'est impossible car l'énoncé est visuel et les questions sont toujours les mêmes) valeurs possibles : true (on évite que la question se répète dans les 5 dernières questions) ou un nombre x (on évite que la réponse se répète plus de 2 fois dans les x dernières questions)
   * **textSize** : taille du texte de la question, permet de modifier la taille d'affichage par défaut. valeurs possibles : "medium" ou "small" 
 
 * Pour l'activité ou une option :
   * **value** : chaine ou tableau de chaines contenant les réponses attendues dans le formulaire de réponse en ligne
-  * **figure** : chaine contenant une figure illustrant l'activité
-  * **shortq** : question au format court (pas la consigne par exemple) pour un export plus lisible dans les ceintures, doit suivre la forme de "questions" : une chaine ou un tableau. Si l'on met un caractère "_", il fera office d'emplacement pour la réponse.
+  * **figure** : chaine contenant une figure illustrant l'activité. On peut par exemple faire référence à une figure d'une table contenant des svg, svg contenant des variables. héhéhé !
+  * **shortq** : question au format court (pas la consigne par exemple) pour un export plus lisible dans les ceintures, doit suivre la forme de "questions" : une chaine ou un tableau. si l'on prévoit un emplacement de réponse dans la question, il n'y a pas d'espace de réponse derrière. Pour l'emplacement de la réponse, on utilisera \\colorbox{codecouleur}{\\quad} (un quad laisse de la place pour environ 2 chiffres pas trop grands)
   * **keys** : tableau d'au plus huit éléments contenant les touches optionnelles pour le clavier virtuel.
   * **audio** : texte à faire lire par le moteur text to speech de l'appareil utilisé, souvent la question dépouillée de mise en forme. Il faut parfois bidouiller, car les maths ne sont pas toujours lues correctement.
   * **valueType** : chaine qui indique le type de réponse attendue, pour une correction en ligne plus précise
@@ -327,6 +328,6 @@ Fichier structure pour démarrer la création d'un exercice
     ],
     "question":"", // question commune non obligatoire si dans touetes les options
     "shortq":"",// question courte (pour les ceintures par exemple)
-    "answer":"", // réponse commune non obligatoire si dans touetes les options
+    "answer":"", // réponse commune non obligatoire si dans toutes les options
     "value":""  // valeurs attendue si réponse online commune non obligatoire si dans toutes les options
 }

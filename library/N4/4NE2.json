@@ -8,25 +8,29 @@
     "options":[{
         "name":"4 termes",
         "vars":{"a":"-9_9_4_^0","l":"0_5","x":"${:lettres[:l]}","posx":"0_3_2_^&","s":"${:a[0]+:a[1]+:a[2]+:a[3]}","sx":"${:a[:posx[0]]+:a[:posx[1]]}"},
-        "question": "${(:posx.indexOf(0)>-1)?math.signIfOne(:a[0])+:x::a[0]}${(:posx.indexOf(1)>-1)?math.signedNumberButOne(:a[1])+:x:math.signedNumber(:a[1])}${(:posx.indexOf(2)>-1)?math.signedNumberButOne(:a[2])+:x:math.signedNumber(:a[2])}${(:posx.indexOf(3)>-1)?math.signedNumberButOne(:a[3])+:x:math.signedNumber(:a[3])}",
+        "question": "\\text{Réduire} \\\\ ${(:posx.indexOf(0)>-1)?math.signIfOne(:a[0])+:x::a[0]}${(:posx.indexOf(1)>-1)?math.signedNumberButOne(:a[1])+:x:math.signedNumber(:a[1])}${(:posx.indexOf(2)>-1)?math.signedNumberButOne(:a[2])+:x:math.signedNumber(:a[2])}${(:posx.indexOf(3)>-1)?math.signedNumberButOne(:a[3])+:x:math.signedNumber(:a[3])}",
+        "shortq": "${(:posx.indexOf(0)>-1)?math.signIfOne(:a[0])+:x::a[0]}${(:posx.indexOf(1)>-1)?math.signedNumberButOne(:a[1])+:x:math.signedNumber(:a[1])}${(:posx.indexOf(2)>-1)?math.signedNumberButOne(:a[2])+:x:math.signedNumber(:a[2])}${(:posx.indexOf(3)>-1)?math.signedNumberButOne(:a[3])+:x:math.signedNumber(:a[3])}",
         "answer":":question=\\color{red}{${math.calc(math.signIfOne(:sx)+:x+math.signedNumber(:s-:sx))}}",
         "value":"${math.calc(math.signIfOne(:sx)+:x+math.signedNumber(:s-:sx))}"
     },{
         "name":"6 termes",
         "vars":{"a":"-9_9_6_^0","l":"0_5","x":"${:lettres[:l]}","posx":"0_5_3_^&","s":"${:a[0]+:a[1]+:a[2]+:a[3]+:a[4]+:a[5]}","sx":"${:a[:posx[0]]+:a[:posx[1]]+:a[:posx[2]]}"},
-        "question": "${(:posx.indexOf(0)>-1)?math.signIfOne(:a[0])+:x::a[0]}${(:posx.indexOf(1)>-1)?math.signedNumberButOne(:a[1])+:x:math.signedNumber(:a[1])}${(:posx.indexOf(2)>-1)?math.signedNumberButOne(:a[2])+:x:math.signedNumber(:a[2])}${(:posx.indexOf(3)>-1)?math.signedNumberButOne(:a[3])+:x:math.signedNumber(:a[3])}${(:posx.indexOf(4)>-1)?math.signedNumberButOne(:a[4])+:x:math.signedNumber(:a[4])}${(:posx.indexOf(5)>-1)?math.signedNumberButOne(:a[5])+:x:math.signedNumber(:a[5])}",
+        "question": "\\text{Réduire} \\\\ ${(:posx.indexOf(0)>-1)?math.signIfOne(:a[0])+:x::a[0]}${(:posx.indexOf(1)>-1)?math.signedNumberButOne(:a[1])+:x:math.signedNumber(:a[1])}${(:posx.indexOf(2)>-1)?math.signedNumberButOne(:a[2])+:x:math.signedNumber(:a[2])}${(:posx.indexOf(3)>-1)?math.signedNumberButOne(:a[3])+:x:math.signedNumber(:a[3])}${(:posx.indexOf(4)>-1)?math.signedNumberButOne(:a[4])+:x:math.signedNumber(:a[4])}${(:posx.indexOf(5)>-1)?math.signedNumberButOne(:a[5])+:x:math.signedNumber(:a[5])}",
+        "shortq": "${(:posx.indexOf(0)>-1)?math.signIfOne(:a[0])+:x::a[0]}${(:posx.indexOf(1)>-1)?math.signedNumberButOne(:a[1])+:x:math.signedNumber(:a[1])}${(:posx.indexOf(2)>-1)?math.signedNumberButOne(:a[2])+:x:math.signedNumber(:a[2])}${(:posx.indexOf(3)>-1)?math.signedNumberButOne(:a[3])+:x:math.signedNumber(:a[3])}${(:posx.indexOf(4)>-1)?math.signedNumberButOne(:a[4])+:x:math.signedNumber(:a[4])}${(:posx.indexOf(5)>-1)?math.signedNumberButOne(:a[5])+:x:math.signedNumber(:a[5])}",
         "answer":":question=\\color{red}{${math.calc(math.signIfOne(:sx)+:x+math.signedNumber(:s-:sx))}}",
         "value":"${math.calc(math.signIfOne(:sx)+:x+math.signedNumber(:s-:sx))}"
     },{
         "name":"5 termes",
         "vars":{"a":"-9_9_5_^0","l":"0_5","x":"${:lettres[:l]}","posx":"0_4_3_^&","s":"${:a[0]+:a[1]+:a[2]+:a[3]+:a[4]}","sx":"${:a[:posx[0]]+:a[:posx[1]]+:a[:posx[2]]}"},
-        "question": "${(:posx.indexOf(0)>-1)?math.signIfOne(:a[0])+:x::a[0]}${(:posx.indexOf(1)>-1)?math.signedNumberButOne(:a[1])+:x:math.signedNumber(:a[1])}${(:posx.indexOf(2)>-1)?math.signedNumberButOne(:a[2])+:x:math.signedNumber(:a[2])}${(:posx.indexOf(3)>-1)?math.signedNumberButOne(:a[3])+:x:math.signedNumber(:a[3])}${(:posx.indexOf(4)>-1)?math.signedNumberButOne(:a[4])+:x:math.signedNumber(:a[4])}",
+        "question": "\\text{Réduire} \\\\ ${(:posx.indexOf(0)>-1)?math.signIfOne(:a[0])+:x::a[0]}${(:posx.indexOf(1)>-1)?math.signedNumberButOne(:a[1])+:x:math.signedNumber(:a[1])}${(:posx.indexOf(2)>-1)?math.signedNumberButOne(:a[2])+:x:math.signedNumber(:a[2])}${(:posx.indexOf(3)>-1)?math.signedNumberButOne(:a[3])+:x:math.signedNumber(:a[3])}${(:posx.indexOf(4)>-1)?math.signedNumberButOne(:a[4])+:x:math.signedNumber(:a[4])}",
+        "shortq": "${(:posx.indexOf(0)>-1)?math.signIfOne(:a[0])+:x::a[0]}${(:posx.indexOf(1)>-1)?math.signedNumberButOne(:a[1])+:x:math.signedNumber(:a[1])}${(:posx.indexOf(2)>-1)?math.signedNumberButOne(:a[2])+:x:math.signedNumber(:a[2])}${(:posx.indexOf(3)>-1)?math.signedNumberButOne(:a[3])+:x:math.signedNumber(:a[3])}${(:posx.indexOf(4)>-1)?math.signedNumberButOne(:a[4])+:x:math.signedNumber(:a[4])}",
         "answer":":question=\\color{red}{${math.calc(math.signIfOne(:sx)+:x+math.signedNumber(:s-:sx))}}",
         "value":"${math.calc(math.signIfOne(:sx)+:x+math.signedNumber(:s-:sx))}"
     },{
         "name":"5 termes (bis)",
         "vars":{"a":"-9_9_5_^0","l":"0_5","x":"${:lettres[:l]}","posx":"0_4_2_^&","s":"${:a[0]+:a[1]+:a[2]+:a[3]+:a[4]}","sx":"${:a[:posx[0]]+:a[:posx[1]]}"},
-        "question": "${(:posx.indexOf(0)>-1)?math.signIfOne(:a[0])+:x::a[0]}${(:posx.indexOf(1)>-1)?math.signedNumberButOne(:a[1])+:x:math.signedNumber(:a[1])}${(:posx.indexOf(2)>-1)?math.signedNumberButOne(:a[2])+:x:math.signedNumber(:a[2])}${(:posx.indexOf(3)>-1)?math.signedNumberButOne(:a[3])+:x:math.signedNumber(:a[3])}${(:posx.indexOf(4)>-1)?math.signedNumberButOne(:a[4])+:x:math.signedNumber(:a[4])}",
+        "question": "\\text{Réduire} \\\\ ${(:posx.indexOf(0)>-1)?math.signIfOne(:a[0])+:x::a[0]}${(:posx.indexOf(1)>-1)?math.signedNumberButOne(:a[1])+:x:math.signedNumber(:a[1])}${(:posx.indexOf(2)>-1)?math.signedNumberButOne(:a[2])+:x:math.signedNumber(:a[2])}${(:posx.indexOf(3)>-1)?math.signedNumberButOne(:a[3])+:x:math.signedNumber(:a[3])}${(:posx.indexOf(4)>-1)?math.signedNumberButOne(:a[4])+:x:math.signedNumber(:a[4])}",
+        "shortq": "${(:posx.indexOf(0)>-1)?math.signIfOne(:a[0])+:x::a[0]}${(:posx.indexOf(1)>-1)?math.signedNumberButOne(:a[1])+:x:math.signedNumber(:a[1])}${(:posx.indexOf(2)>-1)?math.signedNumberButOne(:a[2])+:x:math.signedNumber(:a[2])}${(:posx.indexOf(3)>-1)?math.signedNumberButOne(:a[3])+:x:math.signedNumber(:a[3])}${(:posx.indexOf(4)>-1)?math.signedNumberButOne(:a[4])+:x:math.signedNumber(:a[4])}",
         "answer":":question=\\color{red}{${math.calc(math.signIfOne(:sx)+:x+math.signedNumber(:s-:sx))}}",
         "value":"${math.calc(math.signIfOne(:sx)+:x+math.signedNumber(:s-:sx))}"
     }

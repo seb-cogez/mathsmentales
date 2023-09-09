@@ -3,7 +3,7 @@
     "description":"Calculer 10%,, 20%, 30%, 40%, 50%, 25%, 75%, 33%",
     "type":"text",
     "ID":"5NC10",
-    "dest":["5NC", "4NC", "3NC"],
+    "dest":["5NC", "4NC", "3NB"],
     "options":[{
         "name":"10%",
         "vars":{"p":10,"qte":"2_50"}
