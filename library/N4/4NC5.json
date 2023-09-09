@@ -5,7 +5,6 @@
     "description":"Multiplication de nombres décimaux tirés au hasard par une puissance négative ou positive de 10 comprise entre -5 et 5",
     "dest":["4NC", "3NB"],
     "keys":["_","_","_","_","_","_","_","_"],
-    "vars":{"a":[1,9,99,999,9999], "b":"1_3", "c":"d0_${:a}_${:b}_^0"},
     "options":[{
         "name":"Multiplier un décimal à 1 chiffre significatif par une puissance positive",
         "vars":{
