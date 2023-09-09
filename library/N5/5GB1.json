@@ -2,6 +2,7 @@
     "ID":"5GB1",
     "dest":["5GB","4GB","3GB","2G2"],
     "title":"Trouver la mesure d'un 3e angle, en degrés.",
+    "description":"Déterminer la mesure d'un angle en degré dans un triangle quelconque",
     "repeat":true,
     "textSize":"small",
     "type":"text",

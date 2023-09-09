@@ -1,7 +1,8 @@
 {
-    "title":"📣 Quel est le chiffre des / le nombre de (entier) ... ? (décimaux)",
+    "title":"Quel est le chiffre des / le nombre de (entier) ... ? (décimaux)",
     "type":"text",
     "ID":"6NC9",
+    "speech":1,
     "textSize":"medium",
     "description":"Donner le chiffre d'un rang. Donner le nombre entier d'un rang.",
     "dest":["7NC", "6NC", "5NA"],

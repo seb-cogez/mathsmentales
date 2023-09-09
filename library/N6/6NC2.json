@@ -1,6 +1,7 @@
 {
-    "title":"📣 Arrondir un nombre décimal",
+    "title":"Arrondir un nombre décimal",
     "description":"Donner le décimal le plus proche en fonction de la précision demandée.",
+    "speech":1,
     "textSize":"medium",
     "type":"text",
     "ID":"6NC2",

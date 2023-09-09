@@ -69,7 +69,7 @@ window.onload = function(){
     document.getElementById("addToCart").onclick = ()=>{MM.addToCart();};
     document.getElementById("unlinkCart").onclick = ()=>{MM.unlinkActivity();};
     document.getElementById("removeFromCart").onclick = ()=>{MM.removeFromCart()};
-    document.getElementById("tempo-slider").oninput = (evt)=>{MM.changeTempoValue(evt.target.value);};
+    document.getElementById("tempo-slider").oninput = (evt)=>{if(evt.target.value<2)evt.target.value=0;MM.changeTempoValue(evt.target.value);};
     document.getElementById("tempo-slider").onchange=()=>{MM.carts[MM.selectedCart].display();};
     document.getElementById("nbq-slider").oninput = (evt)=>{MM.changeNbqValue(evt.target.value);};
     document.getElementById("nbq-slider").onchange = ()=>{MM.carts[MM.selectedCart].display();};
@@ -83,25 +83,29 @@ window.onload = function(){
     document.getElementById("playerlist").oninput = (evt)=>{sound.select(evt.target.value)};
     // panier 1
     document.getElementById("btncartclose1").onclick=()=>{MM.emptyCart(1)};
-    document.getElementById("titlecart1").onblur = (evt)=>{MM.carts[0].title = evt.target.innerText;};
-    document.getElementById("imgordercart1").onclick = (evt)=>{MM.carts[0].changeOrder(evt.target);};
+    document.getElementById("titlecart1").onblur = (evt)=>{MM.carts[0].title = evt.target.innerText}
+    document.getElementById("imgordercart1").onclick = (evt)=>{MM.carts[0].changeOrder(evt.target)}
+    document.getElementById("progress-cart1").onclick = (evt)=>{MM.carts[0].changeProgress(evt.target)}
     document.getElementById("imgduplicatecart1").onclick = ()=>{MM.carts[0].duplicate();};
     // panier 2
-    document.getElementById("btncartdelete2").onclick=()=>{MM.removeCart(2)};
-    document.getElementById("btncartclose2").onclick=()=>{MM.emptyCart(2)};
-    document.getElementById("titlecart2").onblur = (evt)=>{MM.carts[1].title = evt.target.innerText;};
-    document.getElementById("imgordercart2").onclick = (evt)=>{MM.carts[1].changeOrder(evt.target);};
-    document.getElementById("imgduplicatecart2").onclick = ()=>{MM.carts[1].duplicate();};
+    document.getElementById("btncartdelete2").onclick=()=>{MM.removeCart(2)}
+    document.getElementById("btncartclose2").onclick=()=>{MM.emptyCart(2)}
+    document.getElementById("titlecart2").onblur = (evt)=>{MM.carts[1].title = evt.target.innerText}
+    document.getElementById("imgordercart2").onclick = (evt)=>{MM.carts[1].changeOrder(evt.target)}
+    document.getElementById("progress-cart2").onclick = (evt)=>{MM.carts[1].changeProgress(evt.target)}
+    document.getElementById("imgduplicatecart2").onclick = ()=>{MM.carts[1].duplicate()}
     // panier 3
     document.getElementById("btncartdelete3").onclick=()=>{MM.removeCart(3)};
     document.getElementById("btncartclose3").onclick=()=>{MM.emptyCart(3)};
-    document.getElementById("titlecart3").onblur = (evt)=>{MM.carts[2].title = evt.target.innerText;};
-    document.getElementById("imgordercart3").onclick = (evt)=>{MM.carts[2].changeOrder(evt.target);};
+    document.getElementById("titlecart3").onblur = (evt)=>{MM.carts[2].title = evt.target.innerText}
+    document.getElementById("imgordercart3").onclick = (evt)=>{MM.carts[2].changeOrder(evt.target)}
+    document.getElementById("progress-cart3").onclick = (evt)=>{MM.carts[2].changeProgress(evt.target)}
     document.getElementById("imgduplicatecart3").onclick = ()=>{MM.carts[2].duplicate();};
     // panier 4
     document.getElementById("btncartdelete4").onclick=()=>{MM.removeCart(4)};
     document.getElementById("btncartclose4").onclick=()=>{MM.emptyCart(4)};
     document.getElementById("titlecart4").onblur = (evt)=>{MM.carts[3].title = evt.target.innerText;};
+    document.getElementById("progress-cart4").onclick = (evt)=>{MM.carts[3].changeProgress(evt.target);};
     document.getElementById("imgordercart4").onclick = (evt)=>{MM.carts[3].changeOrder(evt.target);};
     // radio online
     document.getElementById("radioonline1").onclick = (evt)=>{MM.setOnlineState(evt.target.value)};
@@ -114,6 +118,10 @@ window.onload = function(){
     // radio face to face
     document.getElementById("radioftf1").onclick = ()=>{MM.setFacetoFace('n');};
     document.getElementById("radioftf2").onclick = ()=>{MM.setFacetoFace('y');};
+    // radio déroulé du diaporama
+    document.getElementById("radioslidercontent1").onclick = (evt)=>{MM.setSliderContent(evt.target.value)};
+    document.getElementById("radioslidercontent2").onclick = (evt)=>{MM.setSliderContent(evt.target.value)};
+    document.getElementById("radioslidercontent3").onclick = (evt)=>{MM.setSliderContent(evt.target.value)};
     // radio fin de diaporama
     document.getElementById("radioendslider1").onclick = (evt)=>{MM.setEndType(evt.target.value)};
     document.getElementById("radioendslider2").onclick = (evt)=>{MM.setEndType(evt.target.value)};
@@ -186,6 +194,8 @@ window.onload = function(){
     // flash cards
     document.getElementById("btngenerateFC").onclick = ()=>{MM.createFlashCards()}
     document.getElementById("cardsNbValue").oninput = (evt)=>{document.getElementById('cardsNb').innerHTML=evt.target.value;}
+    document.getElementById("btn-flash-adresse").onclick = ()=>{MM.copyURL('cartesflash');};
+    document.getElementById("btn-flash-copytohistoric").onclick = ()=>{MM.copyURLtoHistory('cartesflash')};
     // j'ai / qui a ?
     document.getElementById("btngenerateWG").onclick = ()=>{MM.createWhoGots()}
     // dominos
@@ -231,8 +241,14 @@ window.onload = function(){
         //zooms
         if(evt.target.dataset.what === "in"){
             MM.zooms[evt.target.dataset.zoom].plus();
+            if(evt.target.dataset.assoc !== ''){
+                MM.zooms[evt.target.dataset.assoc].plus();
+            }
         } else if(evt.target.dataset.what === "out"){
             MM.zooms[evt.target.dataset.zoom].minus();
+            if(evt.target.dataset.assoc !== ''){
+                MM.zooms[evt.target.dataset.assoc].minus();
+            }
         }
         if(evt.target.nodeName.toLowerCase() === "img"){
             targetId = evt.target.parentNode.id;
@@ -280,11 +296,11 @@ window.onload = function(){
                 MM.annotateThisThing('corrige-content', target.id)
                 break
             case "btn-restart-otherdata":
-                utils.setSeed(utils.seedGenerator());
                 MM.start()
                 break
             case "btn-restart-samedata":
-                MM.start()
+                // the true value force to restart with same datas
+                MM.start(true)
                 break
             default:
                 break
@@ -371,7 +387,7 @@ window.onload = function(){
         }
     }
     // boutons aléatorisation
-    document.getElementById("btn-params-aleakey").onclick = ()=>{utils.setSeed(utils.seedGenerator())};
+    document.getElementById("btn-params-aleakey").onclick = ()=>{MM.setSeed(utils.seedGenerator())};
 
     /**
      * Comportements sur les éléments fixes

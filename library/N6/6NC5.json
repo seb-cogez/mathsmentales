@@ -1,6 +1,7 @@
 {
-    "title":"📣 Donner l'écriture décimale d'un nombre de dizaines, centaines, etc.",
+    "title":"Donner l'écriture décimale d'un nombre de dizaines, centaines, etc.",
     "type":"text",
+    "speech":1,
     "ID":"6NC5",
     "dest":["6NC"],
     "consts":{

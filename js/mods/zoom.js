@@ -5,12 +5,13 @@ export default class Zoom {
      * @param {String} targetSelector Id de l'élément du DOM à zoomer/dézoomer
      * @param {boolean} normaltarget indicate if targetSelector is the targeted elem (true) or children span
      */
-    constructor(id,targetSelector,normaltarget=false,unit="em",value=1){
-        this.target = targetSelector;
-        this.id=id;
-        this.value = value;
-        this.normaltarget = normaltarget;
-        this.unite=unit;
+    constructor(id,targetSelector,normaltarget=false,unit="em",value=1,associateTarget=''){
+        this.target = targetSelector
+        this.id=id
+        this.value = value
+        this.normaltarget = normaltarget
+        this.unite=unit
+        this.associateTarget=associateTarget
     }
     changeSize(value,obj=false){
         if(value===10 && obj){
@@ -58,9 +59,10 @@ export default class Zoom {
     }
     createCursor(){
         let div = utils.create("div",{id:this.id, className:"zoom"});
-        let span = utils.create("span",{className:"zoom-A1 pointer","data-what":"reset",innerText:"A", "data-zoom": this.id, ondblclick:this.reset});
+        let span = utils.create("span",{className:"zoom-A1 pointer","data-what":"reset",innerText:"A", "data-zoom": this.id, "data-assoc":this.associateTarget, ondblclick:this.reset});
         let btn2 = `<button class="zoominbtn" data-what="in" data-zoom="${this.id}"><svg
         data-zoom="${this.id}"
+        data-assoc="${this.associateTarget}"
         data-what="in"
         width="24"
         height="24"
@@ -70,6 +72,7 @@ export default class Zoom {
       >
         <path
         data-zoom="${this.id}"
+        data-assoc="${this.associateTarget}"
         data-what="in"
           fill-rule="evenodd"
           clip-rule="evenodd"
@@ -79,6 +82,7 @@ export default class Zoom {
       </svg></button>`;
       let btn1 = `<button class="zoomoutbtn" data-what="out" data-zoom="${this.id}"><svg
       data-zoom="${this.id}"
+      data-assoc="${this.associateTarget}"
       data-what="out"
       width="24"
       height="24"
@@ -88,6 +92,7 @@ export default class Zoom {
     >
       <path
       data-zoom="${this.id}"
+      data-assoc="${this.associateTarget}"
       data-what="out"
       fill-rule="evenodd"
         clip-rule="evenodd"

@@ -1,6 +1,7 @@
 {
-    "title":"📣 Simplifier une fraction",
+    "title":"Simplifier une fraction",
     "ID":"6NB5",
+    "speech":1,
     "description":"Écrire une fraction égale avec numérateur et dénominateurs les plus petits possibles",
     "keys":["_","_","_","/"],
     "dest":["6NB","5NA","4NA","3NA"],

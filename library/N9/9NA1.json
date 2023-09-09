@@ -1,6 +1,7 @@
 {
-    "title":"📣 Nombre de, chiffre des ... ?",
+    "title":"Nombre de, chiffre des ... ?",
     "description":"Indiquer le chiffre de, ou le nombre (entier) d'unités, dizaines, ...",
+    "speech":1,
     "type":"text",
     "ID":"9NA1",
     "textSize":"medium",

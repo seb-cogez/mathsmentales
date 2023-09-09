@@ -38,7 +38,7 @@
                 ]               
             },
         "question":"\\text{A 0,5 près, lire l'(es) antécédent(s) éventuel(s) de ${:c}}",       
-        "answer":"\\text{Les solutions sont } \\color{red}{${math.round(-:b/:a,1)}} \\text{(} ${0.5*math.round(-2*:b/:a,0)} \\text{ accepté) et 0.}"
+        "answer":"\\text{Les solutions sont } \\color{red}{${math.round(-:b/:a,1)}} \\text{ (} ${0.5*math.round(-2*:b/:a,0)} \\text{ accepté) et 0.}"
         }
     ]
 }

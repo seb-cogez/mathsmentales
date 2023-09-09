@@ -1,6 +1,7 @@
 {
-    "title":"📣 Conversions de durées",
+    "title":"Conversions de durées",
     "type":"text",
+    "speech":1,
     "ID":"7MC2",
     "description":"Conversions par interprétation de reste.",
     "dest":["7MC","6MB"],

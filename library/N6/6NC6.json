@@ -1,6 +1,7 @@
 {
-    "title":"📣 Intercaler un nombre entre deux autres",
+    "title":"Intercaler un nombre entre deux autres",
     "type":"text",
+    "speech":1,
     "valueType":"inInterval",
     "ID":"6NC6",
     "description":"Trouver un nombre entre deux valeurs données",

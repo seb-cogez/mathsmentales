@@ -22,6 +22,7 @@ const MM = {
     editedActivity:undefined, // object activity 
     slidersOrientation: "", // if vertical => vertical presentation for 2 sliders
     onlineState:"no", // true if user answers on computer (Cf start and online functions)
+    sliderContent:"questions", // qanda for for question/answers alternance | qthena for slider of questions then slider of answers
     carts:[], // max 4 carts
     steps:[],
     timers:[],
@@ -128,6 +129,9 @@ const MM = {
     setEndType(value){
         this.endType = value;
     },
+    setSliderContent(value){
+        this.sliderContent = value
+    },
     setAudio(value){
         if(this.slidersNumber>1){
             utils.checkRadio("audioRadio","0");
@@ -142,7 +146,26 @@ const MM = {
         document.getElementById("audiorepeat").value = value;
     },
     setIntroType(value){
-        this.introType = value;
+        if(value === "nothing"){
+            this.introType = value;
+            document.getElementById("radiobeforeslider1").checked = false;
+            document.getElementById("radiobeforeslider2").checked = false;
+        } else {
+            this.introType = [];
+            document.getElementById("radiobeforeslider3").checked = false;
+            if(document.getElementById("radiobeforeslider1").checked){
+                this.introType.push("example")
+            }
+            if(document.getElementById("radiobeforeslider2").checked){
+                this.introType.push("321");
+            }
+            this.introType = this.introType.join("-");
+            // cas où on a décheck
+            if(this.introType === ""){
+                document.getElementById("radiobeforeslider3").checked = true;
+                this.introType = "nothing";
+            }
+        }
     },
     setOnlineState(value){
         this.onlineState = value;
@@ -187,13 +210,16 @@ const MM = {
         document.getElementById('nbq-value').innerHTML = value;
     },
     changeTempoValue:function(value){
-        document.getElementById('tempo-value').innerHTML = value+" s.";
+        if(Number(value)<2)
+            document.getElementById('tempo-value').innerHTML = "manuel";
+        else
+            document.getElementById('tempo-value').innerHTML = value+" s.";
         if(MM.editedActivity)MM.editedActivity.Tempo = value;
         if(MM.carts[MM.selectedCart].editedActivityId > -1){
             document.querySelectorAll("#cart"+(MM.selectedCart)+"-list li.active span")[0].innerHTML = value;
         }
     },
-    changeNbqValue:function(value){
+    changeNbqValue:function(value){ 
         document.getElementById('nbq-value').innerHTML = value;
         if(MM.editedActivity)MM.editedActivity.nombreQuestions = value;
         if(MM.carts[MM.selectedCart].editedActivityId > -1){
@@ -220,6 +246,7 @@ const MM = {
         // on check tous les boutons radio en fonction des valeurs en méméoire
         utils.checkRadio("direction",this.slidersOrientation);
         utils.checkRadio("beforeSlider",this.introType);
+        utils.checkCheckbox("beforeSlider", this.introType.split("-"));
         utils.checkRadio("endOfSlideRadio",this.endType);
         utils.checkRadio("online",this.onlineState);
         utils.checkRadio("facetoface",this.faceToFace);
@@ -281,7 +308,7 @@ const MM = {
             let btnnb = i+1;
             let button = utils.create("button",{
                 value:btnnb,
-                className:"tab-menu-link",
+                className:"tabs-menu-link",
                 innerHTML:'<img src="img/cart'+btnnb+'.png">',
                 id:"button-cart"+btnnb
             });
@@ -425,7 +452,6 @@ const MM = {
         }
         enonces.innerHTML="";
         corriges.innerHTML="";
-        MM.setSeed();
         MM.copyURLtoHistory();
         // parcours des paniers
         for(let i=0;i<length;i++){
@@ -462,7 +488,7 @@ const MM = {
                     olc.style["background"] = MM.colors[slideNumber];
                 }
                 MM.steps[slideNumber] = new steps({size:0, container:sliderSteps});
-                MM.timers[slideNumber] = new timer(slideNumber);
+                MM.timers[slideNumber] = new timer(slideNumber, i);
                 let actsArray=[];
                 // on fait la liste des références activités / questions pour pouvoir créer les affichages
                 for(let z=0,alen=MM.carts[i].activities.length;z<alen;z++){
@@ -494,7 +520,9 @@ const MM = {
                     let div = utils.create("div",{className:"slide w3-animate-top"+(indiceSlide>0?" hidden":"")+color,id:"slide"+slideNumber+"-"+indiceSlide});
                     let span = utils.create("span",{innerHTML:question});
                     if(fontSize)span.className=fontSize;
-                    let spanAns = utils.create("span",{className:"answerInSlide hidden"})
+                    let answerHiddenState = ' hidden';
+                    if (MM.carts[i].progress === 'withanswer'){ answerHiddenState = '';}
+                    let spanAns = utils.create("span",{className:"answerInSlide" + answerHiddenState})
                     if(Array.isArray(answer))
                         spanAns.innerHTML =answer[0];
                     else
@@ -565,6 +593,22 @@ const MM = {
             }
         }
         utils.mathRender();
+        //MM.zoomCorrection();
+    },
+    /**
+     * todo : à revoir, le offsetHeight semble ne pas se mettre à jour. Peut-être un pb de timing. Utiliser les promises ?
+     */
+    zoomCorrection(){
+        if(MM.zooms["zc0-0"]!==undefined){
+            let maxH = window.innerHeight;
+            let bodyH = document.body.offsetHeight;
+            let count = 0
+            while(bodyH<maxH && count<2){
+                count++
+                MM.zooms["zc0-0"].plus();
+                bodyH = document.body.offsetHeight;
+            }
+        }
     },
     /**
      * Create the user inputs to answer the questions
@@ -688,7 +732,11 @@ const MM = {
         if(!MM.carts[0].activities.length){
             MM.carts[0].addActivity(MM.editedActivity);
         }
-        MM.fiche = new ficheToPrint("flashcard",MM.carts[0]);
+        let withSeed = false;
+        if(document.getElementById("aleaInURL").checked)withSeed = true;
+        let params = this.paramsToURL(withSeed,"cartesflash");
+        let value = this.setURL(params,"cartesflash");
+        MM.window = window.open(value,"mywindow","location=no,menubar=no,titlebar=no,width=1123");
     },
     createWhoGots:function(){
         if(!MM.carts[0].activities.length){
@@ -719,7 +767,7 @@ const MM = {
     /**
      * Start the slideshow
      */
-    start:function(){
+    start:function(samedata=false){
         if(!MM.carts[0].activities.length){
             MM.carts[0].addActivity(MM.editedActivity);
         }
@@ -743,6 +791,12 @@ const MM = {
         // check if an option has been chosen
         MM.checkIntro();
         MM.createSlideShows();
+        // if restart true, we restart with same values
+        if(!samedata){
+            MM.setSeed()
+        }else {
+            MM.setSeed(document.getElementById("aleaKey").value);
+        }
         MM.populateQuestionsAndAnswers();
         if(MM.introType === "321"){
             document.getElementById("countdown-container").className = "";
@@ -758,7 +812,7 @@ const MM = {
                 MM.showSlideShows();
                 MM.startTimers();
             },3600);
-        } else if(MM.introType ==="example"){
+        } else if(MM.introType.indexOf("example")>-1){
             // on affiche un exemple
             MM.showSampleQuestion();
             MM.showSlideShows();
@@ -791,6 +845,11 @@ const MM = {
             ",t1="+encodeURI(document.getElementById("cancol1title").value||document.getElementById("cancol1title").placeholder)+
             ",t2="+encodeURI(document.getElementById("cancol2title").value||document.getElementById("cancol2title").placeholder)+
             ",t3="+encodeURI(document.getElementById("cancol3title").value||document.getElementById("cancol3title").placeholder)+
+            this.export()
+        } else if(type==="cartesflash"){
+            return "disp="+(utils.getRadioChecked("flashcarddispo"))+
+            ",t="+(document.getElementById("FCtitle").value||"Cartes Flash")+
+            ",a="+(withAleaSeed?MM.seed:"")+
             this.export()
         } else if(type==="dominossheet"){
             return "n="+document.getElementById("dominosNbValue").value+
@@ -832,6 +891,7 @@ const MM = {
             ",a="+(withAleaSeed?MM.seed:"")+
             ",colors="+colors+
             ",snd="+sound.selected+
+            ",sc="+MM.sliderContent+
             this.export();
     },
     setHistory(pageName,params){
@@ -843,7 +903,7 @@ const MM = {
      * et lance le diapo ou passe en mode édition
      * edit est true si appelé par l'historique pour édition
      */
-     checkURL(urlString=false,start=true,edit=false){
+    checkURL(urlString=false,start=true,edit=false){
         const vars = utils.getUrlVars(urlString);
         // cas d'une page prévue pour exercice.html
         if(vars.cor && vars.ex && location.href.indexOf("exercices.html")<0 && !edit){
@@ -902,7 +962,7 @@ const MM = {
                 },3000);
             }
             // indique quoi faire avant le slide
-            MM.introType = vars.i;
+            MM.introType = vars.i||"nothing";
             // indique quoi faire après le slide
             MM.endType = vars.e;
             // couleurs des diaporamas
@@ -941,6 +1001,10 @@ const MM = {
             // orientation dans le cas de 2 diapos
             if(vars.so){
                 MM.slidersOrientation = vars.so;
+            }
+            // dérouler du diaporama
+            if(vars.sc){
+                MM.sliderContent = vars.sc;
             }
             // paramètres des activités des paniers
             let json = vars.c;
@@ -1075,6 +1139,8 @@ const MM = {
             typeName = "💫 Duel"
         } else if(type==="ceinture"){
             typeName = "🥋 Ceinture"
+        } else if(type === 'cartesflash'){
+            typeName = '⚡ Cartes flash'
         }
         let span = utils.create("span", {innerText:typeName+" du "+utils.getDate()+": ",className:"bold"});
         li.appendChild(span);
@@ -1303,6 +1369,10 @@ const MM = {
             if(utils.baseURL.indexOf("index.html")<0)
                 utils.baseURL+="index.html";
             return utils.baseURL.replace('index','courseauxnombres')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
+        } else if(type==="cartesflash"){
+            if(utils.baseURL.indexOf("index.html")<0)
+                utils.baseURL+="index.html";
+            return utils.baseURL.replace('index','cartesflash')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
         } else if(type==="dominossheet"){
             if(utils.baseURL.indexOf("index.html")<0)
                 utils.baseURL+="index.html";
@@ -1347,16 +1417,20 @@ const MM = {
         }
         let divSample = utils.create("div",{id:"sampleLayer",className:"sample"});
         // creation des emplacements d'affichage
+        let facteurZoom = 1;
         for(let i=0;i<nb;i++){
             let div = utils.create("div",{id:"sample"+i});
-            if(nb === 1)div.className = "slider-1";
-            else if(nb===2)div.className = "slider-2";
+            if(nb === 1){div.className = "slider-1";facteurZoom=3;}
+            else if(nb===2){div.className = "slider-2";facteurZoom=2;}
             else div.className = "slider-34";
             let nextActivity = "";
             if(MM.carts[assocSliderActivity[i]].activities.length>1) {
                 nextActivity = `<button title="Activité suivante du panier" data-actid="0" id="ButtonNextAct${i}"><img src="img/slider-next.png"></button>`;
             }
-            div.innerHTML = `Exemple <div class="slider-nav">
+            div.innerHTML = `Exemple `
+            MM.zooms['zsample'+i] = new Zoom('zsample'+i, "#sampleSlide"+i, true, "em", facteurZoom, 'zs'+i)
+            div.appendChild(MM.zooms['zsample'+i].createCursor())
+            div.innerHTML += `<div class="slider-nav">
             <button title="Annoter l'exemple" id="btn-sample-annotate${i}"><img src="img/iconfinder_pencil_1055013.png"></button>
             <button title="Montrer la réponse" id="btn-sample-showanswer${i}"><img src="img/slider-solution.png"></button>
             <button title="Autre exemple" id="btn-newsample${i}"><img src="img/newsample.png"></button>
@@ -1397,6 +1471,7 @@ const MM = {
         if(!MM.carts[0].activities.length)
             MM.carts[0].addActivity(MM.editedActivity);
         MM.createSlideShows();
+        MM.setSeed();
         MM.populateQuestionsAndAnswers();
         MM.showTab(document.querySelector("[numero='#tab-enonce'].tabs-menu-link"));
         if(MM.carts.length === 1 && MM.carts[0].activities.length === 1){
@@ -1408,6 +1483,7 @@ const MM = {
         if(!MM.carts[0].activities.length)
             MM.carts[0].addActivity(MM.editedActivity);
         MM.createSlideShows();
+        MM.setSeed();
         MM.populateQuestionsAndAnswers();
         MM.showTab(document.querySelector("[numero='#tab-corrige'].tabs-menu-link"));
         if(MM.carts.length === 1 && MM.carts[0].activities.length === 1){
@@ -1444,8 +1520,8 @@ const MM = {
         else utils.removeClass(container,"vertical");
         if(MM.faceToFace==="y") utils.addClass(container,"return");
         else utils.removeClass(container,"return");
+        let facteurZoom = 1;
         for(let i=0;i<nb;i++){
-            let facteurZoom = 1;
             let div = document.createElement("div");
             div.id = "slider"+i;
             if(nb === 1){div.className = "slider-1";facteurZoom=3;}
@@ -1457,7 +1533,7 @@ const MM = {
             let innerH = `<div class="slider-head"><div class="slider-nav">
             <button title="Arrêter le diaporama" id="btn-timer-end${i}"><img src="img/slider-stop.png" /></button>`;
             if(MM.onlineState==="no"){
-                // on crée les boutons de pause et montrer réponse si on n'est pas en mode online
+                // créer les boutons de pause et montrer réponse si on n'est pas en mode online
                 innerH += `<button title="Mettre le diapo en pause", id="btn-timer-pause${i}"><img src="img/slider-pause.png" /></button>
                 <button title="Montrer la réponse" id="btn-show-answer${i}"><img src="img/slider-solution.png" /></button>`;
             }
@@ -1512,16 +1588,16 @@ const MM = {
      * @param {Integer} id id du slide où afficher la réponse
      * @returns nothing
      */
-    showTheAnswer(id){
+    showTheAnswer(id, pause=true){
         let answerToShow = document.querySelector("#slide"+id+"-"+MM.steps[id].step+" .answerInSlide");
         
         if(!answerToShow)return;
         if(answerToShow.className.indexOf("hidden")>-1){
-            MM.timers[id].pause();
+            if(pause) MM.timers[id].pause();
             utils.removeClass(answerToShow, "hidden");
-        }else{
+        } else {
             utils.addClass(answerToShow, "hidden");
-            MM.timers[id].start();
+            if(pause) MM.timers[id].start();
         }
     },
     showSampleAnswer(id){
@@ -1538,6 +1614,8 @@ const MM = {
      * @param {boolean} next passe à l'activité suivante du panier.
      */
     newSample(id,next=false){
+        // suppression de l'annotation si en cours.
+        this.annotateThisThing(false);
         for(let i=0,len=MM.carts.length;i<len;i++){
             if(MM.carts[i].target.indexOf(id+1)>-1){
                 let nbActivities = MM.carts[i].activities.length;
@@ -1587,7 +1665,23 @@ const MM = {
         if(MM.onlineState === "yes" && !MM.touched){
             document.getElementById("ansInput0-0").focus();
         }
-        MM.startTimers();
+        if(MM.introType === ("example-321")){ // case with 
+            document.getElementById("countdown-container").className = "";
+            if(sound.selected){
+                setTimeout(()=>{sound.beeps();},800);
+                setTimeout(()=>{sound.setSound(sound.selected)},3500);
+            }
+            setTimeout(function(){
+                document.getElementById("countdown-container").className = "hidden";
+                if(MM.onlineState === "yes") { // create inputs for user
+                    MM.createUserInputs();
+                }
+                MM.showSlideShows();
+                MM.startTimers();
+            },3600);
+        } else {
+            MM.startTimers();
+        }
     },
     /**
      * 

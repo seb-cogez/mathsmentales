@@ -33,8 +33,12 @@ const sound = {
         this.play();
     },
     play(){
-        if(this.selected !== null)
+        try{
+            if(this.selected !== null)
             this.player.play();
+        }catch(err){
+            console.log(err);
+        }
     },
     next(){
         if(this.selected===null)this.selected=-1;

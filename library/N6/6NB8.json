@@ -1,0 +1,29 @@
+{
+    "title":"Déterminer si des fractions sont égales",
+    "ID":"6NB8",
+    "speech":1,
+    "description":"Deux fractions sont données, dire si elles sont égales ou non.",
+    "dest":["6NB","5NA","4NA","3NA"],
+    "options":[{
+        "name":"Différence possible sur le numérateur",
+        "vars":{
+            "num":"2_10", "coeff":"2_9", "den":"2_10_^${:num}",
+            "choix":"0_1", "delta":"1_${:num-1}",
+            "num2":"${:choix==0?:num*:coeff::num*:coeff+:delta}", "den2":"${:den*:coeff}",
+            "r":"${:choix==0?'O':'N'}","rl":"${:choix==0?'OUI':'NON'}"
+        }},
+    {
+        "name":"Différence possible sur le dénominateur",
+        "vars":{
+            "num":"2_10", "coeff":"2_9", "den":"2_10_^${:num}",
+            "choix":"0_1", "delta":"1_${:den-1}",
+            "num2":"${:num*:coeff}", "den2":"${:choix==0?:den*:coeff::den*:coeff+:delta}",
+            "r":"${:choix==0?'O':'N'}","rl":"${:choix==0?'OUI':'NON'}"
+        }
+    }],
+    "audio":"La fraction ${:num} ${math.NumberToFraction(:den)} est-elle égale à ${:num2} ${math.NumberToFraction(:den*:coeff)} ?",
+    "question":"\\text{Les fractions }\\dfrac{${:num}}{${:den}}\\text{ et }\\dfrac{${:num2}}{${:den2}}\\text{ sont-elles égales ?}",
+    "shortq":"\\dfrac{${:num}}{${:den}}\\stackrel{!}{=}\\dfrac{${:num2}}{${:den2}}",
+    "answer":"\\dfrac{${:num}}{${:den}} ~ \\color{red}{${:choix==0?'=':'\\not ='}}~ \\dfrac{${:num*:coeff}}{${:den*:coeff}}",
+    "value":["${:r}","${:rl}"]
+}

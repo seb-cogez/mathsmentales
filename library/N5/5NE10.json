@@ -1,0 +1,51 @@
+{
+    "title":"Calculer une expression à coefficients positifs",
+    "type":"latex",
+    "ID":"5NE10",
+    "textSize":"medium",
+    "dest":["5NE", "4NE", "3ND","2N3"],
+    "consts":{"lettres":["u","v","t","x", "y", "z"]},
+    "vars":{"l":"0_5","x":"${:lettres[:l]}"},
+    "options":[{
+        "name":"Forme a + bx, x positif",
+        "vars":{"a":"1_10","b":"0_10", "v":"0_10","exp":"${math.calc(:a+'*'+:x+'+('+:b+')')}", "ans":"${:a*:v+:b}"}
+    },{
+        "name":"Forme a + bx², x positif",
+        "vars":{"a":"1_10","b":"0_10", "v":"0_3","exp":"${math.calc(:a+'*'+:x+'^2+('+:b+')')}", "ans":"${:a*:v*:v+:b}"}
+    },{
+        "name":"Forme a + bx + cx², x positif",
+        "vars":{"a":"1_10","b":"1_10", "c":"1_3", "v":"0_3","exp":"${math.calc(:a+'*'+:x+'^2+('+:b+')*'+:x+'+('+:c+')')}", "ans":"${:a*:v*:v+:b*:v+:c}"}
+    },{
+        "name":"Forme a + bx³, x positif",
+        "vars":{"a":"1_10","b":"0_10", "v":"0_3","exp":"${math.calc(:a+'*'+:x+'^3+('+:b+')')}", "ans":"${:a*:v*:v*:v+:b}"}
+    },{
+        "name":"Forme (x + a)×b, x positif",
+        "vars":{"a":"1_10","b":"1_10", "v":"0_5","exp":"(${math.calc(:a+'+'+:x)})\\times${:b>0?:b:'('+:b+')'}", "ans":"${(:a+:v)*:b}"}
+    },{
+        "name":"Forme (a + bx)×c, x positif",
+        "vars":{"a":"1_10","b":"0_10","c":"0_10", "v":"0_4","exp":"(${math.calc(:a+'*'+:x+'+('+:b+')')})\\times${:c>0?:c:'('+:c+')'}", "ans":"${(:a*:v+:b)*:c}"}
+    },{
+        "name":"Forme a + bx, x négatif",
+        "vars":{"a":"1_10","b":"0_10", "v":"-5_-1","exp":"${math.calc(:a+'*'+:x+'+('+:b+')')}", "ans":"${:a*:v+:b}"}
+    },{
+        "name":"Forme a + bx², x négatif",
+        "vars":{"a":"1_10","b":"0_10", "v":"-3_-1","exp":"${math.calc(:a+'*'+:x+'^2+('+:b+')')}", "ans":"${:a*:v*:v+:b}"}
+    },{
+        "name":"Forme a + bx + cx², x négatif",
+        "vars":{"a":"1_10","b":"0_10", "c":"1_3", "v":"-3_-1","exp":"${math.calc(:a+'*'+:x+'^2+('+:b+')*'+:x+'+('+:c+')')}", "ans":"${:a*:v*:v+:b*:v+:c}"}
+    },{
+        "name":"Forme a + bx³, x négatif",
+        "vars":{"a":"1_10","b":"0_10", "v":"-3_-1","exp":"${math.calc(:a+'*'+:x+'^3+('+:b+')')}", "ans":"${:a*:v*:v*:v+:b}"}
+    },{
+        "name":"Forme (x + a)×b, x négatif",
+        "vars":{"a":"1_10","b":"0_10", "v":"-5_-1","exp":"(${math.calc(:a+'+'+:x)})\\times${:b>0?:b:'('+:b+')'}", "ans":"${(:a+:v)*:b}"}
+    },{
+        "name":"Forme (a + bx)×c, x négatif",
+        "vars":{"a":"1_10","b":"0_10","c":"0_10", "v":"-4_-1","exp":"(${math.calc(:a+'*'+:x+'+('+:b+')')})\\times${:c>0?:c:'('+:c+')'}", "ans":"${(:a*:v+:b)*:c}"}
+    }
+    ],
+    "question":"\\begin{gathered} \\text{Calculer }${:exp} \\\\ \\text{ pour } ${:x}=${:v}\\end{gathered}",
+    "shortq":"\\begin{gathered} ${:exp} \\\\ \\text{ pour } ${:x}=${:v}\\end{gathered}",
+    "answer":"\\text{Pour }${:x}=${:v}\\quad ${:exp}=\\color{red}{${:ans}}",
+    "value":"${:ans}"
+}

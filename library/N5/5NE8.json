@@ -1,0 +1,141 @@
+{
+    "title":"Écrire l'expression littérale correspondante",
+    "type":"text",
+    "ID":"5NE8",
+    "textSize":"small",
+    "description":"Un programme de calcul étant proposé, il est demandé une expression algébrique correspondante.",
+    "dest":["5NE","4NE", "3ND"],
+    "consts":{
+        "phrases":{
+            "moins":[["Lui enlever", "Lui soustraire", "Lui retrancher", "Lui ôter"],
+        [["Enlever "," au résultat"], ["Soustraire "," au résultat"], ["Retrancher "," au résultat"], ["Ôter "," au résultat"]]],
+            "plus":["Lui ajouter", ["Ajouter "," au résultat"]],
+            "fois":["Le multiplier par", ["Multiplier le résultat par ",""]],
+            "divisé":["Le diviser par", ["Diviser le résultat par ",""]]
+        },
+        "signes":["moins","plus","fois","divisé"],
+        "operations":["-","+","\\times","\\div"],
+        "opes":["-","+","*","/"]},
+    "options":[{
+        "name":"Deux opérations, pas de parenthèses (5e)",
+        "vars":{"n1":"1_10","n2":"1_10","op1":"0_3","op2":"0_${:op1>1?3:1}","tdiv":"0_3",
+            "phrase1":"${:op1>0?:phrases[:signes[:op1]][0]::phrases['moins'][0][:tdiv]} ${:n1}.",
+            "phrase2":"${:op2>0?:phrases[:signes[:op2]][1][0]::phrases['moins'][1][:tdiv][0]}${:n2}${:op2>0?:phrases[:signes[:op2]][1][1]::phrases['moins'][1][:tdiv][1]}."
+        },
+        "question": "Quelle expression traduit ce programme :<br><ul><li>Choisir un nombre.</li><li>${:phrase1}</li><li>${:phrase2}</li></ul>",
+        "answer":"$$\\color{red}{x${:operations[:op1]}${:n1}${:operations[:op2]}${:n2}}=${math.calc('x'+:opes[:op1]+:n1+:opes[:op2]+:n2)}$$",
+        "value":"x${:operations[:op1]}${:n1}${:operations[:op2]}${:n2}"
+    },{
+        "name":"Deux opérations, avec parenthèses (5e)",
+        "vars":{"n1":"1_10","n2":"1_10","op1":"0_1","op2":"2_3","tdiv":"0_3",
+            "phrase1":"${:op1>0?:phrases[:signes[:op1]][0]::phrases['moins'][0][:tdiv]} ${:n1}.",
+            "phrase2":"${:phrases[:signes[:op2]][1][0]}${:n2}."
+        },
+        "question": "Quelle expression traduit ce programme :<br><ul><li>Choisir un nombre.</li><li>${:phrase1}</li><li>${:phrase2}</li></ul>",
+        "answer":"$$\\color{red}{(x${:operations[:op1]}${:n1})${:operations[:op2]}${:n2}}$$",
+        "value":"(x${:operations[:op1]}${:n1})${:operations[:op2]}${:n2}"
+    },{
+        "name":"Trois opérations (3e opération avec x parfois)",
+        "vars":{"n1":"1_10","n2":"2_10","n3":"1_20","op1":"0_1","op2":"2_3","op3":"0_3","tdiv":"0_3",
+            "phrase1":"${:op1>0?:phrases[:signes[:op1]][0]::phrases['moins'][0][:tdiv]} ${:n1}.",
+            "phrase2":"${:phrases[:signes[:op2]][1][0]}${:n2}.",
+            "phrase3":"${:op3>0?:phrases[:signes[:op3]][1][0]::phrases['moins'][1][:tdiv][0]}${:n3<11?:n3:'le nombre choisi'}${:op3>0?:phrases[:signes[:op3]][1][1]::phrases['moins'][1][:tdiv][1]}."
+        },
+        "question": "Quelle expression traduit ce programme :<br><ul><li>Choisir un nombre.</li><li>${:phrase1}</li><li>${:phrase2}</li><li>${:phrase3}</li></ul>",
+        "answer":"$$\\color{red}{(x${:operations[:op1]}${:n1})${:operations[:op2]}${:n2}${:operations[:op3]} ${:n3<11?:n3:'x'}}$$",
+        "value":"(x${:operations[:op1]}${:n1})${:operations[:op2]}${:n2}${:operations[:op3]} ${:n3<11?:n3:'x'}"
+    },{
+        "name":"Produit de deux expressions (1)",
+        "vars":{"n1":"1_10","n2":"1_10","op1":"0_1","op2":"0_1","tdiv":"0_3",
+        "phrase1":"${:op1>0?:phrases[:signes[:op1]][0]::phrases['moins'][0][:tdiv]} ${:n1}.",
+        "phrase2":"${:op2>0?:phrases[:signes[:op2]][0]::phrases['moins'][0][:tdiv]} ${:n2}.",
+        "phrase3":"Multiplier les deux résultats précédents."},
+        "question": "Quelle expression traduit ce programme :<br><ul><li>Choisir un nombre.</li><li>${:phrase1}</li><li>${:phrase2}</li><li>${:phrase3}</li></ul>",
+        "answer":"$$\\color{red}{(x${:operations[:op1]}${:n1})\\times(x${:operations[:op2]}${:n2})}$$",
+        "value":"(x${:operations[:op1]}${:n1})\\times(x${:operations[:op2]}${:n2})"
+    },{
+        "name":"Produit de deux expressions (2)",
+        "vars":{"c1":"2_10","n1":"1_10","op1":"0_1","c2":"2_10","n2":"1_10","op2":"0_1","vs":["Ôter","Soustraire","Retrancher","Enlever"],
+        "phrase1":"Le multiplier par ${:c1}.",
+        "phrase2":"${:op1>0?'Ajouter'::vs} ${:n1}.",
+        "phrase3":"Multiplier le nombre de départ par ${:c2}.",
+        "phrase4":"${:op2>0?'Ajouter'::vs} ${:n2} au résultat précédent.",
+        "phrase5":"Multiplier les résultats des étapes 3 et 5."
+        },
+        "question":"Quelle expression traduit ce programme :<br><ul><li>Choisir un nombre.</li><li>${:phrase1}</li><li>${:phrase2}</li><li>${:phrase3}</li><li>${:phrase4}</li><li>${:phrase5}</li></ul>",
+        "answer":"$$\\color{red}{(${:c1}x${:operations[:op1]}${:n1})\\times(${:c2}x${:operations[:op2]}${:n2})}$$",
+        "value":"(${:c1}x${:operations[:op1]}${:n1})\\times(${:c2}x${:operations[:op2]}${:n2})"
+    },{
+        "name":"Produit de deux expressions (2bis)",
+        "vars":{"c1":"2_10","n1":"1_10","op1":"0_1","c2":"2_10","n2":"1_10","op2":"0_1","vs":["Ôter","Soustraire","Retrancher","Enlever"],
+        "phrase1":"Le multiplier par ${:c1}.",
+        "phrase2":"${:op1>0?'Ajouter'::vs} ${:n1}, noter $$A$$ ce résutat.",
+        "phrase3":"Multiplier le nombre de départ par ${:c2}.",
+        "phrase4":"${:op2>0?'Ajouter'::vs} ${:n2} au résultat précédent, noter $$B$$ ce résultat.",
+        "phrase5":"Calculer $$A \\times B$$."
+        },
+        "question":"Quelle expression traduit ce programme :<br><ul><li>Choisir un nombre.</li><li>${:phrase1}</li><li>${:phrase2}</li><li>${:phrase3}</li><li>${:phrase4}</li><li>${:phrase5}</li></ul>",
+        "answer":"$$\\color{red}{(${:c1}x${:operations[:op1]}${:n1})\\times(${:c2}x${:operations[:op2]}${:n2})}$$",
+        "value":"(${:c1}x${:operations[:op1]}${:n1})\\times(${:c2}x${:operations[:op2]}${:n2})"
+    },{
+        "name":"Carré, double, triple...",
+        "consts":{"multiples":["double","triple","quadruple"],
+        "operations":["-","+","\\times"],
+        "opes":["-","+","*"]},
+        "vars":{"choix":"0_1","n1":"2_10","op1":"0_1","m1":"0_2","op2":"0_1","n2":"1_10","choix2":"0_1",
+        "vs":["Ôter","Soustraire","Retrancher","Enlever"],
+        "phrase1":"${:choix?'Le mettre au carré':'Le multiplier par '+:n1}.",
+        "phrase2":"${:op1?'Ajouter'::vs} ${:choix?'son '+:multiples[:m1]:'son carré'}.",
+        "phrase3":"${:op2?'Ajouter'::vs} ${:n2} au résultat."
+        },
+        "question":"Quelle expression traduit ce programme :<br><ul><li>Choisir un nombre.</li><li>${:phrase1}</li><li>${:phrase2}</li>${:choix2?'<li>'+:phrase3+'</li>':''}</ul>",
+        "answer":"$$\\color{red}{${:choix?'x^2'::n1+'x'}${:operations[:op1]}${:choix?(:m1+2)+'x':'x^2'}${:choix2?:operations[:op2]+:n2:''}}$$",
+        "value":"${:choix?'x^2'::n1+'x'}${:operations[:op1]}${:choix?(:m1+1)+'x':'x^2'}${:choix2?:operations[:op2]+:n2:''}"
+    },{
+        "name":"Différence de carrés (1)",
+        "vars":{
+            "vs":["Ôter","Soustraire","Retrancher","Enlever"],
+            "m1":"1_10","n1":"1_10","op1":"0_1",
+            "phrase1":"Le multiplier par ${:m1}.",
+            "phrase2":"${:op1>0?'Ajouter'::vs} ${:n1}",
+            "phrase3":"Mettre le résultat au carré",
+            "phrase4":"Soustraire le carré du nombre choisi."
+        },
+        "question":"Quelle expression traduit ce programme :<br><ul><li>Choisir un nombre.</li>${:m1>1?'<li>'+:phrase1+'</li>':''}<li>${:phrase2}</li><li>${:phrase3}</li><li>${:phrase4}</li></ul>",
+        "answer":"$$\\color{red}{(${:m1>1?:m1:''}x${:op1>0?'+':'-'}${:n1})^2-x^2}$$",
+        "value":"(${:m1>1?:m1:''}x${:op1>0?'+':'-'}${:n1})^2-x^2"
+    },{
+        "name":"Différence de carrés (2)",
+        "vars":{
+            "vs":["Ôter","Soustraire","Retrancher","Enlever"],
+            "m1":"1_10","n1":"1_10","op1":"0_1","m2":"1_10","n2":"1_10","op2":"0_1",
+            "phrase1":"Le multiplier par ${:m1}.",
+            "phrase2":"${:op1>0?'Ajouter'::vs} ${:n1}.",
+            "phrase3":"Mettre le résultat au carré.",
+            "phrase4":"Multiplier le nombre choisi par ${:m2}.",
+            "phrase5":"${:op2>0?'Ajouter'::vs} ${:n2}.",
+            "phrase6":"Mettre le résultat au carré.",
+            "phrase7":"Soustraire ce résultat au premier carré."
+        },
+        "question":"Quelle expression traduit ce programme :<br><ul><li>Choisir un nombre.</li>${:m1>1?'<li>'+:phrase1+'</li>':''}<li>${:phrase2}</li><li>${:phrase3}</li>${:m2>1?'<li>'+:phrase4+'</li>':''}<li>${:phrase5}</li><li>${:phrase6}</li><li>${:phrase7}</li></ul>",
+        "answer":"$$\\color{red}{(${:m1>1?:m1:''}x${:op1>0?'+':'-'}${:n1})^2-(${:m2>1?:m2:''}x${:op2>0?'+':'-'}${:n2})^2}$$",
+        "value":"(${:m1>1?:m1:''}x${:op1>0?'+':'-'}${:n1})^2-(${:m2>1?:m2:''}x${:op2>0?'+':'-'}${:n2})^2"
+    },{
+        "name":"Différence de carrés (2bis)",
+        "vars":{
+            "vs":["Ôter","Soustraire","Retrancher","Enlever"],
+            "m1":"1_10","n1":"1_10","op1":"0_1","m2":"1_10","n2":"1_10","op2":"0_1",
+            "phrase1":"Le multiplier par ${:m1}.",
+            "phrase2":"${:op1>0?'Ajouter'::vs} ${:n1}.",
+            "phrase3":"Mettre le résultat au carré, noter $$A$$ le résultat.",
+            "phrase4":"Multiplier le nombre choisi par ${:m2}.",
+            "phrase5":"${:op2>0?'Ajouter'::vs} ${:n2}.",
+            "phrase6":"Mettre le résultat au carré, noter $$B$$ le résultat.",
+            "phrase7":"Calculer $$A-B$$."
+        },
+        "question":"Quelle expression traduit ce programme :<br><ul><li>Choisir un nombre.</li>${:m1>1?'<li>'+:phrase1+'</li>':''}<li>${:phrase2}</li><li>${:phrase3}</li>${:m2>1?'<li>'+:phrase4+'</li>':''}<li>${:phrase5}</li><li>${:phrase6}</li><li>${:phrase7}</li></ul>",
+        "answer":"$$\\color{red}{(${:m1>1?:m1:''}x${:op1>0?'+':'-'}${:n1})^2-(${:m2>1?:m2:''}x${:op2>0?'+':'-'}${:n2})^2}$$",
+        "value":"(${:m1>1?:m1:''}x${:op1>0?'+':'-'}${:n1})^2-(${:m2>1?:m2:''}x${:op2>0?'+':'-'}${:n2})^2"
+    }
+    ]
+}

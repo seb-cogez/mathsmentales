@@ -1,7 +1,8 @@
 {
-    "title":"📣 Aires des figures usuelles",
+    "title":"Aires des figures usuelles",
     "type":"text",
     "ID":"6MC1",
+    "speech":1,
     "description":"Pas encore compatible avec la saisie en ligne",
     "textSize":"small",
     "dest":["6MC", "5MA", "4MA", "3MA"],

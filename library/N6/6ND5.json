@@ -1,6 +1,7 @@
 {
-    "title":"📣 Somme de nombres qui se marient bien",
+    "title":"Somme de nombres qui se marient bien",
     "ID":"6ND5",
+    "speech":1,
     "dest":["6ND", "7ND", "8ND"],
     "options":[{
         "name":"La somme est une dizaine",

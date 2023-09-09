@@ -1,6 +1,7 @@
 {
     "title":"Sens des puissances de 10",
     "type":"latex",
+    "textSize":"medium",
     "description":"Donner l'écriture décimale d'une puissance de 10, ou la puissance de 10 correspondant à une écriture décimale",
     "ID":"4NA5",
     "keys":["_","_","^","10n","_","_","_","_"],
@@ -8,25 +9,29 @@
     "options":[{
         "name":"Ecriture décimale d'une puissance de 10 positive",
         "vars":{"n":"0_10"},
-        "question": "10^{${:n}}",
+        "question": "\\text{Écriture décimale de }10^{${:n}}",
+        "shortq": "10^{${:n}}=?",
         "answer":":question = \\color{red}{${Math.pow(10,:n)}}",
         "value":"${Math.pow(10,:n)}"
     },{
         "name":"Ecriture décimale d'une puissance de 10 négative",
         "vars":{"n":"1_10"},
-        "question": "10^{-${:n}}",
+        "question": "\\text{Écriture décimale de }10^{-${:n}}",
+        "shortq":"10^{-${:n}}=?",
         "answer":":question = \\color{red}{${math.bigDecimal(10,'pow',-:n)}}",
         "value":"${Math.pow(10,-:n)}"
     },{
         "name":"Ecriture fractionnaire d'une puissance de 10 négative",
         "vars":{"n":"1_10"},
-        "question": "10^{-${:n}}",
+        "question": "\\text{Écriture fractionnaire de }10^{-${:n}}",
+        "shortq":"10^{-${:n}}=\\dfrac{?}{?}",
         "answer":":question = \\color{red}{\\dfrac{1}{${Math.pow(10,:n)}}}",
         "value":"1/${Math.pow(10,:n)}"
     },{
         "name":"Puissance de 10 correspondante",
         "vars":{"n":"-6_6"},
-        "question":"${Math.pow(10,:n)}",
+        "question":"\\text{Puissance de dix de }${Math.pow(10,:n)}",
+        "shortq":"${Math.pow(10,:n)}=10^{?}",
         "answer":":question=\\color{red}{10^{${:n}}}",
         "value":"10^${:n}"
     }

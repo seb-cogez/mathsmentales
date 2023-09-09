@@ -43,6 +43,7 @@ export default class activity {
         this.figure = obj.figure; // for graphics description
         this.title = obj.title;  // title of de activity
         this.description = obj.description; // long description
+        this.speech = obj.speech||false;
         this.vars = obj.vars;
         this.consts = obj.consts;
         this.repeat = obj.repeat||false; // question & answers peuvent être répétées ou pas
@@ -121,7 +122,7 @@ export default class activity {
         "~p="+this.chosenQuestionTypes+
         "~t="+this.tempo+
         "~n="+this.nbq+
-        (this.audioRead==true?"~au="+this.audioRead+"~ar="+this.audioRepeat:"");
+        (this.audioRead===true?"~au="+this.audioRead+"~ar="+this.audioRepeat:"");
     }
     /**
      * import datas et crée l'objet activité à partir d'un json
@@ -193,7 +194,7 @@ export default class activity {
         document.getElementById("param-title-act").innerHTML = this.id;
         // affichages
         document.getElementById('activityTitle').innerHTML = this.title;
-        if(this.title.indexOf("📣")>-1){
+        if(this.speech){
             MM.audioSamples = [];
             document.getElementById("voix").classList.remove("hidden")
             if(this.audioRead){
@@ -543,22 +544,24 @@ export default class activity {
                 let regex = /:question/g;
                 chaine = chaine.replace(regex, questiontext);
             }
-        //debug("Chaine à parser", chaine);
-        let result = "";
-        // doublage des \ caractères d'échapement.
-        try { result = eval("`"+chaine.replace(/\\/g,"\\\\")+"`");}
-        catch(error){
-            utils.debug(error, "Erreur avec "+chaine);
-        }
-        // return number if this is one
-        if(!isNaN(result)){
-            return parseFloat(result);
-        } else return result;
+            //debug("Chaine à parser", chaine);
+            let result = "";
+            // doublage des \ caractères d'échapement.
+            try { result = eval("`"+chaine.replace(/\\/g,"\\\\")+"`");}
+            catch(error){
+                utils.debug(error, "Error replacing vars with "+chaine);
+            }
+            // return number if this is one
+            if(!isNaN(result) && result !== '' && result.indexOf('+')<0){
+                return parseFloat(result);
+            } else return result;
         } else if(typeof chaine === "object"){
+            // case 1 : it's an array
             if(_.isArray(chaine)){
                 for(let i=0;i<chaine.length;++i){
                     chaine[i] = this.replaceVars(chaine[i],questiontext);
                 }
+                // case 2 : it's an object
             } else for(const i in chaine){
                 chaine[i] = this.replaceVars(chaine[i],questiontext);
             }
@@ -601,9 +604,17 @@ export default class activity {
                 if(this.options[optionNumber].vars === undefined){
                     // pas de variable définie dans l'option, on prend les variables globales
                     this.cVars = this.vars;
-                } else this.cVars = this.options[optionNumber].vars;
-                if(this.options[optionNumber].consts === undefined){
+                } else if(this.vars !== undefined) {
+                    // des variables des deux côtés, on merge
+                    this.cVars = Object.assign({}, this.vars, this.options[optionNumber].vars);
+                } else {
+                    // pas de variables globales définies.
+                    this.cVars = this.options[optionNumber].vars;
+                }
+                if(this.options[optionNumber].consts === undefined) {
                     this.cConsts = utils.clone(this.consts);
+                } else if(this.consts !== undefined){
+                    this.cConsts = Object.assign({},utils.clone(this.options[optionNumber].consts),utils.clone(this.options[optionNumber].consts));
                 } else this.cConsts = utils.clone(this.options[optionNumber].consts);
                 if(patternNumber !== false){
                     // la question est définie dans l'option, avec un pattern défini
@@ -762,6 +773,8 @@ export default class activity {
             // il peut y avoir des variables utilisées dans les constantes. bizarre, mais pratique
             if(this.cConsts !== undefined){
                 this.cConsts = this.replaceVars(this.cConsts);
+                // il faut retraiter les wVars au cas où elles contiennent des constantes
+                this.wVars = this.replaceVars(this.wVars);
             }
             if(!sample){
             // question text generation

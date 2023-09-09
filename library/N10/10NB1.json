@@ -1,6 +1,7 @@
 {
-    "title":"📣 Écrire en chiffres jusqu'à 1000",
+    "title":"Écrire en chiffres jusqu'à 1000",
     "type":"text",
+    "speech":1,
     "ID":"10NB1",
     "description":"Écriture en chiffres des nombres inférieurs à 1000",
     "dest":["10NB","9NB","8NA","7NA","6NA"],

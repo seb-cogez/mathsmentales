@@ -13,7 +13,7 @@ const math = {
         if(precision === undefined){
             return Math.round(nb);
         } else{
-            if(precision < 5)
+            if(precision < 5 && !String(nb).includes('e'))
                 return Number(Math.round(Number(nb+'e'+precision))+'e'+(-precision));
             else{
                 let z=new Big(nb);
@@ -171,6 +171,7 @@ const math = {
      * @returns a number with his sign
      */
     signedNumber:function(nb){
+        nb = Number(nb)
         if(nb===0) return "";
         else if(nb>0) return "+"+nb;
         else return nb;
@@ -182,10 +183,11 @@ const math = {
      * @returns nothing if nb=1, - if nb=-1 the number in other cases
      */
     signIfOne:function(nb){
+        nb = Number(nb)
         if(nb === 1)
-            return "";
+            return ""
         else if(nb === -1)
-            return "-";
+            return "-"
         else return nb;
     },
     /**
@@ -281,7 +283,7 @@ const math = {
     /**
     *
     * donne la liste des diviseurs inférieurs à 10 sous forme de chaine
-    * 
+    * @param {integer} nb 
     *
     * */
     listeDiviseurs10:function(nb){
@@ -306,9 +308,9 @@ const math = {
         return unnondiviseur;
     },
     /**
-     * 
+     * Retourne une fraction décimale égale au nombre décimal
      * @param {float} decimal nombre décimal
-     * return une fraction
+     * return fraction
      */
     fractionDecimale(decimal){
         let string = decimal.toString();
@@ -327,11 +329,17 @@ const math = {
      * return un diviseur de nb
      */
     unDiviseur(nb,notOne=false,notNb=true){
+        if(Number(nb)===0)return 1
         let diviseurs = math.listeDiviseurs(nb,true);
         if(notOne) diviseurs = _.rest(diviseurs); // on enlève la première valeur qui est 1.
         if(notNb) diviseurs = _.initial(diviseurs);
         return diviseurs[math.aleaInt(0,diviseurs.length-1)];
     },
+    /**
+     * replace parts of a string written as power
+     * @param {String} value "integer1^integer2*integer3^integer4..."
+     * @returns product of integers2 factors equals to integer1, ...
+     */
     unpower:function(value){
         let matches = value.match(/(\d*)\^(\d*)/g);
             if(matches)
@@ -340,6 +348,11 @@ const math = {
             }
         return value;
     },
+    /**
+     * 
+     * @param {String} power "int1^int2"
+     * @returns return int1*int1*... with int2 factors
+     */
     powerToProduct(power){
         let nb = Number(power.substring(0,power.indexOf("^")));
         let puissance = Number(power.substring(power.indexOf("^")+1));
@@ -349,6 +362,11 @@ const math = {
         }
         return a.join("*");
     },
+    /**
+     * convert seconds to hours minutes & seconds
+     * @param {Integer} sec number of seconds to convert
+     * @returns 
+     */
     sToMin(sec){
         sec = Number(sec);
         let time = "";
@@ -362,11 +380,16 @@ const math = {
         }
         return time += sec;
     },
+    /**
+     * replace all * with \\times
+     * @param {String} string ascii string where * is multiply symbol
+     * @returns String
+     */
     toTex(string){
         return string.replace(/\*/g, "\\times");
     },
     /**
-     * 
+     * retourne l'écriture simplifiée d'une racine carrée
      * @param {Integer} radicande 
      * @returns 
      */
@@ -383,6 +406,13 @@ const math = {
         }
         return (outOfSquareR>1?outOfSquareR:'')+(inSquareR>1?"\\sqrt{"+inSquareR+"}":'');
     },
+    /**
+     * Indicates if a number is divided by another
+     * @param {Int} nb 
+     * @param {Int} par 
+     * @param {String} type type of return string w : phrase type or yn : yes/no type
+     * @returns 
+     */
     estDivisiblePar(nb, par, type){
         nb = Number(nb); par = Number(par);
         let reponses = {"w":[" est divisible ", "n'est pas divisible"],"yn":["oui", "non"]};
@@ -390,23 +420,53 @@ const math = {
             return reponses[type][0];
         } else return reponses[type][1];
     },
+    /**
+     * Compare two numbers
+     * @param {Int} a 
+     * @param {Int} b 
+     * @returns <, > or =
+     */
     compare(a,b){
         if(a<b)return"\\lt";
         else if(a>b)return"\\gt";
         else return "=";
     },
+    /**
+     * Retourne le PGCD de deux nombres
+     * @param {Int} a 
+     * @param {Int} b 
+     * @returns gcd of a & b
+     */
     pgcd: function(a, b) {
-    return Algebrite.run('gcd(' + a + ',' + b + ')');
+        return Algebrite.run('gcd(' + a + ',' + b + ')');
     },
+    /**
+     * Retourne le PPCM de deux nombres
+     * @param {Int} a integer 1
+     * @param {Int} b integer 2
+     * @returns lcm of a & b
+     */
     ppcm: function(a, b) {
-    return Algebrite.run('lcm(' + a + ',' + b + ')');
+        return Algebrite.run('lcm(' + a + ',' + b + ')');
     },
+    /**
+     * Retourne l'inverse d'un nombre
+     * @param {String} expr expression Latex ou text
+     * @param {Boolean} notex default false : return as tex, else return as ascii
+     * @returns inverse of expr
+     */
     inverse:function(expr, notex){
         let ret;
         if(notex === undefined || notex===false) ret = Algebrite.run('printlatex(1/('+expr+'))');
         else ret = Algebrite.run('1/('+expr+')');
         return ret;
     },
+    /**
+     * 
+     * @param {String} expr expression à calculer
+     * @param {Boolean} notex default false : return as tex, else return as ascii
+     * @returns 
+     */
     calc:function(expr,notex){
         let ret = Algebrite.run(expr);
         if(notex === undefined || notex===false) {
@@ -414,22 +474,42 @@ const math = {
             //let parser= new AsciiMathParser()
             //ret = ret.replace(/([0-9])(\*)([a-z])/g,'$1$3').replace(/frac/g,'dfrac');
             //ret = parser.parse(ret);
-            ret = Algebrite.run('printlatex('+expr+')').replace(/frac/g,'dfrac');
+            ret = Algebrite.run('printlatex('+expr+')').replace(/frac/g,'dfrac').replace(/(\d) (\\times|\\cdot) (\w)/g,'$1$3');
             //let expression = parse(expr);
             //ret = serialize(this.ce.canonical(expression)).replace(/frac/g,'dfrac');
         }
         return ret;
     },
+    /**
+     * Retourne des heures minutes à partir d'heures, minutes, secondes pouvant dépasser 60 ou être négatives
+     * @param {Int} h nombre d'heures
+     * @param {Int} m nombre de minutes
+     * @param {Int} s nombre de secondes
+     * @returns String as "5 h 09"
+     */
     getHM(h,m,s){
         if(s===undefined)s=0;
         var d = new Date(2010,1,1,Number(h),Number(m),Number(s));
         return d.getHours()+" h "+((d.getMinutes()<10)?"0"+d.getMinutes():d.getMinutes());
     },
+    /**
+     * Retourne des heures minutes secondes à partir d'heures, minutes, secondes pouvant dépasser 60 ou être négatives
+     * @param {Int} h nombre d'heures
+     * @param {Int} m nombre de minutes
+     * @param {Int} s nombres de secondes
+     * @returns String as "11 h 07 min 03 s"
+     */
     getHMs(h,m,s){
         if(s===undefined)s=0;
         var d = new Date(2010,1,1,Number(h),Number(m),Number(s));
         return d.getHours()+" h "+((d.getMinutes()<10)?"0"+d.getMinutes():d.getMinutes())+" min "+((d.getSeconds()<10)?"0"+d.getSeconds():d.getSeconds())+" s.";
     },
+    /**
+     * Simplifie une fraction à partir de son numérateur et de son dénominateur
+     * @param {Int} n numérateur
+     * @param {Int} d dénominateur
+     * @returns tex expression of the simplified fraction
+     */
     fractionSimplifiee(n,d){
         if(n<0 && d<0 || n>0 && d<0){
             n=-n;d=-d;
@@ -440,6 +520,12 @@ const math = {
         else 
             return "\\dfrac{"+(n/gcd)+"}{"+(d/gcd)+"}";
     },
+    /**
+     * Retourne une fraction décimale simplifiée à partir d'une fraction décimale
+     * @param {Int} n numérateur
+     * @param {Int} d dénominateur
+     * @returns tex expression of the fraction simplified
+     */
     simplifyFracDec(n,d){
         while(n%10 === 0 && d%10 === 0){
             n=n/10;d=d/10;
@@ -501,12 +587,19 @@ const math = {
         }
         return r;
     },
+    /**
+     * 
+     * @param {*} a 
+     * @param {*} op 
+     * @param {*} b 
+     * @returns 
+     */
     bigDecimal(a,op,b){
         let x = Big(a);
         return eval('x.'+op+'('+b+').toString()');
     },
         /**
-     * 
+     * Génère un montant aléatoire en €
      * @param {integer} billets id des billets
      * @param {boolean} entier true pour générer des montants entiers, false pour des centimes
      * @param {boolean} tot true pour donner le montant total, false pour donner un montant inférieur
@@ -529,6 +622,11 @@ const math = {
                     return math.aleaFloat(total-min+1,total,2);
             }}
         },
+        /**
+         * Crée un texte de nombres de billets à partir d'une simple liste de billets [5,5,10,20,50,10]
+         * @param {Array} billets liste de billets
+         * @returns String faisant la liste des billets par groupes
+         */
         listeBillets:function(billets){
             let valeursBillets = [5,10,20,50,100];
             let lesbillets = {5:0,10:0,20:0,50:0,100:0};
@@ -761,7 +859,7 @@ const math = {
             let ch
             let numberToLetter = '';
             if(nombre<0){
-                return numberToLetter = 'sur moins '+this.NumberToFraction(-nombre);
+                return numberToLetter = 'sur moins '+this.NumberToLetter(-nombre);
             }
             //__________________________________
     
@@ -769,10 +867,8 @@ const math = {
             if (isNaN(nombre.toString().replace(/ /gi, ""))) return "Nombre non valide";
     
             nb = parseFloat(nombre.toString().replace(/ /gi, ""));
-            //if (Math.ceil(nb) != nb) return "Nombre avec virgule non géré.";
             if(Math.ceil(nb) != nb){
                 nb = nombre.toString().split('.');
-                //return NumberToLetter(nb[0]) + " virgule " + NumberToLetter(nb[1]);
                 return this.NumberToFraction(nb[0]) + (U ? " " + U + " et " : " virgule ") + this.NumberToFraction(nb[1]) + (D ? " " + D : "");
             }
             n = nb.toString().length;

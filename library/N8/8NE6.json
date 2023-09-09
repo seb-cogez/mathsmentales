@@ -1,6 +1,7 @@
 {
-    "title":"📣 Multiplier des dixièmes, des centaines, des millièmes par 10, 100, 1000",
+    "title":"Multiplier des dixièmes, des centaines, des millièmes par 10, 100, 1000",
     "ID":"8NE6",
+    "speech":1,
     "keys":["_","_","_","_","_","_","_","_"],
     "dest":["8NE", "7NE", "6NE", "5NC", "4NC", "3NB"],
     "options":[{

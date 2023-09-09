@@ -1,7 +1,8 @@
 {
-    "title":"📣 Ajouter un nombre décimal et ...",
+    "title":"Ajouter un nombre décimal et ...",
     "ID":"8NE1",
-    "description":"",
+    "speech":1,
+    "description":"Somme d'un nombre décimal avec un nombre de dixièmes, un petit décimal, un décimal quelconque",
     "dest":["8NE", "7NE", "6NE"],
     "keys":["_","_","_","_","_","_","_","_"],
     "options":[{

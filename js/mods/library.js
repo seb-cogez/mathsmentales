@@ -29,54 +29,35 @@ const library = {
      * @param {String} url adresse du fichier à ouvrir
      */
     load:function(url,id){
-        /*if(theactivities[id]!== undefined){
-            MM.setHistory("Exercice","u="+id);
-            this.open(theactivities[id]);
-        } else {*/
-            // pour le développement, on peut lire une activité qui n'a pas encore été intégrée dans la bibliothèque
-            // en fournissant ?u=id de l'activité.
-            let reader = new XMLHttpRequest();
-            reader.onload = ()=>{
-                let json = JSON.parse(reader.responseText);
+        // pour le développement, on peut lire une activité qui n'a pas encore été intégrée dans la bibliothèque
+        // en fournissant ?u=id de l'activité.
+        fetch("library/"+url+"?v"+MM.version)
+            .then(r => r.json())
+            .then(body => {
                 let regexp = /\/(.*)\./;
                 url = regexp.exec(url)[1];
                 MM.setHistory("Exercice","u="+url);
-                this.open(json);
-            }
-            reader.open("get", "library/"+url+"?v"+MM.version);
-            reader.send();
-        //}
+                this.open(body)
+        })  .catch(e => console.log)
     },
     /**
      * 
      * @param {String} url url du json à récupérer
      */
-    loadJSON:function(url){
-        return new Promise((resolve,reject)=>{
-            let reader  = new XMLHttpRequest();
-            reader.onload = ()=>{
-                resolve(JSON.parse(reader.responseText));
-            }
-            reader.onerror = err=>{reject(err)};
-            reader.open("get", "library/"+url+"?v"+MM.version);
-            reader.send();    
-        })
+    loadJSON:async function(url){
+        const r = await fetch("library/"+url+"?v"+MM.version)
+        if (r.ok === true) return r.json()
+        throw new Error('Erreur de chargement de l\'activité')
     },
     /**
      * Récupère les données d'une activité lors d'un import venant du chargement d'un panier préconfiguré.
      * @param {String} url adresse
      * @returns Promesse de chargement du fichier à charger
      */
-    import:function(url){
-        return new Promise((resolve,reject)=>{
-        let reader = new XMLHttpRequest();
-        reader.onload = function(){
-            resolve(JSON.parse(reader.responseText));
-        }
-        reader.onerror = err=>{reject(err)};
-        reader.open("get", "library/"+url+"?v"+MM.version);
-        reader.send();
-        })
+    import:async function(url){
+        const r = await fetch("library/"+url+"?v"+MM.version)
+        if(r.ok === true) return r.json()
+        throw new Error('Problème de chargement de l\'activité')
     },
     /**
      * Ouvre le fichier de description de toutes les activités disponibles sur MathsMentales
@@ -177,7 +158,7 @@ const library = {
                                     // we find a candidate !!!
                                     chaineATrouver.forEach(txt =>{
                                         let reg = new RegExp(txt,"gi");
-                                        tt = tt.replace(reg,function(x){return "<mark>"+x+"</mark>"})
+                                        tt = tt.replace(reg,function(x){return '<mark data-url="'+lexo.u+'" data-id="'+lexo.id+'" id="rcli'+theme+'-'+chap+'-mark">'+x+'</mark>'})
                                     })
                                     chapExo.push({"u":lexo.u, "t":tt, id:lexo.id})
                                 } else
@@ -246,9 +227,9 @@ const library = {
                         let title = niveau["themes"][i]["chapitres"][j]["e"][k]["t"];
                         let url = niveau["themes"][i]["chapitres"][j]["e"][k]["u"];
                         if(niveau["themes"][i]["chapitres"][j]["e"][k]["new"]){
-                            htmlc += "<li id='rcli"+i+"-"+j+"-"+k+"' class='new' data-id='"+id+"' data-url='"+url+"'>"+title+"<input type='checkbox' class='checkitem' value='"+id+"' data-url='"+url+"'></li>";
+                            htmlc += "<li id='rcli"+i+"-"+j+"-"+k+"' class='new tooltip' data-id='"+id+"' data-url='"+url+"'><input type='checkbox' class='checkitem' value='"+id+"' data-url='"+url+"'>"+title+"<div class='tooltiptext'>"+id+"</div></li>";
                         } else {
-                            htmlc += "<li id='rcli"+i+"-"+j+"-"+k+"' data-id='"+id+"' data-url='"+url+"'>"+title+"<input type='checkbox' class='checkitem' value='"+id+"' data-url='"+url+"'></li>";
+                            htmlc += "<li id='rcli"+i+"-"+j+"-"+k+"' class='tooltip' data-id='"+id+"' data-url='"+url+"'><input type='checkbox' class='checkitem' value='"+id+"' data-url='"+url+"'>"+title+"<div class='tooltiptext'>"+id+"</div></li>";
                         }
                     }
                 } else {

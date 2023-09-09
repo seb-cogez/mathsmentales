@@ -87,6 +87,7 @@ Taille carte de visite
     display: flex;
     justify-content: center;
     align-items: center;
+    page-break-inside:avoid;
 }
 /** grilles */
 .grid{

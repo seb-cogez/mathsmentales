@@ -1,11 +1,13 @@
 {
-    "title":"📣 Multiplication à trou, trouver une multiplication",
+    "title":"Multiplication à trou, trouver une multiplication",
     "ID":"6ND7",
+    "speech":1,
     "description":"Trouver un produit, un facteur",
     "dest":["6ND", "5NC", "4NC", "3NB", "7ND", "8ND"],
     "options":[{
         "name":"Trouver le nombre manquant (inférieur à 10)",
         "question": ["${:a}\\times?=${:p}", "?\\times${:a}=${:p}"],
+        "shortq": ["${:a}\\times\\text{_}=${:p}", "\\text{_}\\times${:a}=${:p}"],
         "audio": ["${:a} multiplié par combien pour faire ${:p} ?", "Combien multiplié par ${:a} donne ${:p} ?"],
         "answer":"${:a}\\times\\color{red}{${:b}}=${:p}",
         "vars":{"a":"1_10", "b":"1_10", "p":"${:a*:b}"},

@@ -1,6 +1,7 @@
 {
-    "title":"📣 Tables de multiplications classiques",
+    "title":"Tables de multiplications classiques",
     "ID":"6ND6",
+    "speech":1,
     "dest":["6ND", "7ND", "8NE", "9NE"],
     "options":[{
         "name":"Table de 2",
@@ -38,7 +39,7 @@
     }
     ],
     "question":["${:a}\\times${:b}", "${:b}\\times${:a}"],
-    "answer":"${:a}\\times${:b}=\\color{red}{${:a*:b}}",
+    "answer":["${:a}\\times${:b}=\\color{red}{${:a*:b}}", "${:b}\\times${:a}=\\color{red}{${:b*:a}}"],
     "audio":["${:a}×${:b}","${:b}×${:a}"],
     "value":"${:a*:b}"
 }

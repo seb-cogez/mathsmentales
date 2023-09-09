@@ -101,12 +101,15 @@ mark {
 #resultat-chercher .checkitem {
   display: none;
   margin-left: 0.5em;
+  position: absolute;
+  left:-2.6rem;
+  top:0.6rem;
 }
 #resultat-chercher .checkitem:checked {
-  display: inline-block;
+  display: block;
 }
 #resultat-chercher li:hover .checkitem {
-  display: inline-block;
+  display: block;
 }
 .grille {
   display:flex;
@@ -186,7 +189,7 @@ mark {
 .bold {
   font-weight: bold;
 }
-#tab-enonce li, #tab-corrige li {
+#tab-enonce ol > li, #tab-corrige ol > li {
   padding: 4px 10px 4px;
 }
 /* Range input, from http://danielstern.ca/range.css/ */
@@ -411,6 +414,10 @@ ul.menu, .menu ul {
     font-weight: 700;
     width:initial;
 }
+#tab-parameters fieldset input + label {
+  padding-left: 0.5rem;
+  line-height: 2rem;
+}
 #duelbg {
   width:20em;
   height: 10em;
@@ -422,7 +429,7 @@ ul.menu, .menu ul {
   width:90%;
   height:150px;
 }
-#divparams .tooltip, #colparameters .tooltip {
+#divparams .tooltip, #colparameters .tooltip, #resultat-chercher .tooltip {
   position: relative;
 }
 #divparams .tooltip .tooltiptext {
@@ -438,7 +445,7 @@ ul.menu, .menu ul {
   left:50%;
   margin-left:calc(-100% / 2 + 50px);
 }
-#colparameters .tooltip .tooltiptext {
+#colparameters .tooltip .tooltiptext, #resultat-chercher .tooltip .tooltiptext {
   visibility: hidden;
   background-color: rgba(90, 90, 90, 0.9);
   color: rgb(192, 192, 192);
@@ -451,7 +458,10 @@ ul.menu, .menu ul {
   left:-50%;
   margin-left:calc(-100% / 2 + 50px);
 }
-#divparams .tooltiptext::after, #colparameters .tooltiptext::after {
+#resultat-chercher .tooltip .tooltiptext {
+  left:40%;
+}
+#divparams .tooltiptext::after, #colparameters .tooltiptext::after, #resultat-chercher .tooltip .tooltiptext::after {
 	content: "";
 	position: absolute;
 	top: 100%;
@@ -462,7 +472,7 @@ ul.menu, .menu ul {
 	border-color: #555 transparent transparent transparent;
 }
 /* Show the tooltip text when you mouse over the tooltip container */
-#divparams .tooltip:hover .tooltiptext, #colparameters .tooltip:hover .tooltiptext {
+#divparams .tooltip:hover .tooltiptext, #colparameters .tooltip:hover .tooltiptext, #resultat-chercher .tooltip:hover .tooltiptext {
   visibility: visible;
 }
 #enonce-content .fig{
@@ -838,7 +848,7 @@ h2.sg-title, h3.sg-title {
 #cartscontainer .totaux {
   text-align: center;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 .cartcontent {
     background-color: ivory;
@@ -870,6 +880,33 @@ ul.cart-list{
 .ghost-movement{
     background-color: lightblue;
 }
+/* Remove controls from Firefox */
+.totaux input[type=number] {
+  appearance: textfield;
+  padding: 0 0 0 0.5rem;
+  margin-left: 0.5rem;
+  width: 75%;
+  border: 0;
+}
+.numberInputContainer {
+  position: relative;
+}
+.numberInputContainer button {
+  position: absolute;
+  top:-6px;
+  right:-5px;
+  padding: 0.2rem;
+  color: white;
+  font-weight: bold;
+  background-color: red;
+  border-radius: 1rem;
+  line-height: 1rem;
+}
+/* Re-applies the controls on :hover and :focus */
+.totaux input[type="number"]:hover,
+.totaux input[type="number"]:focus {
+  appearance: initial;
+}
 /* Colors */
 .color-inverse * {
     background-color: #333;
@@ -891,9 +928,17 @@ ul.cart-list{
     list-style-type:none;
     padding-left: 2em;
 }
+#activityOptions ul ul {
+  list-style-type:circle;
+  padding-left: 2em;
+}
 #activityOptions li {
   padding-top: 9px;
 }
+#activityOptions ul ul li{
+  padding-top: 3px;
+}
+
 #startbuttons {
     font-size:1.1em;
     margin:1em;
@@ -960,11 +1005,11 @@ ul.cart-list{
   counter-reset: pas;
   padding-left: 2rem;
 }
-#tab-enonce ol li, #tab-corrige ol li{
+#tab-enonce ol > li, #tab-corrige ol > li{
   counter-increment: pas;
   list-style: none;
 }
-#tab-enonce ol li::before, #tab-corrige ol li::before{
+#tab-enonce ol > li::before, #tab-corrige ol > li::before{
   content: counter(pas) ")";
   margin-right: 0.8em;
   text-align: right;
@@ -973,10 +1018,10 @@ ul.cart-list{
   display: inline-block;
   width: 1em;
 }
-.alpha #tab-enonce ol li::before, .alpha #tab-corrige ol li::before{
+.alpha #tab-enonce ol > li::before, .alpha #tab-corrige ol > li::before{
   content: counter(pas, lower-greek) ")";
 }
-.MAJUSCULE #tab-enonce ol li::before, .MAJUSCULE #tab-corrige ol li::before{
+.MAJUSCULE #tab-enonce ol > li::before, .MAJUSCULE #tab-corrige ol > li::before{
   content: counter(pas, upper-alpha) ")";
 }
 

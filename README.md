@@ -74,6 +74,7 @@ Ces fichiers json comportent des *données obligatoires* :
  * **title** : titre de l'activité
  * **ID** : un identifiant unique de l'activité pour la retrouver facilement dans la base de données, correspond au nom du fichier json : ID.json (pas de doublon !), ex : 6ND6 rangé dans N6 (niveau 6e) sous le code 6ND (Cf structure.json pour le classement) 6ND6 pour le numéro dans l'ordre de création des fichiers
  * **dest** : la liste des niveaux et sous partie qui seront peuplés par l'activité, ex 7NA1 sera rangé en CM2 (**7**e) > **N**umérique > Comprendre et utiliser les nombres (**A**) > 1ère activité
+ * **speech** : optionnel - indique si l'exercice peut être lu par la synthèse vocale text to speech
  * **repeat** : true ou non défini - permet de répéter des questions "pauvres" en type de question/réponses de se répéter.
  * **vars** : objet json contenant la ou les variables utilisées dans l'activité
    * une variable est une chaine ou un tableau. elle est interprétée pour tirer au sort des nombres uniques, des tableaux de nombres ...
@@ -101,11 +102,12 @@ ainsi que des *données optionnelles* :
 * Pour l'activité ou une option :
   * **value** : chaine ou tableau de chaines contenant les réponses attendues dans le formulaire de réponse en ligne
   * **figure** : chaine contenant une figure illustrant l'activité
-  * **shortq** : question au format court (pas la consigne par exemple) pour un export plus lisible dans les ceintures, doit suivre la forme de "questions" : une chaine ou un tableau
+  * **shortq** : question au format court (pas la consigne par exemple) pour un export plus lisible dans les ceintures, doit suivre la forme de "questions" : une chaine ou un tableau. Si l'on met un caractère "_", il fera office d'emplacement pour la réponse.
   * **keys** : tableau d'au plus huit éléments contenant les touches optionnelles pour le clavier virtuel.
   * **audio** : texte à faire lire par le moteur text to speech de l'appareil utilisé, souvent la question dépouillée de mise en forme. Il faut parfois bidouiller, car les maths ne sont pas toujours lues correctement.
   * **valueType** : chaine qui indique le type de réponse attendue, pour une correction en ligne plus précise
-    * "liste" pour des listes de nombres séparées par des point-virgule
+    * "liste" pour des listes de nombres séparées par des point-virgule de type "3;2;54;5.4"
+    * "inInterval" pour des nombres situés dans des intervalles de type "1.6-6.45"
  
  Le tableau de touches par défaut est ["÷","×","-","+","(","x","x²","√"];
  
@@ -123,7 +125,7 @@ ainsi que des *données optionnelles* :
  * les caractères a, b, c, e, t, :, u, v, x, y, z, A, L
 ---
 ### à faire à l'insertion d'un nouvel exercice
-à l'aide de Node.js (à installer) lancer library/scan.js pour recréer le fichier qui référence tous les exercices dans une arborescence chargée au lancement de MathsMentales
+à l'aide de Node.js (à installer) lancer library/scan.js pour recréer le fichier qui référence tous les exercices dans une arborescence chargée au lancement de MathsMentales. Pour cela, dans Le terminal de VSC, taper cd library puis node scan
 
 ### Fichiers exemple :
 

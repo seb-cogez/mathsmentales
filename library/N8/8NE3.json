@@ -1,7 +1,8 @@
 {
-    "title":"📣 Diviser un décimal par 10, 100, 1000",
+    "title":"Diviser un décimal par 10, 100, 1000",
     "description":"Division de nombres tirés au hasard par 10, 100, 1000 ou à 3 chiffres significatifs",
     "ID":"8NE3",
+    "speech":1,
     "dest":["8NE", "7NE", "6NE", "5NC", "4NC", "3NB"],
     "keys":["_","_","_","_","_","_","_","_"],
     "vars":{"a":[1,9,99,999,9999], "b":"1_3", "c":"d0_${:a}_${:b}_^0"},

@@ -1,7 +1,8 @@
 {
-    "title":"📣 Somme astucieuse avec des décimaux",
+    "title":"Somme astucieuse avec des décimaux",
     "type":"latex",
     "ID":"7NE1",
+    "speech":1,
     "description":"Ajouter deux décimaux qui se marient bien et un nombre entier",
     "dest":["7NE","6NE"],
     "options":[{

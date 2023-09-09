@@ -1,0 +1,114 @@
+{
+    "ID": "5GB3",
+    "dest": [
+        "5GB",
+        "4GB",
+        "3GB",
+        "2G2"
+    ],
+    "title": "Existence d'un triangle.",
+    "description": "Déterminer l'existence ou non d'un triangle en fonction des côtés ou des angles",
+    "repeat": true,
+    "textSize": "small",
+    "type": "text",
+    "keys": [
+        "_",
+        "_",
+        "_",
+        "°",
+        "_",
+        "_",
+        "_",
+        "_"
+    ],
+    "consts": {
+        "points": "ABCDEFGHJKLMNPRST",
+        "A": "${:points[:pts[0]]}",
+        "B": "${:points[:pts[1]]}",
+        "C": "${:points[:pts[2]]}"
+    },
+    "options": [
+        {
+            "name": "Données, les angles",
+            "vars": {
+                "pts": "0_16_3_^&",
+                "choix": "0_1",
+                "ft": "50_250_^180",
+                "total": "${:choix?:ft:180}",
+                "a": "1_${:total-2}",
+                "b": "1_${(:total-1-:a)}",
+                "c": "${:total-:a-:b}",
+                "T": "${:A+:B+:C}",
+                "rl": "${:choix?'NON, un triangle ne peut avoir des angles de '+:a+'°, '+:b+'° et '+:c+'° ':'OUI, un triangle peut avoir des angles de '+:a+'°, '+:b+'° et '+:c+'°'}",
+                "rc": "${:choix?'N':'O'}"
+            },
+            "question": "Un triangle ${:T} d'angles ${:a}°, ${:b}° et ${:c}° existe-t-il ?",
+            "shortq": "Un triangle ${:a}°, ${:b}°, ${:c}° existe ?",
+            "answer": [
+                "${:rl}",
+                "${:rc}"
+            ],
+            "value": [
+                "${:rl}",
+                "${:rc}"
+            ]
+        },
+        {
+            "name": "Données, les angles (total multiple de 10)",
+            "vars": {
+                "pts": "0_16_3_^&",
+                "choix": "0_1",
+                "coef": "10_50_^36",
+                "ft": "${5*:coef}",
+                "total": "${:choix?:ft:180}",
+                "a": "1_${:total-2}",
+                "b": "1_${(:total-1-:a)}",
+                "c": "${:total-:a-:b}",
+                "T": "${:A+:B+:C}",
+                "rl": "${:choix?'NON, un triangle ne peut avoir des angles de '+:a+'°, '+:b+'° et '+:c+'° ':'OUI, un triangle peut avoir des angles de '+:a+'°, '+:b+'° et '+:c+'°'}",
+                "rc": "${:choix?'N':'O'}"
+            },
+            "question": "Un triangle ${:T} d'angles ${:a}°, ${:b}° et ${:c}° existe-t-il ?",
+            "shortq": "Un triangle ${:a}°, ${:b}°, ${:c}° existe ?",
+            "answer": [
+                "${:rl}",
+                "${:rc}"
+            ],
+            "value": [
+                "${:rl}",
+                "${:rc}"
+            ]
+        },
+        {
+            "name": "Données, les côtés (entiers)",
+            "vars": {
+                "pts": "0_16_3_^&",
+                "T": "${:A+:B+:C}",
+                "choix": "0_1",
+                "choixliste":"0_2",
+                "a": "1_30",
+                "b": "1_30",
+                "c": "${:choix?(:a+:b+1):(Math.abs(:a-:b)+1)}_${:choix?(:a+:b+10):(:a+:b-1)}",
+                "rl": "${:choix?'NON, un triangle peut avoir des côtés de longueurs '+:listeNombres[:choixliste]:'OUI, un triangle de côtés '+:listeNombres[:choixliste]+' existe.'}",
+                "rc": "${:choix?'N':'O'}"
+            },
+            "consts": {
+                "points": "ABCDEFGHJKLMNPRST",
+                "A": "${:points[:pts[0]]}",
+                "B": "${:points[:pts[1]]}",
+                "C": "${:points[:pts[2]]}",
+                "listeNombres":["${:a}, ${:b}, ${:c}", "${:a}, ${:c}, ${:b}", "${:c}, ${:b}, ${:a}"]
+            },
+            "question":"Un triangle ${:T} de côtés ${:listeNombres[:choixliste]} existe-t-il ?",
+            "shortq":"Un triangle ${:listeNombres[:choixliste]} existe ?",
+            "answer": [
+                "${:rl}",
+                "${:rc}"
+            ],
+            "value": [
+                "${:rl}",
+                "${:rc}"
+            ]
+        }
+    ]
+}

@@ -54,7 +54,7 @@
             "shortq":"tangente ?<br>${:figures[:choix][:idfig]}",
             "figure":{"type":"svg","content":"${:figures[:choix][:idfig]}"},
             "answer":"$$tan(\\widehat{${:choix==0?:A::B}})=\\color{red}{\\dfrac{${(:choix==1?:A::B)+:C}}{${(:choix==0?:A::B)+:C}}}$$",
-            "value":"$$\\dfrac{${(:choix==1?:A::B)+:C}}{${:A+:B}}$$"
+            "value":"$$\\dfrac{${(:choix==1?:A::B)+:C}}{${(:choix==0?:A::B)+:C}}$$"
         }
     ]
     

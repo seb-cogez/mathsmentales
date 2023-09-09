@@ -1,7 +1,8 @@
 {
-    "title":"📣 Place du chiffre 9",
+    "title":"Place du chiffre 9",
     "type":"text",
     "ID":"6NA1",
+    "speech":1,
     "dest":["7NA", "6NA", "5NA"],
     "consts":{"u":["centaines", "dizaines", "unités"],
         "v":["centaines de mille", "dizaines de mille", "unités de mille","centaines", "dizaines", "unités"],

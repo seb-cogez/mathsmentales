@@ -15,6 +15,8 @@ export default class cart {
         this.time = 0;
         this.title = "Diapo "+(id+1);
         this.loaded = false;
+        this.progress='normal'// type of progress : 'normal', 'thenanswer', 'withanswer'
+        this.showAnswerTime=10
     }
     /**
      * Export datas of the cart to put in an url
@@ -24,7 +26,9 @@ export default class cart {
         let urlString = "&p="+this.id+
             "~t="+encodeURI(this.title)+
             "~c="+this.target+
-            "~o="+this.ordered;
+            "~o="+this.ordered+
+            '~d='+this.progress+
+            '~at='+this.showAnswerTime
         for(let i=0,l=this.activities.length;i<l;i++){
             urlString += "_"+this.activities[i].export();
         }
@@ -43,6 +47,13 @@ export default class cart {
             this.ordered = false;
         } else {
             this.ordered = true;
+        }
+        if(obj.d === undefined){
+            this.progress = 'normal'
+            this.showAnswerTime = 2
+        } else {
+            this.progress = obj.d
+            this.showAnswerTime = Number(obj.at)
         }
         // activités, utilise Promise
         let activities = [];
@@ -90,6 +101,9 @@ export default class cart {
             for(let i=0;i<this.activities.length;i++){
                 cart.addActivity(this.activities[i]);
             }
+            cart.ordered = this.ordered
+            cart.progress = this.progress
+            cart.showAnswerTime = this.showAnswerTime
             // on affiche le panier.
             cart.display();
         }
@@ -147,17 +161,6 @@ export default class cart {
             spanOrder.innerHTML = "mélangé";
             spanOrder.dataset["ordered"] = "false";
         }
-        /*
-        let objImage = document.querySelector("#cart"+this.id+" img[data-ordered]");
-        if(this.ordered){
-            objImage.src = "img/iconfinder_stack_1054970.png";
-            objImage.title = "Affichage dans l'ordre des activités";
-            objImage.dataset["ordered"] = "true";
-        } else {
-            objImage.src = "img/iconfinder_windy_1054934.png";
-            objImage.title = "Affichage mélangé des questions";
-            objImage.dataset["ordered"] = "false";
-        }*/
         for(let i=0,l=this.activities.length; i<l;i++){
             let li = document.createElement("li");
             let activity = this.activities[i];
@@ -173,6 +176,7 @@ export default class cart {
         spans[0].innerHTML = math.sToMin(this.time);
         spans[1].innerHTML = this.nbq;
         spans[2].innerHTML = this.target;
+        this.setProgress(this.progress)
         // détruit le sortable si déjà effectif.
         if(this.sortable)this.sortable.destroy();
         this.sortable = new Sortable(dom, {
@@ -185,7 +189,7 @@ export default class cart {
      * 
      * @param {Object} objImage DOM object of the clicked image
      */
-    changeOrder(objImage){
+    changeOrder(objImage) {
         if(objImage.dataset["ordered"] === "true"){
             objImage.innerHTML = "mélangé"
             //objImage.src = "img/iconfinder_windy_1054934.png";
@@ -199,5 +203,64 @@ export default class cart {
             objImage.dataset["ordered"] = "true";
             this.ordered = true;
         }
+    }
+    changeProgress(objHTML, type) {
+        if ((objHTML.dataset['progress'] === 'normal' && type===undefined) || type === 'thenanswer') {
+            objHTML.dataset['progress'] = 'thenanswer'
+            objHTML.innerHTML = ''
+            const container = document.createElement('div')
+            container.className = 'numberInputContainer'
+            const input = document.createElement('input')
+            input.type = 'number'
+            input.min = 2
+            input.max = 120
+            input.value = String(this.showAnswerTime)
+            input.title = 'Durée d\'affichage\nde la correction\naprès la question'
+            input.oninput = (evt)=>{this.showAnswerTime = evt.target.value}
+            input.onclick = (e)=>{e.stopPropagation()}
+            container.appendChild(input)
+            const unit = document.createElement('span')
+            unit.innerText = 's.'
+            container.appendChild(unit)
+            const closeButton = document.createElement('button')
+            closeButton.innerText = '×'
+            container.appendChild(closeButton)
+            closeButton.onclick = (e) => {e.stopPropagation();this.changeProgress(objHTML, 'withanswer')}
+            objHTML.appendChild(container)
+            this.progress = 'thenanswer'
+        } else if ((objHTML.dataset['progress'] === 'thenanswer' && type === undefined) || type === 'withanswer') {
+            objHTML.dataset['progress'] = 'withanswer'
+            objHTML.innerText = 'avec'
+            objHTML.title = 'Le corrigé est affiché\navec la question'
+            this.progress = 'withanswer'
+        } else {
+            objHTML.dataset['progress'] = 'normal'
+            objHTML.innerText = 'sans'
+            objHTML.title = 'Le corrigé n\'est pas affiché'
+            this.progress = 'normal'
+        }
+    }
+    setProgress(value='normal'){
+        const answerChornoContainer = document.getElementById('progress-cart'+(Number(this.id)+1))
+        if(answerChornoContainer === null){return}
+        if(value === ''){
+            this.changeProgress(answerChornoContainer, 'normal')
+        } else {
+            if (value === 'normal') {
+                this.changeProgress(answerChornoContainer, 'normal')
+            }
+            else if (value === 'thenanswer') {
+                this.changeProgress(answerChornoContainer, 'thenanswer')
+            }
+            else if (value === 'withanswer') {
+                this.changeProgress(answerChornoContainer, 'withanswer')
+            }
+        }
+    }
+    setShowAnswerTime(value) {
+        const answerChronoDisplayValue = document.getElementById('answer-chrono-display-value')
+        document.getElementById('answer-chrono-range').value = String(value)
+        this.showAnswerTime = Number(value)
+        answerChronoDisplayValue.innerText = String(value) + ' s.'
     }
 }

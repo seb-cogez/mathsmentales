@@ -47,7 +47,7 @@ for (const niveau in structure){
     //console.log(fichierExo);
     let json = JSON.parse(fs.readFileSync(fichierExo[1]));
     listOfActivities[json.ID]=json;
-    let exo = {"u":"N"+niveau+"/"+fichierExo[0], "t":json.title,"new":nouveau, id:json.ID};//url ; title
+    let exo = {"u":"N"+niveau+"/"+fichierExo[0], "t":json.title+(json.speech?" 📣":""),"new":nouveau, id:json.ID};//url ; title
     // on alerte si le code de l'exo n'est pas le nom de code du fichier.
     if(json.ID+".json" !== fichierExo[0])console.error("Erreur de code pour "+fichierExo[0])
     // descriptif
