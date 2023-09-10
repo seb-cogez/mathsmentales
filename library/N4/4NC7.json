@@ -1,0 +1,30 @@
+{
+    "title":"Déterminer l'écriture décimale (ou entière) d'un nombre en donné en écriture scientifique",
+    "ID":"4NC7",
+    "speech":0,
+    "description":"Déterminer l'écriture décimale (ou entière) d'un nombre en donné en écriture scientifique ",
+    "dest":["4NC", "3NB"],
+    "keys":["_","_","_","_","_","_","_","_"],
+    "options":[{
+        "name":"Déterminer l'entier correspondant à l'écriture scientifique ",
+        "vars":{
+            "prec":"2_5",
+            "m":"d1_10_${:prec}",
+            "puiss":"1_6",
+            "rep" : "${ Math.pow(10,:puiss)*:m }"
+        },
+        "question": "${:m} \\times 10^{${:puiss}}",
+        "answer":":question=\\color{red}{ ${:rep} }"
+    },{
+        "name":"Déterminer le nombre décimal correspondant à l'écriture scientifique ",
+        "vars":{
+            "prec":"2_5",
+            "m":"d1_10_${:prec}",
+            "puiss":"1_6",
+            "rep" : "${ Math.pow(10,-:puiss)*:m }"
+        },
+        "question": "${:m} \\times 10^{${-:puiss}}",
+        "answer":":question=\\color{red}{ ${:rep} }"
+    }
+    ]
+}
