@@ -1,0 +1,41 @@
+{
+    "title":"Déterminer l'écriture scientifique d'un nombre",
+    "ID":"4NC6",
+    "speech":0,
+    "description":"Déterminer l'écriture scientifique d'un nombre aléatoire entier ou décimal ",
+    "dest":["4NC", "3NB"],
+    "keys":["_","_","_","_","_","_","_","_"],
+    "options":[{
+        "name":"Déterminer l'écriture scientifique d'un nombre entier aléatoire supérieur à 100 ",
+        "vars":{
+            "decs":"100_10000"
+        },
+        "question": "${:decs}",
+        "answer":":question=\\color{red}{ ${Number.parseFloat(:decs).toExponential().replace('e','\\times 10 ^{').concat('}')} }"
+    },{
+        "name":"Déterminer l'écriture scientifique d'un nombre entier aléatoire supérieur à 10000 ",
+        "vars":{
+            "decs":"10000_10000000"
+        },
+        "question": "${:decs}",
+        "answer":":question=\\color{red}{ ${Number.parseFloat(:decs).toExponential().replace('e','\\times 10 ^{').concat('}')} }"
+    },{
+        "name":"Déterminer l'écriture scientifique d'un nombre entier aléatoire inférieur à 1 (niveau 1)",
+        "vars":{
+            "decs":"d0_1_4"
+        },
+        "question": "${:decs}",
+        "answer":":question=\\color{red}{ ${Number.parseFloat(:decs).toExponential().replace('e','\\times 10 ^{').concat('}')} }"
+    },{
+        "name":"Déterminer l'écriture scientifique d'un nombre entier aléatoire inférieur à 1 (niveau 2) ",
+        "vars":{
+            "puissance":"2_4",
+            "decs":"d0_1_3",
+            "nombre":"${:decs*Math.pow(10,-:puissance)}",
+            "arrondi":"${Math.round( :nombre * Math.pow(10,3+:puissance) ) / Math.pow(10,3+:puissance)}"
+        },
+        "question": "${:arrondi}",
+        "answer":":question=\\color{red}{ ${:arrondi.toExponential().replace('e','\\times 10 ^{').concat('}')} }"
+    }
+    ]
+}
