@@ -1736,10 +1736,8 @@ const MM = {
             if(MM.onlineState === "yes"){
                 let div = document.createElement("div");
                 // correction
-                // TODO : modifier pour les cas où il y aura plusieurs champs réponse
                 // attention, les questions ont pu être mélangées, on va donc devoir associer correctement les réponses/questions
                 // les réponses sont données dans l'ordre, mais pas les questions.
-                // on peut avoir plusieurs utilisateurs... pour les duels
                 // 1 utilisateur = un actArray
                 for(let slider=0,len=MM.carts[0].actsArrays.length;slider<len;slider++){
                     let score = 0;
@@ -1762,7 +1760,7 @@ const MM = {
                         userAnswer = userAnswer.replace("<","\\lt");
                         const expectedAnswer = MM.goodAnswers[slider][refs[0]][refs[1]];//MM.carts[0].activities[refs[0]].values[refs[1]];
                         let valueType = MM.carts[0].activities[refs[0]].valueType;
-                        //debug(userAnswer,expectedAnswer);
+                        // console.log(userAnswer,expectedAnswer);
                         // TODO : better correction value
                         // prendre en compte les cas où plusieurs réponses sont possibles
                         // attention, si c'est du texte, il faut supprimer des choses car mathlive transforme 
@@ -1816,31 +1814,30 @@ const MM = {
                             if(String(userAnswer).toLowerCase()==String(expectedAnswer).toLowerCase()){
                                 li.className = "good";
                                 score++;
-                            } else if(expectedAnswer !== '') {
-                                if(expectedAnswer.indexOf(',')>0){
-                                    const expetedAnswersArray = expectedAnswer.split(',')
-                                    for(const oneExpected of expetedAnswersArray){
-                                        if(String(userAnswer).toLowerCase()==String(oneExpected).toLowerCase()){
+                            } else if(String(expectedAnswer).indexOf(',')>0){
+                                const expetedAnswersArray = expectedAnswer.split(',')
+                                for(const oneExpected of expetedAnswersArray){
+                                    if(String(userAnswer).toLowerCase()==String(oneExpected).toLowerCase()){
+                                        li.className = "good";
+                                        score++;
+                                        break;
+                                    } else {
+                                        const expr1 = KAS.parse(oneExpected).expr;
+                                        const expr2 = KAS.parse(String(userAnswer).replace('²', '^2')).expr;
+                                        try{
+                                            if(KAS.compare(expr1,expr2,{form:true,simplify:false}).equal){
+                                            // use KAS.compare for algebraics expressions.
                                             li.className = "good";
                                             score++;
                                             break;
                                         } else {
-                                            const expr1 = KAS.parse(oneExpected).expr;
-                                            const expr2 = KAS.parse(String(userAnswer).replace('²', '^2')).expr;
-                                            try{
-                                                if(KAS.compare(expr1,expr2,{form:true,simplify:false}).equal){
-                                                // use KAS.compare for algebraics expressions.
-                                                li.className = "good";
-                                                score++;
-                                                break;
-                                            } else {
-                                                li.className = "wrong";
-                                            }
-                                            } catch(error){
-                                                li.className = "wrong";
-                                            }
+                                            li.className = "wrong";
                                         }
-                                }}
+                                        } catch(error){
+                                            li.className = "wrong";
+                                        }
+                                    }
+                                }
                             } else {
                                 const expr1 = KAS.parse(expectedAnswer).expr;
                                 const expr2 = KAS.parse(String(userAnswer).replace('²', '^2')).expr;
@@ -1857,6 +1854,7 @@ const MM = {
                                 }
                             }
                         }
+                        if(li.className === '') li.className = 'wrong'
                         // On transforme ça en champ LaTeX à afficher (vient mathlive qui renvoie du LaTeX)
                         span.className ="math";
                         userAnswer = "\\displaystyle "+userAnswer;
