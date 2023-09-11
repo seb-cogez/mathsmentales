@@ -73,6 +73,12 @@
         "audio":"(${:nums[0]} ${math.NumberToFraction(:dens[0],true)}) + (${:nums[1]} ${math.NumberToFraction(:dens[1],true)})",
         "answer":":question = \\color{red}{\\displaystyle${math.calc('(' + :nums[0]+')/('+:dens[0]+')+('+:nums[1]+')/('+:dens[1]+')', false)}}",
         "value":"${math.calc('(' + :nums[0]+')/('+:dens[0]+')+('+:nums[1]+')/('+:dens[1]+')', true)}"
+    },{
+        "name":"Ajouter une fraction avec entier et simplifier (4e)",
+        "vars":{"num":"-10_10_^0", "den":"-10_10_^&,${:num},0,1,-1","ent":"-6_6_^&,0,1,-1"},
+        "question":"${:ent}+\\dfrac{${:num}}{${:den}}",        
+        "answer":":question = \\color{red}{ \\displaystyle${math.calc('(' + :ent+')/('+1+')+('+:num+')/('+:den+')', false)} }",
+        "value":"${math.calc('(' + :ent+')/('+1+')+('+:num+')/('+:den+')', true)}"
     }
     ]
 }
