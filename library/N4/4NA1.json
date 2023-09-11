@@ -80,6 +80,18 @@
         "question": "$$${math.round(:i+:b,7)}\\times 10^{${:c}}$$",
         "answer":"$$${math.round(:i+:b,7)}\\times 10^{${:c}}=\\color{red}{${:d}}$$",
         "value":"${:d}"
+    },{
+        "name":"Donner une écriture scientifique approchée avec quelques chiffres significatifs",
+        "vars":{
+            "dec":"100000_1000000000",
+            "chiffres_sig":"3_5",
+            "ecrit_sci":" ${Number.parseFloat(:dec).toExponential()} ",
+            "mantisse_arr" : "${ Number.parseFloat(:ecrit_sci.substring(1,:ecrit_sci.search('e'))).toFixed(:chiffres_sig-1) }",
+            "exposant" : "${ :ecrit_sci.substring(:ecrit_sci.search('e')+1,:ecrit_sci.length) }"
+        },
+        "question": "Donner une écriture scientifique approchée de $$${:dec}$$ avec $$${:chiffres_sig}$$ chiffres significatifs?",
+        "answer":"$$${:dec} \\approx \\color{red}{ ${ :mantisse_arr + ' \\times 10^{' + :exposant +'}' } }$$",
+        "value":"${:arrondi}"
     }
     ]
 }
