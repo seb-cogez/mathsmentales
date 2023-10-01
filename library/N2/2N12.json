@@ -7,12 +7,12 @@
     "options":[{
         "name":"Equations de la forme $$|x|=b$$",
         "vars":{"b":"1_20"},
-        "question": "|x| = ${:b}",
+        "question": "\\text{Résoudre dans } \\mathbb{R} : |x| = ${:b}",
         "answer":"\\text{solutions : } \\color{red}{-${:b} \\text{ et } ${:b}}"
     },{
         "name":"Equations de la forme $$|x|=b$$ avec b entier relatif",
         "vars":{"b":"-5_20_^0,}"},
-        "question": "|x| = ${:b}",
+        "question": "\\text{Résoudre dans } \\mathbb{R} : |x| = ${:b}",
         "answer":"${ :b>0 ? -:b +'\\text{ et }'+ :b : '\\text{Pas de solution}' }"
     },{
         "name":"Equations de la forme $$|x-a|=b$$",
@@ -22,7 +22,7 @@
             "rep1" : "${ Number(:a) + Number(:b) }",
             "rep2" : "${ Number(:a) - Number(:b)}"
         },
-        "question": "${ :a>0 ? '|x-'+:a+'|='+:b : '|x+'+(-:a)+'|='+:b   }  ",
+        "question": "\\text{Résoudre dans } \\mathbb{R} :  ${:a>0 ? '|x-'+:a+'|='+:b : '|x+'+(-:a)+'|='+:b   }  ",
         "answer":"${ :rep1 + '\\text{ et }'+ :rep2   }"
     }
     ]
