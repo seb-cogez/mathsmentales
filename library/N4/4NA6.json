@@ -6,13 +6,13 @@
     "dest":["4NA", "3NA"],
     "options":[{
         "name":"Nombres positifs",
-        "vars":{"a":"0_10","p":"${:a==0?1:0}_${:a<6||:a==10?3:2}"}
+        "vars":{"a":"0_10","p":"2_${:a<6||:a==10?3:2}"}
     },{
         "name":"Nombres négatifs",
-        "vars":{"b":"-10_-1","z":"0_1","a":"${:z?:b:'('+:b+')'}","p":"0_${(-:b<6||-:b==10)?3:2}"}
+        "vars":{"b":"-10_-1","z":"0_1","a":"${:z?:b:'('+:b+')'}","p":"2_${(-:b<6||-:b==10)?3:2}"}
     }
     ],
-    "question": "${:a}^${:p}",
-    "answer":":question=\\color{red}{${math.calc(:a+'^'+:p)}}",
+    "question": "${:a}^${:p}=?",
+    "answer":":question|2=\\color{red}{${math.calc(:a+'^'+:p)}}",
     "value":"${math.calc(:a+'^'+:p)}"
 }

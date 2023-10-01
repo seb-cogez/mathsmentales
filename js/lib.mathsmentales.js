@@ -171,8 +171,12 @@ window.onload = function(){
     document.getElementById("btngeneratesheet").onclick = ()=>{MM.createExercicesSheet()}
     document.getElementById("btn-ex-adresse").onclick = ()=>{MM.copyURL('exosheet');};
     document.getElementById("btn-ex-copytohistoric").onclick = ()=>{MM.copyURLtoHistory('exosheet')};
-    document.getElementById("btngenerateexams").onclick = ()=>{MM.createExamSheet()}
     document.getElementById("extitle").oninput = (evt)=>{MM.carts[0].title = evt.target.value}
+    // interros
+    document.getElementById("btngenerateexams").onclick = ()=>{MM.createExamSheet()}
+    document.getElementById("btn-exam-adresse").onclick = ()=>{MM.copyURL('exam')}
+    document.getElementById("btn-exam-copytohistoric").onclick = ()=>{MM.copyURLtoHistory('exam')}
+    document.getElementById("inttitle").oninput = (evt)=>{MM.carts[0].title = evt.target.value}
     // ceintures
     document.getElementById("ceintcolsval").oninput = (evt)=>{document.getElementById('ceintcols').innerHTML=evt.target.value;utils.createCeintureTitres(evt.target.value)}
     document.getElementById("ceintrowsval").oninput = (evt)=>{document.getElementById('ceintrows').innerHTML=evt.target.value}
@@ -192,6 +196,11 @@ window.onload = function(){
     document.getElementById("cardsNbValue").oninput = (evt)=>{document.getElementById('cardsNb').innerHTML=evt.target.value;}
     document.getElementById("btn-flash-adresse").onclick = ()=>{MM.copyURL('cartesflash');};
     document.getElementById("btn-flash-copytohistoric").onclick = ()=>{MM.copyURLtoHistory('cartesflash')};
+    // Panneau d'activités
+    document.getElementById("btngenerateWall").onclick = ()=>{MM.createWall()}
+    document.getElementById("btn-wall-adresse").onclick = ()=>{MM.copyURL('wall');};
+    document.getElementById("btn-wall-copytohistoric").onclick = ()=>{MM.copyURLtoHistory('wall')};
+
     // j'ai / qui a ?
     document.getElementById("btngenerateWG").onclick = ()=>{MM.createWhoGots()}
     // dominos

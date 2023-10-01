@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr" id="thehtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <style>
+            @page{
+                size:A4 portrait;
+                margin:0.8cm;
+            }
+        </style>
+        <title>Interrogation MathsMentales</title>
+        <link rel="stylesheet" href="css/exam.css?v=5" type="text/css" />
+        <link href="js/libs/katex/katex.min.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="js/libs/JSXGraph1.4.0/jsxgraph.css" type="text/css" />
+        <script src="js/libs/JSXGraph1.4.0/jsxgraphcore.js" defer></script>
+        <script src="js/libs/chartjs/Chart.bundle.min.js" defer></script>
+        <script src="js/libs/seedrandom/seedrandom.min.js" defer></script>
+        <script src="js/libs/underscore-min.js" defer></script>
+        <script src="js/libs/katex/katex.min.js" defer></script>
+        <script src="js/libs/algebrite/algebrite.bundle-for-browser.min.js" type="text/javascript" defer></script>
+        <script src="js/libs/bigjs/big.min.js" type="text/javascript" defer></script>
+        <script src="js/libs/chartjs/Chart.bundle.min.js" defer></script>
+        <script type="module" src="js/lib.exam.min.js?v=2"></script>
+        <!--<script type="module" src="dist/exercices.bundle.js"></script>-->
+    </head>  
+    <body size="A4">
+        <button onclick="document.getElementById('creator-menu').classList.toggle('hidden')" class="noprint" style="position: absolute;left:0;top:0;width:18pt;height:18pt;">🛠</button>
+        <button onclick="window.print();" class="noprint" style="position: absolute;left:26px;top:0;height:18pt;" title="Cliquer pour imprimer ou enregistrer en pdf">Print</button>
+        <div id="creator-container">
+            <section id="creator-menu" class="noprint hidden">
+                <button id="pageOrientation" title="Change l'orientation de la page">paysage</button>
+                <button id="btn-hide-inputanswer" title="Affiche ou non un espace pour écrire la réponse">Reponse</button>
+                | Énoncés : 
+                <input type="number" min="1" id="nbFiches" size="3" title="Nombre de fiches à générer">
+                <button id="fichesSeparation" title="Regrouper ou Séparer les fiches d’interro">Séparer</button>
+                <button id="fusionEnonces" title="Fusionne et mélange les questions ou sépare les exercices">Fusionner</button>
+                | Corrigé :
+                <button id="toggleCorriges"> ▼ </button>
+                <span id="btpCorrigePlace"></span>
+                | Police :
+            </section>
+            <section id="tab-accueil" class="noprint"></section>
+            <section id="creator-content">
+            
+            </section>
+            </div>
+    </body>
+</html>

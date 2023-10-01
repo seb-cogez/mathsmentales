@@ -5,6 +5,7 @@
     "textSize":"medium",
     "keys":["_","_","-","/","_","_","_","_"],
     "dest":["4NC", "3NB", "2N2"],
+    "consigne":"Donner la fraction irréductible ou l'entier égal.",
     "options":[{
         "name":"Quotient de fractions positives",
         "vars":{"num":"1_12_2","den":"2_12_2"}
@@ -13,15 +14,22 @@
         "vars":{"num":"-12_12_2_^0","den":"-12_12_2_^-1,0,1"}
     },{
         "name":"Diviser par un entier",
-        "vars":{"num":"-12_12_^0", "den":"-12_12_^-1,0,1","nb":"-12_12_^0"},
+        "vars":{"num":"-12_12_^0", "den":"-12_12_^-1,0,1","nb":"-12_12_^0,1"},
         "question":["\\dfrac{${:num}}{${:den}}\\div${(:nb<0)?'('+:nb+')'::nb}=?",
-            "\\dfrac{\\dfrac{${:num}}{${:den}}}{${(:nb<0)?'('+:nb+')'::nb}}=?"],
-        "answer":":question=\\color{green}{\\dfrac{${:num}}{${:den}}\\times\\dfrac{1}{${:nb}}}=\\color{red}{\\displaystyle${math.calc(:num+'/('+:den+')/('+:nb+')',false)}}",
+            "\\dfrac{\\dfrac{${:num}}{${:den}}}{${:nb}}=?"],
+        "answer":":question|2=\\color{green}{\\dfrac{${:num}}{${:den}}\\times\\dfrac{1}{${:nb}}}=\\color{red}{\\displaystyle${math.calc(:num+'/('+:den+')/('+:nb+')',false)}}",
         "value":"${math.calc(:num+'/('+:den+')/('+:nb+')',true)}"
+    },{
+        "name":"Diviser un entier par une fraction",
+        "vars":{"num":"-12_12_^0", "den":"-12_12_^-1,0,1","nb":"-12_12_^0,1"},
+        "question":["${(:nb<0)?'('+:nb+')'::nb}\\div\\dfrac{${:num}}{${:den}}=?",
+            "\\dfrac{${:nb}}{\\dfrac{${:num}}{${:den}}}=?"],
+        "answer":":question|2=\\color{green}{${:nb}\\times\\dfrac{${:den}}{${:num}}}=\\color{red}{\\displaystyle${math.calc('('+:nb+')*('+:den+')/('+:num+')',false)}}",
+        "value":"${math.calc('('+:nb+')*('+:den+')/('+:num+')',true)}"
     }
     ],
     "question":["\\dfrac{${:num[0]}}{${:den[0]}}\\div\\dfrac{${:num[1]}}{${:den[1]}}=?",
         "\\dfrac{\\dfrac{${:num[0]}}{${:den[0]}}}{\\dfrac{${:num[1]}}{${:den[1]}}}=?"],
-    "answer":":question=\\color{green}{\\dfrac{${:num[0]}}{${:den[0]}}\\times\\dfrac{${:den[1]}}{${:num[1]}}}=\\color{red}{\\displaystyle${math.calc(:num[0]+'*('+:den[1]+')/('+:den[0]+')/('+:num[1]+')',false)}}",
+    "answer":":question|2=\\color{green}{\\dfrac{${:num[0]}}{${:den[0]}}\\times\\dfrac{${:den[1]}}{${:num[1]}}}=\\color{red}{\\displaystyle${math.calc(:num[0]+'*('+:den[1]+')/('+:den[0]+')/('+:num[1]+')',false)}}",
     "value":"${math.calc(:num[0]+'*('+:den[1]+')/('+:den[0]+')/('+:num[1]+')',true)}"
 }

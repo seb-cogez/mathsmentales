@@ -5,6 +5,7 @@
     "textSize":"medium",
     "dest":["3NB","2N1"],
     "keys":["(","-","^","_","_","_","_","_"],
+    "consigne":"Mettre sous la forme $$a^b$$",
     "options":[{
         "name":"Produit de puissances",
         "vars":{"a":"-10_10_2_^0","r":"${:a[0]+:a[1]}","n":"-9_9_^0"},

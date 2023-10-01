@@ -98,7 +98,7 @@ const MM = {
         document.getElementById(tab).style.display = "";
     },
     showParameters:function(id){
-        let ids = ["paramsdiapo","paramsexos", "paramsinterro", "paramsceinture", "paramsflashcards", "paramswhogots", "paramsdominos", "paramscourse", "paramsduel"];//
+        let ids = ["paramsdiapo","paramsexos", "paramsinterro", "paramsceinture", "paramsflashcards", "paramswhogots", "paramsdominos", "paramscourse", "paramsduel", "paramswall"];//
         if(ids.indexOf(id)<0) return false;
         // hide all
         for(let i=0,len=ids.length;i<len;i++){
@@ -514,6 +514,9 @@ const MM = {
                     // slides
                     let color = ff%2?" pair":" impair";
                     let div = utils.create("div",{className:"slide w3-animate-top"+(indiceSlide>0?" hidden":"")+color,id:"slide"+slideNumber+"-"+indiceSlide});
+                    if(activity.consigne !== false){
+                        div.appendChild(utils.create('div',{className:'consigne',innerHTML:activity.consigne}))
+                    }
                     let span = utils.create("span",{innerHTML:question});
                     if(fontSize)span.className=fontSize;
                     let answerHiddenState = ' hidden';
@@ -692,7 +695,11 @@ const MM = {
         if(!MM.carts[0].activities.length){
             MM.carts[0].addActivity(MM.editedActivity);
         }
-        MM.fiche = new ficheToPrint("exam",MM.carts[0]);
+        let withSeed = false;
+        if(document.getElementById("aleaInURL").checked)withSeed = true;
+        let params = this.paramsToURL(withSeed,"exam");
+        let value = this.setURL(params,"exam");
+        MM.window = window.open(value,"mywindow","location=no,menubar=no,titlebar=no,width=1123");
     },
     createCeintureSheet:function(){
         if(!MM.carts[0].activities.length){
@@ -732,6 +739,16 @@ const MM = {
         if(document.getElementById("aleaInURL").checked)withSeed = true;
         let params = this.paramsToURL(withSeed,"cartesflash");
         let value = this.setURL(params,"cartesflash");
+        MM.window = window.open(value,"mywindow","location=no,menubar=no,titlebar=no,width=1123");
+    },
+    createWall:function(){
+        if(!MM.carts[0].activities.length){
+            MM.carts[0].addActivity(MM.editedActivity);
+        }
+        let withSeed = false;
+        if(document.getElementById("aleaInURL").checked)withSeed = true;
+        let params = this.paramsToURL(withSeed,"wall");
+        let value = this.setURL(params,"wall");
         MM.window = window.open(value,"mywindow","location=no,menubar=no,titlebar=no,width=1123");
     },
     createWhoGots:function(){
@@ -832,6 +849,13 @@ const MM = {
                 ",t="+encodeURI(document.getElementById("extitle").value||document.getElementById("extitle").placeholder)+
                 ",ex="+encodeURI(document.getElementById("exeachex").value||document.getElementById("exeachex").placeholder)+
                 this.export();
+        }else if(type==="exam"){
+            return "s="+document.getElementById("intTxtSizeValue").value+
+                ",n="+document.getElementById("intQtyValue").value+
+                ",a="+(withAleaSeed?MM.seed:"")+
+                ",t="+encodeURI(document.getElementById("inttitle").value||document.getElementById("inttitle").placeholder)+
+                ",ex="+encodeURI(document.getElementById("inteachex").value||document.getElementById("inteachex").placeholder)+
+                this.export();
         } else if(type==="cansheet"){
             return "n="+document.getElementById("canqtyvalue").value+
             ",t="+encodeURI(document.getElementById("cantitle").value||document.getElementById("cantitle").placeholder)+
@@ -846,6 +870,9 @@ const MM = {
             return "disp="+(utils.getRadioChecked("flashcarddispo"))+
             ",t="+(document.getElementById("FCtitle").value||"Cartes Flash")+
             ",a="+(withAleaSeed?MM.seed:"")+
+            this.export()
+        } else if(type === "wall"){
+            return "t="+utils.superEncodeURI(document.getElementById("walltitle").value)+
             this.export()
         } else if(type==="dominossheet"){
             return "n="+document.getElementById("dominosNbValue").value+
@@ -877,7 +904,7 @@ const MM = {
             ",pie="+document.getElementById("ceintpiedcol").value+
             ",or="+(utils.getRadioChecked("ceintorientation")||"portrait")+
             this.export();
-        }
+        } else
         return "i="+MM.introType+
             ",e="+MM.endType+
             ",o="+MM.onlineState+
@@ -1126,6 +1153,8 @@ const MM = {
             typeName = "🏃‍♀️ Course aux nombres"
         } else if(type==="exosheet"){
             typeName = "📖 Fiche d'exercices"
+        } else if(type==="exam"){
+            typeName = "📝 Interrogation"
         } else if(type==="duel"){
             typeName = "💫 Duel"
         } else if(type==="ceinture"){
@@ -1352,29 +1381,22 @@ const MM = {
         return urlString;//carts;
     },
     setURL(string,type){
+        if(utils.baseURL.indexOf("index.html")<0) utils.baseURL+="index.html";
         if(type==="exosheet"){
-            if(utils.baseURL.indexOf("index.html")<0)
-                utils.baseURL+="index.html";
             return utils.baseURL.replace('index','exercices')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
+        } else if(type==="exam"){
+            return utils.baseURL.replace('index','exam')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
         } else if(type==="cansheet"){
-            if(utils.baseURL.indexOf("index.html")<0)
-                utils.baseURL+="index.html";
             return utils.baseURL.replace('index','courseauxnombres')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
         } else if(type==="cartesflash"){
-            if(utils.baseURL.indexOf("index.html")<0)
-                utils.baseURL+="index.html";
             return utils.baseURL.replace('index','cartesflash')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
+        } else if(type==="wall"){
+            return utils.baseURL.replace('index','wall')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
         } else if(type==="dominossheet"){
-            if(utils.baseURL.indexOf("index.html")<0)
-                utils.baseURL+="index.html";
             return utils.baseURL.replace('index','dominos')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
         } else if(type==="duel"){
-            if(utils.baseURL.indexOf("index.html")<0)
-                utils.baseURL+="index.html";
             return utils.baseURL.replace('index','duel')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
         } else if(type==="ceinture"){
-            if(utils.baseURL.indexOf("index.html")<0)
-                utils.baseURL+="index.html";
             return utils.baseURL.replace('index','ceinture')+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");
         } else
             return utils.baseURL+'?'+string+(MM.embededIn?'&embed='+MM.embededIn:"");

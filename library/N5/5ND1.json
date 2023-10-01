@@ -19,7 +19,7 @@
         "answer":"${:p}=\\color{red}{${math.toTex(Algebrite.run(:b))}}"
     }
     ],
-    "question":"\\text{Décomposer }${:p}",
+    "question":"\\text{Décomposer }${:p}\\text{ en produit de facteurs premiers.}",
     "shortq":"${:p}",
     "value":["${math.unpower(Algebrite.run(:b))}", "${Algebrite.run(:b)}"]
 }

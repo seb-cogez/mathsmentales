@@ -5,14 +5,16 @@
     "description":"Multiplication de nombres décimaux tirés au hasard par une puissance négative ou positive de 10 comprise entre -5 et 5",
     "dest":["4NC", "3NB"],
     "keys":["_","_","_","_","_","_","_","_"],
+    "vars":{
+        "p":"-3_3_^0,1",
+        "puiss":"2_5"
+    },
     "options":[{
         "name":"Multiplier un décimal à 1 chiffre significatif par une puissance positive",
         "vars":{
             "max":9,
             "decs":"1_${:max}",
-            "p":"-3_3",
-            "c":"${math.round(:decs*Math.pow(10,:p),3)}",
-            "puiss":"1_5"
+            "c":"${math.round(:decs*Math.pow(10,:p),3)}"
         },
         "question": ["${:c}\\times 10^{${:puiss}}", "10^{${:puiss}}\\times ${:c}"],
         "audio": ["${String(:c).replace('.',',')} × 10 exposant ${:puiss}", "10 exposant ${:puiss} × ${String(:c).replace('.',',')}"],
@@ -23,9 +25,7 @@
         "vars":{
             "max":9,
             "decs":"1_${:max}",
-            "p":"-3_3",
-            "c":"${math.round(:decs*Math.pow(10,:p),3)}",
-            "puiss":"1_5"
+            "c":"${math.round(:decs*Math.pow(10,:p),3)}"
         },
         "question": ["${:c}\\times 10^{-${:puiss}}", "10^{-${:puiss}}\\times ${:c}"],
         "audio": ["${String(:c).replace('.',',')} × 10 exposant ${:puiss}", "10 exposant ${:puiss} × ${String(:c).replace('.',',')}"],
@@ -36,9 +36,7 @@
         "vars":{
             "max":99,
             "decs":"11_${:max}_^20,30,40,50,60,70,80,90",
-            "p":"-3_3",
-            "c":"${math.round(:decs*Math.pow(10,:p),3)}",
-            "puiss":"1_5"
+            "c":"${math.round(:decs*Math.pow(10,:p),3)}"
         },
         "question": ["${:c}\\times 10^{${:puiss}}", "10^{${:puiss}}\\times ${:c}"],
         "audio": ["${String(:c).replace('.',',')} × 10 exposant ${:puiss}", "10 exposant ${:puiss} × ${String(:c).replace('.',',')}"],
@@ -49,9 +47,7 @@
         "vars":{
             "max":99,
             "decs":"11_${:max}_^20,30,40,50,60,70,80,90",
-            "p":"-3_3",
-            "c":"${math.round(:decs*Math.pow(10,:p),3)}",
-            "puiss":"1_5"
+            "c":"${math.round(:decs*Math.pow(10,:p),3)}"
         },
         "question": ["${:c}\\times 10^{-${:puiss}}", "10^{-${:puiss}}\\times ${:c}"],
         "audio": ["${String(:c).replace('.',',')} × 10 exposant ${:puiss}", "10 exposant ${:puiss} × ${String(:c).replace('.',',')}"],
@@ -63,9 +59,7 @@
             "unites":"1_9",
             "dizaines":"10_99",
             "decs":"${:unites+10*:dizaines}",
-            "p":"-3_3",
-            "c":"${math.round(:decs*Math.pow(10,:p),3)}",
-            "puiss":"1_5"
+            "c":"${math.round(:decs*Math.pow(10,:p),3)}"
         },
         "question": ["${:c}\\times 10^{${:puiss}}", "10^{${:puiss}}\\times ${:c}"],
         "audio": ["${String(:c).replace('.',',')} × 10 exposant ${:puiss}", "10 exposant ${:puiss} × ${String(:c).replace('.',',')}"],
@@ -77,9 +71,7 @@
             "unites":"1_9",
             "dizaines":"10_99",
             "decs":"${:unites+10*:dizaines}",
-            "p":"-3_3",
-            "c":"${math.round(:decs*Math.pow(10,:p),3)}",
-            "puiss":"1_5"
+            "c":"${math.round(:decs*Math.pow(10,:p),3)}"
         },
         "question": ["${:c}\\times 10^{-${:puiss}}", "10^{-${:puiss}}\\times ${:c}"],
         "audio": ["${String(:c).replace('.',',')} × 10 exposant ${:puiss}", "10 exposant ${:puiss} × ${String(:c).replace('.',',')}"],

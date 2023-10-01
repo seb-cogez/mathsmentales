@@ -35,8 +35,31 @@
             "10N":{
                 "nom":"Nombres et calculs",
                 "chapitres":{
+                    "10NA":"Comprendre et utiliser les nombres entiers",
                     "10NB":"Nommer, lire, écrire, représenter des entiers",
-                    "10NE":"Calculer avec des entiers : calcul mental"
+                    "10NC":"Résoudre des problèmes avec des entiers",
+                    "10ND":"Calculer avec des entiers : faits numériques",
+                    "10NE":"Calculer avec des entiers : calcul mental",
+                    "10NF":"Calculer avec des entiers : calcul en ligne",
+                    "10NG":"Calculer avec des entiers : calcul en posé"
+                }
+            },
+            "10M":{
+                "nom": "Grandeurs et mesures",
+                "chapitres":{
+                    "10MA":"Longueurs",
+                    "10MB":"Masses",
+                    "10MC":"Dates et durées",
+                    "10MD":"Contenances",
+                    "10ME":"Résoudre des problèmes"
+                }
+            },
+            "10G":{
+                "nom": "Espace et géométrie",
+                "chapitres":{
+                    "10GA":"Se repérer et se déplacer",
+                    "10GB":"Reconnaitre, nommer, décrire, etc. des solides",
+                    "10GC":"Reconnaitre, nommer, décrire, etc. des figures planes"
                 }
             }
         }

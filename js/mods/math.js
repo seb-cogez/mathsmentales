@@ -438,7 +438,7 @@ const math = {
      * @returns gcd of a & b
      */
     pgcd: function(a, b) {
-        return Algebrite.run('gcd(' + a + ',' + b + ')');
+        return Number(Algebrite.run('gcd(' + a + ',' + b + ')'));
     },
     /**
      * Retourne le PPCM de deux nombres
@@ -635,10 +635,8 @@ const math = {
                  lesbillets[valeursBillets[billets[i]]]++;
             }
             for(let val in lesbillets){
-                if(lesbillets[val]>1){
+                if(lesbillets[val]>0){
                     txt += lesbillets[val]+" de "+val+" €, ";
-                } else if(lesbillets[val]>0){
-                    txt += val+" €, ";
                 }
             }
             return txt;

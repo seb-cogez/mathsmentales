@@ -1,0 +1,258 @@
+*{
+    box-sizing: border-box;
+}
+html{
+    padding:0;
+    margin:0;
+    font-size: 100%;
+}
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body[size="A4"]{
+    width: 21cm;
+  min-height: 29.7cm;
+}
+body[size="A4"][layout="landscape"]{
+    width: 27.7cm;
+    min-height: 21cm;
+}
+
+footer.break {
+    page-break-after: always;
+}
+li {
+    page-break-inside: avoid;
+}
+.pagebreak{
+    page-break-before: always;
+}
+.floatright{
+    float:right;
+    padding : 1pt;
+    border: 1px solid black;
+}
+.fright{
+    float:right;
+}
+
+/*
+Taille carte de visite
+*/
+.card {
+    width:85mm;
+    height:55mm;
+    margin:0;
+    border: 1pt solid black;
+    border-radius: 5mm;
+    padding:5mm;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/** grilles */
+.grid{
+    display:grid;
+}
+.g1{
+    grid-template-columns: 1fr;
+}
+/* 2 colonnes */
+.g2{
+    grid-template-columns: repeat(2,1fr);
+}
+/* 3 colonnes */
+.g3{
+    grid-template-columns: repeat(3,1fr);
+}
+/* 4 colonnes */
+.g4{
+    grid-template-columns: repeat(4,1fr);
+}
+/* 5 colonnes */
+.g5{
+    grid-template-columns: repeat(5,1fr);
+}
+/* 6 colonnes */
+.g6 {
+    grid-template-columns: repeat(6,1fr);
+}
+/* Interro spécifique
+*/
+.invisible {
+    display: none;
+}
+.studenName {
+    padding:1pt 3pt 30pt;
+    width: 40%;
+    border: 1pt solid black;
+    margin-right:5px;
+    float: left;
+}
+.remarques {
+    padding:1pt 3pt 30pt;
+    width: calc(100% - 40% - 5px);
+    border: 1pt solid black;
+    float: left;
+}
+#creator-content li.interro article {
+    height: 30pt;
+    border: 1pt solid black;
+}
+/* Commons
+*/
+#creator-container {
+    display: flex;
+    height:100%;
+    flex-direction: column;
+    width: 100%;
+}
+#creator-content header{
+    display: block;
+    min-width: 5cm;
+    max-width: 10cm;
+    padding: 1pt 10pt;
+    font-family:'Century Gothic', 'Trebuchet MS', 'Segoe UI', Geneva, Verdana, sans-serif;
+    font-size: 1.3rem;
+    /*border: 1pt solid black;*/
+    text-align: center;
+    margin: auto;
+}
+h3.exercice-title{
+    font-weight: 400;
+    margin-top: 0.5rem;
+    text-decoration: underline;
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+}
+@counter-style majuscules {
+    system : alphabetic;
+    symbols : A B C D E F G H I J K L M N O P Q R S T U V W X Y Z;
+    suffix : ') ';
+}
+.enonce ol{
+    padding-left: 1.5rem;
+}
+#creator-content ol{
+    margin-top:0;
+    list-style-type: majuscules;
+}
+#creator-content li {
+    float: left;
+    margin-right:2rem;
+    font-size: 1rem;
+    padding: 4px 10px 4px;
+}
+#creator-content section{
+    clear: both;
+    margin-bottom: 1rem;
+}
+.consigne {
+    font-style: italic;
+}
+.enonce {
+    margin-top:10pt;
+}
+.corrige {
+    font-size:smaller;
+    color:grey;
+}
+.correction {
+    margin-top:1.5rem;
+    color:grey;
+    margin-bottom: 1.5rem;
+}
+.clearfix {
+    clear:both;
+}
+.hidden {
+    display: none;
+}
+.barrev {
+    display:block;
+    background: rgb(131, 129, 129);
+    width:5pt;
+    border:1pt solid black;
+    height: 80%;
+}
+.fig {
+    width:90%;
+    height: 200px;
+}
+.red {
+    color: red;
+}
+.zoom {
+    display: inline-block;
+  }
+.zoom-A1{
+    font-size: 1.2em;
+}
+.zoominbtn, .zoomoutbtn{
+    background-color: transparent;
+    padding: 4px;
+}
+.pointer {
+    cursor: pointer;
+}
+#changeFontSize:hover {
+    cursor: pointer;
+}
+#changeFontSize button{
+    border-style: none;
+}
+#changeFontSize svg {
+    width: 18px;
+    height: 18px;
+}
+@media screen {
+    html{
+        background: rgb(204,204,204); 
+    }
+    body {
+        position: relative;
+        padding: 8mm;
+        background: white;
+        display: block;
+        margin: 0.5em auto;
+        margin-bottom: 0.5cm;
+        box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+    }
+    footer.break::before, .pagebreak::before{
+        content:"--> saut de page <--";
+        color:rgb(18, 150, 47);
+        font-size: 0.8rem;
+        text-align: end;
+    }
+    footer.break {
+        border-bottom: 1px dashed rgb(18, 150, 47);
+        margin-bottom: 1em;
+    }
+    .pagebreak {
+        border-top: 1px dashed  rgb(18, 150, 47);
+    }
+    #creator-menu {
+        font-size: 10.5pt;
+    }
+    #creator-container::before{
+        content:"\ CC-BY-NC © 2022 MathsMentales.net";
+        color:darkblue !important;
+        font-size: 0.8rem;
+        border-bottom: 1pt solid black;
+        text-align: end;
+    }
+    .noprint {
+        opacity: 0.6;
+    }
+    .titreCorrection::after {
+        content: " ▼";
+    }
+}
+@media print {
+    #creator-menu {
+        display: none;
+    }
+    .noprint {
+        display:none;
+    }
+}

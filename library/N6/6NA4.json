@@ -40,7 +40,7 @@
         "vars":{"a1":"1_9","b3":"4_7","a":"${math.fractionSimplifiee(:a1,:b3)}","choix":"0_2","pas":"${:nbr[:choix]}","num_fig":"6_9","a2":"${math.round(:a1+:nbr[:choix]*(:num_fig-5),0)}"},
         "question":"Trouve ?",
         "figure":{"type":"svg","content":"${:figures[:num_fig]}"},
-        "answer":"Le pas est $$\\dfrac{(${:a1+5*:nbr[:choix]}-${:a1})\\div{5}}{${:b3}}=\\dfrac{${:pas}}{${:b3}}.$$ Donc ? $$=\\color{green}{ \\dfrac {${:a2}}{${:b3}}}=\\color{red}{ ${math.fractionSimplifiee(:a2,:b3)}}$$",
-        "value":"${math.fractionSimplifiee(:a,:b3)}"
+        "answer":"Le pas est $$\\dfrac{(${:a1+5*:nbr[:choix]}-${:a1})\\div{5}}{${:b3}}=\\dfrac{${:pas}}{${:b3}}.$$ Donc ? $$=\\color{red}{ \\dfrac {${:a2}}{${:b3}}}${math.pgcd(:a2,:b3)===1?'':'=\\color{green}{'+math.fractionSimplifiee(:a2,:b3)+'}'}$$",
+        "value":["\\dfrac {${:a2}}{${:b3}}","${math.fractionSimplifiee(:a,:b3)}"]
     }    ]
 }

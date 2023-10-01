@@ -12,13 +12,13 @@
             "question":[
               "Comment désigner $$${:x}+${:y}$$ ?",
               "Comment désigner $$${:x}\\times ${:y}$$ ?",
-              "Comment désigner $$${:x}-${:y}$$ ?",
+              "Comment désigner $$${Math.max(:x,:y)}-${Math.min(:x,:y)}$$ ?",
               "Comment désigner $$${:x}\\div ${:y}$$ ?"
             ],
             "answer":[
                 "$$${:x}+${:y}$$ est <span class='red'>une somme</span>",
                 "$$${:x}\\times ${:y}$$ est <span class='red'>un produit</span>",
-                "$$${:x}-${:y}$$ est <span class='red'>une différence</span>",
+                "$$${Math.max(:x,:y)}-${Math.min(:x,:y)}$$ est <span class='red'>une différence</span>",
                 "$$${:x}\\div ${:y}$$ est <span class='red'>un quotient</span>"
             ],
             "value":["somme","produit","différence","quotient"]
@@ -29,13 +29,13 @@
         "question":[
           "Comment se lit : $$${:x}+${:y}$$ ?",
           "Comment se lit : $$${:x}\\times ${:y}$$ ?",
-          "Comment se lit : $$${:x}-${:y}$$ ?",
+          "Comment se lit : $$${Math.max(:x,:y)}-${Math.min(:x,:y)}$$ ?",
           "Comment se lit : $$${:x}\\div ${:y}$$ ?"
         ],
         "answer":[
             "$$${:x}+${:y}$$ est <span class='red'>la somme de ${:x} et de ${:y}</span>",
             "$$${:x}\\times ${:y}$$ est <span class='red'>le produit de ${:x} par ${:y}</span>",
-            "$$${:x}-${:y}$$ est <span class='red'>la différence entre ${:x} et ${:y}</span>",
+            "$$${Math.max(:x,:y)}-${Math.min(:x,:y)}$$ est <span class='red'>la différence entre ${:x} et ${:y}</span>",
             "$$${:x}\\div ${:y}$$ est <span class='red'>le quotient de ${:x} par ${:y}</span>"
         ],
         "value":["la somme de ${:x} et de ${:y}","le produit de ${:x} par ${:y}","la différence entre ${:x} et ${:y}","le quotient de ${:x} par ${:y}"]

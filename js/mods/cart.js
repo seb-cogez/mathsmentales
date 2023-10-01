@@ -82,7 +82,10 @@ export default class cart {
                     className:"message",
                     innerHTML:"Impossible de charger tous les exercices :(<br>"+err
                 });
-                document.getElementById("tab-accueil").appendChild(alert);
+                const destmessage = document.getElementById("tab-accueil")
+                if (destmessage !== null)
+                    destmessage.appendChild(alert);
+                else document.body.appendChild(alert)
                 setTimeout(()=>{
                     let div=document.getElementById('messageerreur');
                     div.parentNode.removeChild(div);

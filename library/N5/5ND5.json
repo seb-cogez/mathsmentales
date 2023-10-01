@@ -15,10 +15,16 @@
         "vars":{"i":"0_1", "n":"0_167", "premier":"${math.premiers[:n]}", "pasPremier":"1_1000_^prime", "p":"${:i==1?:premier::pasPremier}"}
     },{
         "name":"Nombres de 30 à 100 (4e)",
-        "vars":{"i":"0_1", "n":"11_24", "premier":"${math.premiers[:n]}", "pasPremier":"30_100_^prime", "p":"${:i==1?:premier::pasPremier}"}
+        "vars":{"i":"0_1", "n":"10_24", "premier":"${math.premiers[:n]}", "pasPremier":"30_100_^prime", "p":"${:i==1?:premier::pasPremier}"}
     },{
         "name":"Nombres de 100 à 1000 (3e)",
         "vars":{"i":"0_1", "n":"25_167", "premier":"${math.premiers[:n]}", "pasPremier":"100_1000_^prime", "p":"${:i==1?:premier::pasPremier}"}
+    },{
+        "name":"Nombres de 30 à 50",
+        "vars":{"i":"0_1", "n":"10_14", "premier":"${math.premiers[:n]}", "pasPremier":"30_50_^prime", "p":"${:i==1?:premier::pasPremier}"}        
+    },{
+        "name":"Nombres de 50 à 100",
+        "vars":{"i":"0_1", "n":"15_24", "premier":"${math.premiers[:n]}", "pasPremier":"50_100_^prime", "p":"${:i==1?:premier::pasPremier}"}
     }
     ],
     "question":"\\begin{array}{c} ${:p}\\text{ est un nombre premier.}\\\\\\footnotesize{\\text{Vrai (V) ou Faux (F) ?}}\\end{array}",

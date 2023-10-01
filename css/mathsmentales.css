@@ -1195,6 +1195,13 @@ Animations from https://www.w3schools.com/w3css/4/w3.css
 .slide > span, .slide > div {
     margin:auto;
 }
+.slide > div.consigne {
+  margin: 1em auto;
+  font-size: 0.6em;
+}
+.consigneText {
+  background-color: white;
+}
 .slide .fig {
   height:50%;
   width:50%;

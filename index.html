@@ -18,7 +18,7 @@
     <link href="js/libs/katex/katex.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/knacss.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/bulma-steps.min.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="css/mathsmentales.min.css?v=14" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/mathsmentales.min.css?v=15" type="text/css" media="screen" />
     <link rel="stylesheet" href="js/libs/JSXGprah1.2.2/jsxgraph.css" type="text/css" />
     <script src="js/libs/katex/katex.min.js" type="text/javascript" defer></script>
     <script src="js/libs/asciimath2tex/asciimath2tex.min.js" defer></script>
@@ -37,7 +37,7 @@
     <script src="js/MM1toMM2.min.js" defer></script>
     <script src="js/libs/vanilla-picker/vanilla-picker.min.js" defer></script>
 <!--<script src="dist/mathsmentales.bundle.js" id="mmscriptid"></script>-->
-    <script src="js/lib.mathsmentales.js?v=61" type="module" id="mmscriptid"></script>
+    <script src="js/lib.mathsmentales.min.js?v=66" type="module" id="mmscriptid"></script>
 
 </head>
 <body>
@@ -169,7 +169,7 @@
                     </div>
                     <ul id="cart0-list" class="cart-list">
                     </ul>
-                    Si vous voulez utiliser plus d'une activité dans votre séance, ajouter les ici pour composer un panier.
+                    Si vous voulez utiliser plus d'une activité dans votre séance, ajouter-les ici pour composer un panier.
                 </section>
                 <section id="cart1" class="hidden">
                     <button class="cart-close" id="btncartdelete2" title="Supprimer le panier"><img src="img/burnCart.png"></button>
@@ -244,6 +244,7 @@
                 <option value="paramsflashcards">Cartes flash</option>
                 <option value="paramswhogots">J'ai/qui a ?</option>
                 <option value="paramsdominos">Dominos</option>
+                <option value="paramswall">Panneau</option>
                 <option value="paramsduel">Duel</option>
             </select>
             <br>
@@ -349,12 +350,12 @@
                 </button>
                 <button class="button--success tooltip beaubutton" id="btn-ex-copytohistoric">→ Historique
                     <span class="tooltiptext">Copie la fiche<br>dans l'historique</span>
-                </button>    
+                </button>
             </section>
         </div>
         <div id="paramsinterro" class="hidden">
             <fieldset>
-                <legend>Titre de l'interro</legend>
+                <legend>Titre de l’interro</legend>
                 <input type="text" placeholder="Interrogation écrite" id="inttitle">
             </fieldset>
             <fieldset>
@@ -371,6 +372,12 @@
             </fieldset>
             <section>
                 <button class="button--primary beaubutton" id="btngenerateexams">Générer</button>
+                <button class="button--inverse tooltip beaubutton" id="btn-exam-adresse">Adresse/QRCode
+                    <span class="tooltiptext">Copie l’adresse de<br>l’interro dans<br>le presse papier</span>
+                </button>
+                <button class="button--success tooltip beaubutton" id="btn-exam-copytohistoric">→ Historique
+                    <span class="tooltiptext">Copie l’interro<br>dans l’historique</span>
+                </button>    
             </section>
         </div>
         <div id="paramsceinture" class="hidden">
@@ -486,6 +493,21 @@
                 </button>
             </section>
         </div>
+        <div id="paramswall" class="hidden">
+            <fieldset>
+                <legend>Titre de la page</legend>
+                <input type="text" placeholder="Panneau d'activités" id="walltitle">
+            </fieldset>
+            <section>
+                <button class="button--primary beaubutton" id="btngenerateWall">Ouvrir</button>
+                <button class="button--inverse tooltip beaubutton" id="btn-wall-adresse">Adresse/QRCode
+                    <span class="tooltiptext">Copie l'adresse du<br>document dans<br>le presse papier</span>
+                </button>
+                <button class="button--success tooltip beaubutton" id="btn-wall-copytohistoric">→ Historique
+                    <span class="tooltiptext">Copie l'adresse du document<br>dans l'historique</span>
+                </button>
+            </section>
+        </div>
         <div id="paramswhogots" class="hidden">
             <fieldset>
                 <legend>Affirmation</legend>
@@ -566,6 +588,7 @@
             <img src="img/iconfinder_die_1055072.png" title="Changer les exemples">
         </button>
             <h1><i class="icon-arrow--right"></i>Questions types</h1>
+            <div id="activityConsigne"></div>
             <div id="activityOptions"></div>
         </div>
     </section>

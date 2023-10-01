@@ -511,7 +511,7 @@ const utils = {
      * @param (dom) wtarget : window reference
      */
     mathRender: function(wtarget) {
-        let contents = ["enonce-content", "corrige-content", "activityOptions", "activityDescription"];
+        let contents = ["enonce-content", "corrige-content", "activityOptions", "activityDescription", "activityConsigne"];
         contents.forEach(id => {
             // search for $$ formulas $$ => span / span
             let content = document.getElementById(id).innerHTML;

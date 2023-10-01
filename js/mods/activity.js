@@ -74,6 +74,7 @@ export default class activity {
         this.keyBoards = [];
         this.textSize = obj.textSize||false;
         this.valueType = obj.valueType||false;
+        this.consigne = obj.consigne||false;
     }
     initialize(){
         this.questions = [];
@@ -210,7 +211,13 @@ export default class activity {
         if(this.description)
             document.getElementById('activityDescription').innerHTML = this.description;
         else
-        document.getElementById('activityDescription').innerHTML = "";
+            document.getElementById('activityDescription').innerHTML = "";
+        const consigne = document.getElementById('activityConsigne')
+        if(this.consigne){
+            consigne.innerHTML = '<b>Consigne générale :</b><br><blockquote class="consigneText">'+this.consigne+'</bloquote>'
+        } else {
+            consigne.innerHTML = ''
+        }
         // affichage d'exemple(s)
         let examples = document.getElementById('activityOptions');
         examples.innerHTML = "";
@@ -259,9 +266,9 @@ export default class activity {
                         // answer
                         let span = utils.create("span",{className:"tooltiptext"});
                         if(Array.isArray(this.answers[0]))
-                            span.innerHTML = this.setMath(String(this.answers[0][jj]).replace(this.questions[0],this.questions[0][jj]));
+                            span.innerHTML = this.setMath(String(this.answers[0][jj]));
                         else {
-                            span.innerHTML = this.setMath(String(this.answers[0]).replace(this.questions[0],this.questions[0][jj]));
+                            span.innerHTML = this.setMath(String(this.answers[0]));
                         }
                         li.appendChild(span);
                         ul.appendChild(li);
@@ -305,10 +312,10 @@ export default class activity {
                     li.innerHTML = "<input type='checkbox' class='checkbox' value='"+jj+"' onclick='MM.editedActivity.setQuestionType(this.value, this.checked);' ><span class='math'>"+this.questions[0][jj]+"</span>";
                     let span = document.createElement("span");
                     span.className = "tooltiptext";
-                    if(Array.isArray(this.answers[0]))
-                        span.innerHTML = this.setMath(this.answers[0][jj].replace(this.questions[0],this.questions[0][jj]));
-                    else {
-                        span.innerHTML = this.setMath(this.answers[0].replace(this.questions[0],this.questions[0][jj]));
+                    if(Array.isArray(this.answers[0])){
+                        span.innerHTML = this.setMath(this.answers[0][jj]);
+                    } else {
+                        span.innerHTML = this.setMath(this.answers[0]);
                     }
                     li.appendChild(span);
                     ul.appendChild(li);
@@ -342,6 +349,54 @@ export default class activity {
             }, 300);
         }
         utils.mathRender();
+    }
+    replaceQuestionInAnswer(answer,question){
+        // check if question as to be written in answer
+        // index needed to find the question
+        let regex = /:question(\|(\d)+)*/;
+        let detection
+        if(_.isArray(answer) && _.isArray(question)){
+            // same sizes
+            for(const [index,ans] of answer.entries()){
+                if((detection = ans.match(regex)) !== null){
+                    if(detection[2]!== undefined)
+                        answer[index].replace(regex, question[index].slice(0,-Number(detection[2])))
+                    else
+                        answer[index].replace(regex, question[index])
+                }
+            }
+            return answer
+        } else if(_.isString(answer) && _.isArray(question)) {
+            if((detection = answer.match(regex)) !== null){
+                const listOfAnswers = []
+                for (const [index,quest] of question.entries()) {
+                    if(detection[2]!== undefined)
+                        listOfAnswers[index] = answer.replace(regex, question[index].slice(0,-Number(detection[2])))
+                    else
+                        listOfAnswers[index] = answer.replace(regex, question[index])
+                }
+                return listOfAnswers
+            } else return answer
+        } else if(_.isArray(answer) && _.isString(question)){
+            for(const [index,ans] of answer.entries()){
+                if((detection = ans.match(regex)) !== null){
+                    if(detection[2]!== undefined)
+                        answer[index].replace(regex, question.slice(0,-Number(detection[2])))
+                    else
+                        answer[index].replace(regex, question)
+                }
+            }
+            return answer
+        } else if(_.isString(answer) && _.isString(question)){
+            if((detection = answer.match(regex)) !== null){
+                if(detection[2]!== undefined)
+                    answer = answer.replace(regex, question.slice(0,-Number(detection[2])))
+                else
+                    answer = answer.replace(regex, question)
+            }
+            return answer
+        }
+        else return answer
     }
     /**
      * getPattern
@@ -537,12 +592,6 @@ export default class activity {
             for(const c in this.cConsts){
                 let regex = new RegExp(":("+c+")([^\\w\\d])", 'g');
                 chaine = chaine.replace(regex, onlyVarc);
-            }
-            // check if question as to be written in answer
-            // index needed to find the question
-            if(questiontext !== undefined){
-                let regex = /:question/g;
-                chaine = chaine.replace(regex, questiontext);
             }
             //debug("Chaine à parser", chaine);
             let result = "";
@@ -830,7 +879,7 @@ export default class activity {
                 this.questions[i] = thequestion;
                 this.shortQuestions[i] = theshort;
                 this.audios[i] = theaudio;
-                this.answers[i] = this.replaceVars(utils.clone(this.cAnswer), thequestion);
+                this.answers[i] = this.replaceQuestionInAnswer(this.replaceVars(utils.clone(this.cAnswer)),thequestion);
                 this.values[i] = thevalue;
                 if(this.cFigure!== undefined){
                     this.figures[i] = {
@@ -859,8 +908,8 @@ export default class activity {
                     question:this.replaceVars(this.cQuestion)
                 };
                 if(this.cShortQ)this.sample.shortQuestion = this.replaceVars(this.cShortQ);
-                this.sample.answer=this.replaceVars(this.cAnswer, this.sample.question);
-                this.sample.audio=this.replaceVars(this.cAudio,this.sample.question);
+                this.sample.answer=this.replaceQuestionInAnswer(this.replaceVars(this.cAnswer),this.sample.question);
+                this.sample.audio=this.replaceQuestionInAnswer(this.replaceVars(this.cAudio),this.sample.question);
                 if(this.cFigure !== undefined){
                     this.sample.figure = {
                         "type":this.cFigure.type,

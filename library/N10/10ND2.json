@@ -1,0 +1,104 @@
+{
+    "title": "Variations autour des tables de multiplication",
+    "ID": "10ND2",
+    "speech": 1,
+    "dest": [
+        "10ND",
+        "9ND",
+        "8ND",
+        "7ND"
+    ],
+    "options": [
+        {
+            "name": "Table de 2",
+            "vars": {
+                "a": 2,
+                "b": "2_10"
+            }
+        },
+        {
+            "name": "Table de 3",
+            "vars": {
+                "a": 3,
+                "b": "2_10"
+            }
+        },
+        {
+            "name": "Table de 4",
+            "vars": {
+                "a": 4,
+                "b": "2_10"
+            }
+        },
+        {
+            "name": "Table de 5",
+            "vars": {
+                "a": 5,
+                "b": "2_10"
+            }
+        },
+        {
+            "name": "Table de 6",
+            "vars": {
+                "a": 6,
+                "b": "2_10"
+            }
+        },
+        {
+            "name": "Table de 7",
+            "vars": {
+                "a": 7,
+                "b": "2_10"
+            }
+        },
+        {
+            "name": "Table de 8",
+            "vars": {
+                "a": 8,
+                "b": "2_10"
+            }
+        },
+        {
+            "name": "Table de 9",
+            "vars": {
+                "a": 9,
+                "b": "2_10"
+            }
+        },
+        {
+            "name": "Table de 10",
+            "vars": {
+                "a": 10,
+                "b": "2_10"
+            }
+        }
+    ],
+    "question": [
+        "${:a}\\times${:b}",
+        "${:a}\\times ?=${:a*:b}",
+        "${:b}\\times ?=${:a*:b}",
+        "${:a*:b}=${:a}\\times ?",
+        "${:a*:b}=${:b}\\times ?"
+    ],
+    "answer": [
+        "${:a}\\times${:b}=\\color{red}{${:a*:b}}",
+        "${:a}\\times\\color{red}{${:b}}=${:a*:b}",
+        "${:b}\\times\\color{red}{${:a}}=${:a*:b}",
+        "${:a*:b}=${:a}\\times \\color{red}{${:b}}",
+        "${:a*:b}=${:b}\\times \\color{red}{${:a}}"
+    ],
+    "audio": [
+        "${:a}×${:b}= ?",
+        "${:a} fois combien vaut ${:a*:b} ?",
+        "${:b} fois combien vaut ${:a*:b} ?",
+        "${:a*:b}, c’est ${a} fois ?",
+        "${:a*:b}, c’est ${b} fois ?"
+    ],
+    "value": [
+        "${:a*:b}",
+        "${:b}",
+        "${:a}",
+        "${:b}",
+        "${:a}"
+    ]
+}

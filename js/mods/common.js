@@ -13,6 +13,7 @@ if (btnOrientation !== null){
 const common = {
     seed:"0000",
     generateQuestions(params){
+        if(params.doublons === undefined)params.doublons = true
         // vidage des questions/réponses
         for(let index=0;index<params.cart.activities.length;index++){
             params.cart.activities[index].initialize();
@@ -140,7 +141,7 @@ const common = {
                     innerHTML:"Impossible de charger les paniers :(<br>"+err
                 });
                 document.getElementById("creator-content").appendChild(alert);
-                // on fermet le message d'alerte après 3 secondes
+                // on ferme le message d'alerte après 3 secondes
                 setTimeout(()=>{
                     let div=document.getElementById('messageerreur');
                     div.parentNode.removeChild(div);
@@ -153,6 +154,14 @@ const common = {
         if(all === undefined){
             const content = document.getElementById("creator-content");
             content.innerHTML = content.innerHTML.replace(/\$\$([^$]*)\$\$/gi, '<span class="math">$1</span>');
+        } else {
+            if(Array.isArray(all)){
+                for(const content of all){
+                    document.querySelectorAll('.'+content).forEach(el=>{
+                        el.innerHTML = el.innerHTML.replace(/\$\$([^$]*)\$\$/gi, '<span class="math">$1</span>');
+                    })
+                }
+            }
         }
         document.querySelectorAll(".math").forEach(function(item) {
             // transform ascii to Latex
