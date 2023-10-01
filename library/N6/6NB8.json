@@ -24,6 +24,6 @@
     "audio":"La fraction ${:num} ${math.NumberToFraction(:den)} est-elle égale à ${:num2} ${math.NumberToFraction(:den*:coeff)} ?",
     "question":"\\text{Les fractions }\\dfrac{${:num}}{${:den}}\\text{ et }\\dfrac{${:num2}}{${:den2}}\\text{ sont-elles égales ?}",
     "shortq":"\\dfrac{${:num}}{${:den}}\\stackrel{!}{=}\\dfrac{${:num2}}{${:den2}}",
-    "answer":"\\dfrac{${:num}}{${:den}} ~ \\color{red}{${:choix==0?'=':'\\not ='}}~ \\dfrac{${:num*:coeff}}{${:den*:coeff}}",
+    "answer":"\\dfrac{${:num}}{${:den}} ~ \\color{red}{${:choix==0?'=':'\\not ='}}~ \\dfrac{${:num2}}{${:den2}}",
     "value":["${:r}","${:rl}"]
 }
